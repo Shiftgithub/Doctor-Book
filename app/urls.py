@@ -3,5 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    path('',views.Index),
+    path('',views.Index,name="home"),
+    path('add/doctor',views.StoreDoctorInfo,name="add.doctor"),
 ]
