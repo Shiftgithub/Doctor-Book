@@ -13,6 +13,4 @@ def DoctorForm(request):
 
 
 def DoctorDataView(request):
-    datas = Doctor.objects.all()
-    # datas = getAllDoctors(request)
-    return render(request, 'app/viewdata.html', {'datas': datas})
+    return render(request, 'app/viewdata.html')

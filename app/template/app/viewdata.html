@@ -1,8 +1,8 @@
-
+{% load static %}
 {% block content %}
 <h1>Django</h1>
 
-<table class="table">
+<table id="data-table" class="table">
     <thead class="table-dark">
         <tr>
             <th scope="col">#</th>
@@ -11,6 +11,7 @@
         </tr>
     </thead>
     <tbody>
+        <!-- Render table rows using Django template for loop -->
         {% for data in datas %}
         <tr>
             <td>#</td>
@@ -20,4 +21,27 @@
         {% endfor %}
     </tbody>
 </table>
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>
+<script>
+    $(function () {
+        // Fetch data from the API
+        $.get("/api/doctors/list", function (data) {
+            var tableBody = $("#data-table tbody");
+            tableBody.empty(); // Clear existing table rows
+
+            // Render table rows using fetched API data
+            data.forEach(function (data) {
+                var row = $("<tr>");
+                var cell1 = $("<td>").text("#");
+                var cell2 = $("<td>").text(data.id);
+                var cell3 = $("<td>").text(data.name);
+
+                row.append(cell1, cell2, cell3);
+                tableBody.append(row);
+            });
+        });
+    });
+</script>
 {% endblock %}

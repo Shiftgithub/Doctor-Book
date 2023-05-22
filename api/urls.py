@@ -7,8 +7,7 @@ urlpatterns = [
     # Backend paths
 
     path('api/add/doctor/', views.CreateDoctorProfile, name="add_doctor"),
-    path('api/doctors/list', views.getAllDoctorsList,name="doctor_list"),
-
+    path('api/doctors/list', views.getAllDoctorsList, name="doctor_list"),
 
     # Frontend paths
 
