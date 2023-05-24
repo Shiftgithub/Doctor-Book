@@ -1,0 +1,53 @@
+{% extends 'templates/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Body Part Form</h1>
+<form id="PostForm" action="{% url 'add_bodypart' %}" method="POST">
+    {% csrf_token %}
+    <label for="doctorNameId">Bodypart Name:</label>
+    <input type="text" id="bodypartNameId" name="name" required />
+    <label for="descriptionid">Description:</label>
+    <input type="text" id="descriptionid" name="description" required />
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+{% endblock %}
+
+{% block script %}
+<script>
+    document.getElementById('PostForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        // Get form data
+        const formData = new FormData(event.target);
+        const postData = Object.fromEntries(formData.entries());
+
+        // Make API call to create post data
+        fetch('/api/add/bodypart/', {
+            method: 'POST',
+            body: JSON.stringify(postData),
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 200) {
+                    // Show success message
+                    console.log('Success:', data.message);
+                    // Clear form fields or show a success message to the user
+                    document.getElementById('PostForm').reset();
+                } else {
+                    // Show error message
+                    console.log('Error:', data.message);
+                    // Display the error message to the user
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Display the error message to the user
+            });
+    });
+</script>
+{% endblock %}

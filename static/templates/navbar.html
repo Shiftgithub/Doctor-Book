@@ -1,34 +1,37 @@
-{% load static %}
-<!-- ======= Header ======= -->
-<header id="header" class="fixed-top">
-  <div class="container d-flex align-items-center">
-    <h1 class="logo me-auto"><a href="index.html">Doctor Predictor</a></h1>
-    <!-- Uncomment below if you prefer to use an image logo -->
-    <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a> -->
-
-    <nav id="navbar" class="navbar order-last order-lg-0">
-      <ul>
-        <li>
-          <a class="nav-link scrollto active" href="#">Home</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-success py-3 text-white">
+  <div class="container-fluid">
+    <strong class="navbar-brand text-white" href="">Doctor Predctor</strong>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link text-white" aria-current="page" href="{% url 'dashboard' %}">Home</a>
         </li>
-        <li class="dropdown">
-          <a href="#"><span>Doctors</span> <i class="bi bi-chevron-down"></i></a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Department</a>
           <ul>
-            <li>
-              <a href="#">Add Doctor</a>
-            </li>
-            <li>
-              <a href="#">All Doctors</a>
-            </li>
+            <li><a class="nav-link" href="{% url 'add_department_form' %}">Add Department</a></li>
+            <li><a class="nav-link" href="{% url 'department_list' %}">All Departments</a></li>
           </ul>
         </li>
-        <li>
-          <a class="nav-link scrollto active" href="#">Logout</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Doctor</a>
+          <ul>
+            <li><a class="nav-link" href="{% url 'add_doctor_form' %}">Add Doctor</a></li>
+            <li><a class="nav-link" href="{% url 'doctor_list' %}">All Doctors</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bodypart</a>
+          <ul>
+            <li><a class="nav-link" href="{% url 'add_bodypart_form' %}">Add BodyPart</a></li>
+            <li><a class="nav-link" href="{% url 'bodypart_list' %}">All BodyPart</a></li>
+          </ul>
         </li>
       </ul>
-      <i class="bi bi-list mobile-nav-toggle"></i>
-    </nav>
-    <!-- .navbar -->
+    </div>
   </div>
-</header>
-<!-- End Header -->
+</nav>
+

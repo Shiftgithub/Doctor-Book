@@ -1,55 +1,82 @@
-<!DOCTYPE html>
-<html>
+{% extends 'templates/base.html' %}
+{% load static %}
 
-<head>
-  <title>Doctor Form</title>
-</head>
+{% block content %}
+<h1>Doctor Post Form</h1>
+<form id="PostForm" action="{% url 'add_doctor' %}">
+  {% csrf_token %}
+  <!-- Add form fields here -->
+  <label for="doctorNameId">Doctor Name:</label>
+  <input type="text" id="doctorNameId" name="name" required />
+  <label for="descriptionid">Description:</label>
+  <input type="text" id="descriptionid" name="description" required />
+  <select id="specialtySelect" name="department">
+    <option selected>Select</option>
+    {% for item in api_data %}
+    <option value="{{ item.value }}">{{ item.label }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}
 
-<body>
-  <h1>Doctor Post Form</h1>
-  <form id="PostForm" action="{% url 'add_doctor' %}">
-    {% csrf_token %}
-    <!-- Add form fields here -->
-    <label for="doctorNameId">Doctor Name:</label>
-    <input type="text" id="doctorNameId" name="name" required />
+{% block script %}
+<script>
+  fetch('/api/department/list')  // Replace with your API endpoint URL
+    .then(response => response.json())
+    .then(data => {
+      const selectElement = document.getElementById('specialtySelect');
+      data.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.id;
+        option.textContent = item.name;
+        selectElement.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 
-    <button type="submit">Submit</button>
-  </form>
+  document.getElementById('PostForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+    // Get form data
+    const formData = new FormData(event.target);
+    const postData = {};
+    for (const [key, value] of formData.entries()) {
+      postData[key] = value;
+    }
 
-  <script>
-    document.getElementById('PostForm').addEventListener('submit', function (event) {
-      event.preventDefault() // Prevent the form from submitting normally
+    // Make API call to create doctor post
+    fetch('/api/add/doctor/', {
+      method: 'POST',
+      body: JSON.stringify(postData),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.status === 200) {
+          // Show success message
+          console.log('Success:', data.message);
+          // Clear form fields or show a success message to the user
 
-      // Get form data
-      const formData = new FormData(event.target)
-      const jobPostData = Object.fromEntries(formData.entries())
-
-      // Make API call to create job post
-      fetch('/api/add/doctor/', {
-        method: 'POST',
-        body: JSON.stringify(jobPostData),
-        headers: {
-          'Content-Type': 'application/json'
+          // document.getElementById('doctorNameId').value = '';
+          // document.getElementById('descriptionid').value = '';
+          // document.getElementById('specialtySelect').selectedIndex = 0;
+          document.getElementById('PostForm').reset();
+        } else {
+          // Show error message
+          console.log('Error:', data.message);
+          // Display the error message to the user
         }
       })
-        .then((response) => response.json())
-        .then((data) => {
-          if (response.status === 200) {
-            // Show success message
-            console.log('Success:', data.message)
-            // Clear form fields or show a success message to the user
-          } else {
-            // Show error message
-            console.log('Error:', data.message)
-            // Display the error message to the user
-          }
-        })
-        .catch((error) => {
-          console.error('Error:', error)
-          // Display the error message to the user
-        })
-    })
-  </script>
-</body>
-
-</html>
+      .catch(error => {
+        console.error('Error:', error);
+        // Display the error message to the user
+      });
+  });
+</script>
+{% endblock %}
