@@ -6,12 +6,17 @@
 <form id="PostForm" action="{% url 'add_doctor' %}">
   {% csrf_token %}
   <!-- Add form fields here -->
-  <label for="doctorNameId">Doctor Name:</label>
-  <input type="text" id="doctorNameId" name="name" required />
   <label for="descriptionId">Description:</label>
   <input type="text" id="descriptionId" name="description" required />
   <label for="specialtySelect">Department Name:</label>
   <select id="specialtySelect" name="department">
+    <option selected>Select</option>
+    {% for item in api_data %}
+    <option value="{{ item.value }}">{{ item.label }}</option>
+    {% endfor %}
+  </select>
+  <label for="problemSpecialtySelect">Problem Specification Name:</label>
+  <select id="problemSpecialtySelect" name="problem_specification">
     <option selected>Select</option>
     {% for item in api_data %}
     <option value="{{ item.value }}">{{ item.label }}</option>
@@ -37,6 +42,20 @@
     .catch(error => {
       console.error('Error:', error);
     });
+  fetch('/api/problem/specification/list/')  // Replace with your API endpoint URL
+    .then(response => response.json())
+    .then(data => {
+      const selectElement = document.getElementById('problemSpecialtySelect');
+      data.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.id;
+        option.textContent = item.specification;
+        selectElement.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 
   document.getElementById('PostForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the form from submitting normally
@@ -48,7 +67,7 @@
     }
 
     // Make API call to create doctor post
-    fetch('/api/add/doctor/', {
+    fetch('/api/add/department/specification/', {
       method: 'POST',
       body: JSON.stringify(postData),
       headers: {

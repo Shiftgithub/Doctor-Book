@@ -1,4 +1,4 @@
-{%extends 'templates/base.html'%}
+{% extends 'templates/base.html' %}
 {% load static %}
 
 {% block content %}
@@ -9,6 +9,7 @@
             <th scope="col">Id</th>
             <th scope="col">Name</th>
             <th scope="col">Description</th>
+            <th scope="col">Organ Name</th>
         </tr>
     </thead>
     <tbody>
@@ -16,8 +17,9 @@
         <tr>
             <td>#</td>
             <td>{{ data.id }}</td>
-            <td>{{ data.name }}</td>
-            <td>{{ data.desciption }}</td>
+            <td>{{ data.specification }}</td>
+            <td>{{ data.description }}</td>
+            <td>{{ data.organ_name }}</td> <!-- Update variable name here -->
         </tr>
         {% endfor %}
     </tbody>
@@ -29,19 +31,19 @@
 <script>
     $(function () {
         // Fetch data from the API
-        $.get("/api/department/list/", function (data) {
+        $.get("/api/problem/specification/list/", function (data) {
             var tableBody = $("#data-table tbody");
             tableBody.empty(); // Clear existing table rows
-
             // Render table rows using fetched API data
             data.forEach(function (data) {
                 var row = $("<tr>");
                 var cell1 = $("<td>").text("#");
                 var cell2 = $("<td>").text(data.id);
-                var cell3 = $("<td>").text(data.name);
+                var cell3 = $("<td>").text(data.specification);
                 var cell4 = $("<td>").text(data.description);
+                var cell5 = $("<td>").text(data.organ); // Update variable name here
 
-                row.append(cell1, cell2, cell3, cell4);
+                row.append(cell1, cell2, cell3, cell4, cell5);
                 tableBody.append(row);
             });
         });

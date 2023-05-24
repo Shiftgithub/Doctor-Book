@@ -73,7 +73,7 @@ class DepartmentSpecification(models.Model):
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
-        return self.name
+        return self.description
 
 
 class Doctor(models.Model):

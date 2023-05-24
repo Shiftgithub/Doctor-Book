@@ -10,6 +10,34 @@
           <a class="nav-link text-white" aria-current="page" href="{% url 'dashboard' %}">Home</a>
         </li>
         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bodypart</a>
+          <ul>
+            <li><a class="nav-link" href="{% url 'add_bodypart_form' %}">Add BodyPart</a></li>
+            <li><a class="nav-link" href="{% url 'bodypart_list' %}">All BodyPart</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Organ</a>
+          <ul>
+            <li><a class="nav-link" href="{% url 'add_organ_form' %}">Add Organ</a></li>
+            <li><a class="nav-link" href="{% url 'organ_list' %}">All Organ</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Organ Problem</a>
+          <ul>
+            <li><a class="nav-link" href="{% url 'add_organ_problem_form' %}">Add Organ Problem</a></li>
+            <li><a class="nav-link" href="{% url 'organ_problem_list' %}">All Organs Problem</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Problem Specification</a>
+          <ul>
+            <li><a class="nav-link" href="{% url 'add_problem_specification_form' %}">Add Problem Specifications</a></li>
+            <li><a class="nav-link" href="{% url 'problem_specification_list' %}">All Problem Specifications</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Department</a>
           <ul>
             <li><a class="nav-link" href="{% url 'add_department_form' %}">Add Department</a></li>
@@ -24,10 +52,10 @@
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-white" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bodypart</a>
+          <a class="nav-link dropdown-toggle text-white" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Department Specification</a>
           <ul>
-            <li><a class="nav-link" href="{% url 'add_bodypart_form' %}">Add BodyPart</a></li>
-            <li><a class="nav-link" href="{% url 'bodypart_list' %}">All BodyPart</a></li>
+            <li><a class="nav-link" href="{% url 'add_department_specification_form' %}">Add Department Specification</a></li>
+            <li><a class="nav-link" href="{% url 'department_specification_list' %}">All Department Specifications</a></li>
           </ul>
         </li>
       </ul>

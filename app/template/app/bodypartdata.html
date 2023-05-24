@@ -29,7 +29,7 @@
 <script>
     $(function () {
         // Fetch data from the API
-        $.get("/api/bodypart/list", function (data) {
+        $.get("/api/bodypart/list/", function (data) {
             var tableBody = $("#data-table tbody");
             tableBody.empty(); // Clear existing table rows
 

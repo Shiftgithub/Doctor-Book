@@ -34,3 +34,35 @@ def BodyPartForm(request):
 
 def BodyPartDataView(request):
     return render(request, 'app/bodypartdata.html')
+
+
+def OrganForm(request):
+    return render(request, 'app/organ_form.html')
+
+
+def OrganDataView(request):
+    return render(request, 'app/organdata.html')
+
+
+def OrganProblemForm(request):
+    return render(request, 'app/organ_problem_form.html')
+
+
+def OrganProblemDataView(request):
+    return render(request, 'app/organ_problemdata.html')
+
+
+def ProblemSpecificationForm(request):
+    return render(request, 'app/problem_specification_form.html')
+
+
+def ProblemSpecificationDataView(request):
+    return render(request, 'app/problem_specificationdata.html')
+
+
+def DepartmentSpecificationForm(request):
+    return render(request, 'app/departmentspecification_form.html')
+
+
+def DepartmentSpecificationDataView(request):
+    return render(request, 'app/departmentspecificationdata.html')

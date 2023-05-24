@@ -31,7 +31,7 @@
 <script>
     $(function () {
         // Fetch data from the API
-        $.get("/api/doctors/list", function (data) {
+        $.get("/api/doctors/list/", function (data) {
             var tableBody = $("#data-table tbody");
             tableBody.empty(); // Clear existing table rows
             // Render table rows using fetched API data
