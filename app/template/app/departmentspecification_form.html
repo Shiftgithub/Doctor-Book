@@ -2,28 +2,52 @@
 {% load static %}
 
 {% block content %}
-<h1>Doctor Post Form</h1>
-<form id="PostForm" action="{% url 'add_doctor' %}">
-  {% csrf_token %}
-  <!-- Add form fields here -->
-  <label for="descriptionId">Description:</label>
-  <input type="text" id="descriptionId" name="description" required />
-  <label for="specialtySelect">Department Name:</label>
-  <select id="specialtySelect" name="department">
-    <option selected>Select</option>
-    {% for item in api_data %}
-    <option value="{{ item.value }}">{{ item.label }}</option>
-    {% endfor %}
-  </select>
-  <label for="problemSpecialtySelect">Problem Specification Name:</label>
-  <select id="problemSpecialtySelect" name="problem_specification">
-    <option selected>Select</option>
-    {% for item in api_data %}
-    <option value="{{ item.value }}">{{ item.label }}</option>
-    {% endfor %}
-  </select>
-  <button type="submit" class="btn btn-success">Submit</button>
-</form>
+<div class="container">
+  <div class="page-head">
+    <h1 class="my-2 p_print">Add Department Specification Form</h1>
+  </div>
+  <div class="card mt-4">
+    <div class="card-body">
+      <form id="PostForm" action="{% url 'add_doctor' %}">
+        {% csrf_token %}
+        <div class="row mb-3">
+          <label for="specialtySelect" class="col-md-3 col-form-label">Department Name</label>
+          <div class="col-md-9">
+            <select class="form-select" id="specialtySelect" name="department">
+              <option selected>Select</option>
+              {% for item in api_data %}
+              <option value="{{ item.value }}">{{ item.label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="problemSpecialtySelect" class="col-md-3 col-form-label">Problem Specification Name</label>
+          <div class="col-md-9">
+            <select class="form-select" id="problemSpecialtySelect" name="problem_specification">
+              <option selected>Select</option>
+              {% for item in api_data %}
+              <option value="{{ item.value }}">{{ item.label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <!-- Add form fields here -->
+        <div class="row mb-3">
+          <label for="descriptionId" class="col-md-3 col-form-label">Description</label>
+          <div class="col-md-9">
+            <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
+              rows="10"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success float-md-end">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block script %}
@@ -82,10 +106,6 @@
           // Show success message
           console.log('Success:', data.message);
           // Clear form fields or show a success message to the user
-
-          // document.getElementById('doctorNameId').value = '';
-          // document.getElementById('descriptionid').value = '';
-          // document.getElementById('specialtySelect').selectedIndex = 0;
           document.getElementById('PostForm').reset();
         } else {
           // Show error message

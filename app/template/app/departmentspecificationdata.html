@@ -1,52 +1,84 @@
 {% extends 'templates/base.html' %}
 {% load static %}
-
 {% block content %}
-<table id="data-table" class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Id</th>
-            <th scope="col">Description</th>
-            <th scope="col">Department Name</th>
-            <th scope="col">specification</th>
-
-        </tr>
-    </thead>
-    <tbody>
-        {% for data in datas %}
-        <tr>
-            <td>#</td>
-            <td>{{ data.id }}</td>
-            <td>{{ data.description }}</td>
-            <td>{{ data.department_name}}</td>
-            <td>{{ data.specification}}</td> <!-- Update variable name here -->
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container mt-4">
+    <h1>Department Sepecificatiion Data table</h1>
+    <div class="card">
+        <div class="card-body">
+            <table id="dataTable" class="table">
+                <thead>
+                    <th scope="col">Id</th>
+                    <th scope="col">Department Name</th>
+                    <th scope="col">Specification</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </thead>
+                <tbody>
+                    {% for data in datas %}
+                    <tr>
+                        <td>{{ data.id }}</td>
+                        <td>{{ data.department_name }}</td>
+                        <td>{{ data.specification }}</td>
+                        <td>{{ data.description }}</td>
+                        <td>
+                            <button class="btn btn-danger">
+                                <i class="fas fa-edit"></i>Edit
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger">
+                                <i class="fas fa-trash"></i>Delete
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <th scope="col">Id</th>
+                    <th scope="col">Department Name</th>
+                    <th scope="col">Specification</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
-
 {% block script %}
-<script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>
+<script src="{%static 'assets/vendor/jquery-3.6.3/jquery-3.6.3.min.js'%}"></script>
+<script src="{%static 'assets/vendor/DataTables/dataTables.min.js'%}"></script>
+<script src="{%static 'assets/vendor/DataTables/dataTables.bootstrap5.min.js'%}"></script>
 <script>
-    $(function () {
-        // Fetch data from the API
-        $.get("/api/department/specification/list/", function (data) {
-            var tableBody = $("#data-table tbody");
-            tableBody.empty(); // Clear existing table rows
-            // Render table rows using fetched API data
-            data.forEach(function (data) {
-                var row = $("<tr>");
-                var cell1 = $("<td>").text("#");
-                var cell2 = $("<td>").text(data.id);
-                var cell3 = $("<td>").text(data.description);
-                var cell4 = $("<td>").text(data.department);
-                var cell5 = $("<td>").text(data.specification); // Update variable name here
-
-                row.append(cell1, cell2, cell3, cell4, cell5);
-                tableBody.append(row);
-            });
+    $(document).ready(function () {
+        $.ajax({
+            url: "/api/department/specification/list/",
+            method: "GET",
+            success: function (data) {
+                var table = $("#dataTable").DataTable({
+                    data: data,
+                    columns: [
+                        { data: "id" },
+                        { data: "department" },
+                        { data: "specification" },
+                        { data: "description" },
+                        {
+                            data: null,
+                            render: function () {
+                                return '<button class="btn btn-info"><i class="fas fa-edit"></i></button>';
+                            }
+                        },
+                        {
+                            data: null,
+                            render: function () {
+                                return '<button class="btn btn-danger"><i class="fas fa-trash"></i></button>';
+                            }
+                        }
+                    ]
+                });
+            }
         });
     });
 </script>

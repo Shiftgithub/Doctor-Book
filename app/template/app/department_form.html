@@ -2,15 +2,33 @@
 {% load static %}
 
 {% block content %}
-<h1>Department Form</h1>
-<form id="PostForm" action="{% url 'add_department' %}" method="POST">
-    {% csrf_token %}
-    <label for="doctorNameId">Department Name:</label>
-    <input type="text" id="doctorNameId" name="name" required />
-    <label for="descriptionid">Description:</label>
-    <input type="text" id="descriptionid" name="description" required />
-    <button type="submit" class="btn btn-success">Submit</button>
-</form>
+<div class="container">
+    <div class="page-head">
+        <h1 class="my-2 p_print">Add Department Form</h1>
+    </div>
+    <div class="card mt-4">
+        <div class="card-body">
+            <form id="PostForm" action="{% url 'add_department' %}" method="POST">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label for="departmentNameId" class="col-md-2 col-form-label">Department Name</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="departmentNameId" name="name" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="descriptionId" class="col-md-2 col-form-label">Description</label>
+                    <div class="col-md-10">
+                        <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
+                            rows="10"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success float-md-end">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block script %}
