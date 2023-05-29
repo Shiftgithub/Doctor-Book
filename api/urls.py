@@ -68,4 +68,7 @@ urlpatterns = [
          name="add_department_specification_form"),
     path('frontend/department/specification/list/',
          web.DepartmentSpecificationDataView, name="department_specification_list"),
+
+     path('myadmin/dashboard/', web.GetAdminDashBoard, name="admin_dashboard"),
+     path('myadmin/form/', web.GetAdminForm, name="admin_form"),
 ]
