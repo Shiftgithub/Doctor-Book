@@ -63,6 +63,11 @@ def ProblemSpecificationDataView(request):
 def DepartmentSpecificationForm(request):
     return render(request, 'app/departmentspecification_form.html')
 
-
 def DepartmentSpecificationDataView(request):
     return render(request, 'app/departmentspecificationdata.html')
+
+def GetAdminDashBoard(request):
+    return render(request, 'admin/dashboard.html')
+
+def GetAdminForm(request):
+    return render(request, 'admin/form.html')
