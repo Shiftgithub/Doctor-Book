@@ -3,7 +3,7 @@ from django.db import models
 
 class BodyPart(models.Model):
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=1000)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -14,7 +14,7 @@ class BodyPart(models.Model):
 
 class Organ(models.Model):
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=1000)
     body_part = models.ForeignKey(
         BodyPart, on_delete=models.SET_NULL, related_name="organs", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -27,7 +27,7 @@ class Organ(models.Model):
 
 class OrgansProbleam(models.Model):
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=1000)
     organ = models.ForeignKey(
         Organ, on_delete=models.SET_NULL, related_name="organProbleams", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -39,8 +39,8 @@ class OrgansProbleam(models.Model):
 
 
 class ProblemSpecification(models.Model):
-    specification = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    specification = models.CharField(max_length=1000)
+    description = models.CharField(max_length=1000)
     organ = models.ForeignKey(
         Organ, on_delete=models.SET_NULL, related_name="organ", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -53,7 +53,7 @@ class ProblemSpecification(models.Model):
 
 class Department(models.Model):
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=1000)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -63,7 +63,7 @@ class Department(models.Model):
 
 
 class DepartmentSpecification(models.Model):
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=1000)
     department = models.ForeignKey(
         Department, on_delete=models.SET_NULL, related_name="departmentId", blank=True, null=True)
     problem_specification = models.ForeignKey(
@@ -78,7 +78,7 @@ class DepartmentSpecification(models.Model):
 
 class Doctor(models.Model):
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=1000)
     department = models.ForeignKey(
         Department, on_delete=models.SET_NULL, related_name="department", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
