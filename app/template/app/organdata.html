@@ -10,7 +10,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Bodypart Name</th>
+                        <th scope="col">Body Part Name</th>
                         <th scope="col">Organ Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Edit</th>
@@ -36,7 +36,7 @@
                 <tfoot>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Bodypart Name</th>
+                        <th scope="col">Body Part Name</th>
                         <th scope="col">Organ Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Edit</th>
@@ -50,9 +50,6 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{%static 'assets/vendor/jquery-3.6.3/jquery-3.6.3.min.js'%}"></script>
-<script src="{%static 'assets/vendor/DataTables/dataTables.min.js'%}"></script>
-<script src="{%static 'assets/vendor/DataTables/dataTables.bootstrap5.min.js'%}"></script>
 <script>
     $(document).ready(function () {
         $.ajax({
