@@ -9,7 +9,7 @@ from . import views
 
 
 def Dashboard(request):
-    return render(request, 'app/index.html')
+    return render(request, 'admin/dashboard.html')
 
 
 def DepartmentForm(request):

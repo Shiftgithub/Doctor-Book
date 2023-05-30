@@ -16,7 +16,7 @@ urlpatterns = [
     path('api/bodypart/list/', views.getAllBodyPartsList, name="bodypart_list"),
 
     path('api/add/organ/', views.StoreOrganData, name="add_organ"),
-    path('api/organ/list/', views.getAllOrgansList, name="organ_list"),
+    path('api/organ/list/', views.getAllOrgansList, name="organ_lists"),
     path('api/organs/list/', views.OrganApiView, name="organs_list"),
 
     path('api/add/organ/problem/', views.StoreOrganProblemData,

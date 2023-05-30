@@ -1,4 +1,4 @@
-{% extends 'templates/base.html' %}
+{% extends 'templates/admin_layout.html' %}
 {% load static %}
 
 {% block content %}
@@ -13,8 +13,8 @@
         <div class="row mb-3">
           <label for="specialtySelect" class="col-md-3 col-form-label">Department Name</label>
           <div class="col-md-9">
-            <select class="form-select" id="specialtySelect" name="department">
-              <option selected>Select</option>
+            <select class="form-control select2" id="specialtySelect" name="department">
+              <option selected>Select Department Name</option>
               {% for item in api_data %}
               <option value="{{ item.value }}">{{ item.label }}</option>
               {% endfor %}
@@ -24,17 +24,15 @@
         <div class="row mb-3">
           <label for="problemSpecialtySelect" class="col-md-3 col-form-label">Problem Specification Name</label>
           <div class="col-md-9">
-            <select class="form-select" id="problemSpecialtySelect" name="problem_specification">
-              <option selected>Select</option>
+            <select class="form-control select2" id="problemSpecialtySelect" name="problem_specification">
+              <option selected>Select Problem Specification Name</option>
               {% for item in api_data %}
               <option value="{{ item.value }}">{{ item.label }}</option>
               {% endfor %}
             </select>
           </div>
         </div>
-        <br>
         <hr>
-        <br>
         <!-- Add form fields here -->
         <div class="row mb-3">
           <label for="descriptionId" class="col-md-3 col-form-label">Description</label>
@@ -50,7 +48,7 @@
 </div>
 {% endblock %}
 
-{% block script %}
+{% block scripts %}
 <script>
   fetch('/api/department/list/')  // Replace with your API endpoint URL
     .then(response => response.json())

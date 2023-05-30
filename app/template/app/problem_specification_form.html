@@ -1,4 +1,4 @@
-{% extends 'templates/base.html' %}
+{% extends 'templates/admin_layout.html' %}
 {% load static %}
 
 {% block content %}
@@ -13,17 +13,15 @@
                 <div class="row mb-3">
                     <label for="specialtySelect" class="col-md-2 col-form-label">Organ Name</label>
                     <div class="col-md-10">
-                        <select class="form-select" id="specialtySelect" name="organ">
-                            <option selected>Select</option>
+                        <select class="form-control select2" id="specialtySelect" name="organ">
+                            <option selected>Select Organ Name</option>
                             {% for item in api_data %}
                             <option value="{{ item.value }}">{{ item.label }}</option>
                             {% endfor %}
                         </select>
                     </div>
                 </div>
-                <br>
                 <hr>
-                <br>
                 <!-- Add form fields here -->
                 <div class="row mb-3">
                     <label for="specificationId" class="col-md-2 col-form-label">Specification</label>
@@ -45,7 +43,7 @@
 </div>
 {% endblock %}
 
-{% block script %}
+{% block scripts %}
 <script>
     fetch('/api/organs/list/')  // Replace with your API endpoint URL
         .then(response => response.json())

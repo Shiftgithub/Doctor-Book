@@ -1,4 +1,4 @@
-{% extends 'templates/base.html' %}
+{% extends 'templates/admin_layout.html' %}
 {% load static %}
 
 {% block content %}
@@ -52,10 +52,7 @@
     </div>
 </div>
 {% endblock %}
-{% block script %}
-<script src="{%static 'assets/vendor/jquery-3.6.3/jquery-3.6.3.min.js'%}"></script>
-<script src="{%static 'assets/vendor/DataTables/dataTables.min.js'%}"></script>
-<script src="{%static 'assets/vendor/DataTables/dataTables.bootstrap5.min.js'%}"></script>
+{% block scripts %}
 <script>
     $(document).ready(function () {
         $.ajax({

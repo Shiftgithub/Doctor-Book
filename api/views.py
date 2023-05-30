@@ -362,7 +362,6 @@ def getAllDepartmentSpecificationsList(request):
             'department_name': row[2],
             'problemspecification': row[3],
         }
-        print(department_specifications)
         # Check the values before appending
         department_specifications.append(department_specification)
     # Serialize the data

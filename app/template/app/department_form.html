@@ -1,4 +1,4 @@
-{% extends 'templates/base.html' %}
+{% extends 'templates/admin_layout.html' %}
 {% load static %}
 
 {% block content %}
@@ -31,7 +31,7 @@
 
 {% endblock %}
 
-{% block script %}
+{% block scripts %}
 <script>
     document.getElementById('PostForm').addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent the form from submitting normally
