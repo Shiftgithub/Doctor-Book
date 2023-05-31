@@ -31,10 +31,10 @@
 {% endblock %}
 
 {% block scripts %}
+
 <script>
     document.getElementById('PostForm').addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent the form from submitting normally
-
         // Get form data
         const formData = new FormData(event.target);
         const postData = Object.fromEntries(formData.entries());
@@ -54,10 +54,24 @@
                     // Show success message
                     console.log('Success:', data.message);
                     // Clear form fields or show a success message to the user
+
+                    Swal.fire({
+                        title: 'Add Body Part!',
+                        text: 'Body Part Insert Successfully',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+
                     document.getElementById('PostForm').reset();
                 } else {
                     // Show error message
                     console.log('Error:', data.message);
+                    Swal.fire({
+                        title: 'Add Body Part!',
+                        text: 'Body Part Insert Failed',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
                     // Display the error message to the user
                 }
             })
@@ -66,5 +80,6 @@
                 // Display the error message to the user
             });
     });
+
 </script>
 {% endblock %}
