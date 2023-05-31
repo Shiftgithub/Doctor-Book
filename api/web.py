@@ -7,8 +7,12 @@ from .serializers import DoctorSerializer
 from rest_framework.views import APIView
 from . import views
 
+# Message for testing
+from django.contrib import messages
+
 
 def Dashboard(request):
+    messages.add_message(request, messages.INFO, "Welcome to the dashboard")
     return render(request, 'admin/dashboard.html')
 
 
@@ -67,6 +71,7 @@ def DepartmentSpecificationDataView(request):
     return render(request, 'app/departmentspecificationdata.html')
 
 def GetAdminDashBoard(request):
+    messages.add_message(request, messages.INFO, "Welcome to the dashboard")
     return render(request, 'admin/dashboard.html')
 
 def GetAdminForm(request):

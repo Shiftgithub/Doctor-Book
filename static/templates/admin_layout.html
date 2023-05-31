@@ -107,6 +107,23 @@
 <script src="{% static 'adminlte_assets/plugins/datatables/jquery.dataTables.js' %}"></script>
 <script src="{% static 'adminlte_assets/plugins/datatables/jquery.dataTables.min.js' %}"></script>
 
+<!-- Sweet alert 2 cdn -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!-- Render Message -->
+<!-- Operation Message Section -->
+{% if messages %}
+  {% for message in messages %}
+    <script>
+      Swal.fire({
+        icon: '{{ message.tags }}',
+        title: '{{ message.tags }}',
+        text: '{{ message }}',
+        timer: 3000
+      })
+    </script>
+  {% endfor %}
+{% endif %}
+
 <!-- Custom JS -->
 {% block scripts %}
 {% endblock %}
