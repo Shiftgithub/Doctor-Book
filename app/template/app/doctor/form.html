@@ -9,7 +9,7 @@
   </div>
   <div class="card mt-4">
     <div class="card-body">
-      <form id="PostForm" action="{% url 'add_doctor' %}">
+      <form id="PostForm" action="{% url 'store_doctor' %}" method="POST">
         {% csrf_token %}
         <div class="row mb-3">
           <label for="specialtySelect" class="col-md-2 col-form-label">Department Name</label>
@@ -60,55 +60,5 @@
     .catch(error => {
       console.error('Error:', error);
     });
-
-  document.getElementById('PostForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent the form from submitting normally
-    // Get form data
-    const formData = new FormData(event.target);
-    const postData = {};
-    for (const [key, value] of formData.entries()) {
-      postData[key] = value;
-    }
-
-    // Make API call to create doctor post
-    fetch('/api/add/doctor/', {
-      method: 'POST',
-      body: JSON.stringify(postData),
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': '{{ csrf_token }}'
-      },
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        if (data.status === 200) {
-          // Show success message
-          console.log('Success:', data.message);
-          Swal.fire({
-            title: 'Add Doctor!',
-            text: 'Doctor Insert Insert Successfully',
-            icon: 'success',
-            confirmButtonText: 'OK'
-          });
-          // Clear form fields or show a success message to the user
-          document.getElementById('PostForm').reset();
-        } else {
-          // Show error message
-          console.log('Error:', data.message);
-          Swal.fire({
-            title: 'Add Doctor!',
-            text: 'Doctor Insert Failed',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-          // Display the error message to the user
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        // Display the error message to the user
-      });
-  });
 </script>
 {% endblock %}
