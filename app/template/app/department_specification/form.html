@@ -8,7 +8,7 @@
   </div>
   <div class="card mt-4">
     <div class="card-body">
-      <form id="PostForm" action="{% url 'add_doctor' %}">
+      <form id="PostForm" action="{% url 'store_department_specification' %}" method="POST">
         {% csrf_token %}
         <div class="row mb-3">
           <label for="specialtySelect" class="col-md-3 col-form-label">Department Name</label>
@@ -50,7 +50,7 @@
 
 {% block scripts %}
 <script>
-  fetch('/api/department/list/')  // Replace with your API endpoint URL
+  fetch('/api/department/list/')  // For Department List
     .then(response => response.json())
     .then(data => {
       const selectElement = document.getElementById('specialtySelect');
@@ -64,7 +64,7 @@
     .catch(error => {
       console.error('Error:', error);
     });
-  fetch('/api/problem/specification/list/')  // Replace with your API endpoint URL
+  fetch('/api/problem/specification/list/')  // For problem specification
     .then(response => response.json())
     .then(data => {
       const selectElement = document.getElementById('problemSpecialtySelect');
@@ -78,55 +78,5 @@
     .catch(error => {
       console.error('Error:', error);
     });
-
-  document.getElementById('PostForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent the form from submitting normally
-    // Get form data
-    const formData = new FormData(event.target);
-    const postData = {};
-    for (const [key, value] of formData.entries()) {
-      postData[key] = value;
-    }
-
-    // Make API call to create doctor post
-    fetch('/api/add/department/specification/', {
-      method: 'POST',
-      body: JSON.stringify(postData),
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': '{{ csrf_token }}'
-      },
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        if (data.status === 200) {
-          // Show success message
-          console.log('Success:', data.message);
-          Swal.fire({
-            title: 'Add Department Specification!',
-            text: 'Department Specification Insert Successfully',
-            icon: 'success',
-            confirmButtonText: 'OK'
-          });
-          // Clear form fields or show a success message to the user
-          document.getElementById('PostForm').reset();
-        } else {
-          // Show error message
-          console.log('Error:', data.message);
-          Swal.fire({
-            title: 'Add Department Specification!',
-            text: 'Department Specification Insert Failed',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-          // Display the error message to the user
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        // Display the error message to the user
-      });
-  });
 </script>
 {% endblock %}
