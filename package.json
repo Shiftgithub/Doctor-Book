@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "sweetalert2": "^11.7.9"
+  },
+  "name": "personalized-doctor-predictor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shiftgithub/Personalized-Doctor-Predictor.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shiftgithub/Personalized-Doctor-Predictor/issues"
+  },
+  "homepage": "https://github.com/Shiftgithub/Personalized-Doctor-Predictor#readme",
+  "description": ""
+}

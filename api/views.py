@@ -4,9 +4,10 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse,HttpResponseRedirect
 from django.db import connection
 from rest_framework.exceptions import ValidationError
+from django.contrib import messages
 from app.models import *
 from .serializers import *
 

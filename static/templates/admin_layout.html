@@ -26,6 +26,8 @@
   <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/daterangepicker/daterangepicker.css' %}">
   <!-- summernote -->
   <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/summernote/summernote-bs4.min.css' %}">
+  
+  <link rel="stylesheet" href="{% static 'node_modules/sweetalert2/dist/sweetalert2.min.css' %}">
 
   <!-- Custom CSS -->
 {% block styles %}
@@ -106,9 +108,9 @@
 <!-- AdminLTE dashboard datatable -->
 <script src="{% static 'adminlte_assets/plugins/datatables/jquery.dataTables.js' %}"></script>
 <script src="{% static 'adminlte_assets/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<!-- sweetalert2 -->
+<script src="{% static 'node_modules/sweetalert2/dist/sweetalert2.all.min.js' %}"></script>
 
-<!-- Sweet alert 2 cdn -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- Render Message -->
 <!-- Operation Message Section -->
 {% if messages %}
@@ -118,7 +120,7 @@
         icon: '{{ message.tags }}',
         title: '{{ message.tags }}',
         text: '{{ message }}',
-        timer: 3000
+        timer: 1000
       })
     </script>
   {% endfor %}
@@ -126,6 +128,7 @@
 
 <!-- Custom JS -->
 {% block scripts %}
+
 {% endblock %}
 </body>
 </html>

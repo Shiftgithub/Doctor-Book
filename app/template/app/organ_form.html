@@ -83,11 +83,23 @@
                 if (data.status === 200) {
                     // Show success message
                     console.log('Success:', data.message);
+                    Swal.fire({
+                        title: 'Add Organ!',
+                        text: 'Organ Insert Insert Successfully',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
                     // Clear form fields or show a success message to the user
                     document.getElementById('PostForm').reset();
                 } else {
                     // Show error message
                     console.log('Error:', data.message);
+                    Swal.fire({
+                        title: 'Add Organ!',
+                        text: 'Doctor Organ Insert Failed',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
                     // Display the error message to the user
                 }
             })
