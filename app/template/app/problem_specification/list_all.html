@@ -1,0 +1,78 @@
+{% extends 'templates/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Problem Specification Data Table</h1>
+    <div class="card">
+        <div class="card-body">
+            <table id="dataTable" class="table">
+                <thead>
+                    <th>Id</th>
+                    <th>Organ Name</th>
+                    <th>Specification</th>
+                    <th>Description</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </thead>
+                <tbody>
+                    {% for data in datas %}
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.organ_name }}</td>
+                    <td>{{ data.specification }}</td>
+                    <td>{{ data.description }}</td>
+                    <td>
+                        <button class="btn btn-info"><i class="fas fa-edit"></i></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                    </td>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <th>Id</th>
+                    <th>Organ Name</th>
+                    <th>Specification</th>
+                    <th>Description</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/api/problem/specification/list/",
+            method: "GET",
+            success: function (data) {
+                var table = $("#dataTable").DataTable({
+                    data: data,
+                    columns: [
+                        { data: "id" },
+                        { data: "organ" },
+                        { data: "specification" },
+                        { data: "description" },
+                        {
+                            data: null,
+                            render: function () {
+                                return '<button class="btn btn-info"><i class="fas fa-edit"></i></button>';
+                            }
+                        },
+                        {
+                            data: null,
+                            render: function () {
+                                return '<button class="btn btn-danger"><i class="fas fa-trash"></i></button>';
+                            }
+                        }
+                    ]
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}
