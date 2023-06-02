@@ -1,10 +1,4 @@
 from django.shortcuts import render
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from django.http import JsonResponse
-from .models import *
-from .serializers import DoctorSerializer
-from rest_framework.views import APIView
 from . import views
 
 # Message for testing
@@ -33,6 +27,20 @@ def DoctorDataView(request):
 
 
 def BodyPartForm(request):
+    return render(request, 'app/bodypart_form.html')
+
+
+# To store
+def StoreBodyPart(request):
+    operationResponse = views.StoreBodyPartData(request)
+
+    print(operationResponse)
+
+    if operationResponse.status_code == 200:
+        messages.add_message(request, messages.INFO, "Body Part data stored successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error in storing Body Part data")
+
     return render(request, 'app/bodypart_form.html')
 
 

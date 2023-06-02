@@ -27,7 +27,7 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/summernote/summernote-bs4.min.css' %}">
   
-  <link rel="stylesheet" href="{% static 'node_modules/sweetalert2/dist/sweetalert2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/sweetalert2/sweetalert2.css' %}">
 
   <!-- Custom CSS -->
 {% block styles %}
@@ -101,15 +101,14 @@
 <script src="{% static 'adminlte_assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'adminlte_assets/js/adminlte.js' %}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{% static 'adminlte_assets/js/demo.js' %}"></script>
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{% static 'adminlte_assets/js/pages/dashboard.js' %}"></script>
 <!-- AdminLTE dashboard datatable -->
 <script src="{% static 'adminlte_assets/plugins/datatables/jquery.dataTables.js' %}"></script>
 <script src="{% static 'adminlte_assets/plugins/datatables/jquery.dataTables.min.js' %}"></script>
 <!-- sweetalert2 -->
-<script src="{% static 'node_modules/sweetalert2/dist/sweetalert2.all.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/plugins/sweetalert2/sweetalert2.js' %}"></script>
 
 <!-- Render Message -->
 <!-- Operation Message Section -->
@@ -120,7 +119,7 @@
         icon: '{{ message.tags }}',
         title: '{{ message.tags }}',
         text: '{{ message }}',
-        timer: 1000
+        timer: 3000 // 3secs
       })
     </script>
   {% endfor %}

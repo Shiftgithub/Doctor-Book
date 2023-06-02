@@ -49,6 +49,7 @@ urlpatterns = [
     path('frontend/doctors/list/', web.DoctorDataView, name="doctor_list"),
 
     path('frontend/add/bodypart/', web.BodyPartForm, name="add_bodypart_form"),
+    path('frontend/store/bodypart/', web.StoreBodyPart, name="store_bodypart"),
     path('frontend/bodypart/list/', web.BodyPartDataView, name="bodypart_list"),
 
     path('frontend/add/organ/', web.OrganForm, name="add_organ_form"),
