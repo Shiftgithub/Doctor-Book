@@ -11,23 +11,23 @@ def Dashboard(request):
 
 
 def DepartmentForm(request):
-    return render(request, 'app/department_form.html')
+    return render(request, 'app/department/form.html')
 
 
 def DepartmentDataView(request):
-    return render(request, 'app/departmentdata.html')
+    return render(request, 'app/department/list_all.html')
 
 
 def DoctorForm(request):
-    return render(request, 'app/doctor_form.html')
+    return render(request, 'app/doctor/form.html')
 
 
 def DoctorDataView(request):
-    return render(request, 'app/viewdata.html')
+    return render(request, 'app/doctor/list_all.html')
 
 
 def BodyPartForm(request):
-    return render(request, 'app/bodypart_form.html')
+    return render(request, 'app/body_part/form.html')
 
 
 # To store
@@ -41,42 +41,42 @@ def StoreBodyPart(request):
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Body Part data")
 
-    return render(request, 'app/bodypart_form.html')
+    return render(request, 'app/body_part/form.html')
 
 
 def BodyPartDataView(request):
-    return render(request, 'app/bodypartdata.html')
+    return render(request, 'app/body_part/list_all.html')
 
 
 def OrganForm(request):
-    return render(request, 'app/organ_form.html')
+    return render(request, 'app/organ/form.html')
 
 
 def OrganDataView(request):
-    return render(request, 'app/organdata.html')
+    return render(request, 'app/organ/list_all.html')
 
 
 def OrganProblemForm(request):
-    return render(request, 'app/organ_problem_form.html')
+    return render(request, 'app/organ_problem/form.html')
 
 
 def OrganProblemDataView(request):
-    return render(request, 'app/organ_problemdata.html')
+    return render(request, 'app/organ_problem/list_all.html')
 
 
 def ProblemSpecificationForm(request):
-    return render(request, 'app/problem_specification_form.html')
+    return render(request, 'app/problem_specification/form.html')
 
 
 def ProblemSpecificationDataView(request):
-    return render(request, 'app/problem_specificationdata.html')
+    return render(request, 'app/problem_specification/list_all.html')
 
 
 def DepartmentSpecificationForm(request):
-    return render(request, 'app/departmentspecification_form.html')
+    return render(request, 'app/department_specification/form.html')
 
 def DepartmentSpecificationDataView(request):
-    return render(request, 'app/departmentspecificationdata.html')
+    return render(request, 'app/department_specification/list_all.html')
 
 def GetAdminDashBoard(request):
     messages.add_message(request, messages.INFO, "Welcome to the dashboard")

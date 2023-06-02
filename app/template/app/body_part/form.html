@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'templates/admin_layout.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <h1 class="my-2 p_print">Add Body Part</h1>
+    </div>
+    <div class="card mt-4">
+        <div class="card-body">
+            <form id="PostForm" action="{% url 'store_bodypart' %}" method="POST">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label for="bodyPartNameId" class="col-md-2 col-form-label">Body Part Name</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="bodyPartNameId" name="name" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="descriptionId" class="col-md-2 col-form-label">Description</label>
+                    <div class="col-md-10">
+                        <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
+                            rows="10"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success float-right">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
