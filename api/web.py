@@ -139,3 +139,7 @@ def GetAdminDashBoard(request):
 
 def GetAdminForm(request):
     return render(request, 'admin/form.html')
+
+
+def index(request):
+     return render(request, 'landing/index.html')

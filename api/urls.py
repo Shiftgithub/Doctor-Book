@@ -38,7 +38,8 @@ urlpatterns = [
 
     # Frontend paths
 
-    path('', web.Dashboard, name="dashboard"),
+    path('app/', web.Dashboard, name="dashboard"),
+    path('', web.index, name="index"),
 
     # department frontend path
 
