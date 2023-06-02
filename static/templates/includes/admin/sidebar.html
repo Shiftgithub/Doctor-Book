@@ -5,17 +5,20 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!--  Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library  -->
-      <li class="nav-item">
+      <!-- Dashboard -->
+      <li class="nav-item mainItem">
         <a href="{% url 'admin_dashboard' %}" class="nav-link">
-          <i class="nav-icon fas fa-user"></i>
+          <i class="nav-icon fas fa-align-justify"></i>
           <p>
             Dashboard
           </p>
         </a>
       </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-chart-pie"></i>
+
+      <!-- Body Part -->
+      <li class="nav-item mainItem">
+        <a href="javascript:void(0)" class="nav-link">
+          <i class="nav-icon fas fa-hospital-user"></i>
           <p>
             Body Part
             <i class="right fas fa-angle-left"></i>
@@ -36,8 +39,10 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
+
+      <!-- Organ -->
+      <li class="nav-item mainItem">
+        <a href="javascript:void(0)" class="nav-link">
           <i class="nav-icon fas fa-chart-pie"></i>
           <p>
             Organ
@@ -59,8 +64,10 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
+
+      <!-- organ Problem -->
+      <li class="nav-item mainItem">
+        <a href="javascript:void(0)" class="nav-link">
           <i class="nav-icon fas fa-chart-pie"></i>
           <p>
             Organ Problem
@@ -82,8 +89,10 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
+
+      <!-- Problem Specification -->
+      <li class="nav-item mainItem">
+        <a href="javascript:void(0)" class="nav-link">
           <i class="nav-icon fas fa-chart-pie"></i>
           <p>
             Problem Specification
@@ -105,8 +114,10 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
+
+      <!-- Department -->
+      <li class="nav-item mainItem">
+        <a href="javascript:void(0)" class="nav-link">
           <i class="nav-icon fas fa-chart-pie"></i>
           <p>
             Department
@@ -128,11 +139,13 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
+
+        <!-- Department Specification -->
+      <li class="nav-item mainItem">
+        <a href="javascript:void(0)" class="nav-link">
           <i class="nav-icon fas fa-chart-pie"></i>
           <p>
-            Department Specification
+            Dept. Specification
             <i class="right fas fa-angle-left"></i>
           </p>
         </a>
@@ -140,19 +153,21 @@
           <li class="nav-item">
             <a href="{% url 'add_department_specification_form' %}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Add Department Specification</p>
+              <p>Add Dept. Specification</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{% url 'department_specification_list' %}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>All Department Specifications</p>
+              <p>All Dept. Specifications</p>
             </a>
           </li>
         </ul>
       </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
+
+      <!-- Doctor -->
+      <li class="nav-item mainItem">
+        <a href="javascript:void(0)" class="nav-link">
           <i class="nav-icon fas fa-chart-pie"></i>
           <p>
             Doctor
