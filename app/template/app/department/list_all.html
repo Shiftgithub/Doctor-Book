@@ -1,13 +1,17 @@
 {% extends 'templates/admin_layout.html' %}
 {% load static %}
 
+{% block styles %}
+<link href="{% static 'adminlte_assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+{% endblock %}
+
 {% block content %}
 
 <div class="container mt-4">
     <h1>Department Data Table</h1>
     <div class="card">
         <div class="card-body">
-            <table id="dataTable" class="table">
+            <table id="bodyPartData" class="table">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -54,12 +58,12 @@
             url: "/api/department/list/",
             method: "GET",
             success: function (data) {
-                var table = $("#dataTable").DataTable({
+                var table = $("#bodyPartData").DataTable({
                     data: data,
                     columns: [
-                        { data: "id" },
-                        { data: "name" },
-                        { data: "description" },
+                        {data: "id"},
+                        {data: "name"},
+                        {data: "description"},
                         {
                             data: null,
                             render: function () {
@@ -72,10 +76,33 @@
                                 return '<button class="btn btn-danger"><i class="fas fa-trash"></i></button>';
                             }
                         }
-                    ]
-                });
+                    ],
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "order": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
             }
         });
     });
 </script>
-{% endblock%}
+
+<script src="{% static 'adminlte_assets/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+
+<!-- Data table buttons -->
+<script src="{% static 'adminlte_assets/plugins/datatables-buttons/js/dataTables.buttons.js' %}"></script>
+<script src="{% static 'adminlte_assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/plugins/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/plugins/pdfmake/pdfmake.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/plugins/pdfmake/vfs_fonts.js' %}"></script>
+<script src="{% static 'adminlte_assets/plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+
+<script src="{% static 'adminlte_assets/js/data_table_settings.js' %}"></script>
+
+{% endblock %}
