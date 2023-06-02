@@ -30,10 +30,10 @@
                         <td>{{ data.name }}</td>
                         <td>{{ data.description }}</td>
                         <td>
-                            <button class="btn btn-info"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
                         </td>
                         <td>
-                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                     {% endfor %}
@@ -71,13 +71,13 @@
                         {
                             data: null,
                             render: function () {
-                                return '<button class="btn btn-info"><i class="fas fa-edit"></i></button>';
+                                return '<button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>';
                             }
                         },
                         {
                             data: null,
                             render: function () {
-                                return '<button class="btn btn-danger"><i class="fas fa-trash"></i></button>';
+                                return '<button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
                             }
                         }
                     ],
