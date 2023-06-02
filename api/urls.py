@@ -38,8 +38,8 @@ urlpatterns = [
 
     # Frontend paths
 
-    path('app/', web.Dashboard, name="dashboard"),
-    path('', web.index, name="index"),
+    path('myadmin/dashboard/', web.GetAdminDashBoard, name="admin_dashboard"),
+    path('', web.index, name="landing_dashboard"),
 
     # department frontend path
 
@@ -94,7 +94,6 @@ urlpatterns = [
     
     # dashboard frontend path
 
-     path('myadmin/dashboard/', web.GetAdminDashBoard, name="admin_dashboard"),
+     path('register/', web.register, name="register"),
 
-     path('myadmin/form/', web.GetAdminForm, name="admin_form"),
 ]

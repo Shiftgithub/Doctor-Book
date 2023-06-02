@@ -39,13 +39,14 @@
 <body>
 
   {% include 'templates/includes/landing/navbar.html' %}
-  <section id="hero" class="d-flex align-items-center">
     <div class="container">
       <h3>Welcome to Personalized Doctor Predictor</h3>
       <h2>Need your latest health issue looked at, come see us.</h2>
       <a href="#about" class="btn-get-started scrollto">Get Started</a>
     </div>
-  </section><!-- End Hero -->
+
+  {% block content%}
+  {% endblock %}
 
   {% include 'templates/includes/landing/footer.html' %}
   <!-- Vendor JS Files -->

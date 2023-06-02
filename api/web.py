@@ -143,3 +143,6 @@ def GetAdminForm(request):
 
 def index(request):
      return render(request, 'landing/index.html')
+
+def register(request):
+    return render(request,'landing/register.html')
