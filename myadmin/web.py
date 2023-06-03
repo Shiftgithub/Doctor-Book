@@ -1,58 +1,12 @@
 from django.shortcuts import render
+from django.contrib import messages
 from . import views
 
-# Message for testing
-from django.contrib import messages
 
-
+# Dashboard
 def dashboard(request):
     messages.add_message(request, messages.INFO, "Welcome to the dashboard")
     return render(request, 'admin/dashboard.html')
-
-
-# department
-
-
-def department_form(request):
-    return render(request, 'admin/department/form.html')
-
-
-def store_department(request):
-    operation_response = views.StoreDepartmentData(request)
-    if operation_response.status_code == 200:
-        messages.add_message(request, messages.INFO,
-                             "Department data stored successfully")
-    else:
-        messages.add_message(request, messages.ERROR,
-                             "Error in storing Department data")
-
-    return render(request, 'admin/department/form.html')
-
-
-def department_dataview(request):
-    return render(request, 'admin/department/list_all.html')
-
-
-# Doctor
-
-def doctor_form(request):
-    return render(request, 'admin/doctor/form.html')
-
-
-def store_doctor(request):
-    operation_response = views.StoreDoctorData(request)
-    if operation_response.status_code == 200:
-        messages.add_message(request, messages.INFO,
-                             "Doctor data stored successfully")
-    else:
-        messages.add_message(request, messages.ERROR,
-                             "Error in storing Doctor data")
-
-    return render(request, 'admin/doctor/form.html')
-
-
-def doctor_dataview(request):
-    return render(request, 'admin/doctor/list_all.html')
 
 
 # Body part
@@ -146,8 +100,30 @@ def problem_specification_dataview(request):
     return render(request, 'admin/problem_specification/list_all.html')
 
 
-# Department Specification
+# department
 
+
+def department_form(request):
+    return render(request, 'admin/department/form.html')
+
+
+def store_department(request):
+    operation_response = views.StoreDepartmentData(request)
+    if operation_response.status_code == 200:
+        messages.add_message(request, messages.INFO,
+                             "Department data stored successfully")
+    else:
+        messages.add_message(request, messages.ERROR,
+                             "Error in storing Department data")
+
+    return render(request, 'admin/department/form.html')
+
+
+def department_dataview(request):
+    return render(request, 'admin/department/list_all.html')
+
+
+# Department Specification
 
 def department_specification_form(request):
     return render(request, 'admin/department_specification/form.html')
@@ -167,42 +143,3 @@ def store_department_specification(request):
 
 def department_specification_dataview(request):
     return render(request, 'admin/department_specification/list_all.html')
-
-
-#####################################
-
-def get_admin_dashboard(request):
-    messages.add_message(request, messages.INFO, "Welcome to the dashboard")
-    return render(request, 'admin/dashboard.html')
-
-
-def get_admin_form(request):
-    return render(request, 'admin/form.html')
-
-
-def index(request):
-    return render(request, 'landing/index.html')
-
-
-# def register(request):
-#     return render(request, 'landing/register.html')
-
-
-#####################################
-
-# doctor registration form
-
-def doctor_register(request):
-    return render(request, 'form/register_form.html')
-
-
-def doctor_login(request):
-    return render(request, 'form/login_form.html')
-
-
-def patient_register(request):
-    return render(request, 'form/register_form.html')
-
-
-def patient_login(request):
-    return render(request, 'form/login_form.html')
