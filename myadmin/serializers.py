@@ -1,26 +1,5 @@
 from rest_framework import serializers
-from myadmin.models import *
 from .models import *
-
-
-class DepartmentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Department
-        fields = '__all__'
-
-
-class DoctorsSerializer(serializers.ModelSerializer):
-    department = serializers.CharField(source='department_name')
-
-    class Meta:
-        model = Doctor
-        fields = ['id', 'name', 'description', 'department']
-
-
-class DoctorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Doctor
-        fields = '__all__'
 
 
 class BodyPartSerializer(serializers.ModelSerializer):
@@ -39,13 +18,13 @@ class OrgansSerializer(serializers.ModelSerializer):
     bodypart = serializers.CharField(source='bodypart_name')
 
     class Meta:
-        model = Doctor
+        model = Organ
         fields = ['id', 'name', 'description', 'bodypart']
 
 
 class OrganProblemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OrgansProbleam
+        model = OrgansProblem
         fields = '__all__'
 
 
@@ -53,7 +32,7 @@ class OrganProblemsSerializer(serializers.ModelSerializer):
     organ = serializers.CharField(source='organ_name')
 
     class Meta:
-        model = OrgansProbleam
+        model = OrgansProblem
         fields = ['id', 'name', 'description', 'organ']
 
 
@@ -69,6 +48,12 @@ class ProblemSpecificationsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProblemSpecification
         fields = ['id', 'specification', 'description', 'organ']
+
+
+class DepartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Department
+        fields = '__all__'
 
 
 class DepartmentSpecificationSerializer(serializers.ModelSerializer):

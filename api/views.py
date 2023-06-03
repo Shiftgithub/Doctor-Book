@@ -98,26 +98,6 @@ def getAllDoctorsList(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
-def StoreBodyPartData(request):
-    if request.method == 'POST':
-        bodyPartSerializer = BodyPartSerializer(data=request.data)
-        if bodyPartSerializer.is_valid():
-            bodyPartSerializer.save()
-            data = {'key': 'null'}
-            message = 'Success'
-            status = 200
-            return JsonResponse({'data': data, 'message': message, 'status': status})
-        else:
-            data = {'key': '403 Forbidden'}
-            message = 'Error: Invalid request. Permission denied (e.g. invalid API key).'
-            status = 403
-            return JsonResponse({'data': data, 'message': message, 'status': status})
-    else:
-        data = {'key': '403 Forbidden'}
-        message = 'Error: Invalid request.'
-        status = 403
-        return JsonResponse({'data': data, 'message': message, 'status': status})
 
 
 @api_view(['GET'])

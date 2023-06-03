@@ -45,7 +45,7 @@ class OrgansSerializer(serializers.ModelSerializer):
 
 class OrganProblemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OrgansProbleam
+        model = OrgansProblem
         fields = '__all__'
 
 
@@ -53,7 +53,7 @@ class OrganProblemsSerializer(serializers.ModelSerializer):
     organ = serializers.CharField(source='organ_name')
 
     class Meta:
-        model = OrgansProbleam
+        model = OrgansProblem
         fields = ['id', 'name', 'description', 'organ']
 
 

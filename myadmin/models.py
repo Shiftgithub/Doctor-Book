@@ -25,7 +25,7 @@ class Organ(models.Model):
         return self.name
 
 
-class OrgansProbleam(models.Model):
+class OrgansProblem(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=1000)
     organ = models.ForeignKey(

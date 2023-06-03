@@ -1,25 +1,27 @@
 from django.shortcuts import render
+
+import myadmin
 from . import views
 
 # Message for testing
 from django.contrib import messages
 
 
-def Dashboard(request):
+def dashboard(request):
     messages.add_message(request, messages.INFO, "Welcome to the dashboard")
     return render(request, 'admin/dashboard.html')
+
 
 # department
 
 
-def DepartmentForm(request):
-
+def department_form(request):
     return render(request, 'admin/department/form.html')
 
 
-def StoreDepartment(request):
-    operationResponse = views.StoreDepartmentData(request)
-    if operationResponse.status_code == 200:
+def store_department(request):
+    operation_response = views.StoreDepartmentData(request)
+    if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO,
                              "Department data stored successfully")
     else:
@@ -29,19 +31,19 @@ def StoreDepartment(request):
     return render(request, 'admin/department/form.html')
 
 
-def DepartmentDataView(request):
+def department_dataview(request):
     return render(request, 'admin/department/list_all.html')
+
 
 # Doctor
 
-
-def DoctorForm(request):
+def doctor_form(request):
     return render(request, 'admin/doctor/form.html')
 
 
-def StoreDoctor(request):
-    operationResponse = views.StoreDoctorData(request)
-    if operationResponse.status_code == 200:
+def store_doctor(request):
+    operation_response = views.StoreDoctorData(request)
+    if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO,
                              "Doctor data stored successfully")
     else:
@@ -51,19 +53,19 @@ def StoreDoctor(request):
     return render(request, 'admin/doctor/form.html')
 
 
-def DoctorDataView(request):
+def doctor_dataview(request):
     return render(request, 'admin/doctor/list_all.html')
 
 
 # Body part
 
-def BodyPartForm(request):
+def bodypart_form(request):
     return render(request, 'admin/body_part/form.html')
 
 
-def StoreBodyPart(request):
-    operationResponse = views.StoreBodyPartData(request)
-    if operationResponse.status_code == 200:
+def store_bodypart(request):
+    operation_response = myadmin.views.store_bodypart_data(request)
+    if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO,
                              "Body Part data stored successfully")
     else:
@@ -73,19 +75,20 @@ def StoreBodyPart(request):
     return render(request, 'admin/body_part/form.html')
 
 
-def BodyPartDataView(request):
+def bodypart_data_view(request):
     return render(request, 'admin/body_part/list_all.html')
+
 
 # Organ
 
 
-def OrganForm(request):
+def organ_form(request):
     return render(request, 'admin/organ/form.html')
 
 
-def StoreOrgan(request):
-    operationResponse = views.StoreOrganData(request)
-    if operationResponse.status_code == 200:
+def store_organ(request):
+    operation_response = views.StoreOrganData(request)
+    if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO,
                              "Organ data stored successfully")
     else:
@@ -95,19 +98,20 @@ def StoreOrgan(request):
     return render(request, 'admin/organ/form.html')
 
 
-def OrganDataView(request):
+def organ_dataview(request):
     return render(request, 'admin/organ/list_all.html')
+
 
 # Organ Problem
 
 
-def OrganProblemForm(request):
+def organ_problem_form(request):
     return render(request, 'admin/organ_problem/form.html')
 
 
-def StoreOrganProblem(request):
-    operationResponse = views.StoreOrganProblemData(request)
-    if operationResponse.status_code == 200:
+def store_organ_problem(request):
+    operation_response = views.StoreOrganProblemData(request)
+    if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO,
                              "Organ Problem data stored successfully")
     else:
@@ -117,19 +121,20 @@ def StoreOrganProblem(request):
     return render(request, 'admin/organ_problem/form.html')
 
 
-def OrganProblemDataView(request):
+def organ_problem_dataview(request):
     return render(request, 'admin/organ_problem/list_all.html')
+
 
 # Problem Specification
 
 
-def ProblemSpecificationForm(request):
+def problem_specification_form(request):
     return render(request, 'admin/problem_specification/form.html')
 
 
-def StoreProblemSpecification(request):
-    operationResponse = views.StoreProblemSpecificationData(request)
-    if operationResponse.status_code == 200:
+def store_problem_specification(request):
+    operation_response = views.StoreProblemSpecificationData(request)
+    if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO,
                              "Problem Specification data stored successfully")
     else:
@@ -139,19 +144,20 @@ def StoreProblemSpecification(request):
     return render(request, 'admin/problem_specification/form.html')
 
 
-def ProblemSpecificationDataView(request):
+def problem_specification_dataview(request):
     return render(request, 'admin/problem_specification/list_all.html')
+
 
 # Department Specification
 
 
-def DepartmentSpecificationForm(request):
+def department_specification_form(request):
     return render(request, 'admin/department_specification/form.html')
 
 
-def StoreDepartmentSpecification(request):
-    operationResponse = views.StoreDepartmentSpecificationData(request)
-    if operationResponse.status_code == 200:
+def store_department_specification(request):
+    operation_response = views.StoreDepartmentSpecificationData(request)
+    if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO,
                              "Department Specification data stored successfully")
     else:
@@ -161,18 +167,18 @@ def StoreDepartmentSpecification(request):
     return render(request, 'admin/department_specification/form.html')
 
 
-def DepartmentSpecificationDataView(request):
+def department_specification_dataview(request):
     return render(request, 'admin/department_specification/list_all.html')
 
 
 #####################################
 
-def GetAdminDashBoard(request):
+def get_admin_dashboard(request):
     messages.add_message(request, messages.INFO, "Welcome to the dashboard")
     return render(request, 'admin/dashboard.html')
 
 
-def GetAdminForm(request):
+def get_admin_form(request):
     return render(request, 'admin/form.html')
 
 
