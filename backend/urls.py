@@ -22,4 +22,5 @@ urlpatterns = [
     
     path('myadmin/', include('myadmin.urls')),
     path('doctor/', include('doctor.urls')),
+    path('patient/', include('patient.urls')),
 ]

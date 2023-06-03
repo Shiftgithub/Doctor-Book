@@ -186,7 +186,19 @@ def index(request):
 
 #####################################
 
-# doctor registration form 
+# doctor registration form
 
 def doctor_register(request):
-    return render(request, 'form/form.html')
+    return render(request, 'form/register_form.html')
+
+
+def doctor_login(request):
+    return render(request, 'form/login_form.html')
+
+
+def patient_register(request):
+    return render(request, 'form/register_form.html')
+
+
+def patient_login(request):
+    return render(request, 'form/login_form.html')
