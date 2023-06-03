@@ -8,7 +8,7 @@ from django.http import HttpResponse, JsonResponse,HttpResponseRedirect
 from django.db import connection
 from rest_framework.exceptions import ValidationError
 from django.contrib import messages
-from app.models import *
+from myadmin.models import *
 from .serializers import *
 
 
@@ -73,8 +73,8 @@ def getAllDoctorsList(request):
         ap.description ,
         ad.name AS department_name
     FROM
-        app_doctor AS ap
-    INNER JOIN app_department AS ad ON ap.department_id = ad.id
+        myadmin_doctor AS ap
+    INNER JOIN myadmin_department AS ad ON ap.department_id = ad.id
     ORDER BY ap.id   ASC
     """
     with connection.cursor() as cursor:
@@ -158,9 +158,9 @@ def getAllOrgansList(request):
         ao.description,
         ab.name AS bodypart_name
     FROM
-        app_organ AS ao
+        myadmin_organ AS ao
     INNER JOIN
-        app_bodypart AS ab ON ao.body_part_id = ab.id
+        myadmin_bodypart AS ab ON ao.body_part_id = ab.id
     ORDER BY ao.id   ASC
     """
     with connection.cursor() as cursor:
@@ -222,9 +222,9 @@ def getAllOrganProblemList(request):
         aop.description,
         ao.name AS organ_name
     FROM
-        app_organsprobleam AS aop
+        myadmin_organsprobleam AS aop
     INNER JOIN
-        app_organ AS ao ON aop.organ_id = ao.id
+        myadmin_organ AS ao ON aop.organ_id = ao.id
     ORDER BY aop.id   ASC
     """
     with connection.cursor() as cursor:
@@ -280,8 +280,8 @@ def getAllProblemSpecificationList(request):
     aps.description,
     ao.name AS organ_name
     FROM
-    app_problemspecification AS aps
-    INNER JOIN app_organ AS ao
+    myadmin_problemspecification AS aps
+    INNER JOIN myadmin_organ AS ao
     WHERE
     aps.organ_id = ao.id
     ORDER BY aps.id   ASC
@@ -343,9 +343,9 @@ def getAllDepartmentSpecificationsList(request):
     ad.name AS department_name,
     aps.specification
     FROM
-    app_departmentspecification AS ads
-    INNER JOIN app_department AS ad
-    INNER JOIN app_problemspecification AS aps
+    myadmin_departmentspecification AS ads
+    INNER JOIN myadmin_department AS ad
+    INNER JOIN myadmin_problemspecification AS aps
     WHERE
     ads.department_id = ad.id AND ads.problem_specification_id = aps.id  
     ORDER BY ads.id   ASC

@@ -12,7 +12,7 @@ def Dashboard(request):
 # department 
 def DepartmentForm(request):
     
-    return render(request, 'app/department/form.html')
+    return render(request, 'admin/department/form.html')
 
 def StoreDepartment(request):
     operationResponse = views.StoreDepartmentData(request)
@@ -21,15 +21,15 @@ def StoreDepartment(request):
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Department data")
 
-    return render(request, 'app/department/form.html')
+    return render(request, 'admin/department/form.html')
 
 def DepartmentDataView(request):
-    return render(request, 'app/department/list_all.html')
+    return render(request, 'admin/department/list_all.html')
 
 # Doctor 
 
 def DoctorForm(request):
-    return render(request, 'app/doctor/form.html')
+    return render(request, 'admin/doctor/form.html')
 
 def StoreDoctor(request):
     operationResponse = views.StoreDoctorData(request)
@@ -38,16 +38,16 @@ def StoreDoctor(request):
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Doctor data")
 
-    return render(request, 'app/doctor/form.html')
+    return render(request, 'admin/doctor/form.html')
 
 def DoctorDataView(request):
-    return render(request, 'app/doctor/list_all.html')
+    return render(request, 'admin/doctor/list_all.html')
 
 
 # Body part 
 
 def BodyPartForm(request):
-    return render(request, 'app/body_part/form.html')
+    return render(request, 'admin/body_part/form.html')
 
 def StoreBodyPart(request):
     operationResponse = views.StoreBodyPartData(request)
@@ -56,16 +56,16 @@ def StoreBodyPart(request):
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Body Part data")
 
-    return render(request, 'app/body_part/form.html')
+    return render(request, 'admin/body_part/form.html')
 
 
 def BodyPartDataView(request):
-    return render(request, 'app/body_part/list_all.html')
+    return render(request, 'admin/body_part/list_all.html')
 
 # Organ
 
 def OrganForm(request):
-    return render(request, 'app/organ/form.html')
+    return render(request, 'admin/organ/form.html')
 
 def StoreOrgan(request):
     operationResponse = views.StoreOrganData(request)
@@ -74,16 +74,16 @@ def StoreOrgan(request):
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Organ data")
 
-    return render(request, 'app/organ/form.html')
+    return render(request, 'admin/organ/form.html')
 
 
 def OrganDataView(request):
-    return render(request, 'app/organ/list_all.html')
+    return render(request, 'admin/organ/list_all.html')
 
 # Organ Problem
 
 def OrganProblemForm(request):
-    return render(request, 'app/organ_problem/form.html')
+    return render(request, 'admin/organ_problem/form.html')
 def StoreOrganProblem(request):
     operationResponse = views.StoreOrganProblemData(request)
     if operationResponse.status_code == 200:
@@ -91,14 +91,14 @@ def StoreOrganProblem(request):
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Organ Problem data")
 
-    return render(request, 'app/organ_problem/form.html')
+    return render(request, 'admin/organ_problem/form.html')
 
 def OrganProblemDataView(request):
-    return render(request, 'app/organ_problem/list_all.html')
+    return render(request, 'admin/organ_problem/list_all.html')
 
 # Problem Specification
 def ProblemSpecificationForm(request):
-    return render(request, 'app/problem_specification/form.html')
+    return render(request, 'admin/problem_specification/form.html')
 
 def StoreProblemSpecification(request):
     operationResponse = views.StoreProblemSpecificationData(request)
@@ -107,15 +107,15 @@ def StoreProblemSpecification(request):
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Problem Specification data")
 
-    return render(request, 'app/problem_specification/form.html')
+    return render(request, 'admin/problem_specification/form.html')
 
 def ProblemSpecificationDataView(request):
-    return render(request, 'app/problem_specification/list_all.html')
+    return render(request, 'admin/problem_specification/list_all.html')
 
 # Department Specification
 
 def DepartmentSpecificationForm(request):
-    return render(request, 'app/department_specification/form.html')
+    return render(request, 'admin/department_specification/form.html')
 
 def StoreDepartmentSpecification(request):
     operationResponse = views.StoreDepartmentSpecificationData(request)
@@ -124,10 +124,10 @@ def StoreDepartmentSpecification(request):
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Department Specification data")
 
-    return render(request, 'app/department_specification/form.html')
+    return render(request, 'admin/department_specification/form.html')
 
 def DepartmentSpecificationDataView(request):
-    return render(request, 'app/department_specification/list_all.html')
+    return render(request, 'admin/department_specification/list_all.html')
 
 
 

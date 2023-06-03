@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app.apps.AppConfig',
+
+    # app
+
     'api.apps.ApiConfig',
+    'myadmin.apps.MyadminConfig',
+    'doctor.apps.DoctorConfig',
     'rest_framework',
 ]
 
@@ -59,7 +63,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'static',
-            BASE_DIR / 'app/template',
+            BASE_DIR / 'myadmin/template',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -89,13 +93,6 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
