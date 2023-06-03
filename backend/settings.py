@@ -64,6 +64,7 @@ TEMPLATES = [
         'DIRS': [
             BASE_DIR / 'static',
             BASE_DIR / 'myadmin/template',
+            BASE_DIR / 'doctor/template',
         ],
         'APP_DIRS': True,
         'OPTIONS': {

@@ -92,8 +92,8 @@ urlpatterns = [
          web.ProblemSpecificationDataView, name="problem_specification_list"),
 
     
-    # dashboard frontend path
+    # landing page frontend path
 
-     path('register/', web.register, name="register"),
+     path('register/', web.doctor_register, name="register"),
 
 ]
