@@ -37,17 +37,15 @@
 </head>
 
 <body>
-
+  
   {% include 'templates/includes/landing/navbar.html' %}
-    <div class="container">
-      <h3>Welcome to Personalized Doctor Predictor</h3>
-      <h2>Need your latest health issue looked at, come see us.</h2>
-      <a href="#about" class="btn-get-started scrollto">Get Started</a>
-    </div>
+  
 
   {% block content%}
   {% endblock %}
 
+  {% include 'templates/includes/landing/body.html' %}
+  
   {% include 'templates/includes/landing/footer.html' %}
   <!-- Vendor JS Files -->
   <script src="{% static 'landing_assets/vendor/purecounter/purecounter_vanilla.jss' %}"></script>
