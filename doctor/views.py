@@ -32,14 +32,17 @@ def get_all_doctors_list(request):
     # Execute the raw SQL query
     query = """
     SELECT
-        ap.id ,
-        ap.name ,
-        ap.description ,
-        ad.name AS department_name
+    dd.id,
+    dd.name,
+    dd.description,
+    md.name AS department_name
     FROM
-        myadmin_doctor AS ap
-    INNER JOIN myadmin_department AS ad ON ap.department_id = ad.id
-    ORDER BY ap.id   ASC
+    doctor_doctor AS dd
+    INNER JOIN myadmin_department AS md
+    ON
+    dd.department_id = md.id
+    ORDER BY
+    dd.id ASC
     """
     with connection.cursor() as cursor:
         cursor.execute(query)

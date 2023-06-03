@@ -28,38 +28,9 @@ def store_bodypart_data(request):
 
 
 @api_view(['GET'])
-def geta_all_bodypart_list(request):
+def get_all_bodypart_list(request):
     bodypart = BodyPart.objects.all()
     serializer = BodyPartSerializer(bodypart, many=True)
-    return Response(serializer.data)
-
-
-@api_view(['POST'])
-def store_department_data(request):
-    if request.method == 'POST':
-        department_serializer = DepartmentSerializer(data=request.data)
-        if department_serializer.is_valid():
-            department_serializer.save()
-            data = {'key': 'null'}
-            message = 'Success'
-            status = 200
-            return JsonResponse({'data': data, 'message': message, 'status': status})
-        else:
-            data = {'key': '403 Forbidden'}
-            message = 'Error: Invalid request. Permission denied (e.g. invalid API key).'
-            status = 403
-            return JsonResponse({'data': data, 'message': message, 'status': status})
-    else:
-        data = {'key': '403 Forbidden'}
-        message = 'Error: Invalid request.'
-        status = 403
-        return JsonResponse({'data': data, 'message': message, 'status': status})
-
-
-@api_view(['GET'])
-def get_all_departments_list(request):
-    department = Department.objects.all()
-    serializer = DepartmentSerializer(department, many=True)
     return Response(serializer.data)
 
 
@@ -89,15 +60,15 @@ def store_organ_data(request):
 def get_all_organs_list(request):
     query = """
     SELECT
-        ao.id,
-        ao.name,
-        ao.description,
-        ab.name AS bodypart_name
+        mo.id,
+        mo.name,
+        mo.description,
+        mb.name AS bodypart_name
     FROM
-        myadmin_organ AS ao
+        myadmin_organ AS mo
     INNER JOIN
-        myadmin_bodypart AS ab ON ao.body_part_id = ab.id
-    ORDER BY ao.id   ASC
+        myadmin_bodypart AS mb ON mo.body_part_id = mb.id
+    ORDER BY mo.id   ASC
     """
     with connection.cursor() as cursor:
         cursor.execute(query)
@@ -153,15 +124,15 @@ def store_organ_problem_data(request):
 def get_all_organ_problem_list(request):
     query = """
     SELECT
-        aop.id,
-        aop.name,
-        aop.description,
-        ao.name AS organ_name
+        mop.id,
+        mop.name,
+        mop.description,
+        mo.name AS organ_name
     FROM
-        myadmin_organsproblem AS aop
+        myadmin_organsproblem AS mop
     INNER JOIN
-        myadmin_organ AS ao ON aop.organ_id = ao.id
-    ORDER BY aop.id   ASC
+        myadmin_organ AS mo ON mop.organ_id = mo.id
+    ORDER BY mop.id   ASC
     """
     with connection.cursor() as cursor:
         cursor.execute(query)
@@ -210,16 +181,16 @@ def store_problem_specification_data(request):
 def get_all_problem_specification_list(request):
     query = """
     SELECT
-    aps.id,
-    aps.specification,
-    aps.description,
-    ao.name AS organ_name
+    mps.id,
+    mps.specification,
+    mps.description,
+    mo.name AS organ_name
     FROM
-    myadmin_problemspecification AS aps
-    INNER JOIN myadmin_organ AS ao
+    myadmin_problemspecification AS mps
+    INNER JOIN myadmin_organ AS mo
     WHERE
-    aps.organ_id = ao.id
-    ORDER BY aps.id   ASC
+    mps.organ_id = mo.id
+    ORDER BY mps.id   ASC
     """
     with connection.cursor() as cursor:
         cursor.execute(query)
@@ -241,6 +212,35 @@ def get_all_problem_specification_list(request):
         data=problem_specifications, many=True)
     serializer.is_valid()
 
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def store_department_data(request):
+    if request.method == 'POST':
+        department_serializer = DepartmentSerializer(data=request.data)
+        if department_serializer.is_valid():
+            department_serializer.save()
+            data = {'key': 'null'}
+            message = 'Success'
+            status = 200
+            return JsonResponse({'data': data, 'message': message, 'status': status})
+        else:
+            data = {'key': '403 Forbidden'}
+            message = 'Error: Invalid request. Permission denied (e.g. invalid API key).'
+            status = 403
+            return JsonResponse({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request.'
+        status = 403
+        return JsonResponse({'data': data, 'message': message, 'status': status})
+
+
+@api_view(['GET'])
+def get_all_departments_list(request):
+    department = Department.objects.all()
+    serializer = DepartmentSerializer(department, many=True)
     return Response(serializer.data)
 
 
@@ -273,17 +273,17 @@ def get_all_department_specifications_list(request):
     # Execute the raw SQL query
     query = """
     SELECT
-	ads.id,
-    ads.description,
-    ad.name AS department_name,
-    aps.specification
+	mds.id,
+    mds.description,
+    md.name AS department_name,
+    mps.specification
     FROM
-    myadmin_departmentspecification AS ads
-    INNER JOIN myadmin_department AS ad
-    INNER JOIN myadmin_problemspecification AS aps
+    myadmin_departmentspecification AS mds
+    INNER JOIN myadmin_department AS md
+    INNER JOIN myadmin_problemspecification AS mps
     WHERE
-    ads.department_id = ad.id AND ads.problem_specification_id = aps.id  
-    ORDER BY ads.id   ASC
+    mds.department_id = md.id AND mds.problem_specification_id = mps.id  
+    ORDER BY mds.id   ASC
     """
     with connection.cursor() as cursor:
         cursor.execute(query)

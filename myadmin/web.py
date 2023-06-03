@@ -16,7 +16,7 @@ def bodypart_form(request):
 
 
 def store_bodypart(request):
-    operation_response = views.StoreBodyPartData(request)
+    operation_response = views.store_bodypart_data(request)
     if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO,
                              "Body Part data stored successfully")
@@ -39,7 +39,7 @@ def organ_form(request):
 
 
 def store_organ(request):
-    operation_response = views.StoreOrganData(request)
+    operation_response = views.store_organ_data(request)
     if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO,
                              "Organ data stored successfully")
@@ -62,7 +62,7 @@ def organ_problem_form(request):
 
 
 def store_organ_problem(request):
-    operation_response = views.StoreOrganProblemData(request)
+    operation_response = views.store_organ_problem_data(request)
     if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO,
                              "Organ Problem data stored successfully")
@@ -85,7 +85,7 @@ def problem_specification_form(request):
 
 
 def store_problem_specification(request):
-    operation_response = views.StoreProblemSpecificationData(request)
+    operation_response = views.store_problem_specification_data(request)
     if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO,
                              "Problem Specification data stored successfully")
@@ -108,7 +108,7 @@ def department_form(request):
 
 
 def store_department(request):
-    operation_response = views.StoreDepartmentData(request)
+    operation_response = views.store_department_data(request)
     if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO,
                              "Department data stored successfully")
@@ -130,7 +130,7 @@ def department_specification_form(request):
 
 
 def store_department_specification(request):
-    operation_response = views.StoreDepartmentSpecificationData(request)
+    operation_response = views.store_department_specification_data(request)
     if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO,
                              "Department Specification data stored successfully")
