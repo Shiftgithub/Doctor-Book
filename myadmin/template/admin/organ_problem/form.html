@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
-    <div class="page-head">
-        <h1 class="my-2 p_print">Add Organ Problem Form</h1>
-    </div>
-    <div class="card mt-4">
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Add Organ Problem</h1>
+        </div>
         <div class="card-body">
             <form id="PostForm" action="{% url 'store_organ_problem' %}" method="POST">
                 {% csrf_token %}
@@ -26,14 +26,14 @@
                 <div class="row mb-3">
                     <label for="organProblemNameId" class="col-md-2 col-form-label">Organ Problem Name</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" id="organProblemNameId" name="name" />
+                        <input type="text" class="form-control" id="organProblemNameId" name="name"/>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="descriptionId" class="col-md-2 col-form-label">Description</label>
                     <div class="col-md-10">
                         <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
-                            rows="10"></textarea>
+                                  rows="10"></textarea>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-sm btn-success float-right">Submit</button>

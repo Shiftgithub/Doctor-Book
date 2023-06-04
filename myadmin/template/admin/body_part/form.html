@@ -2,10 +2,10 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
-    <div class="card bg-transparent">
+<div class="container mt-4">
+    <div class="card">
         <div class="card-header">
-            <h4>New Body Part</h4>
+            <h1 class="card-title">Add Body Part</h1>
         </div>
         <div class="card-body">
             <form id="PostForm" action="{% url 'store_bodypart' %}" method="POST">

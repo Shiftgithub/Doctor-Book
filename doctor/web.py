@@ -12,11 +12,9 @@ def doctor_form(request):
 def store_doctor(request):
     operation_response = views.store_doctor_data(request)
     if operation_response.status_code == 200:
-        messages.add_message(request, messages.INFO,
-                             "Doctor data stored successfully")
+        messages.add_message(request, messages.INFO, "Doctor data stored successfully")
     else:
-        messages.add_message(request, messages.ERROR,
-                             "Error in storing Doctor data")
+        messages.add_message(request, messages.ERROR, "Error in storing Doctor data")
 
     return render(request, 'admin/doctor/form.html')
 
