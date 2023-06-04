@@ -1,0 +1,74 @@
+{% extends 'templates/includes/doctor/base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="register">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h6 class="card-title text-center">Patient Register Page</h6>
+                        <form id="PostForm" action="{% url 'store_patient' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" name="full_name" id="fullNameId"
+                                    placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" name="father_name" id="fatherNameId"
+                                    placeholder="Enter your father name" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" name="mother_name" id="motherNameId"
+                                    placeholder="Enter your mother name" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="email" class="form-control" name="email" id="emailId"
+                                    placeholder="Enter your email" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="email" class="form-control" name="phone" id="phoneId"
+                                    placeholder="Enter your phone" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="password" class="form-control" name="password" id="passwordId"
+                                    placeholder="Enter your password" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="password" class="form-control" name="confirm_password"
+                                    id="confirmPasswordId" placeholder="Confirm your password" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" name="address" id="addressId"
+                                    placeholder="Enter your address" required>
+                            </div>
+                            <div class="text-center mb-3">
+                                <button type="submit" class="btn btn-sm btn-success">Register</button>
+                            </div>
+                        </form>
+                        <div id="g_id_onload" data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                            data-callback="handleCredentialResponse">
+                        </div>
+                        <div class="g_id_signin"></div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <span>Already have an account? </span>
+                        <a href="#">Sign in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts%}
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+    function handleCredentialResponse(response) {
+        // Handle the response from the Google Sign-In API
+        console.log(response);
+        // You can perform further actions such as sending the response to your server for authentication and signup
+    }
+</script>
+{% endblock%}

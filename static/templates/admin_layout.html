@@ -7,15 +7,13 @@
     <title>Doctor Predictor | Dashboard</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/fontawesome-free/css/fonts.googleapis.css' %}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/fontawesome-free/css/all.min.css' %}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/ionicons/css/ionicons.min.css' %}">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet"
-          href="{% static 'adminlte_assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
     <!-- JQVMap -->
@@ -23,8 +21,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{% static 'adminlte_assets/css/adminlte.min.css' %}">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet"
-          href="{% static 'adminlte_assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/daterangepicker/daterangepicker.css' %}">
 
@@ -46,10 +43,10 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
-            <img src="{% static 'adminlte_assets/img/AdminLTELogo.png' %}" alt="AdminLTE Logo"
-                 class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <a href="{% url 'admin_dashboard' %}" class="brand-link">
+            <img src="{% static 'adminlte_assets/img/icon.png' %}" alt="Doctor-Book Logo"
+                 class="brand-image img-square elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Doctor Book</span>
         </a>
 
         <!-- Sidebar -->

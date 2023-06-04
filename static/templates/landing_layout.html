@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Medilab Bootstrap Template - Index</title>
+  <title>Doctor Book</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -15,7 +15,7 @@
   <link href="{% static 'landing_assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/fontawesome-free/css/fonts.googleapis.css' %}">
 
   <!-- Vendor CSS Files -->
   <link href="{% static 'landing_assets/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
@@ -26,6 +26,7 @@
   <link href="{% static 'landing_assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
   <link href="{% static 'landing_assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
   <link href="{% static 'landing_assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/sweetalert2/sweetalert2.css' %}">
 
   <!-- Template Main CSS File -->
   <link href="{% static 'landing_assets/css/style.css' %}" rel="stylesheet">
@@ -37,16 +38,15 @@
 </head>
 
 <body>
-
+  
   {% include 'templates/includes/landing/navbar.html' %}
-  <section id="hero" class="d-flex align-items-center">
-    <div class="container">
-      <h3>Welcome to Personalized Doctor Predictor</h3>
-      <h2>Need your latest health issue looked at, come see us.</h2>
-      <a href="#about" class="btn-get-started scrollto">Get Started</a>
-    </div>
-  </section><!-- End Hero -->
+  
 
+  {% block content%}
+  {% endblock %}
+
+  {% include 'templates/includes/landing/body.html' %}
+  
   {% include 'templates/includes/landing/footer.html' %}
   <!-- Vendor JS Files -->
   <script src="{% static 'landing_assets/vendor/purecounter/purecounter_vanilla.jss' %}"></script>
@@ -55,8 +55,26 @@
   <script src="{% static 'landing_assets/vendor/swiper/swiper-bundle.min.jss' %}"></script>
   <script src="{% static 'landing_assets/vendor/php-email-form/validate.jss' %}"></script>
 
+  <!-- sweetalert2 -->
+  <script src="{% static 'adminlte_assets/plugins/sweetalert2/sweetalert2.js' %}"></script>
+
   <!-- Template Main JS File -->
   <script src="{% static 'landing_assets/js/main.js' %}"></script>
+
+<!-- Render Message -->
+<!-- Operation Message Section -->
+{% if messages %}
+{% for message in messages %}
+<script>
+    Swal.fire({
+        icon: '{{ message.tags }}',
+        title: '{{ message.tags }}',
+        text: '{{ message }}',
+        timer: 3000 // 3secs
+    })
+</script>
+{% endfor %}
+{% endif %}
 
   <!-- Custom JS -->
 {% block scripts %}

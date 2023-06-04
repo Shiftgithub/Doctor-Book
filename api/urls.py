@@ -1,100 +1,38 @@
 from django.urls import path
-from . import views
-from . import web
+
+import doctor.views
+import myadmin.views
 
 urlpatterns = [
 
     # Backend paths
 
-    path('api/add/department/', views.StoreDepartmentData, name="add_department"),
-    path('api/department/list/', views.getAllDepartmentsList, name="department_list"),
+    path('api/add/bodypart/', myadmin.views.store_bodypart_data, name="add_bodypart"),
+    path('api/bodypart/list/', myadmin.views.get_all_bodypart_list, name="bodypart_list"),
 
-    path('api/add/doctor/', views.StoreDoctorData, name="add_doctor"),
-    path('api/doctors/list/', views.getAllDoctorsList, name="doctor_list"),
+    path('api/add/organ/', myadmin.views.store_organ_data, name="add_organ"),
+    path('api/organ/list/', myadmin.views.get_all_organs_list, name="organ_lists"),
+    path('api/organs/list/', myadmin.views.organ_apiview, name="organs_list"),
 
-    path('api/add/bodypart/', views.StoreBodyPartData, name="add_bodypart"),
-    path('api/bodypart/list/', views.getAllBodyPartsList, name="bodypart_list"),
-
-    path('api/add/organ/', views.StoreOrganData, name="add_organ"),
-    path('api/organ/list/', views.getAllOrgansList, name="organ_lists"),
-    path('api/organs/list/', views.OrganApiView, name="organs_list"),
-
-    path('api/add/organ/problem/', views.StoreOrganProblemData,
+    path('api/add/organ/problem/', myadmin.views.store_organ_problem_data,
          name="add_organ_problem"),
-    path('api/organ/problem/list/', views.getAllOrganProblemList,
+    path('api/organ/problem/list/', myadmin.views.get_all_organ_problem_list,
          name="organ_problem_list"),
 
-    path('api/add/problem/specification/', views.StoreProblemSpecificationData,
+    path('api/add/problem/specification/', myadmin.views.store_problem_specification_data,
          name="add_problem_specification"),
-    path('api/problem/specification/list/', views.getAllProblemSpecificationList,
+    path('api/problem/specification/list/', myadmin.views.get_all_problem_specification_list,
          name="problem_specification_list"),
 
-    path('api/add/department/specification/', views.StoreDepartmentSpecificationData,
+    path('api/add/department/', myadmin.views.store_department_data, name="add_department"),
+    path('api/department/list/', myadmin.views.get_all_departments_list, name="department_list"),
+
+    path('api/add/department/specification/', myadmin.views.store_department_specification_data,
          name="add_department_specification"),
-    path('api/department/specification/list/', views.getAllDepartmentSpecificationsList,
+    path('api/department/specification/list/', myadmin.views.get_all_department_specifications_list,
          name="department_specification_list"),
 
+    path('api/add/doctor/', doctor.views.store_doctor_data, name="add_doctor"),
+    path('api/doctors/list/', doctor.views.get_all_doctors_list, name="doctor_list"),
 
-
-    # Frontend paths
-
-    path('app/', web.Dashboard, name="dashboard"),
-    path('', web.index, name="index"),
-
-    # department frontend path
-
-    path('frontend/add/department/', web.DepartmentForm,
-         name="add_department_form"),
-    path('frontend/store/department/', web.StoreDepartment, name="store_department"),
-    path('frontend/department/list/',
-         web.DepartmentDataView, name="department_list"),
-     
-     # department specification frontend path
-
-    path('frontend/add/department/specification/', web.DepartmentSpecificationForm,
-         name="add_department_specification_form"),
-     path('frontend/store/department/specification/', web.StoreDepartmentSpecification, name="store_department_specification"),
-    path('frontend/department/specification/list/',
-         web.DepartmentSpecificationDataView, name="department_specification_list"),
-
-    # doctor frontend path
-
-    path('frontend/add/doctor/', web.DoctorForm, name="add_doctor_form"),
-    path('frontend/store/doctor/', web.StoreDoctor, name="store_doctor"),
-    path('frontend/doctors/list/', web.DoctorDataView, name="doctor_list"),
-
-    # bodypart frontend path
-
-    path('frontend/add/bodypart/', web.BodyPartForm, name="add_bodypart_form"),
-    path('frontend/store/bodypart/', web.StoreBodyPart, name="store_bodypart"),
-    path('frontend/bodypart/list/', web.BodyPartDataView, name="bodypart_list"),
-
-    # organ frontend path
-
-    path('frontend/add/organ/', web.OrganForm, name="add_organ_form"),
-    path('frontend/store/organ/', web.StoreOrgan, name="store_organ"),
-    path('frontend/organ/list/', web.OrganDataView, name="organ_list"),
-
-    # organ problem frontend path
-
-     path('frontend/add/organ/problem/', web.OrganProblemForm,
-         name="add_organ_problem_form"),
-     path('frontend/store/organ/problem/', web.StoreOrganProblem, name="store_organ_problem"),
-     path('frontend/organ/problem/list/',
-         web.OrganProblemDataView, name="organ_problem_list"),
-
-    # problem specification frontend path
-
-    path('frontend/add/problem/specification/', web.ProblemSpecificationForm,
-         name="add_problem_specification_form"),
-    path('frontend/store/problem/specification/', web.StoreProblemSpecification, name="store_problem_specification"),
-    path('frontend/problem/specification/list/',
-         web.ProblemSpecificationDataView, name="problem_specification_list"),
-
-    
-    # dashboard frontend path
-
-     path('myadmin/dashboard/', web.GetAdminDashBoard, name="admin_dashboard"),
-
-     path('myadmin/form/', web.GetAdminForm, name="admin_form"),
 ]
