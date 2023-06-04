@@ -10,50 +10,42 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1>Organ Problem Data Table</h1>
     <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Organ Problems</h1>
+        </div>
         <div class="card-body">
-            <table id="bodyPartData" class="table">
+            <table id="bodyPartData" class="table table-sm table-bordered table-striped">
                 <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Organ</th>
-                        <th>Problem</th>
-                        <th>Description</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Organ</th>
+                    <th>Problem</th>
+                    <th>Description</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {% for data in datas %}
-                    <tr>
-                        <td>{{ data.id }}</td>
-                        <td>{{ data.organ_name }}</td>
-                        <td>{{ data.name }}</td>
-                        <td>{{ data.description }}</td>
-                        <td>
-                            <button class="btn btn-sm btn-danger">
-                                <i class="fas fa-edit"></i>Edit
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-danger">
-                                <i class="fas fa-trash"></i>Delete
-                            </button>
-                        </td>
-                    </tr>
-                    {% endfor %}
+                {% for data in datas %}
+                <tr>
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.organ_name }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.description }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger">
+                            <i class="fas fa-edit"></i>Edit
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>Delete
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Id</th>
-                        <th>Oragn</th>
-                        <th>Problem</th>
-                        <th>Description</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </tfoot>
             </table>
         </div>
     </div>
@@ -69,10 +61,10 @@
                 var table = $("#bodyPartData").DataTable({
                     data: data,
                     columns: [
-                        { data: "id" },
-                        { data: "organ" },
-                        { data: "name" },
-                        { data: "description" },
+                        {data: "id"},
+                        {data: "organ"},
+                        {data: "name"},
+                        {data: "description"},
                         {
                             data: null,
                             render: function () {

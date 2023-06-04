@@ -7,23 +7,27 @@
 <link rel="stylesheet" href="{% static 'adminlte_assets/data_tables/css/datatable_responsive.min.css' %}">
 {% endblock %}
 
-
 {% block content %}
 <div class="container mt-4">
-    <h1>Problem Specification Data Table</h1>
     <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Problem Specifications</h1>
+        </div>
         <div class="card-body">
-            <table id="bodyPartData" class="table">
+            <table id="bodyPartData" class="table table-sm table-bordered table-striped">
                 <thead>
-                    <th>Id</th>
+                <tr>
+                    <th>#</th>
                     <th>Organ</th>
                     <th>Specification</th>
                     <th>Description</th>
                     <th>Edit</th>
                     <th>Delete</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {% for data in datas %}
+                {% for data in datas %}
+                <tr>
                     <td>{{ data.id }}</td>
                     <td>{{ data.organ_name }}</td>
                     <td>{{ data.specification }}</td>
@@ -34,16 +38,9 @@
                     <td>
                         <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                     </td>
-                    {% endfor %}
+                </tr>
+                {% endfor %}
                 </tbody>
-                <tfoot>
-                    <th>Id</th>
-                    <th>Organ</th>
-                    <th>Specification</th>
-                    <th>Description</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tfoot>
             </table>
         </div>
     </div>
@@ -60,10 +57,10 @@
                 var table = $("#bodyPartData").DataTable({
                     data: data,
                     columns: [
-                        { data: "id" },
-                        { data: "organ" },
-                        { data: "specification" },
-                        { data: "description" },
+                        {data: "id"},
+                        {data: "organ"},
+                        {data: "specification"},
+                        {data: "description"},
                         {
                             data: null,
                             render: function () {

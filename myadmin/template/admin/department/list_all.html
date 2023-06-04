@@ -8,45 +8,40 @@
 {% endblock %}
 
 {% block content %}
-
 <div class="container mt-4">
-    <h1>Department Data Table</h1>
-    <hr>
-    <table id="bodyPartData" class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Department</th>
-            <th>Description</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for data in datas %}
-        <tr>
-            <td>{{ data.id }}</td>
-            <td>{{ data.name }}</td>
-            <td>{{ data.description }}</td>
-            <td>
-                <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
-            </td>
-            <td>
-                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-            </td>
-        </tr>
-        {% endfor %}
-        </tbody>
-        <tfoot>
-        <tr>
-            <th>Id</th>
-            <th>Department</th>
-            <th>Description</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-        </tfoot>
-    </table>
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Departments</h1>
+        </div>
+        <div class="card-body">
+            <table id="bodyPartData" class="table table-sm table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Department</th>
+                    <th>Description</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in datas %}
+                <tr>
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.description }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
