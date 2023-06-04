@@ -8,23 +8,6 @@ urlpatterns = [
 
     path('myadmin/dashboard/', web.dashboard, name="admin_dashboard"),
 
-    # department frontend path
-
-    path('frontend/add/department/', web.department_form,
-         name="add_department_form"),
-    path('frontend/store/department/', web.store_department, name="store_department"),
-    path('frontend/department/list/',
-         web.department_dataview, name="department_list"),
-
-    # department specification frontend path
-
-    path('frontend/add/department/specification/', web.department_specification_form,
-         name="add_department_specification_form"),
-    path('frontend/store/department/specification/', web.store_department_specification,
-         name="store_department_specification"),
-    path('frontend/department/specification/list/',
-         web.department_specification_dataview, name="department_specification_list"),
-
     # bodypart frontend path
 
     path('frontend/add/bodypart/', web.bodypart_form, name="add_bodypart_form"),
@@ -41,7 +24,8 @@ urlpatterns = [
 
     path('frontend/add/organ/problem/', web.organ_problem_form,
          name="add_organ_problem_form"),
-    path('frontend/store/organ/problem/', web.store_organ_problem, name="store_organ_problem"),
+    path('frontend/store/organ/problem/',
+         web.store_organ_problem, name="store_organ_problem"),
     path('frontend/organ/problem/list/',
          web.organ_problem_dataview, name="organ_problem_list"),
 
@@ -49,9 +33,28 @@ urlpatterns = [
 
     path('frontend/add/problem/specification/', web.problem_specification_form,
          name="add_problem_specification_form"),
-    path('frontend/store/problem/specification/', web.store_problem_specification, name="store_problem_specification"),
+    path('frontend/store/problem/specification/',
+         web.store_problem_specification, name="store_problem_specification"),
     path('frontend/problem/specification/list/',
          web.problem_specification_dataview, name="problem_specification_list"),
+
+    # department frontend path
+
+    path('frontend/add/department/', web.department_form,
+         name="add_department_form"),
+    path('frontend/store/department/',
+         web.store_department, name="store_department"),
+    path('frontend/department/list/',
+         web.department_dataview, name="department_list"),
+
+    # department specification frontend path
+
+    path('frontend/add/department/specification/', web.department_specification_form,
+         name="add_department_specification_form"),
+    path('frontend/store/department/specification/', web.store_department_specification,
+         name="store_department_specification"),
+    path('frontend/department/specification/list/',
+         web.department_specification_dataview, name="department_specification_list"),
 
     # doctor frontend path
 

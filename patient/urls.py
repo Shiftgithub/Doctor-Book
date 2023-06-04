@@ -9,6 +9,8 @@ urlpatterns = [
 
     path('', web.landing_dashboard, name="landing_dashboard"),
 
-    path('patient/register/', web.patient_register, name="patient_register"),
-    path('patient/login/', web.patient_login, name="patient_login"),
+    path('frontend/register/patient/',
+         web.register_patient, name="patient_register"),
+    path('frontend/store/patient', web.store_patient, name="store_patient"),
+    path('frontend/login/patient', web.login_patient, name="patient_login"),
 ]
