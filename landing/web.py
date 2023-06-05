@@ -27,6 +27,9 @@ def login(request):
 def doctor_register(request):
     return render(request, 'templates/landing/pages/register.html')
 
+def predict(request):
+    return render(request, 'templates/landing/pages/predict.html')
+
 
 def register_patient(request):
     return render(request, 'patient/form/register_form.html')

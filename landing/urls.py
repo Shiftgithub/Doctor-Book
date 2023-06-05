@@ -13,6 +13,7 @@ urlpatterns = [
     path('landing/article', web.landing_article, name="landing_article"),
     path('landing/login/', web.login, name="login"),
     path('landing/doctor/register/', web.doctor_register, name="doctor_register"),
+    path('landing/predict/', web.predict, name="predict"),
 
     # called api 
     path('frontend/store/patient', web.store_patient, name="store_patient"),

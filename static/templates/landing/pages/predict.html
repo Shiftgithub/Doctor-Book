@@ -1,0 +1,50 @@
+{% extends 'templates/landing/landing_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    #register {
+        background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<!-- ======= Login Section ======= -->
+<section id="register">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div style="padding-top:20px !important;"></div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title text-center">Predictor Page</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="PostForm" action="#" method="POST">
+                            {% csrf_token %}
+                            <div class="row mb-3">
+                                <div class="col-md-10">
+                                    <select class="form-control select2" id="specialtySelect" name="organ">
+                                        <option selected>Select Organ Name</option>
+                                        <option selected>Select Organ Name</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="{% static 'landing_assets/img/introduction.png' %}" class="img-fluid"
+                style="width: 100%">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Login Section -->
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
