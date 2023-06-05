@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib import messages
 from . import views
+from .models import *
 
 
 # Dashboard
@@ -180,4 +181,8 @@ def store_article(request):
     return render(request, 'admin/article/form.html')
 
 def article_dataview(request):
-    return render(request, 'admin/article/list_all.html')
+    articles = Article.objects.all()
+    context = {
+        'datas': articles
+    }
+    return render(request, 'admin/article/list_all.html',context)

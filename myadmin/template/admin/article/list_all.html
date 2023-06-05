@@ -17,8 +17,10 @@
             <table id="bodyPartData" class="table table-sm table-bordered table-striped">
                 <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Body Part</th>
+                    <th>Id</th>
+                    <th>Heading</th>
+                    <th>Tag</th>
+                    <th>Image</th>
                     <th>Description</th>
                     <th>Action</th>
                 </tr>
@@ -27,19 +29,14 @@
                 {% for data in datas %}
                 <tr>
                     <td>{{ data.id }}</td>
-                    <td>{{ data.name }}</td>
+                    <td>{{ data.heading }}</td>
+                    <td>{{ data.tag }}</td>
                     <td>{{ data.description }}</td>
                     <td>
                         <button class="btn btn-sm btn-info">
                             <i class="fas fa-edit"></i>
                         </button>
                     </td>
-                    <td>
-                        <button class="btn btn-sm btn-danger">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
                 {% endfor %}
                 </tbody>
             </table>
@@ -52,14 +49,15 @@
 <script>
     $(document).ready(function () {
         $.ajax({
-            url: "/api/bodypart/list/",
+            url: "/api/article/list/",
             method: "GET",
             success: function (data) {
                 var table = $("#bodyPartData").DataTable({
                     data: data,
                     columns: [
                         {data: "id"},
-                        {data: "name"},
+                        {data: "heading"},
+                        {data: "tag"},
                         {data: "description"},
                         {
                             data: null,

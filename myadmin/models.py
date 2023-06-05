@@ -89,11 +89,13 @@ class Article(models.Model):
     heading = models.CharField(max_length=255)
     tag = models.CharField(max_length=255)
     description = models.CharField(max_length=1000)
-    image = models.ImageField((""), upload_to=None, height_field=None, width_field=None)
+    image = models.ImageField(upload_to='images/article_images/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
-        return self.name
+        return self.heading
+    
+
 
