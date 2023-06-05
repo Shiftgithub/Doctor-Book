@@ -1,8 +1,9 @@
 {% load static %}
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
-
-        <h1 class="logo me-auto"><a href="{% url 'landing_dashboard' %}">Doctor Book</a></h1>
+        <!-- Navbar Logo -->
+        <a href="{% url 'landing_dashboard' %}" class="logo me-auto"><img src="{% static 'landing_assets/img/t_logo.png' %}" alt="" class="img-fluid"></a>
+        <!-- Navbar Toggle -->
         <nav id="navbar" class="navbar order-last order-lg-0">
             <ul>
                 <li><a class="nav-link scrollto" href="{% url 'landing_dashboard' %}">Home</a></li>
@@ -16,12 +17,4 @@
         </nav><!-- .navbar -->
     </div>
 </header>
-<section id="hero" class="d-flex align-items-center">
-    <div class="container">
-        <h1>Welcome to Doctor-Book</h1>
-        <h2>Not just better healthcare, but a better healthcare experience.</h2>
-        <a href="#about" class="btn-get-started scrollto">Get Started</a>
-    </div>
-</section><!-- End Hero -->
-
 <!-- End Header -->
