@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'myadmin.apps.MyadminConfig',
     'doctor.apps.DoctorConfig',
-    'patient.apps.PatientConfig',
+    'landing.apps.LandingConfig',
     'rest_framework',
 ]
 
@@ -66,7 +66,7 @@ TEMPLATES = [
             BASE_DIR / 'static',
             BASE_DIR / 'myadmin/template',
             BASE_DIR / 'doctor/template',
-            BASE_DIR / 'patient/template',
+            BASE_DIR / 'landing/template',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
