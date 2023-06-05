@@ -1,0 +1,88 @@
+{% extends 'templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'adminlte_assets/data_tables/css/datatable.min.css' %}">
+<link rel="stylesheet" href="{% static 'adminlte_assets/data_tables/css/datatable_button.min.css' %}">
+<link rel="stylesheet" href="{% static 'adminlte_assets/data_tables/css/datatable_responsive.min.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Articles</h1>
+        </div>
+        <div class="card-body">
+            <table id="bodyPartData" class="table table-sm table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Body Part</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in datas %}
+                <tr>
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.description }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/api/bodypart/list/",
+            method: "GET",
+            success: function (data) {
+                var table = $("#bodyPartData").DataTable({
+                    data: data,
+                    columns: [
+                        {data: "id"},
+                        {data: "name"},
+                        {data: "description"},
+                        {
+                            data: null,
+                            render: function () {
+                                return '<button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>';
+                            }
+                        }
+                    ],
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "order": false,
+                    "buttons": ["copy", "csv", "excel", "print", "colvis"]
+                }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
+            }
+        });
+    });
+</script>
+<!-- DataTables  & Plugins -->
+<script src="{% static 'adminlte_assets/data_tables/js/datatable.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/data_tables/js/datatable_button.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/data_tables/js/datatable_responsive.min.js' %}"></script>
+
+<script src="{% static 'adminlte_assets/js/data_table_settings.js' %}"></script>
+
+{% endblock %}

@@ -67,5 +67,11 @@ urlpatterns = [
     path('frontend/add/faq/', web.faq_form, name="add_faq_form"),
     path('frontend/store/faq/', web.store_faq, name="store_faq"),
     path('frontend/faq/list', web.faq_dataview, name="faq_list"),
+    
+     # faq frontend path
+
+    path('frontend/add/article/', web.article_form, name="add_article_form"),
+    path('frontend/store/article/', web.store_faq, name="store_article"),
+    path('frontend/article/list', web.faq_dataview, name="article_list"),
 
 ]

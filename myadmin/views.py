@@ -333,3 +333,31 @@ def get_all_faq_list(request):
     faq = FAQ.objects.all()
     serializer = FAQSerializer(faq, many=True)
     return Response(serializer.data)
+
+# Article 
+@api_view(['POST'])
+def store_article_data(request):
+    if request.method == 'POST':
+        article_serializer = ArticleSerializer(data=request.data)
+        if article_serializer.is_valid():
+            article_serializer.save()
+            data = {'key': 'null'}
+            message = 'Success'
+            status = 200
+            return JsonResponse({'data': data, 'message': message, 'status': status})
+        else:
+            data = {'key': '403 Forbidden'}
+            message = 'Error: Invalid request. Permission denied (e.g. invalid API key).'
+            status = 403
+            return JsonResponse({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request.'
+        status = 403
+        return JsonResponse({'data': data, 'message': message, 'status': status})
+
+@api_view(['GET'])
+def get_all_article_list(request):
+    article = Article.objects.all()
+    serializer = ArticleSerializer(article, many=True)
+    return Response(serializer.data)

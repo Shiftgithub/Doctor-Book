@@ -31,4 +31,7 @@ urlpatterns = [
     path('api/add/faq/', myadmin.views.store_faq_data, name="add_department"),
     path('api/faq/list/', myadmin.views.get_all_faq_list, name="faq_list"),
 
+    path('api/add/article/', myadmin.views.store_article_data, name="add_article"),
+    path('api/article/list/', myadmin.views.get_all_article_list, name="article_list"),
+
 ]

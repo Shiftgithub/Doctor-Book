@@ -162,3 +162,22 @@ def store_faq(request):
 
 def faq_dataview(request):
     return render(request, 'admin/faq/list_all.html')
+
+# Article
+
+def article_form(request):
+    return render(request, 'admin/article/form.html')
+
+def store_article(request):
+    operation_response = views.store_article_data(request)
+    if operation_response.status_code == 200:
+        messages.add_message(request, messages.INFO,
+                             "Article data stored successfully")
+    else:
+        messages.add_message(request, messages.ERROR,
+                             "Error in storing Article data")
+
+    return render(request, 'admin/article/form.html')
+
+def article_dataview(request):
+    return render(request, 'admin/article/list_all.html')
