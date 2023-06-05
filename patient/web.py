@@ -2,11 +2,16 @@ from django.shortcuts import render
 from django.contrib import messages
 from . import views
 
+
 # Patient
 
 
 def landing_dashboard(request):
-    return render(request, 'landing/dashboard.html')
+    return render(request, 'templates/landing/pages/home.html')
+
+
+def landing_doctors(request):
+    return render(request, 'templates/landing/pages/doctors.html')
 
 
 def register_patient(request):
@@ -26,4 +31,9 @@ def store_patient(request):
 
 
 def login_patient(request):
-    return render(request, 'patient/form/login_form.html')
+    return render(request, 'templates/landing/pages/login.html')
+
+
+# Renders Landing FAQ page
+def landing_faq(request):
+    return render(request, 'templates/landing/pages/faq.html')
