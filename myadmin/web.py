@@ -143,3 +143,22 @@ def store_department_specification(request):
 
 def department_specification_dataview(request):
     return render(request, 'admin/department_specification/list_all.html')
+
+# Frequently Asked Questions
+
+def faq_form(request):
+    return render(request, 'admin/faq/form.html')
+
+def store_faq(request):
+    operation_response = views.store_faq_data(request)
+    if operation_response.status_code == 200:
+        messages.add_message(request, messages.INFO,
+                             "FAQ data stored successfully")
+    else:
+        messages.add_message(request, messages.ERROR,
+                             "Error in storing FAQ data")
+
+    return render(request, 'admin/faq/form.html')
+
+def faq_dataview(request):
+    return render(request, 'admin/faq/list_all.html')

@@ -305,3 +305,31 @@ def get_all_department_specifications_list(request):
         data=department_specifications, many=True)
     serializer.is_valid()
     return Response(serializer.data)
+
+# FAQ 
+@api_view(['POST'])
+def store_faq_data(request):
+    if request.method == 'POST':
+        faq_serializer = FAQSerializer(data=request.data)
+        if faq_serializer.is_valid():
+            faq_serializer.save()
+            data = {'key': 'null'}
+            message = 'Success'
+            status = 200
+            return JsonResponse({'data': data, 'message': message, 'status': status})
+        else:
+            data = {'key': '403 Forbidden'}
+            message = 'Error: Invalid request. Permission denied (e.g. invalid API key).'
+            status = 403
+            return JsonResponse({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request.'
+        status = 403
+        return JsonResponse({'data': data, 'message': message, 'status': status})
+
+@api_view(['GET'])
+def get_all_faq_list(request):
+    faq = FAQ.objects.all()
+    serializer = FAQSerializer(faq, many=True)
+    return Response(serializer.data)

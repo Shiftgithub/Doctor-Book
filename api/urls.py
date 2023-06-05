@@ -28,4 +28,7 @@ urlpatterns = [
     path('api/add/doctor/', doctor.views.store_doctor_data, name="add_doctor"),
     path('api/doctors/list/', doctor.views.get_all_doctors_list, name="doctor_list"),
 
+    path('api/add/faq/', myadmin.views.store_faq_data, name="add_department"),
+    path('api/faq/list/', myadmin.views.get_all_faq_list, name="faq_list"),
+
 ]

@@ -70,3 +70,8 @@ class DepartmentSpecificationsSerializer(serializers.ModelSerializer):
         model = DepartmentSpecification
         fields = ['id', 'description', 'department',
                   'specification']
+
+class FAQSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FAQ
+        fields = '__all__'
