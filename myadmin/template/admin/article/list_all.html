@@ -31,6 +31,10 @@
                     <td>{{ data.id }}</td>
                     <td>{{ data.heading }}</td>
                     <td>{{ data.tag }}</td>
+                    <td>
+                        <img src="{{ data.image.url }}" alt="Article Image" width="100">
+                    </td>
+                    </td>
                     <td>{{ data.description }}</td>
                     <td>
                         <button class="btn btn-sm btn-info">
@@ -58,11 +62,12 @@
                         {data: "id"},
                         {data: "heading"},
                         {data: "tag"},
+                        {data: "image"},
                         {data: "description"},
                         {
                             data: null,
                             render: function () {
-                                return '<button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>';
+                                return '<button class="btn btn-sm btn-info">...</button>';
                             }
                         }
                     ],
