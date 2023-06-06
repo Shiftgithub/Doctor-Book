@@ -181,8 +181,8 @@ def store_article(request):
     return render(request, 'admin/article/form.html')
 
 def article_dataview(request):
-    articles = Article.objects.all()
-    context = {
-        'datas': articles
-    }
-    return render(request, 'admin/article/list_all.html',context)
+    # articles = Article.objects.all()
+    # context = {
+    #     'datas': articles
+    # }
+    return render(request, 'admin/article/list_all.html')

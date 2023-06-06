@@ -16,32 +16,32 @@
         <div class="card-body">
             <table id="bodyPartData" class="table table-sm table-bordered table-striped">
                 <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Heading</th>
-                    <th>Tag</th>
-                    <th>Image</th>
-                    <th>Description</th>
-                    <th>Action</th>
-                </tr>
+                    <tr>
+                        <th>Id</th>
+                        <th>Heading</th>
+                        <th>Tag</th>
+                        <th>Image</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {% for data in datas %}
-                <tr>
-                    <td>{{ data.id }}</td>
-                    <td>{{ data.heading }}</td>
-                    <td>{{ data.tag }}</td>
-                    <td>
-                        <img src="{{ data.image.url }}" alt="Article Image" width="100">
-                    </td>
-                    </td>
-                    <td>{{ data.description }}</td>
-                    <td>
-                        <button class="btn btn-sm btn-info">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </td>
-                {% endfor %}
+                    {% for data in datas %}
+                    <tr>
+                        <td>{{ data.id }}</td>
+                        <td>{{ data.heading }}</td>
+                        <td>{{ data.tag }}</td>
+                        <td>
+                            <img src="{{ data.image }}" alt="Article Image" width="100">
+                        </td>
+                        </td>
+                        <td>{{ data.description }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-info">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </td>
+                        {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -59,11 +59,16 @@
                 var table = $("#bodyPartData").DataTable({
                     data: data,
                     columns: [
-                        {data: "id"},
-                        {data: "heading"},
-                        {data: "tag"},
-                        {data: "image"},
-                        {data: "description"},
+                        { data: "id" },
+                        { data: "heading" },
+                        { data: "tag" },
+                        {
+                            data: "image",
+                            render: function (data) {
+                                return '<img src="' + data + '" alt="Article Image" width="100">';
+                            }
+                        },
+                        { data: "description" },
                         {
                             data: null,
                             render: function () {
