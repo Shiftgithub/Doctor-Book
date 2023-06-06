@@ -40,7 +40,9 @@ def bodypart_data_view(request):
 
 
 def organ_form(request):
-    return render(request, 'admin/organ/form.html')
+    response_bodypart = views.get_all_bodypart_list(request)
+    bodypart_data = response_bodypart.data
+    return render(request, 'admin/organ/form.html',{'bodypart_data':bodypart_data})
 
 
 def store_organ(request):
@@ -65,7 +67,9 @@ def organ_dataview(request):
 
 
 def organ_problem_form(request):
-    return render(request, 'admin/organ_problem/form.html')
+    response_organ = views.get_all_organs_list(request)
+    organ_data = response_organ.data
+    return render(request, 'admin/organ_problem/form.html',{'organ_data':organ_data})
 
 
 def store_organ_problem(request):
@@ -90,7 +94,9 @@ def organ_problem_dataview(request):
 
 
 def problem_specification_form(request):
-    return render(request, 'admin/problem_specification/form.html')
+    response_organ = views.get_all_organs_list(request)
+    organ_data = response_organ.data
+    return render(request, 'admin/problem_specification/form.html',{'organ_data':organ_data})
 
 
 def store_problem_specification(request):
@@ -137,7 +143,13 @@ def department_dataview(request):
 # Department Specification
 
 def department_specification_form(request):
-    return render(request, 'admin/department_specification/form.html')
+    response_department = views.get_all_departments_list(request)
+    department_data = response_department.data
+
+    specification_response = views.get_all_problem_specification_list(request)
+    specification_data = specification_response.data
+
+    return render(request, 'admin/department_specification/form.html',{'department_data':department_data,'specification_data':specification_data})
 
 
 def store_department_specification(request):

@@ -232,7 +232,6 @@ def get_all_problem_specification_list(request):
     # Serialize the data
     serializer = ProblemSpecificationSerializer(problem_specifications, many=True)
     serialized_data = serializer.data
-    print(serialized_data)
     return Response(serialized_data)
 
 

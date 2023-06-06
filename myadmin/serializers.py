@@ -22,7 +22,7 @@ class OrganSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description', 'bodypart']
 
 
-class OrganProblemSerializer(serializers.ModelSerializer):
+class OrganProblemStoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrgansProblem
         fields = '__all__'

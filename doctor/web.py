@@ -7,7 +7,9 @@ from django.shortcuts import get_object_or_404
 # Doctor
 
 def doctor_form(request):
-    return render(request, 'admin/doctor/form.html')
+    response_department = views.get_all_doctors_list(request)
+    department_data = response_department.data
+    return render(request, 'admin/doctor/form.html',{'department_data':department_data})
 
 
 def store_doctor(request):
