@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from django.http import JsonResponse
 from django.db import connection
 from .serializers import *
+from .models import *
 
 
 @api_view(['POST'])

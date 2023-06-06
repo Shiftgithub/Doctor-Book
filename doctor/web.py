@@ -1,7 +1,8 @@
-from django.shortcuts import render
 from . import views
+from django.shortcuts import render
 from django.contrib import messages
-
+from . models import Doctor
+from django.shortcuts import get_object_or_404
 
 # Doctor
 
@@ -23,13 +24,6 @@ def doctor_dataview(request):
     response = views.get_all_doctors_list(request)
     all_data = response.data
     return render(request, 'admin/doctor/list_all.html',{'all_data':all_data})
-
-
-# doctor registration form
-
-def doctor_register(request):
-    return render(request, 'form/register_form.html')
-
 
 
 
