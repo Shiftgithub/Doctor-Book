@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib import messages
+from rest_framework.renderers import JSONRenderer
 from . import views
 from .models import *
 
@@ -27,10 +28,13 @@ def store_bodypart(request):
 
     return render(request, 'admin/body_part/form.html')
 
-
 def bodypart_data_view(request):
-    return render(request, 'admin/body_part/list_all.html')
-
+    # Call the get_all_bodypart_list API view to retrieve all body parts
+    response = views.get_all_bodypart_list(request)
+    # Retrieve the serialized data from the response
+    all_data = response.data
+    # Render the data in the 'admin/body_part/list_all.html' template
+    return render(request, 'admin/body_part/list_all.html', {'all_data': all_data})
 
 # Organ
 
@@ -52,7 +56,9 @@ def store_organ(request):
 
 
 def organ_dataview(request):
-    return render(request, 'admin/organ/list_all.html')
+    response = views.get_all_organs_list(request)
+    all_data = response.data
+    return render(request, 'admin/organ/list_all.html',{'all_data': all_data})
 
 
 # Organ Problem
@@ -75,7 +81,9 @@ def store_organ_problem(request):
 
 
 def organ_problem_dataview(request):
-    return render(request, 'admin/organ_problem/list_all.html')
+    response = views.get_all_organ_problem_list(request)
+    all_data = response.data
+    return render(request, 'admin/organ_problem/list_all.html',{'all_data':all_data})
 
 
 # Problem Specification
@@ -98,8 +106,9 @@ def store_problem_specification(request):
 
 
 def problem_specification_dataview(request):
-    return render(request, 'admin/problem_specification/list_all.html')
-
+    response = views.get_all_problem_specification_list(request)
+    all_data = response.data
+    return render(request, 'admin/problem_specification/list_all.html',{'all_data':all_data})
 
 # department
 
@@ -121,8 +130,9 @@ def store_department(request):
 
 
 def department_dataview(request):
-    return render(request, 'admin/department/list_all.html')
-
+    response = views.get_all_departments_list(request)
+    all_data = response.data
+    return render(request, 'admin/department/list_all.html',{'all_data':all_data})
 
 # Department Specification
 
@@ -143,7 +153,9 @@ def store_department_specification(request):
 
 
 def department_specification_dataview(request):
-    return render(request, 'admin/department_specification/list_all.html')
+    response = views.get_all_department_specifications_list(request)
+    all_data = response.data
+    return render(request, 'admin/department_specification/list_all.html',{'all_data':all_data})
 
 # Frequently Asked Questions
 
@@ -162,7 +174,9 @@ def store_faq(request):
     return render(request, 'admin/faq/form.html')
 
 def faq_dataview(request):
-    return render(request, 'admin/faq/list_all.html')
+    response = views.get_all_faq_list(request)
+    all_data = response.data
+    return render(request, 'admin/faq/list_all.html',{'all_data':all_data})
 
 # Article
 
@@ -181,8 +195,6 @@ def store_article(request):
     return render(request, 'admin/article/form.html')
 
 def article_dataview(request):
-    # articles = Article.objects.all()
-    # context = {
-    #     'datas': articles
-    # }
-    return render(request, 'admin/article/list_all.html')
+    response = views.get_all_article_list(request)
+    all_data = response.data
+    return render(request, 'admin/article/list_all.html',{'all_data':all_data})

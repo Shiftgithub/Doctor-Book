@@ -25,9 +25,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for data in datas %}
+                {% for data in all_data %}
                 <tr>
-                    <td>{{ data.id }}</td>
+                    <td>{{ forloop.counter }}</td>  {# Use 'forloop.counter' to get the loop counter #}
                     <td>{{ data.name }}</td>
                     <td>{{ data.description }}</td>
                     <td>
@@ -49,28 +49,8 @@
 <script>
     $(document).ready(function () {
         $.ajax({
-            url: "/api/department/list/",
-            method: "GET",
             success: function (data) {
                 var table = $("#bodyPartData").DataTable({
-                    data: data,
-                    columns: [
-                        {data: "id"},
-                        {data: "name"},
-                        {data: "description"},
-                        {
-                            data: null,
-                            render: function () {
-                                return '<button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>';
-                            }
-                        },
-                        {
-                            data: null,
-                            render: function () {
-                                return '<button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
-                            }
-                        }
-                    ],
                     "responsive": true,
                     "lengthChange": false,
                     "autoWidth": false,
