@@ -7,5 +7,4 @@ urlpatterns = [
     path('frontend/doctors/list/', web.doctor_dataview, name="doctor_list"),
 
     path('doctor/register/', web.doctor_register, name="doctor_register"),
-    path('doctor/login/', web.doctor_login, name="doctor_login"),
 ]

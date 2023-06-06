@@ -31,18 +31,11 @@ def store_doctor_data(request):
 def get_all_doctors_list(request):
     # Execute the raw SQL query
     query = """
-    SELECT
-    dd.id,
-    dd.name,
-    dd.description,
-    md.name AS department_name
-    FROM
-    doctor_doctor AS dd
+    SELECT dd.id,dd.name,dd.description,
+    md.name AS department_name FROM doctor_doctor AS dd
     INNER JOIN myadmin_department AS md
-    ON
-    dd.department_id = md.id
-    ORDER BY
-    dd.id ASC
+    ON dd.department_id = md.id WHERE dd.deleted_at IS NULL
+    ORDER BY dd.id ASC
     """
     with connection.cursor() as cursor:
         cursor.execute(query)
@@ -60,6 +53,6 @@ def get_all_doctors_list(request):
         # Check the values before appending
         doctors.append(doctor)
     # Serialize the data
-    serializer = DoctorsSerializer(data=doctors, many=True)
-    serializer.is_valid()
-    return Response(serializer.data)
+    serializer = DoctorsSerializer(doctors, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)

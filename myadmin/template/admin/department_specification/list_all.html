@@ -53,17 +53,13 @@
 {% block scripts %}
 <script>
     $(document).ready(function () {
-        $.ajax({
-            success: function (data) {
-                var table = $("#bodyPartData").DataTable({
-                    "responsive": true,
-                    "lengthChange": false,
-                    "autoWidth": false,
-                    "order": false,
-                    "buttons": ["copy", "csv", "excel", "print", "colvis"]
-                }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
-            }
-        });
+        $("#bodyPartData").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "order": false,
+            "buttons": ["copy", "csv", "excel", "print", "colvis"]
+        }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
     });
 </script>
 

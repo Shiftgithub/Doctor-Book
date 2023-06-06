@@ -260,7 +260,6 @@ def store_department_data(request):
 
 @api_view(['GET'])
 def get_all_departments_list(request):
-    # department = Department.objects.all()
     query = """
     SELECT * FROM
     myadmin_department
@@ -283,7 +282,6 @@ def get_all_departments_list(request):
 
     serializer = DepartmentSerializer(departments, many=True)
     serialized_data = serializer.data
-    # print(serialized_data)
     return Response(serialized_data)
 
 
@@ -346,7 +344,6 @@ def get_all_department_specifications_list(request):
     # Serialize the data
     serializer = DepartmentSpecificationSerializer(department_specifications, many=True)
     serialized_data = serializer.data
-    # print(serialized_data)
     return Response(serialized_data)
 
 # FAQ 
@@ -375,7 +372,8 @@ def store_faq_data(request):
 def get_all_faq_list(request):
     faq = FAQ.objects.all()
     serializer = FAQSerializer(faq, many=True)
-    return Response(serializer.data)
+    serialized_data = serializer.data
+    return Response(serialized_data)
 
 # Article 
 @api_view(['POST'])
@@ -403,4 +401,5 @@ def store_article_data(request):
 def get_all_article_list(request):
     article = Article.objects.all()
     serializer = ArticleSerializer(article, many=True)
-    return Response(serializer.data)
+    serialized_data = serializer.data
+    return Response(serialized_data)

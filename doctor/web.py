@@ -20,7 +20,9 @@ def store_doctor(request):
 
 
 def doctor_dataview(request):
-    return render(request, 'admin/doctor/list_all.html')
+    response = views.get_all_doctors_list(request)
+    all_data = response.data
+    return render(request, 'admin/doctor/list_all.html',{'all_data':all_data})
 
 
 # doctor registration form
@@ -28,9 +30,6 @@ def doctor_dataview(request):
 def doctor_register(request):
     return render(request, 'form/register_form.html')
 
-
-def doctor_login(request):
-    return render(request, 'form/login_form.html')
 
 
 
