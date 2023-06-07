@@ -12,6 +12,13 @@ urlpatterns = [
 
     path('frontend/add/bodypart/', web.bodypart_form, name="add_bodypart_form"),
     path('frontend/store/bodypart/', web.store_bodypart, name="store_bodypart"),
+
+    path('frontend/bodypart/update/<int:bodypart_id>/', web.edit_bodypart_form, name="edit_bodypart_form"),
+    path('frontend/bodypart/edit/<int:bodypart_id>/', web.edit_bodypart, name='edit_bodypart'),
+    
+    path('frontend/bodypart/delete/<int:bodypart_id>/', web.delete_bodypart, name='delete_bodypart'),
+    path('frontend/bodypart/view/<int:bodypart_id>/', web.view_bodypart, name='view_bodypart'),
+    
     path('frontend/bodypart/list/', web.bodypart_data_view, name="bodypart_list"),
 
     # organ frontend path

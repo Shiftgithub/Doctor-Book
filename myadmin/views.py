@@ -1,8 +1,10 @@
+from .serializers import *
+from datetime import datetime
+from django.db import connection
+from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from django.http import JsonResponse
-from django.db import connection
-from .serializers import *
+from django.shortcuts import get_object_or_404
 
 
 @api_view(['POST'])
@@ -55,7 +57,45 @@ def get_all_bodypart_list(request):
 
     return Response(serialized_data)
 
+@api_view(['GET'])
+def bodypart_dataview(request, bodypart_id):
+    bodypart = get_object_or_404(BodyPart, id=bodypart_id)
+    serializer = BodyPartSerializer(instance=bodypart)
+    serialized_data = serializer.data
+    return Response(serialized_data)
 
+    
+@api_view(['PUT', 'POST'])
+def edit_bodypart_data(request, bodypart_id):
+    bodypart = BodyPart.objects.get(id=bodypart_id)
+    serializer = BodyPartSerializer(bodypart, data=request.data)
+    if serializer.is_valid():
+        serializer.save(updated_at= datetime.now())
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request. Permission denied (e.g., invalid API key).'
+        status = 403
+        return Response({'data': data, 'message': message, 'status': status})
+
+@api_view(['PUT', 'GET'])
+def softdelete_bodypart_data(request,bodypart_id):
+    bodypart = BodyPart.objects.get(id=bodypart_id)
+    serializer = BodyPartDeleteSerializer(bodypart, data=request.data)
+    if serializer.is_valid():
+        serializer.save(deleted_at=datetime.now())
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request. Permission denied (e.g., invalid API key).'
+        status = 403
+        return Response({'data': data, 'message': message, 'status': status})
 
 @api_view(['POST'])
 def store_organ_data(request):
