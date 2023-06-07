@@ -1,12 +1,15 @@
-from django.shortcuts import render
 from . import views
+from django.shortcuts import render
 from django.contrib import messages
-
+from . models import Doctor
+from django.shortcuts import get_object_or_404
 
 # Doctor
 
 def doctor_form(request):
-    return render(request, 'admin/doctor/form.html')
+    response_department = views.get_all_doctors_list(request)
+    department_data = response_department.data
+    return render(request, 'admin/doctor/form.html',{'department_data':department_data})
 
 
 def store_doctor(request):
@@ -20,17 +23,9 @@ def store_doctor(request):
 
 
 def doctor_dataview(request):
-    return render(request, 'admin/doctor/list_all.html')
-
-
-# doctor registration form
-
-def doctor_register(request):
-    return render(request, 'form/register_form.html')
-
-
-def doctor_login(request):
-    return render(request, 'form/login_form.html')
+    response = views.get_all_doctors_list(request)
+    all_data = response.data
+    return render(request, 'admin/doctor/list_all.html',{'all_data':all_data})
 
 
 

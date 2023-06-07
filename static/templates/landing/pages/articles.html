@@ -2,18 +2,23 @@
 {% load static %}
 
 {% block styles %}
+<style>
+  #article {
+      background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
   <!-- ======= article Section ======= -->
-  <section id="article" class="testimonials">
+  <section id="article" class="articles">
     <div class="container">
-      <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+      <div class="articles-slider swiper" data-aos="fade-up" data-aos-delay="100">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <div class="testimonial-wrap">
-              <div class="testimonial-item">
-                <img src="{% static 'landing_assets/img/articles/turan.jpg' %}" class="testimonial-img" alt="" />
+            <div class="article-wrap">
+              <div class="article-item">
+                <img src="{% static 'landing_assets/img/articles/turan.jpg' %}" class="article-img" alt="" />
                 <h3>Mamun Mia Turan</h3>
                 <h4>CEO &amp; Founder</h4>
                 <p>
@@ -22,8 +27,8 @@
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
               </div>
-              <div class="testimonial-item">
-                <img src="{% static 'landing_assets/img/articles/mumu.jpg' %}" class="testimonial-img" alt="" />
+              <div class="article-item">
+                <img src="{% static 'landing_assets/img/articles/mumu.jpg' %}" class="article-img" alt="" />
                 <h3>Meherun Nesa Mumu</h3>
                 <h4>MD &amp; Co-Founder</h4>
                 <p>
@@ -35,76 +40,12 @@
             </div>
           </div>
           <!-- End article item -->
-
-          <div class="swiper-slide">
-            <div class="testimonial-wrap">
-              <div class="testimonial-item">
-                <img src="{% static 'landing_assets/img/testimonials/testimonials-2.jpg' %}" class="testimonial-img" alt="" />
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
-            </div>
-          </div>
-          <!-- End testimonial item -->
-
-          <div class="swiper-slide">
-            <div class="testimonial-wrap">
-              <div class="testimonial-item">
-                <img src="{% static 'landing_assets/img/testimonials/testimonials-3.jpg' %}" class="testimonial-img" alt="" />
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
-            </div>
-          </div>
-          <!-- End testimonial item -->
-
-          <div class="swiper-slide">
-            <div class="testimonial-wrap">
-              <div class="testimonial-item">
-                <img src="{% static 'landing_assets/img/testimonials/testimonials-4.jpg' %}" class="testimonial-img" alt="" />
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
-            </div>
-          </div>
-          <!-- End testimonial item -->
-
-          <div class="swiper-slide">
-            <div class="testimonial-wrap">
-              <div class="testimonial-item">
-                <img src="{% static 'landing_assets/img/testimonials/testimonials-5.jpg' %}" class="testimonial-img" alt="" />
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
-            </div>
-          </div>
-          <!-- End testimonial item -->
         </div>
         <div class="swiper-pagination"></div>
       </div>
     </div>
   </section>
-  <!-- End Testimonials Section -->
+  <!-- End Articles Section -->
 {% endblock %}
 
 {% block scripts %}

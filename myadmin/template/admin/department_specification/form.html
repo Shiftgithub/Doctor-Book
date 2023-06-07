@@ -15,8 +15,8 @@
                     <div class="col-md-9">
                         <select class="form-control select2" id="specialtySelect" name="department">
                             <option selected>Select Department Name</option>
-                            {% for item in api_data %}
-                            <option value="{{ item.value }}">{{ item.label }}</option>
+                            {% for item in department_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -27,8 +27,8 @@
                     <div class="col-md-9">
                         <select class="form-control select2" id="problemSpecialtySelect" name="problem_specification">
                             <option selected>Select Problem Specification Name</option>
-                            {% for item in api_data %}
-                            <option value="{{ item.value }}">{{ item.label }}</option>
+                            {% for item in specification_data %}
+                            <option value="{{ item.id }}">{{ item.specification }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -38,8 +38,8 @@
                 <div class="row mb-3">
                     <label for="descriptionId" class="col-md-3 col-form-label">Description</label>
                     <div class="col-md-9">
-            <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
-                      rows="10"></textarea>
+                        <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
+                            rows="10"></textarea>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-sm btn-success float-right">Submit</button>
@@ -47,37 +47,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-    fetch('/api/department/list/')  // For Department List
-        .then(response => response.json())
-        .then(data => {
-            const selectElement = document.getElementById('specialtySelect');
-            data.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.id;
-                option.textContent = item.name;
-                selectElement.appendChild(option);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    fetch('/api/problem/specification/list/')  // For problem specification
-        .then(response => response.json())
-        .then(data => {
-            const selectElement = document.getElementById('problemSpecialtySelect');
-            data.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.id;
-                option.textContent = item.specification;
-                selectElement.appendChild(option);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-</script>
 {% endblock %}

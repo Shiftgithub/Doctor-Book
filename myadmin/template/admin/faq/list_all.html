@@ -24,9 +24,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for data in datas %}
+                {% for data in all_data %}
                 <tr>
-                    <td>{{ data.id }}</td>
+                    <td>{{ forloop.counter }}</td>  {# Use 'forloop.counter' to get the loop counter #}
                     <td>{{ data.question }}</td>
                     <td>{{ data.answer }}</td>
                     <td>
@@ -46,31 +46,13 @@
 {% block scripts %}
 <script>
     $(document).ready(function () {
-        $.ajax({
-            url: "/api/faq/list/",
-            method: "GET",
-            success: function (data) {
-                var table = $("#bodyPartData").DataTable({
-                    data: data,
-                    columns: [
-                        {data: "id"},
-                        {data: "question"},
-                        {data: "answer"},
-                        {
-                            data: null,
-                            render: function () {
-                                return '<button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>';
-                            }
-                        }
-                    ],
-                    "responsive": true,
-                    "lengthChange": false,
-                    "autoWidth": false,
-                    "order": false,
-                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-                }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
-            }
-        });
+        $("#bodyPartData").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "order": false,
+            "buttons": ["copy", "csv", "excel", "print", "colvis"]
+        }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
     });
 </script>
 <!-- DataTables  & Plugins -->

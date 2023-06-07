@@ -15,8 +15,8 @@
                     <div class="col-md-10">
                         <select class="form-control select2" id="specialtySelect" name="body_part">
                             <option selected>Select Body Part Name</option>
-                            {% for item in api_data %}
-                            <option value="{{ item.value }}">{{ item.label }}</option>
+                            {% for item in bodypart_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -41,23 +41,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-    fetch('/api/bodypart/list/')  // Replace with your API endpoint URL
-        .then(response => response.json())
-        .then(data => {
-            const selectElement = document.getElementById('specialtySelect');
-            data.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.id;
-                option.textContent = item.name;
-                selectElement.appendChild(option);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-</script>
 {% endblock %}

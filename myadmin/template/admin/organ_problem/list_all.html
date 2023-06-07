@@ -27,14 +27,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for data in datas %}
+                {% for data in all_data %}
                 <tr>
-                    <td>{{ data.id }}</td>
-                    <td>{{ data.organ_name }}</td>
+                    <td>{{ forloop.counter }}</td>  {# Use 'forloop.counter' to get the loop counter #}
+                    <td>{{ data.organ }}</td>
                     <td>{{ data.name }}</td>
                     <td>{{ data.description }}</td>
                     <td>
-                        <button class="btn btn-sm btn-danger">
+                        <button class="btn btn-sm btn-info">
                             <i class="fas fa-edit"></i>Edit
                         </button>
                     </td>
@@ -54,38 +54,13 @@
 {% block scripts %}
 <script>
     $(document).ready(function () {
-        $.ajax({
-            url: "/api/organ/problem/list/",
-            method: "GET",
-            success: function (data) {
-                var table = $("#bodyPartData").DataTable({
-                    data: data,
-                    columns: [
-                        {data: "id"},
-                        {data: "organ"},
-                        {data: "name"},
-                        {data: "description"},
-                        {
-                            data: null,
-                            render: function () {
-                                return '<button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>';
-                            }
-                        },
-                        {
-                            data: null,
-                            render: function () {
-                                return '<button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
-                            }
-                        }
-                    ],
-                    "responsive": true,
-                    "lengthChange": false,
-                    "autoWidth": false,
-                    "order": false,
-                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-                }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
-            }
-        });
+        $("#bodyPartData").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "order": false,
+            "buttons": ["copy", "csv", "excel", "print", "colvis"]
+        }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
     });
 </script>
 

@@ -8,13 +8,13 @@ class BodyPartSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class OrganSerializer(serializers.ModelSerializer):
+class OrganStoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organ
         fields = '__all__'
 
 
-class OrgansSerializer(serializers.ModelSerializer):
+class OrganSerializer(serializers.ModelSerializer):
     bodypart = serializers.CharField(source='bodypart_name')
 
     class Meta:
@@ -22,13 +22,13 @@ class OrgansSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description', 'bodypart']
 
 
-class OrganProblemSerializer(serializers.ModelSerializer):
+class OrganProblemStoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrgansProblem
         fields = '__all__'
 
 
-class OrganProblemsSerializer(serializers.ModelSerializer):
+class OrganProblemSerializer(serializers.ModelSerializer):
     organ = serializers.CharField(source='organ_name')
 
     class Meta:
@@ -36,13 +36,13 @@ class OrganProblemsSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description', 'organ']
 
 
-class ProblemSpecificationSerializer(serializers.ModelSerializer):
+class ProblemSpecificationStoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProblemSpecification
         fields = '__all__'
 
 
-class ProblemSpecificationsSerializer(serializers.ModelSerializer):
+class ProblemSpecificationSerializer(serializers.ModelSerializer):
     organ = serializers.CharField(source='organ_name')
 
     class Meta:
@@ -56,13 +56,13 @@ class DepartmentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class DepartmentSpecificationSerializer(serializers.ModelSerializer):
+class DepartmentSpecificationStoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = DepartmentSpecification
         fields = '__all__'
 
 
-class DepartmentSpecificationsSerializer(serializers.ModelSerializer):
+class DepartmentSpecificationSerializer(serializers.ModelSerializer):
     department = serializers.CharField(source='department_name')
     specification = serializers.CharField(source='problemspecification')
 
@@ -74,4 +74,9 @@ class DepartmentSpecificationsSerializer(serializers.ModelSerializer):
 class FAQSerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQ
+        fields = '__all__'
+
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
         fields = '__all__'

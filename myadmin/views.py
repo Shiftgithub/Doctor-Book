@@ -29,15 +29,38 @@ def store_bodypart_data(request):
 
 @api_view(['GET'])
 def get_all_bodypart_list(request):
-    bodypart = BodyPart.objects.all()
-    serializer = BodyPartSerializer(bodypart, many=True)
-    return Response(serializer.data)
+    query = """
+    SELECT * FROM
+    myadmin_bodypart
+    WHERE deleted_at IS NULL
+    ORDER BY id ASC
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        results = cursor.fetchall()
+
+    # Convert the query results into a list of dictionaries
+    bodyparts = []
+    for row in results:
+        bodypart = {
+            'id': row[0],
+            'name': row[1],
+            'description': row[2],
+        }
+        bodyparts.append(bodypart)
+
+    # Serialize the data
+    serializer = BodyPartSerializer(bodyparts, many=True)
+    serialized_data = serializer.data
+
+    return Response(serialized_data)
+
 
 
 @api_view(['POST'])
 def store_organ_data(request):
     if request.method == 'POST':
-        organ_serializer = OrganSerializer(data=request.data)
+        organ_serializer = OrganStoreSerializer(data=request.data)
         if organ_serializer.is_valid():
             organ_serializer.save()
             data = {'key': None}
@@ -60,15 +83,19 @@ def store_organ_data(request):
 def get_all_organs_list(request):
     query = """
     SELECT
-        mo.id,
-        mo.name,
-        mo.description,
-        mb.name AS bodypart_name
+    mo.id,
+    mo.name,
+    mo.description,
+    mb.name AS bodypart_name
     FROM
-        myadmin_organ AS mo
-    INNER JOIN
-        myadmin_bodypart AS mb ON mo.body_part_id = mb.id
-    ORDER BY mo.id   ASC
+    myadmin_organ AS mo
+    INNER JOIN myadmin_bodypart AS mb
+    ON
+    mo.body_part_id = mb.id
+    WHERE
+    mo.deleted_at IS NULL
+    ORDER BY
+    mo.id ASC
     """
     with connection.cursor() as cursor:
         cursor.execute(query)
@@ -86,22 +113,16 @@ def get_all_organs_list(request):
         # Check the values before appending
         organs.append(organ)
     # Serialize the data
-    serializer = OrgansSerializer(data=organs, many=True)
-    serializer.is_valid()
-    return Response(serializer.data)
+    serializer = OrganSerializer(organs, many=True)
+    serialized_data = serializer.data
 
-
-@api_view(['GET'])
-def organ_apiview(request):
-    organ = Organ.objects.all()
-    serializer = OrganSerializer(organ, many=True)
-    return Response(serializer.data)
+    return Response(serialized_data)
 
 
 @api_view(['POST'])
 def store_organ_problem_data(request):
     if request.method == 'POST':
-        organ_problem_serializer = OrganProblemSerializer(data=request.data)
+        organ_problem_serializer = OrganProblemStoreSerializer(data=request.data)
         if organ_problem_serializer.is_valid():
             organ_problem_serializer.save()
             data = {'key': 'null'}
@@ -132,6 +153,7 @@ def get_all_organ_problem_list(request):
         myadmin_organsproblem AS mop
     INNER JOIN
         myadmin_organ AS mo ON mop.organ_id = mo.id
+    WHERE mop.deleted_at IS NULL
     ORDER BY mop.id   ASC
     """
     with connection.cursor() as cursor:
@@ -150,15 +172,15 @@ def get_all_organ_problem_list(request):
         organ_problems.append(organ_problem)
 
     # Serialize the data
-    serializer = OrganProblemsSerializer(data=organ_problems, many=True)
-    serializer.is_valid()
-    return Response(serializer.data)
+    serializer = OrganProblemSerializer(organ_problems, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)
 
 
 @api_view(['POST'])
 def store_problem_specification_data(request):
     if request.method == 'POST':
-        problem_specification_serializer = ProblemSpecificationSerializer(data=request.data)
+        problem_specification_serializer = ProblemSpecificationStoreSerializer(data=request.data)
         if problem_specification_serializer.is_valid():
             problem_specification_serializer.save()
             data = {'key': 'null'}
@@ -189,7 +211,7 @@ def get_all_problem_specification_list(request):
     myadmin_problemspecification AS mps
     INNER JOIN myadmin_organ AS mo
     WHERE
-    mps.organ_id = mo.id
+    mps.organ_id = mo.id AND mps.deleted_at IS NULL
     ORDER BY mps.id   ASC
     """
     with connection.cursor() as cursor:
@@ -203,16 +225,14 @@ def get_all_problem_specification_list(request):
             'id': row[0],
             'specification': row[1],
             'description': row[2],
-            'organ_name': row[3]
+            'organ_name': row[3],
         }
         problem_specifications.append(problem_specification)
 
     # Serialize the data
-    serializer = ProblemSpecificationsSerializer(
-        data=problem_specifications, many=True)
-    serializer.is_valid()
-
-    return Response(serializer.data)
+    serializer = ProblemSpecificationSerializer(problem_specifications, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)
 
 
 @api_view(['POST'])
@@ -239,16 +259,36 @@ def store_department_data(request):
 
 @api_view(['GET'])
 def get_all_departments_list(request):
-    department = Department.objects.all()
-    serializer = DepartmentSerializer(department, many=True)
-    return Response(serializer.data)
+    query = """
+    SELECT * FROM
+    myadmin_department
+    WHERE deleted_at IS NULL
+    ORDER BY id ASC
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        results = cursor.fetchall()
+
+    # Convert the query results into a list of dictionaries
+    departments = []
+    for row in results:
+        department = {
+            'id': row[0],
+            'name': row[1],
+            'description': row[2],
+        }
+        departments.append(department)
+
+    serializer = DepartmentSerializer(departments, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)
 
 
 @api_view(['POST'])
 def store_department_specification_data(request):
     if request.method == 'POST':
 
-        department_specification_serializer = DepartmentSpecificationSerializer(
+        department_specification_serializer = DepartmentSpecificationStoreSerializer(
             data=request.data)
         if department_specification_serializer.is_valid():
             department_specification_serializer.save()
@@ -282,7 +322,7 @@ def get_all_department_specifications_list(request):
     INNER JOIN myadmin_department AS md
     INNER JOIN myadmin_problemspecification AS mps
     WHERE
-    mds.department_id = md.id AND mds.problem_specification_id = mps.id  
+    mds.department_id = md.id AND mds.problem_specification_id = mps.id  AND mds.deleted_at IS NULL
     ORDER BY mds.id   ASC
     """
     with connection.cursor() as cursor:
@@ -301,10 +341,9 @@ def get_all_department_specifications_list(request):
         # Check the values before appending
         department_specifications.append(department_specification)
     # Serialize the data
-    serializer = DepartmentSpecificationsSerializer(
-        data=department_specifications, many=True)
-    serializer.is_valid()
-    return Response(serializer.data)
+    serializer = DepartmentSpecificationSerializer(department_specifications, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)
 
 # FAQ 
 @api_view(['POST'])
@@ -332,4 +371,34 @@ def store_faq_data(request):
 def get_all_faq_list(request):
     faq = FAQ.objects.all()
     serializer = FAQSerializer(faq, many=True)
-    return Response(serializer.data)
+    serialized_data = serializer.data
+    return Response(serialized_data)
+
+# Article 
+@api_view(['POST'])
+def store_article_data(request):
+    if request.method == 'POST':
+        article_serializer = ArticleSerializer(data=request.data)
+        if article_serializer.is_valid():
+            article_serializer.save()
+            data = {'key': 'null'}
+            message = 'Success'
+            status = 200
+            return JsonResponse({'data': data, 'message': message, 'status': status})
+        else:
+            data = {'key': '403 Forbidden'}
+            message = 'Error: Invalid request. Permission denied (e.g. invalid API key).'
+            status = 403
+            return JsonResponse({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request.'
+        status = 403
+        return JsonResponse({'data': data, 'message': message, 'status': status})
+
+@api_view(['GET'])
+def get_all_article_list(request):
+    article = Article.objects.all()
+    serializer = ArticleSerializer(article, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)
