@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-7">
                 <h1 class="mt-4">Personalized Doctor Predictor</h1>
-                <h2>Get amazing predictions of expert doctors based on your problem specification</h2>
+                <h2 id="subtitleID"></h2>
                 <a href="{% url 'predict' %}" class="btn-get-started scrollto">Predict Now <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="col-md-5">
@@ -76,4 +76,14 @@
 {% endblock %}
 
 {% block scripts %}
+
+<script src="{% static 'landing_assets/js/typeit-8.2.0/package/dist/index.umd.js' %}"></script>
+<script>
+    new TypeIt('#subtitleID', {
+        strings: "Get amazing predictions of expert doctors based on your problem specification",
+        speed: 60,
+        waitUntilVisible: true,
+        loop: true
+    }).go();
+</script>
 {% endblock %}
