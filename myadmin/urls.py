@@ -15,8 +15,9 @@ urlpatterns = [
 
     path('frontend/bodypart/update/<int:bodypart_id>/', web.edit_bodypart_form, name="edit_bodypart_form"),
     path('frontend/bodypart/edit/<int:bodypart_id>/', web.edit_bodypart, name='edit_bodypart'),
-
+    
     path('frontend/bodypart/delete/<int:bodypart_id>/', web.delete_bodypart, name='delete_bodypart'),
+    path('frontend/bodypart/view/<int:bodypart_id>/', web.view_bodypart, name='view_bodypart'),
     
     path('frontend/bodypart/list/', web.bodypart_data_view, name="bodypart_list"),
 

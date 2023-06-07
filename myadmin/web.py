@@ -55,6 +55,12 @@ def edit_bodypart(request, bodypart_id):
 
     return redirect('edit_bodypart_form', bodypart_id=bodypart_id)
 
+def view_bodypart(request,bodypart_id):
+
+    response_bodypart = views.bodypart_dataview(request, bodypart_id)
+    bodypart_data = response_bodypart.data
+    return render(request, 'admin/body_part/view.html', {'bodypart_data': bodypart_data})
+
 def delete_bodypart(request,bodypart_id):
 
     operation_response = views.softdelete_bodypart_data(request,bodypart_id)
