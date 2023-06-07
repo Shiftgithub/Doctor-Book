@@ -10,8 +10,8 @@ class BodyPart(models.Model):
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 
 class Organ(models.Model):

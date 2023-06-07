@@ -9,6 +9,7 @@ urlpatterns = [
     path('api/add/bodypart/', myadmin.views.store_bodypart_data, name="add_bodypart"),
     path('api/bodypart/list/', myadmin.views.get_all_bodypart_list, name="bodypart_list"),
     path('api/bodypart/edit/<int:bodypart_id>/', myadmin.views.edit_bodypart_data, name='edit_bodypart'),
+    path('api/bodypart/delete/<int:bodypart_id>/', myadmin.views.softdelete_bodypart_data, name='softdelete_bodypart'),
 
     # organ api path
     path('api/add/organ/', myadmin.views.store_organ_data, name="add_organ"),

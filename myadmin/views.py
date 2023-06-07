@@ -81,6 +81,21 @@ def edit_bodypart_data(request, bodypart_id):
         status = 403
         return Response({'data': data, 'message': message, 'status': status})
 
+@api_view(['PUT', 'GET'])
+def softdelete_bodypart_data(request,bodypart_id):
+    bodypart = BodyPart.objects.get(id=bodypart_id)
+    serializer = BodyPartDeleteSerializer(bodypart, data=request.data)
+    if serializer.is_valid():
+        serializer.save(deleted_at=datetime.now())
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request. Permission denied (e.g., invalid API key).'
+        status = 403
+        return Response({'data': data, 'message': message, 'status': status})
 
 @api_view(['POST'])
 def store_organ_data(request):

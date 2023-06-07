@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from rest_framework.renderers import JSONRenderer
+from datetime import datetime
 from . import views
 from .models import *
 
@@ -55,6 +55,16 @@ def edit_bodypart(request, bodypart_id):
 
     return redirect('edit_bodypart_form', bodypart_id=bodypart_id)
 
+def delete_bodypart(request,bodypart_id):
+
+    operation_response = views.softdelete_bodypart_data(request,bodypart_id)
+
+    if operation_response.status_code == 200:
+        messages.add_message(request, messages.INFO, "Body Part data deleted successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error deleting Body Part data")
+
+    return redirect('bodypart_list')
 
 # Organ
 
