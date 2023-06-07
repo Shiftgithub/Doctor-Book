@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @api_view(['POST'])
@@ -51,20 +52,42 @@ def get_all_bodypart_list(request):
         }
         bodyparts.append(bodypart)
 
-    # Serialize the data
     serializer = BodyPartSerializer(bodyparts, many=True)
     serialized_data = serializer.data
 
     return Response(serialized_data)
+    
+# @api_view(['GET'])
+# def bodypart_dataview(request, bodypart_id):
+#     bodypart = get_object_or_404(BodyPart, id=bodypart_id)
+#     serializer = BodyPartSerializer(instance=bodypart)
+#     serialized_data = serializer.data
+#     return Response(serialized_data)
 
 @api_view(['GET'])
 def bodypart_dataview(request, bodypart_id):
-    bodypart = get_object_or_404(BodyPart, id=bodypart_id)
+    query = """
+    SELECT * FROM myadmin_bodypart
+    WHERE id = %s AND deleted_at IS NULL
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(query, [bodypart_id])
+        results = cursor.fetchall()
+
+    for row in results:
+        bodypart = {
+            'id': row[0],
+            'name': row[1],
+            'description': row[2],
+            'created_at': row[3],
+            'updated_at': row[4],
+        }
+
     serializer = BodyPartSerializer(instance=bodypart)
     serialized_data = serializer.data
     return Response(serialized_data)
 
-    
+
 @api_view(['PUT', 'POST'])
 def edit_bodypart_data(request, bodypart_id):
     bodypart = BodyPart.objects.get(id=bodypart_id)
@@ -132,8 +155,7 @@ def get_all_organs_list(request):
     INNER JOIN myadmin_bodypart AS mb
     ON
     mo.body_part_id = mb.id
-    WHERE
-    mo.deleted_at IS NULL
+    WHERE mo.deleted_at IS NULL
     ORDER BY
     mo.id ASC
     """
@@ -158,6 +180,73 @@ def get_all_organs_list(request):
 
     return Response(serialized_data)
 
+@api_view(['GET'])
+def organ_dataview(request, organ_id):
+    query = """
+        SELECT
+        mo.id,
+        mo.name,
+        mo.description,
+        mo.created_at,
+        mo.updated_at,
+        mb.name AS bodypart_name
+        FROM myadmin_organ AS mo
+        INNER JOIN myadmin_bodypart AS mb
+        ON mo.body_part_id = mb.id
+        WHERE mo.id = %s AND mo.deleted_at IS NULL 
+        ORDER BY mo.id ASC
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(query, [organ_id])
+        results = cursor.fetchall()
+
+    for row in results:
+        organ = {
+            'id': row[0],
+            'name': row[1],
+            'description': row[2],
+            'created_at': row[3],
+            'updated_at': row[4],
+            'bodypart_name': row[5],
+        }
+
+    serializer = OrganSerializer(instance=organ)
+    serialized_data = serializer.data
+    return Response(serialized_data)
+
+
+@api_view(['PUT', 'POST'])
+def edit_organ_data(request, organ_id):
+    organ = Organ.objects.get(id=organ_id)
+    serializer = OrganStoreSerializer(organ, data=request.data)
+    print(organ)
+    if serializer.is_valid():
+        serializer.save(updated_at= datetime.now())
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request. Permission denied (e.g., invalid API key).'
+        status = 403
+        return Response({'data': data, 'message': message, 'status': status})
+
+@api_view(['PUT', 'GET'])
+def softdelete_organ_data(request,bodypart_id):
+    organ = Organ.objects.get(id=bodypart_id)
+    serializer = OrganDeleteSerializer(organ, data=request.data)
+    if serializer.is_valid():
+        serializer.save(deleted_at=datetime.now())
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request. Permission denied (e.g., invalid API key).'
+        status = 403
+        return Response({'data': data, 'message': message, 'status': status})
 
 @api_view(['POST'])
 def store_organ_problem_data(request):

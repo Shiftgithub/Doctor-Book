@@ -56,7 +56,6 @@ def edit_bodypart(request, bodypart_id):
     return redirect('edit_bodypart_form', bodypart_id=bodypart_id)
 
 def view_bodypart(request,bodypart_id):
-
     response_bodypart = views.bodypart_dataview(request, bodypart_id)
     bodypart_data = response_bodypart.data
     return render(request, 'admin/body_part/view.html', {'bodypart_data': bodypart_data})
@@ -98,6 +97,39 @@ def organ_dataview(request):
     all_data = response.data
     return render(request, 'admin/organ/list_all.html',{'all_data': all_data})
 
+def edit_organ_form(request, organ_id):
+    response_bodypart = views.get_all_bodypart_list(request)
+    bodypart_data = response_bodypart.data
+
+    response_organ = views.organ_dataview(request, organ_id)
+    organ_data = response_organ.data
+    return render(request, 'admin/organ/edit.html', {'bodypart_data':bodypart_data,'organ_data': organ_data})
+
+def edit_organ(request, organ_id):
+    operation_response = views.edit_organ_data(request,organ_id)
+
+    if operation_response.status_code == 200:
+        messages.add_message(request, messages.INFO, "Organ data edited successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error editing organ data")
+
+    return redirect('edit_organ_form', organ_id=organ_id)
+
+def view_organ(request, organ_id):
+    response_organ = views.organ_dataview(request, organ_id)
+    organ_data = response_organ.data
+    return render(request, 'admin/organ/view.html', {'organ_data': organ_data})
+
+def delete_organ(request,organ_id):
+
+    operation_response = views.softdelete_organ_data(request,organ_id)
+
+    if operation_response.status_code == 200:
+        messages.add_message(request, messages.INFO, "Organ data deleted successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error deleting Organ data")
+
+    return redirect('organ_list')
 
 # Organ Problem
 

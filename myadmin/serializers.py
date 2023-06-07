@@ -24,8 +24,12 @@ class OrganSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Organ
-        fields = ['id', 'name', 'description', 'bodypart']
+        fields = ['id', 'name', 'description','created_at','updated_at','deleted_at', 'bodypart']
 
+class OrganDeleteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organ
+        fields = ['deleted_at']
 
 class OrganProblemStoreSerializer(serializers.ModelSerializer):
     class Meta:
