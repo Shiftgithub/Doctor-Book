@@ -20,7 +20,7 @@
                         <th>#</th>
                         <th>Body Part</th>
                         <th>Description</th>
-                        <th>Action</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,9 +30,9 @@
                         <td>{{ data.name }}</td>
                         <td>{{ data.description }}</td>
                         <td>
-                            <button class="btn btn-sm btn-info">
+                            <a href="{% url 'edit_bodypart_form' data.id %}" class="btn btn-sm btn-info">
                                 <i class="fas fa-edit"></i>
-                            </button>
+                            </a>
                         </td>
                     </tr>
                     {% endfor %}

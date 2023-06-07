@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib import messages
 from rest_framework.renderers import JSONRenderer
 from . import views
@@ -35,6 +35,26 @@ def bodypart_data_view(request):
     all_data = response.data
     # Render the data in the 'admin/body_part/list_all.html' template
     return render(request, 'admin/body_part/list_all.html', {'all_data': all_data})
+
+def edit_bodypart_form(request, bodypart_id):
+    response_bodypart = views.bodypart_dataview(request, bodypart_id)
+    bodypart_data = response_bodypart.data
+    if bodypart_data.get('id'):  # Check if id exists in bodypart_data
+        return render(request, 'admin/body_part/edit.html', {'bodypart_data': bodypart_data})
+    else:
+        return redirect('error_page')  # Redirect to the error page
+
+
+def edit_bodypart(request, bodypart_id):
+    operation_response = views.edit_bodypart_data(request,bodypart_id)
+
+    if operation_response.status_code == 200:
+        messages.add_message(request, messages.INFO, "Body Part data edited successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error editing Body Part data")
+
+    return redirect('edit_bodypart_form', bodypart_id=bodypart_id)
+
 
 # Organ
 
