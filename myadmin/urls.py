@@ -42,6 +42,11 @@ urlpatterns = [
     path('frontend/organ/problem/list/',
          web.organ_problem_dataview, name="organ_problem_list"),
 
+    path('frontend/organ/problem/update/<int:organ_problem_id>/', web.edit_organ_problem_form, name="edit_organ_problem_form"),
+    path('frontend/organ/problem/edit/<int:organ_problem_id>/', web.edit_organ_problem, name='edit_organ_problem'),
+    path('frontend/organ/delete/problem/<int:organ_problem_id>/', web.delete_organ_problem, name='delete_organ_problem'),
+    path('frontend/organ/view/problem/<int:organ_problem_id>/', web.view_organ_problem, name='view_organ_problem'),
+
     # problem specification frontend path
 
     path('frontend/add/problem/specification/', web.problem_specification_form,

@@ -5,24 +5,43 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
-            <h1 class="card-title">Edit Body Part Info</h1>
+            <h1 class="card-title">Edit Organ Info</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'edit_bodypart' bodypart_data.id %}" method="POST">
+            <form id="PostForm" action="{% url 'edit_organ_problem' organ_problem_data.id %}" method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="bodyPartNameId" class="col-md-2 col-form-label">Body Part Name</label>
+                    <label for="specialtySelect" class="col-md-2 col-form-label">Body Part Name</label>
                     <div class="col-md-10">
-                        <input type="text" value="{{ bodypart_data.name }}" class="form-control" id="bodyPartNameId" name="name" />
+                        <select class="form-control select2" id="specialtySelect" name="organ">
+                            <option selected>Select Body Part Name</option>
+                            {% for item in organ_data %}
+                            {% if item.name == organ_problem_data.organ %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <!-- Add form fields here -->
+                <div class="row mb-3">
+                    <label for="organNameId" class="col-md-2 col-form-label">Organ Name</label>
+                    <div class="col-md-10">
+                        <input type="text" value="{{ organ_problem_data.name}}" class="form-control" id="organNameId"
+                            name="name" />
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="descriptionId" class="col-md-2 col-form-label">Description</label>
                     <div class="col-md-10">
-                        <textarea name="description" id="descriptionId" class="form-control" cols="30" rows="10">{{ bodypart_data.description }}</textarea>
+                        <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
+                            rows="10">{{ organ_problem_data.description }}</textarea>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-sm btn-warning float-right">Update</button>
+                <button type="submit" class="btn btn-sm btn-success float-right">Submit</button>
             </form>
         </div>
     </div>

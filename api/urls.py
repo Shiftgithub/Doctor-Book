@@ -20,12 +20,16 @@ urlpatterns = [
     path('api/organ/delete/<int:organ_id>/', myadmin.views.softdelete_organ_data, name='delete_organ'),
     path('api/organ/view/<int:organ_id>/', myadmin.views.organ_dataview, name='view_organ'),
 
-
-#################
+    # organ Problem api path
 
     path('api/add/organ/problem/', myadmin.views.store_organ_problem_data, name="add_organ_problem"),
     path('api/organ/problem/list/', myadmin.views.get_all_organ_problem_list, name="organ_problem_list"),
 
+    path('api/organ/problem/edit/<int:organ_problem_id>/', myadmin.views.edit_organ_problem_data, name='edit_organ_problem'),
+    path('api/organ/problem/delete/<int:organ_problem_id>/', myadmin.views.softdelete_organ_problem_data, name='delete_organ_problem'),
+    path('api/organ/problem/view/<int:organ_problem_id>/', myadmin.views.organ_problem_dataview, name='view_organ_problem'),
+
+    # problem specification api path
 
     path('api/add/problem/specification/', myadmin.views.store_problem_specification_data, name="add_problem_specification"),
     path('api/problem/specification/list/', myadmin.views.get_all_problem_specification_list, name="problem_specification_list"),
