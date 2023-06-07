@@ -68,6 +68,10 @@ class DepartmentSerializer(serializers.ModelSerializer):
         model = Department
         fields = '__all__'
 
+class DepartmentDeleteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Department
+        fields = ['deleted_at']
 
 class DepartmentSpecificationStoreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -88,6 +92,11 @@ class FAQSerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQ
         fields = '__all__'
+
+class FAQDeleteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FAQ
+        fields = ['deleted_at']
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:

@@ -15,7 +15,6 @@ urlpatterns = [
 
     path('frontend/bodypart/update/<int:bodypart_id>/', web.edit_bodypart_form, name="edit_bodypart_form"),
     path('frontend/bodypart/edit/<int:bodypart_id>/', web.edit_bodypart, name='edit_bodypart'),
-    
     path('frontend/bodypart/delete/<int:bodypart_id>/', web.delete_bodypart, name='delete_bodypart'),
     path('frontend/bodypart/view/<int:bodypart_id>/', web.view_bodypart, name='view_bodypart'),
     
@@ -65,6 +64,10 @@ urlpatterns = [
     path('frontend/department/list/',
          web.department_dataview, name="department_list"),
 
+    path('frontend/department/update/<int:department_id>/', web.edit_department_form, name="edit_department_form"),
+    path('frontend/department/edit/<int:department_id>/', web.edit_department, name='edit_department'),
+    path('frontend/department/delete/<int:department_id>/', web.delete_department, name='delete_department'),
+    path('frontend/department/view/<int:department_id>/', web.view_department, name='view_department'),
     # department specification frontend path
 
     path('frontend/add/department/specification/', web.department_specification_form,
@@ -84,12 +87,19 @@ urlpatterns = [
 
     path('frontend/add/faq/', web.faq_form, name="add_faq_form"),
     path('frontend/store/faq/', web.store_faq, name="store_faq"),
-    path('frontend/faq/list', web.faq_dataview, name="faq_list"),
+    path('frontend/faq/list/', web.faq_dataview, name="faq_list"),
+
+    path('frontend/faq/update/<int:faq_id>/', web.edit_faq_form, name="edit_faq_form"),
+    path('frontend/faq/edit/<int:faq_id>/', web.edit_faq, name='edit_faq'),
+    path('frontend/faq/delete/<int:faq_id>/', web.delete_faq, name='delete_faq'),
+    path('frontend/faq/view/<int:faq_id>/', web.view_faq, name='view_faq'),
     
-     # faq frontend path
+     # article frontend path
 
     path('frontend/add/article/', web.article_form, name="add_article_form"),
     path('frontend/store/article/', web.store_article, name="store_article"),
     path('frontend/article/list', web.article_dataview, name="article_list"),
+
+    
 
 ]

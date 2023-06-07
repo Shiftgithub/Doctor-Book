@@ -34,9 +34,16 @@ urlpatterns = [
     path('api/add/problem/specification/', myadmin.views.store_problem_specification_data, name="add_problem_specification"),
     path('api/problem/specification/list/', myadmin.views.get_all_problem_specification_list, name="problem_specification_list"),
 
+     # department specification api path
+
     path('api/add/department/', myadmin.views.store_department_data, name="add_department"),
     path('api/department/list/', myadmin.views.get_all_departments_list, name="department_list"),
 
+    path('api/department/edit/<int:department_id>/', myadmin.views.edit_department_data, name='edit_department'),
+    path('api/department/delete/<int:department_id>/', myadmin.views.softdelete_department_data, name='delete_department'),
+    path('api/department/view/<int:department_id>/', myadmin.views.department_dataview, name='view_department'),
+
+    # department specification api path
     path('api/add/department/specification/', myadmin.views.store_department_specification_data, name="add_department_specification"),
     path('api/department/specification/list/', myadmin.views.get_all_department_specifications_list, name="department_specification_list"),
 
@@ -45,6 +52,10 @@ urlpatterns = [
 
     path('api/add/faq/', myadmin.views.store_faq_data, name="add_department"),
     path('api/faq/list/', myadmin.views.get_all_faq_list, name="faq_list"),
+
+    path('api/faq/edit/<int:faq_id>/', myadmin.views.edit_faq_data, name='edit_faq'),
+    path('api/faq/delete/<int:faq_id>/', myadmin.views.softdelete_faq_data, name='delete_faq'),
+    path('api/faq/view/<int:faq_id>/', myadmin.views.faq_dataview, name='view_faq'),
 
     path('api/add/article/', myadmin.views.store_article_data, name="add_article"),
     path('api/article/list/', myadmin.views.get_all_article_list, name="article_list"),

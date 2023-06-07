@@ -569,6 +569,63 @@ def get_all_departments_list(request):
     serialized_data = serializer.data
     return Response(serialized_data)
 
+@api_view(['GET'])
+def department_dataview(request, department_id):
+    query = """
+    SELECT * FROM myadmin_department
+    WHERE id = %s AND deleted_at IS NULL
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(query, [department_id])
+        results = cursor.fetchall()
+
+    for row in results:
+        department = {
+            'id': row[0],
+            'name': row[1],
+            'description': row[2],
+            'created_at': row[3],
+            'updated_at': row[4],
+        }
+
+    serializer = DepartmentSerializer(instance=department)
+    serialized_data = serializer.data
+    return Response(serialized_data)
+
+# department edit funtion
+
+@api_view(['PUT', 'POST'])
+def edit_department_data(request, department_id):
+    department = Department.objects.get(id=department_id)
+    serializer = DepartmentSerializer(department, data=request.data)
+    if serializer.is_valid():
+        serializer.save(updated_at= datetime.now())
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request. Permission denied (e.g., invalid API key).'
+        status = 403
+        return Response({'data': data, 'message': message, 'status': status})
+
+# department delete funtion
+@api_view(['PUT', 'GET'])
+def softdelete_department_data(request,department_id):
+    department = Department.objects.get(id=department_id)
+    serializer = DepartmentDeleteSerializer(department, data=request.data)
+    if serializer.is_valid():
+        serializer.save(deleted_at=datetime.now())
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request. Permission denied (e.g., invalid API key).'
+        status = 403
+        return Response({'data': data, 'message': message, 'status': status})
 
 @api_view(['POST'])
 def store_department_specification_data(request):
@@ -655,10 +712,90 @@ def store_faq_data(request):
 
 @api_view(['GET'])
 def get_all_faq_list(request):
-    faq = FAQ.objects.all()
-    serializer = FAQSerializer(faq, many=True)
+    query = """
+    SELECT * FROM
+    myadmin_faq
+    WHERE deleted_at IS NULL
+    ORDER BY id ASC
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        results = cursor.fetchall()
+
+    # Convert the query results into a list of dictionaries
+    faqs = []
+    for row in results:
+        faq = {
+            'id': row[0],
+            'question': row[1],
+            'answer': row[2],
+        }
+        faqs.append(faq)
+
+    serializer = FAQSerializer(faqs, many=True)
+    serialized_data = serializer.data
+
+    return Response(serialized_data)
+
+    
+@api_view(['GET'])
+def faq_dataview(request, faq_id):
+    query = """
+    SELECT * FROM myadmin_faq
+    WHERE id = %s AND deleted_at IS NULL
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(query, [faq_id])
+        results = cursor.fetchall()
+
+    for row in results:
+        faq = {
+            'id': row[0],
+            'question': row[1],
+            'answer': row[2],
+            'created_at': row[3],
+            'updated_at': row[4],
+        }
+
+    serializer = FAQSerializer(instance=faq)
     serialized_data = serializer.data
     return Response(serialized_data)
+
+# faq edit funtion
+
+@api_view(['PUT', 'POST'])
+def edit_faq_data(request, faq_id):
+    faq = FAQ.objects.get(id=faq_id)
+    serializer = FAQSerializer(faq, data=request.data)
+    if serializer.is_valid():
+        serializer.save(updated_at= datetime.now())
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request. Permission denied (e.g., invalid API key).'
+        status = 403
+        return Response({'data': data, 'message': message, 'status': status})
+
+# faq delete funtion
+@api_view(['PUT', 'GET'])
+def softdelete_faq_data(request,faq_id):
+    faq = FAQ.objects.get(id=faq_id)
+    serializer = FAQDeleteSerializer(faq, data=request.data)
+    if serializer.is_valid():
+        serializer.save(deleted_at=datetime.now())
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request. Permission denied (e.g., invalid API key).'
+        status = 403
+        return Response({'data': data, 'message': message, 'status': status})
+
 
 # Article 
 @api_view(['POST'])
@@ -681,6 +818,7 @@ def store_article_data(request):
         message = 'Error: Invalid request.'
         status = 403
         return JsonResponse({'data': data, 'message': message, 'status': status})
+
 
 @api_view(['GET'])
 def get_all_article_list(request):

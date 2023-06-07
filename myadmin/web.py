@@ -1,8 +1,8 @@
-from django.shortcuts import render,redirect
-from django.contrib import messages
-from datetime import datetime
 from . import views
 from .models import *
+from datetime import datetime
+from django.contrib import messages
+from django.shortcuts import render,redirect
 
 
 # Dashboard
@@ -241,7 +241,41 @@ def store_department(request):
 def department_dataview(request):
     response = views.get_all_departments_list(request)
     all_data = response.data
-    return render(request, 'admin/department/list_all.html',{'all_data':all_data})
+    return render(request, 'admin/department/list_all.html', {'all_data': all_data})
+
+    
+
+def edit_department_form(request, department_id):
+    response_department = views.department_dataview(request, department_id)
+    department_data = response_department.data
+    return render(request, 'admin/department/edit.html', {'department_data': department_data})
+
+
+def edit_department(request, department_id):
+    operation_response = views.edit_department_data(request,department_id)
+
+    if operation_response.status_code == 200:
+        messages.add_message(request, messages.INFO, "department data edited successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error editing department data")
+
+    return redirect('edit_department_form', department_id=department_id)
+
+def view_department(request,department_id):
+    response_department = views.department_dataview(request, department_id)
+    department_data = response_department.data
+    return render(request, 'admin/department/view.html', {'department_data': department_data})
+
+def delete_department(request,department_id):
+
+    operation_response = views.softdelete_department_data(request,department_id)
+
+    if operation_response.status_code == 200:
+        messages.add_message(request, messages.INFO, "department data deleted successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error deleting department data")
+
+    return redirect('department_list')
 
 # Department Specification
 
@@ -292,6 +326,38 @@ def faq_dataview(request):
     response = views.get_all_faq_list(request)
     all_data = response.data
     return render(request, 'admin/faq/list_all.html',{'all_data':all_data})
+
+def edit_faq_form(request, faq_id):
+    response_faq = views.faq_dataview(request, faq_id)
+    faq_data = response_faq.data
+    return render(request, 'admin/faq/edit.html', {'faq_data': faq_data})
+
+
+def edit_faq(request, faq_id):
+    operation_response = views.edit_faq_data(request,faq_id)
+
+    if operation_response.status_code == 200:
+        messages.add_message(request, messages.INFO, "faq data edited successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error editing faq data")
+
+    return redirect('edit_faq_form', faq_id=faq_id)
+
+def view_faq(request,faq_id):
+    response_faq = views.faq_dataview(request, faq_id)
+    faq_data = response_faq.data
+    return render(request, 'admin/faq/view.html', {'faq_data': faq_data})
+
+def delete_faq(request,faq_id):
+
+    operation_response = views.softdelete_faq_data(request,faq_id)
+
+    if operation_response.status_code == 200:
+        messages.add_message(request, messages.INFO, "faq data deleted successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error deleting faq data")
+
+    return redirect('faq_list')
 
 # Article
 
