@@ -219,6 +219,40 @@ def problem_specification_dataview(request):
     all_data = response.data
     return render(request, 'admin/problem_specification/list_all.html',{'all_data':all_data})
 
+def edit_problem_specification_form(request, problem_specification_id):
+    response_organ = views.get_all_organs_list(request)
+    organ_data = response_organ.data
+
+    response_problem_specification_= views.problem_specification_dataview(request, problem_specification_id)
+    problem_specification_data = response_problem_specification_.data
+    return render(request, 'admin/problem_specification/edit.html', {'organ_data':organ_data,'problem_specification_data': problem_specification_data})
+
+def edit_problem_specification(request, problem_specification_id):
+    operation_response = views.edit_problem_specification_data(request,problem_specification_id)
+
+    if operation_response.status_code == 200:
+        messages.add_message(request, messages.INFO, "problem specification data edited successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error editing problem specification data")
+
+    return redirect('edit_problem_specification_form', problem_specification_id=problem_specification_id)
+
+def view_problem_specification(request, problem_specification_id):
+    response_problem_specification = views.problem_specification_dataview(request, problem_specification_id)
+    problem_specification_data = response_problem_specification.data
+    return render(request, 'admin/problem_specification/view.html', {'problem_specification_data': problem_specification_data})
+
+def delete_problem_specification(request,problem_specification_id):
+
+    operation_response = views.softdelete_problem_specification_data(request,problem_specification_id)
+
+    if operation_response.status_code == 200:
+        messages.add_message(request, messages.INFO, "problem specification data deleted successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error deleting problem specification data")
+
+    return redirect('problem_specification_list')
+
 # department
 
 

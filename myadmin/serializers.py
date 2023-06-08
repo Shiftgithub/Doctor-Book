@@ -60,8 +60,12 @@ class ProblemSpecificationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProblemSpecification
-        fields = ['id', 'specification', 'description', 'organ']
+        fields = ['id', 'specification', 'description','created_at','updated_at','deleted_at', 'organ']
 
+class ProblemSpecificationDeleteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProblemSpecification
+        fields = ['deleted_at']
 
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:

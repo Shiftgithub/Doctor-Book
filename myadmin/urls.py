@@ -54,6 +54,11 @@ urlpatterns = [
          web.store_problem_specification, name="store_problem_specification"),
     path('frontend/problem/specification/list/',
          web.problem_specification_dataview, name="problem_specification_list"),
+     
+    path('frontend/problem/specification/update/<int:problem_specification_id>/', web.edit_problem_specification_form, name="edit_problem_specification_form"),
+    path('frontend/problem/specification/edit/<int:problem_specification_id>/', web.edit_problem_specification, name='edit_problem_specification'),
+    path('frontend/problem/specification/delete/<int:problem_specification_id>/', web.delete_problem_specification, name='delete_problem_specification'),
+    path('frontend/problem/specification/view/<int:problem_specification_id>/', web.view_problem_specification, name='view_problem_specification'),
 
     # department frontend path
 

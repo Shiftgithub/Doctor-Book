@@ -34,6 +34,11 @@ urlpatterns = [
     path('api/add/problem/specification/', myadmin.views.store_problem_specification_data, name="add_problem_specification"),
     path('api/problem/specification/list/', myadmin.views.get_all_problem_specification_list, name="problem_specification_list"),
 
+    path('api/problem/specification/edit/<int:problem_specification_id>/', myadmin.views.edit_problem_specification_data, name='edit_problem_specification'),
+    path('api/problem/specification/delete/<int:problem_specification_id>/', myadmin.views.softdelete_problem_specification_data, name='delete_problem_specification'),
+    path('api/problem/specification/view/<int:problem_specification_id>/', myadmin.views.problem_specification_dataview, name='view_problem_specification'),
+
+
      # department specification api path
 
     path('api/add/department/', myadmin.views.store_department_data, name="add_department"),

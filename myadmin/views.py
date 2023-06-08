@@ -232,7 +232,6 @@ def organ_dataview(request, organ_id):
 def edit_organ_data(request, organ_id):
     organ = Organ.objects.get(id=organ_id)
     serializer = OrganStoreSerializer(organ, data=request.data)
-    print(organ)
     if serializer.is_valid():
         serializer.save(updated_at= datetime.now())
         data = {'key': None}
@@ -460,8 +459,7 @@ def get_all_organ_problem_list(request):
     return Response(serialized_data)
 
 
-
-############################
+# problem specification store 
 
 @api_view(['POST'])
 def store_problem_specification_data(request):
@@ -484,6 +482,7 @@ def store_problem_specification_data(request):
         status = 403
         return JsonResponse({'data': data, 'message': message, 'status': status})
 
+# get all data
 
 @api_view(['GET'])
 def get_all_problem_specification_list(request):
@@ -520,6 +519,81 @@ def get_all_problem_specification_list(request):
     serialized_data = serializer.data
     return Response(serialized_data)
 
+
+# single problem specification data using id
+
+@api_view(['GET'])
+def problem_specification_dataview(request, problem_specification_id):
+    query = """
+    SELECT
+    mps.id,
+    mps.specification,
+    mps.description,
+    mps.created_at,
+    mps.deleted_at,
+    mo.name AS organ_name
+    FROM
+    myadmin_problemspecification AS mps
+    INNER JOIN myadmin_organ AS mo
+    WHERE mps.id = %s AND mps.organ_id = mo.id AND mps.deleted_at IS NULL
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(query, [problem_specification_id])
+        results = cursor.fetchall()
+
+    for row in results:
+        problem_specification = {
+            'id': row[0],
+            'specification': row[1],
+            'description': row[2],
+            'created_at': row[3],
+            'updated_at': row[4],
+            'organ_name': row[5],
+        }
+
+    serializer = ProblemSpecificationSerializer(instance=problem_specification)
+    serialized_data = serializer.data
+    print(serialized_data)
+    return Response(serialized_data)
+
+# edit problem specification data
+
+@api_view(['PUT', 'POST'])
+def edit_problem_specification_data(request, problem_specification_id):
+    problem_specification = ProblemSpecification.objects.get(id=problem_specification_id)
+    serializer = ProblemSpecificationStoreSerializer(problem_specification, data=request.data)
+    if serializer.is_valid():
+        serializer.save(updated_at= datetime.now())
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request. Permission denied (e.g., invalid API key).'
+        status = 403
+        return Response({'data': data, 'message': message, 'status': status})
+
+# delete Problem Specification data
+
+@api_view(['PUT', 'GET'])
+def softdelete_problem_specification_data(request,problem_specification_id):
+    problem_specification = ProblemSpecification.objects.get(id=problem_specification_id)
+    serializer = ProblemSpecificationDeleteSerializer(problem_specification, data=request.data)
+    if serializer.is_valid():
+        serializer.save(deleted_at=datetime.now())
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
+    else:
+        data = {'key': '403 Forbidden'}
+        message = 'Error: Invalid request. Permission denied (e.g., invalid API key).'
+        status = 403
+        return Response({'data': data, 'message': message, 'status': status})
+
+
+#####################################
 
 @api_view(['POST'])
 def store_department_data(request):
