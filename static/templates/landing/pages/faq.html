@@ -6,63 +6,36 @@
   #faq {
       background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
   }
+
 </style>
 {% endblock %}
 
 {% block content %}
-  <!-- ======= Frequently Asked Questions Section ======= -->
-  <section id="faq" class="faq">
+<!-- ======= Frequently Asked Questions Section ======= -->
+<section id="faq" class="faq">
     <div class="container pt-4">
-      <div class="section-title">
-        <h2>Frequently Asked Questions</h2>
-        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-      </div>
+        <div class="section-title">
+            <h2>Frequently Asked Questions</h2>
+            <p>Questions and answer are dynamic.</p>
+        </div>
 
-      <div class="faq-list">
-        <ul>
-          <li data-aos="fade-up">
-            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1">What is medical software?<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-            <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
-              <p>Medical software refers to computer programs and applications specifically designed for use in the healthcare industry. It encompasses a wide range of software solutions used by medical professionals, including electronic health record (EHR) systems, medical imaging software, practice management software, telemedicine platforms, and more.</p>
-            </div>
-          </li>
-
-          <li data-aos="fade-up" data-aos-delay="100">
-            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed">How does medical software benefit healthcare providers?<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-            <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
-              <p>Medical software offers several benefits to healthcare providers, such as improved efficiency in patient management, streamlined workflows, enhanced accuracy in documentation and record-keeping, simplified billing and coding processes, better decision support through data analytics, and increased accessibility to patient information.</p>
-            </div>
-          </li>
-
-          <li data-aos="fade-up" data-aos-delay="200">
-            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed">What are electronic health record (EHR) systems?<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-            <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
-              <p>Electronic health record systems are digital versions of patients' medical charts and records. They store comprehensive patient information, including medical history, diagnoses, medications, lab results, and more. EHR systems enable healthcare providers to access and share patient data, streamline documentation, and facilitate coordinated care among different healthcare settings.</p>
-            </div>
-          </li>
-          <li data-aos="fade-up" data-aos-delay="200">
-            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed">What are electronic health record (EHR) systems?<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-            <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
-              <p>Electronic health record systems are digital versions of patients' medical charts and records. They store comprehensive patient information, including medical history, diagnoses, medications, lab results, and more. EHR systems enable healthcare providers to access and share patient data, streamline documentation, and facilitate coordinated care among different healthcare settings.</p>
-            </div>
-          </li>
-          <li data-aos="fade-up" data-aos-delay="200">
-            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed">What are electronic health record (EHR) systems?<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-            <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
-              <p>Electronic health record systems are digital versions of patients' medical charts and records. They store comprehensive patient information, including medical history, diagnoses, medications, lab results, and more. EHR systems enable healthcare providers to access and share patient data, streamline documentation, and facilitate coordinated care among different healthcare settings.</p>
-            </div>
-          </li>
-          <li data-aos="fade-up" data-aos-delay="200">
-            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed">What are electronic health record (EHR) systems?<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-            <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
-              <p>Electronic health record systems are digital versions of patients' medical charts and records. They store comprehensive patient information, including medical history, diagnoses, medications, lab results, and more. EHR systems enable healthcare providers to access and share patient data, streamline documentation, and facilitate coordinated care among different healthcare settings.</p>
-            </div>
-          </li>
-        </ul>
-      </div>
+        <div class="faq-list">
+            <ul>
+                {% for data in all_data %}
+                <li data-aos="fade-up" data-aos-delay="100">
+                    <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse"
+                                                                   data-bs-target="#faq-list-2" class="collapsed">{{ data.question}}<i class="bx bx-chevron-down icon-show"></i><i
+                            class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
+                        <p>{{ data.answer}}</p>
+                    </div>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
     </div>
-  </section>
-  <!-- End Frequently Asked Questions Section -->
+</section>
+<!-- End Frequently Asked Questions Section -->
 {% endblock %}
 
 {% block scripts %}

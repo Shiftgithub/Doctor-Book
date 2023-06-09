@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib import messages
 from . import views
-
+from myadmin import views
 
 # Patient
 
@@ -9,15 +9,20 @@ from . import views
 def landing_dashboard(request):
     return render(request, 'templates/landing/pages/home.html')
 
+
 def landing_doctors(request):
     return render(request, 'templates/landing/pages/doctors.html')
+
 
 def landing_article(request):
     return render(request, 'templates/landing/pages/articles.html')
 
+
 # Renders Landing FAQ page
 def landing_faq(request):
-    return render(request, 'templates/landing/pages/faq.html')
+    response = views.get_all_faq_list(request)
+    all_data = response.data
+    return render(request, 'templates/landing/pages/faq.html',{'all_data': all_data})
 
 
 def login(request):
@@ -26,6 +31,7 @@ def login(request):
 
 def doctor_register(request):
     return render(request, 'templates/landing/pages/register.html')
+
 
 def predict(request):
     return render(request, 'templates/landing/pages/predict.html')
