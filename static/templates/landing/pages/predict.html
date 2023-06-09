@@ -6,6 +6,10 @@
     #predictor {
         background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
     }
+
+
+
+
 </style>
 
 {% endblock %}
@@ -16,29 +20,40 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
+                <img src="{% static 'landing_assets/img/introduction.png' %}" class="img-fluid"
+                     style="width: 100%">
+            </div>
+            <div class="col-md-6">
                 <div style="padding-top:20px !important;"></div>
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title text-center">Predictor Page</h4>
                     </div>
-                    <div class="card-body">
-                        <form id="PostForm" action="#" method="POST">
-                            {% csrf_token %}
-                            <div class="row mb-3">
-                                <div class="col-md-10">
-                                    <select class="form-control select2" id="specialtySelect" name="organ">
-                                        <option selected>Select Organ Name</option>
-                                        <option selected>Select Organ Name</option>
-                                    </select>
-                                </div>
+                    <form id="PostForm" action="{% url 'store_organ' %}" method="POST">
+                        <div class="row mb-3">
+                            <label for="specialtySelect" class="col-md-2 col-form-label">Body Part Name</label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" id="specialtySelect" name="body_part">
+                                    <option selected>Select Body Part Name</option>
+                                    {% for item in bodypart_data %}
+                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="specialtySelect" class="col-md-2 col-form-label">Organ Name</label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" id="specialtySelect" name="organ">
+                                    <option selected>Select Organ Name</option>
+                                    {% for item in organ_data %}
+                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <img src="{% static 'landing_assets/img/introduction.png' %}" class="img-fluid"
-                style="width: 100%">
             </div>
         </div>
     </div>

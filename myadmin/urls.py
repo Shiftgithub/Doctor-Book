@@ -17,7 +17,7 @@ urlpatterns = [
     path('frontend/bodypart/edit/<int:bodypart_id>/', web.edit_bodypart, name='edit_bodypart'),
     path('frontend/bodypart/delete/<int:bodypart_id>/', web.delete_bodypart, name='delete_bodypart'),
     path('frontend/bodypart/view/<int:bodypart_id>/', web.view_bodypart, name='view_bodypart'),
-    
+
     path('frontend/bodypart/list/', web.bodypart_data_view, name="bodypart_list"),
 
     # organ frontend path
@@ -31,7 +31,6 @@ urlpatterns = [
     path('frontend/organ/delete/<int:organ_id>/', web.delete_organ, name='delete_organ'),
     path('frontend/organ/view/<int:organ_id>/', web.view_organ, name='view_organ'),
 
-
     # organ problem frontend path
 
     path('frontend/add/organ/problem/', web.organ_problem_form,
@@ -41,9 +40,11 @@ urlpatterns = [
     path('frontend/organ/problem/list/',
          web.organ_problem_dataview, name="organ_problem_list"),
 
-    path('frontend/organ/problem/update/<int:organ_problem_id>/', web.edit_organ_problem_form, name="edit_organ_problem_form"),
+    path('frontend/organ/problem/update/<int:organ_problem_id>/', web.edit_organ_problem_form,
+         name="edit_organ_problem_form"),
     path('frontend/organ/problem/edit/<int:organ_problem_id>/', web.edit_organ_problem, name='edit_organ_problem'),
-    path('frontend/organ/delete/problem/<int:organ_problem_id>/', web.delete_organ_problem, name='delete_organ_problem'),
+    path('frontend/organ/delete/problem/<int:organ_problem_id>/', web.delete_organ_problem,
+         name='delete_organ_problem'),
     path('frontend/organ/view/problem/<int:organ_problem_id>/', web.view_organ_problem, name='view_organ_problem'),
 
     # problem specification frontend path
@@ -54,11 +55,15 @@ urlpatterns = [
          web.store_problem_specification, name="store_problem_specification"),
     path('frontend/problem/specification/list/',
          web.problem_specification_dataview, name="problem_specification_list"),
-     
-    path('frontend/problem/specification/update/<int:problem_specification_id>/', web.edit_problem_specification_form, name="edit_problem_specification_form"),
-    path('frontend/problem/specification/edit/<int:problem_specification_id>/', web.edit_problem_specification, name='edit_problem_specification'),
-    path('frontend/problem/specification/delete/<int:problem_specification_id>/', web.delete_problem_specification, name='delete_problem_specification'),
-    path('frontend/problem/specification/view/<int:problem_specification_id>/', web.view_problem_specification, name='view_problem_specification'),
+
+    path('frontend/problem/specification/update/<int:problem_specification_id>/', web.edit_problem_specification_form,
+         name="edit_problem_specification_form"),
+    path('frontend/problem/specification/edit/<int:problem_specification_id>/', web.edit_problem_specification,
+         name='edit_problem_specification'),
+    path('frontend/problem/specification/delete/<int:problem_specification_id>/', web.delete_problem_specification,
+         name='delete_problem_specification'),
+    path('frontend/problem/specification/view/<int:problem_specification_id>/', web.view_problem_specification,
+         name='view_problem_specification'),
 
     # department frontend path
 
@@ -73,6 +78,7 @@ urlpatterns = [
     path('frontend/department/edit/<int:department_id>/', web.edit_department, name='edit_department'),
     path('frontend/department/delete/<int:department_id>/', web.delete_department, name='delete_department'),
     path('frontend/department/view/<int:department_id>/', web.view_department, name='view_department'),
+
     # department specification frontend path
 
     path('frontend/add/department/specification/', web.department_specification_form,
@@ -82,13 +88,22 @@ urlpatterns = [
     path('frontend/department/specification/list/',
          web.department_specification_dataview, name="department_specification_list"),
 
+    path('frontend/department/specification/update/<int:department_specification_id>/',
+         web.edit_department_specification_form, name="edit_department_specification_form"),
+    path('frontend/department/specification/edit/<int:department_specification_id>/',
+         web.edit_department_specification, name='edit_department_specification'),
+    path('frontend/department/specification/delete/<int:department_specification_id>/',
+         web.delete_department_specification, name='delete_department_specification'),
+    path('frontend/department/specification/view/<int:department_specification_id>/',
+         web.view_department_specification, name='view_department_specification'),
+
     # doctor frontend path
 
     path('frontend/add/doctor/', doctor.web.doctor_form, name="add_doctor_form"),
     path('frontend/store/doctor/', doctor.web.store_doctor, name="store_doctor"),
     path('frontend/doctors/list/', doctor.web.doctor_dataview, name="doctor_list"),
 
-     # faq frontend path
+    # faq frontend path
 
     path('frontend/add/faq/', web.faq_form, name="add_faq_form"),
     path('frontend/store/faq/', web.store_faq, name="store_faq"),
@@ -98,13 +113,11 @@ urlpatterns = [
     path('frontend/faq/edit/<int:faq_id>/', web.edit_faq, name='edit_faq'),
     path('frontend/faq/delete/<int:faq_id>/', web.delete_faq, name='delete_faq'),
     path('frontend/faq/view/<int:faq_id>/', web.view_faq, name='view_faq'),
-    
-     # article frontend path
+
+    # article frontend path
 
     path('frontend/add/article/', web.article_form, name="add_article_form"),
     path('frontend/store/article/', web.store_article, name="store_article"),
     path('frontend/article/list', web.article_dataview, name="article_list"),
-
-    
 
 ]

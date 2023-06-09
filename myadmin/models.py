@@ -43,8 +43,8 @@ class OrgansProblem(models.Model):
 class ProblemSpecification(models.Model):
     specification = models.CharField(max_length=1000)
     description = models.CharField(max_length=1000)
-    organ = models.ForeignKey(
-        Organ, on_delete=models.SET_NULL, related_name="organ", blank=True, null=True)
+    organ_problem = models.ForeignKey(
+        OrgansProblem, on_delete=models.SET_NULL, related_name="organ_problem", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -77,6 +77,7 @@ class DepartmentSpecification(models.Model):
     def __str__(self):
         return self.description
 
+
 class FAQ(models.Model):
     question = models.CharField(max_length=255)
     answer = models.CharField(max_length=1000)
@@ -86,6 +87,7 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
+
 
 def article_filepath(request, filename):
     # Get the original filename
@@ -100,10 +102,11 @@ def article_filepath(request, filename):
     # Return the relative path to the folder where you want to save the image
     return os.path.join('static', 'uploads', 'article_images', filename)
 
+
 class Article(models.Model):
-    heading = models.CharField(max_length=255)
-    tag = models.CharField(max_length=255)
-    description = models.CharField(max_length=1000)
+    heading = models.CharField(max_length=1000)
+    tag = models.CharField(max_length=1000)
+    description = models.CharField(max_length=10000)
     image = models.ImageField(upload_to=article_filepath)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -111,8 +114,3 @@ class Article(models.Model):
 
     def __str__(self):
         return self.heading
-
-
-    
-
-

@@ -7,6 +7,7 @@ class BodyPartSerializer(serializers.ModelSerializer):
         model = BodyPart
         fields = '__all__'
 
+
 class BodyPartDeleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = BodyPart
@@ -24,12 +25,14 @@ class OrganSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Organ
-        fields = ['id', 'name', 'description','created_at','updated_at','deleted_at', 'bodypart']
+        fields = ['id', 'name', 'description', 'created_at', 'updated_at', 'bodypart']
+
 
 class OrganDeleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organ
         fields = ['deleted_at']
+
 
 class OrganProblemStoreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -42,12 +45,14 @@ class OrganProblemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrgansProblem
-        fields = ['id', 'name', 'description', 'created_at','updated_at','deleted_at','organ']
+        fields = ['id', 'name', 'description', 'created_at', 'updated_at', 'organ']
+
 
 class OrganProblemDeleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrgansProblem
         fields = ['deleted_at']
+
 
 class ProblemSpecificationStoreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,26 +61,30 @@ class ProblemSpecificationStoreSerializer(serializers.ModelSerializer):
 
 
 class ProblemSpecificationSerializer(serializers.ModelSerializer):
-    organ = serializers.CharField(source='organ_name')
+    organ_problem_name = serializers.CharField(source='organ_problem')
 
     class Meta:
         model = ProblemSpecification
-        fields = ['id', 'specification', 'description','created_at','updated_at','deleted_at', 'organ']
+        fields = ['id', 'specification', 'description', 'created_at', 'updated_at', 'organ_problem_name']
+
 
 class ProblemSpecificationDeleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProblemSpecification
         fields = ['deleted_at']
 
+
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Department
         fields = '__all__'
 
+
 class DepartmentDeleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Department
         fields = ['deleted_at']
+
 
 class DepartmentSpecificationStoreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -89,18 +98,26 @@ class DepartmentSpecificationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DepartmentSpecification
-        fields = ['id', 'description', 'department',
-                  'specification']
+        fields = ['id', 'description', 'department', 'specification', 'created_at', 'updated_at']
+
+
+class DepartmentSpecificationDeleteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DepartmentSpecification
+        fields = ['deleted_at']
+
 
 class FAQSerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQ
         fields = '__all__'
 
+
 class FAQDeleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQ
         fields = ['deleted_at']
+
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:

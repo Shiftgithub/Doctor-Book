@@ -11,11 +11,11 @@
             <form id="PostForm" action="{% url 'store_problem_specification' %}" method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="specialtySelect" class="col-md-2 col-form-label">Organ Name</label>
+                    <label for="specialtySelect" class="col-md-2 col-form-label">Organ Problem Name</label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="specialtySelect" name="organ">
-                            <option selected>Select Organ Name</option>
-                            {% for item in organ_data %}
+                        <select class="form-control select2" id="specialtySelect" name="organ_problem">
+                            <option selected>Select Organ Problem Name</option>
+                            {% for item in organ_problem_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
                         </select>

@@ -18,7 +18,7 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Organ</th>
+                    <th>Organ Problem</th>
                     <th>Specification</th>
                     <th>Description</th>
                     <th>Edit</th>
@@ -30,7 +30,7 @@
                 {% for data in all_data %}
                 <tr>
                     <td>{{ forloop.counter }}</td>  {# Use 'forloop.counter' to get the loop counter #}
-                    <td>{{ data.organ }}</td>
+                    <td>{{ data.organ_problem_name }}</td>
                     <td>{{ data.specification }}</td>
                     <td>{{ data.description }}</td>
                     <td>
@@ -49,7 +49,7 @@
                             <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="myModalLabel">Organ Data</h5>
+                                        <h5 class="modal-title" id="myModalLabel">Problem Specification Data</h5>
                                         <button type="button" class="close text-white" data-dismiss="modal"
                                             aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
