@@ -26,7 +26,7 @@ def store_bodypart(request):
         messages.add_message(request, messages.ERROR,
                              "Error in storing Body Part data")
 
-    return render(request, 'admin/body_part/form.html')
+    return redirect('add_bodypart_form')
 
 
 def bodypart_data_view(request):
@@ -93,7 +93,7 @@ def store_organ(request):
         messages.add_message(request, messages.ERROR,
                              "Error in storing Organ data")
 
-    return render(request, 'admin/organ/form.html')
+    return redirect('add_organ_form')
 
 
 def organ_dataview(request):
@@ -156,8 +156,7 @@ def store_organ_problem(request):
     else:
         messages.add_message(request, messages.ERROR,
                              "Error in storing Organ Problem data")
-
-    return render(request, 'admin/organ_problem/form.html')
+    return redirect('add_organ_problem_form')
 
 
 def organ_problem_dataview(request):
@@ -221,8 +220,7 @@ def store_problem_specification(request):
     else:
         messages.add_message(request, messages.ERROR,
                              "Error in storing Problem Specification data")
-
-    return render(request, 'admin/problem_specification/form.html')
+    return redirect('add_problem_specification_form')
 
 
 def problem_specification_dataview(request):
@@ -285,8 +283,7 @@ def store_department(request):
     else:
         messages.add_message(request, messages.ERROR,
                              "Error in storing Department data")
-
-    return render(request, 'admin/department/form.html')
+    return redirect('add_department_form')
 
 
 def department_dataview(request):
@@ -351,7 +348,7 @@ def store_department_specification(request):
         messages.add_message(request, messages.ERROR,
                              "Error in storing Department Specification data")
 
-    return render(request, 'admin/department_specification/form.html')
+    return redirect('add_department_specification_form')
 
 
 def department_specification_dataview(request):
@@ -419,7 +416,7 @@ def store_faq(request):
         messages.add_message(request, messages.ERROR,
                              "Error in storing FAQ data")
 
-    return render(request, 'admin/faq/form.html')
+    return redirect('add_faq_form')
 
 
 def faq_dataview(request):
@@ -477,7 +474,7 @@ def store_article(request):
         messages.add_message(request, messages.ERROR,
                              "Error in storing Article data")
 
-    return render(request, 'admin/article/form.html')
+    return redirect('add_article_form')
 
 
 def article_dataview(request):

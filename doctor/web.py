@@ -1,15 +1,15 @@
+import myadmin
 from . import views
-from django.shortcuts import render
 from django.contrib import messages
-from . models import Doctor
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect
+
 
 # Doctor
 
 def doctor_form(request):
-    response_department = views.get_all_doctors_list(request)
+    response_department = myadmin.views.get_all_departments_list(request)
     department_data = response_department.data
-    return render(request, 'admin/doctor/form.html',{'department_data':department_data})
+    return render(request, 'admin/doctor/form.html', {'department_data': department_data})
 
 
 def store_doctor(request):
@@ -19,13 +19,10 @@ def store_doctor(request):
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Doctor data")
 
-    return render(request, 'admin/doctor/form.html')
+    return redirect('add_doctor_form')
 
 
 def doctor_dataview(request):
     response = views.get_all_doctors_list(request)
     all_data = response.data
-    return render(request, 'admin/doctor/list_all.html',{'all_data':all_data})
-
-
-
+    return render(request, 'admin/doctor/list_all.html', {'all_data': all_data})

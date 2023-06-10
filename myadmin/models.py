@@ -10,15 +10,14 @@ class BodyPart(models.Model):
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.name
 
 
 class Organ(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=1000)
-    body_part = models.ForeignKey(
-        BodyPart, on_delete=models.SET_NULL, related_name="organs", blank=True, null=True)
+    body_part = models.ForeignKey(BodyPart, on_delete=models.CASCADE,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -30,8 +29,7 @@ class Organ(models.Model):
 class OrgansProblem(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=1000)
-    organ = models.ForeignKey(
-        Organ, on_delete=models.SET_NULL, related_name="organProbleams", blank=True, null=True)
+    organ = models.ForeignKey(Organ, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)

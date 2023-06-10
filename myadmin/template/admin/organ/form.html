@@ -8,13 +8,13 @@
             <h1 class="card-title">Add Organ</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'store_organ' %}" method="POST">
+            <form id="PostForm" action="{% url 'store_organ' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row mb-3">
                     <label for="specialtySelect" class="col-md-2 col-form-label">Body Part Name</label>
                     <div class="col-md-10">
                         <select class="form-control select2" id="specialtySelect" name="body_part">
-                            <option selected>Select Body Part Name</option>
+                            <option value="" selected>Select Body Part Name</option>
                             {% for item in bodypart_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
@@ -22,23 +22,67 @@
                     </div>
                 </div>
                 <hr>
-                <!-- Add form fields here -->
-                <div class="row mb-3">
-                    <label for="organNameId" class="col-md-2 col-form-label">Organ Name</label>
-                    <div class="col-md-10">
-                        <input type="text" class="form-control" id="organNameId" name="name"/>
+                <div class="d-none" id="section-template">
+                    <br>
+                    <div class="card sections">
+                        <div class="card-header">
+                            <h5 class="card-title">No 0</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Organ -->
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label font-weight-bold">Organ :</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" minlength="3" maxlength="255" size="255"
+                                           name="names[]"/>
+                                </div>
+                            </div>
+                            <!-- Description -->
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label font-weight-bold">Description
+                                    :</label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" cols="30" rows="2" minlength="3"
+                                              maxlength="1000" size="1000" name="descriptions[]"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <!-- Add More Button -->
+                            <div class="form-group d-inline pr-3 float-right">
+                                <button type="button" onclick="addSection()" class="btn btn-primary add-more-button"
+                                        data-toggle="tooltip" data-placement="top" title="Add More">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <!-- Close Button -->
+                            <div class="form-group d-inline pr-3 float-right">
+                                <button type="button" onclick="removeSection(this)"
+                                        class="btn btn-danger remove-button" data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="Remove">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label for="descriptionId" class="col-md-2 col-form-label">Description</label>
-                    <div class="col-md-10">
-                        <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
-                                  rows="10"></textarea>
-                    </div>
+                <!-- Section Container -->
+                <div id="sections-container">
                 </div>
-                <button type="submit" class="btn btn-sm btn-success float-right">Submit</button>
+                <!-- Submit Button -->
+                <div class="form-group p-5">
+                    <button type="submit" class="btn btn-success float-right" data-toggle="tooltip" data-placement="top"
+                            title="Submit">
+                        Submit
+                    </button>
+                </div>
             </form>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
 {% endblock %}

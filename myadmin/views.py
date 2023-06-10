@@ -1,3 +1,4 @@
+from .models import *
 from .serializers import *
 from datetime import datetime
 from django.db import connection
@@ -5,7 +6,6 @@ from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
-from django.core.exceptions import ObjectDoesNotExist
 
 
 # store bodypart funtion
@@ -61,13 +61,6 @@ def get_all_bodypart_list(request):
 
     return Response(serialized_data)
 
-
-# @api_view(['GET'])
-# def bodypart_dataview(request, bodypart_id):
-#     bodypart = get_object_or_404(BodyPart, id=bodypart_id)
-#     serializer = BodyPartSerializer(instance=bodypart)
-#     serialized_data = serializer.data
-#     return Response(serialized_data)
 
 #  bodypart data show using id funtion
 
@@ -134,21 +127,27 @@ def softdelete_bodypart_data(request, bodypart_id):
 
 # store organ data
 
+
 @api_view(['POST'])
 def store_organ_data(request):
     if request.method == 'POST':
-        organ_serializer = OrganStoreSerializer(data=request.data)
-        if organ_serializer.is_valid():
-            organ_serializer.save()
-            data = {'key': None}
-            message = 'Success'
-            status = 200
-            return Response({'data': data, 'message': message, 'status': status})
-        else:
-            data = {'key': '403 Forbidden'}
-            message = 'Error: Invalid request. Permission denied (e.g., invalid API key).'
-            status = 403
-            return Response({'data': data, 'message': message, 'status': status})
+        body_part_id = request.POST.get('body_part')
+        organs = request.POST.getlist('names[]')
+        descriptions = request.POST.getlist('descriptions[]')
+
+        # Retrieve the BodyPart instance
+        body_part = BodyPart.objects.get(id=body_part_id)
+
+        for organ, description in zip(organs, descriptions):
+            # Create and save the Organ object to the database
+            organ_obj = Organ(body_part=body_part, name=organ, description=description)
+            organ_obj.save()
+
+        # Redirect to a success page or perform any desired actions
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
     else:
         data = {'key': '403 Forbidden'}
         message = 'Error: Invalid request method. Permission denied (e.g., invalid API key).'
@@ -276,23 +275,28 @@ def softdelete_organ_data(request, bodypart_id):
 @api_view(['POST'])
 def store_organ_problem_data(request):
     if request.method == 'POST':
-        organ_problem_serializer = OrganProblemStoreSerializer(data=request.data)
-        if organ_problem_serializer.is_valid():
-            organ_problem_serializer.save()
-            data = {'key': 'null'}
-            message = 'Success'
-            status = 200
-            return JsonResponse({'data': data, 'message': message, 'status': 200})
-        else:
-            data = {'key': '403 Forbidden'}
-            message = 'Error: Invalid request. Permission denied (e.g. invalid API key).'
-            status = 403
-            return JsonResponse({'data': data, 'message': message, 'status': status})
+        organ_id = request.POST.get('organ')
+        organ_problems = request.POST.getlist('names[]')
+        descriptions = request.POST.getlist('descriptions[]')
+
+        # Retrieve the BodyPart instance
+        organid = Organ.objects.get(id=organ_id)
+
+        for organ_problem, description in zip(organ_problems, descriptions):
+            # Create and save the Organ object to the database
+            organ_problem_obj = OrgansProblem(organ=organid, name=organ_problem, description=description)
+            organ_problem_obj.save()
+
+        # Redirect to a success page or perform any desired actions
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
     else:
         data = {'key': '403 Forbidden'}
-        message = 'Else-2 Error: Invalid request. Permission denied (e.g. invalid API key).'
+        message = 'Error: Invalid request method. Permission denied (e.g., invalid API key).'
         status = 403
-        return JsonResponse({'data': data, 'message': message, 'status': status})
+        return Response({'data': data, 'message': message, 'status': status})
 
 
 # all organproblem data
@@ -718,7 +722,7 @@ def get_all_department_specifications_list(request):
 
 
 @api_view(['GET'])
-def department_specification_dataview(request,department_specification_id):
+def department_specification_dataview(request, department_specification_id):
     query = """
     SELECT
 	mds.id,

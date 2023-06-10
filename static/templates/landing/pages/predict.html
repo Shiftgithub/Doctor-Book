@@ -10,6 +10,8 @@
 
 
 
+
+
 </style>
 
 {% endblock %}
@@ -18,43 +20,32 @@
 <!-- ======= Login Section ======= -->
 <section id="predictor">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <img src="{% static 'landing_assets/img/introduction.png' %}" class="img-fluid"
-                     style="width: 100%">
-            </div>
-            <div class="col-md-6">
-                <div style="padding-top:20px !important;"></div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title text-center">Predictor Page</h4>
-                    </div>
-                    <form id="PostForm" action="{% url 'store_organ' %}" method="POST">
-                        <div class="row mb-3">
-                            <label for="specialtySelect" class="col-md-2 col-form-label">Body Part Name</label>
-                            <div class="col-md-10">
-                                <select class="form-control select2" id="specialtySelect" name="body_part">
-                                    <option selected>Select Body Part Name</option>
-                                    {% for item in bodypart_data %}
-                                    <option value="{{ item.id }}">{{ item.name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="specialtySelect" class="col-md-2 col-form-label">Organ Name</label>
-                            <div class="col-md-10">
-                                <select class="form-control select2" id="specialtySelect" name="organ">
-                                    <option selected>Select Organ Name</option>
-                                    {% for item in organ_data %}
-                                    <option value="{{ item.id }}">{{ item.name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                    </form>
+        <form id="PostForm" action="{% url 'store_organ' %}" method="POST">
+            <div class="row">
+                <label for="specialtySelect" class="col-md-2 col-form-label">Body Part Name</label>
+                <div class="col-md-10">
+                    <select class="form-control select2" id="specialtySelect" name="body_part">
+                        <option selected>Select Body Part Name</option>
+                        {% for item in bodypart_data %}
+                        <option value="{{ item.id }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
+            <div class="row">
+                <label for="specialtySelect" class="col-md-2 col-form-label">Organ Name</label>
+                <div class="col-md-10">
+                    <select class="form-control select2" id="specialtySelect" name="organ">
+                        <option selected>Select Organ Name</option>
+                        {% for item in organ_data %}
+                        <option value="{{ item.id }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </form>
+        <div class="row ">
+
         </div>
     </div>
 </section>
