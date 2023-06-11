@@ -29,9 +29,9 @@
 
     <!-- Template Main CSS File -->
     <link href="{% static 'landing_assets/css/style.css' %}" rel="stylesheet">
-
     <!-- Custom CSS -->
     {% block styles %}
+
     {% endblock %}
 
 </head>
@@ -44,8 +44,8 @@
 {% endblock %}
 
 <main id="main" class="mt-4">
-{% block content%}
-{% endblock %}
+    {% block content%}
+    {% endblock %}
 </main>
 
 {% include 'templates/landing/includes/footer.html' %}
