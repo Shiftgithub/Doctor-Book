@@ -418,23 +418,29 @@ def softdelete_organ_problem_data(request, organ_problem_id):
 @api_view(['POST'])
 def store_problem_specification_data(request):
     if request.method == 'POST':
-        problem_specification_serializer = ProblemSpecificationStoreSerializer(data=request.data)
-        if problem_specification_serializer.is_valid():
-            problem_specification_serializer.save()
-            data = {'key': 'null'}
-            message = 'Success'
-            status = 200
-            return JsonResponse({'data': data, 'message': message, 'status': 200})
-        else:
-            data = {'key': '403 Forbidden'}
-            message = 'Error: Invalid request. Permission denied (e.g. invalid API key).'
-            status = 403
-            return JsonResponse({'data': data, 'message': message, 'status': status})
+        organ_problem_id = request.POST.get('organ_problem')
+        specifications = request.POST.getlist('specifications[]')
+        descriptions = request.POST.getlist('descriptions[]')
+
+        # Retrieve the BodyPart instance
+        organ_problem = OrgansProblem.objects.get(id=organ_problem_id)
+
+        for specification, description in zip(specifications, descriptions):
+            # Create and save the Organ object to the database
+            problem_specification_obj = ProblemSpecification(organ_problem=organ_problem,
+                                                             specification=specification, description=description)
+            problem_specification_obj.save()
+
+        # Redirect to a success page or perform any desired actions
+        data = {'key': None}
+        message = 'Success'
+        status = 200
+        return Response({'data': data, 'message': message, 'status': status})
     else:
         data = {'key': '403 Forbidden'}
-        message = 'Else-2 Error: Invalid request. Permission denied (e.g. invalid API key).'
+        message = 'Error: Invalid request method. Permission denied (e.g., invalid API key).'
         status = 403
-        return JsonResponse({'data': data, 'message': message, 'status': status})
+        return Response({'data': data, 'message': message, 'status': status})
 
 
 # get all data
