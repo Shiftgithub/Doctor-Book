@@ -13,11 +13,18 @@
 {% block content %}
 <!-- ======= Login Section ======= -->
 <section id="predictor">
-    <div class="container">
+    <div class="container mt-4">
+        <div class="row">
+            <h4 class="text-center">Problem Specification</h4>
+        </div>
+        <hr>
         <form id="PostForm" action="{% url 'store_organ' %}" method="POST">
-            <div class="row">
-                <label for="specialtySelect" class="col-md-2 col-form-label">Body Part Name</label>
-                <div class="col-md-10">
+            {% csrf_token %}
+
+            <!-- Body Part Name -->
+            <div class="row p-2">
+                <label for="specialtySelect" class="col-md-3 col-form-label">Body Part :<span class="text-danger">*</span></label>
+                <div class="col-md-9">
                     <select class="form-control select2" id="specialtySelect" name="body_part">
                         <option selected>Select Body Part Name</option>
                         {% for item in bodypart_data %}
@@ -26,9 +33,11 @@
                     </select>
                 </div>
             </div>
-            <div class="row">
-                <label for="specialtySelect" class="col-md-2 col-form-label">Organ Name</label>
-                <div class="col-md-10">
+
+            <!-- Organ Name -->
+            <div class="row p-2">
+                <label for="specialtySelect" class="col-md-3 col-form-label">Organ :<span class="text-danger">*</span></label>
+                <div class="col-md-9">
                     <select class="form-control select2" id="specialtySelect" name="organ">
                         <option selected>Select Organ Name</option>
                         {% for item in organ_data %}
@@ -37,8 +46,46 @@
                     </select>
                 </div>
             </div>
+
+            <!-- Problem Name -->
+            <div class="row p-2">
+                <label for="specialtySelect" class="col-md-3 col-form-label">Problem :<span class="text-danger">*</span></label>
+                <div class="col-md-9">
+                    <select class="form-control select2" id="specialtySelect" name="problem">
+                        <option selected>Select Problem</option>
+                        {% for item in problem_data %}
+                        <option value="{{ item.id }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Problem Description -->
+            <div class="row p-2">
+                <label for="specialtySelect" class="col-md-3 col-form-label">Problem Description :<span class="text-danger">*</span></label>
+                <div class="col-md-9">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+                </div>
+            </div>
+
+           <!-- Problem Specification -->
+            <div class="row p-2">
+                <label for="specialtySelect" class="col-md-3 col-form-label">Problem Specification :<span class="text-danger">*</span></label>
+                <div class="col-md-9">
+                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="3" name="specification"></textarea>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="row p-2">
+                <div class="col-md-3"></div>
+                <div class="col-md-9">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
         </form>
-        <div class="row ">
+        <div class="row">
 
         </div>
     </div>
