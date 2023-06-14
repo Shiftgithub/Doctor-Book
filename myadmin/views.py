@@ -959,6 +959,7 @@ def get_organs_by_bodypart(request, body_part_id):
         cursor.execute(query, [body_part_id])
         results = cursor.fetchall()
 
+    print(results)
     organs = []
     for row in results:
         organ = {
@@ -967,6 +968,8 @@ def get_organs_by_bodypart(request, body_part_id):
         }
 
         organs.append(organ)
+
+    print(organs)
 
     serializer = OrganBodyPartSerializer(many=True, instance=organs)
     serialized_data = serializer.data
