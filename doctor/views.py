@@ -13,21 +13,14 @@ def store_doctor_data(request):
     if request.method == 'POST':
         doctor_serializer = DoctorSerializer(data=request.data)
         if doctor_serializer.is_valid():
-            doctor_serializer.save()
-            data = {'key': 'null'}
-            message = 'Success'
-            status = 200
-            return JsonResponse({'data': data, 'message': message, 'status': 200})
+            if doctor_serializer.save():
+                return Response({'status': 200})
+            else:
+                return Response({'status': 403})
         else:
-            data = {'key': '403 Forbidden'}
-            message = 'Error: Invalid request. Permission denied (e.g. invalid API key).'
-            status = 403
-            return JsonResponse({'data': data, 'message': message, 'status': status})
+            return Response({'status': 403})
     else:
-        data = {'key': '403 Forbidden'}
-        message = 'Else-2 Error: Invalid request. Permission denied (e.g. invalid API key).'
-        status = 403
-        return JsonResponse({'data': data, 'message': message, 'status': status})
+        return Response({'status': 403})
 
 
 @api_view(['GET'])
