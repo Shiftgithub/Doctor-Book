@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'myadmin.apps.MyadminConfig',
     'doctor.apps.DoctorConfig',
     'landing.apps.LandingConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
