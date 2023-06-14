@@ -481,3 +481,7 @@ def article_dataview(request):
     response = views.get_all_article_list(request)
     all_data = response.data
     return render(request, 'admin/article/list_all.html', {'all_data': all_data})
+
+
+def get_organs(request):
+    pass

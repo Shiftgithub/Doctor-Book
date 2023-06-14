@@ -23,10 +23,11 @@
 
             <!-- Body Part Name -->
             <div class="row p-2">
-                <label for="specialtySelect" class="col-md-3 col-form-label">Body Part :<span class="text-danger">*</span></label>
+                <label for="bodyPartID" class="col-md-3 col-form-label">Body Part :<span
+                        class="text-danger">*</span></label>
                 <div class="col-md-9">
-                    <select class="form-control select2" id="specialtySelect" name="body_part">
-                        <option selected>Select Body Part Name</option>
+                    <select class="form-control select2" id="bodyPartID" name="body_part">
+                        <option value="">Select Body Part Name</option>
                         {% for item in bodypart_data %}
                         <option value="{{ item.id }}">{{ item.name }}</option>
                         {% endfor %}
@@ -36,13 +37,10 @@
 
             <!-- Organ Name -->
             <div class="row p-2">
-                <label for="specialtySelect" class="col-md-3 col-form-label">Organ :<span class="text-danger">*</span></label>
+                <label for="organID" class="col-md-3 col-form-label">Organ :<span class="text-danger">*</span></label>
                 <div class="col-md-9">
-                    <select class="form-control select2" id="specialtySelect" name="organ">
+                    <select class="form-control select2" id="organID" name="organ">
                         <option selected>Select Organ Name</option>
-                        {% for item in organ_data %}
-                        <option value="{{ item.id }}">{{ item.name }}</option>
-                        {% endfor %}
                     </select>
                 </div>
             </div>
@@ -61,17 +59,21 @@
 
             <!-- Problem Description -->
             <div class="row p-2">
-                <label for="specialtySelect" class="col-md-3 col-form-label">Problem Description :<span class="text-danger">*</span></label>
+                <label for="specialtySelect" class="col-md-3 col-form-label">Problem Description :<span
+                        class="text-danger">*</span></label>
                 <div class="col-md-9">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                              name="description"></textarea>
                 </div>
             </div>
 
-           <!-- Problem Specification -->
+            <!-- Problem Specification -->
             <div class="row p-2">
-                <label for="specialtySelect" class="col-md-3 col-form-label">Problem Specification :<span class="text-danger">*</span></label>
+                <label for="specialtySelect" class="col-md-3 col-form-label">Problem Specification :<span
+                        class="text-danger">*</span></label>
                 <div class="col-md-9">
-                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="3" name="specification"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="3"
+                              name="specification"></textarea>
                 </div>
             </div>
 
@@ -93,4 +95,26 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+    $('#bodyPartID').on('change', function () {
+        let body_part_id = $(this).val();
+
+        if (body_part_id === '' || body_part_id == null) {
+            return false;
+        }
+        else{
+            $.ajax({
+                url: "/frontend/ajax/organ/" + body_part_id,
+                type: "GET",
+                success: function (response) {
+                    let options = '<option selected>Select Organ Name</option>';
+                    $.each(response, function (key, value) {
+                        options += '<option value="' + value.id + '">' + value.name + '</option>';
+                    });
+                    $('#organID').html(options);
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}

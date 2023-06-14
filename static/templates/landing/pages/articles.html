@@ -3,27 +3,28 @@
 
 {% block styles %}
 <style>
-  #article {
-      background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
-  }
-.image-container {
-      position: relative;
-      display: inline-block;
+    #article {
+        background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
+    }
+
+    .image-container {
+        position: relative;
+        display: inline-block;
     }
 
     .image-popup {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 500px;
-      height: 500px;
-      z-index: 1;
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        height: 500px;
+        z-index: 1;
     }
 
     .image-container:hover .image-popup {
-      display: block;
+        display: block;
     }
 
 </style>
@@ -65,7 +66,7 @@
                             <div class="image-container">
                                 <img src="{{ data.image }}" alt="Article Image" width="100" class="article-img" alt="">
                                 <div class="image-popup">
-                                    <img src="{{ data.image }}" alt="Full Image"  width="1800" height="700">
+                                    <img src="{{ data.image }}" alt="Full Image" width="1800" height="700">
                                 </div>
                             </div>
                             <h3>{{data.heading}}</h3>

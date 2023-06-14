@@ -942,3 +942,33 @@ def get_all_article_list(request):
     serializer = ArticleSerializer(article, many=True)
     serialized_data = serializer.data
     return Response(serialized_data)
+
+
+@api_view(['GET'])
+def get_organs_by_bodypart(request, body_part_id):
+    query = """
+            SELECT
+            mo.id,
+            mo.name
+            FROM myadmin_organ AS mo
+            WHERE mo.body_part_id = %s AND mo.deleted_at IS NULL 
+            ORDER BY mo.id ASC
+        """
+
+    with connection.cursor() as cursor:
+        cursor.execute(query, [body_part_id])
+        results = cursor.fetchall()
+
+    organs = []
+    for row in results:
+        organ = {
+            'id': row[0],
+            'name': row[1],
+        }
+
+        organs.append(organ)
+
+    serializer = OrganBodyPartSerializer(many=True, instance=organs)
+    serialized_data = serializer.data
+
+    return Response(serialized_data)

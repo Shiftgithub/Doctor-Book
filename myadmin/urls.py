@@ -1,6 +1,6 @@
 from django.urls import path
 import doctor.web
-from . import web
+from . import web, views
 
 urlpatterns = [
 
@@ -120,4 +120,7 @@ urlpatterns = [
     path('frontend/store/article/', web.store_article, name="store_article"),
     path('frontend/article/list', web.article_dataview, name="article_list"),
 
+
+    # Ajax path
+    path('frontend/ajax/organ/<int:body_part_id>/', views.get_organs_by_bodypart, name="get_organs"),
 ]

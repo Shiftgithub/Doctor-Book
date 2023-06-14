@@ -27,6 +27,11 @@ class OrganSerializer(serializers.ModelSerializer):
         model = Organ
         fields = ['id', 'name', 'description', 'created_at', 'updated_at', 'bodypart']
 
+class OrganBodyPartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organ
+        fields = ['id', 'name']
+
 
 class OrganDeleteSerializer(serializers.ModelSerializer):
     class Meta:
