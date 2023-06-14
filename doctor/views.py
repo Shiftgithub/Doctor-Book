@@ -1,11 +1,13 @@
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from .models import *
+from .serializers import *
 from django.http import JsonResponse
 from django.db import connection
-from .serializers import *
-from .models import *
+from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_protect
+from rest_framework.decorators import api_view
 
 
+@csrf_protect
 @api_view(['POST'])
 def store_doctor_data(request):
     if request.method == 'POST':
