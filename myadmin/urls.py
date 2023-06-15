@@ -12,13 +12,11 @@ urlpatterns = [
 
     path('frontend/add/bodypart/', web.bodypart_form, name="add_bodypart_form"),
     path('frontend/store/bodypart/', web.store_bodypart, name="store_bodypart"),
+    path('frontend/bodypart/list/', web.bodypart_data_view, name="bodypart_list"),
 
     path('frontend/bodypart/update/<int:bodypart_id>/', web.edit_bodypart_form, name="edit_bodypart_form"),
     path('frontend/bodypart/edit/<int:bodypart_id>/', web.edit_bodypart, name='edit_bodypart'),
     path('frontend/bodypart/delete/<int:bodypart_id>/', web.delete_bodypart, name='delete_bodypart'),
-    path('frontend/bodypart/view/<int:bodypart_id>/', web.view_bodypart, name='view_bodypart'),
-
-    path('frontend/bodypart/list/', web.bodypart_data_view, name="bodypart_list"),
 
     # organ frontend path
 
@@ -29,7 +27,6 @@ urlpatterns = [
     path('frontend/organ/update/<int:organ_id>/', web.edit_organ_form, name="edit_organ_form"),
     path('frontend/organ/edit/<int:organ_id>/', web.edit_organ, name='edit_organ'),
     path('frontend/organ/delete/<int:organ_id>/', web.delete_organ, name='delete_organ'),
-    path('frontend/organ/view/<int:organ_id>/', web.view_organ, name='view_organ'),
 
     # organ problem frontend path
 
@@ -77,7 +74,6 @@ urlpatterns = [
     path('frontend/department/update/<int:department_id>/', web.edit_department_form, name="edit_department_form"),
     path('frontend/department/edit/<int:department_id>/', web.edit_department, name='edit_department'),
     path('frontend/department/delete/<int:department_id>/', web.delete_department, name='delete_department'),
-    path('frontend/department/view/<int:department_id>/', web.view_department, name='view_department'),
 
     # department specification frontend path
 
@@ -112,7 +108,6 @@ urlpatterns = [
     path('frontend/faq/update/<int:faq_id>/', web.edit_faq_form, name="edit_faq_form"),
     path('frontend/faq/edit/<int:faq_id>/', web.edit_faq, name='edit_faq'),
     path('frontend/faq/delete/<int:faq_id>/', web.delete_faq, name='delete_faq'),
-    path('frontend/faq/view/<int:faq_id>/', web.view_faq, name='view_faq'),
 
     # article frontend path
 
@@ -123,4 +118,5 @@ urlpatterns = [
 
     # Ajax path
     path('frontend/ajax/organ/<int:body_part_id>/', views.get_organs_by_bodypart, name="get_organs"),
+    path('frontend/ajax/organ/problem/<int:organ_id>/', views.get_organ_problem_by_organ, name="get_organ_problems"),
 ]

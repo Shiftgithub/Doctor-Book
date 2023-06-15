@@ -58,12 +58,6 @@ def edit_bodypart(request, bodypart_id):
     return redirect('edit_bodypart_form', bodypart_id=bodypart_id)
 
 
-def view_bodypart(request, bodypart_id):
-    response_bodypart = views.bodypart_dataview(request, bodypart_id)
-    bodypart_data = response_bodypart.data
-    return render(request, 'admin/body_part/view.html', {'bodypart_data': bodypart_data})
-
-
 def delete_bodypart(request, bodypart_id):
     operation_response = views.softdelete_bodypart_data(request, bodypart_id)
 
@@ -113,19 +107,11 @@ def edit_organ_form(request, organ_id):
 
 def edit_organ(request, organ_id):
     operation_response = views.edit_organ_data(request, organ_id)
-
     if operation_response.status_code == 200:
         messages.add_message(request, messages.INFO, "Organ data edited successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error editing organ data")
-
     return redirect('edit_organ_form', organ_id=organ_id)
-
-
-def view_organ(request, organ_id):
-    response_organ = views.organ_dataview(request, organ_id)
-    organ_data = response_organ.data
-    return render(request, 'admin/organ/view.html', {'organ_data': organ_data})
 
 
 def delete_organ(request, organ_id):
@@ -143,9 +129,12 @@ def delete_organ(request, organ_id):
 
 
 def organ_problem_form(request):
+    response_bodypart = views.get_all_bodypart_list(request)
+    bodypart_data = response_bodypart.data
+
     response_organ = views.get_all_organs_list(request)
     organ_data = response_organ.data
-    return render(request, 'admin/organ_problem/form.html', {'organ_data': organ_data})
+    return render(request, 'admin/organ_problem/form.html', {'bodypart_data':bodypart_data})
 
 
 def store_organ_problem(request):
@@ -207,9 +196,12 @@ def delete_organ_problem(request, organ_problem_id):
 
 
 def problem_specification_form(request):
+    response_bodypart = views.get_all_bodypart_list(request)
+    bodypart_data = response_bodypart.data
+
     response = views.get_all_organ_problem_list(request)
     organ_problem_data = response.data
-    return render(request, 'admin/problem_specification/form.html', {'organ_problem_data': organ_problem_data})
+    return render(request, 'admin/problem_specification/form.html', {'bodypart_data': bodypart_data})
 
 
 def store_problem_specification(request):
@@ -308,11 +300,6 @@ def edit_department(request, department_id):
 
     return redirect('edit_department_form', department_id=department_id)
 
-
-def view_department(request, department_id):
-    response_department = views.department_dataview(request, department_id)
-    department_data = response_department.data
-    return render(request, 'admin/department/view.html', {'department_data': department_data})
 
 
 def delete_department(request, department_id):
@@ -440,12 +427,6 @@ def edit_faq(request, faq_id):
         messages.add_message(request, messages.ERROR, "Error editing faq data")
 
     return redirect('edit_faq_form', faq_id=faq_id)
-
-
-def view_faq(request, faq_id):
-    response_faq = views.faq_dataview(request, faq_id)
-    faq_data = response_faq.data
-    return render(request, 'admin/faq/view.html', {'faq_data': faq_data})
 
 
 def delete_faq(request, faq_id):

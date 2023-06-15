@@ -11,21 +11,36 @@
             <form id="PostForm" action="{% url 'store_problem_specification' %}" method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="specialtySelect" class="col-md-2 col-form-label">Organ Problem Name</label>
+                    <label for="bodyPartID" class="col-md-2 col-form-label">Body Part Name</label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="specialtySelect" name="organ_problem">
-                            <option selected>Select Organ Problem Name</option>
-                            {% for item in organ_problem_data %}
+                        <select class="form-control select2" id="bodyPartID">
+                            <option value="" selected>Select Body Part Name</option>
+                            {% for item in bodypart_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="organID" class="col-md-2 col-form-label">Organ Name</label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="organID">
+                            <option selected>Select Organ Name</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="organProblemID" class="col-md-2 col-form-label">Organ Problem Name</label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="organProblemID" name="organ_problem">
+                            <option selected>Select Organ Problem Name</option>
                         </select>
                     </div>
                 </div>
                 <hr>
                 <!-- Add form fields here -->
                 <div class="d-none" id="section-template">
-                    <br>
-                    <div class="card sections">
+                    <div class="sections">
                         <div class="card-header">
                             <h5 class="card-title">No 0</h5>
                         </div>
@@ -71,8 +86,9 @@
                 <!-- Section Container -->
                 <div id="sections-container">
                 </div>
+                <br>
                 <!-- Submit Button -->
-                <button type="submit" class="btn btn-sm btn-success float-right">Submit</button>
+                <button type="submit" class="btn btn-success float-right">Submit</button>
             </form>
         </div>
     </div>
@@ -80,5 +96,47 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+    $('#bodyPartID').on('change', function () {
+        let body_part_id = $(this).val();
+
+        if (body_part_id === '' || body_part_id == null) {
+            return false;
+        }
+        else{
+            $.ajax({
+                url: "/frontend/ajax/organ/" + body_part_id,
+                type: "GET",
+                success: function (response) {
+                    let options = '<option selected>Select Organ Name</option>';
+                    $.each(response, function (key, value) {
+                        options += '<option value="' + value.id + '">' + value.name + '</option>';
+                    });
+                    $('#organID').html(options);
+                }
+            });
+            $('#organID').on('change', function () {
+                let organ_id = $(this).val();
+        
+                if (organ_id === '' || organ_id == null) {
+                    return false;
+                }
+                else{
+                    $.ajax({
+                        url: "/frontend/ajax/organ/problem/" + organ_id,
+                        type: "GET",
+                        success: function (response) {
+                            let options = '<option selected>Select Organ Problem Name</option>';
+                            $.each(response, function (key, value) {
+                                options += '<option value="' + value.id + '">' + value.name + '</option>';
+                            });
+                            $('#organProblemID').html(options);
+                        }
+                    });
+                }
+            });
+        }
+    });
+</script>
 <script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
 {% endblock %}

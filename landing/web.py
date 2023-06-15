@@ -3,9 +3,7 @@ from django.contrib import messages
 from . import views
 from myadmin import views
 
-
 # Patient
-
 
 def landing_dashboard(request):
     return render(request, 'templates/landing/pages/home.html')
@@ -39,10 +37,7 @@ def doctor_register(request):
 def predict(request):
     response_bodypart = views.get_all_bodypart_list(request)
     bodypart_data = response_bodypart.data
-    response_organ = views.get_all_organs_list(request)
-    organ_data = response_organ.data
-    return render(request, 'templates/landing/pages/predict.html',
-                  {'bodypart_data': bodypart_data, 'organ_data': organ_data})
+    return render(request, 'templates/landing/pages/predict.html',{'bodypart_data': bodypart_data})
 
 
 def register_patient(request):

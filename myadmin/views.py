@@ -109,10 +109,8 @@ def store_organ_data(request):
         body_part = BodyPart.objects.get(id=body_part_id)
         for organ, description in zip(organs, descriptions):
             organ_obj = Organ(body_part=body_part, name=organ, description=description)
-            if organ_obj.save():
-                return Response({'status': 200})
-            else:
-                return Response({'status': 403})
+            organ_obj.save()
+        return Response({'status': 200})
     else:
         return Response({'status': 403})
 
@@ -207,10 +205,8 @@ def store_organ_problem_data(request):
 
         for organ_problem, description in zip(organ_problems, descriptions):
             organ_problem_obj = OrgansProblem(organ=organid, name=organ_problem, description=description)
-            if organ_problem_obj.save():
-                return Response({'status': 200})
-            else:
-                return Response({'status': 403})
+            organ_problem_obj.save()
+        return Response({'status': 200})
     else:
         return Response({'status': 403})
 
@@ -243,7 +239,7 @@ def get_all_organ_problem_list(request):
 
 @api_view(['GET'])
 def organ_problem_dataview(request, organ_problem_id):
-    query = """SELECTmop.id,mop.name,mop.description,mop.created_at,mop.updated_at,
+    query = """SELECT mop.id,mop.name,mop.description,mop.created_at,mop.updated_at,
                 mo.name AS organ_name FROM myadmin_organsproblem AS mop INNER JOIN
                 myadmin_organ AS mo ON mop.organ_id = mo.id WHERE mop.id = %s 
                 AND mop.deleted_at IS NULL ORDER BY mop.id ASC"""
@@ -307,10 +303,8 @@ def store_problem_specification_data(request):
         for specification, description in zip(specifications, descriptions):
             problem_specification_obj = ProblemSpecification(organ_problem=organ_problem,
                                                              specification=specification, description=description)
-            if problem_specification_obj.save():
-                return Response({'status': 200})
-            else:
-                return Response({'status': 403})
+            problem_specification_obj.save()
+        return Response({'status': 200})
     else:
         return Response({'status': 403})
 
@@ -681,8 +675,7 @@ def get_all_article_list(request):
 
 @api_view(['GET'])
 def get_organs_by_bodypart(request, body_part_id):
-    query = """SELECT mo.id,mo.name FROM myadmin_organ AS mo WHERE mo.body_part_id = %s AND mo.deleted_at IS NULL ORDER BY mo.id ASC"""
-
+    query = """SELECT id, name FROM myadmin_organ WHERE body_part_id = %s AND deleted_at IS NULL ORDER BY id ASC """
     with connection.cursor() as cursor:
         cursor.execute(query, [body_part_id])
         results = cursor.fetchall()
@@ -694,5 +687,23 @@ def get_organs_by_bodypart(request, body_part_id):
         }
         organs.append(organ)
     serializer = OrganBodyPartSerializer(many=True, instance=organs)
+    serialized_data = serializer.data
+    return Response(serialized_data)
+
+@api_view(['GET'])
+def get_organ_problem_by_organ(request, organ_id):
+    query = """SELECT id,name FROM myadmin_organsproblem WHERE organ_id = %s AND deleted_at IS NULL ORDER BY id ASC"""
+    
+    with connection.cursor() as cursor:
+        cursor.execute(query, [organ_id])
+        results = cursor.fetchall()
+    organs = []
+    for row in results:
+        organ = {
+            'id': row[0],
+            'name': row[1],
+        }
+        organs.append(organ)
+    serializer = OrganProblemOrganSerializer(many=True, instance=organs)
     serialized_data = serializer.data
     return Response(serialized_data)
