@@ -19,7 +19,7 @@ def bodypart_form(request):
 
 def store_bodypart(request):
     operation_response = views.store_bodypart_data(request)
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              "Body Part data stored successfully")
     else:
@@ -50,7 +50,7 @@ def edit_bodypart_form(request, bodypart_id):
 def edit_bodypart(request, bodypart_id):
     operation_response = views.edit_bodypart_data(request, bodypart_id)
 
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Body Part data edited successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error editing Body Part data")
@@ -61,7 +61,7 @@ def edit_bodypart(request, bodypart_id):
 def delete_bodypart(request, bodypart_id):
     operation_response = views.softdelete_bodypart_data(request, bodypart_id)
 
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Body Part data deleted successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error deleting Body Part data")
@@ -80,7 +80,7 @@ def organ_form(request):
 
 def store_organ(request):
     operation_response = views.store_organ_data(request)
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              "Organ data stored successfully")
     else:
@@ -107,7 +107,7 @@ def edit_organ_form(request, organ_id):
 
 def edit_organ(request, organ_id):
     operation_response = views.edit_organ_data(request, organ_id)
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Organ data edited successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error editing organ data")
@@ -117,7 +117,7 @@ def edit_organ(request, organ_id):
 def delete_organ(request, organ_id):
     operation_response = views.softdelete_organ_data(request, organ_id)
 
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Organ data deleted successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error deleting Organ data")
@@ -139,7 +139,7 @@ def organ_problem_form(request):
 
 def store_organ_problem(request):
     operation_response = views.store_organ_problem_data(request)
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              "Organ Problem data stored successfully")
     else:
@@ -167,7 +167,7 @@ def edit_organ_problem_form(request, organ_problem_id):
 def edit_organ_problem(request, organ_problem_id):
     operation_response = views.edit_organ_problem_data(request, organ_problem_id)
 
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Organ Problem data edited successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error editing organ problem data")
@@ -184,7 +184,7 @@ def view_organ_problem(request, organ_problem_id):
 def delete_organ_problem(request, organ_problem_id):
     operation_response = views.softdelete_organ_problem_data(request, organ_problem_id)
 
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Organ Problem data deleted successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error deleting Organ Problem data")
@@ -206,7 +206,7 @@ def problem_specification_form(request):
 
 def store_problem_specification(request):
     operation_response = views.store_problem_specification_data(request)
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              "Problem Specification data stored successfully")
     else:
@@ -234,7 +234,7 @@ def edit_problem_specification_form(request, problem_specification_id):
 def edit_problem_specification(request, problem_specification_id):
     operation_response = views.edit_problem_specification_data(request, problem_specification_id)
 
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "problem specification data edited successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error editing problem specification data")
@@ -252,7 +252,7 @@ def view_problem_specification(request, problem_specification_id):
 def delete_problem_specification(request, problem_specification_id):
     operation_response = views.softdelete_problem_specification_data(request, problem_specification_id)
 
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "problem specification data deleted successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error deleting problem specification data")
@@ -269,7 +269,7 @@ def department_form(request):
 
 def store_department(request):
     operation_response = views.store_department_data(request)
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              "Department data stored successfully")
     else:
@@ -293,7 +293,7 @@ def edit_department_form(request, department_id):
 def edit_department(request, department_id):
     operation_response = views.edit_department_data(request, department_id)
 
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "department data edited successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error editing department data")
@@ -305,7 +305,7 @@ def edit_department(request, department_id):
 def delete_department(request, department_id):
     operation_response = views.softdelete_department_data(request, department_id)
 
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "department data deleted successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error deleting department data")
@@ -328,7 +328,7 @@ def department_specification_form(request):
 
 def store_department_specification(request):
     operation_response = views.store_department_specification_data(request)
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              "Department Specification data stored successfully")
     else:
@@ -362,7 +362,7 @@ def edit_department_specification_form(request, department_specification_id):
 def edit_department_specification(request, department_specification_id):
     operation_response = views.edit_department_specification_data(request, department_specification_id)
 
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "department specification data edited successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error editing department specification data")
@@ -380,7 +380,7 @@ def view_department_specification(request, department_specification_id):
 def delete_department_specification(request, department_specification_id):
     operation_response = views.softdelete_department_specification_data(request, department_specification_id)
 
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "department specification data deleted successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error deleting problem department data")
@@ -396,7 +396,7 @@ def faq_form(request):
 
 def store_faq(request):
     operation_response = views.store_faq_data(request)
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              "FAQ data stored successfully")
     else:
@@ -421,7 +421,7 @@ def edit_faq_form(request, faq_id):
 def edit_faq(request, faq_id):
     operation_response = views.edit_faq_data(request, faq_id)
 
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "faq data edited successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error editing faq data")
@@ -432,7 +432,7 @@ def edit_faq(request, faq_id):
 def delete_faq(request, faq_id):
     operation_response = views.softdelete_faq_data(request, faq_id)
 
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "faq data deleted successfully")
     else:
         messages.add_message(request, messages.ERROR, "Error deleting faq data")
@@ -448,7 +448,7 @@ def article_form(request):
 
 def store_article(request):
     operation_response = views.store_article_data(request)
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              "Article data stored successfully")
     else:

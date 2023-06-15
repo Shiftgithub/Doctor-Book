@@ -2,10 +2,8 @@ from .models import *
 from .serializers import *
 from datetime import datetime
 from django.db import connection
-from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from django.shortcuts import get_object_or_404
 
 
 # store bodypart funtion
@@ -16,13 +14,13 @@ def store_bodypart_data(request):
         bodypart_serializer = BodyPartSerializer(data=request.data)
         if bodypart_serializer.is_valid():
             if bodypart_serializer.save():
-                return JsonResponse({'status': 200})
+                return Response({'status': 200})
             else:
-                return JsonResponse({'status': 403})
+                return Response({'status': 403})
         else:
-            return JsonResponse({'status': 403})
+            return Response({'status': 403})
     else:
-        return JsonResponse({'status': 403})
+        return Response({'status': 403})
 
 
 # all bodypart list funtion
