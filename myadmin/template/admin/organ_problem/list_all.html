@@ -82,6 +82,11 @@
 </div>
 {% endblock %}
 {% block scripts %}
+<!-- DataTables & Plugins -->
+<script src="{% static 'adminlte_assets/data_tables/js/datatable.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/data_tables/js/datatable_button.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/data_tables/js/datatable_responsive.min.js' %}"></script>
+
 <script>
     $(document).ready(function () {
         $("#bodyPartData").DataTable({
@@ -91,16 +96,15 @@
             "order": false,
             "buttons": ["copy", "csv", "excel", "print", "colvis"]
         }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
-    });
-    $('#deleteButtonID').click(function () {
-        window.location.href = $('#deleteURLID').attr('delete-url');
+
+        $('#myModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var deleteURL = button.data('delete-url');
+            $('#deleteButtonID').click(function () {
+                console.log('deleteButtonID');
+                window.location.href = deleteURL;
+            });
+        });
     });
 </script>
-
-<!-- DataTables  & Plugins -->
-<script src="{% static 'adminlte_assets/data_tables/js/datatable.min.js' %}"></script>
-<script src="{% static 'adminlte_assets/data_tables/js/datatable_button.min.js' %}"></script>
-<script src="{% static 'adminlte_assets/data_tables/js/datatable_responsive.min.js' %}"></script>
-
-<script src="{% static 'adminlte_assets/js/data_table_settings.js' %}"></script>
 {% endblock %}

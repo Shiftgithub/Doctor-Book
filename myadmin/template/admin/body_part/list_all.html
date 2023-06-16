@@ -41,10 +41,10 @@
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
                                     <!-- Button trigger modal -->
-                                    <a data-toggle="modal" data-target="#myModal" class="dropdown-item text-danger">
+                                    <a data-toggle="modal" data-target="#myModal" data-delete-url="{% url 'delete_bodypart' data.id %}"
+                                        class="dropdown-item text-danger">
                                         <i class="fas fa-trash"></i> Delete
                                     </a>
-                                    <div delete-url="{% url 'delete_bodypart' data.id %}" id="deleteURLID"></div>
                                 </div>
                             </div>
                         </td>
@@ -60,7 +60,7 @@
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Organ Data</h5>
+                <h5 class="modal-title" id="myModalLabel">Body Part Data</h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -89,14 +89,18 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "order": false,
+            "order": [],
             "buttons": ["copy", "csv", "excel", "print", "colvis"]
         }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
-    });
 
-    $('#deleteButtonID').click(function () {
-        window.location.href = $('#deleteURLID').attr('delete-url');
+        $('#myModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var deleteURL = button.data('delete-url');
+            $('#deleteButtonID').click(function () {
+                console.log('deleteButtonID');
+                window.location.href = deleteURL;
+            });
+        });
     });
 </script>
-
 {% endblock %}

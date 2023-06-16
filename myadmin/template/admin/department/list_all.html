@@ -37,7 +37,8 @@
                                     <!-- <i class="fas fa-ellipsis-v"></i> -->
                                 </span>
                                 <div class="dropdown-menu">
-                                    <a href="{% url 'edit_department_form' data.id %}" class="dropdown-item text-primary">
+                                    <a href="{% url 'edit_department_form' data.id %}"
+                                        class="dropdown-item text-primary">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
                                     <!-- Button trigger modal -->
@@ -60,7 +61,7 @@
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Organ Data</h5>
+                <h5 class="modal-title" id="myModalLabel">Department Data</h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -78,6 +79,11 @@
 {% endblock %}
 
 {% block scripts %}
+<!-- DataTables & Plugins -->
+<script src="{% static 'adminlte_assets/data_tables/js/datatable.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/data_tables/js/datatable_button.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/data_tables/js/datatable_responsive.min.js' %}"></script>
+
 <script>
     $(document).ready(function () {
         $("#bodyPartData").DataTable({
@@ -87,17 +93,15 @@
             "order": false,
             "buttons": ["copy", "csv", "excel", "print", "colvis"]
         }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
-    });
 
-    $('#deleteButtonID').click(function () {
-        window.location.href = $('#deleteURLID').attr('delete-url');
+        $('#myModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var deleteURL = button.data('delete-url');
+            $('#deleteButtonID').click(function () {
+                console.log('deleteButtonID');
+                window.location.href = deleteURL;
+            });
+        });
     });
 </script>
-
-<!-- DataTables  & Plugins -->
-<script src="{% static 'adminlte_assets/data_tables/js/datatable.min.js' %}"></script>
-<script src="{% static 'adminlte_assets/data_tables/js/datatable_button.min.js' %}"></script>
-<script src="{% static 'adminlte_assets/data_tables/js/datatable_responsive.min.js' %}"></script>
-
-<script src="{% static 'adminlte_assets/js/data_table_settings.js' %}"></script>
 {% endblock %}

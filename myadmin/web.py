@@ -64,7 +64,7 @@ def delete_bodypart(request, bodypart_id):
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Body Part data deleted successfully")
     elif operation_response.data.get('status') == 404:
-        messages.add_message(request, messages.ERROR, " Body Part cannot delete. because it is associated with organ table.")
+        messages.add_message(request, messages.ERROR, "Body Part cannot delete. because it is associated with Organ table.")
     else:
         messages.add_message(request, messages.ERROR, "Error deleting Body Part data")
     return redirect('bodypart_list')
@@ -120,6 +120,8 @@ def delete_organ(request, organ_id):
 
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Organ data deleted successfully")
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, "Organ cannot delete. because it is associated with Organ Problem table.")
     else:
         messages.add_message(request, messages.ERROR, "Error deleting Organ data")
 
@@ -187,6 +189,8 @@ def delete_organ_problem(request, organ_problem_id):
 
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Organ Problem data deleted successfully")
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, "Organ Problem cannot delete. because it is associated with Problem Specification table.")
     else:
         messages.add_message(request, messages.ERROR, "Error deleting Organ Problem data")
 
@@ -236,9 +240,11 @@ def edit_problem_specification(request, problem_specification_id):
     operation_response = views.edit_problem_specification_data(request, problem_specification_id)
 
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "problem specification data edited successfully")
+        messages.add_message(request, messages.INFO, "Problem Specification data edited successfully")
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, "Problem Specification cannot delete. because it is associated with Department Specification table.")
     else:
-        messages.add_message(request, messages.ERROR, "Error editing problem specification data")
+        messages.add_message(request, messages.ERROR, "Error editing Problem Specification data")
 
     return redirect('edit_problem_specification_form', problem_specification_id=problem_specification_id)
 
@@ -307,9 +313,11 @@ def delete_department(request, department_id):
     operation_response = views.softdelete_department_data(request, department_id)
 
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "department data deleted successfully")
+        messages.add_message(request, messages.INFO, "Department data deleted successfully")
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, "Department cannot delete. because it is associated with Doctor Table Or Department Specification Table.")
     else:
-        messages.add_message(request, messages.ERROR, "Error deleting department data")
+        messages.add_message(request, messages.ERROR, "Error deleting Department data")
 
     return redirect('department_list')
 

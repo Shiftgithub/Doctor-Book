@@ -1,6 +1,7 @@
 from .models import *
 from .serializers import *
 from datetime import datetime
+from doctor.models import Doctor
 from django.db import connection
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -184,16 +185,20 @@ def edit_organ_data(request, organ_id):
 # delete organ data
 
 @api_view(['PUT', 'GET'])
-def softdelete_organ_data(request, bodypart_id):
-    organ = Organ.objects.get(id=bodypart_id)
+def softdelete_organ_data(request, organ_id):
+    organ = Organ.objects.get(id=organ_id)
     serializer = OrganDeleteSerializer(organ, data=request.data)
-    if serializer.is_valid():
-        if serializer.save(deleted_at=datetime.now()):
-            return Response({'status': 200})
+    organ_problems = OrgansProblem.objects.filter(organ_id =organ_id)
+    if organ_problems:
+        return Response({'status': 404})
+    else:
+        if serializer.is_valid():
+            if serializer.save(deleted_at=datetime.now()):
+                return Response({'status': 200})
+            else:
+                return Response({'status': 403})
         else:
             return Response({'status': 403})
-    else:
-        return Response({'status': 403})
 
 
 # store organ problem data
@@ -284,13 +289,17 @@ def edit_organ_problem_data(request, organ_problem_id):
 def softdelete_organ_problem_data(request, organ_problem_id):
     organ_problem = OrgansProblem.objects.get(id=organ_problem_id)
     serializer = OrganProblemDeleteSerializer(organ_problem, data=request.data)
-    if serializer.is_valid():
-        if serializer.save(deleted_at=datetime.now()):
-            return Response({'status': 200})
+    problem_specification = ProblemSpecification.objects.filter(organ_problem_id =organ_problem_id)
+    if problem_specification:
+        return Response({'status': 200})
+    else:
+        if serializer.is_valid():
+            if serializer.save(deleted_at=datetime.now()):
+                return Response({'status': 200})
+            else:
+                return Response({'status': 403})
         else:
             return Response({'status': 403})
-    else:
-        return Response({'status': 403})
 
 
 # problem specification store 
@@ -382,13 +391,17 @@ def edit_problem_specification_data(request, problem_specification_id):
 def softdelete_problem_specification_data(request, problem_specification_id):
     problem_specification = ProblemSpecification.objects.get(id=problem_specification_id)
     serializer = ProblemSpecificationDeleteSerializer(problem_specification, data=request.data)
-    if serializer.is_valid():
-        if serializer.save(deleted_at=datetime.now()):
-            return Response({'status': 200})
+    department_specification = DepartmentSpecification.objects.filter(problem_specification_id =problem_specification_id)
+    if department_specification:
+        return Response({'status': 404})
+    else:
+        if serializer.is_valid():
+            if serializer.save(deleted_at=datetime.now()):
+                return Response({'status': 200})
+            else:
+                return Response({'status': 403})
         else:
             return Response({'status': 403})
-    else:
-        return Response({'status': 403})
 
 
 @api_view(['POST'])
@@ -463,13 +476,18 @@ def edit_department_data(request, department_id):
 def softdelete_department_data(request, department_id):
     department = Department.objects.get(id=department_id)
     serializer = DepartmentDeleteSerializer(department, data=request.data)
-    if serializer.is_valid():
-        if serializer.save(deleted_at=datetime.now()):
-            return Response({'status': 200})
+    department_specification = DepartmentSpecification.objects.filter(department_id =department_id)
+    doctors = Doctor.objects.filter(department_id =department_id)
+    if doctors.exists() or department_specification.exists():
+         return Response({'status': 200})
+    else:
+        if serializer.is_valid():
+            if serializer.save(deleted_at=datetime.now()):
+                return Response({'status': 200})
+            else:
+                return Response({'status': 403})
         else:
             return Response({'status': 403})
-    else:
-        return Response({'status': 403})
 
 
 @api_view(['POST'])
