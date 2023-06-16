@@ -63,9 +63,10 @@ def delete_bodypart(request, bodypart_id):
 
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Body Part data deleted successfully")
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, " Body Part cannot delete. because it is associated with organ table.")
     else:
         messages.add_message(request, messages.ERROR, "Error deleting Body Part data")
-
     return redirect('bodypart_list')
 
 

@@ -86,13 +86,17 @@ def edit_bodypart_data(request, bodypart_id):
 def softdelete_bodypart_data(request, bodypart_id):
     bodypart = BodyPart.objects.get(id=bodypart_id)
     serializer = BodyPartDeleteSerializer(bodypart, data=request.data)
-    if serializer.is_valid():
-        if serializer.save(deleted_at=datetime.now()):
-            return Response({'status': 200})
+    organs = Organ.objects.filter(body_part_id=bodypart_id)
+    if organs:
+        return Response({'status': 404})
+    else:
+        if serializer.is_valid():
+            if serializer.save(deleted_at=datetime.now()):
+                return Response({'status': 200})
+            else:
+                return Response({'status': 403})
         else:
             return Response({'status': 403})
-    else:
-        return Response({'status': 403})
 
 
 # store organ data
