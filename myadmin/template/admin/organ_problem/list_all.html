@@ -27,7 +27,8 @@
                 <tbody>
                     {% for data in all_data %}
                     <tr>
-                        <td>{{ forloop.counter }}</td> {# Use 'forloop.counter' to get the loop counter #}
+                        <td>{{ forloop.counter }}</td>
+                        {# Use 'forloop.counter' to get the loop counter #}
                         <td>{{ data.organ }}</td>
                         <td>{{ data.name }}</td>
                         <td>
@@ -46,10 +47,10 @@
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
                                     <!-- Button trigger modal -->
-                                    <a data-toggle="modal" data-target="#myModal" class="dropdown-item text-danger">
+                                    <a data-toggle="modal" data-target="#myModal" data-delete-url="{% url 'delete_organ_problem' data.id %}"
+                                        class="dropdown-item text-danger">
                                         <i class="fas fa-trash"></i> Delete
                                     </a>
-                                    <div delete-url="{% url 'delete_organ_problem' data.id %}" id="deleteURLID"></div>
                                 </div>
                             </div>
                         </td>
@@ -81,6 +82,7 @@
     </div>
 </div>
 {% endblock %}
+
 {% block scripts %}
 <!-- DataTables & Plugins -->
 <script src="{% static 'adminlte_assets/data_tables/js/datatable.min.js' %}"></script>

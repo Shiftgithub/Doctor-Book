@@ -291,7 +291,7 @@ def softdelete_organ_problem_data(request, organ_problem_id):
     serializer = OrganProblemDeleteSerializer(organ_problem, data=request.data)
     problem_specification = ProblemSpecification.objects.filter(organ_problem_id =organ_problem_id)
     if problem_specification:
-        return Response({'status': 200})
+        return Response({'status': 404})
     else:
         if serializer.is_valid():
             if serializer.save(deleted_at=datetime.now()):
@@ -479,7 +479,7 @@ def softdelete_department_data(request, department_id):
     department_specification = DepartmentSpecification.objects.filter(department_id =department_id)
     doctors = Doctor.objects.filter(department_id =department_id)
     if doctors.exists() or department_specification.exists():
-         return Response({'status': 200})
+         return Response({'status': 404})
     else:
         if serializer.is_valid():
             if serializer.save(deleted_at=datetime.now()):

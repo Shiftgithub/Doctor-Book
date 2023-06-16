@@ -11,7 +11,7 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
-            <h1 class="card-title">Department Specification</h1>
+            <h1 class="card-title">Department Specifications</h1>
         </div>
         <div class="card-body">
             <table id="bodyPartData" class="table table-sm table-bordered table-striped text-center">
@@ -47,11 +47,10 @@
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
                                     <!-- Button trigger modal -->
-                                    <a data-toggle="modal" data-target="#myModal" class="dropdown-item text-danger">
+                                    <a data-toggle="modal" data-target="#myModal" data-delete-url="{% url 'delete_department_specification' data.id %}"
+                                        class="dropdown-item text-danger">
                                         <i class="fas fa-trash"></i> Delete
                                     </a>
-                                    <div delete-url="{% url 'delete_department_specification' data.id %}"
-                                        id="deleteURLID"></div>
                                 </div>
                             </div>
                         </td>
@@ -67,7 +66,7 @@
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Organ Data</h5>
+                <h5 class="modal-title" id="myModalLabel">Department Specification Data</h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -83,6 +82,7 @@
     </div>
 </div>
 {% endblock %}
+
 {% block scripts %}
 <!-- DataTables & Plugins -->
 <script src="{% static 'adminlte_assets/data_tables/js/datatable.min.js' %}"></script>

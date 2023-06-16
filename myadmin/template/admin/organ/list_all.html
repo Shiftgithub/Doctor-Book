@@ -45,10 +45,10 @@
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
                                     <!-- Button trigger modal -->
-                                    <a data-toggle="modal" data-target="#myModal" class="dropdown-item text-danger">
+                                    <a data-toggle="modal" data-target="#myModal" data-delete-url="{% url 'delete_organ' data.id %}"
+                                        class="dropdown-item text-danger">
                                         <i class="fas fa-trash"></i> Delete
                                     </a>
-                                    <div delete-url="{% url 'delete_organ' data.id %}" id="deleteURLID"></div>
                                 </div>
                             </div>
                         </td>
