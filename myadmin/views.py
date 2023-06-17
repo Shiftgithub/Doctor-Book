@@ -727,3 +727,22 @@ def get_organ_problem_by_organ(request, organ_id):
     serializer = OrganProblemOrganSerializer(many=True, instance=organs)
     serialized_data = serializer.data
     return Response(serialized_data)
+
+
+@api_view(['GET'])
+def get_specification_by_organ_problem(request, organ_problem_id):
+    query = """SELECT id,specification FROM myadmin_problemspecification WHERE organ_problem_id = %s AND deleted_at IS NULL ORDER BY id ASC"""
+    
+    with connection.cursor() as cursor:
+        cursor.execute(query, [organ_problem_id])
+        results = cursor.fetchall()
+    specifications = []
+    for row in results:
+        specification = {
+            'id': row[0],
+            'specification': row[1],
+        }
+        specifications.append(specification)
+    serializer = ProblemSpecificationOrganProblemSerializer(many=True, instance=specifications)
+    serialized_data = serializer.data
+    return Response(serialized_data)

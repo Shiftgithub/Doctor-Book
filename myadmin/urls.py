@@ -119,4 +119,5 @@ urlpatterns = [
     # Ajax path
     path('frontend/ajax/organ/<int:body_part_id>/', views.get_organs_by_bodypart, name="get_organs"),
     path('frontend/ajax/organ/problem/<int:organ_id>/', views.get_organ_problem_by_organ, name="get_organ_problems"),
+    path('frontend/ajax/problem/specification/<int:organ_problem_id>/', views.get_specification_by_organ_problem, name="get_specification"),
 ]
