@@ -130,8 +130,8 @@
 
                             $.each(specifications, function (key, value) {
                                 tableHTML += '<tr>';
-                                tableHTML += '<td><input type="checkbox"></td>';
-                                tableHTML += '<td>' + value.specification + '</td>';
+                                tableHTML += '<td><input type="checkbox" id="prbSpec'+ key + '"></td>';
+                                tableHTML += '<td><label for="prbSpec'+ key + '">' + value.specification + '</label></td>';
                                 tableHTML += '</tr>';
                             });
 
@@ -141,8 +141,8 @@
                             // Display the specification table
                             $('#problemSpecificationID').html(tableHTML);
                         },
-                        error: function (xhr, status, error) {
-                            console.log('AJAX request error:', error);
+                        error: function (error) {
+                            alert('Problem Specification data not found');
                         }
                     });
                 }
