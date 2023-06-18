@@ -1,6 +1,4 @@
 from . import views
-from .models import *
-from datetime import datetime
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
@@ -20,11 +18,9 @@ def bodypart_form(request):
 def store_bodypart(request):
     operation_response = views.store_bodypart_data(request)
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO,
-                             "Body Part data stored successfully")
+        messages.add_message(request, messages.INFO, "Body Part data stored successfully")
     else:
-        messages.add_message(request, messages.ERROR,
-                             "Error in storing Body Part data")
+        messages.add_message(request, messages.ERROR, "Error in storing Body Part data")
 
     return redirect('add_bodypart_form')
 

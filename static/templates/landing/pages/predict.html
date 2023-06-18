@@ -2,157 +2,154 @@
 {% load static %}
 
 {% block styles %}
-  <style>
+<style>
     #predictor {
         background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
     }
-  </style>
+</style>
 {% endblock %}
 
 {% block content %}
-  <!-- ======= Login Section ======= -->
-  <section id="predictor">
+<!-- ======= Login Section ======= -->
+<section id="predictor">
     <div class="container mt-4">
-      <div class="row">
-        <h4 class="text-center">Problem Specification</h4>
-      </div>
-      <hr />
-      <form id="PostForm" action="#" method="POST">
+        <div class="row">
+            <h4 class="text-center">Problem Specification</h4>
+        </div>
+        <hr/>
+        <form id="PostForm" action="#" method="POST">
             {% csrf_token %}
             <!-- Body Part Name -->
             <div class="row p-2">
-            <label for="bodyPartID" class="col-md-3 col-form-label">Body Part :<span class="text-danger">*</span></label>
-            <div class="col-md-9">
-                <select class="form-control select2" id="bodyPartID" name="body_part">
-                <option value="">Select Body Part Name</option>
-                {% for item in bodypart_data %}
-                    <option value="{{ item.id }}">{{ item.name }}</option>
-                {% endfor %}
-                </select>
-            </div>
+                <label for="bodyPartID" class="col-md-3 col-form-label">Body Part :<span
+                        class="text-danger">*</span></label>
+                <div class="col-md-9">
+                    <select class="form-control select2" id="bodyPartID" name="body_part">
+                        <option value="">Select Body Part Name</option>
+                        {% for item in bodypart_data %}
+                        <option value="{{ item.id }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
 
             <!-- Organ Name -->
             <div class="row p-2">
-            <label for="organID" class="col-md-3 col-form-label">Organ :<span class="text-danger">*</span></label>
-            <div class="col-md-9">
-                <select class="form-control select2" id="organID" name="organ">
-                <option selected>Select Organ Name</option>
-                </select>
-            </div>
+                <label for="organID" class="col-md-3 col-form-label">Organ :<span class="text-danger">*</span></label>
+                <div class="col-md-9">
+                    <select class="form-control select2" id="organID" name="organ">
+                        <option selected>Select Organ Name</option>
+                    </select>
+                </div>
             </div>
             <!-- Problem Name -->
             <div class="row p-2">
-            <label for="organProblemID" class="col-md-3 col-form-label">Organ Problem :<span class="text-danger">*</span></label>
-            <div class="col-md-9">
-                <select class="form-control select2" id="organProblemID" name="organ_problem">
-                <option selected>Select Organ Problem Name</option>
-                </select>
-            </div>
+                <label for="organProblemID" class="col-md-3 col-form-label">Organ Problem :<span
+                        class="text-danger">*</span></label>
+                <div class="col-md-9">
+                    <select class="form-control select2" id="organProblemID" name="organ_problem">
+                        <option selected>Select Organ Problem Name</option>
+                    </select>
+                </div>
             </div>
             <!-- Problem Specification -->
             <div class="row p-2">
-            <label for="problemSpecificationID" class="col-md-3 col-form-label">Problem Specification :<span class="text-danger">*</span></label>
-            <div class="col-md-9">
-                <div id="problemSpecificationID"></div>
-            </div>
+                <label for="problemSpecificationID" class="col-md-3 col-form-label">Problem Specification :<span
+                        class="text-danger">*</span></label>
+                <div class="col-md-9">
+                    <div id="problemSpecificationID"></div>
+                </div>
             </div>
             <!-- Submit Button -->
             <div class="row p-2">
-            <div class="col-md-3"></div>
-            <div class="col-md-9">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="col-md-3"></div>
+                <div class="col-md-9">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </div>
-            </div>
-      </form>
-      <div class="row"></div>
+        </form>
+        <div class="row"></div>
     </div>
-  </section>
-  <!-- End Login Section -->
+</section>
+<!-- End Login Section -->
 {% endblock %}
 
 {% block scripts %}
-  <script>
+<script>
     $('#bodyPartID').on('change', function () {
-      let body_part_id = $(this).val()
-    
-      if (body_part_id === '' || body_part_id == null) {
-        return false
-      } else {
-        $.ajax({
-          url: '/frontend/ajax/organ/' + body_part_id,
-          type: 'GET',
-          success: function (response) {
-            let options = '<option selected>Select Organ Name</option>'
-            $.each(response, function (key, value) {
-              options += '<option value="' + value.id + '">' + value.name + '</option>'
-            })
-            $('#organID').html(options)
-          }
-        })
-        $('#organID').on('change', function () {
-          let organ_id = $(this).val()
-    
-          if (organ_id === '' || organ_id == null) {
+        let body_part_id = $(this).val()
+
+        if (body_part_id === '' || body_part_id == null) {
             return false
-          } else {
+        } else {
             $.ajax({
-              url: '/frontend/ajax/organ/problem/' + organ_id,
-              type: 'GET',
-              success: function (response) {
-                let options = '<option selected>Select Organ Problem Name</option>'
-                $.each(response, function (key, value) {
-                  options += '<option value="' + value.id + '">' + value.name + '</option>'
-                })
-                $('#organProblemID').html(options)
-              }
-            })
-          }
-        })
-        // Problem Specification AJAX
-        $('#organProblemID').on('change', function () {
-            let organ_problem_id = $(this).val();
-            
-            if (organ_problem_id === '' || organ_problem_id == null) {
-              return false;
-            } else {
-              $.ajax({
-                url: '/frontend/ajax/problem/specification/' + organ_problem_id,
+                url: '/frontend/ajax/organ/' + body_part_id,
                 type: 'GET',
                 success: function (response) {
-                  console.log('response:', response);
-            
-                  let specification = response;
-                  let tableHTML = '<table><tr>';
-            
-                  let columnCount = 0;
-                  // Loop through the specifications and generate table cells
-                  $.each(specification, function (key, value) {
-                    tableHTML += '<td><label class="custom-checkbox">' +
-                      '<input type="checkbox">'+ 
-                      value.specification +'</label></td>';
-            
-                    columnCount++;
-                    if (columnCount === 5) {
-                      tableHTML += '</tr><tr>';
-                      columnCount = 0;
-                    }
-                  });
-            
-                  tableHTML += '</tr></table>';
-            
-                  // Display the specification table
-                  $('#problemSpecificationID').html(tableHTML);
-                },
-                error: function (xhr, status, error) {
-                  console.log('AJAX request error:', error);
+                    let options = '<option selected>Select Organ Name</option>'
+                    $.each(response, function (key, value) {
+                        options += '<option value="' + value.id + '">' + value.name + '</option>'
+                    })
+                    $('#organID').html(options)
                 }
-              });
-            }
-          });
-          
-        // end
-      }
+            })
+            $('#organID').on('change', function () {
+                let organ_id = $(this).val()
+
+                if (organ_id === '' || organ_id == null) {
+                    return false
+                } else {
+                    $.ajax({
+                        url: '/frontend/ajax/organ/problem/' + organ_id,
+                        type: 'GET',
+                        success: function (response) {
+                            let options = '<option selected>Select Organ Problem Name</option>'
+                            $.each(response, function (key, value) {
+                                options += '<option value="' + value.id + '">' + value.name + '</option>'
+                            })
+                            $('#organProblemID').html(options)
+                        }
+                    })
+                }
+            })
+            // Problem Specification AJAX
+            $('#organProblemID').on('change', function () {
+                let organ_problem_id = $(this).val();
+
+                if (organ_problem_id === '' || organ_problem_id == null) {
+                    return false;
+                } else {
+                    $.ajax({
+                        url: '/frontend/ajax/problem/specification/' + organ_problem_id,
+                        type: 'GET',
+                        success: function (response) {
+                            let specifications = response;
+
+                            let tableHTML = '<table class="table table-bordered table-hover table-striped">';
+                            tableHTML += '<tbody>';
+
+                            $.each(specifications, function (key, value) {
+                                tableHTML += '<tr>';
+                                tableHTML += '<td><input type="checkbox" id="prbSpec'+ key + '"></td>';
+                                tableHTML += '<td><label for="prbSpec'+ key + '">' + value.specification + '</label></td>';
+                                tableHTML += '</tr>';
+                            });
+
+                            tableHTML += '</tbody>';
+                            tableHTML += '</table>';
+
+                            // Display the specification table
+                            $('#problemSpecificationID').html(tableHTML);
+                        },
+                        error: function (error) {
+                            alert('Problem Specification data not found');
+                        }
+                    });
+                }
+            });
+
+            // end
+        }
     })
-  </script>
+</script>
 {% endblock %}
