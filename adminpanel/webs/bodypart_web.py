@@ -33,7 +33,7 @@ def bodypart_data_view(request):
 
 
 def edit_bodypart_form(request, bodypart_id):
-    response_bodypart = bodypart_data_view(request, bodypart_id)
+    response_bodypart = bodypart_dataview(request, bodypart_id)
     bodypart_data = response_bodypart.data
     if bodypart_data.get('id'):  # Check if id exists in bodypart_data
         return render(request, 'admin/body_part/edit.html', {'bodypart_data': bodypart_data})

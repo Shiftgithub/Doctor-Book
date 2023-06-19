@@ -1,9 +1,10 @@
-from adminpanel.serializers.department_serializers import *
 from datetime import datetime
 from adminpanel.models.doctor_models import *
 from django.db import connection
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from adminpanel.serializers.department_serializers import *
+from adminpanel.models.department_specification_models import *
 
 
 @api_view(['POST'])

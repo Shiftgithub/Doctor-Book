@@ -1,9 +1,9 @@
-from adminpanel.serializers.organ_serializers import *
 from datetime import datetime
 from django.db import connection
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
+from adminpanel.serializers.organ_serializers import *
+from adminpanel.models.organ_problem_models import *
 
 # store organ data
 @api_view(['POST'])
