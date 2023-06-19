@@ -1,12 +1,11 @@
-from .models.bodypart_models import *
-from .serializers.bodypart_serializers import *
+from adminpanel.serializers.bodypart_serializers import *
 from datetime import datetime
 from django.db import connection
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-# store bodypart funtion
 
+# store bodypart funtion
 @api_view(['POST'])
 def store_bodypart_data(request):
     if request.method == 'POST':
@@ -26,7 +25,7 @@ def store_bodypart_data(request):
 
 @api_view(['GET'])
 def get_all_bodypart_list(request):
-    query = """SELECT * FROM myadmin_bodypart WHERE deleted_at IS NULL ORDER BY id ASC"""
+    query = """SELECT * FROM adminpanel_bodypart WHERE deleted_at IS NULL ORDER BY id ASC"""
     with connection.cursor() as cursor:
         cursor.execute(query)
         results = cursor.fetchall()
@@ -48,7 +47,7 @@ def get_all_bodypart_list(request):
 
 @api_view(['GET'])
 def bodypart_dataview(request, bodypart_id):
-    query = """SELECT * FROM myadmin_bodypart WHERE id = %s AND deleted_at IS NULL"""
+    query = """SELECT * FROM adminpanel_bodypart WHERE id = %s AND deleted_at IS NULL"""
     with connection.cursor() as cursor:
         cursor.execute(query, [bodypart_id])
         results = cursor.fetchall()

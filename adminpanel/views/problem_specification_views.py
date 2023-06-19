@@ -1,13 +1,12 @@
-from .models.problem_specification_models import *
-from .serializers.problem_specification_serializers import *
+from adminpanel.serializers.problem_specification_serializers import *
+from adminpanel.serializers.department_specification_serializers import *
 from datetime import datetime
 from django.db import connection
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 
-# problem specification store 
-
+# problem specification store
 @api_view(['POST'])
 def store_problem_specification_data(request):
     if request.method == 'POST':
@@ -29,7 +28,7 @@ def store_problem_specification_data(request):
 @api_view(['GET'])
 def get_all_problem_specification_list(request):
     query = """SELECT mps.id,mps.specification,mps.description,organ_problem.name AS organ_problem_name
-        FROM myadmin_problemspecification AS mps INNER JOIN myadmin_organsproblem AS organ_problem
+        FROM adminpanel_problemspecification AS mps INNER JOIN adminpanel_organsproblem AS organ_problem
         WHERE mps.organ_problem_id = organ_problem.id AND mps.deleted_at IS NULL ORDER BY mps.id ASC"""
     with connection.cursor() as cursor:
         cursor.execute(query)
@@ -53,8 +52,8 @@ def get_all_problem_specification_list(request):
 @api_view(['GET'])
 def problem_specification_dataview(request, problem_specification_id):
     query = """SELECT mps.id,mps.specification,mps.description,organ_problem.name AS 
-            organ_problem_name,mps.created_at, mps.updated_at FROM myadmin_problemspecification 
-            AS mps INNER JOIN myadmin_organsproblem AS organ_problem WHERE mps.id = %s AND
+            organ_problem_name,mps.created_at, mps.updated_at FROM adminpanel_problemspecification 
+            AS mps INNER JOIN adminpanel_organsproblem AS organ_problem WHERE mps.id = %s AND
             mps.organ_problem_id = organ_problem.id AND mps.deleted_at IS NULL"""
     with connection.cursor() as cursor:
         cursor.execute(query, [problem_specification_id])
@@ -95,7 +94,7 @@ def edit_problem_specification_data(request, problem_specification_id):
 def softdelete_problem_specification_data(request, problem_specification_id):
     problem_specification = ProblemSpecification.objects.get(id=problem_specification_id)
     serializer = ProblemSpecificationDeleteSerializer(problem_specification, data=request.data)
-    department_specification = DepartmentSpecification.objects.filter(problem_specification_id =problem_specification_id)
+    department_specification = DepartmentSpecification.objects.filter(problem_specification_id=problem_specification_id)
     if department_specification:
         return Response({'status': 404})
     else:

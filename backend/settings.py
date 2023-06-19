@@ -37,11 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # app
-
+    
     'api.apps.ApiConfig',
-    'myadmin.apps.MyadminConfig',
-    'doctor.apps.DoctorConfig',
+    'adminpanel.apps.AdminpanelConfig',
     'landing.apps.LandingConfig',
+
     'rest_framework',
 ]
 
@@ -61,8 +61,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'static',
-            BASE_DIR / 'myadmin/template',
-            BASE_DIR / 'doctor/template',
+            BASE_DIR / 'adminpanel/template',
             BASE_DIR / 'landing/template',
         ],
         'APP_DIRS': True,

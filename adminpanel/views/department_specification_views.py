@@ -1,6 +1,4 @@
-from .models.department_specification_models import *
-from .models.problem_specification_models import *
-from .serializers.department_specification_serializers import *
+from adminpanel.serializers.department_specification_serializers import *
 from datetime import datetime
 from django.db import connection
 from rest_framework.response import Response
@@ -26,8 +24,8 @@ def store_department_specification_data(request):
 @api_view(['GET'])
 def get_all_department_specifications_list(request):
     query = """SELECT mds.id,mds.description,md.name AS department_name,mps.specification
-            FROM myadmin_departmentspecification AS mds INNER JOIN myadmin_department AS md
-            INNER JOIN myadmin_problemspecification AS mps WHERE mds.department_id = md.id AND 
+            FROM adminpanel_departmentspecification AS mds INNER JOIN adminpanel_department AS md
+            INNER JOIN adminpanel_problemspecification AS mps WHERE mds.department_id = md.id AND 
             mds.problem_specification_id = mps.id  AND mds.deleted_at IS NULL ORDER BY mds.id ASC"""
     with connection.cursor() as cursor:
         cursor.execute(query)
@@ -49,8 +47,8 @@ def get_all_department_specifications_list(request):
 @api_view(['GET'])
 def department_specification_dataview(request, department_specification_id):
     query = """SELECT mds.id,mds.description,md.name AS department_name,mps.specification,
-            mps.created_at,mps.updated_at FROM myadmin_departmentspecification AS mds INNER JOIN myadmin_department 
-            AS md INNER JOIN myadmin_problemspecification AS mps WHERE mds.id = %s AND mds.department_id = md.id 
+            mps.created_at,mps.updated_at FROM adminpanel_departmentspecification AS mds INNER JOIN adminpanel_department 
+            AS md INNER JOIN adminpanel_problemspecification AS mps WHERE mds.id = %s AND mds.department_id = md.id 
             AND mds.problem_specification_id = mps.id  AND mds.deleted_at IS NULL"""
     with connection.cursor() as cursor:
         cursor.execute(query, [department_specification_id])

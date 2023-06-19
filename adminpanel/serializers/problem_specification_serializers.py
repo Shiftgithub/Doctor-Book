@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models.problem_specification_models import *
+from adminpanel.models.problem_specification_models import *
 
 
 class ProblemSpecificationStoreSerializer(serializers.ModelSerializer):
@@ -20,6 +20,7 @@ class ProblemSpecificationDeleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProblemSpecification
         fields = ['deleted_at']
+
 
 class ProblemSpecificationOrganProblemSerializer(serializers.ModelSerializer):
     class Meta:

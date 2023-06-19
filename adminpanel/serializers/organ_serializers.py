@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models.organ_models import *
+from adminpanel.models.organ_models import *
+
 
 class OrganStoreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,6 +14,7 @@ class OrganSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organ
         fields = ['id', 'name', 'description', 'created_at', 'updated_at', 'bodypart']
+
 
 class OrganBodyPartSerializer(serializers.ModelSerializer):
     class Meta:

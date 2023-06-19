@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models.doctor_models import *
+from adminpanel.models.doctor_models import *
+
 
 class DoctorsSerializer(serializers.ModelSerializer):
     department = serializers.CharField(source='department_name')

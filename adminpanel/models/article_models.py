@@ -4,6 +4,7 @@ from django.db import models
 
 
 class Article(models.Model):
+    objects = None
     heading = models.CharField(max_length=1000)
     tag = models.CharField(max_length=1000)
     description = models.CharField(max_length=10000)

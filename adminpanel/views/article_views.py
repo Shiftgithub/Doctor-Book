@@ -1,9 +1,6 @@
-from datetime import datetime
-from django.db import connection
-from .models.article_models import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .serializers.article_serializers import *
+from adminpanel.serializers.article_serializers import *
 
 
 # Article 

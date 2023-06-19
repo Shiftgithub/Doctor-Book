@@ -1,7 +1,4 @@
-from .models.doctor_models import *
-from .serializers.doctor_serializer import *
-from django.http import JsonResponse
-from .models_doctor_models import *
+from adminpanel.serializers.doctor_serializers import *
 from django.db import connection
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_protect
@@ -29,8 +26,8 @@ def get_all_doctors_list(request):
     # Execute the raw SQL query
     query = """
     SELECT dd.id,dd.name,dd.description,
-    md.name AS department_name FROM doctor_doctor AS dd
-    INNER JOIN myadmin_department AS md
+    md.name AS department_name FROM adminpanel_doctor AS dd
+    INNER JOIN adminpanel_department AS md
     ON dd.department_id = md.id WHERE dd.deleted_at IS NULL
     ORDER BY dd.id ASC
     """

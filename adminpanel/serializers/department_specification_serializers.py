@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models.department_department_models import *
+from adminpanel.models.department_specification_models import *
 
 
 class DepartmentSpecificationStoreSerializer(serializers.ModelSerializer):
@@ -10,7 +10,7 @@ class DepartmentSpecificationStoreSerializer(serializers.ModelSerializer):
 
 class DepartmentSpecificationSerializer(serializers.ModelSerializer):
     department = serializers.CharField(source='department_name')
-    department = serializers.CharField(source='problemspecification')
+    specification = serializers.CharField(source='problemspecification')
 
     class Meta:
         model = DepartmentSpecification

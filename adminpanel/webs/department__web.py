@@ -1,19 +1,15 @@
-from . import views
-from .models import *
-from datetime import datetime
+from adminpanel.views.department_views import *
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
 
 # department
-
-
 def department_form(request):
     return render(request, 'admin/department/form.html')
 
 
 def store_department(request):
-    operation_response = views.store_department_data(request)
+    operation_response = store_department_data(request)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              "Department data stored successfully")
@@ -23,20 +19,20 @@ def store_department(request):
     return redirect('add_department_form')
 
 
-def department_dataview(request):
-    response = views.get_all_departments_list(request)
+def department_data_view(request):
+    response = get_all_departments_list(request)
     all_data = response.data
     return render(request, 'admin/department/list_all.html', {'all_data': all_data})
 
 
 def edit_department_form(request, department_id):
-    response_department = views.department_dataview(request, department_id)
+    response_department = department_data_view(request, department_id)
     department_data = response_department.data
     return render(request, 'admin/department/edit.html', {'department_data': department_data})
 
 
 def edit_department(request, department_id):
-    operation_response = views.edit_department_data(request, department_id)
+    operation_response = edit_department_data(request, department_id)
 
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "department data edited successfully")
@@ -46,14 +42,15 @@ def edit_department(request, department_id):
     return redirect('edit_department_form', department_id=department_id)
 
 
-
 def delete_department(request, department_id):
-    operation_response = views.softdelete_department_data(request, department_id)
+    operation_response = softdelete_department_data(request, department_id)
 
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Department data deleted successfully")
     elif operation_response.data.get('status') == 404:
-        messages.add_message(request, messages.ERROR, "Department cannot delete. because it is associated with Doctor Table Or Department Specification Table.")
+        messages.add_message(request, messages.ERROR,
+                             "Department cannot delete."
+                             "because it is associated with Doctor Table Or Department Specification Table.")
     else:
         messages.add_message(request, messages.ERROR, "Error deleting Department data")
 

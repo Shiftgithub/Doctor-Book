@@ -1,7 +1,6 @@
-from .models.department_models import *
-from .serializers.department_serializers import *
+from adminpanel.serializers.department_serializers import *
 from datetime import datetime
-from .models_doctor_models import *
+from adminpanel.models.doctor_models import *
 from django.db import connection
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -22,7 +21,7 @@ def store_department_data(request):
 
 @api_view(['GET'])
 def get_all_departments_list(request):
-    query = """SELECT * FROM myadmin_department WHERE deleted_at IS NULL ORDER BY id ASC"""
+    query = """SELECT * FROM adminpanel_department WHERE deleted_at IS NULL ORDER BY id ASC"""
     with connection.cursor() as cursor:
         cursor.execute(query)
         results = cursor.fetchall()

@@ -1,5 +1,5 @@
-from . import views
-from .models import *
+from adminpanel.views.faq_views import *
+from adminpanel.models.faq_models import *
 from datetime import datetime
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -12,7 +12,7 @@ def faq_form(request):
 
 
 def store_faq(request):
-    operation_response = views.store_faq_data(request)
+    operation_response = store_faq_data(request)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              "FAQ data stored successfully")
@@ -23,20 +23,20 @@ def store_faq(request):
     return redirect('add_faq_form')
 
 
-def faq_dataview(request):
-    response = views.get_all_faq_list(request)
+def faq_data_view(request):
+    response = get_all_faq_list(request)
     all_data = response.data
     return render(request, 'admin/faq/list_all.html', {'all_data': all_data})
 
 
 def edit_faq_form(request, faq_id):
-    response_faq = views.faq_dataview(request, faq_id)
+    response_faq = faq_dataview(request, faq_id)
     faq_data = response_faq.data
     return render(request, 'admin/faq/edit.html', {'faq_data': faq_data})
 
 
 def edit_faq(request, faq_id):
-    operation_response = views.edit_faq_data(request, faq_id)
+    operation_response = edit_faq_data(request, faq_id)
 
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "faq data edited successfully")
@@ -47,7 +47,7 @@ def edit_faq(request, faq_id):
 
 
 def delete_faq(request, faq_id):
-    operation_response = views.softdelete_faq_data(request, faq_id)
+    operation_response = softdelete_faq_data(request, faq_id)
 
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "faq data deleted successfully")

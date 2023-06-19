@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models.organ_problem_models import *
+from adminpanel.models.organ_problem_models import *
 
 
 class OrganProblemStoreSerializer(serializers.ModelSerializer):
@@ -15,10 +15,12 @@ class OrganProblemSerializer(serializers.ModelSerializer):
         model = OrgansProblem
         fields = ['id', 'name', 'description', 'created_at', 'updated_at', 'organ']
 
+
 class OrganProblemOrganSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrgansProblem
         fields = ['id', 'name']
+
 
 class OrganProblemDeleteSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,11 +1,8 @@
-from .models.faq_models import *
-from .serializers.faq_serializers import *
+from adminpanel.serializers.faq_serializers import *
 from datetime import datetime
-from doctor.models import Doctor
 from django.db import connection
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
 
 
 # FAQ
@@ -26,7 +23,7 @@ def store_faq_data(request):
 
 @api_view(['GET'])
 def get_all_faq_list(request):
-    query = """SELECT * FROM myadmin_faq WHERE deleted_at IS NULL ORDER BY id ASC"""
+    query = """SELECT * FROM adminpanel_faq WHERE deleted_at IS NULL ORDER BY id ASC"""
     with connection.cursor() as cursor:
         cursor.execute(query)
         results = cursor.fetchall()
@@ -45,7 +42,7 @@ def get_all_faq_list(request):
 
 @api_view(['GET'])
 def faq_dataview(request, faq_id):
-    query = """SELECT * FROM myadmin_faq WHERE id = %s AND deleted_at IS NULL"""
+    query = """SELECT * FROM adminpanel_faq WHERE id = %s AND deleted_at IS NULL"""
     with connection.cursor() as cursor:
         cursor.execute(query, [faq_id])
         results = cursor.fetchall()

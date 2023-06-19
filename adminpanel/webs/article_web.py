@@ -1,6 +1,4 @@
-from . import views
-from .models import *
-from datetime import datetime
+from adminpanel.views.article_views import *
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
@@ -12,7 +10,7 @@ def article_form(request):
 
 
 def store_article(request):
-    operation_response = views.article_views_store_article_data(request)
+    operation_response = store_article_data(request)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              "Article data stored successfully")
@@ -23,7 +21,7 @@ def store_article(request):
     return redirect('add_article_form')
 
 
-def article_dataview(request):
-    response = views.article_views.get_all_article_list(request)
+def article_data_view(request):
+    response = get_all_article_list(request)
     all_data = response.data
     return render(request, 'admin/article/list_all.html', {'all_data': all_data})

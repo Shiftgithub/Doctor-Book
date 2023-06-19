@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models.faq_models import *
+from adminpanel.models.faq_models import *
 
 
 class FAQSerializer(serializers.ModelSerializer):

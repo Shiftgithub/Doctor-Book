@@ -1,17 +1,17 @@
-from . import views
-from .models import *
-from datetime import datetime
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from adminpanel.views.department_views import *
+from adminpanel.views.problem_specification_views import *
+from adminpanel.views.department_specification_views import *
 
 
 # Department Specification
 
 def department_specification_form(request):
-    response_department = views.get_all_departments_list(request)
+    response_department = get_all_departments_list(request)
     department_data = response_department.data
 
-    specification_response = views.get_all_problem_specification_list(request)
+    specification_response = get_all_problem_specification_list(request)
     specification_data = specification_response.data
 
     return render(request, 'admin/department_specification/form.html',
@@ -19,7 +19,7 @@ def department_specification_form(request):
 
 
 def store_department_specification(request):
-    operation_response = views.store_department_specification_data(request)
+    operation_response = store_department_specification_data(request)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              "Department Specification data stored successfully")
@@ -30,20 +30,20 @@ def store_department_specification(request):
     return redirect('add_department_specification_form')
 
 
-def department_specification_dataview(request):
-    response = views.get_all_department_specifications_list(request)
+def department_specification_data_view(request):
+    response = get_all_department_specifications_list(request)
     all_data = response.data
     return render(request, 'admin/department_specification/list_all.html', {'all_data': all_data})
 
 
 def edit_department_specification_form(request, department_specification_id):
-    response_department = views.get_all_departments_list(request)
+    response_department = get_all_departments_list(request)
     department_data = response_department.data
 
-    problem_specification_response = views.get_all_problem_specification_list(request)
+    problem_specification_response = get_all_problem_specification_list(request)
     problem_specification_data = problem_specification_response.data
 
-    response_department_specification = views.department_specification_dataview(request, department_specification_id)
+    response_department_specification = department_specification_dataview(request, department_specification_id)
     department_specification_data = response_department_specification.data
 
     return render(request, 'admin/department_specification/edit.html',
@@ -52,7 +52,7 @@ def edit_department_specification_form(request, department_specification_id):
 
 
 def edit_department_specification(request, department_specification_id):
-    operation_response = views.edit_department_specification_data(request, department_specification_id)
+    operation_response = edit_department_specification_data(request, department_specification_id)
 
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "department specification data edited successfully")
@@ -63,14 +63,14 @@ def edit_department_specification(request, department_specification_id):
 
 
 def view_department_specification(request, department_specification_id):
-    response_problem_specification = views.department_specification_dataview(request, department_specification_id)
+    response_problem_specification = department_specification_dataview(request, department_specification_id)
     department_specification_data = response_problem_specification.data
     return render(request, 'admin/department_specification/view.html',
                   {'department_specification_data': department_specification_data})
 
 
 def delete_department_specification(request, department_specification_id):
-    operation_response = views.softdelete_department_specification_data(request, department_specification_id)
+    operation_response = softdelete_department_specification_data(request, department_specification_id)
 
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "department specification data deleted successfully")

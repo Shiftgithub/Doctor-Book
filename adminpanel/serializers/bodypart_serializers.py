@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models.bodypart_models import *
+from adminpanel.models.bodypart_models import *
 
 
 class BodyPartSerializer(serializers.ModelSerializer):
