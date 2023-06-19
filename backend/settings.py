@@ -35,13 +35,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     # app
-    
     'api.apps.ApiConfig',
     'adminpanel.apps.AdminpanelConfig',
     'landing.apps.LandingConfig',
-
+    # rest_framework
     'rest_framework',
 ]
 
@@ -84,7 +82,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pdp',
+        'NAME': 'doctor_book',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',
