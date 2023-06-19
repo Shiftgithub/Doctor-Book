@@ -10,6 +10,12 @@
         <div class="card-body">
             <form id="PostForm" action="{% url 'store_doctor' %}" method="POST">
                 {% csrf_token %}
+
+                {% if not department_data %}
+                <div class="alert alert-default-warning">
+                    <strong>Warning!</strong> Please <a href="{% url 'add_department_form' %}" class="text-dark">Add department</a> first.
+                </div>
+                {% else %}
                 <div class="row mb-3">
                     <label for="specialtySelect" class="col-md-2 col-form-label">Department Name</label>
                     <div class="col-md-10">
@@ -21,6 +27,7 @@
                         </select>
                     </div>
                 </div>
+                {% endif %}
                 <hr>
                 <!-- Add form fields here -->
                 <div class="row mb-3">
