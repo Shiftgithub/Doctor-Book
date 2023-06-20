@@ -11,4 +11,4 @@ class OrganBodyPartSerializer(serializers.ModelSerializer):
 class OrganProblemOrganSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrgansProblemSpecification
-        fields = ['id', 'name']
+        fields = ['id', 'problem', 'problem_specification']

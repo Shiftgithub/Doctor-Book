@@ -19,13 +19,14 @@
         <hr/>
         <form id="PostForm" action="#" method="POST">
             {% csrf_token %}
+
             <!-- Body Part Name -->
             <div class="row p-2">
                 <label for="bodyPartID" class="col-md-3 col-form-label">Body Part :<span
                         class="text-danger">*</span></label>
                 <div class="col-md-9">
                     <select class="form-control select2" id="bodyPartID" name="body_part">
-                        <option value="">Select Body Part Name</option>
+                        <option value="" selected>Select Body Part Name</option>
                         {% for item in bodypart_data %}
                         <option value="{{ item.id }}">{{ item.name }}</option>
                         {% endfor %}
@@ -38,20 +39,11 @@
                 <label for="organID" class="col-md-3 col-form-label">Organ :<span class="text-danger">*</span></label>
                 <div class="col-md-9">
                     <select class="form-control select2" id="organID" name="organ">
-                        <option selected>Select Organ Name</option>
+                        <option value="" selected>Select Organ Name</option>
                     </select>
                 </div>
             </div>
-            <!-- Problem Name -->
-            <div class="row p-2">
-                <label for="organProblemID" class="col-md-3 col-form-label">Organ Problem :<span
-                        class="text-danger">*</span></label>
-                <div class="col-md-9">
-                    <select class="form-control select2" id="organProblemID" name="organ_problem">
-                        <option selected>Select Organ Problem Name</option>
-                    </select>
-                </div>
-            </div>
+
             <!-- Problem Specification -->
             <div class="row p-2">
                 <label for="problemSpecificationID" class="col-md-3 col-form-label">Problem Specification :<span
@@ -60,6 +52,7 @@
                     <div id="problemSpecificationID"></div>
                 </div>
             </div>
+
             <!-- Submit Button -->
             <div class="row p-2">
                 <div class="col-md-3"></div>
@@ -83,44 +76,30 @@
             return false
         } else {
             $.ajax({
-                url: '/myadmin/ajax/organ/' + body_part_id,
+                url: '/adminpanel/ajax/organ/' + body_part_id,
                 type: 'GET',
                 success: function (response) {
-                    let options = '<option selected>Select Organ Name</option>'
+                    let options = '<option selected>Select Organ Name</option>';
+
                     $.each(response, function (key, value) {
-                        options += '<option value="' + value.id + '">' + value.name + '</option>'
-                    })
+                        options += `<option value="${value.id}">${value.name}</option>`;
+                    });
+
                     $('#organID').html(options)
                 }
             })
+
+            /**
+             * Getting organ problem specification by organ id ...
+             */
             $('#organID').on('change', function () {
-                let organ_id = $(this).val()
+                let organ_id = $(this).val();
 
                 if (organ_id === '' || organ_id == null) {
-                    return false
-                } else {
-                    $.ajax({
-                        url: '/myadmin/ajax/organ/problem/' + organ_id,
-                        type: 'GET',
-                        success: function (response) {
-                            let options = '<option selected>Select Organ Problem Name</option>'
-                            $.each(response, function (key, value) {
-                                options += '<option value="' + value.id + '">' + value.name + '</option>'
-                            })
-                            $('#organProblemID').html(options)
-                        }
-                    })
-                }
-            })
-            // Problem Specification AJAX
-            $('#organProblemID').on('change', function () {
-                let organ_problem_id = $(this).val();
-
-                if (organ_problem_id === '' || organ_problem_id == null) {
                     return false;
                 } else {
                     $.ajax({
-                        url: '/landing/ajax/problem/specification/' + organ_problem_id,
+                        url: '/adminpanel/ajax/problem/specification/' + organ_id,
                         type: 'GET',
                         success: function (response) {
                             let specifications = response;
@@ -130,8 +109,8 @@
 
                             $.each(specifications, function (key, value) {
                                 tableHTML += '<tr>';
-                                tableHTML += '<td><input type="checkbox" id="prbSpec'+ key + '"></td>';
-                                tableHTML += '<td><label for="prbSpec'+ key + '">' + value.specification + '</label></td>';
+                                tableHTML += '<td><input type="checkbox" name="problem_specs[]" id="prbSpec'+ key + '"></td>';
+                                tableHTML +=  `<td><label for="prbSpec${key}">(${value.problem}) ${value.problem_specification}</label></td>`;
                                 tableHTML += '</tr>';
                             });
 
@@ -146,9 +125,7 @@
                         }
                     });
                 }
-            });
-
-            // end
+            })
         }
     })
 </script>
