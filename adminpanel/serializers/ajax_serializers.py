@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from adminpanel.models.problem_specification_models import *
+from adminpanel.models.organ_problem_specification import *
 
 
 class OrganBodyPartSerializer(serializers.ModelSerializer):
@@ -10,11 +10,5 @@ class OrganBodyPartSerializer(serializers.ModelSerializer):
 
 class OrganProblemOrganSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OrgansProblem
-        fields = ['id', 'name']
-
-
-class ProblemSpecificationOrganProblemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProblemSpecification
-        fields = ['id', 'specification']
+        model = OrgansProblemSpecification
+        fields = ['id', 'problem', 'problem_specification']

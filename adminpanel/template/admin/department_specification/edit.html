@@ -8,13 +8,14 @@
             <h1 class="card-title">Edit Department Specification</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'edit_department_specification' department_specification_data.id %}" method="POST">
+            <form id="PostForm" action="{% url 'edit_department_specification' department_specification_data.id %}"
+                  method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="specialtySelect" class="col-md-3 col-form-label">Department Name</label>
+                    <label for="departmentID" class="col-md-3 col-form-label">Department Name</label>
                     <div class="col-md-9">
-                        <select class="form-control select2" id="specialtySelect" name="department">
-                            <option selected>Select Problem Specification Name</option>
+                        <select class="form-control select2" id="departmentID" name="department">
+                            <option selected>Select Department Name</option>
                             {% for item in department_data %}
                             {% if item.name == department_specification_data.department %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>
@@ -26,29 +27,27 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="problemSpecialtySelect" class="col-md-3 col-form-label">Problem Specification
-                        Name</label>
+                    <label for="problemSpecificationID" class="col-md-3 col-form-label">Problem</label>
                     <div class="col-md-9">
-                        <select class="form-control select2" id="problemSpecialtySelect" name="problem_specification">
-                            <option selected>Select Problem Specification Name</option>
-                            {% for item in problem_specification_data %}
-                            {% if item.specification == department_specification_data.specification %}
-                            <option value="{{ item.id }}" selected>{{ item.specification }}</option>
+                        <select class="form-control select2" id="problemSpecificationID"
+                                name="organ_problem_specification">
+                            <option selected>Select Problem</option>
+                            {% for item in problem_data %}
+                            {% if item.problem == department_specification_data.problem %}
+                            <option value="{{ item.id }}" selected>{{ item.problem }}</option>
                             {% else %}
-                            <option value="{{ item.id }}">{{ item.specification }}</option>
+                            <option value="{{ item.id }}">{{ item.problem }}</option>
                             {% endif %}
                             {% endfor %}
-
                         </select>
                     </div>
                 </div>
                 <hr>
                 <!-- Add form fields here -->
                 <div class="row mb-3">
-                    <label for="descriptionId" class="col-md-3 col-form-label">Description</label>
+                    <label for="descriptionID" class="col-md-3 col-form-label">Description</label>
                     <div class="col-md-9">
-                        <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
-                            rows="10">{{ department_specification_data.description}}</textarea>
+                        <textarea name="description" id="descriptionID" class="form-control" cols="30" rows="10">{{ department_specification_data.description }}</textarea>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-warning float-right">Update</button>

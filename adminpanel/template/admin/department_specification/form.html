@@ -22,13 +22,13 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="problemSpecialtySelect" class="col-md-3 col-form-label">Problem Specification
-                        Name</label>
+                    <label for="problemSpecialtySelect" class="col-md-3 col-form-label">Problem</label>
                     <div class="col-md-9">
-                        <select class="form-control select2" id="problemSpecialtySelect" name="problem_specification">
-                            <option selected>Select Problem Specification Name</option>
-                            {% for item in specification_data %}
-                            <option value="{{ item.id }}">{{ item.specification }}</option>
+                        <select class="form-control select2" id="problemSpecialtySelect"
+                                name="organ_problem_specification">
+                            <option selected>Select Problem Name</option>
+                            {% for item in problem_response %}
+                            <option value="{{ item.id }}">{{ item.problem }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -39,7 +39,7 @@
                     <label for="descriptionId" class="col-md-3 col-form-label">Description</label>
                     <div class="col-md-9">
                         <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
-                            rows="10"></textarea>
+                                  rows="10"></textarea>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success float-right">Submit</button>

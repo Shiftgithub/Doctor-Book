@@ -1,14 +1,13 @@
-from django.db import models
 from .department_models import *
-from .problem_specification_models import *
+from .organ_problem_specification import *
 
 
 class DepartmentSpecification(models.Model):
     description = models.CharField(max_length=1000)
     department = models.ForeignKey(
-        Department, on_delete=models.SET_NULL, related_name="departmentId", blank=True, null=True)
-    problem_specification = models.ForeignKey(
-        ProblemSpecification, on_delete=models.SET_NULL, related_name="problem_specification", blank=True, null=True)
+        Department, on_delete=models.SET_NULL, related_name="departmentID", blank=True, null=True)
+    organ_problem_specification = models.ForeignKey(OrgansProblemSpecification, on_delete=models.SET_NULL, related_name="organ_problem_specificationID",
+                                blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
