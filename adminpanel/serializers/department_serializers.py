@@ -5,7 +5,7 @@ from adminpanel.models.department_models import *
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Department
-        fields = '__all__'
+        fields = ['id','name','description']
 
 
 class DepartmentDeleteSerializer(serializers.ModelSerializer):

@@ -10,7 +10,7 @@ urlpatterns = [
     path('landing/login/', login, name="login"),
     # path('landing/doctor/register/', doctor_register, name="doctor_register"),
     path('landing/predict/', predict, name="predict"),
-    path('frontend/store/patient', store_patient, name="store_patient"),
+    path('landing/store/patient', store_patient, name="store_patient"),
 
 
 ]

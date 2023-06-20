@@ -5,10 +5,10 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
-            <h1 class="card-title">Add Problem Specification</h1>
+            <h1 class="card-title">Add Organ Problem Specification</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'store_problem_specification' %}" method="POST">
+            <form id="PostForm" action="{% url 'store_organ_problem_specification' %}" method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
                     <label for="bodyPartID" class="col-md-2 col-form-label">Body Part Name</label>
@@ -24,16 +24,8 @@
                 <div class="row mb-3">
                     <label for="organID" class="col-md-2 col-form-label">Organ Name</label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="organID">
+                        <select class="form-control select2" id="organID" name="organ">
                             <option selected>Select Organ Name</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="organProblemID" class="col-md-2 col-form-label">Organ Problem Name</label>
-                    <div class="col-md-10">
-                        <select class="form-control select2" id="organProblemID" name="organ_problem">
-                            <option selected>Select Organ Problem Name</option>
                         </select>
                     </div>
                 </div>
@@ -47,19 +39,19 @@
                         <div class="card-body">
                             <!-- Organ -->
                             <div class="row mb-3">
-                                <label class="col-md-2 col-form-label font-weight-bold">Specification:</label>
+                                <label class="col-md-2 col-form-label font-weight-bold">Problem:</label>
                                 <div class="col-md-10">
                                     <input type="text" class="form-control" minlength="3" maxlength="255" size="255"
-                                           name="specifications[]"/>
+                                        name="problems[]" />
                                 </div>
                             </div>
                             <!-- Description -->
                             <div class="row mb-3">
-                                <label class="col-md-2 col-form-label font-weight-bold">Description
+                                <label class="col-md-2 col-form-label font-weight-bold">P. Specification
                                     :</label>
                                 <div class="col-md-10">
-                                    <textarea class="form-control" cols="30" rows="2" minlength="3"
-                                              maxlength="1000" size="1000" name="descriptions[]"></textarea>
+                                    <textarea class="form-control" cols="30" rows="2" minlength="3" maxlength="1000"
+                                        size="1000" name="problem_specifications[]"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -67,16 +59,14 @@
                             <!-- Add More Button -->
                             <div class="form-group d-inline pr-3 float-right">
                                 <button type="button" onclick="addSection()" class="btn btn-primary add-more-button"
-                                        data-toggle="tooltip" data-placement="top" title="Add More">
+                                    data-toggle="tooltip" data-placement="top" title="Add More">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
                             <!-- Close Button -->
                             <div class="form-group d-inline pr-3 float-right">
-                                <button type="button" onclick="removeSection(this)"
-                                        class="btn btn-danger remove-button" data-toggle="tooltip"
-                                        data-placement="top"
-                                        title="Remove">
+                                <button type="button" onclick="removeSection(this)" class="btn btn-danger remove-button"
+                                    data-toggle="tooltip" data-placement="top" title="Remove">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -113,26 +103,6 @@
                         options += '<option value="' + value.id + '">' + value.name + '</option>';
                     });
                     $('#organID').html(options);
-                }
-            });
-            $('#organID').on('change', function () {
-                let organ_id = $(this).val();
-        
-                if (organ_id === '' || organ_id == null) {
-                    return false;
-                }
-                else{
-                    $.ajax({
-                        url: "/frontend/ajax/organ/problem/" + organ_id,
-                        type: "GET",
-                        success: function (response) {
-                            let options = '<option selected>Select Organ Problem Name</option>';
-                            $.each(response, function (key, value) {
-                                options += '<option value="' + value.id + '">' + value.name + '</option>';
-                            });
-                            $('#organProblemID').html(options);
-                        }
-                    });
                 }
             });
         }

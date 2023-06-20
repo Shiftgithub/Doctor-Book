@@ -42,7 +42,7 @@ def get_all_departments_list(request):
 
 @api_view(['GET'])
 def department_dataview(request, department_id):
-    query = """SELECT * FROM myadmin_department WHERE id = %s AND deleted_at IS NULL"""
+    query = """SELECT * FROM adminpanel_department WHERE id = %s AND deleted_at IS NULL"""
     with connection.cursor() as cursor:
         cursor.execute(query, [department_id])
         results = cursor.fetchall()
@@ -51,8 +51,6 @@ def department_dataview(request, department_id):
             'id': row[0],
             'name': row[1],
             'description': row[2],
-            'created_at': row[3],
-            'updated_at': row[4],
         }
     serializer = DepartmentSerializer(instance=department)
     serialized_data = serializer.data
