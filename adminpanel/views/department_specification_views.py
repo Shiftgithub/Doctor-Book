@@ -23,10 +23,7 @@ def store_department_specification_data(request):
 
 @api_view(['GET'])
 def get_all_department_specifications_list(request):
-    query = """SELECT mds.id,mds.description,md.name AS department_name,mps.specification
-            FROM adminpanel_departmentspecification AS mds INNER JOIN adminpanel_department AS md
-            INNER JOIN adminpanel_problemspecification AS mps WHERE mds.department_id = md.id AND 
-            mds.problem_specification_id = mps.id  AND mds.deleted_at IS NULL ORDER BY mds.id ASC"""
+    query = """SELECT department_speci.id,department.name AS department_name, organ_problem_speci.problem, department_speci.description FROM adminpanel_departmentspecification AS department_speci INNER JOIN adminpanel_department AS department INNER JOIN adminpanel_organsproblemspecification AS organ_problem_speci WHERE department_speci.department_id = department.id AND department_speci.organ_problem_specification_id = organ_problem_speci.id AND department_speci.deleted_at IS NULL ORDER BY department_speci.id ASC"""
     with connection.cursor() as cursor:
         cursor.execute(query)
         results = cursor.fetchall()
@@ -34,22 +31,20 @@ def get_all_department_specifications_list(request):
     for row in results:
         department_specification = {
             'id': row[0],
-            'description': row[1],
-            'department_name': row[2],
-            'problemspecification': row[3],
+            'department_name': row[1],
+            'problem_name': row[2],
+            'description': row[3],
         }
         department_specifications.append(department_specification)
     serializer = DepartmentSpecificationSerializer(department_specifications, many=True)
     serialized_data = serializer.data
+    print(serialized_data)
     return Response(serialized_data)
 
 
 @api_view(['GET'])
 def department_specification_dataview(request, department_specification_id):
-    query = """SELECT mds.id,mds.description,md.name AS department_name,mps.specification,
-            mps.created_at,mps.updated_at FROM adminpanel_departmentspecification AS mds INNER JOIN adminpanel_department 
-            AS md INNER JOIN adminpanel_problemspecification AS mps WHERE mds.id = %s AND mds.department_id = md.id 
-            AND mds.problem_specification_id = mps.id  AND mds.deleted_at IS NULL"""
+    query = """SELECT department_speci.id,department.name AS department_name, organ_problem_speci.problem, department_speci.description FROM adminpanel_departmentspecification AS department_speci INNER JOIN adminpanel_department AS department INNER JOIN adminpanel_organsproblemspecification AS organ_problem_speci WHERE department_speci.id = %s AND department_speci.department_id = department.id AND department_speci.organ_problem_specification_id = organ_problem_speci.id AND department_speci.deleted_at IS NULL ORDER BY department_speci.id ASC """
     with connection.cursor() as cursor:
         cursor.execute(query, [department_specification_id])
         results = cursor.fetchall()
@@ -57,11 +52,9 @@ def department_specification_dataview(request, department_specification_id):
     for row in results:
         department_specification = {
             'id': row[0],
-            'description': row[1],
-            'department_name': row[2],
-            'problemspecification': row[3],
-            'created_at': row[4],
-            'updated_at': row[5],
+            'department_name': row[1],
+            'problem_name': row[2],
+            'description': row[3],
         }
 
     serializer = DepartmentSpecificationSerializer(instance=department_specification)

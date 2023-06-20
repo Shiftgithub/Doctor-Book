@@ -10,11 +10,11 @@ class DepartmentSpecificationStoreSerializer(serializers.ModelSerializer):
 
 class DepartmentSpecificationSerializer(serializers.ModelSerializer):
     department = serializers.CharField(source='department_name')
-    specification = serializers.CharField(source='problemspecification')
+    problem = serializers.CharField(source='problem_name')
 
     class Meta:
         model = DepartmentSpecification
-        fields = ['id', 'description', 'department', 'specification', 'created_at', 'updated_at']
+        fields = ['id','department', 'problem','description']
 
 
 class DepartmentSpecificationDeleteSerializer(serializers.ModelSerializer):

@@ -5,10 +5,10 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
-            <h1 class="card-title">Add Organ Problem</h1>
+            <h1 class="card-title">Add Organ Problem Specification</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'store_organ_problem' %}" method="POST">
+            <form id="PostForm" action="{% url 'store_organ_problem_specification' %}" method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
                     <label for="bodyPartID" class="col-md-2 col-form-label">Body Part Name</label>
@@ -39,19 +39,19 @@
                         <div class="card-body">
                             <!-- Organ -->
                             <div class="row mb-3">
-                                <label class="col-md-2 col-form-label font-weight-bold">O. Problem Name:</label>
+                                <label class="col-md-2 col-form-label font-weight-bold">Problem:</label>
                                 <div class="col-md-10">
                                     <input type="text" class="form-control" minlength="3" maxlength="255" size="255"
-                                        name="names[]" />
+                                        name="problems[]" />
                                 </div>
                             </div>
                             <!-- Description -->
                             <div class="row mb-3">
-                                <label class="col-md-2 col-form-label font-weight-bold">Description
+                                <label class="col-md-2 col-form-label font-weight-bold">P. Specification
                                     :</label>
                                 <div class="col-md-10">
                                     <textarea class="form-control" cols="30" rows="2" minlength="3" maxlength="1000"
-                                        size="1000" name="descriptions[]"></textarea>
+                                        size="1000" name="problem_specifications[]"></textarea>
                                 </div>
                             </div>
                         </div>

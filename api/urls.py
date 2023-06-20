@@ -6,9 +6,8 @@ from adminpanel.views.department_views import *
 from adminpanel.views.department_specification_views import *
 from adminpanel.views.doctor_views import *
 from adminpanel.views.organ_views import *
-from adminpanel.views.organ_problem_views import *
+from adminpanel.views.organ_problem_specification_views import *
 from adminpanel.views.faq_views import *
-from adminpanel.views.problem_specification_views import *
 
 urlpatterns = [
 
@@ -29,29 +28,15 @@ urlpatterns = [
 
     # organ Problem api paths
 
-    path('add/organ/problem/', store_organ_problem_data, name="add_organ_problem"),
-    path('organ/problem/list/', get_all_organ_problem_list, name="organ_problem_list"),
+    path('add/organ/problem/', store_organ_problem_specification_data, name="add_organ_problem_specification"),
+    path('organ/problem/list/', get_all_organ_problem_specification_list, name="organ_problem_specification_list"),
 
-    path('organ/problem/edit/<int:organ_problem_id>/', edit_organ_problem_data,
-         name='edit_organ_problem'),
-    path('organ/problem/delete/<int:organ_problem_id>/', softdelete_organ_problem_data,
-         name='delete_organ_problem'),
-    path('organ/problem/view/<int:organ_problem_id>/', organ_problem_dataview,
-         name='view_organ_problem'),
-
-    # problem specification api paths
-
-    path('add/problem/specification/', store_problem_specification_data,
-         name="add_problem_specification"),
-    path('problem/specification/list/', get_all_problem_specification_list,
-         name="problem_specification_list"),
-
-    path('problem/specification/edit/<int:problem_specification_id>/',
-         edit_problem_specification_data, name='edit_problem_specification'),
-    path('problem/specification/delete/<int:problem_specification_id>/',
-         softdelete_problem_specification_data, name='delete_problem_specification'),
-    path('problem/specification/view/<int:problem_specification_id>/',
-         problem_specification_dataview, name='view_problem_specification'),
+    path('organ/problem/edit/<int:organ_problem_specification_id>/', edit_organ_problem_specification_data,
+         name='edit_organ_problem_specification'),
+    path('organ/problem/delete/<int:organ_problem_specification_id>/', softdelete_organ_problem_specification_data,
+         name='delete_organ_problem_specification'),
+    path('organ/problem/view/<int:organ_problem_specification_id>/', organ_problem_specification_dataview,
+         name='view_organ_problem_specification'),
 
     # department api paths
 

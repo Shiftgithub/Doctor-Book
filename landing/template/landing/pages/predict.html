@@ -83,7 +83,7 @@
             return false
         } else {
             $.ajax({
-                url: '/frontend/ajax/organ/' + body_part_id,
+                url: '/myadmin/ajax/organ/' + body_part_id,
                 type: 'GET',
                 success: function (response) {
                     let options = '<option selected>Select Organ Name</option>'
@@ -100,7 +100,7 @@
                     return false
                 } else {
                     $.ajax({
-                        url: '/frontend/ajax/organ/problem/' + organ_id,
+                        url: '/myadmin/ajax/organ/problem/' + organ_id,
                         type: 'GET',
                         success: function (response) {
                             let options = '<option selected>Select Organ Problem Name</option>'
@@ -120,7 +120,7 @@
                     return false;
                 } else {
                     $.ajax({
-                        url: '/frontend/ajax/problem/specification/' + organ_problem_id,
+                        url: '/landing/ajax/problem/specification/' + organ_problem_id,
                         type: 'GET',
                         success: function (response) {
                             let specifications = response;
