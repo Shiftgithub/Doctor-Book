@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2023 at 07:37 PM
+-- Generation Time: Jun 22, 2023 at 09:31 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -84,7 +84,8 @@ INSERT INTO `adminpanel_blood_group` (`id`, `name`, `created_at`, `updated_at`, 
 (5, 'O+', '2023-06-21 23:29:59.000000', NULL, NULL),
 (6, 'O-', '2023-06-21 23:29:59.000000', NULL, NULL),
 (7, 'AB+', '2023-06-21 23:29:59.000000', NULL, NULL),
-(8, 'AB-', '2023-06-21 23:29:59.000000', NULL, NULL);
+(8, 'AB-', '2023-06-21 23:29:59.000000', NULL, NULL),
+(9, 'Other', '2023-06-21 23:29:59.000000', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -243,6 +244,13 @@ CREATE TABLE `adminpanel_doctor_profile` (
   `user_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `adminpanel_doctor_profile`
+--
+
+INSERT INTO `adminpanel_doctor_profile` (`id`, `full_name`, `father_name`, `mother_name`, `date_of_birth`, `nid_no`, `phone_no`, `specialty`, `experience`, `biography`, `languages_spoken`, `passport_no`, `created_at`, `updated_at`, `deleted_at`, `blood_group_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
+(1, 'Kabir Ariyan', 'Kasem Ali', 'Hasina Begum', '2001-06-22', '1252552255', '01965572363', 'Surgery', '5 Years', 'N/A', 'Bangla, English,Hindi', 'N/A', '2023-06-22 07:30:16.794704', NULL, NULL, 5, 1, 2, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -313,6 +321,13 @@ CREATE TABLE `adminpanel_images` (
   `deleted_at` datetime(6) DEFAULT NULL,
   `doctor_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_images`
+--
+
+INSERT INTO `adminpanel_images` (`id`, `doctor_photos`, `created_at`, `updated_at`, `deleted_at`, `doctor_profile_id`) VALUES
+(1, 'static/uploads/doctor_images/Kabir_Ariyan/20230622133016_245547364_585378716115324_44069_lIXPhsx.jpg', '2023-06-22 07:30:16.802712', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -429,7 +444,8 @@ INSERT INTO `adminpanel_religion` (`id`, `name`, `created_at`, `updated_at`, `de
 (1, 'Islam', '2023-06-21 23:31:59.000000', NULL, NULL),
 (2, 'Hinduism', '2023-06-21 23:31:59.000000', NULL, NULL),
 (3, 'Christianity', '2023-06-21 23:31:59.000000', NULL, NULL),
-(4, 'Buddhism', '2023-06-21 23:31:59.000000', NULL, NULL);
+(4, 'Buddhism', '2023-06-21 23:31:59.000000', NULL, NULL),
+(5, 'Other', '2023-06-21 23:31:59.000000', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -501,6 +517,13 @@ CREATE TABLE `adminpanel_userprofile` (
   `updated_at` datetime(6) DEFAULT NULL,
   `deleted_at` datetime(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_userprofile`
+--
+
+INSERT INTO `adminpanel_userprofile` (`id`, `user_name`, `email`, `password`, `hash`, `role`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'admin', 'mamunmiaturan@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'Doctor', 'Approved', '2023-06-22 07:30:12.912332', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -806,26 +829,26 @@ CREATE TABLE `django_migrations` (
 --
 
 INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
-(1, 'contenttypes', '0001_initial', '2023-06-21 17:07:00.193249'),
-(2, 'auth', '0001_initial', '2023-06-21 17:07:01.599104'),
-(3, 'admin', '0001_initial', '2023-06-21 17:07:02.038980'),
-(4, 'admin', '0002_logentry_remove_auto_add', '2023-06-21 17:07:02.054620'),
-(5, 'admin', '0003_logentry_add_action_flag_choices', '2023-06-21 17:07:02.070244'),
-(6, 'adminpanel', '0001_initial', '2023-06-21 17:07:07.809921'),
-(7, 'contenttypes', '0002_remove_content_type_name', '2023-06-21 17:07:07.975286'),
-(8, 'auth', '0002_alter_permission_name_max_length', '2023-06-21 17:07:08.085074'),
-(9, 'auth', '0003_alter_user_email_max_length', '2023-06-21 17:07:08.131951'),
-(10, 'auth', '0004_alter_user_username_opts', '2023-06-21 17:07:08.147469'),
-(11, 'auth', '0005_alter_user_last_login_null', '2023-06-21 17:07:08.263265'),
-(12, 'auth', '0006_require_contenttypes_0002', '2023-06-21 17:07:08.272269'),
-(13, 'auth', '0007_alter_validators_add_error_messages', '2023-06-21 17:07:08.287919'),
-(14, 'auth', '0008_alter_user_username_max_length', '2023-06-21 17:07:08.319169'),
-(15, 'auth', '0009_alter_user_last_name_max_length', '2023-06-21 17:07:08.429005'),
-(16, 'auth', '0010_alter_group_name_max_length', '2023-06-21 17:07:08.491958'),
-(17, 'auth', '0011_update_proxy_permissions', '2023-06-21 17:07:08.523236'),
-(18, 'auth', '0012_alter_user_first_name_max_length', '2023-06-21 17:07:08.554851'),
-(19, 'landing', '0001_initial', '2023-06-21 17:07:08.601868'),
-(20, 'sessions', '0001_initial', '2023-06-21 17:07:08.695393');
+(1, 'contenttypes', '0001_initial', '2023-06-22 07:11:36.247590'),
+(2, 'auth', '0001_initial', '2023-06-22 07:11:37.631768'),
+(3, 'admin', '0001_initial', '2023-06-22 07:11:37.918981'),
+(4, 'admin', '0002_logentry_remove_auto_add', '2023-06-22 07:11:37.937675'),
+(5, 'admin', '0003_logentry_add_action_flag_choices', '2023-06-22 07:11:37.950288'),
+(6, 'adminpanel', '0001_initial', '2023-06-22 07:11:44.697734'),
+(7, 'contenttypes', '0002_remove_content_type_name', '2023-06-22 07:11:44.847514'),
+(8, 'auth', '0002_alter_permission_name_max_length', '2023-06-22 07:11:45.088950'),
+(9, 'auth', '0003_alter_user_email_max_length', '2023-06-22 07:11:45.127833'),
+(10, 'auth', '0004_alter_user_username_opts', '2023-06-22 07:11:45.137861'),
+(11, 'auth', '0005_alter_user_last_login_null', '2023-06-22 07:11:45.247549'),
+(12, 'auth', '0006_require_contenttypes_0002', '2023-06-22 07:11:45.258937'),
+(13, 'auth', '0007_alter_validators_add_error_messages', '2023-06-22 07:11:45.277813'),
+(14, 'auth', '0008_alter_user_username_max_length', '2023-06-22 07:11:45.307781'),
+(15, 'auth', '0009_alter_user_last_name_max_length', '2023-06-22 07:11:45.347407'),
+(16, 'auth', '0010_alter_group_name_max_length', '2023-06-22 07:11:45.387520'),
+(17, 'auth', '0011_update_proxy_permissions', '2023-06-22 07:11:45.427550'),
+(18, 'auth', '0012_alter_user_first_name_max_length', '2023-06-22 07:11:45.457699'),
+(19, 'landing', '0001_initial', '2023-06-22 07:11:45.517779'),
+(20, 'sessions', '0001_initial', '2023-06-22 07:11:45.617726');
 
 -- --------------------------------------------------------
 
@@ -1144,7 +1167,7 @@ ALTER TABLE `adminpanel_availability`
 -- AUTO_INCREMENT for table `adminpanel_blood_group`
 --
 ALTER TABLE `adminpanel_blood_group`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_bodypart`
@@ -1198,7 +1221,7 @@ ALTER TABLE `adminpanel_division`
 -- AUTO_INCREMENT for table `adminpanel_doctor_profile`
 --
 ALTER TABLE `adminpanel_doctor_profile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_education`
@@ -1222,7 +1245,7 @@ ALTER TABLE `adminpanel_gender`
 -- AUTO_INCREMENT for table `adminpanel_images`
 --
 ALTER TABLE `adminpanel_images`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_matrimonie`
@@ -1258,7 +1281,7 @@ ALTER TABLE `adminpanel_presentaddress`
 -- AUTO_INCREMENT for table `adminpanel_religion`
 --
 ALTER TABLE `adminpanel_religion`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_services`
@@ -1282,7 +1305,7 @@ ALTER TABLE `adminpanel_upazila`
 -- AUTO_INCREMENT for table `adminpanel_userprofile`
 --
 ALTER TABLE `adminpanel_userprofile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `auth_group`
