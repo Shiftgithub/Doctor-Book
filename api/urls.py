@@ -8,6 +8,7 @@ from adminpanel.views.doctor_views import *
 from adminpanel.views.organ_views import *
 from adminpanel.views.organ_problem_specification_views import *
 from adminpanel.views.faq_views import *
+from landing.views.login_views import *
 
 urlpatterns = [
 
@@ -68,7 +69,7 @@ urlpatterns = [
     # doctor api paths
 
     path('api/add/doctor/', store_doctor_data, name="add_doctor"),
-    path('api/doctors/list/', get_all_doctors_list, name="doctor_list"),
+    # path('api/doctors/list/', get_all_doctors_list, name="doctor_list"),
 
     # faq api paths
 
@@ -83,5 +84,13 @@ urlpatterns = [
 
     path('api/add/article/', store_article_data, name="add_article"),
     path('api/article/list/', get_all_article_list, name="article_list"),
+
+    path('api/login/', checking_authorization, name="login"),
+
+    # api view
+    path('api/all/gender/list/', gender_list, name="gender_list"),
+    path('api/all/religion/list/', religion_list, name="religion_list"),
+    path('api/all/matrimonie/list/', matrimonie_list, name="matrimonie_list"),
+    path('api/all/blood_group/list/', blood_group_list, name="blood_group_list"),
 
 ]

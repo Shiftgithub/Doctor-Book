@@ -8,42 +8,162 @@
             <h1 class="card-title">Add Doctor</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'store_doctor' %}" method="POST">
+            <form action="{% url 'store_doctor' %}" enctype="multipart/form-data" id="PostForm" method="POST">
                 {% csrf_token %}
-
-                {% if not department_data %}
-                <div class="alert alert-default-warning">
-                    <strong>Warning!</strong> Please <a href="{% url 'add_department_form' %}" class="text-dark">Add department</a> first.
-                </div>
-                {% else %}
+                <!-- Add form fields here -->
                 <div class="row mb-3">
-                    <label for="specialtySelect" class="col-md-2 col-form-label">Department Name</label>
+                    <label class="col-md-2 col-form-label" for="fullNameId">Full Name</label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="specialtySelect" name="department">
-                            <option selected>Select Department Name</option>
-                            {% for item in department_data %}
+                        <input class="form-control" id="fullNameId" name="full_name" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="fatherNameId">Father Name</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="fatherNameId" name="father_name" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="motherNameId">Mother Name</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="motherNameId" name="mother_name" type="text"/>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="genderID">Gender</label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="genderID" name="gender">
+                            <option selected>Select Gender</option>
+                            {% for item in gender_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
                         </select>
                     </div>
                 </div>
-                {% endif %}
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="religionID">Religion</label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="religionID" name="religion">
+                            <option selected>Select Religion</option>
+                            {% for item in religion_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="bloodGroupID">Blood Group</label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="bloodGroupID" name="blood_group">
+                            <option selected>Select Blood Group Name</option>
+                            {% for item in blood_group_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
                 <hr>
-                <!-- Add form fields here -->
                 <div class="row mb-3">
-                    <label for="doctorNameId" class="col-md-2 col-form-label">Doctor Name</label>
+                    <label class="col-md-2 col-form-label" for="dateOfBirthID">Date of Birth</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" id="doctorNameId" name="name"/>
+                        <input class="form-control" id="dateOfBirthID" name="date_of_birth" type="date"/>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="descriptionId" class="col-md-2 col-form-label">Description</label>
+                    <label class="col-md-2 col-form-label" for="nidNoID">NID No</label>
                     <div class="col-md-10">
-            <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
-                      rows="10"></textarea>
+                        <input class="form-control" id="nidNoID" name="nid_no" type="text"/>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-sm btn-success float-right">Submit</button>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="passportNoID">Passport No</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="passportNoID" name="passport_no" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="matrimonyID">Matrimony</label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="matrimonyID" name="matrimony">
+                            <option selected>Select Matrimony</option>
+                            {% for item in matrimonie_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="imageID">Image</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="imageID" name="doctor_photos" type="file"/>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="emailID">Email</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="emailID" name="email" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="phoneID">Phone Number</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="phoneID" name="phone_no" type="text"/>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="specialtyID">Specialty</label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="specialtyID" name="specialty">
+                            <option selected>Select Specialty</option>
+                            <option>N/A</option>
+                            <option>N/A</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="experienceID">Experience</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="experienceID" name="experience" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="languagesSpokenID">Languages Spoken</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="languagesSpokenID" name="languages_spoken" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="biographyID">Biography</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" cols="30" id="biographyID" name="biography" rows="2">{{ data.description|default:"" }}</textarea>
+                    </div>
+                </div>
+                <hr>
+                <!-- For Login-->
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="userNameID">User Name</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="userNameID" name="user_name" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="passwordID">Password</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="passwordID" name="password" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="conPasswordID">Confirm Password</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="conPasswordID" name="con_password" type="text"/>
+                    </div>
+                </div>
+                <button class="btn btn-success float-right" type="submit">Submit</button>
             </form>
         </div>
     </div>

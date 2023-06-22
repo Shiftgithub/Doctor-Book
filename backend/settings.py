@@ -21,6 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-hn&2ig7$+&xli8!r4m-t8$%=(ta1u%1qs=36p^u=25!p+#t!xf'
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'kabirariyan14@gmail.com'
+EMAIL_HOST_PASSWORD = 'jbfhbakulzfpavfn'
+EMAIL_PORT = 587
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -77,7 +84,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -87,9 +93,11 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '3306',
-    }
+        # 'OPTIONS': {
+        #     'sql_mode': 'STRICT_ALL_TABLES',
+        # },
+    },
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

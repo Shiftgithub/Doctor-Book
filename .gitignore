@@ -1,9 +1,8 @@
 # Pycache ignored
 api/__pycache__/
 backend/__pycache__/
-doctor/__pycache__/
 landing/__pycache__/
-myadmin/__pycache__/
-
+adminpanel/__pycache__/
+static/uploads/
 # vs code folder ignored
 /.vscode/
