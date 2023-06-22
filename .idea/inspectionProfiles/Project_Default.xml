@@ -19,10 +19,28 @@
         </list>
       </option>
     </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N801" />
+        </list>
+      </option>
+    </inspection_tool>
     <inspection_tool class="PyShadowingBuiltinsInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <option name="ignoredNames">
         <list>
           <option value="isinstance" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="django.db.models.base.Model.create" />
+          <option value="adminpanel.models.user_models.UserProfile.objects" />
+          <option value="adminpanel.models.user_models.UserProfile.DoesNotExist" />
+          <option value="adminpanel.models.doctor_models.Religion.objects" />
+          <option value="adminpanel.models.doctor_models.Gender.objects" />
         </list>
       </option>
     </inspection_tool>

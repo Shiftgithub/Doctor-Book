@@ -13,14 +13,14 @@
                 <div class="row mb-3">
                     <label for="bodyPartNameId" class="col-md-2 col-form-label">Body Part Name</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" id="bodyPartNameId" name="name" />
+                        <input class="form-control" id="bodyPartNameId" name="name" type="text"/>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="descriptionId" class="col-md-2 col-form-label">Description</label>
                     <div class="col-md-10">
-                        <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
-                            rows="10"></textarea>
+                        <textarea class="form-control" cols="30" id="descriptionId" name="description"
+                                  rows="2" type="text">{{ data.description|default:"N/A" }}</textarea>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success float-right">Submit</button>

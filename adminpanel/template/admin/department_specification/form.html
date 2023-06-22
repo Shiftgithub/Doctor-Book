@@ -10,6 +10,12 @@
         <div class="card-body">
             <form id="PostForm" action="{% url 'store_department_specification' %}" method="POST">
                 {% csrf_token %}
+                {% if not department_data %}
+                <div class="alert alert-default-warning">
+                    <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_department_form' %}"> Add
+                    department </a> first.
+                </div>
+                {% else %}
                 <div class="row mb-3">
                     <label for="specialtySelect" class="col-md-3 col-form-label">Department Name</label>
                     <div class="col-md-9">
@@ -21,6 +27,7 @@
                         </select>
                     </div>
                 </div>
+                {% endif %}
                 <div class="row mb-3">
                     <label for="problemSpecialtySelect" class="col-md-3 col-form-label">Problem</label>
                     <div class="col-md-9">
@@ -39,7 +46,7 @@
                     <label for="descriptionId" class="col-md-3 col-form-label">Description</label>
                     <div class="col-md-9">
                         <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
-                                  rows="10"></textarea>
+                                  rows="2">{{ data.description|default:"N/A" }}</textarea>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success float-right">Submit</button>

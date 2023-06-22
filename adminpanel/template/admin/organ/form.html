@@ -10,6 +10,12 @@
         <div class="card-body">
             <form id="PostForm" action="{% url 'store_organ' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
+                {% if not bodypart_data %}
+                <div class="alert alert-default-warning">
+                    <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_bodypart_form' %}"> Add
+                    Bodypart </a> first.
+                </div>
+                {% else %}
                 <div class="row mb-3">
                     <label for="specialtySelect" class="col-md-2 col-form-label">Body Part Name</label>
                     <div class="col-md-10">
@@ -21,6 +27,7 @@
                         </select>
                     </div>
                 </div>
+                {% endif %}
                 <hr>
                 <div class="d-none" id="section-template">
                     <div class="sections">
@@ -42,7 +49,7 @@
                                     :</label>
                                 <div class="col-md-10">
                                     <textarea class="form-control" cols="30" rows="2" minlength="3"
-                                              maxlength="1000" size="1000" name="descriptions[]"></textarea>
+                                              maxlength="1000" name="descriptions[]" size="1000">{{ data.description|default:"N/A" }}</textarea>
                                 </div>
                             </div>
                         </div>

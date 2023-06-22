@@ -6,6 +6,8 @@
     #login {
         background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
     }
+
+
 </style>
 
 {% endblock %}
@@ -26,18 +28,21 @@
                         <h4 class="card-title text-center">Login Page</h4>
                     </div>
                     <div class="card-body">
-                        <form action="" method="POST" autocomplete="off">
+                        <form action="{% url 'check_login_is_valid' %}" autocomplete="off" id="PostForm" method="POST">
+                            {% csrf_token %}
                             <div class="form-group mb-3">
-                                <input type="email" class="form-control" id="email" placeholder="Username"
+                                <input class="form-control" id="email" name="user_name" placeholder="Username"
+                                       type="text"
                                        required>
                             </div>
                             <div class="form-group mb-3">
-                                <input type="password" class="form-control" id="password"
+                                <input class="form-control" id="password" name="password" type="password"
                                        placeholder="Password" required>
                             </div>
                             <div class="form-group mb-3">
-                                    <input type="checkbox" name="terms" id="checkId" />
-                                    <label class="custom-control-label" for="checkId">I agree to the <a href="#"></a>.</label>
+                                <input id="checkId" type="checkbox"/>
+                                <label class="custom-control-label" for="checkId">I agree to the <a
+                                        href="#"></a>.</label>
                             </div>
                             <div class="text-center mb-3">
                                 <button type="submit" class="btn btn-success">Login</button>

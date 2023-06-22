@@ -10,6 +10,12 @@
         <div class="card-body">
             <form id="PostForm" action="{% url 'store_organ_problem_specification' %}" method="POST">
                 {% csrf_token %}
+                {% if not bodypart_data %}
+                <div class="alert alert-default-warning">
+                    <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_bodypart_form' %}"> Add
+                    Bodypart </a> first.
+                </div>
+                {% else %}
                 <div class="row mb-3">
                     <label for="bodyPartID" class="col-md-2 col-form-label">Body Part Name</label>
                     <div class="col-md-10">
@@ -21,6 +27,7 @@
                         </select>
                     </div>
                 </div>
+                {% endif %}
                 <div class="row mb-3">
                     <label for="organID" class="col-md-2 col-form-label">Organ Name</label>
                     <div class="col-md-10">
@@ -42,7 +49,7 @@
                                 <label class="col-md-2 col-form-label font-weight-bold">Problem:</label>
                                 <div class="col-md-10">
                                     <input type="text" class="form-control" minlength="3" maxlength="255" size="255"
-                                        name="problems[]" />
+                                           name="problems[]"/>
                                 </div>
                             </div>
                             <!-- Description -->
@@ -51,7 +58,7 @@
                                     :</label>
                                 <div class="col-md-10">
                                     <textarea class="form-control" cols="30" rows="2" minlength="3" maxlength="1000"
-                                        size="1000" name="problem_specifications[]"></textarea>
+                                              name="problem_specifications[]" size="1000">{{ data.description|default:"N/A" }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -59,14 +66,14 @@
                             <!-- Add More Button -->
                             <div class="form-group d-inline pr-3 float-right">
                                 <button type="button" onclick="addSection()" class="btn btn-primary add-more-button"
-                                    data-toggle="tooltip" data-placement="top" title="Add More">
+                                        data-placement="top" data-toggle="tooltip" title="Add More">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
                             <!-- Close Button -->
                             <div class="form-group d-inline pr-3 float-right">
                                 <button type="button" onclick="removeSection(this)" class="btn btn-danger remove-button"
-                                    data-toggle="tooltip" data-placement="top" title="Remove">
+                                        data-placement="top" data-toggle="tooltip" title="Remove">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -107,6 +114,7 @@
             });
         }
     });
+
 </script>
 <script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
 {% endblock %}

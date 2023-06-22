@@ -27,10 +27,6 @@ def landing_article(request):
     return render(request, 'landing/pages/articles.html', {'all_data': all_data})
 
 
-def login(request):
-    return render(request, 'landing/pages/login.html')
-
-
 def doctor_register(request):
     return render(request, 'landing/pages/register.html')
 
