@@ -84,7 +84,7 @@ class UpazilaSerializer(serializers.ModelSerializer):
 
 class MatrimonieSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Matrimonie
+        model = Matrimony
         fields = '__all__'
 
     def create(self, validated_data):

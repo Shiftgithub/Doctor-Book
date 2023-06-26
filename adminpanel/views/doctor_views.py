@@ -90,7 +90,7 @@ def blood_group_list(request):
 
 @api_view(['GET'])
 def matrimonie_list(request):
-    matrimonie = Matrimonie.objects.all()
+    matrimonie = Matrimony.objects.all()
     serializer = MatrimonieSerializer(matrimonie, many=True)
     serialized_data = serializer.data
     return Response(serialized_data)
