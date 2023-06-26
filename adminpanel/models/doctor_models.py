@@ -10,7 +10,7 @@ class Doctor_Profile(models.Model):
     mother_name = models.CharField(max_length=255)
     gender = models.ForeignKey('Gender', on_delete=models.SET_NULL, related_name="genderID", null=True)
     religion = models.ForeignKey('Religion', on_delete=models.SET_NULL, related_name="religionID", null=True)
-    matrimony = models.ForeignKey('Matrimonie', on_delete=models.CASCADE, related_name="matrimony")
+    matrimony = models.ForeignKey('Matrimony', on_delete=models.CASCADE, related_name="matrimony")
     date_of_birth = models.DateField(auto_now_add=False)
     nid_no = models.CharField(max_length=255)
     blood_group = models.ForeignKey('Blood_Group', on_delete=models.SET_NULL, related_name="blood_groupID", null=True)
@@ -92,69 +92,43 @@ class Images(models.Model):
 
 
 class Education(models.Model):
-    doctor_profile = models.ForeignKey(
-        'Doctor_Profile', on_delete=models.CASCADE, related_name="education", null=True)
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="education", null=True)
     education = models.CharField(max_length=255)
     medical_school = models.CharField(max_length=255)
     residency_program = models.CharField(max_length=255)
     fellowship_program = models.CharField(max_length=255)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
+    passing_year = models.DateField(auto_now_add=False)
 
 
 class Certification(models.Model):
-    doctor_profile = models.ForeignKey(
-        'Doctor_Profile', on_delete=models.CASCADE, related_name="certification", null=True)
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="certification",
+                                       null=True)
     board_certifications = models.CharField(max_length=255)
     awards_and_honors = models.CharField(max_length=255)
     publications = models.CharField(max_length=255)
     memberships = models.CharField(max_length=255)
-    patient_satisfaction = models.IntegerField()
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
 
 class Services(models.Model):
-    doctor_profile = models.ForeignKey(
-        'Doctor_Profile', on_delete=models.CASCADE, related_name="Services", null=True)
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="Services", null=True)
     treatments = models.CharField(max_length=255)
     procedures = models.CharField(max_length=255)
     hours = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
+    patient_satisfaction = models.IntegerField()
 
 
 class Social_Media(models.Model):
     website = models.URLField(null=True)
     facebook = models.URLField(null=True)
-    insta = models.URLField(null=True)
-    linkdin = models.URLField(null=True)
+    instagram = models.URLField(null=True)
+    linkedin = models.URLField(null=True)
     twitter = models.URLField(null=True)
-    doctor_profile = models.ForeignKey(
-        'Doctor_Profile', on_delete=models.CASCADE, related_name="social_sedia", null=True)
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="social_media", null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-
-
-class Credentials(models.Model):
-    doctor_profile = models.ForeignKey(
-        'Doctor_Profile', on_delete=models.CASCADE, related_name="credentials", null=True)
-    medical_license = models.CharField(max_length=255)
-    dea_number = models.CharField(max_length=255)
-    npi_number = models.CharField(max_length=255)
-    state = models.CharField(max_length=255)
-    country = models.CharField(max_length=255)
-    board_certified = models.BooleanField()
-    board_certified_in = models.CharField(max_length=255)
 
 
 class Availability(models.Model):
@@ -187,12 +161,8 @@ class Religion(models.Model):
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
 
-class Matrimonie(models.Model):
+class Matrimony(models.Model):
     name = models.CharField(max_length=110)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
         return self.name
@@ -200,27 +170,10 @@ class Matrimonie(models.Model):
 
 class Blood_Group(models.Model):
     name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-
-
-class Countries(models.Model):
-    name = models.CharField(max_length=255)
-    nationality = models.CharField(max_length=255)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-
-    def __str__(self):
-        return self.name
 
 
 class Division(models.Model):
     name = models.CharField(max_length=255)
-    country = models.ForeignKey(
-        'Countries', on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -231,8 +184,7 @@ class Division(models.Model):
 
 class District(models.Model):
     name = models.CharField(max_length=255)
-    division = models.ForeignKey(
-        'Division', on_delete=models.SET_NULL, null=True)
+    division = models.ForeignKey('Division', on_delete=models.SET_NULL, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
