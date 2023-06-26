@@ -21,6 +21,4 @@ urlpatterns = [
     path('', include('api.urls')),
     path('', include('adminpanel.urls')),
     path('', include('landing.urls')),
-    # path('', include('myadmin.urls')),
-
 ]

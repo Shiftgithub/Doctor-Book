@@ -16,13 +16,6 @@ def store_doctor_data(request):
             user_serializer = UserSerializer(data=request.data)
             doctor_serializer = DoctorSerializer(data=request.data)
             image_serializer = ImageSerializer(data=request.data)
-            de = image_serializer.is_valid()
-            de1 = doctor_serializer.is_valid()
-            de2 = user_serializer.is_valid()
-
-            print(de)
-            print(de1)
-            print(de2)
             if user_serializer.is_valid(
                     raise_exception=True) and doctor_serializer.is_valid() and image_serializer.is_valid():
                 password = request.data.get('password')
