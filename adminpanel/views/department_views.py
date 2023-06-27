@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 from adminpanel.models.doctor_models import *
 from django.db import connection
 from rest_framework.response import Response
@@ -63,8 +63,9 @@ def department_dataview(request, department_id):
 def edit_department_data(request, department_id):
     department = Department.objects.get(id=department_id)
     serializer = DepartmentSerializer(department, data=request.data)
+
     if serializer.is_valid():
-        if serializer.save(updated_at=datetime.now()):
+        if serializer.save(updated_at=timezone.now()):
             return Response({'status': 200})
         else:
             return Response({'status': 403})
@@ -77,10 +78,10 @@ def edit_department_data(request, department_id):
 def softdelete_department_data(request, department_id):
     department = Department.objects.get(id=department_id)
     serializer = DepartmentDeleteSerializer(department, data=request.data)
-    department_specification = DepartmentSpecification.objects.filter(department_id =department_id)
-    doctors = Doctor.objects.filter(department_id =department_id)
+    department_specification = DepartmentSpecification.objects.filter(department_id=department_id)
+    doctors = Doctor_Profile.objects.filter(department_id=department_id)
     if doctors.exists() or department_specification.exists():
-         return Response({'status': 404})
+        return Response({'status': 404})
     else:
         if serializer.is_valid():
             if serializer.save(deleted_at=datetime.now()):

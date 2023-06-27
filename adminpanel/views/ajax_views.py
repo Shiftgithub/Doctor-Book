@@ -35,7 +35,7 @@ def get_organ_problem_by_organ(request, organ_id):
         organ = {
             'id': row[0],
             'problem': row[1],
-            'problem_specification' : row[2]
+            'problem_specification': row[2]
         }
         organs.append(organ)
 
@@ -43,3 +43,42 @@ def get_organ_problem_by_organ(request, organ_id):
     serialized_data = serializer.data
     return Response(serialized_data)
 
+
+@api_view(['GET'])
+def get_district_by_division(request, division_id):
+    query = """SELECT id,name FROM `adminpanel_district` WHERE division_id = %s ORDER BY id ASC"""
+
+    with connection.cursor() as cursor:
+        cursor.execute(query, [division_id])
+        results = cursor.fetchall()
+    districts = []
+    for row in results:
+        district = {
+            'id': row[0],
+            'name': row[1],
+        }
+        districts.append(district)
+
+    serializer = DistrictByDivisionSerializer(many=True, instance=districts)
+    serialized_data = serializer.data
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def get_upazila_by_district(request, district_id):
+    query = """SELECT id,name FROM `adminpanel_upazila` WHERE district_id = %s ORDER BY id ASC"""
+
+    with connection.cursor() as cursor:
+        cursor.execute(query, [district_id])
+        results = cursor.fetchall()
+    upazilas = []
+    for row in results:
+        upazila = {
+            'id': row[0],
+            'name': row[1],
+        }
+        upazilas.append(upazila)
+
+    serializer = UpazilaByDistrictBySerializer(many=True, instance=upazilas)
+    serialized_data = serializer.data
+    return Response(serialized_data)

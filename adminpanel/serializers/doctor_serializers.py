@@ -41,12 +41,6 @@ class PermanentAddressSerializer(serializers.ModelSerializer):
         instance = super().create(validated_data)
         return instance  # Fetch the primary key of the saved object
 
-
-class CountriesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Countries
-        fields = '__all__'
-
     def create(self, validated_data):
         instance = super().create(validated_data)
         return instance.pk  # Fetch the primary key of the saved object
@@ -115,6 +109,56 @@ class GenderSerializer(serializers.ModelSerializer):
 class BloodGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blood_Group
+        fields = '__all__'
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        return instance  # Fetch the primary key of the saved object
+
+
+class AvailabilitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Availability
+        fields = '__all__'
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        return instance  # Fetch the primary key of the saved object
+
+
+class CertificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Certification
+        fields = '__all__'
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        return instance  # Fetch the primary key of the saved object
+
+
+class EducationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Education
+        fields = '__all__'
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        return instance  # Fetch the primary key of the saved object
+
+
+class ServicesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Services
+        fields = '__all__'
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        return instance  # Fetch the primary key of the saved object
+
+
+class SocialMediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Social_Media
         fields = '__all__'
 
     def create(self, validated_data):

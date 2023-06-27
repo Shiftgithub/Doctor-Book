@@ -41,7 +41,7 @@
                                 <input class="form-control" id="dateOfBirthID" name="date_of_birth" type="date"/>
                             </div>
                         </div>
-
+                        <legend class="text-info"><i class="fas fa-user-cog"></i> Contact Information</legend>
                         <!-- Email -->
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="emailID">Email : <span
@@ -64,8 +64,9 @@
                     <div class="col-md-4">
                         <div class="row mb-3">
                             <div class="col-md-12">
-                                <input class="form-control mb-3" id="imageID" name="doctor_photos" type="file"/>
-                                <img src="{% static 'adminlte_assets/img/nobody.png' %}"
+                                <input class="form-control mb-3" id="imageID" name="doctor_photos" onchange="previewImage(event)"
+                                       type="file"/>
+                                <img id="preview" src="{% static 'adminlte_assets/img/nobody.png' %}"
                                      style="width: 100%; height: 280px;">
                             </div>
                         </div>
@@ -82,10 +83,10 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="passportNoID">Passport No : <span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="passportNoID">Passport No : </label>
                     <div class="col-md-10">
-                        <input class="form-control" id="passportNoID" name="passport_no" type="text"/>
+                        <input class="form-control" id="passportNoID"
+                               name="passport_no" type="text" value="{{ data.Passport|default:'Not Applicable' }}"/>
                     </div>
                 </div>
                 <!-- Blood Group, Religion, Martial Status -->
@@ -124,7 +125,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <select class="form-control select2" id="bloodGroupID" name="blood_group">
-                                    <option selected>Select Blood Group Name</option>
+                                    <option selected>Select Blood Group</option>
                                     {% for item in blood_group_data %}
                                     <option value="{{ item.id }}">{{ item.name }}</option>
                                     {% endfor %}
@@ -139,27 +140,105 @@
                     <div class="col-md-10">
                         <select class="form-control select2" id="matrimonyID" name="matrimony">
                             <option selected>Select Matrimony</option>
-                            {% for item in matrimonie_data %}
+                            {% for item in matrimony_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
                         </select>
                     </div>
                 </div>
+                <!--Address-->
+                <legend class="text-info"><i class="fas fa-user-cog"></i> Address Details</legend>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentDivisionID">Division : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="permanentDivisionID" name="permanent_division">
+                            <option selected>Select Permanent Division</option>
+                            {% for item in division_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentDivisionID">Division : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="presentDivisionID" name="present_division">
+                            <option selected>Select Present Division</option>
+                            {% for item in division_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentDistrictID">District : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="permanentDistrictID" name="permanent_district">
+                            <option selected>Select Permanent District</option>
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentDistrictID">District : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="presentDistrictID" name="present_district">
+                            <option selected>Select Present District</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentUpazilaID">Upazila : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="permanentUpazilaID" name="permanent_upazila ">
+                            <option selected>Select Permanent Division</option>
 
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentUpazilaID">Upazila : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="presentUpazilaID" name="present_upazila ">
+                            <option selected>Select Present Upazila</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentAddressID">Permanent Address : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="permanentAddressID" name="permanent_address" type="text"/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentAddressID">Present Address : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="presentAddressID" name="present_address" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentPostCodeID">Post Code : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="permanentPostCodeID" name="permanent_post_code" type="text"/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentPostCodeID">Post Code : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="presentPostCodeID" name="present_post_code" type="text"/>
+                    </div>
+                </div>
                 <legend class="text-info"><i class="fas fa-user-cog"></i> Work Details</legend>
                 <hr>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="specialtyID">Specialty : <span
+                    <label class="col-md-2 col-form-label" for="specialtyID">Dept. / Specialty : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <select class="form-control select2" id="specialtyID" name="specialty">
-                            <option selected>Select Specialty</option>
-                            <option>Surgery</option>
-                            <option>Neurology</option>
-                            <option>Psychiatry</option>
-                            <option>Dermatology</option>
-                            <option>Anesthesiology</option>
-                            <option>Emergency medicine</option>
+                            <option selected>Select Department / Specialty</option>
+                            {% for item in department_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+
                         </select>
                     </div>
                 </div>
@@ -181,7 +260,7 @@
                     <label class="col-md-2 col-form-label" for="biographyID">Biography : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <textarea class="form-control" cols="30" id="biographyID" name="biography" rows="2">{{ data.description|default:"" }}</textarea>
+                        <textarea class="form-control" cols="30" id="biographyID" name="biography" rows="2">{{ data.description|default:"Not Applicable" }}</textarea>
                     </div>
                 </div>
 
@@ -224,3 +303,246 @@
     </form>
 </div>
 {% endblock %}
+
+{% block scripts %}
+<script>
+    $('#permanentDivisionID').on('change', function () {
+        let permanent_division_id = $(this).val()
+        if (permanent_division_id === '' || permanent_division_id == null) {
+            return false
+        } else {
+            $.ajax({
+                url: '/adminpanel/ajax/district/' + permanent_division_id,
+                type: 'GET',
+                success: function (response) {
+                    let options = '<option selected>Select Permanent District</option>';
+
+                    $.each(response, function (key, value) {
+                        options += `<option value="${value.id}">${value.name}</option>`;
+                    });
+
+                    $('#permanentDistrictID').html(options)
+                }
+            })
+
+             /**
+             * Getting upazila by district id ...
+             */
+            $('#permanentDistrictID').on('change', function () {
+                let permanent_district_id = $(this).val();
+
+                if (permanent_district_id === '' || permanent_district_id == null) {
+                    return false;
+                } else {
+                    $.ajax({
+                url: '/adminpanel/ajax/upazila/' + permanent_district_id,
+                type: 'GET',
+                success: function (response) {
+                    let options = '<option selected>Select Permanent Upazila</option>';
+
+                    $.each(response, function (key, value) {
+                        options += `<option value="${value.id}">${value.name}</option>`;
+                    });
+
+                    $('#permanentUpazilaID').html(options)
+                }
+                })
+                }
+                })
+        }
+    })
+
+    /**
+    * Present Address JS ...
+    */
+    $('#presentDivisionID').on('change', function () {
+        let present_division_id = $(this).val()
+        if (present_division_id === '' || present_division_id == null) {
+            return false
+        } else {
+            $.ajax({
+                url: '/adminpanel/ajax/district/' + present_division_id,
+                type: 'GET',
+                success: function (response) {
+                    let options = '<option selected>Select Present District</option>';
+
+                    $.each(response, function (key, value) {
+                        options += `<option value="${value.id}">${value.name}</option>`;
+                    });
+
+                    $('#presentDistrictID').html(options)
+                }
+            })
+
+             /**
+             * Getting upazila by district id ...
+             */
+            $('#presentDistrictID').on('change', function () {
+                let present_district_id = $(this).val();
+
+                if (present_district_id === '' || present_district_id == null) {
+                    return false;
+                } else {
+                    $.ajax({
+                url: '/adminpanel/ajax/upazila/' + present_district_id,
+                type: 'GET',
+                success: function (response) {
+                    let options = '<option selected>Select Present Upazila</option>';
+
+                    $.each(response, function (key, value) {
+                        options += `<option value="${value.id}">${value.name}</option>`;
+                    });
+
+                    $('#presentUpazilaID').html(options)
+                }
+                })
+                }
+                })
+        }
+    })
+    function previewImage(event) {
+    var input = event.target;
+    var imgElement = document.getElementById("preview");
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            imgElement.src = e.target.result;
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+{% endblock %}
+
+
