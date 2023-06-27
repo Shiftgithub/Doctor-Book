@@ -1,0 +1,170 @@
+{% extends 'templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <form action="{% url 'store_doctor_work_details' %}" enctype="multipart/form-data" id="PostForm" method="POST">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Add Doctor Work Details</h1>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="doctorNameID">Doctor Name : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="doctorNameID" name="doctor_profile">
+                            <option selected>Select Doctor Name</option>
+                            {% for item in doctor_data %}
+                            <option value="{{ item.id }}">{{ item.full_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <legend class="text-info"><i class="fas fa-user-cog"></i>Certification</legend>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="boardCertificationsID">Board Certifications :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="boardCertificationsID" name="board_certifications" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="awardsAndHonorsID">Awards And Honors :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="awardsAndHonorsID" name="awards_and_honors" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="publicationsID">Publications :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="publicationsID" name="publications" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="membershipsID">Memberships :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="membershipsID" name="memberships" type="text"/>
+                    </div>
+                </div>
+                <legend class="text-info"><i class="fas fa-user-cog"></i>Education</legend>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="educationID">Education : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="educationID" name="education" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="medicalSchoolID">Medical School : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="medicalSchoolID" name="medical_school" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="residencyProgramID">Residency Program : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="residencyProgramID" name="residency_program" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="fellowshipProgramID">Fellowship Program :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="fellowshipProgramID" name="fellowship_program" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="passingYearID">Passing Year : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="passingYearID" name="passing_year" type="date"/>
+                    </div>
+                </div>
+                <legend class="text-info"><i class="fas fa-user-cog"></i>Services</legend>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="treatmentsID">Treatments : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="treatmentsID" name="treatments" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="proceduresID">Procedures : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="proceduresID" name="procedures" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="hoursID">Hours : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="hoursID" name="hours" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="locationID">Location : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="locationID" name="location" type="text"/>
+                    </div>
+                </div>
+                <legend class="text-info"><i class="fas fa-user-cog"></i>Social Media Link</legend>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="websiteID">Website : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="websiteID" name="website" type="url"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="facebookID">Facebook : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="facebookID" name="facebook" type="url"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="instagramID">Instagram : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="instagramID" name="instagram" type="url"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="linkedinID">Linkedin : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="linkedinID" name="linkedin" type="url"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="twitterID">Twitter : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="twitterID" name="twitter" type="url"/>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-secondary" type="reset">Cancel</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success float-right" type="submit">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

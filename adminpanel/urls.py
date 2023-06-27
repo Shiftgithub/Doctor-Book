@@ -83,7 +83,10 @@ urlpatterns = [
     # doctor adminpanel path
 
     path('adminpanel/add/doctor/', doctor_form, name="add_doctor_form"),
+    path('adminpanel/add/doctor/work/details/', doctor_work_details_form, name="add_doctor_work_details_form"),
+
     path('adminpanel/store/doctor/', store_doctor, name="store_doctor"),
+    path('adminpanel/store/doctor/work/details/', store_doctor_work_details, name="store_doctor_work_details"),
     path('adminpanel/doctors/list/', doctor_data_view, name="doctor_list"),
 
     # faq adminpanel path
@@ -103,4 +106,7 @@ urlpatterns = [
     path('adminpanel/ajax/organ/<int:body_part_id>/', get_organs_by_bodypart, name="get_organs"),
     path('adminpanel/ajax/problem/specification/<int:organ_id>/', get_organ_problem_by_organ,
          name="get_organ_problems"),
+    path('adminpanel/ajax/district/<int:division_id>/', get_district_by_division, name="get_districts"),
+    path('adminpanel/ajax/upazila/<int:district_id>/', get_upazila_by_district, name="get_upazilas"),
+
 ]

@@ -8,20 +8,20 @@ class Doctor_Profile(models.Model):
     full_name = models.CharField(max_length=255)
     father_name = models.CharField(max_length=255)
     mother_name = models.CharField(max_length=255)
-    gender = models.ForeignKey('Gender', on_delete=models.SET_NULL, related_name="genderID", null=True)
-    religion = models.ForeignKey('Religion', on_delete=models.SET_NULL, related_name="religionID", null=True)
+    gender = models.ForeignKey('Gender', on_delete=models.CASCADE, related_name="genderID")
+    religion = models.ForeignKey('Religion', on_delete=models.CASCADE, related_name="religionID")
     matrimony = models.ForeignKey('Matrimony', on_delete=models.CASCADE, related_name="matrimony")
     date_of_birth = models.DateField(auto_now_add=False)
     nid_no = models.CharField(max_length=255)
-    blood_group = models.ForeignKey('Blood_Group', on_delete=models.SET_NULL, related_name="blood_groupID", null=True)
+    blood_group = models.ForeignKey('Blood_Group', on_delete=models.CASCADE, related_name="blood_groupID")
     phone_no = models.CharField(max_length=110)
 
     specialty = models.CharField(max_length=255)
     experience = models.CharField(max_length=255)
-    biography = models.CharField(max_length=255)
+    biography = models.CharField(max_length=255, null=True)
 
     languages_spoken = models.CharField(max_length=255)
-    passport_no = models.CharField(max_length=255)
+    passport_no = models.CharField(max_length=255, null=True)
     user = models.ForeignKey('UserProfile', on_delete=models.SET_NULL, related_name="userID", null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -36,6 +36,7 @@ class PermanentAddress(models.Model):
     permanent_upazila = models.ForeignKey(
         'Upazila', on_delete=models.CASCADE, related_name="permanent_upazila")
     permanent_address = models.CharField(max_length=255)
+    permanent_post_code = models.CharField(max_length=255)
     doctor_profile = models.ForeignKey(
         'Doctor_Profile', on_delete=models.CASCADE, related_name="permanent_addresses", null=True)
 
@@ -55,6 +56,7 @@ class PresentAddress(models.Model):
     present_upazila = models.ForeignKey(
         'Upazila', on_delete=models.CASCADE, related_name="present_upazila")
     present_address = models.CharField(max_length=255)
+    present_post_code = models.CharField(max_length=255)
     doctor_profile = models.ForeignKey(
         'Doctor_Profile', on_delete=models.CASCADE, related_name="present_addresses", null=True)
 
@@ -70,17 +72,17 @@ def doctor_filepath(instance, filename):
     # Get the doctor's name
     doctor_name = instance.doctor_profile.full_name.replace(" ", "_")
 
-    # Get the original filename
-    old_filename = filename
-
     # Get the current timestamp
     time_now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
-    # Generate a new filename using the timestamp and original filename
-    filename = "%s_%s" % (time_now, old_filename)
+    # Get the file extension
+    file_extension = os.path.splitext(filename)[1]
+
+    # Generate a new filename using the timestamp, doctor's name, and file extension
+    new_filename = "%s_%s%s" % (time_now, doctor_name, file_extension)
 
     # Return the relative path to the folder where you want to save the image
-    return os.path.join('static', 'uploads', 'doctor_images', doctor_name, filename)
+    return os.path.join('static', 'uploads', 'doctor_images', new_filename)
 
 
 class Images(models.Model):
@@ -91,49 +93,8 @@ class Images(models.Model):
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
 
-class Education(models.Model):
-    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="education", null=True)
-    education = models.CharField(max_length=255)
-    medical_school = models.CharField(max_length=255)
-    residency_program = models.CharField(max_length=255)
-    fellowship_program = models.CharField(max_length=255)
-    passing_year = models.DateField(auto_now_add=False)
-
-
-class Certification(models.Model):
-    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="certification",
-                                       null=True)
-    board_certifications = models.CharField(max_length=255)
-    awards_and_honors = models.CharField(max_length=255)
-    publications = models.CharField(max_length=255)
-    memberships = models.CharField(max_length=255)
-
-
-class Services(models.Model):
-    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="Services", null=True)
-    treatments = models.CharField(max_length=255)
-    procedures = models.CharField(max_length=255)
-    hours = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
-    patient_satisfaction = models.IntegerField()
-
-
-class Social_Media(models.Model):
-    website = models.URLField(null=True)
-    facebook = models.URLField(null=True)
-    instagram = models.URLField(null=True)
-    linkedin = models.URLField(null=True)
-    twitter = models.URLField(null=True)
-    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="social_media", null=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-
-
 class Availability(models.Model):
-    doctor_profile = models.ForeignKey(
-        'Doctor_Profile', on_delete=models.CASCADE, related_name="availability", null=True)
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="availability")
     appointment_availability = models.DateTimeField(null=True)
 
     accepting_new_patients = models.BooleanField()
@@ -146,19 +107,56 @@ class Availability(models.Model):
     available_facilities = models.TextField()
     research_interests = models.TextField()
 
-
-class Gender(models.Model):
-    name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
+
+
+class Education(models.Model):
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="education")
+    education = models.CharField(max_length=255)
+    medical_school = models.CharField(max_length=255)
+    residency_program = models.CharField(max_length=255)
+    fellowship_program = models.CharField(max_length=255)
+    passing_year = models.DateField(auto_now_add=False)
+
+
+class Certification(models.Model):
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="certification")
+    board_certifications = models.CharField(max_length=255)
+    awards_and_honors = models.CharField(max_length=255)
+    publications = models.CharField(max_length=255)
+    memberships = models.CharField(max_length=255)
+
+
+class Services(models.Model):
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="Services")
+    treatments = models.CharField(max_length=255)
+    procedures = models.CharField(max_length=255)
+    hours = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    # patient_satisfaction = models.IntegerField()
+
+
+class Social_Media(models.Model):
+    website = models.URLField(null=True)
+    facebook = models.URLField(null=True)
+    instagram = models.URLField(null=True)
+    linkedin = models.URLField(null=True)
+    twitter = models.URLField(null=True)
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="social_media")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, null=True)
+    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
+
+
+class Gender(models.Model):
+    name = models.CharField(max_length=255)
 
 
 class Religion(models.Model):
     name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
 
 class Matrimony(models.Model):
@@ -184,7 +182,7 @@ class Division(models.Model):
 
 class District(models.Model):
     name = models.CharField(max_length=255)
-    division = models.ForeignKey('Division', on_delete=models.SET_NULL, null=True)
+    division = models.ForeignKey('Division', on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -196,8 +194,7 @@ class District(models.Model):
 
 class Upazila(models.Model):
     name = models.CharField(max_length=255)
-    district = models.ForeignKey(
-        'District', on_delete=models.SET_NULL, null=True)
+    district = models.ForeignKey('District', on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
