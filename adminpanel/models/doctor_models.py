@@ -35,8 +35,8 @@ class PermanentAddress(models.Model):
         'District', on_delete=models.CASCADE, related_name="permanent_district")
     permanent_upazila = models.ForeignKey(
         'Upazila', on_delete=models.CASCADE, related_name="permanent_upazila")
-    permanent_address = models.CharField(max_length=255)
-    permanent_post_code = models.CharField(max_length=255)
+    permanent_village_state = models.CharField(max_length=255)
+    permanent_postal_code = models.CharField(max_length=255)
     doctor_profile = models.ForeignKey(
         'Doctor_Profile', on_delete=models.CASCADE, related_name="permanent_addresses", null=True)
 
@@ -55,8 +55,8 @@ class PresentAddress(models.Model):
         'District', on_delete=models.CASCADE, related_name="present_district")
     present_upazila = models.ForeignKey(
         'Upazila', on_delete=models.CASCADE, related_name="present_upazila")
-    present_address = models.CharField(max_length=255)
-    present_post_code = models.CharField(max_length=255)
+    present_village_state = models.CharField(max_length=255)
+    present_postal_code = models.CharField(max_length=255)
     doctor_profile = models.ForeignKey(
         'Doctor_Profile', on_delete=models.CASCADE, related_name="present_addresses", null=True)
 
@@ -96,16 +96,23 @@ class Images(models.Model):
 class Availability(models.Model):
     doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="availability")
     appointment_availability = models.DateTimeField(null=True)
-
-    accepting_new_patients = models.BooleanField()
-    # New features
-    average_wait_time = models.DurationField()
-    consultation_fee = models.DecimalField(max_digits=10, decimal_places=2)
-    available_facilities = models.TextField()
+    accepting_new_patients = models.CharField(max_length=255, null=True)
+    average_wait_time = models.DurationField(null=True)
+    consultation_fee = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    available_facilities = models.CharField(max_length=255, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
+
+
+class Awards(models.Model):
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="awards")
+    awards_and_honors = models.CharField(max_length=255, null=True)
+    publications = models.CharField(max_length=255, null=True)
+    memberships = models.CharField(max_length=255, null=True)
+    board_certification_number = models.CharField(max_length=255, null=True)  # doctor board certification number
+    research_interests = models.CharField(max_length=255, null=True)
 
 
 class Education(models.Model):
@@ -118,14 +125,6 @@ class Education(models.Model):
 
 
 # all the information of this will be optional ...
-class Awards(models.Model):
-    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="certification")
-    awards_and_honors = models.CharField(max_length=255)
-    publications = models.CharField(max_length=255)
-    memberships = models.CharField(max_length=255)
-    board_certifications = models.CharField(max_length=255)  # doctor board certification number
-    research_interests = models.TextField()
-
 
 class Services(models.Model):
     doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="Services")

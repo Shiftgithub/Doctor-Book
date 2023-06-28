@@ -126,9 +126,9 @@ class AvailabilitySerializer(serializers.ModelSerializer):
         return instance  # Fetch the primary key of the saved object
 
 
-class CertificationSerializer(serializers.ModelSerializer):
+class AwardsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Certification
+        model = Awards
         fields = '__all__'
 
     def create(self, validated_data):
