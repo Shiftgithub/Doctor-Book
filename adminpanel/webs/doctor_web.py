@@ -44,11 +44,12 @@ def store_doctor(request):
 def doctor_data_view(request):
     response = get_all_doctors_list(request)
     all_data = response.data
+    print('pr', all_data)
     return render(request, 'admin/doctor/list_all.html', {'all_data': all_data})
 
 
 def doctor_work_details_form(request):
-    response_doctor = get_all_doctors_list(request)
+    response_doctor = get_all_doctors_name(request)
     doctor_data = response_doctor.data
     return render(request, 'admin/doctor/work_form.html', {'doctor_data': doctor_data})
 

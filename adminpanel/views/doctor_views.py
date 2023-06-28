@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from adminpanel.serializers.user_serializers import *
 from adminpanel.serializers.doctor_serializers import *
+from adminpanel.models.user_models import *
+from adminpanel.models.doctor_models import *
 from django.views.decorators.csrf import csrf_protect
 from django.db import connection, transaction, InternalError
 
@@ -55,6 +57,68 @@ def store_doctor_data(request):
 
 @api_view(['GET'])
 def get_all_doctors_list(request):
+    queryset = Doctor_Profile.objects.filter(deleted_at__isnull=True).values(
+        'id',
+        'full_name',
+        'father_name',
+        'mother_name',
+        'date_of_birth',
+        'nid_no',
+        'phone_no',
+        'experience',
+        'biography',
+        'languages_spoken',
+        'passport_no',
+        'specialty_id',  # Access the 'name' field through the __str__ method
+        'blood_group__name',
+        'gender__name',
+        'matrimony__name',
+        'religion__name',
+        'user__user_name',
+        'user__email',
+        'images__doctor_photos',
+        'permanent_addresses__permanent_village_state',
+        'permanent_addresses__permanent_division__name',
+        'permanent_addresses__permanent_district__name',
+        'permanent_addresses__permanent_upazila__name',
+        'present_addresses__present_village_state',
+        'present_addresses__present_postal_code',
+        'present_addresses__present_division__name',
+        'present_addresses__present_district__name',
+        'present_addresses__present_upazila__name',
+        'awards__awards_and_honors',
+        'awards__publications',
+        'awards__memberships',
+        'awards__board_certification_number',
+        'awards__research_interests',
+        'availability__appointment_availability',
+        'availability__accepting_new_patients',
+        'availability__average_wait_time',
+        'availability__consultation_fee',
+        'availability__available_facilities',
+        'education__certificate_degree',
+        'education__institution',
+        'education__board',
+        'education__result',
+        'education__passing_year',
+        'services__treatments',
+        'services__procedures',
+        'services__hours',
+        'services__location',
+        'social_media__website',
+        'social_media__facebook',
+        'social_media__instagram',
+        'social_media__linkedin',
+        'social_media__twitter'
+    )
+
+    result = list(queryset)
+
+    return Response(result)
+
+
+@api_view(['GET'])
+def get_all_doctors_name(request):
     doctors = Doctor_Profile.objects.all()
     serializer = DoctorSerializer(doctors, many=True)
     serialized_data = serializer.data
@@ -161,3 +225,8 @@ def store_doctor_work_details_data(request):
             return Response({'status': 403})
     else:
         return Response({'status': 403})
+
+
+@api_view(['POST'])
+def doctor_work_details_data(request, id):
+    pass
