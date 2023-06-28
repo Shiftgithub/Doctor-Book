@@ -8,21 +8,21 @@
             <h1 class="card-title">Add Department</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'store_department' %}" method="POST">
+            <form id="PostForm" action="{% url 'store_department' %}" method="POST" onsubmit="return validateForm()">
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="departmentNameID">Department Name</label>
+                    <label for="departmentNameID" class="col-md-2 col-form-label">Department Name</label>
                     <div class="col-md-10">
-                        <input class="form-control" id="departmentNameID" name="name" type="text"/>
-                        <div class="error-message" id="nameError"></div><!-- Error message container -->
+                        <input type="text" class="form-control" id="departmentNameID" name="name"/>
+                        <div id="nameError" class="error-message"></div><!-- Error message container -->
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="descriptionID">Description</label>
+                    <label for="descriptionID" class="col-md-2 col-form-label">Description</label>
                     <div class="col-md-10">
-                        <textarea class="form-control" cols="30" id="descriptionID" name="description" type="text"
+                        <textarea name="description" id="descriptionID" type="text" class="form-control" cols="30"
                                   rows="2">{{ data.description|default:"N/A" }}</textarea>
-                        <div class="error-message" id="descriptionError"></div> <!-- Error message container -->
+                        <div id="descriptionError" class="error-message"></div> <!-- Error message container -->
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success float-right">Submit</button>
@@ -39,9 +39,9 @@
     color: #dc3545; /* Red color for danger state */
 }
 
-
 </style>
 {% endblock %}
+
 {% block scripts %}
 <script>
 function validateForm() {
@@ -86,8 +86,5 @@ function clearErrorMessages() {
         errorElements[i].innerHTML = "";
     }
 }
-
-
 </script>
-
 {% endblock %}
