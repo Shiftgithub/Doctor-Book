@@ -11,18 +11,18 @@
             <form id="PostForm" action="{% url 'edit_faq' faq_data.id %}" method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="questionID">Question</label>
+                    <label for="questionID" class="col-md-2 col-form-label">Question</label>
                     <div class="col-md-10">
-                        <input class="form-control" id="questionID" name="question" type="text"
-                               value="{{ faq_data.question }}"/>
-                        <div class="error-message" id="questionError"></div><!-- Error message container -->
+                        <input type="text" value="{{ faq_data.question }}" class="form-control" id="questionID"
+                               name="question"/>
+                        <div id="questionError" class="error-message"></div><!-- Error message container -->
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="answerID">Answer</label>
+                    <label for="answerID" class="col-md-2 col-form-label">Answer</label>
                     <div class="col-md-10">
-                        <textarea class="form-control" cols="30" id="answerID" name="answer" rows="10">{{ faq_data.answer }}</textarea>
-                        <div class="error-message" id="answerError"></div><!-- Error message container -->
+                        <textarea name="answer" id="answerID" class="form-control" cols="30" rows="10">{{ faq_data.answer }}</textarea>
+                        <div id="answerError" class="error-message"></div><!-- Error message container -->
                     </div>
                 </div>
                 <button type="submit" class="btn btn-warning float-right">Update</button>

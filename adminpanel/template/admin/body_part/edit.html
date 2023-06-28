@@ -72,12 +72,23 @@ $(document).ready(function() {
         }
     });
 
+    // Add input event listener to hide error messages when the user starts typing
+    $("#bodyPartNameId, #descriptionId").on("input", function() {
+        var inputId = $(this).attr("id");
+        var errorId = inputId + "Error";
+        clearErrorMessage(errorId);
+    });
+
     function displayErrorMessage(elementId, message) {
         $("#" + elementId).html(message);
     }
 
     function clearErrorMessages() {
         $(".error-message").html("");
+    }
+
+    function clearErrorMessage(elementId) {
+        $("#" + elementId).html("");
     }
 });
 </script>

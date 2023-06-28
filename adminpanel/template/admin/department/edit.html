@@ -11,18 +11,18 @@
             <form id="PostForm" action="{% url 'edit_department' department_data.id %}" method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="departmentNameID">Departmentt Name</label>
+                    <label for="departmentNameID" class="col-md-2 col-form-label">Departmentt Name</label>
                     <div class="col-md-10">
-                        <input class="form-control" id="departmentNameID" name="name" type="text"
-                               value="{{ department_data.name }}"/>
-                        <div class="error-message" id="nameError"></div><!-- Error message container -->
+                        <input type="text" value="{{ department_data.name }}" class="form-control" id="departmentNameID"
+                               name="name"/>
+                        <div id="nameError" class="error-message"></div><!-- Error message container -->
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="descriptionID">Description</label>
+                    <label for="descriptionID" class="col-md-2 col-form-label">Description</label>
                     <div class="col-md-10">
-                        <textarea class="form-control" cols="30" id="descriptionID" name="description" rows="10">{{ department_data.description }}</textarea>
-                        <div class="error-message" id="descriptionError"></div> <!-- Error message container -->
+                        <textarea name="description" id="descriptionID" class="form-control" cols="30" rows="10">{{ department_data.description }}</textarea>
+                        <div id="descriptionError" class="error-message"></div> <!-- Error message container -->
                     </div>
                 </div>
                 <button type="submit" class="btn btn-warning float-right">Update</button>
