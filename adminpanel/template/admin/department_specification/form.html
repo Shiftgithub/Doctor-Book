@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 {% endif %}
-                {% if not problem_specification_data %}
+                {% if not problem_data %}
                 <div class="alert alert-default-warning">
                     <strong>Warning!</strong> Please <a class="text-dark"
                                                         href="{% url 'add_organ_problem_specification_form' %}"> Add
@@ -41,7 +41,7 @@
                         <select class="form-control select2" id="problemSpecialtySelect"
                                 name="organ_problem_specification">
                             <option selected>Select Problem Name</option>
-                            {% for item in problem_response %}
+                            {% for item in problem_data %}
                             <option value="{{ item.id }}">{{ item.problem }}</option>
                             {% endfor %}
                         </select>
