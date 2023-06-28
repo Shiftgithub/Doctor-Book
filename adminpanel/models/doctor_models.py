@@ -98,14 +98,10 @@ class Availability(models.Model):
     appointment_availability = models.DateTimeField(null=True)
 
     accepting_new_patients = models.BooleanField()
-    cancellation_policy = models.CharField(max_length=255)
-    insurance_accepted = models.CharField(max_length=255, null=True)
-
     # New features
     average_wait_time = models.DurationField()
     consultation_fee = models.DecimalField(max_digits=10, decimal_places=2)
     available_facilities = models.TextField()
-    research_interests = models.TextField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -114,19 +110,21 @@ class Availability(models.Model):
 
 class Education(models.Model):
     doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="education")
-    education = models.CharField(max_length=255)
-    medical_school = models.CharField(max_length=255)
-    residency_program = models.CharField(max_length=255)
-    fellowship_program = models.CharField(max_length=255)
+    certificate_degree = models.CharField(max_length=255)
+    institution = models.CharField(max_length=255)
+    board = models.CharField(max_length=255)  # education board name ex. Dhaka, Chittagong
+    result = models.CharField(max_length=255)
     passing_year = models.DateField(auto_now_add=False)
 
 
-class Certification(models.Model):
+# all the information of this will be optional ...
+class Awards(models.Model):
     doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="certification")
-    board_certifications = models.CharField(max_length=255)
     awards_and_honors = models.CharField(max_length=255)
     publications = models.CharField(max_length=255)
     memberships = models.CharField(max_length=255)
+    board_certifications = models.CharField(max_length=255)  # doctor board certification number
+    research_interests = models.TextField()
 
 
 class Services(models.Model):
@@ -135,7 +133,6 @@ class Services(models.Model):
     procedures = models.CharField(max_length=255)
     hours = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
-    # patient_satisfaction = models.IntegerField()
 
 
 class Social_Media(models.Model):
