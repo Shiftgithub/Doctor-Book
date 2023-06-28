@@ -46,7 +46,6 @@ INSERT INTO `adminpanel_blood_group` (`id`, `name`) VALUES
 (6, 'O-'),
 (7, 'AB+'),
 (8, 'AB-'),
-(9, 'Other');
 
 --
 -- Indexes for dumped tables
@@ -66,7 +65,7 @@ ALTER TABLE `adminpanel_blood_group`
 -- AUTO_INCREMENT for table `adminpanel_blood_group`
 --
 ALTER TABLE `adminpanel_blood_group`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

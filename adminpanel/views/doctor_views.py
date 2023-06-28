@@ -120,13 +120,40 @@ def upazila_list(request):
 @api_view(['POST'])
 def store_doctor_work_details_data(request):
     if request.method == 'POST':
-        certification_serializer = CertificationSerializer(data=request.data)
-        education_serializer = EducationSerializer(data=request.data)
+        awards_serializer = AwardsSerializer(data=request.data)
+        availability_serializer = AvailabilitySerializer(data=request.data)
+
+        doctor_profile_id = request.POST.get('doctor_profile')
+        certificate_degrees = request.POST.getlist('certificate_degrees[]')
+        institutions = request.POST.getlist('institutions[]')
+        boards = request.POST.getlist('boards[]')
+        results = request.POST.getlist('results[]')
+        passing_years = request.POST.getlist('passing_years[]')
+
         services_serializer = ServicesSerializer(data=request.data)
         social_media_serializer = SocialMediaSerializer(data=request.data)
-        if certification_serializer.is_valid() and education_serializer.is_valid() and services_serializer.is_valid() and social_media_serializer.is_valid():
+
+        if awards_serializer.is_valid() and availability_serializer.is_valid() and services_serializer.is_valid() and social_media_serializer.is_valid():
             with transaction.atomic():
-                if certification_serializer.save() and education_serializer.save() and services_serializer.save() and social_media_serializer.save():
+                awards_instance = awards_serializer.save()
+                availability_instance = availability_serializer.save()
+                services_instance = services_serializer.save()
+                social_media_instance = social_media_serializer.save()
+
+                if awards_instance and availability_instance and services_instance and social_media_instance:
+                    for certificate_degree, institution, board, result, passing_year in zip(certificate_degrees,
+                                                                                            institutions, boards,
+                                                                                            results, passing_years):
+                        education_obj = Education(
+                            certificate_degree=certificate_degree,
+                            institution=institution,
+                            board=board,
+                            result=result,
+                            passing_year=passing_year,
+                            doctor_profile_id=doctor_profile_id
+                        )
+                        education_obj.save()
+
                     return Response({'status': 200})
                 else:
                     return Response({'status': 403})
