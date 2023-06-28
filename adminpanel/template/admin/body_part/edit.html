@@ -8,18 +8,22 @@
             <h1 class="card-title">Edit Body Part Info</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'edit_bodypart' bodypart_data.id %}" method="POST">
+            <form action="{% url 'edit_bodypart' bodypart_data.id %}" id="PostForm" method="POST"
+                  onsubmit="return validateForm()">
                 {% csrf_token %}
                 <div class="row mb-3">
                     <label for="bodyPartNameId" class="col-md-2 col-form-label">Body Part Name</label>
                     <div class="col-md-10">
-                        <input type="text" value="{{ bodypart_data.name }}" class="form-control" id="bodyPartNameId" name="name" />
+                        <input class="form-control" id="bodyPartNameId" name="name" type="text"
+                               value="{{ bodypart_data.name }}"/>
+                        <div class="error-message" id="nameError"></div><!-- Error message container -->
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="descriptionId" class="col-md-2 col-form-label">Description</label>
                     <div class="col-md-10">
                         <textarea name="description" id="descriptionId" class="form-control" cols="30" rows="10">{{ bodypart_data.description }}</textarea>
+                        <div class="error-message" id="descriptionError"></div> <!-- Error message container -->
                     </div>
                 </div>
                 <button type="submit" class="btn btn-warning float-right">Update</button>
@@ -27,4 +31,61 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.error-message {
+    color: #dc3545; /* Red color for danger state */
+}
+
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function validateForm() {
+    // Clear previous error messages
+    clearErrorMessages();
+
+    // Get the values entered by the user
+    var name = document.getElementById("bodyPartNameId").value;
+    var description = document.getElementById("descriptionId").value;
+
+    // Track if any validation errors occur
+    var hasErrors = false;
+
+    // Perform validation checks
+    if (name.trim() === "") {
+        displayErrorMessage("nameError", "Please enter a body part name.");
+        hasErrors = true;
+    }
+
+    if (description.trim() === "") {
+        displayErrorMessage("descriptionError", "Please enter a description.");
+        hasErrors = true;
+    }
+
+    // Prevent form submission if errors occurred
+    if (hasErrors) {
+        return false;
+    }
+
+    // All validation checks passed
+    return true;
+}
+
+function displayErrorMessage(elementId, message) {
+    var errorElement = document.getElementById(elementId);
+    errorElement.innerHTML = message;
+}
+
+function clearErrorMessages() {
+    var errorElements = document.getElementsByClassName("error-message");
+    for (var i = 0; i < errorElements.length; i++) {
+        errorElements[i].innerHTML = "";
+    }
+}
+
+</script>
 {% endblock %}
