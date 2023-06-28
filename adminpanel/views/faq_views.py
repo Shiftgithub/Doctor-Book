@@ -60,7 +60,7 @@ def faq_dataview(request, faq_id):
     return Response(serialized_data)
 
 
-# faq edit funtion
+# faq edit function
 
 @api_view(['PUT', 'POST'])
 def edit_faq_data(request, faq_id):
@@ -75,7 +75,7 @@ def edit_faq_data(request, faq_id):
         return Response({'status': 403})
 
 
-# faq delete funtion
+# faq delete function
 @api_view(['PUT', 'GET'])
 def softdelete_faq_data(request, faq_id):
     faq = FAQ.objects.get(id=faq_id)

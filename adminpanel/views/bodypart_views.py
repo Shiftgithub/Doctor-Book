@@ -1,5 +1,4 @@
 from datetime import datetime
-from django.db import connection
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from adminpanel.serializers.bodypart_serializers import *
@@ -7,7 +6,7 @@ from adminpanel.models.organ_models import *
 from adminpanel.models.bodypart_models import *
 
 
-# store bodypart funtion
+# store bodypart function
 @api_view(['POST'])
 def store_bodypart_data(request):
     if request.method == 'POST':
@@ -35,7 +34,7 @@ def get_all_bodypart_list(request):
     return Response(serializer.data)
 
 
-#  bodypart data show using id funtion
+#  bodypart data show using id function
 
 @api_view(['GET'])
 def bodypart_dataview(request, bodypart_id):
@@ -48,7 +47,7 @@ def bodypart_dataview(request, bodypart_id):
     return Response(serializer.data)
 
 
-# bodypart edit funtion
+# bodypart edit function
 
 @api_view(['PUT', 'POST'])
 def edit_bodypart_data(request, bodypart_id):
@@ -63,7 +62,7 @@ def edit_bodypart_data(request, bodypart_id):
         return Response({'status': 403})
 
 
-# bodypart delete funtion
+# bodypart delete function
 @api_view(['PUT', 'GET'])
 def softdelete_bodypart_data(request, bodypart_id):
     bodypart = BodyPart.objects.get(id=bodypart_id)
