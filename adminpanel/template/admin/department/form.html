@@ -30,61 +30,59 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
-
 {% block styles %}
 <style>
 .error-message {
     color: #dc3545; /* Red color for danger state */
 }
-
 </style>
 {% endblock %}
-
 {% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-function validateForm() {
-    // Clear previous error messages
-    clearErrorMessages();
+$(document).ready(function() {
+    $("#PostForm").submit(function(event) {
+        event.preventDefault(); // Prevent the form from submitting
 
-    // Get the values entered by the user
-    var name = document.getElementById("departmentNameID").value;
-    var description = document.getElementById("descriptionID").value;
+        // Clear previous error messages
+        clearErrorMessages();
 
-    // Track if any validation errors occur
-    var hasErrors = false;
+        // Get the values entered by the user
+        var name = $("#departmentNameID").val();
+        var description = $("#descriptionID").val();
 
-    // Perform validation checks
-    if (name.trim() === "") {
-        displayErrorMessage("nameError", "Please enter a Department name.");
-        hasErrors = true;
+        // Track if any validation errors occur
+        var hasErrors = false;
+
+        // Perform validation checks
+        if (name.trim() === "") {
+            displayErrorMessage("nameError", "Please enter a department name.");
+            hasErrors = true;
+        }
+
+        if (description.trim() === "") {
+            displayErrorMessage("descriptionError", "Please enter a description.");
+            hasErrors = true;
+        }
+
+        // Prevent form submission if errors occurred
+        if (hasErrors) {
+            return;
+        }
+
+        // All validation checks passed, submit the form
+        $(this).unbind("submit").submit();
+    });
+
+    function displayErrorMessage(elementId, message) {
+        $("#" + elementId).html(message);
     }
 
-    if (description.trim() === "") {
-        displayErrorMessage("descriptionError", "Please enter a description.");
-        hasErrors = true;
+    function clearErrorMessages() {
+        $(".error-message").html("");
     }
-
-    // Prevent form submission if errors occurred
-    if (hasErrors) {
-        return false;
-    }
-
-    // All validation checks passed
-    return true;
-}
-
-function displayErrorMessage(elementId, message) {
-    var errorElement = document.getElementById(elementId);
-    errorElement.innerHTML = message;
-}
-
-function clearErrorMessages() {
-    var errorElements = document.getElementsByClassName("error-message");
-    for (var i = 0; i < errorElements.length; i++) {
-        errorElements[i].innerHTML = "";
-    }
-}
+});
 </script>
 {% endblock %}
+

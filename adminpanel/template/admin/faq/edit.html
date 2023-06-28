@@ -11,15 +11,18 @@
             <form id="PostForm" action="{% url 'edit_faq' faq_data.id %}" method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="questionId" class="col-md-2 col-form-label">Question</label>
+                    <label class="col-md-2 col-form-label" for="questionID">Question</label>
                     <div class="col-md-10">
-                        <input type="text" value="{{ faq_data.question }}" class="form-control" id="questionId" name="question" />
+                        <input class="form-control" id="questionID" name="question" type="text"
+                               value="{{ faq_data.question }}"/>
+                        <div class="error-message" id="questionError"></div><!-- Error message container -->
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="answerId" class="col-md-2 col-form-label">Answer</label>
+                    <label class="col-md-2 col-form-label" for="answerID">Answer</label>
                     <div class="col-md-10">
-                        <textarea name="answer" id="answerId" class="form-control" cols="30" rows="10">{{ faq_data.answer }}</textarea>
+                        <textarea class="form-control" cols="30" id="answerID" name="answer" rows="10">{{ faq_data.answer }}</textarea>
+                        <div class="error-message" id="answerError"></div><!-- Error message container -->
                     </div>
                 </div>
                 <button type="submit" class="btn btn-warning float-right">Update</button>
@@ -27,4 +30,60 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block styles %}
+<style>
+.error-message {
+    color: #dc3545; /* Red color for danger state */
+}
+
+</style>
+{% endblock %}
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $("#PostForm").submit(function(event) {
+        event.preventDefault(); // Prevent the form from submitting
+
+        // Clear previous error messages
+        clearErrorMessages();
+
+        // Get the values entered by the user
+        var question = $("#questionID").val();
+        var answer = $("#answerID").val();
+
+        // Track if any validation errors occur
+        var hasErrors = false;
+
+        // Perform validation checks
+        if (question.trim() === "") {
+            displayErrorMessage("questionError", "Please enter a Question.");
+            hasErrors = true;
+        }
+
+        if (answer.trim() === "") {
+            displayErrorMessage("answerError", "Please enter a Answer.");
+            hasErrors = true;
+        }
+
+        // Prevent form submission if errors occurred
+        if (hasErrors) {
+            return;
+        }
+
+        // All validation checks passed, submit the form
+        $(this).unbind("submit").submit();
+    });
+
+    function displayErrorMessage(elementId, message) {
+        $("#" + elementId).html(message);
+    }
+
+    function clearErrorMessages() {
+        $(".error-message").html("");
+    }
+});
+
+</script>
 {% endblock %}
