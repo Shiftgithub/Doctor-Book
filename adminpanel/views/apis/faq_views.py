@@ -23,41 +23,21 @@ def store_faq_data(request):
 
 @api_view(['GET'])
 def get_all_faq_list(request):
-    query = """SELECT * FROM adminpanel_faq WHERE deleted_at IS NULL ORDER BY id ASC"""
-    with connection.cursor() as cursor:
-        cursor.execute(query)
-        results = cursor.fetchall()
-    faqs = []
-    for row in results:
-        faq = {
-            'id': row[0],
-            'question': row[1],
-            'answer': row[2],
-        }
-        faqs.append(faq)
-    serializer = FAQSerializer(faqs, many=True)
-    serialized_data = serializer.data
+    faqs = FAQ.objects.filter(deleted_at=None).order_by('id')
+
+    serialized_data = FAQSerializer(faqs, many=True).data
     return Response(serialized_data)
 
 
 @api_view(['GET'])
 def faq_dataview(request, faq_id):
-    query = """SELECT * FROM adminpanel_faq WHERE id = %s AND deleted_at IS NULL"""
-    with connection.cursor() as cursor:
-        cursor.execute(query, [faq_id])
-        results = cursor.fetchall()
+    # getting bodypart data from faq model ...
+    faq = FAQ.objects.get(id=faq_id)
 
-    for row in results:
-        faq = {
-            'id': row[0],
-            'question': row[1],
-            'answer': row[2],
-            'created_at': row[3],
-            'updated_at': row[4],
-        }
-    serializer = FAQSerializer(instance=faq)
-    serialized_data = serializer.data
-    return Response(serialized_data)
+    # serializing faq data ...
+    serializer = FAQSerializer(faq, many=False)
+
+    return Response(serializer.data)
 
 
 # faq edit function

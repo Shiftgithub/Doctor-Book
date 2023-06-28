@@ -1,7 +1,6 @@
 from django.contrib import messages
-from landing.views.login_views import *
-from django.shortcuts import render, redirect
-from adminpanel.views.department_views import *
+from landing.views.apis.login_views import *
+from django.shortcuts import render
 
 
 def login(request):

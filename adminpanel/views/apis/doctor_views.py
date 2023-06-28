@@ -69,7 +69,7 @@ def get_all_doctors_list(request):
         'biography',
         'languages_spoken',
         'passport_no',
-        'specialty_id',  # Access the 'name' field through the __str__ method
+        'specialty_id',
         'blood_group__name',
         'gender__name',
         'matrimony__name',
@@ -112,9 +112,9 @@ def get_all_doctors_list(request):
         'social_media__twitter'
     )
 
-    result = list(queryset)
+    serializer = DoctorAllDataSerializer(queryset, many=True).data
 
-    return Response(result)
+    return Response(serializer)
 
 
 @api_view(['GET'])

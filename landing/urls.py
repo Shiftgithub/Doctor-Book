@@ -1,6 +1,7 @@
 from django.urls import path
-from landing.webs.landing_web import *
-from landing.webs.login_web import *
+
+from landing.views.webs.landing_web import *
+from landing.views.webs.login_web import *
 
 urlpatterns = [
     # Landing Frontend paths

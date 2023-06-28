@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.contrib import messages
-from adminpanel.views.article_views import *
-from adminpanel.views.bodypart_views import *
-from adminpanel.views.faq_views import *
-from landing.views.patient_views import *
+from adminpanel.views.apis.article_views import *
+from adminpanel.views.apis.bodypart_views import *
+from adminpanel.views.apis.faq_views import *
+from landing.views.apis.patient_views import *
 
 
 def landing_dashboard(request):

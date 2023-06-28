@@ -1,15 +1,15 @@
 from django.urls import path
-from adminpanel.webs.article_web import *
-from adminpanel.webs.bodypart_web import *
-from adminpanel.webs.dashboard_web import *
-from adminpanel.webs.doctor_web import *
-from adminpanel.webs.department__web import *
-from adminpanel.webs.department_specification_web import *
-from adminpanel.webs.organ_web import *
-from adminpanel.webs.organ_problem_specification_web import *
-from adminpanel.webs.faq_web import *
+from adminpanel.views.webs.article_web import *
+from adminpanel.views.webs.bodypart_web import *
+from adminpanel.views.webs.dashboard_web import *
+from adminpanel.views.webs.doctor_web import *
+from adminpanel.views.webs.department__web import *
+from adminpanel.views.webs.department_specification_web import *
+from adminpanel.views.webs.organ_web import *
+from adminpanel.views.webs.organ_problem_specification_web import *
+from adminpanel.views.webs.faq_web import *
 
-from adminpanel.views.ajax_views import *
+from adminpanel.views.apis.ajax_views import *
 
 urlpatterns = [
 

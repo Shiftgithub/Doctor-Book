@@ -1,14 +1,14 @@
 from django.urls import path
 
-from adminpanel.views.article_views import *
-from adminpanel.views.bodypart_views import *
-from adminpanel.views.department_views import *
-from adminpanel.views.department_specification_views import *
-from adminpanel.views.doctor_views import *
-from adminpanel.views.organ_views import *
-from adminpanel.views.organ_problem_specification_views import *
-from adminpanel.views.faq_views import *
-from landing.views.login_views import *
+from adminpanel.views.apis.article_views import *
+from adminpanel.views.apis.bodypart_views import *
+from adminpanel.views.apis.department_views import *
+from adminpanel.views.apis.department_specification_views import *
+from adminpanel.views.apis.doctor_views import *
+from adminpanel.views.apis.organ_views import *
+from adminpanel.views.apis.organ_problem_specification_views import *
+from adminpanel.views.apis.faq_views import *
+from landing.views.apis.login_views import *
 
 urlpatterns = [
 
