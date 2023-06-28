@@ -1,9 +1,11 @@
 from datetime import datetime
 from django.db import connection
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from adminpanel.serializers.organ_serializers import *
-from adminpanel.models.organ_problem_specification import *
+from adminpanel.models.organ_models import *
+
 
 # store organ data
 @api_view(['POST'])
@@ -22,51 +24,20 @@ def store_organ_data(request):
 
 
 # all organ list function
-
 @api_view(['GET'])
 def get_all_organs_list(request):
-    query = """SELECT mo.id,mo.name,mo.description, mb.name AS bodypart_name 
-               FROM adminpanel_organ AS mo INNER JOIN adminpanel_bodypart AS mb
-               ON mo.body_part_id = mb.id WHERE mo.deleted_at IS NULL ORDER BY mo.id ASC"""
-    with connection.cursor() as cursor:
-        cursor.execute(query)
-        results = cursor.fetchall()
-    organs = []
-    for row in results:
-        organ = {
-            'id': row[0],
-            'name': row[1],
-            'description': row[2],
-            'bodypart_name': row[3],
-        }
-        organs.append(organ)
-    serializer = OrganSerializer(organs, many=True)
-    serialized_data = serializer.data
+    organs = (Organ.objects.filter(deleted_at__isnull=True).select_related('body_part').order_by('id'))
+
+    serialized_data = OrganSerializer(organs, many=True).data
     return Response(serialized_data)
 
 
 # single organ data using id
-
 @api_view(['GET'])
 def organ_dataview(request, organ_id):
-    query = """SELECT mo.id,mo.name,mo.description,mo.created_at,mo.updated_at,
-                mb.name AS bodypart_name FROM adminpanel_organ AS mo
-                INNER JOIN adminpanel_bodypart AS mb ON mo.body_part_id = mb.id
-                WHERE mo.id = %s AND mo.deleted_at IS NULL ORDER BY mo.id ASC"""
-    with connection.cursor() as cursor:
-        cursor.execute(query, [organ_id])
-        results = cursor.fetchall()
-    for row in results:
-        organ = {
-            'id': row[0],
-            'name': row[1],
-            'description': row[2],
-            'created_at': row[3],
-            'updated_at': row[4],
-            'bodypart_name': row[5],
-        }
-    serializer = OrganSerializer(instance=organ)
-    serialized_data = serializer.data
+    organ = get_object_or_404(Organ, id=organ_id, deleted_at__isnull=True)
+    serialized_data = OrganSerializer(instance=organ).data
+
     return Response(serialized_data)
 
 
