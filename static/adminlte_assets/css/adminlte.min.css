@@ -12886,7 +12886,13 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 }
 
 .nav-sidebar > .nav-item {
-    margin-bottom: 0
+    margin-bottom: 0;
+}
+
+.nav-child {
+    padding-left: 12px;
+    font-size: 14px;
+    line-height: 10px;
 }
 
 .nav-sidebar > .nav-item .nav-icon {
