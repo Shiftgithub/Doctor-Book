@@ -9,7 +9,7 @@ class OrganStoreSerializer(serializers.ModelSerializer):
 
 
 class OrganSerializer(serializers.ModelSerializer):
-    bodypart = serializers.CharField(source='bodypart_name')
+    bodypart = serializers.CharField(source='body_part.name')
 
     class Meta:
         model = Organ

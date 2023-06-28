@@ -57,7 +57,7 @@ def department_dataview(request, department_id):
     return Response(serialized_data)
 
 
-# department edit funtion
+# department edit function
 
 @api_view(['PUT', 'POST'])
 def edit_department_data(request, department_id):
@@ -73,7 +73,7 @@ def edit_department_data(request, department_id):
         return Response({'status': 403})
 
 
-# department delete funtion
+# department delete function
 @api_view(['PUT', 'GET'])
 def softdelete_department_data(request, department_id):
     department = Department.objects.get(id=department_id)
