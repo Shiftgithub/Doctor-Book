@@ -167,7 +167,7 @@ class SocialMediaSerializer(serializers.ModelSerializer):
 
 
 class DoctorAllDataSerializer(serializers.ModelSerializer):
-    specialty = serializers.CharField(source='specialty.name')
+    specialty = serializers.CharField(source='department.name')
     blood_group = serializers.CharField(source='blood_group.name')
     gender = serializers.CharField(source='gender.name')
     matrimony = serializers.CharField(source='matrimony.name')

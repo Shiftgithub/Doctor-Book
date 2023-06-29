@@ -19,6 +19,7 @@
                 <tr>
                     <th>#</th>
                     <th>Doctor Name</th>
+                    <th>Specialty</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -27,6 +28,7 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>  {# Use 'forloop.counter' to get the loop counter #}
                     <td>{{ data.full_name }}</td>
+                    <td>{{ data.specialty }}</td>
                     <td>
                         <div class="btn-group dropleft">
                             <span type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
