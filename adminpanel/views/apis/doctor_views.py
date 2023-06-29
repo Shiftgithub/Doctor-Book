@@ -1,6 +1,7 @@
 import hashlib
 
 from django.core.mail import send_mail
+from django.db.models import F
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from adminpanel.serializers.user_serializers import *
@@ -56,116 +57,47 @@ def store_doctor_data(request):
 
 
 def get_all_doctors_list(request):
-    query = """
-    SELECT 
-        doctor_profile.id,
-        doctor_profile.full_name,
-        doctor_profile.father_name,
-        doctor_profile.mother_name,
-        doctor_profile.date_of_birth,
-        doctor_profile.nid_no,
-        doctor_profile.phone_no,
-        doctor_profile.experience,
-        doctor_profile.biography,
-        doctor_profile.languages_spoken,
-        doctor_profile.passport_no,
-        doctor_profile.deleted_at,
-
-        department.name AS specialty,
-
-        blood_group.name AS blood_group_name,
-        gender.name AS gender_name,
-        matrimony.name AS matrimony_name,
-        religion.name AS religion_name,
-
-        user_profile.user_name,
-        user_profile.email,
-
-        images.doctor_photos,
-
-        permanent_division.name AS permanent_division_name,
-        permanent_district.name AS permanent_district_name,
-        permanent_upazila.name AS permanent_upazila_name,
-        permanentaddress.permanent_village_state,
-        permanentaddress.permanent_village_state,
-
-        present_division.name AS present_division_name,
-        present_district.name AS present_district_name,
-        present_upazila.name AS present_upazila_name,
-        presentaddress.present_village_state,
-        presentaddress.present_postal_code,
-
-        awards.awards_and_honors,
-        awards.publications,
-        awards.memberships,
-        awards.board_certification_number,
-        awards.research_interests,
-
-        availability.appointment_availability,
-        availability.accepting_new_patients,
-        availability.average_wait_time,
-        availability.consultation_fee,
-        availability.available_facilities,
-        education.certificate_degree,
-        education.institution,
-        education.board,
-        education.result,
-        education.passing_year,
-
-        services.treatments,
-        services.procedures,
-        services.hours,
-        services.location,
-
-        social_media.website,
-        social_media.facebook,
-        social_media.instagram,
-        social_media.linkedin,
-        social_media.twitter
-
-    FROM adminpanel_doctor_profile AS doctor_profile
-    INNER JOIN adminpanel_gender AS gender ON doctor_profile.gender_id = gender.id
-    INNER JOIN adminpanel_religion AS religion ON doctor_profile.religion_id = religion.id
-    INNER JOIN adminpanel_blood_group AS blood_group ON doctor_profile.blood_group_id = blood_group.id
-    INNER JOIN adminpanel_matrimony AS matrimony ON doctor_profile.matrimony_id = matrimony.id
-    INNER JOIN adminpanel_department AS department ON doctor_profile.specialty = department.id
-    INNER JOIN adminpanel_userprofile AS user_profile ON doctor_profile.user_id = user_profile.id
-    INNER JOIN adminpanel_images AS images ON images.doctor_profile_id = doctor_profile.id
-    INNER JOIN adminpanel_permanentaddress AS permanentaddress ON permanentaddress.doctor_profile_id = doctor_profile.id
-    INNER JOIN adminpanel_presentaddress AS presentaddress ON presentaddress.doctor_profile_id = doctor_profile.id
-    INNER JOIN adminpanel_division AS permanent_division ON permanent_division.id = permanentaddress.permanent_division_id
-    INNER JOIN adminpanel_district AS permanent_district ON permanent_district.id = permanentaddress.permanent_district_id
-    INNER JOIN adminpanel_upazila AS permanent_upazila ON permanent_upazila.id = permanentaddress.permanent_upazila_id
-    INNER JOIN adminpanel_division AS present_division ON present_division.id = presentaddress.present_division_id
-    INNER JOIN adminpanel_district AS present_district ON present_district.id = presentaddress.present_district_id
-    INNER JOIN adminpanel_upazila AS present_upazila ON present_upazila.id = presentaddress.present_upazila_id
-    INNER JOIN adminpanel_awards AS awards ON awards.doctor_profile_id = doctor_profile.id
-    INNER JOIN adminpanel_availability AS availability ON availability.doctor_profile_id = doctor_profile.id
-    INNER JOIN adminpanel_education AS education ON education.doctor_profile_id = doctor_profile.id
-    INNER JOIN adminpanel_services AS services ON services.doctor_profile_id = doctor_profile.id
-    INNER JOIN adminpanel_social_media AS social_media ON social_media.doctor_profile_id = doctor_profile.id
-    WHERE doctor_profile.deleted_at IS NULL
-    """
-
-    with connection.cursor() as cursor:
-        cursor.execute(query)
-        rows = cursor.fetchall()
-
-    # Convert the query result into a list of dictionaries
-    keys = [
-        "id", "full_name", "father_name", "mother_name", "date_of_birth", "nid_no", "phone_no", "experience",
-        "biography", "languages_spoken", "passport_no", "deleted_at", "specialty", "blood_group_name",
-        "gender_name", "matrimony_name", "religion_name", "user_name", "email", "doctor_photos",
-        "permanent_division_name", "permanent_district_name", "permanent_upazila_name",
-        "permanent_village_state", "permanent_village_state", "present_division_name",
-        "present_district_name", "present_upazila_name", "present_village_state", "present_postal_code",
-        "awards_and_honors", "publications", "memberships", "board_certification_number", "research_interests",
-        "appointment_availability", "accepting_new_patients", "average_wait_time", "consultation_fee",
-        "available_facilities", "certificate_degree", "institution", "board", "result", "passing_year",
-        "treatments", "procedures", "hours", "location", "website", "facebook", "instagram", "linkedin", "twitter"
-    ]
-    serializer = [dict(zip(keys, row)) for row in rows]
-    return Response(serializer)
+    queryset = Doctor_Profile.objects.filter(deleted_at=None).annotate(
+        specialty_name=F('department.name'),
+        blood_group_name=F('blood_group.name'),
+        gender_name=F('gender.name'),
+        matrimony_name=F('matrimony.name'),
+        religion_name=F('religion.name'),
+        user_name=F('user.user_name'),
+        email=F('user.email'),
+        doctor_photos=F('images.doctor_photos'),
+        permanent_village_state=F('permanent_address.permanent_village_state'),
+        permanent_division_name=F('permanent_address.permanent_division.name'),
+        permanent_district_name=F('permanent_address.permanent_district.name'),
+        permanent_upazila_name=F('permanent_address.permanent_upazila.name'),
+        present_village_state=F('present_address.present_village_state'),
+        present_postal_code=F('present_address.present_postal_code'),
+        present_division_name=F('present_address.present_division.name'),
+        present_district_name=F('present_address.present_district.name'),
+        present_upazila_name=F('present_address.present_upazila.name'),
+        awards_and_honors=F('awards.awards_and_honors'),
+        publications=F('awards.publications'),
+        memberships=F('awards.memberships'),
+        board_certification_number=F('awards.board_certification_number'),
+        research_interests=F('awards.research_interests'),
+        appointment_availability=F('availability.appointment_availability'),
+        accepting_new_patients=F('availability.accepting_new_patients'),
+        average_wait_time=F('availability.average_wait_time'),
+        consultation_fee=F('availability.consultation_fee'),
+        available_facilities=F('availability.available_facilities'),
+        treatments=F('services.treatments'),
+        procedures=F('services.procedures'),
+        hours=F('services.hours'),
+        location=F('services.location'),
+        website=F('social_media.website'),
+        facebook=F('social_media.facebook'),
+        instagram=F('social_media.instagram'),
+        linkedin=F('social_media.linkedin'),
+        twitter=F('social_media.twitter'),
+    )
+    serializer = DoctorAllDataSerializer(queryset, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)
 
 
 @api_view(['GET'])
