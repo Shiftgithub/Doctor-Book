@@ -1,4 +1,4 @@
-from adminpanel.views.department_views import *
+from adminpanel.views.apis.department_views import *
 from django.contrib import messages
 from django.shortcuts import render, redirect
 

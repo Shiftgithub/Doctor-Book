@@ -22,39 +22,18 @@ def store_department_data(request):
 
 @api_view(['GET'])
 def get_all_departments_list(request):
-    query = """SELECT * FROM adminpanel_department WHERE deleted_at IS NULL ORDER BY id ASC"""
-    with connection.cursor() as cursor:
-        cursor.execute(query)
-        results = cursor.fetchall()
-    departments = []
-    for row in results:
-        department = {
-            'id': row[0],
-            'name': row[1],
-            'description': row[2],
-        }
-        departments.append(department)
-
+    departments = Department.objects.filter(deleted_at=None).order_by('id')
     serializer = DepartmentSerializer(departments, many=True)
-    serialized_data = serializer.data
-    return Response(serialized_data)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
 def department_dataview(request, department_id):
-    query = """SELECT * FROM adminpanel_department WHERE id = %s AND deleted_at IS NULL"""
-    with connection.cursor() as cursor:
-        cursor.execute(query, [department_id])
-        results = cursor.fetchall()
-    for row in results:
-        department = {
-            'id': row[0],
-            'name': row[1],
-            'description': row[2],
-        }
+    department = Department.objects.get(id=department_id)
+
     serializer = DepartmentSerializer(instance=department)
-    serialized_data = serializer.data
-    return Response(serialized_data)
+
+    return Response(serializer.data)
 
 
 # department edit function

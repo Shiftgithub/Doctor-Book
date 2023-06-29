@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from adminpanel.views.department_views import *
-from adminpanel.views.department_specification_views import *
-from adminpanel.views.organ_problem_specification_views import *
+from adminpanel.views.apis.department_views import *
+from adminpanel.views.apis.department_specification_views import *
+from adminpanel.views.apis.organ_problem_specification_views import *
 
 
 # Department Specification
