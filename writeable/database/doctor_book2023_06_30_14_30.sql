@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 28, 2023 at 03:53 PM
+-- Generation Time: Jun 30, 2023 at 10:28 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -113,20 +113,6 @@ CREATE TABLE `adminpanel_bodypart` (
   `updated_at` datetime(6) DEFAULT NULL,
   `deleted_at` datetime(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `adminpanel_bodypart`
---
-
-INSERT INTO `adminpanel_bodypart` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Head', 'N/A', '2023-06-28 13:48:32.623243', NULL, NULL),
-(2, 'Mouth', 'N/A', '2023-06-28 13:48:37.807242', NULL, NULL),
-(3, 'Left Hand', 'N/A', '2023-06-28 13:48:46.897507', NULL, NULL),
-(4, 'Right Hand', 'N/A', '2023-06-28 13:48:53.898116', NULL, NULL),
-(5, 'Left Eye', 'N/A', '2023-06-28 13:49:00.799446', NULL, NULL),
-(6, 'Right Eye', 'N/A', '2023-06-28 13:49:07.860584', NULL, NULL),
-(7, 'Left Leg', 'N/A', '2023-06-28 13:49:22.848912', NULL, NULL),
-(8, 'Right Leg', 'N/A', '2023-06-28 13:49:30.124453', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -309,8 +295,7 @@ CREATE TABLE `adminpanel_doctor_profile` (
   `date_of_birth` date NOT NULL,
   `nid_no` varchar(255) NOT NULL,
   `phone_no` varchar(110) NOT NULL,
-  `specialty` varchar(255) NOT NULL,
-  `experience` varchar(255) NOT NULL,
+  `experience` varchar(255) DEFAULT NULL,
   `biography` varchar(255) DEFAULT NULL,
   `languages_spoken` varchar(255) NOT NULL,
   `passport_no` varchar(255) DEFAULT NULL,
@@ -318,6 +303,7 @@ CREATE TABLE `adminpanel_doctor_profile` (
   `updated_at` datetime(6) DEFAULT NULL,
   `deleted_at` datetime(6) DEFAULT NULL,
   `blood_group_id` bigint(20) NOT NULL,
+  `department_id` bigint(20) NOT NULL,
   `gender_id` bigint(20) NOT NULL,
   `matrimony_id` bigint(20) NOT NULL,
   `religion_id` bigint(20) NOT NULL,
@@ -428,13 +414,6 @@ CREATE TABLE `adminpanel_organ` (
   `body_part_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `adminpanel_organ`
---
-
-INSERT INTO `adminpanel_organ` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`, `body_part_id`) VALUES
-(1, 'Forehead', 'N/A', '2023-06-28 13:49:44.625362', NULL, NULL, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -451,13 +430,6 @@ CREATE TABLE `adminpanel_organsproblemspecification` (
   `organ_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `adminpanel_organsproblemspecification`
---
-
-INSERT INTO `adminpanel_organsproblemspecification` (`id`, `problem`, `problem_specification`, `created_at`, `updated_at`, `deleted_at`, `organ_id`) VALUES
-(1, 'Pain', '2 days age start', '2023-06-28 13:50:10.632899', NULL, NULL, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -467,7 +439,7 @@ INSERT INTO `adminpanel_organsproblemspecification` (`id`, `problem`, `problem_s
 CREATE TABLE `adminpanel_permanentaddress` (
   `id` bigint(20) NOT NULL,
   `permanent_village_state` varchar(255) NOT NULL,
-  `permanent_postal_code` varchar(255) NOT NULL,
+  `permanent_postal_code` int(11) NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `deleted_at` datetime(6) DEFAULT NULL,
@@ -486,7 +458,7 @@ CREATE TABLE `adminpanel_permanentaddress` (
 CREATE TABLE `adminpanel_presentaddress` (
   `id` bigint(20) NOT NULL,
   `present_village_state` varchar(255) NOT NULL,
-  `present_postal_code` varchar(255) NOT NULL,
+  `present_postal_code` int(11) NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `deleted_at` datetime(6) DEFAULT NULL,
@@ -545,7 +517,6 @@ CREATE TABLE `adminpanel_social_media` (
   `facebook` varchar(200) DEFAULT NULL,
   `instagram` varchar(200) DEFAULT NULL,
   `linkedin` varchar(200) DEFAULT NULL,
-  `twitter` varchar(200) DEFAULT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `deleted_at` datetime(6) DEFAULT NULL,
@@ -1423,26 +1394,26 @@ CREATE TABLE `django_migrations` (
 --
 
 INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
-(1, 'contenttypes', '0001_initial', '2023-06-28 13:43:30.946576'),
-(2, 'auth', '0001_initial', '2023-06-28 13:43:32.378755'),
-(3, 'admin', '0001_initial', '2023-06-28 13:43:32.789291'),
-(4, 'admin', '0002_logentry_remove_auto_add', '2023-06-28 13:43:32.804900'),
-(5, 'admin', '0003_logentry_add_action_flag_choices', '2023-06-28 13:43:32.820683'),
-(6, 'adminpanel', '0001_initial', '2023-06-28 13:43:38.006887'),
-(7, 'contenttypes', '0002_remove_content_type_name', '2023-06-28 13:43:38.195214'),
-(8, 'auth', '0002_alter_permission_name_max_length', '2023-06-28 13:43:38.368929'),
-(9, 'auth', '0003_alter_user_email_max_length', '2023-06-28 13:43:38.400183'),
-(10, 'auth', '0004_alter_user_username_opts', '2023-06-28 13:43:38.431851'),
-(11, 'auth', '0005_alter_user_last_login_null', '2023-06-28 13:43:38.525508'),
-(12, 'auth', '0006_require_contenttypes_0002', '2023-06-28 13:43:38.541149'),
-(13, 'auth', '0007_alter_validators_add_error_messages', '2023-06-28 13:43:38.572408'),
-(14, 'auth', '0008_alter_user_username_max_length', '2023-06-28 13:43:38.603644'),
-(15, 'auth', '0009_alter_user_last_name_max_length', '2023-06-28 13:43:38.650950'),
-(16, 'auth', '0010_alter_group_name_max_length', '2023-06-28 13:43:38.697823'),
-(17, 'auth', '0011_update_proxy_permissions', '2023-06-28 13:43:38.745176'),
-(18, 'auth', '0012_alter_user_first_name_max_length', '2023-06-28 13:43:38.776415'),
-(19, 'landing', '0001_initial', '2023-06-28 13:43:38.826054'),
-(20, 'sessions', '0001_initial', '2023-06-28 13:43:38.918389');
+(1, 'contenttypes', '0001_initial', '2023-06-30 08:17:43.831639'),
+(2, 'auth', '0001_initial', '2023-06-30 08:18:01.199569'),
+(3, 'admin', '0001_initial', '2023-06-30 08:18:02.520382'),
+(4, 'admin', '0002_logentry_remove_auto_add', '2023-06-30 08:18:02.540523'),
+(5, 'admin', '0003_logentry_add_action_flag_choices', '2023-06-30 08:18:02.560656'),
+(6, 'adminpanel', '0001_initial', '2023-06-30 08:18:09.443334'),
+(7, 'contenttypes', '0002_remove_content_type_name', '2023-06-30 08:18:09.672214'),
+(8, 'auth', '0002_alter_permission_name_max_length', '2023-06-30 08:18:09.829470'),
+(9, 'auth', '0003_alter_user_email_max_length', '2023-06-30 08:18:09.876351'),
+(10, 'auth', '0004_alter_user_username_opts', '2023-06-30 08:18:09.891981'),
+(11, 'auth', '0005_alter_user_last_login_null', '2023-06-30 08:18:09.986142'),
+(12, 'auth', '0006_require_contenttypes_0002', '2023-06-30 08:18:10.002276'),
+(13, 'auth', '0007_alter_validators_add_error_messages', '2023-06-30 08:18:10.017788'),
+(14, 'auth', '0008_alter_user_username_max_length', '2023-06-30 08:18:10.050109'),
+(15, 'auth', '0009_alter_user_last_name_max_length', '2023-06-30 08:18:10.084365'),
+(16, 'auth', '0010_alter_group_name_max_length', '2023-06-30 08:18:10.116012'),
+(17, 'auth', '0011_update_proxy_permissions', '2023-06-30 08:18:10.147277'),
+(18, 'auth', '0012_alter_user_first_name_max_length', '2023-06-30 08:18:10.178525'),
+(19, 'landing', '0001_initial', '2023-06-30 08:18:10.272719'),
+(20, 'sessions', '0001_initial', '2023-06-30 08:18:10.382503');
 
 -- --------------------------------------------------------
 
@@ -1547,7 +1518,8 @@ ALTER TABLE `adminpanel_doctor_profile`
   ADD KEY `adminpanel_doctor_pr_matrimony_id_f8614aef_fk_adminpane` (`matrimony_id`),
   ADD KEY `adminpanel_doctor_pr_religion_id_04558daa_fk_adminpane` (`religion_id`),
   ADD KEY `adminpanel_doctor_pr_user_id_ab620e9f_fk_adminpane` (`user_id`),
-  ADD KEY `adminpanel_doctor_pr_blood_group_id_b7d86c86_fk_adminpane` (`blood_group_id`);
+  ADD KEY `adminpanel_doctor_pr_blood_group_id_b7d86c86_fk_adminpane` (`blood_group_id`),
+  ADD KEY `adminpanel_doctor_pr_department_id_73f6d080_fk_adminpane` (`department_id`);
 
 --
 -- Indexes for table `adminpanel_education`
@@ -1759,7 +1731,7 @@ ALTER TABLE `adminpanel_blood_group`
 -- AUTO_INCREMENT for table `adminpanel_bodypart`
 --
 ALTER TABLE `adminpanel_bodypart`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_department`
@@ -1825,13 +1797,13 @@ ALTER TABLE `adminpanel_matrimony`
 -- AUTO_INCREMENT for table `adminpanel_organ`
 --
 ALTER TABLE `adminpanel_organ`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_organsproblemspecification`
 --
 ALTER TABLE `adminpanel_organsproblemspecification`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_permanentaddress`
@@ -1969,6 +1941,7 @@ ALTER TABLE `adminpanel_district`
 --
 ALTER TABLE `adminpanel_doctor_profile`
   ADD CONSTRAINT `adminpanel_doctor_pr_blood_group_id_b7d86c86_fk_adminpane` FOREIGN KEY (`blood_group_id`) REFERENCES `adminpanel_blood_group` (`id`),
+  ADD CONSTRAINT `adminpanel_doctor_pr_department_id_73f6d080_fk_adminpane` FOREIGN KEY (`department_id`) REFERENCES `adminpanel_department` (`id`),
   ADD CONSTRAINT `adminpanel_doctor_pr_gender_id_336c5df2_fk_adminpane` FOREIGN KEY (`gender_id`) REFERENCES `adminpanel_gender` (`id`),
   ADD CONSTRAINT `adminpanel_doctor_pr_matrimony_id_f8614aef_fk_adminpane` FOREIGN KEY (`matrimony_id`) REFERENCES `adminpanel_matrimony` (`id`),
   ADD CONSTRAINT `adminpanel_doctor_pr_religion_id_04558daa_fk_adminpane` FOREIGN KEY (`religion_id`) REFERENCES `adminpanel_religion` (`id`),

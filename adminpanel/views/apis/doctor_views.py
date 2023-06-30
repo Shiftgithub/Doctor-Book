@@ -20,6 +20,7 @@ def store_doctor_data(request):
             image_serializer = ImageSerializer(data=request.data)
             present_address_serializer = PresentAddressSerializer(data=request.data)
             permanent_address_serializer = PermanentAddressSerializer(data=request.data)
+
             if user_serializer.is_valid(
                     raise_exception=True) and doctor_serializer.is_valid() and image_serializer.is_valid() and present_address_serializer.is_valid() and permanent_address_serializer.is_valid():
                 password = request.data.get('password')
@@ -170,14 +171,24 @@ def get_all_doctors_list(request):
     doctors = Doctor_Profile.objects.filter(deleted_at=None).select_related(
         'gender', 'religion', 'blood_group', 'matrimony', 'department'
     ).prefetch_related(
-        'user', 'images', 'awards', 'availability', 'permanent_addresses', 'present_addresses', 'services',
-        'social_media'
+        'user', 'images', 'awards', 'availability', 'education', 'services', 'social_media'
     )
 
     serializer = DoctorAllDataSerializer(doctors, many=True)
     return Response(serializer.data)
 
 
-@api_view(['POST'])
-def doctor_work_details_data(request, id):
-    pass
+@api_view(['GET'])
+def doctor_details_data(request, doctor_id):
+    doctor = Doctor_Profile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+        'gender', 'religion', 'blood_group', 'matrimony', 'department'
+    ).prefetch_related(
+        'user', 'images', 'awards', 'availability', 'education', 'services', 'social_media'
+
+    ).first()
+
+    if doctor:
+        serializer = DoctorAllDataSerializer(doctor)
+        return Response(serializer.data)
+    else:
+        return Response(status=404)

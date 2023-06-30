@@ -72,6 +72,8 @@ urlpatterns = [
     path('api/store/doctor/work/details/', store_doctor_work_details_data, name="store_doctor_work_details"),
     path('api/doctors/list/', get_all_doctors_list, name="doctor_list"),
 
+    path('api/doctor/view/<int:doctor_id>/', doctor_details_data, name='view_doctor'),
+
     # faq api paths
 
     path('api/add/faq/', store_faq_data, name="add_department"),

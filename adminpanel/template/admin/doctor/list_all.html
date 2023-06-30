@@ -26,17 +26,22 @@
                 <tbody>
                 {% for data in all_data %}
                 <tr>
-                    <td>{{ forloop.counter }}</td>  {# Use 'forloop.counter' to get the loop counter #}
+                    <td>{{ forloop.counter }}</td>
+                    {# Use 'forloop.counter' to get the loop counter #}
                     <td>{{ data.full_name }}</td>
                     <td>{{ data.department }}</td>
                     <td>
                         <div class="btn-group dropleft">
                             <span type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
+                                  aria-expanded="false">
                                 <i class="fas fa-bars"></i>
                                 <!-- <i class="fas fa-ellipsis-v"></i> -->
                             </span>
                             <div class="dropdown-menu">
+                                <a class="dropdown-item text-info"
+                                   href="#">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
                                 <a href="#" class="dropdown-item text-primary">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
@@ -102,5 +107,6 @@
             });
         });
     });
+
 </script>
 {% endblock %}
