@@ -1,28 +1,27 @@
 import os
 import datetime
 
-from adminpanel.models.user_models import *
+from .department_models import *
+from .user_models import *
 
 
 class Doctor_Profile(models.Model):
     full_name = models.CharField(max_length=255)
     father_name = models.CharField(max_length=255)
     mother_name = models.CharField(max_length=255)
-    gender = models.ForeignKey('Gender', on_delete=models.CASCADE, related_name="genderID")
-    religion = models.ForeignKey('Religion', on_delete=models.CASCADE, related_name="religionID")
-    matrimony = models.ForeignKey('Matrimony', on_delete=models.CASCADE, related_name="matrimony")
+    gender = models.ForeignKey('Gender', on_delete=models.CASCADE, related_name="doctors")
+    religion = models.ForeignKey('Religion', on_delete=models.CASCADE, related_name="doctors")
+    matrimony = models.ForeignKey('Matrimony', on_delete=models.CASCADE, related_name="doctors")
     date_of_birth = models.DateField(auto_now_add=False)
     nid_no = models.CharField(max_length=255)
-    blood_group = models.ForeignKey('Blood_Group', on_delete=models.CASCADE, related_name="blood_groupID")
+    blood_group = models.ForeignKey('Blood_Group', on_delete=models.CASCADE, related_name="doctors")
     phone_no = models.CharField(max_length=110)
-
-    specialty = models.CharField(max_length=255)
-    experience = models.CharField(max_length=255)
+    department = models.ForeignKey('Department', on_delete=models.CASCADE, related_name="doctors")
+    experience = models.CharField(max_length=255, null=True)
     biography = models.CharField(max_length=255, null=True)
-
     languages_spoken = models.CharField(max_length=255)
     passport_no = models.CharField(max_length=255, null=True)
-    user = models.ForeignKey('UserProfile', on_delete=models.SET_NULL, related_name="userID", null=True)
+    user = models.ForeignKey('UserProfile', on_delete=models.SET_NULL, related_name="doctors", null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -36,7 +35,7 @@ class PermanentAddress(models.Model):
     permanent_upazila = models.ForeignKey(
         'Upazila', on_delete=models.CASCADE, related_name="permanent_upazila")
     permanent_village_state = models.CharField(max_length=255)
-    permanent_postal_code = models.CharField(max_length=255)
+    permanent_postal_code = models.IntegerField()
     doctor_profile = models.ForeignKey(
         'Doctor_Profile', on_delete=models.CASCADE, related_name="permanent_addresses", null=True)
 
@@ -56,7 +55,7 @@ class PresentAddress(models.Model):
     present_upazila = models.ForeignKey(
         'Upazila', on_delete=models.CASCADE, related_name="present_upazila")
     present_village_state = models.CharField(max_length=255)
-    present_postal_code = models.CharField(max_length=255)
+    present_postal_code = models.IntegerField()
     doctor_profile = models.ForeignKey(
         'Doctor_Profile', on_delete=models.CASCADE, related_name="present_addresses", null=True)
 
@@ -110,6 +109,7 @@ class Awards(models.Model):
     doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="awards")
     awards_and_honors = models.CharField(max_length=255, null=True)
     publications = models.CharField(max_length=255, null=True)
+    publications = models.CharField(max_length=255, null=True)
     memberships = models.CharField(max_length=255, null=True)
     board_certification_number = models.CharField(max_length=255, null=True)  # doctor board certification number
     research_interests = models.CharField(max_length=255, null=True)
@@ -127,7 +127,7 @@ class Education(models.Model):
 # all the information of this will be optional ...
 
 class Services(models.Model):
-    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="Services")
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="services")
     treatments = models.CharField(max_length=255)
     procedures = models.CharField(max_length=255)
     hours = models.CharField(max_length=255)
@@ -139,7 +139,6 @@ class Social_Media(models.Model):
     facebook = models.URLField(null=True)
     instagram = models.URLField(null=True)
     linkedin = models.URLField(null=True)
-    twitter = models.URLField(null=True)
     doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="social_media")
 
     created_at = models.DateTimeField(auto_now_add=True)

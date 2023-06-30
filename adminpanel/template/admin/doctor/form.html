@@ -72,9 +72,8 @@
                         </div>
                     </div>
                 </div>
-                <hr>
                 <legend class="text-info"><i class="fas fa-user-cog"></i> Personal Information</legend>
-
+                <hr>
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label" for="nidNoID">NID No : <span
                             class="text-danger">*</span></label>
@@ -146,7 +145,7 @@
                         </select>
                     </div>
                 </div>
-                <hr>
+
                 <!--Address-->
 
                 <div class="row mb-3">
@@ -157,6 +156,7 @@
                         <legend class="text-info"><i class="far fa-address-card"></i> Present Address Details</legend>
                     </div>
                 </div>
+                <hr>
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label" for="permanentDivisionID">Division : <span
                             class="text-danger">*</span></label>
@@ -228,21 +228,22 @@
                     <label class="col-md-2 col-form-label" for="permanentPostCodeID">Postal Code : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <input class="form-control" id="permanentPostCodeID" name="permanent_postal_code" type="text"/>
+                        <input class="form-control" id="permanentPostCodeID" name="permanent_postal_code"
+                               type="number"/>
                     </div>
                     <label class="col-md-2 col-form-label" for="presentPostCodeID">Postal Code : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <input class="form-control" id="presentPostCodeID" name="present_postal_code" type="text"/>
+                        <input class="form-control" id="presentPostCodeID" name="present_postal_code" type="number"/>
                     </div>
                 </div>
-                <hr>
                 <legend class="text-info"><i class="far fa-edit"></i> Personal Skills</legend>
+                <hr>
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label" for="specialtyID">Dept. / Specialty : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="specialtyID" name="specialty">
+                        <select class="form-control select2" id="specialtyID" name="department">
                             <option selected>Select Department / Specialty</option>
                             {% for item in department_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
@@ -272,7 +273,6 @@
                         <textarea class="form-control" cols="30" id="biographyID" name="biography" rows="2">{{ data.description|default:"Not Applicable" }}</textarea>
                     </div>
                 </div>
-                <hr>
                 <legend class="text-info"><i class="far fa-user"></i> User Information</legend>
                 <hr>
                 <!-- For Login-->
@@ -287,14 +287,14 @@
                     <label class="col-md-2 col-form-label" for="passwordID">Password : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <input class="form-control" id="passwordID" name="password" type="text"/>
+                        <input class="form-control" id="passwordID" name="password" type="password"/>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label" for="conPasswordID">Confirm Password : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <input class="form-control" id="conPasswordID" name="con_password" type="text"/>
+                        <input class="form-control" id="conPasswordID" name="con_password" type="password"/>
                     </div>
                 </div>
             </div>
@@ -425,6 +425,7 @@
         imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
     }
 }
+
 
 
 
