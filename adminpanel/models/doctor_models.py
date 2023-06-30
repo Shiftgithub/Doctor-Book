@@ -22,6 +22,7 @@ class Doctor_Profile(models.Model):
     languages_spoken = models.CharField(max_length=255)
     passport_no = models.CharField(max_length=255, null=True)
     user = models.ForeignKey('UserProfile', on_delete=models.SET_NULL, related_name="doctors", null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -39,9 +40,6 @@ class PermanentAddress(models.Model):
     doctor_profile = models.ForeignKey(
         'Doctor_Profile', on_delete=models.CASCADE, related_name="permanent_addresses", null=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
         return self.permanent_address
@@ -58,10 +56,6 @@ class PresentAddress(models.Model):
     present_postal_code = models.IntegerField()
     doctor_profile = models.ForeignKey(
         'Doctor_Profile', on_delete=models.CASCADE, related_name="present_addresses", null=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
         return self.present_address
@@ -87,9 +81,6 @@ def doctor_filepath(instance, filename):
 class Images(models.Model):
     doctor_photos = models.ImageField(upload_to=doctor_filepath)
     doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="images", null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
 
 class Availability(models.Model):
@@ -99,10 +90,6 @@ class Availability(models.Model):
     average_wait_time = models.DurationField(null=True)
     consultation_fee = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     available_facilities = models.CharField(max_length=255, null=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
 
 class Awards(models.Model):
@@ -140,10 +127,6 @@ class Social_Media(models.Model):
     instagram = models.URLField(null=True)
     linkedin = models.URLField(null=True)
     doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="social_media")
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
 
 class Gender(models.Model):

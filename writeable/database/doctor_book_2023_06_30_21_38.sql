@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 30, 2023 at 10:28 AM
+-- Generation Time: Jun 30, 2023 at 05:37 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -52,9 +52,6 @@ CREATE TABLE `adminpanel_availability` (
   `average_wait_time` bigint(20) DEFAULT NULL,
   `consultation_fee` decimal(10,2) DEFAULT NULL,
   `available_facilities` varchar(255) DEFAULT NULL,
-  `created_at` datetime(6) NOT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  `deleted_at` datetime(6) DEFAULT NULL,
   `doctor_profile_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -370,9 +367,6 @@ INSERT INTO `adminpanel_gender` (`id`, `name`) VALUES
 CREATE TABLE `adminpanel_images` (
   `id` bigint(20) NOT NULL,
   `doctor_photos` varchar(100) NOT NULL,
-  `created_at` datetime(6) NOT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  `deleted_at` datetime(6) DEFAULT NULL,
   `doctor_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -440,9 +434,6 @@ CREATE TABLE `adminpanel_permanentaddress` (
   `id` bigint(20) NOT NULL,
   `permanent_village_state` varchar(255) NOT NULL,
   `permanent_postal_code` int(11) NOT NULL,
-  `created_at` datetime(6) NOT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  `deleted_at` datetime(6) DEFAULT NULL,
   `doctor_profile_id` bigint(20) DEFAULT NULL,
   `permanent_district_id` bigint(20) NOT NULL,
   `permanent_division_id` bigint(20) NOT NULL,
@@ -459,9 +450,6 @@ CREATE TABLE `adminpanel_presentaddress` (
   `id` bigint(20) NOT NULL,
   `present_village_state` varchar(255) NOT NULL,
   `present_postal_code` int(11) NOT NULL,
-  `created_at` datetime(6) NOT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  `deleted_at` datetime(6) DEFAULT NULL,
   `doctor_profile_id` bigint(20) DEFAULT NULL,
   `present_district_id` bigint(20) NOT NULL,
   `present_division_id` bigint(20) NOT NULL,
@@ -517,9 +505,6 @@ CREATE TABLE `adminpanel_social_media` (
   `facebook` varchar(200) DEFAULT NULL,
   `instagram` varchar(200) DEFAULT NULL,
   `linkedin` varchar(200) DEFAULT NULL,
-  `created_at` datetime(6) NOT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  `deleted_at` datetime(6) DEFAULT NULL,
   `doctor_profile_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -1394,26 +1379,26 @@ CREATE TABLE `django_migrations` (
 --
 
 INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
-(1, 'contenttypes', '0001_initial', '2023-06-30 08:17:43.831639'),
-(2, 'auth', '0001_initial', '2023-06-30 08:18:01.199569'),
-(3, 'admin', '0001_initial', '2023-06-30 08:18:02.520382'),
-(4, 'admin', '0002_logentry_remove_auto_add', '2023-06-30 08:18:02.540523'),
-(5, 'admin', '0003_logentry_add_action_flag_choices', '2023-06-30 08:18:02.560656'),
-(6, 'adminpanel', '0001_initial', '2023-06-30 08:18:09.443334'),
-(7, 'contenttypes', '0002_remove_content_type_name', '2023-06-30 08:18:09.672214'),
-(8, 'auth', '0002_alter_permission_name_max_length', '2023-06-30 08:18:09.829470'),
-(9, 'auth', '0003_alter_user_email_max_length', '2023-06-30 08:18:09.876351'),
-(10, 'auth', '0004_alter_user_username_opts', '2023-06-30 08:18:09.891981'),
-(11, 'auth', '0005_alter_user_last_login_null', '2023-06-30 08:18:09.986142'),
-(12, 'auth', '0006_require_contenttypes_0002', '2023-06-30 08:18:10.002276'),
-(13, 'auth', '0007_alter_validators_add_error_messages', '2023-06-30 08:18:10.017788'),
-(14, 'auth', '0008_alter_user_username_max_length', '2023-06-30 08:18:10.050109'),
-(15, 'auth', '0009_alter_user_last_name_max_length', '2023-06-30 08:18:10.084365'),
-(16, 'auth', '0010_alter_group_name_max_length', '2023-06-30 08:18:10.116012'),
-(17, 'auth', '0011_update_proxy_permissions', '2023-06-30 08:18:10.147277'),
-(18, 'auth', '0012_alter_user_first_name_max_length', '2023-06-30 08:18:10.178525'),
-(19, 'landing', '0001_initial', '2023-06-30 08:18:10.272719'),
-(20, 'sessions', '0001_initial', '2023-06-30 08:18:10.382503');
+(1, 'contenttypes', '0001_initial', '2023-06-30 15:36:29.293282'),
+(2, 'auth', '0001_initial', '2023-06-30 15:36:33.319362'),
+(3, 'admin', '0001_initial', '2023-06-30 15:36:34.681441'),
+(4, 'admin', '0002_logentry_remove_auto_add', '2023-06-30 15:36:34.697417'),
+(5, 'admin', '0003_logentry_add_action_flag_choices', '2023-06-30 15:36:34.720246'),
+(6, 'adminpanel', '0001_initial', '2023-06-30 15:36:45.642122'),
+(7, 'contenttypes', '0002_remove_content_type_name', '2023-06-30 15:36:45.873874'),
+(8, 'auth', '0002_alter_permission_name_max_length', '2023-06-30 15:36:46.101390'),
+(9, 'auth', '0003_alter_user_email_max_length', '2023-06-30 15:36:46.133439'),
+(10, 'auth', '0004_alter_user_username_opts', '2023-06-30 15:36:46.153699'),
+(11, 'auth', '0005_alter_user_last_login_null', '2023-06-30 15:36:46.372098'),
+(12, 'auth', '0006_require_contenttypes_0002', '2023-06-30 15:36:46.380118'),
+(13, 'auth', '0007_alter_validators_add_error_messages', '2023-06-30 15:36:46.398179'),
+(14, 'auth', '0008_alter_user_username_max_length', '2023-06-30 15:36:46.435124'),
+(15, 'auth', '0009_alter_user_last_name_max_length', '2023-06-30 15:36:46.471289'),
+(16, 'auth', '0010_alter_group_name_max_length', '2023-06-30 15:36:46.507972'),
+(17, 'auth', '0011_update_proxy_permissions', '2023-06-30 15:36:46.569354'),
+(18, 'auth', '0012_alter_user_first_name_max_length', '2023-06-30 15:36:46.701943'),
+(19, 'landing', '0001_initial', '2023-06-30 15:36:46.763743'),
+(20, 'sessions', '0001_initial', '2023-06-30 15:36:46.880015');
 
 -- --------------------------------------------------------
 

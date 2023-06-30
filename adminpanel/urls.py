@@ -87,7 +87,11 @@ urlpatterns = [
 
     path('adminpanel/store/doctor/', store_doctor, name="store_doctor"),
     path('adminpanel/store/doctor/work/details/', store_doctor_work_details, name="store_doctor_work_details"),
+
     path('adminpanel/doctors/list/', doctor_data_view, name="doctor_list"),
+
+    path('adminpanel/doctor/view/<int:doctor_id>/', view_doctor, name='view_doctor_data'),
+    path('adminpanel/doctor/delete/<int:doctor_id>/', delete_doctor, name='delete_doctor'),
 
     # faq adminpanel path
     path('adminpanel/add/faq/', faq_form, name="add_faq_form"),
