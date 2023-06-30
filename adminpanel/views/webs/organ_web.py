@@ -1,5 +1,5 @@
-from adminpanel.views.organ_views import *
-from adminpanel.views.bodypart_views import *
+from adminpanel.views.apis.organ_views import *
+from adminpanel.views.apis.bodypart_views import *
 from django.contrib import messages
 from django.shortcuts import render, redirect
 

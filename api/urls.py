@@ -1,14 +1,14 @@
 from django.urls import path
 
-from adminpanel.views.article_views import *
-from adminpanel.views.bodypart_views import *
-from adminpanel.views.department_views import *
-from adminpanel.views.department_specification_views import *
-from adminpanel.views.doctor_views import *
-from adminpanel.views.organ_views import *
-from adminpanel.views.organ_problem_specification_views import *
-from adminpanel.views.faq_views import *
-from landing.views.login_views import *
+from adminpanel.views.apis.article_views import *
+from adminpanel.views.apis.bodypart_views import *
+from adminpanel.views.apis.department_views import *
+from adminpanel.views.apis.department_specification_views import *
+from adminpanel.views.apis.doctor_views import *
+from adminpanel.views.apis.organ_views import *
+from adminpanel.views.apis.organ_problem_specification_views import *
+from adminpanel.views.apis.faq_views import *
+from landing.views.apis.login_views import *
 
 urlpatterns = [
 
@@ -71,6 +71,9 @@ urlpatterns = [
     path('api/add/doctor/', store_doctor_data, name="add_doctor"),
     path('api/store/doctor/work/details/', store_doctor_work_details_data, name="store_doctor_work_details"),
     path('api/doctors/list/', get_all_doctors_list, name="doctor_list"),
+
+    path('api/doctor/view/<int:doctor_id>/', doctor_data, name='view_doctor'),
+    path('api/doctor/delete/<int:doctor_id>/', softdelete_doctor_data, name='delete_doctor'),
 
     # faq api paths
 

@@ -164,3 +164,56 @@ class SocialMediaSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         instance = super().create(validated_data)
         return instance  # Fetch the primary key of the saved object
+
+
+class PermanentAddressAllSerializer(serializers.ModelSerializer):
+    permanent_division = DivisionSerializer()
+    permanent_district = DistrictSerializer()
+    permanent_upazila = UpazilaSerializer()
+
+    class Meta:
+        model = PermanentAddress
+        fields = [
+            'id', 'permanent_village_state', 'permanent_postal_code',
+            'permanent_division', 'permanent_district', 'permanent_upazila',
+        ]
+
+
+class PresentAddressAllSerializer(serializers.ModelSerializer):
+    present_division = DivisionSerializer()
+    present_district = DistrictSerializer()
+    present_upazila = UpazilaSerializer()
+
+    class Meta:
+        model = PresentAddress
+        fields = [
+            'id', 'present_village_state', 'present_postal_code',
+            'present_division', 'present_district', 'present_upazila',
+        ]
+
+
+class DoctorAllDataSerializer(serializers.ModelSerializer):
+    department = serializers.CharField(source='department.name', required=False)
+    blood_group = serializers.CharField(source='blood_group.name')
+    gender = serializers.CharField(source='gender.name')
+    matrimony = serializers.CharField(source='matrimony.name')
+    religion = serializers.CharField(source='religion.name')
+    user_name = serializers.CharField(source='user.user_name')
+    email = serializers.EmailField(source='user.email')
+    awards = AwardsSerializer(many=True)
+    availability = AvailabilitySerializer(many=True)
+    education = EducationSerializer(many=True)
+    images = ImageSerializer(many=True)
+    permanent_addresses = PermanentAddressAllSerializer(many=True)
+    present_addresses = PresentAddressAllSerializer(many=True)
+    services = ServicesSerializer(many=True)
+    social_media = SocialMediaSerializer(many=True)
+
+    class Meta:
+        model = Doctor_Profile
+        fields = [
+            'id', 'full_name', 'father_name', 'mother_name', 'date_of_birth', 'nid_no', 'phone_no', 'experience',
+            'biography', 'languages_spoken', 'passport_no', 'department', 'blood_group', 'gender', 'matrimony',
+            'religion', 'user_name', 'email', 'availability', 'awards', 'education', 'images', 'permanent_addresses',
+            'present_addresses', 'services', 'social_media'
+        ]

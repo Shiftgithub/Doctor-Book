@@ -1,12 +1,13 @@
 import hashlib
-
+from django.utils import timezone
 from django.core.mail import send_mail
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from adminpanel.serializers.user_serializers import *
 from adminpanel.serializers.doctor_serializers import *
+from adminpanel.models.doctor_models import *
 from django.views.decorators.csrf import csrf_protect
-from django.db import connection, transaction, InternalError
+from django.db import transaction, InternalError
 
 
 @api_view(['POST'])
@@ -18,6 +19,7 @@ def store_doctor_data(request):
             image_serializer = ImageSerializer(data=request.data)
             present_address_serializer = PresentAddressSerializer(data=request.data)
             permanent_address_serializer = PermanentAddressSerializer(data=request.data)
+
             if user_serializer.is_valid(
                     raise_exception=True) and doctor_serializer.is_valid() and image_serializer.is_valid() and present_address_serializer.is_valid() and permanent_address_serializer.is_valid():
                 password = request.data.get('password')
@@ -53,11 +55,23 @@ def store_doctor_data(request):
         return Response({'status': 400})
 
 
+# @api_view(['GET'])
+# def get_all_doctors_name(request):
+#     doctors = Doctor_Profile.objects.filter(deleted_at=None)
+#     serializer = DoctorSerializer(doctors, many=True)
+#     serialized_data = serializer.data
+#     return Response(serialized_data)
 @api_view(['GET'])
-def get_all_doctors_list(request):
-    doctors = Doctor_Profile.objects.all()
-    serializer = DoctorSerializer(doctors, many=True)
-    serialized_data = serializer.data
+def get_all_doctors_name(request):
+    doctors = Doctor_Profile.objects.filter(deleted_at=None)
+    serialized_data = []
+
+    for doctor in doctors:
+        availability = Availability.objects.filter(doctor_profile_id=doctor.id).exists()
+        if not availability:
+            serializer = DoctorSerializer(doctor)
+            serialized_data.append(serializer.data)
+
     return Response(serialized_data)
 
 
@@ -161,3 +175,46 @@ def store_doctor_work_details_data(request):
             return Response({'status': 403})
     else:
         return Response({'status': 403})
+
+
+@api_view(['GET'])
+def get_all_doctors_list(request):
+    doctors = Doctor_Profile.objects.filter(deleted_at=None).select_related(
+        'gender', 'religion', 'blood_group', 'matrimony', 'department'
+    ).prefetch_related(
+        'user', 'images', 'awards', 'availability', 'education', 'services', 'social_media'
+    )
+
+    serializer = DoctorAllDataSerializer(doctors, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def doctor_data(request, doctor_id):
+    doctor = Doctor_Profile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+        'gender', 'religion', 'blood_group', 'matrimony', 'department'
+    ).prefetch_related(
+        'user', 'images', 'awards', 'availability', 'education', 'services', 'social_media'
+
+    ).first()
+
+    if doctor:
+        serializer = DoctorAllDataSerializer(doctor)
+        return Response(serializer.data)
+    else:
+        return Response(status=404)
+
+
+@api_view(['PUT', 'GET'])
+def softdelete_doctor_data(request, doctor_id):
+    try:
+        doctor_data = Doctor_Profile.objects.get(id=doctor_id)
+        serializer = DoctorSerializer(doctor_data, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save(deleted_at=timezone.now())
+            return Response({'status': 200})
+        else:
+            return Response(serializer.errors, status=400)
+    except Doctor_Profile.DoesNotExist:
+        return Response(status=404)

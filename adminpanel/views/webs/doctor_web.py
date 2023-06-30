@@ -1,5 +1,5 @@
-from adminpanel.views.doctor_views import *
-from adminpanel.views.department_views import *
+from adminpanel.views.apis.doctor_views import *
+from adminpanel.views.apis.department_views import *
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
@@ -48,7 +48,7 @@ def doctor_data_view(request):
 
 
 def doctor_work_details_form(request):
-    response_doctor = get_all_doctors_list(request)
+    response_doctor = get_all_doctors_name(request)
     doctor_data = response_doctor.data
     return render(request, 'admin/doctor/work_form.html', {'doctor_data': doctor_data})
 
@@ -61,3 +61,21 @@ def store_doctor_work_details(request):
         messages.add_message(request, messages.ERROR, "Error in storing Doctor Work Details  data")
 
     return redirect('add_doctor_work_details_form')
+
+
+def view_doctor(request, doctor_id):
+    response_organ = doctor_data(request, doctor_id)
+    doctor_all_data = response_organ.data
+    return render(request, 'admin/doctor/view.html', {'doctor_all_data': doctor_all_data})
+
+
+def delete_doctor(request, doctor_id):
+    operation_response = softdelete_doctor_data(request, doctor_id)
+    print(operation_response)
+
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, "Doctor data deleted Successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error deleting Doctor data")
+
+    return redirect('doctor_list')

@@ -1,6 +1,4 @@
-from adminpanel.views.faq_views import *
-from adminpanel.models.faq_models import *
-from datetime import datetime
+from adminpanel.views.apis.faq_views import *
 from django.contrib import messages
 from django.shortcuts import render, redirect
 

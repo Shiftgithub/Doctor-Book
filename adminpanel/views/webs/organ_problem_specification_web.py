@@ -1,8 +1,8 @@
 from django.contrib import messages
-from adminpanel.views.organ_views import *
-from adminpanel.views.bodypart_views import *
+from adminpanel.views.apis.organ_views import *
+from adminpanel.views.apis.bodypart_views import *
 from django.shortcuts import render, redirect
-from adminpanel.views.organ_problem_specification_views import *
+from adminpanel.views.apis.organ_problem_specification_views import *
 
 
 # Organ Problem

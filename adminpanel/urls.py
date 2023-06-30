@@ -1,15 +1,15 @@
 from django.urls import path
-from adminpanel.webs.article_web import *
-from adminpanel.webs.bodypart_web import *
-from adminpanel.webs.dashboard_web import *
-from adminpanel.webs.doctor_web import *
-from adminpanel.webs.department__web import *
-from adminpanel.webs.department_specification_web import *
-from adminpanel.webs.organ_web import *
-from adminpanel.webs.organ_problem_specification_web import *
-from adminpanel.webs.faq_web import *
+from adminpanel.views.webs.article_web import *
+from adminpanel.views.webs.bodypart_web import *
+from adminpanel.views.webs.dashboard_web import *
+from adminpanel.views.webs.doctor_web import *
+from adminpanel.views.webs.department__web import *
+from adminpanel.views.webs.department_specification_web import *
+from adminpanel.views.webs.organ_web import *
+from adminpanel.views.webs.organ_problem_specification_web import *
+from adminpanel.views.webs.faq_web import *
 
-from adminpanel.views.ajax_views import *
+from adminpanel.views.apis.ajax_views import *
 
 urlpatterns = [
 
@@ -87,7 +87,11 @@ urlpatterns = [
 
     path('adminpanel/store/doctor/', store_doctor, name="store_doctor"),
     path('adminpanel/store/doctor/work/details/', store_doctor_work_details, name="store_doctor_work_details"),
+
     path('adminpanel/doctors/list/', doctor_data_view, name="doctor_list"),
+
+    path('adminpanel/doctor/view/<int:doctor_id>/', view_doctor, name='view_doctor_data'),
+    path('adminpanel/doctor/delete/<int:doctor_id>/', delete_doctor, name='delete_doctor'),
 
     # faq adminpanel path
     path('adminpanel/add/faq/', faq_form, name="add_faq_form"),

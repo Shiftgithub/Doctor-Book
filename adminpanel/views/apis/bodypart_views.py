@@ -1,12 +1,12 @@
 from datetime import datetime
-from django.db import connection
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from adminpanel.serializers.bodypart_serializers import *
 from adminpanel.models.organ_models import *
+from adminpanel.models.bodypart_models import *
 
 
-# store bodypart funtion
+# store bodypart function
 @api_view(['POST'])
 def store_bodypart_data(request):
     if request.method == 'POST':
@@ -22,50 +22,32 @@ def store_bodypart_data(request):
         return Response({'status': 403})
 
 
-# all bodypart list funtion
-
+# all bodypart list function
 @api_view(['GET'])
 def get_all_bodypart_list(request):
-    query = """SELECT * FROM adminpanel_bodypart WHERE deleted_at IS NULL ORDER BY id ASC"""
-    with connection.cursor() as cursor:
-        cursor.execute(query)
-        results = cursor.fetchall()
-    # Convert the query results into a list of dictionaries
-    bodyparts = []
-    for row in results:
-        bodypart = {
-            'id': row[0],
-            'name': row[1],
-            'description': row[2],
-        }
-        bodyparts.append(bodypart)
-    serializer = BodyPartSerializer(bodyparts, many=True)
-    serialized_data = serializer.data
-    return Response(serialized_data)
+    # getting all bodypart data from BodyPart model ...
+    bodyparts = BodyPart.objects.filter(deleted_at=None).order_by('id')
+
+    # serializing bodypart data ...
+    serializer = BodyPartSerializerView(bodyparts, many=True)
+
+    return Response(serializer.data)
 
 
-#  bodypart data show using id funtion
+#  bodypart data show using id function
 
 @api_view(['GET'])
 def bodypart_dataview(request, bodypart_id):
-    query = """SELECT * FROM adminpanel_bodypart WHERE id = %s AND deleted_at IS NULL"""
-    with connection.cursor() as cursor:
-        cursor.execute(query, [bodypart_id])
-        results = cursor.fetchall()
-    for row in results:
-        bodypart = {
-            'id': row[0],
-            'name': row[1],
-            'description': row[2],
-            'created_at': row[3],
-            'updated_at': row[4],
-        }
-    serializer = BodyPartSerializer(instance=bodypart)
-    serialized_data = serializer.data
-    return Response(serialized_data)
+    # getting bodypart data from BodyPart model ...
+    bodypart = BodyPart.objects.get(id=bodypart_id)
+
+    # serializing bodypart data ...
+    serializer = BodyPartSerializerView(bodypart, many=False)
+
+    return Response(serializer.data)
 
 
-# bodypart edit funtion
+# bodypart edit function
 
 @api_view(['PUT', 'POST'])
 def edit_bodypart_data(request, bodypart_id):
@@ -80,12 +62,13 @@ def edit_bodypart_data(request, bodypart_id):
         return Response({'status': 403})
 
 
-# bodypart delete funtion
+# bodypart delete function
 @api_view(['PUT', 'GET'])
 def softdelete_bodypart_data(request, bodypart_id):
     bodypart = BodyPart.objects.get(id=bodypart_id)
     serializer = BodyPartDeleteSerializer(bodypart, data=request.data)
     organs = Organ.objects.filter(body_part_id=bodypart_id)
+
     if organs:
         return Response({'status': 404})
     else:
