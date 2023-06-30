@@ -10,7 +10,7 @@ $(document).ready(function() {
 
         // Update index number
         var index = $('.education-section').length;
-        section.find('.section-index').text('NO ' + (index + 1));
+        section.find('.section-index').text('Certificate Or Degree No ' + (index + 1));
 
         section.appendTo('#education-sections');
 

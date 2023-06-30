@@ -26,25 +26,31 @@
                 <tbody>
                 {% for data in all_data %}
                 <tr>
-                    <td>{{ forloop.counter }}</td>  {# Use 'forloop.counter' to get the loop counter #}
+                    <td>{{ forloop.counter }}</td>
+                    {# Use 'forloop.counter' to get the loop counter #}
                     <td>{{ data.full_name }}</td>
-                    <td>{{ data.specialty }}</td>
+                    <td>{{ data.department }}</td>
                     <td>
                         <div class="btn-group dropleft">
                             <span type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
+                                  aria-expanded="false">
                                 <i class="fas fa-bars"></i>
                                 <!-- <i class="fas fa-ellipsis-v"></i> -->
                             </span>
                             <div class="dropdown-menu">
+                                <a class="dropdown-item text-info"
+                                   href="{% url 'view_doctor_data' data.id %}">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
                                 <a href="#" class="dropdown-item text-primary">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
                                 <!-- Button trigger modal -->
-                                <a data-toggle="modal" data-target="#myModal" class="dropdown-item text-danger">
+                                <a class="dropdown-item text-danger" data-delete-url="{% url 'delete_doctor' data.id %}"
+                                   data-target="#myModal"
+                                   data-toggle="modal">
                                     <i class="fas fa-trash"></i> Delete
                                 </a>
-                                <div delete-url="#" id="deleteURLID"></div>
                             </div>
                         </div>
                     </td>
@@ -60,7 +66,7 @@
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Organ Data</h5>
+                <h5 class="modal-title" id="myModalLabel">Doctor Data</h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -102,5 +108,7 @@
             });
         });
     });
+
+
 </script>
 {% endblock %}

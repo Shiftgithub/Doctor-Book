@@ -29,7 +29,7 @@ def get_all_bodypart_list(request):
     bodyparts = BodyPart.objects.filter(deleted_at=None).order_by('id')
 
     # serializing bodypart data ...
-    serializer = BodyPartSerializer(bodyparts, many=True)
+    serializer = BodyPartSerializerView(bodyparts, many=True)
 
     return Response(serializer.data)
 
@@ -42,7 +42,7 @@ def bodypart_dataview(request, bodypart_id):
     bodypart = BodyPart.objects.get(id=bodypart_id)
 
     # serializing bodypart data ...
-    serializer = BodyPartSerializer(bodypart, many=False)
+    serializer = BodyPartSerializerView(bodypart, many=False)
 
     return Response(serializer.data)
 

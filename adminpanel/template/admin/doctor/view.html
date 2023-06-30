@@ -9,26 +9,331 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-3"><strong>Id:</strong></div>
-                <div class="col-md-9">{{ bodypart_data.id }}</div>
+                <div class="col-md-3"><strong>Doctor Name :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.full_name }}</div>
             </div>
             <div class="row">
-                <div class="col-md-3"><strong>Body Part Name:</strong></div>
-                <div class="col-md-9">{{ bodypart_data.name }}</div>
+                <div class="col-md-3"><strong>Father Name :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.father_name }}</div>
             </div>
             <div class="row">
-                <div class="col-md-3"><strong>Description :</strong></div>
-                <div class="col-md-9">{{ bodypart_data.description }}</div>
+                <div class="col-md-3"><strong>Mother Name :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.mother_name }}</div>
             </div>
             <div class="row">
-                <div class="col-md-3"><strong>Created At :</strong></div>
-                <div class="col-md-9">{{ bodypart_data.created_at }}</div>
-            </div>           
-            <div class="row">
-                <div class="col-md-3"><strong>Updated At :</strong></div>
-                <div class="col-md-9">{{ bodypart_data.updated_at }}</div>
+                <div class="col-md-3"><strong>Date Of Birth :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.date_of_birth }}</div>
             </div>
-            <!-- Add more rows for additional fields -->
+            <div class="row">
+                <div class="col-md-3"><strong>NID NO:</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.nid_no }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Contact Number :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.phone_no }}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3"><strong>Experience :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.experience }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Biography :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.biography }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Languages Spoken :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.languages_spoken }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Passport No :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.passport_no }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Specialty :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.department }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Blood Group :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.blood_group }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Gender :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.gender }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Matrimony Status:</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.matrimony }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Religion :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.religion }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>User Name :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.user_name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Email :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.email }}</div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3"><strong>Permanent Division :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.permanent_addresses.0.permanent_division.name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Permanent District :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.permanent_addresses.0.permanent_district.name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Permanent Upazila :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.permanent_addresses.0.permanent_upazila.name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Permanent Village State :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.permanent_addresses.0.permanent_village_state }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Permanent Postal Code :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.permanent_addresses.0.permanent_postal_code }}</div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3"><strong>Present Division :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.present_addresses.0.present_division.name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Present District :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.present_addresses.0.present_district.name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Present Upazila :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.present_addresses.0.present_upazila.name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Present Village State :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.present_addresses.0.present_village_state }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Present Postal Code :</strong></div>
+                <div class="col-md-9">{{ doctor_all_data.present_addresses.0.present_postal_code }}</div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3"><strong>Doctor Photos :</strong></div>
+
+                <div class="col-md-9"><img alt="Doctor Image" src="{{ doctor_all_data.images.0.doctor_photos }}"
+                                           width="100"></div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3"><strong>Appointment Availability :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.availability %}
+                    {{ doctor_all_data.availability.0.appointment_availability }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Accepting New Patients :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.availability %}
+                    {{ doctor_all_data.availability.0.accepting_new_patients }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Average Wait Time :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.availability %}
+                    {{ doctor_all_data.availability.0.average_wait_time }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Consultation Fee :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.availability %}
+                    {{ doctor_all_data.availability.0.consultation_fee }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Available Facilities :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.availability %}
+                    {{ doctor_all_data.availability.0.available_facilities }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3"><strong>Awards And Honors :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.awards %}
+                    {{ doctor_all_data.awards.0.awards_and_honors }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Publications :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.awards %}
+                    {{ doctor_all_data.awards.0.publications }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Memberships :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.awards %}
+                    {{ doctor_all_data.awards.0.memberships }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Board Certification Number :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.awards %}
+                    {{ doctor_all_data.awards.0.board_certification_number }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Research Interests :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.awards %}
+                    {{ doctor_all_data.awards.0.research_interests }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3"><strong>Treatments :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.services %}
+                    {{ doctor_all_data.services.0.treatments }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Procedures :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.services %}
+                    {{ doctor_all_data.services.0.procedures }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Hours :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.services %}
+                    {{ doctor_all_data.services.0.hours }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Location :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.services %}
+                    {{ doctor_all_data.services.0.location }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3"><strong>Website :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.social_media %}
+                    {{ doctor_all_data.social_media.0.website }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Linkedin :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.social_media %}
+                    {{ doctor_all_data.social_media.0.linkedin }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Facebook :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.social_media %}
+                    {{ doctor_all_data.social_media.0.facebook }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Instagram :</strong></div>
+                <div class="col-md-9">
+                    {% if doctor_all_data.social_media %}
+                    {{ doctor_all_data.social_media.0.instagram }}
+                    {% else %}
+                    null
+                    {% endif %}
+                </div>
+            </div>
+            <hr>
+            {% for education_obj in doctor_all_data.education %}
+            <div class="row">
+                <div class="col-md-3"><strong>Certificate/Degree:</strong></div>
+                <div class="col-md-9">{{ education_obj.certificate_degree }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Institution:</strong></div>
+                <div class="col-md-9">{{ education_obj.institution }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Board:</strong></div>
+                <div class="col-md-9">{{ education_obj.board }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Result:</strong></div>
+                <div class="col-md-9">{{ education_obj.result }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Passing Year:</strong></div>
+                <div class="col-md-9">{{ education_obj.passing_year }}</div>
+            </div>
+            <hr>
+            {% endfor %}
         </div>
     </div>
 </div>

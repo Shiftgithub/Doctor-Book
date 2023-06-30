@@ -166,55 +166,54 @@ class SocialMediaSerializer(serializers.ModelSerializer):
         return instance  # Fetch the primary key of the saved object
 
 
+class PermanentAddressAllSerializer(serializers.ModelSerializer):
+    permanent_division = DivisionSerializer()
+    permanent_district = DistrictSerializer()
+    permanent_upazila = UpazilaSerializer()
+
+    class Meta:
+        model = PermanentAddress
+        fields = [
+            'id', 'permanent_village_state', 'permanent_postal_code',
+            'permanent_division', 'permanent_district', 'permanent_upazila',
+        ]
+
+
+class PresentAddressAllSerializer(serializers.ModelSerializer):
+    present_division = DivisionSerializer()
+    present_district = DistrictSerializer()
+    present_upazila = UpazilaSerializer()
+
+    class Meta:
+        model = PresentAddress
+        fields = [
+            'id', 'present_village_state', 'present_postal_code',
+            'present_division', 'present_district', 'present_upazila',
+        ]
+
+
 class DoctorAllDataSerializer(serializers.ModelSerializer):
-    specialty = serializers.CharField(source='specialty.name')
+    department = serializers.CharField(source='department.name', required=False)
     blood_group = serializers.CharField(source='blood_group.name')
     gender = serializers.CharField(source='gender.name')
     matrimony = serializers.CharField(source='matrimony.name')
     religion = serializers.CharField(source='religion.name')
     user_name = serializers.CharField(source='user.user_name')
     email = serializers.EmailField(source='user.email')
-    doctor_photos = serializers.CharField(source='images.doctor_photos')
-    permanent_village_state = serializers.CharField(source='permanent_address.permanent_village_state')
-    permanent_division_name = serializers.CharField(source='permanent_address.permanent_division.name')
-    permanent_district_name = serializers.CharField(source='permanent_address.permanent_district.name')
-    permanent_upazila_name = serializers.CharField(source='permanent_address.permanent_upazila.name')
-    present_village_state = serializers.CharField(source='present_address.present_village_state')
-    present_postal_code = serializers.CharField(source='present_address.present_postal_code')
-    present_division_name = serializers.CharField(source='present_address.present_division.name')
-    present_district_name = serializers.CharField(source='present_address.present_district.name')
-    present_upazila_name = serializers.CharField(source='present_address.present_upazila.name')
-    awards_and_honors = serializers.CharField(source='awards.awards_and_honors')
-    publications = serializers.CharField(source='awards.publications')
-    memberships = serializers.CharField(source='awards.memberships')
-    board_certification_number = serializers.CharField(source='awards.board_certification_number')
-    research_interests = serializers.CharField(source='awards.research_interests')
-    appointment_availability = serializers.CharField(source='availability.appointment_availability')
-    accepting_new_patients = serializers.BooleanField(source='availability.accepting_new_patients')
-    average_wait_time = serializers.CharField(source='availability.average_wait_time')
-    consultation_fee = serializers.CharField(source='availability.consultation_fee')
-    available_facilities = serializers.CharField(source='availability.available_facilities')
-    treatments = serializers.CharField(source='services.treatments')
-    procedures = serializers.CharField(source='services.procedures')
-    hours = serializers.CharField(source='services.hours')
-    location = serializers.CharField(source='services.location')
-    website = serializers.CharField(source='social_media.website')
-    facebook = serializers.CharField(source='social_media.facebook')
-    instagram = serializers.CharField(source='social_media.instagram')
-    linkedin = serializers.CharField(source='social_media.linkedin')
-    twitter = serializers.CharField(source='social_media.twitter')
+    awards = AwardsSerializer(many=True)
+    availability = AvailabilitySerializer(many=True)
+    education = EducationSerializer(many=True)
+    images = ImageSerializer(many=True)
+    permanent_addresses = PermanentAddressAllSerializer(many=True)
+    present_addresses = PresentAddressAllSerializer(many=True)
+    services = ServicesSerializer(many=True)
+    social_media = SocialMediaSerializer(many=True)
 
     class Meta:
         model = Doctor_Profile
         fields = [
-            "id", "full_name", "father_name", "mother_name", "date_of_birth", "nid_no", "phone_no", "experience",
-            "biography", "languages_spoken", "passport_no", "deleted_at", "specialty", "blood_group",
-            "gender", "matrimony", "religion", "user_name", "email", "doctor_photos",
-            "permanent_division_name", "permanent_district_name", "permanent_upazila_name",
-            "permanent_village_state", "permanent_village_state", "present_division_name",
-            "present_district_name", "present_upazila_name", "present_village_state", "present_postal_code",
-            "awards_and_honors", "publications", "memberships", "board_certification_number", "research_interests",
-            "appointment_availability", "accepting_new_patients", "average_wait_time", "consultation_fee",
-            "available_facilities",
-            "treatments", "procedures", "hours", "location", "website", "facebook", "instagram", "linkedin", "twitter"
+            'id', 'full_name', 'father_name', 'mother_name', 'date_of_birth', 'nid_no', 'phone_no', 'experience',
+            'biography', 'languages_spoken', 'passport_no', 'department', 'blood_group', 'gender', 'matrimony',
+            'religion', 'user_name', 'email', 'availability', 'awards', 'education', 'images', 'permanent_addresses',
+            'present_addresses', 'services', 'social_media'
         ]

@@ -44,7 +44,6 @@ def store_doctor(request):
 def doctor_data_view(request):
     response = get_all_doctors_list(request)
     all_data = response.data
-    print('pr', all_data)
     return render(request, 'admin/doctor/list_all.html', {'all_data': all_data})
 
 
@@ -62,3 +61,21 @@ def store_doctor_work_details(request):
         messages.add_message(request, messages.ERROR, "Error in storing Doctor Work Details  data")
 
     return redirect('add_doctor_work_details_form')
+
+
+def view_doctor(request, doctor_id):
+    response_organ = doctor_data(request, doctor_id)
+    doctor_all_data = response_organ.data
+    return render(request, 'admin/doctor/view.html', {'doctor_all_data': doctor_all_data})
+
+
+def delete_doctor(request, doctor_id):
+    operation_response = softdelete_doctor_data(request, doctor_id)
+    print(operation_response)
+
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, "Doctor data deleted Successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error deleting Doctor data")
+
+    return redirect('doctor_list')
