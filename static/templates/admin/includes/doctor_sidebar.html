@@ -1,0 +1,28 @@
+{% load static %}
+<div class="sidebar">
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+            <!-- Dashboard -->
+            <li class="nav-item mainItem">
+                <a href="{% url 'admin_dashboard' %}" class="nav-link">
+                    <i class="nav-icon fas fa-align-justify"></i>
+                    <p>
+                        Dashboard
+                    </p>
+                </a>
+            </li>
+
+            <!-- Dashboard -->
+            <li class="nav-item mainItem">
+                <a href="{% url 'admin_dashboard' %}" class="nav-link">
+                    <i class="nav-icon fas fa-align-justify"></i>
+                    <p>
+                        My Profile
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

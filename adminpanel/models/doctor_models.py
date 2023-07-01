@@ -110,6 +110,9 @@ class Education(models.Model):
     result = models.CharField(max_length=255)
     passing_year = models.DateField(auto_now_add=False)
 
+    def get_all_education_by(self, doctor_profile_id):
+        return self.objects.filter(doctor_profile_id=doctor_profile_id)
+
 
 # all the information of this will be optional ...
 
