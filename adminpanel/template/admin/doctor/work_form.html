@@ -10,6 +10,12 @@
                 <h1 class="card-title">Add Doctor Work Details</h1>
             </div>
             <div class="card-body">
+                {% if not doctor_data %}
+                <div class="alert alert-default-warning">
+                    <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_doctor_form' %}"> Add
+                    Doctor </a> first.
+                </div>
+                {% else %}
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label" for="doctorNameID">Doctor Name : <span
                             class="text-danger">*</span></label>
@@ -22,6 +28,7 @@
                         </select>
                     </div>
                 </div>
+                {% endif %}
                 <legend class="text-info">
                     <i class="fas fa-user-graduate"></i> Education
                 </legend>
@@ -56,14 +63,19 @@
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label" for="boardID">Board Name : <span class="text-danger">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" id="boardID" name="boards[]" type="text"/>
+                                <select class="form-control select2" id="boardID" name="board">
+                                    <option selected>Select Board Name</option>
+                                    {% for item in board_data %}
+                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label" for="resultID">Result :<span
                                     class="text-danger">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" id="resultID" name="results[]" type="text"/>
+                                <input class="form-control" id="resultID" name="results[]" type="number"/>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -99,8 +111,7 @@
                                type="date"/>
                     </div>
 
-                    <label class="col-md-2 col-form-label" for="awardsAndHonorsID">Awards And Honors :<span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="awardsAndHonorsID">Awards And Honors :</label>
                     <div class="col-md-4">
                         <input class="form-control" id="awardsAndHonorsID" name="awards_and_honors" type="text"/>
                     </div>
@@ -113,8 +124,7 @@
                                type="text"/>
                     </div>
 
-                    <label class="col-md-2 col-form-label" for="boardCertificationsID">Board Certifications :<span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="boardCertificationsID">Board Certifications :</label>
                     <div class="col-md-4">
                         <input class="form-control" id="boardCertificationsID" name="board_certification_number"
                                type="number"/>
@@ -127,8 +137,7 @@
                         <input class="form-control" id="averagewaitTimeID" name="average_wait_time" type="number"/>
                     </div>
 
-                    <label class="col-md-2 col-form-label" for="publicationsID">Publications :<span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="publicationsID">Publications :</label>
                     <div class="col-md-4">
                         <input class="form-control" id="publicationsID" name="publications" type="text"/>
                     </div>
@@ -140,8 +149,7 @@
                         <input class="form-control" id="consultationFeeID" name="consultation_fee" type="number"/>
                     </div>
 
-                    <label class="col-md-2 col-form-label" for="researchInterestsID">Research Interests :<span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="researchInterestsID">Research Interests :</label>
                     <div class="col-md-4">
                         <input class="form-control" id="researchInterestsID" name="research_interests" type="text"/>
                     </div>
@@ -153,8 +161,7 @@
                         <input class="form-control" id="availableFacilitiesID" name="available_facilities" type="text"/>
                     </div>
 
-                    <label class="col-md-2 col-form-label" for="membershipsID">Memberships :<span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="membershipsID">Memberships :</label>
                     <div class="col-md-4">
                         <input class="form-control" id="membershipsID" name="memberships" type="text"/>
                     </div>
@@ -177,7 +184,8 @@
                     <label class="col-md-2 col-form-label" for="websiteID">Website : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <input class="form-control" id="websiteID" name="website" type="url"/>
+                        <input class="form-control" id="websiteID" name="website" placeholder="https://www.website.com"
+                               type="url"/>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -189,7 +197,8 @@
                     <label class="col-md-2 col-form-label" for="linkedinID">Linkedin : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <input class="form-control" id="linkedinID" name="linkedin" type="url"/>
+                        <input class="form-control" id="linkedinID" name="linkedin" placeholder="https://www.linkedin.com"
+                               type="url"/>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -201,7 +210,8 @@
                     <label class="col-md-2 col-form-label" for="facebookID">Facebook : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <input class="form-control" id="facebookID" name="facebook" type="url"/>
+                        <input class="form-control" id="facebookID" name="facebook" placeholder="https://www.facebook.com"
+                               type="url"/>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -213,7 +223,8 @@
                     <label class="col-md-2 col-form-label" for="instagramID">Instagram : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <input class="form-control" id="instagramID" name="instagram" type="url"/>
+                        <input class="form-control" id="instagramID" name="instagram" placeholder="https://www.instagram.com"
+                               type="url"/>
                     </div>
                 </div>
             </div>

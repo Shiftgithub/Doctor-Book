@@ -136,6 +136,12 @@ class AwardsSerializer(serializers.ModelSerializer):
         return instance  # Fetch the primary key of the saved object
 
 
+class BoardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Religion
+        fields = '__all__'
+
+
 class EducationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Education
