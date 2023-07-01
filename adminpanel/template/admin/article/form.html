@@ -6,11 +6,13 @@
     <div class="card">
         <div class="card-header">
             <h1 class="card-title">Add Article</h1>
+
         </div>
         <div class="card-body">
             <form action="{% url 'store_article' %}" enctype="multipart/form-data" id="PostForm" method="POST"
                   onsubmit="return validateForm()">
                 {% csrf_token %}
+
                 <div class="row mb-3">
                     <label for="articleHeadingId" class="col-md-2 col-form-label">Article Heading</label>
                     <div class="col-md-10">
@@ -40,6 +42,7 @@
                         <div class="error-message" id="descriptionError"></div><!-- Error message container -->
                     </div>
                 </div>
+                <input type="hidden" value="{{request.session.user_id}}" name="created_by">
                 <button type="submit" class="btn btn-success float-right">Submit</button>
             </form>
         </div>

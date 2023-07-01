@@ -101,10 +101,14 @@ urlpatterns = [
     path('adminpanel/faq/edit/<int:faq_id>/', edit_faq, name='edit_faq'),
     path('adminpanel/faq/delete/<int:faq_id>/', delete_faq, name='delete_faq'),
 
+    path('adminpanel/faq/all/list/<int:id>/', faq_view_created_by, name="faq_all_list"),
+
     # article adminpanel path
     path('adminpanel/add/article/', article_form, name="add_article_form"),
     path('adminpanel/store/article/', store_article, name="store_article"),
     path('adminpanel/article/list', article_data_view, name="article_list"),
+
+    path('adminpanel/article/all/list/<int:id>/', article_view_created_by, name="article_all_list"),
 
     # Ajax path
     path('adminpanel/ajax/organ/<int:body_part_id>/', get_organs_by_bodypart, name="get_organs"),

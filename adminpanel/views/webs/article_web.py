@@ -25,3 +25,9 @@ def article_data_view(request):
     response = get_all_article_list(request)
     all_data = response.data
     return render(request, 'admin/article/list_all.html', {'all_data': all_data})
+
+
+def article_view_created_by(request, id):
+    response = get_all_article_list_created_by(request, id)
+    all_data = response.data
+    return render(request, 'doctor/article/list_all.html', {'all_data': all_data})

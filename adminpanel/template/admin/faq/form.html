@@ -25,6 +25,7 @@
                         <div id="answerError" class="error-message"></div><!-- Error message container -->
                     </div>
                 </div>
+                <input type="hidden" value="{{request.session.user_id}}" name="created_by">
                 <button type="submit" class="btn btn-success float-right">Submit</button>
             </form>
         </div>
@@ -37,6 +38,7 @@
 .error-message {
     color: #dc3545; /* Red color for danger state */
 }
+
 
 </style>
 {% endblock %}
@@ -85,6 +87,7 @@ $(document).ready(function() {
         $(".error-message").html("");
     }
 });
+
 
 </script>
 {% endblock %}

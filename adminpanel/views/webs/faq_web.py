@@ -53,3 +53,10 @@ def delete_faq(request, faq_id):
         messages.add_message(request, messages.ERROR, "Error deleting faq data")
 
     return redirect('faq_list')
+
+
+# for doctor side
+def faq_view_created_by(request, id):
+    response = get_all_faq_list_created_by(request, id)
+    all_data = response.data
+    return render(request, 'doctor/faq/list_all.html', {'all_data': all_data})
