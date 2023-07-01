@@ -18,6 +18,7 @@ def checking_authorization(request):
             hashed_password = hashlib.sha256(password.encode()).hexdigest()
             try:
                 user = UserProfile.objects.get(user_name=user_name, hash=hashed_password)
+
             except UserProfile.DoesNotExist:
                 return Response({'status': 403})
             if user.role == 'Doctor' and user.status == 'Approved':
