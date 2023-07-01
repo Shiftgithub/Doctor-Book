@@ -1,0 +1,249 @@
+{% extends 'templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <form action="{% url 'store_doctor_work_details' %}" enctype="multipart/form-data" id="PostForm" method="POST">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Add Doctor Work Details</h1>
+            </div>
+            <div class="card-body">
+                {% if not doctor_data %}
+                <div class="alert alert-default-warning">
+                    <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_doctor_form' %}"> Add
+                    Doctor </a> first.
+                </div>
+                {% else %}
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="doctorNameID">Doctor Name : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="doctorNameID" name="doctor_profile">
+                            <option selected>Select Doctor Name</option>
+                            {% for item in doctor_data %}
+                            <option value="{{ item.id }}">{{ item.full_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                {% endif %}
+                <legend class="text-info">
+                    <i class="fas fa-user-graduate"></i> Education
+                </legend>
+                <hr>
+                <div id="education-sections">
+                    <div class="education-section">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="col-form-label section-index">Certificate Or Degree No 1</label>
+                            </div>
+                            <div class="col-md-8">
+                                <button type="button" class="btn btn-danger remove-education-section float-right">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="certificateDegreeID">Degree
+                                Name: <span class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="certificateDegreeID"
+                                       name="certificate_degrees[]" type="text"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="institutionID">Institution : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="institutionID" name="institutions[]" type="text"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="boardID">Board Name : <span class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" id="boardID" name="boards[]">
+                                    <option selected>Select Board Name</option>
+                                    {% for item in board_data %}
+                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="resultID">Result :<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="resultID" name="results[]" type="number"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="passingYearID">Passing Year : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="passingYearID" name="passing_years[]" type="date"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" class="btn btn-primary add-education-section float-right">Add More
+                        </button>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="fab fa-servicestack"></i> Availability</legend>
+                    </div>
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="fas fa-award"></i> Awards</legend>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="appointmentAvailabilityID">Appointment :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="appointmentAvailabilityID" name="appointment_availability"
+                               type="date"/>
+                    </div>
+
+                    <label class="col-md-2 col-form-label" for="awardsAndHonorsID">Awards And Honors :</label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="awardsAndHonorsID" name="awards_and_honors" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="acceptingNewPatientsID">Accepting Patients :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="acceptingNewPatientsID" name="accepting_new_patients"
+                               type="text"/>
+                    </div>
+
+                    <label class="col-md-2 col-form-label" for="boardCertificationsID">Board Certifications :</label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="boardCertificationsID" name="board_certification_number"
+                               type="number"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="averagewaitTimeID">Average Wait Time :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="averagewaitTimeID" name="average_wait_time" type="number"/>
+                    </div>
+
+                    <label class="col-md-2 col-form-label" for="publicationsID">Publications :</label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="publicationsID" name="publications" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="consultationFeeID">Consultation Fee :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="consultationFeeID" name="consultation_fee" type="number"/>
+                    </div>
+
+                    <label class="col-md-2 col-form-label" for="researchInterestsID">Research Interests :</label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="researchInterestsID" name="research_interests" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="availableFacilitiesID">Available Facilities :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="availableFacilitiesID" name="available_facilities" type="text"/>
+                    </div>
+
+                    <label class="col-md-2 col-form-label" for="membershipsID">Memberships :</label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="membershipsID" name="memberships" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="fab fa-servicestack"></i> Services</legend>
+                    </div>
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="fab fa-linkedin"></i> Social Media</legend>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="treatmentsID">Treatments : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="treatmentsID" name="treatments" type="text"/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="websiteID">Website : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="websiteID" name="website" placeholder="https://www.website.com"
+                               type="url"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="proceduresID">Procedures : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="proceduresID" name="procedures" type="text"/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="linkedinID">Linkedin : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="linkedinID" name="linkedin" placeholder="https://www.linkedin.com"
+                               type="url"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="hoursID">Hours : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="hoursID" name="hours" type="text"/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="facebookID">Facebook : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="facebookID" name="facebook" placeholder="https://www.facebook.com"
+                               type="url"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="locationID">Location : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="locationID" name="location" type="text"/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="instagramID">Instagram : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="instagramID" name="instagram" placeholder="https://www.instagram.com"
+                               type="url"/>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-secondary" type="reset">Cancel</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success float-right" type="submit">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'adminlte_assets/js/education-callback.js' %}"></script>
+{% endblock %}
+
