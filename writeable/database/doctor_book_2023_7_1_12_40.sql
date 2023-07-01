@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 30, 2023 at 05:37 PM
+-- Generation Time: Jul 01, 2023 at 08:37 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -95,6 +95,35 @@ INSERT INTO `adminpanel_blood_group` (`id`, `name`) VALUES
 (6, 'O-'),
 (7, 'AB+'),
 (8, 'AB-');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_board`
+--
+
+CREATE TABLE `adminpanel_board` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_board`
+--
+
+INSERT INTO `adminpanel_board` (`id`, `name`) VALUES
+(1, 'Barisal Board'),
+(2, 'Chittagong Board'),
+(3, 'Comilla Board'),
+(4, 'Dhaka Board'),
+(5, 'Dinajpur Board'),
+(6, 'Jessore Board'),
+(7, 'Mymensingh Board'),
+(8, 'Rajshahi Board'),
+(9, 'Sylhet Board\r\n'),
+(10, 'Madrasah Education Board'),
+(11, 'Technical Education Board'),
+(12, 'National Curriculum and Textbook Board.');
 
 -- --------------------------------------------------------
 
@@ -307,6 +336,13 @@ CREATE TABLE `adminpanel_doctor_profile` (
   `user_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `adminpanel_doctor_profile`
+--
+
+INSERT INTO `adminpanel_doctor_profile` (`id`, `full_name`, `father_name`, `mother_name`, `date_of_birth`, `nid_no`, `phone_no`, `experience`, `biography`, `languages_spoken`, `passport_no`, `created_at`, `updated_at`, `deleted_at`, `blood_group_id`, `department_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
+(1, 'Mamun Mia Turan', 'Kasem Ali', 'Hasina Begum', '2001-06-22', '2125446364635', '01965572363', '3 Years', NULL, 'Bangla, English,Hindi', NULL, '2023-07-01 05:53:42.093519', NULL, NULL, 5, 17, 1, 2, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -317,7 +353,7 @@ CREATE TABLE `adminpanel_education` (
   `id` bigint(20) NOT NULL,
   `certificate_degree` varchar(255) NOT NULL,
   `institution` varchar(255) NOT NULL,
-  `board` varchar(255) NOT NULL,
+  `board_id` bigint(20) NOT NULL,
   `result` varchar(255) NOT NULL,
   `passing_year` date NOT NULL,
   `doctor_profile_id` bigint(20) NOT NULL
@@ -369,6 +405,13 @@ CREATE TABLE `adminpanel_images` (
   `doctor_photos` varchar(100) NOT NULL,
   `doctor_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_images`
+--
+
+INSERT INTO `adminpanel_images` (`id`, `doctor_photos`, `doctor_profile_id`) VALUES
+(1, 'static/uploads/doctor_images/20230701115342_Mamun_Mia_Turan.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -440,6 +483,13 @@ CREATE TABLE `adminpanel_permanentaddress` (
   `permanent_upazila_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `adminpanel_permanentaddress`
+--
+
+INSERT INTO `adminpanel_permanentaddress` (`id`, `permanent_village_state`, `permanent_postal_code`, `doctor_profile_id`, `permanent_district_id`, `permanent_division_id`, `permanent_upazila_id`) VALUES
+(1, 'Borpa , Dokkhin Masabo', 1234, 1, 45, 6, 396);
+
 -- --------------------------------------------------------
 
 --
@@ -455,6 +505,13 @@ CREATE TABLE `adminpanel_presentaddress` (
   `present_division_id` bigint(20) NOT NULL,
   `present_upazila_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_presentaddress`
+--
+
+INSERT INTO `adminpanel_presentaddress` (`id`, `present_village_state`, `present_postal_code`, `doctor_profile_id`, `present_district_id`, `present_division_id`, `present_upazila_id`) VALUES
+(1, 'Borpa , Dokkhin Masabo', 1234, 1, 45, 6, 396);
 
 -- --------------------------------------------------------
 
@@ -1085,6 +1142,13 @@ CREATE TABLE `adminpanel_userprofile` (
   `deleted_at` datetime(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `adminpanel_userprofile`
+--
+
+INSERT INTO `adminpanel_userprofile` (`id`, `user_name`, `email`, `password`, `hash`, `role`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'mamunmiaturan', 'mamunmiaturan@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'Doctor', 'Approved', '2023-07-01 05:53:36.323433', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -1249,7 +1313,11 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (121, 'Can add patient', 31, 'add_patient'),
 (122, 'Can change patient', 31, 'change_patient'),
 (123, 'Can delete patient', 31, 'delete_patient'),
-(124, 'Can view patient', 31, 'view_patient');
+(124, 'Can view patient', 31, 'view_patient'),
+(125, 'Can add board', 32, 'add_board'),
+(126, 'Can change board', 32, 'change_board'),
+(127, 'Can delete board', 32, 'delete_board'),
+(128, 'Can view board', 32, 'view_board');
 
 -- --------------------------------------------------------
 
@@ -1334,6 +1402,7 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (30, 'adminpanel', 'availability'),
 (29, 'adminpanel', 'awards'),
 (8, 'adminpanel', 'blood_group'),
+(32, 'adminpanel', 'board'),
 (9, 'adminpanel', 'bodypart'),
 (10, 'adminpanel', 'department'),
 (28, 'adminpanel', 'departmentspecification'),
@@ -1398,7 +1467,10 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (17, 'auth', '0011_update_proxy_permissions', '2023-06-30 15:36:46.569354'),
 (18, 'auth', '0012_alter_user_first_name_max_length', '2023-06-30 15:36:46.701943'),
 (19, 'landing', '0001_initial', '2023-06-30 15:36:46.763743'),
-(20, 'sessions', '0001_initial', '2023-06-30 15:36:46.880015');
+(20, 'sessions', '0001_initial', '2023-06-30 15:36:46.880015'),
+(21, 'adminpanel', '0002_board', '2023-07-01 05:57:16.183620'),
+(22, 'adminpanel', '0003_alter_education_board', '2023-07-01 06:06:26.976004'),
+(23, 'adminpanel', '0004_alter_education_board', '2023-07-01 06:06:53.844018');
 
 -- --------------------------------------------------------
 
@@ -1462,6 +1534,12 @@ ALTER TABLE `adminpanel_blood_group`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `adminpanel_board`
+--
+ALTER TABLE `adminpanel_board`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `adminpanel_bodypart`
 --
 ALTER TABLE `adminpanel_bodypart`
@@ -1511,7 +1589,8 @@ ALTER TABLE `adminpanel_doctor_profile`
 --
 ALTER TABLE `adminpanel_education`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `adminpanel_education_doctor_profile_id_dfe3a9a8_fk_adminpane` (`doctor_profile_id`);
+  ADD KEY `adminpanel_education_doctor_profile_id_dfe3a9a8_fk_adminpane` (`doctor_profile_id`),
+  ADD KEY `adminpanel_education_board_id_85e5cbb8` (`board_id`);
 
 --
 -- Indexes for table `adminpanel_faq`
@@ -1713,6 +1792,12 @@ ALTER TABLE `adminpanel_blood_group`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `adminpanel_board`
+--
+ALTER TABLE `adminpanel_board`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT for table `adminpanel_bodypart`
 --
 ALTER TABLE `adminpanel_bodypart`
@@ -1746,7 +1831,7 @@ ALTER TABLE `adminpanel_division`
 -- AUTO_INCREMENT for table `adminpanel_doctor_profile`
 --
 ALTER TABLE `adminpanel_doctor_profile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_education`
@@ -1770,7 +1855,7 @@ ALTER TABLE `adminpanel_gender`
 -- AUTO_INCREMENT for table `adminpanel_images`
 --
 ALTER TABLE `adminpanel_images`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_matrimony`
@@ -1794,13 +1879,13 @@ ALTER TABLE `adminpanel_organsproblemspecification`
 -- AUTO_INCREMENT for table `adminpanel_permanentaddress`
 --
 ALTER TABLE `adminpanel_permanentaddress`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_presentaddress`
 --
 ALTER TABLE `adminpanel_presentaddress`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_religion`
@@ -1830,7 +1915,7 @@ ALTER TABLE `adminpanel_upazila`
 -- AUTO_INCREMENT for table `adminpanel_userprofile`
 --
 ALTER TABLE `adminpanel_userprofile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `auth_group`
@@ -1848,7 +1933,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `auth_user`
@@ -1878,13 +1963,13 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `landing_patient`
@@ -1936,6 +2021,7 @@ ALTER TABLE `adminpanel_doctor_profile`
 -- Constraints for table `adminpanel_education`
 --
 ALTER TABLE `adminpanel_education`
+  ADD CONSTRAINT `adminpanel_education_board_id_85e5cbb8_fk_adminpanel_board_id` FOREIGN KEY (`board_id`) REFERENCES `adminpanel_board` (`id`),
   ADD CONSTRAINT `adminpanel_education_doctor_profile_id_dfe3a9a8_fk_adminpane` FOREIGN KEY (`doctor_profile_id`) REFERENCES `adminpanel_doctor_profile` (`id`);
 
 --

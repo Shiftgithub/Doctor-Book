@@ -662,3 +662,17 @@ INSERT INTO `adminpanel_religion` (`id`, `name`) VALUES
 (3, 'Christianity'),
 (4, 'Buddhism'),
 (5, 'Other');
+
+INSERT INTO `adminpanel_board` (`id`, `name`) VALUES
+(1, 'Barisal Board'),
+(2, 'Chittagong Board'),
+(3, 'Comilla Board'),
+(4, 'Dhaka Board'),
+(5, 'Dinajpur Board'),
+(6, 'Jessore Board'),
+(7, 'Mymensingh Board'),
+(8, 'Rajshahi Board'),
+(9, 'Sylhet Board'),
+(10, 'Madrasah Education Board'),
+(11, 'Technical Education Board'),
+(12, 'National Curriculum and Textbook Board.');

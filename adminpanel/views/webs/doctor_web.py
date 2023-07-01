@@ -50,7 +50,11 @@ def doctor_data_view(request):
 def doctor_work_details_form(request):
     response_doctor = get_all_doctors_name(request)
     doctor_data = response_doctor.data
-    return render(request, 'admin/doctor/work_form.html', {'doctor_data': doctor_data})
+
+    response_board = board_list(request)
+    board_data = response_board.data
+
+    return render(request, 'admin/doctor/work_form.html', {'doctor_data': doctor_data, 'board_data': board_data})
 
 
 def store_doctor_work_details(request):
