@@ -106,7 +106,7 @@ class Education(models.Model):
     doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="education")
     certificate_degree = models.CharField(max_length=255)
     institution = models.CharField(max_length=255)
-    board = models.CharField(max_length=255)  # education board name ex. Dhaka, Chittagong
+    board = models.ForeignKey('Board', on_delete=models.CASCADE, related_name="educationID")
     result = models.CharField(max_length=255)
     passing_year = models.DateField(auto_now_add=False)
 
@@ -149,6 +149,13 @@ class Matrimony(models.Model):
 
 class Blood_Group(models.Model):
     name = models.CharField(max_length=255)
+
+
+class Board(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 class Division(models.Model):

@@ -100,6 +100,14 @@ def blood_group_list(request):
 
 
 @api_view(['GET'])
+def board_list(request):
+    board = Board.objects.all()
+    serializer = BoardSerializer(board, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
 def matrimony_list(request):
     matrimonie = Matrimony.objects.all()
     serializer = MatrimonieSerializer(matrimonie, many=True)
