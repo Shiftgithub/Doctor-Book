@@ -14,7 +14,7 @@
                         <label class="col-md-3 col-form-label" for="fullNameId">Doctor Name : </label>
                         <div class="col-md-9">
                             <input class="form-control" id="fullNameId" name="full_name"
-                                   type="text" value="{{ doctor_all_data.full_name }}"/>
+                                   type="text" value="{{ doctor_all_data.full_name }}" readonly/>
                         </div>
                     </div>
 
@@ -183,7 +183,7 @@
                     {% if doctor_all_data.availability %}
                     {{ doctor_all_data.availability.0.appointment_availability }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -193,7 +193,7 @@
                     {% if doctor_all_data.availability %}
                     {{ doctor_all_data.availability.0.accepting_new_patients }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -203,7 +203,7 @@
                     {% if doctor_all_data.availability %}
                     {{ doctor_all_data.availability.0.average_wait_time }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -213,7 +213,7 @@
                     {% if doctor_all_data.availability %}
                     {{ doctor_all_data.availability.0.consultation_fee }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -223,7 +223,7 @@
                     {% if doctor_all_data.availability %}
                     {{ doctor_all_data.availability.0.available_facilities }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -234,7 +234,7 @@
                     {% if doctor_all_data.awards %}
                     {{ doctor_all_data.awards.0.awards_and_honors }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -244,7 +244,7 @@
                     {% if doctor_all_data.awards %}
                     {{ doctor_all_data.awards.0.publications }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -254,7 +254,7 @@
                     {% if doctor_all_data.awards %}
                     {{ doctor_all_data.awards.0.memberships }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -264,7 +264,7 @@
                     {% if doctor_all_data.awards %}
                     {{ doctor_all_data.awards.0.board_certification_number }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -274,7 +274,7 @@
                     {% if doctor_all_data.awards %}
                     {{ doctor_all_data.awards.0.research_interests }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -285,7 +285,7 @@
                     {% if doctor_all_data.services %}
                     {{ doctor_all_data.services.0.treatments }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -295,7 +295,7 @@
                     {% if doctor_all_data.services %}
                     {{ doctor_all_data.services.0.procedures }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -305,7 +305,7 @@
                     {% if doctor_all_data.services %}
                     {{ doctor_all_data.services.0.hours }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -315,7 +315,7 @@
                     {% if doctor_all_data.services %}
                     {{ doctor_all_data.services.0.location }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -326,7 +326,7 @@
                     {% if doctor_all_data.social_media %}
                     {{ doctor_all_data.social_media.0.website }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -336,7 +336,7 @@
                     {% if doctor_all_data.social_media %}
                     {{ doctor_all_data.social_media.0.linkedin }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -346,7 +346,7 @@
                     {% if doctor_all_data.social_media %}
                     {{ doctor_all_data.social_media.0.facebook }}
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
@@ -354,9 +354,9 @@
                 <div class="col-md-3"><strong>Instagram :</strong></div>
                 <div class="col-md-9">
                     {% if doctor_all_data.social_media %}
-                    {{ doctor_all_data.social_media.0.instagram }}
+                    <a href="{{ doctor_all_data.social_media.0.instagram }}"><i class="fas fa-instagram-square"></i></a>
                     {% else %}
-                    null
+                    <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
             </div>
