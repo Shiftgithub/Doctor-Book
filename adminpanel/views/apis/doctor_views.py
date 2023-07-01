@@ -169,11 +169,19 @@ def store_doctor_work_details_data(request):
                         education_obj = Education(
                             certificate_degree=certificate_degree,
                             institution=institution,
+<<<<<<< HEAD
                             board=board,
+=======
+>>>>>>> main
                             result=result,
                             passing_year=passing_year,
                             doctor_profile_id=doctor_profile_id
                         )
+<<<<<<< HEAD
+=======
+                        board_instance = Board.objects.get(id=board)
+                        education_obj.board = board_instance
+>>>>>>> main
                         education_obj.save()
 
                     return Response({'status': 200})

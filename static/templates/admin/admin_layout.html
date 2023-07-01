@@ -55,7 +55,16 @@
         </a>
 
         <!-- Sidebar -->
+<<<<<<< HEAD
         {% include 'templates/admin/includes/sidebar.html' %}
+=======
+        {% if request.session.user_role == 'Doctor' %}
+        {% include 'templates/admin/includes/doctor_sidebar.html' %}
+        {% else %}
+        {% include 'templates/admin/includes/sidebar.html' %}
+        {% endif %}
+
+>>>>>>> main
         <!-- /.sidebar -->
     </aside>
 
@@ -64,6 +73,13 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+<<<<<<< HEAD
+=======
+                <div>
+                    {{ request.session.user_role }}
+                    {{ request.session.user_id }}
+                </div>
+>>>>>>> main
                 {% block content %}
                 {% endblock %}
             </div>
