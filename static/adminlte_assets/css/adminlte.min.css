@@ -12887,8 +12887,11 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 
 .nav-sidebar > .nav-item {
 <<<<<<< HEAD
+<<<<<<< HEAD
     margin-bottom: 0
 =======
+=======
+>>>>>>> fb1aba3f4e40d0f0c132bf14e304f14b718b53d4
     margin-bottom: 0;
 }
 
@@ -12896,7 +12899,10 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
     padding-left: 12px;
     font-size: 14px;
     line-height: 10px;
+<<<<<<< HEAD
 >>>>>>> main
+=======
+>>>>>>> fb1aba3f4e40d0f0c132bf14e304f14b718b53d4
 }
 
 .nav-sidebar > .nav-item .nav-icon {

@@ -9,6 +9,7 @@ from landing.serializers.login_serializers import *
 def checking_authorization(request):
     if request.method == 'POST':
         login_serializer = LoginSerializer(data=request.data)
+
         if login_serializer.is_valid():
             user_fields = [login_serializer.validated_data['user_name']]
             user_name = ' - '.join(user_fields)
