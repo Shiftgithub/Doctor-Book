@@ -143,13 +143,16 @@ class BoardSerializer(serializers.ModelSerializer):
 
 
 class EducationSerializer(serializers.ModelSerializer):
+    board = serializers.CharField(source='board.name')  # Serialize the board's name
+
     class Meta:
         model = Education
-        fields = '__all__'
+        fields = ['id', 'certificate_degree', 'institution', 'board', 'result', 'passing_year']
 
-    def create(self, validated_data):
-        instance = super().create(validated_data)
-        return instance  # Fetch the primary key of the saved object
+
+def create(self, validated_data):
+    instance = super().create(validated_data)
+    return instance  # Fetch the primary key of the saved object
 
 
 class ServicesSerializer(serializers.ModelSerializer):

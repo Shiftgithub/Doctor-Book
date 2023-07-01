@@ -174,6 +174,8 @@ def store_doctor_work_details_data(request):
                             passing_year=passing_year,
                             doctor_profile_id=doctor_profile_id
                         )
+                        board_instance = Board.objects.get(id=board)
+                        education_obj.board = board_instance
                         education_obj.save()
 
                     return Response({'status': 200})
