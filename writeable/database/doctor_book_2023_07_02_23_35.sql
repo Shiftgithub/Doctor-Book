@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 01, 2023 at 08:37 AM
+-- Generation Time: Jul 02, 2023 at 07:34 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -36,7 +36,9 @@ CREATE TABLE `adminpanel_article` (
   `image` varchar(100) NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
-  `deleted_at` datetime(6) DEFAULT NULL
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `created_by_id` bigint(20) DEFAULT NULL,
+  `modified_by_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -52,7 +54,7 @@ CREATE TABLE `adminpanel_availability` (
   `average_wait_time` bigint(20) DEFAULT NULL,
   `consultation_fee` decimal(10,2) DEFAULT NULL,
   `available_facilities` varchar(255) DEFAULT NULL,
-  `doctor_profile_id` bigint(20) NOT NULL
+  `doctor_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -68,7 +70,7 @@ CREATE TABLE `adminpanel_awards` (
   `memberships` varchar(255) DEFAULT NULL,
   `board_certification_number` varchar(255) DEFAULT NULL,
   `research_interests` varchar(255) DEFAULT NULL,
-  `doctor_profile_id` bigint(20) NOT NULL
+  `doctor_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -120,7 +122,7 @@ INSERT INTO `adminpanel_board` (`id`, `name`) VALUES
 (6, 'Jessore Board'),
 (7, 'Mymensingh Board'),
 (8, 'Rajshahi Board'),
-(9, 'Sylhet Board\r\n'),
+(9, 'Sylhet Board'),
 (10, 'Madrasah Education Board'),
 (11, 'Technical Education Board'),
 (12, 'National Curriculum and Textbook Board.');
@@ -336,13 +338,6 @@ CREATE TABLE `adminpanel_doctor_profile` (
   `user_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `adminpanel_doctor_profile`
---
-
-INSERT INTO `adminpanel_doctor_profile` (`id`, `full_name`, `father_name`, `mother_name`, `date_of_birth`, `nid_no`, `phone_no`, `experience`, `biography`, `languages_spoken`, `passport_no`, `created_at`, `updated_at`, `deleted_at`, `blood_group_id`, `department_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
-(1, 'Mamun Mia Turan', 'Kasem Ali', 'Hasina Begum', '2001-06-22', '2125446364635', '01965572363', '3 Years', NULL, 'Bangla, English,Hindi', NULL, '2023-07-01 05:53:42.093519', NULL, NULL, 5, 17, 1, 2, 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -353,9 +348,9 @@ CREATE TABLE `adminpanel_education` (
   `id` bigint(20) NOT NULL,
   `certificate_degree` varchar(255) NOT NULL,
   `institution` varchar(255) NOT NULL,
-  `board_id` bigint(20) NOT NULL,
   `result` varchar(255) NOT NULL,
   `passing_year` date NOT NULL,
+  `board_id` bigint(20) NOT NULL,
   `doctor_profile_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -371,7 +366,9 @@ CREATE TABLE `adminpanel_faq` (
   `answer` varchar(1000) NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
-  `deleted_at` datetime(6) DEFAULT NULL
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `created_by_id` bigint(20) DEFAULT NULL,
+  `modified_by_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -402,16 +399,9 @@ INSERT INTO `adminpanel_gender` (`id`, `name`) VALUES
 
 CREATE TABLE `adminpanel_images` (
   `id` bigint(20) NOT NULL,
-  `doctor_photos` varchar(100) NOT NULL,
+  `doctor_photos` varchar(100) DEFAULT NULL,
   `doctor_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `adminpanel_images`
---
-
-INSERT INTO `adminpanel_images` (`id`, `doctor_photos`, `doctor_profile_id`) VALUES
-(1, 'static/uploads/doctor_images/20230701115342_Mamun_Mia_Turan.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -483,13 +473,6 @@ CREATE TABLE `adminpanel_permanentaddress` (
   `permanent_upazila_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `adminpanel_permanentaddress`
---
-
-INSERT INTO `adminpanel_permanentaddress` (`id`, `permanent_village_state`, `permanent_postal_code`, `doctor_profile_id`, `permanent_district_id`, `permanent_division_id`, `permanent_upazila_id`) VALUES
-(1, 'Borpa , Dokkhin Masabo', 1234, 1, 45, 6, 396);
-
 -- --------------------------------------------------------
 
 --
@@ -505,13 +488,6 @@ CREATE TABLE `adminpanel_presentaddress` (
   `present_division_id` bigint(20) NOT NULL,
   `present_upazila_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `adminpanel_presentaddress`
---
-
-INSERT INTO `adminpanel_presentaddress` (`id`, `present_village_state`, `present_postal_code`, `doctor_profile_id`, `present_district_id`, `present_division_id`, `present_upazila_id`) VALUES
-(1, 'Borpa , Dokkhin Masabo', 1234, 1, 45, 6, 396);
 
 -- --------------------------------------------------------
 
@@ -547,7 +523,7 @@ CREATE TABLE `adminpanel_services` (
   `procedures` varchar(255) NOT NULL,
   `hours` varchar(255) NOT NULL,
   `location` varchar(255) NOT NULL,
-  `doctor_profile_id` bigint(20) NOT NULL
+  `doctor_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -562,7 +538,7 @@ CREATE TABLE `adminpanel_social_media` (
   `facebook` varchar(200) DEFAULT NULL,
   `instagram` varchar(200) DEFAULT NULL,
   `linkedin` varchar(200) DEFAULT NULL,
-  `doctor_profile_id` bigint(20) NOT NULL
+  `doctor_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1147,7 +1123,9 @@ CREATE TABLE `adminpanel_userprofile` (
 --
 
 INSERT INTO `adminpanel_userprofile` (`id`, `user_name`, `email`, `password`, `hash`, `role`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'mamunmiaturan', 'mamunmiaturan@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'Doctor', 'Approved', '2023-07-01 05:53:36.323433', NULL, NULL);
+(1, 'admin', 'admin@admin.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'Admin', 'approved', '2023-07-02 23:27:25.000000', NULL, NULL),
+(2, 'doctor', 'doctor@doctor.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'Doctor', 'approved', '2023-07-02 23:27:25.000000', NULL, NULL),
+(3, 'patient', 'patient@patient.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'Patient', 'approved', '2023-07-02 23:27:25.000000', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1214,14 +1192,14 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (22, 'Can change session', 6, 'change_session'),
 (23, 'Can delete session', 6, 'delete_session'),
 (24, 'Can view session', 6, 'view_session'),
-(25, 'Can add article', 7, 'add_article'),
-(26, 'Can change article', 7, 'change_article'),
-(27, 'Can delete article', 7, 'delete_article'),
-(28, 'Can view article', 7, 'view_article'),
-(29, 'Can add blood_ group', 8, 'add_blood_group'),
-(30, 'Can change blood_ group', 8, 'change_blood_group'),
-(31, 'Can delete blood_ group', 8, 'delete_blood_group'),
-(32, 'Can view blood_ group', 8, 'view_blood_group'),
+(25, 'Can add blood_ group', 7, 'add_blood_group'),
+(26, 'Can change blood_ group', 7, 'change_blood_group'),
+(27, 'Can delete blood_ group', 7, 'delete_blood_group'),
+(28, 'Can view blood_ group', 7, 'view_blood_group'),
+(29, 'Can add board', 8, 'add_board'),
+(30, 'Can change board', 8, 'change_board'),
+(31, 'Can delete board', 8, 'delete_board'),
+(32, 'Can view board', 8, 'view_board'),
 (33, 'Can add body part', 9, 'add_bodypart'),
 (34, 'Can change body part', 9, 'change_bodypart'),
 (35, 'Can delete body part', 9, 'delete_bodypart'),
@@ -1242,58 +1220,58 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (50, 'Can change doctor_ profile', 13, 'change_doctor_profile'),
 (51, 'Can delete doctor_ profile', 13, 'delete_doctor_profile'),
 (52, 'Can view doctor_ profile', 13, 'view_doctor_profile'),
-(53, 'Can add faq', 14, 'add_faq'),
-(54, 'Can change faq', 14, 'change_faq'),
-(55, 'Can delete faq', 14, 'delete_faq'),
-(56, 'Can view faq', 14, 'view_faq'),
-(57, 'Can add gender', 15, 'add_gender'),
-(58, 'Can change gender', 15, 'change_gender'),
-(59, 'Can delete gender', 15, 'delete_gender'),
-(60, 'Can view gender', 15, 'view_gender'),
-(61, 'Can add matrimony', 16, 'add_matrimony'),
-(62, 'Can change matrimony', 16, 'change_matrimony'),
-(63, 'Can delete matrimony', 16, 'delete_matrimony'),
-(64, 'Can view matrimony', 16, 'view_matrimony'),
-(65, 'Can add organ', 17, 'add_organ'),
-(66, 'Can change organ', 17, 'change_organ'),
-(67, 'Can delete organ', 17, 'delete_organ'),
-(68, 'Can view organ', 17, 'view_organ'),
-(69, 'Can add religion', 18, 'add_religion'),
-(70, 'Can change religion', 18, 'change_religion'),
-(71, 'Can delete religion', 18, 'delete_religion'),
-(72, 'Can view religion', 18, 'view_religion'),
-(73, 'Can add user profile', 19, 'add_userprofile'),
-(74, 'Can change user profile', 19, 'change_userprofile'),
-(75, 'Can delete user profile', 19, 'delete_userprofile'),
-(76, 'Can view user profile', 19, 'view_userprofile'),
-(77, 'Can add upazila', 20, 'add_upazila'),
-(78, 'Can change upazila', 20, 'change_upazila'),
-(79, 'Can delete upazila', 20, 'delete_upazila'),
-(80, 'Can view upazila', 20, 'view_upazila'),
-(81, 'Can add social_ media', 21, 'add_social_media'),
-(82, 'Can change social_ media', 21, 'change_social_media'),
-(83, 'Can delete social_ media', 21, 'delete_social_media'),
-(84, 'Can view social_ media', 21, 'view_social_media'),
-(85, 'Can add services', 22, 'add_services'),
-(86, 'Can change services', 22, 'change_services'),
-(87, 'Can delete services', 22, 'delete_services'),
-(88, 'Can view services', 22, 'view_services'),
-(89, 'Can add present address', 23, 'add_presentaddress'),
-(90, 'Can change present address', 23, 'change_presentaddress'),
-(91, 'Can delete present address', 23, 'delete_presentaddress'),
-(92, 'Can view present address', 23, 'view_presentaddress'),
-(93, 'Can add permanent address', 24, 'add_permanentaddress'),
-(94, 'Can change permanent address', 24, 'change_permanentaddress'),
-(95, 'Can delete permanent address', 24, 'delete_permanentaddress'),
-(96, 'Can view permanent address', 24, 'view_permanentaddress'),
-(97, 'Can add organs problem specification', 25, 'add_organsproblemspecification'),
-(98, 'Can change organs problem specification', 25, 'change_organsproblemspecification'),
-(99, 'Can delete organs problem specification', 25, 'delete_organsproblemspecification'),
-(100, 'Can view organs problem specification', 25, 'view_organsproblemspecification'),
-(101, 'Can add images', 26, 'add_images'),
-(102, 'Can change images', 26, 'change_images'),
-(103, 'Can delete images', 26, 'delete_images'),
-(104, 'Can view images', 26, 'view_images'),
+(53, 'Can add gender', 14, 'add_gender'),
+(54, 'Can change gender', 14, 'change_gender'),
+(55, 'Can delete gender', 14, 'delete_gender'),
+(56, 'Can view gender', 14, 'view_gender'),
+(57, 'Can add matrimony', 15, 'add_matrimony'),
+(58, 'Can change matrimony', 15, 'change_matrimony'),
+(59, 'Can delete matrimony', 15, 'delete_matrimony'),
+(60, 'Can view matrimony', 15, 'view_matrimony'),
+(61, 'Can add organ', 16, 'add_organ'),
+(62, 'Can change organ', 16, 'change_organ'),
+(63, 'Can delete organ', 16, 'delete_organ'),
+(64, 'Can view organ', 16, 'view_organ'),
+(65, 'Can add religion', 17, 'add_religion'),
+(66, 'Can change religion', 17, 'change_religion'),
+(67, 'Can delete religion', 17, 'delete_religion'),
+(68, 'Can view religion', 17, 'view_religion'),
+(69, 'Can add user profile', 18, 'add_userprofile'),
+(70, 'Can change user profile', 18, 'change_userprofile'),
+(71, 'Can delete user profile', 18, 'delete_userprofile'),
+(72, 'Can view user profile', 18, 'view_userprofile'),
+(73, 'Can add upazila', 19, 'add_upazila'),
+(74, 'Can change upazila', 19, 'change_upazila'),
+(75, 'Can delete upazila', 19, 'delete_upazila'),
+(76, 'Can view upazila', 19, 'view_upazila'),
+(77, 'Can add social_ media', 20, 'add_social_media'),
+(78, 'Can change social_ media', 20, 'change_social_media'),
+(79, 'Can delete social_ media', 20, 'delete_social_media'),
+(80, 'Can view social_ media', 20, 'view_social_media'),
+(81, 'Can add services', 21, 'add_services'),
+(82, 'Can change services', 21, 'change_services'),
+(83, 'Can delete services', 21, 'delete_services'),
+(84, 'Can view services', 21, 'view_services'),
+(85, 'Can add present address', 22, 'add_presentaddress'),
+(86, 'Can change present address', 22, 'change_presentaddress'),
+(87, 'Can delete present address', 22, 'delete_presentaddress'),
+(88, 'Can view present address', 22, 'view_presentaddress'),
+(89, 'Can add permanent address', 23, 'add_permanentaddress'),
+(90, 'Can change permanent address', 23, 'change_permanentaddress'),
+(91, 'Can delete permanent address', 23, 'delete_permanentaddress'),
+(92, 'Can view permanent address', 23, 'view_permanentaddress'),
+(93, 'Can add organs problem specification', 24, 'add_organsproblemspecification'),
+(94, 'Can change organs problem specification', 24, 'change_organsproblemspecification'),
+(95, 'Can delete organs problem specification', 24, 'delete_organsproblemspecification'),
+(96, 'Can view organs problem specification', 24, 'view_organsproblemspecification'),
+(97, 'Can add images', 25, 'add_images'),
+(98, 'Can change images', 25, 'change_images'),
+(99, 'Can delete images', 25, 'delete_images'),
+(100, 'Can view images', 25, 'view_images'),
+(101, 'Can add faq', 26, 'add_faq'),
+(102, 'Can change faq', 26, 'change_faq'),
+(103, 'Can delete faq', 26, 'delete_faq'),
+(104, 'Can view faq', 26, 'view_faq'),
 (105, 'Can add education', 27, 'add_education'),
 (106, 'Can change education', 27, 'change_education'),
 (107, 'Can delete education', 27, 'delete_education'),
@@ -1310,14 +1288,14 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (118, 'Can change availability', 30, 'change_availability'),
 (119, 'Can delete availability', 30, 'delete_availability'),
 (120, 'Can view availability', 30, 'view_availability'),
-(121, 'Can add patient', 31, 'add_patient'),
-(122, 'Can change patient', 31, 'change_patient'),
-(123, 'Can delete patient', 31, 'delete_patient'),
-(124, 'Can view patient', 31, 'view_patient'),
-(125, 'Can add board', 32, 'add_board'),
-(126, 'Can change board', 32, 'change_board'),
-(127, 'Can delete board', 32, 'delete_board'),
-(128, 'Can view board', 32, 'view_board');
+(121, 'Can add article', 31, 'add_article'),
+(122, 'Can change article', 31, 'change_article'),
+(123, 'Can delete article', 31, 'delete_article'),
+(124, 'Can view article', 31, 'view_article'),
+(125, 'Can add patient', 32, 'add_patient'),
+(126, 'Can change patient', 32, 'change_patient'),
+(127, 'Can delete patient', 32, 'delete_patient'),
+(128, 'Can view patient', 32, 'view_patient');
 
 -- --------------------------------------------------------
 
@@ -1398,11 +1376,11 @@ CREATE TABLE `django_content_type` (
 
 INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (1, 'admin', 'logentry'),
-(7, 'adminpanel', 'article'),
+(31, 'adminpanel', 'article'),
 (30, 'adminpanel', 'availability'),
 (29, 'adminpanel', 'awards'),
-(8, 'adminpanel', 'blood_group'),
-(32, 'adminpanel', 'board'),
+(7, 'adminpanel', 'blood_group'),
+(8, 'adminpanel', 'board'),
 (9, 'adminpanel', 'bodypart'),
 (10, 'adminpanel', 'department'),
 (28, 'adminpanel', 'departmentspecification'),
@@ -1410,24 +1388,24 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (12, 'adminpanel', 'division'),
 (13, 'adminpanel', 'doctor_profile'),
 (27, 'adminpanel', 'education'),
-(14, 'adminpanel', 'faq'),
-(15, 'adminpanel', 'gender'),
-(26, 'adminpanel', 'images'),
-(16, 'adminpanel', 'matrimony'),
-(17, 'adminpanel', 'organ'),
-(25, 'adminpanel', 'organsproblemspecification'),
-(24, 'adminpanel', 'permanentaddress'),
-(23, 'adminpanel', 'presentaddress'),
-(18, 'adminpanel', 'religion'),
-(22, 'adminpanel', 'services'),
-(21, 'adminpanel', 'social_media'),
-(20, 'adminpanel', 'upazila'),
-(19, 'adminpanel', 'userprofile'),
+(26, 'adminpanel', 'faq'),
+(14, 'adminpanel', 'gender'),
+(25, 'adminpanel', 'images'),
+(15, 'adminpanel', 'matrimony'),
+(16, 'adminpanel', 'organ'),
+(24, 'adminpanel', 'organsproblemspecification'),
+(23, 'adminpanel', 'permanentaddress'),
+(22, 'adminpanel', 'presentaddress'),
+(17, 'adminpanel', 'religion'),
+(21, 'adminpanel', 'services'),
+(20, 'adminpanel', 'social_media'),
+(19, 'adminpanel', 'upazila'),
+(18, 'adminpanel', 'userprofile'),
 (3, 'auth', 'group'),
 (2, 'auth', 'permission'),
 (4, 'auth', 'user'),
 (5, 'contenttypes', 'contenttype'),
-(31, 'landing', 'patient'),
+(32, 'landing', 'patient'),
 (6, 'sessions', 'session');
 
 -- --------------------------------------------------------
@@ -1448,29 +1426,26 @@ CREATE TABLE `django_migrations` (
 --
 
 INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
-(1, 'contenttypes', '0001_initial', '2023-06-30 15:36:29.293282'),
-(2, 'auth', '0001_initial', '2023-06-30 15:36:33.319362'),
-(3, 'admin', '0001_initial', '2023-06-30 15:36:34.681441'),
-(4, 'admin', '0002_logentry_remove_auto_add', '2023-06-30 15:36:34.697417'),
-(5, 'admin', '0003_logentry_add_action_flag_choices', '2023-06-30 15:36:34.720246'),
-(6, 'adminpanel', '0001_initial', '2023-06-30 15:36:45.642122'),
-(7, 'contenttypes', '0002_remove_content_type_name', '2023-06-30 15:36:45.873874'),
-(8, 'auth', '0002_alter_permission_name_max_length', '2023-06-30 15:36:46.101390'),
-(9, 'auth', '0003_alter_user_email_max_length', '2023-06-30 15:36:46.133439'),
-(10, 'auth', '0004_alter_user_username_opts', '2023-06-30 15:36:46.153699'),
-(11, 'auth', '0005_alter_user_last_login_null', '2023-06-30 15:36:46.372098'),
-(12, 'auth', '0006_require_contenttypes_0002', '2023-06-30 15:36:46.380118'),
-(13, 'auth', '0007_alter_validators_add_error_messages', '2023-06-30 15:36:46.398179'),
-(14, 'auth', '0008_alter_user_username_max_length', '2023-06-30 15:36:46.435124'),
-(15, 'auth', '0009_alter_user_last_name_max_length', '2023-06-30 15:36:46.471289'),
-(16, 'auth', '0010_alter_group_name_max_length', '2023-06-30 15:36:46.507972'),
-(17, 'auth', '0011_update_proxy_permissions', '2023-06-30 15:36:46.569354'),
-(18, 'auth', '0012_alter_user_first_name_max_length', '2023-06-30 15:36:46.701943'),
-(19, 'landing', '0001_initial', '2023-06-30 15:36:46.763743'),
-(20, 'sessions', '0001_initial', '2023-06-30 15:36:46.880015'),
-(21, 'adminpanel', '0002_board', '2023-07-01 05:57:16.183620'),
-(22, 'adminpanel', '0003_alter_education_board', '2023-07-01 06:06:26.976004'),
-(23, 'adminpanel', '0004_alter_education_board', '2023-07-01 06:06:53.844018');
+(1, 'contenttypes', '0001_initial', '2023-07-02 17:26:22.347814'),
+(2, 'auth', '0001_initial', '2023-07-02 17:26:23.638256'),
+(3, 'admin', '0001_initial', '2023-07-02 17:26:24.003587'),
+(4, 'admin', '0002_logentry_remove_auto_add', '2023-07-02 17:26:24.008334'),
+(5, 'admin', '0003_logentry_add_action_flag_choices', '2023-07-02 17:26:24.028165'),
+(6, 'adminpanel', '0001_initial', '2023-07-02 17:26:29.806183'),
+(7, 'contenttypes', '0002_remove_content_type_name', '2023-07-02 17:26:30.010486'),
+(8, 'auth', '0002_alter_permission_name_max_length', '2023-07-02 17:26:30.153804'),
+(9, 'auth', '0003_alter_user_email_max_length', '2023-07-02 17:26:30.185791'),
+(10, 'auth', '0004_alter_user_username_opts', '2023-07-02 17:26:30.201457'),
+(11, 'auth', '0005_alter_user_last_login_null', '2023-07-02 17:26:30.397747'),
+(12, 'auth', '0006_require_contenttypes_0002', '2023-07-02 17:26:30.408168'),
+(13, 'auth', '0007_alter_validators_add_error_messages', '2023-07-02 17:26:30.428074'),
+(14, 'auth', '0008_alter_user_username_max_length', '2023-07-02 17:26:30.457812'),
+(15, 'auth', '0009_alter_user_last_name_max_length', '2023-07-02 17:26:30.492669'),
+(16, 'auth', '0010_alter_group_name_max_length', '2023-07-02 17:26:30.528066'),
+(17, 'auth', '0011_update_proxy_permissions', '2023-07-02 17:26:30.598012'),
+(18, 'auth', '0012_alter_user_first_name_max_length', '2023-07-02 17:26:30.629079'),
+(19, 'landing', '0001_initial', '2023-07-02 17:26:30.678018'),
+(20, 'sessions', '0001_initial', '2023-07-02 17:26:30.789496');
 
 -- --------------------------------------------------------
 
@@ -1511,7 +1486,9 @@ CREATE TABLE `landing_patient` (
 -- Indexes for table `adminpanel_article`
 --
 ALTER TABLE `adminpanel_article`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_article_created_by_id_a17110c1_fk_adminpane` (`created_by_id`),
+  ADD KEY `adminpanel_article_modified_by_id_1caf1b55_fk_adminpane` (`modified_by_id`);
 
 --
 -- Indexes for table `adminpanel_availability`
@@ -1589,14 +1566,16 @@ ALTER TABLE `adminpanel_doctor_profile`
 --
 ALTER TABLE `adminpanel_education`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `adminpanel_education_doctor_profile_id_dfe3a9a8_fk_adminpane` (`doctor_profile_id`),
-  ADD KEY `adminpanel_education_board_id_85e5cbb8` (`board_id`);
+  ADD KEY `adminpanel_education_board_id_85e5cbb8_fk_adminpanel_board_id` (`board_id`),
+  ADD KEY `adminpanel_education_doctor_profile_id_dfe3a9a8_fk_adminpane` (`doctor_profile_id`);
 
 --
 -- Indexes for table `adminpanel_faq`
 --
 ALTER TABLE `adminpanel_faq`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_faq_created_by_id_7f3c9366_fk_adminpane` (`created_by_id`),
+  ADD KEY `adminpanel_faq_modified_by_id_b3d0f2ab_fk_adminpane` (`modified_by_id`);
 
 --
 -- Indexes for table `adminpanel_gender`
@@ -1831,7 +1810,7 @@ ALTER TABLE `adminpanel_division`
 -- AUTO_INCREMENT for table `adminpanel_doctor_profile`
 --
 ALTER TABLE `adminpanel_doctor_profile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_education`
@@ -1855,7 +1834,7 @@ ALTER TABLE `adminpanel_gender`
 -- AUTO_INCREMENT for table `adminpanel_images`
 --
 ALTER TABLE `adminpanel_images`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_matrimony`
@@ -1879,13 +1858,13 @@ ALTER TABLE `adminpanel_organsproblemspecification`
 -- AUTO_INCREMENT for table `adminpanel_permanentaddress`
 --
 ALTER TABLE `adminpanel_permanentaddress`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_presentaddress`
 --
 ALTER TABLE `adminpanel_presentaddress`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `adminpanel_religion`
@@ -1915,7 +1894,7 @@ ALTER TABLE `adminpanel_upazila`
 -- AUTO_INCREMENT for table `adminpanel_userprofile`
 --
 ALTER TABLE `adminpanel_userprofile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `auth_group`
@@ -1969,7 +1948,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `landing_patient`
@@ -1980,6 +1959,13 @@ ALTER TABLE `landing_patient`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `adminpanel_article`
+--
+ALTER TABLE `adminpanel_article`
+  ADD CONSTRAINT `adminpanel_article_created_by_id_a17110c1_fk_adminpane` FOREIGN KEY (`created_by_id`) REFERENCES `adminpanel_userprofile` (`id`),
+  ADD CONSTRAINT `adminpanel_article_modified_by_id_1caf1b55_fk_adminpane` FOREIGN KEY (`modified_by_id`) REFERENCES `adminpanel_userprofile` (`id`);
 
 --
 -- Constraints for table `adminpanel_availability`
@@ -2023,6 +2009,13 @@ ALTER TABLE `adminpanel_doctor_profile`
 ALTER TABLE `adminpanel_education`
   ADD CONSTRAINT `adminpanel_education_board_id_85e5cbb8_fk_adminpanel_board_id` FOREIGN KEY (`board_id`) REFERENCES `adminpanel_board` (`id`),
   ADD CONSTRAINT `adminpanel_education_doctor_profile_id_dfe3a9a8_fk_adminpane` FOREIGN KEY (`doctor_profile_id`) REFERENCES `adminpanel_doctor_profile` (`id`);
+
+--
+-- Constraints for table `adminpanel_faq`
+--
+ALTER TABLE `adminpanel_faq`
+  ADD CONSTRAINT `adminpanel_faq_created_by_id_7f3c9366_fk_adminpane` FOREIGN KEY (`created_by_id`) REFERENCES `adminpanel_userprofile` (`id`),
+  ADD CONSTRAINT `adminpanel_faq_modified_by_id_b3d0f2ab_fk_adminpane` FOREIGN KEY (`modified_by_id`) REFERENCES `adminpanel_userprofile` (`id`);
 
 --
 -- Constraints for table `adminpanel_images`

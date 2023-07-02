@@ -42,7 +42,7 @@
 
     <!-- Navbar -->
 
-    {% include 'templates/admin/includes/navbar.html' %}
+    {% include 'admin/template/includes/navbar.html' %}
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
@@ -56,9 +56,9 @@
 
         <!-- Sidebar -->
         {% if request.session.user_role == 'Doctor' %}
-        {% include 'templates/admin/includes/doctor_sidebar.html' %}
+        {% include 'admin/template/includes/doctor_sidebar.html' %}
         {% else %}
-        {% include 'templates/admin/includes/sidebar.html' %}
+        {% include 'admin/template/includes/sidebar.html' %}
         {% endif %}
 
         <!-- /.sidebar -->
@@ -78,7 +78,7 @@
         </section>
     </div>
 
-    {% include 'templates/admin/includes/footer.html' %}
+    {% include 'admin/template/includes/footer.html' %}
 
 </div>
 
