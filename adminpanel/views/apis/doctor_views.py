@@ -165,16 +165,18 @@ def store_doctor_work_details_data(request):
                         education_obj = Education(
                             certificate_degree=certificate_degree,
                             institution=institution,
-                            board=board,
                             result=result,
                             passing_year=passing_year,
                             doctor_profile_id=doctor_profile_id
                         )
-                        board_instance = Board.objects.get(id=board)
-                        education_obj.board = board_instance
-                        education_obj.save()
-
-                    return Response({'status': 200})
+                        try:
+                            board_instance = Board.objects.get(id=board)
+                            education_obj.board = board_instance
+                            education_obj.save()
+                            return Response({'status': 200})
+                        except Board.DoesNotExist:
+                            # Handle the case when the board with the given ID does not exist
+                            return Response({'status': 404})
                 else:
                     return Response({'status': 403})
         else:
