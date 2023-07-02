@@ -212,6 +212,7 @@ def doctor_data(request, doctor_id):
 
 @api_view(['PUT', 'POST'])
 def edit_doctor_data(request, doctor_id):
+    # doctor_id = request.session.user_id
     try:
         doctor = Doctor_Profile.objects.get(id=doctor_id)
     except Doctor_Profile.DoesNotExist:
