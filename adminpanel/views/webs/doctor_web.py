@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect
 
 
 # Doctor
-
 def doctor_form(request):
     response_gender = gender_list(request)
     gender_data = response_gender.data
