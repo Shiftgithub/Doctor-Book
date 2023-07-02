@@ -78,7 +78,7 @@ def doctor_filepath(instance, filename):
 
 
 class Images(models.Model):
-    doctor_photos = models.ImageField(upload_to=doctor_filepath)
+    doctor_photos = models.ImageField(upload_to=doctor_filepath, null=True)
     doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="images", null=True)
 
 

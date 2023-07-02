@@ -1,6 +1,5 @@
 from django.utils import timezone
 from adminpanel.models.doctor_models import *
-from django.db import connection
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from adminpanel.serializers.department_serializers import *
