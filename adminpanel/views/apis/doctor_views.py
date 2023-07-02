@@ -199,6 +199,23 @@ def get_all_doctors_list(request):
     return Response(serializer.data)
 
 
+@api_view(['PUT', 'POST'])
+def edit_doctor_data(request, doctor_id):
+    doctor = Doctor_Profile.objects.get(id=doctor_id)
+    serializer = DoctorAllDataSerializer(doctor, data=request.data)
+    awards_serializer = AwardsSerializer(data=request.data)
+    availability_serializer = AvailabilitySerializer(data=request.data)
+    services_serializer = ServicesSerializer(data=request.data)
+    social_media_serializer = SocialMediaSerializer(data=request.data)
+    if serializer.is_valid():
+        if serializer.save(updated_at=datetime.now()):
+            return Response({'status': 200})
+        else:
+            return Response({'status': 403})
+    else:
+        return Response({'status': 403})
+
+
 @api_view(['GET'])
 def doctor_data(request, doctor_id):
     doctor = Doctor_Profile.objects.filter(id=doctor_id, deleted_at=None).select_related(

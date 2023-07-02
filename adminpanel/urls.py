@@ -91,6 +91,7 @@ urlpatterns = [
     path('adminpanel/doctors/list/', doctor_data_view, name="doctor_list"),
 
     path('adminpanel/doctor/view/<int:doctor_id>/', view_doctor, name='view_doctor_data'),
+    path('adminpanel/doctor/update/<int:doctor_id>/', edit_doctor_form, name="edit_doctor_form"),
     path('adminpanel/doctor/delete/<int:doctor_id>/', delete_doctor, name='delete_doctor'),
 
     # faq adminpanel path

@@ -63,11 +63,7 @@
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label" for="boardID">Board Name : <span class="text-danger">*</span></label>
                             <div class="col-md-10">
-<<<<<<< HEAD
-                                <select class="form-control select2" id="boardID" name="board">
-=======
                                 <select class="form-control select2" id="boardID" name="boards[]">
->>>>>>> main
                                     <option selected>Select Board Name</option>
                                     {% for item in board_data %}
                                     <option value="{{ item.id }}">{{ item.name }}</option>
@@ -201,7 +197,8 @@
                     <label class="col-md-2 col-form-label" for="linkedinID">Linkedin : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <input class="form-control" id="linkedinID" name="linkedin" placeholder="https://www.linkedin.com"
+                        <input class="form-control" id="linkedinID" name="linkedin"
+                               placeholder="https://www.linkedin.com"
                                type="url"/>
                     </div>
                 </div>
@@ -214,7 +211,8 @@
                     <label class="col-md-2 col-form-label" for="facebookID">Facebook : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <input class="form-control" id="facebookID" name="facebook" placeholder="https://www.facebook.com"
+                        <input class="form-control" id="facebookID" name="facebook"
+                               placeholder="https://www.facebook.com"
                                type="url"/>
                     </div>
                 </div>
@@ -227,7 +225,8 @@
                     <label class="col-md-2 col-form-label" for="instagramID">Instagram : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <input class="form-control" id="instagramID" name="instagram" placeholder="https://www.instagram.com"
+                        <input class="form-control" id="instagramID" name="instagram"
+                               placeholder="https://www.instagram.com"
                                type="url"/>
                     </div>
                 </div>

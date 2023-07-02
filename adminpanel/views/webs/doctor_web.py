@@ -73,6 +73,45 @@ def view_doctor(request, doctor_id):
     return render(request, 'admin/doctor/view.html', {'doctor_all_data': doctor_all_data})
 
 
+def edit_doctor_form(request, doctor_id):
+    response_gender = gender_list(request)
+    gender_data = response_gender.data
+
+    response_religion = religion_list(request)
+    religion_data = response_religion.data
+
+    response_blood_group = blood_group_list(request)
+    blood_group_data = response_blood_group.data
+
+    response_matrimony = matrimony_list(request)
+    matrimony_data = response_matrimony.data
+
+    response_department = get_all_departments_list(request)
+    department_data = response_department.data
+
+    response_division = division_list(request)
+    division_data = response_division.data
+
+    response_district = district_list(request)
+    district_data = response_district.data
+
+    response_upazila = upazila_list(request)
+    upazila_data = response_upazila.data
+
+    response_board = board_list(request)
+    board_data = response_board.data
+
+    response_doctor = doctor_data(request, doctor_id)
+    doctor_all_data = response_doctor.data
+
+    return render(request, 'admin/doctor/edit.html',
+                  {'department_data': department_data, 'gender_data': gender_data,
+                   'religion_data': religion_data, 'blood_group_data': blood_group_data,
+                   'matrimony_data': matrimony_data, 'division_data': division_data, 'district_data': district_data,
+                   'upazila_data': upazila_data, 'board_data': board_data, 'doctor_all_data': doctor_all_data
+                   })
+
+
 def delete_doctor(request, doctor_id):
     operation_response = softdelete_doctor_data(request, doctor_id)
     print(operation_response)
