@@ -225,24 +225,6 @@ def edit_doctor_data(request, doctor_id):
     availability_serializer = AvailabilitySerializer(doctor, data=request.data)
     services_serializer = ServicesSerializer(doctor, data=request.data)
     social_media_serializer = SocialMediaSerializer(doctor, data=request.data)
-
-    de = doctor_serializer.is_valid()
-    de2 = image_serializer.is_valid()
-    de3 = present_address_serializer.is_valid()
-    de4 = permanent_address_serializer.is_valid()
-    de5 = awards_serializer.is_valid()
-    de6 = availability_serializer.is_valid()
-    de7 = services_serializer.is_valid()
-    de8 = social_media_serializer.is_valid()
-
-    print('doctor_serializer ', de)
-    print('image_serializer ', de2)
-    print('present_address_serializer ', de3)
-    print('permanent_address_serializer ', de4)
-    print('awards_serializer ', de5)
-    print('availability_serializer ', de6)
-    print('services_serializer ', de7)
-    print('social_media_serializer ', de8)
     if (
             doctor_serializer.is_valid() and
             image_serializer.is_valid() and
@@ -253,7 +235,7 @@ def edit_doctor_data(request, doctor_id):
             services_serializer.is_valid() and
             social_media_serializer.is_valid()
     ):
-        doctor_serializer.save(updated_at=datetime.now())
+        doctor_serializer.save(updated_at=timezone.now())
         image_serializer.save()
         present_address_serializer.save()
         permanent_address_serializer.save()
@@ -263,7 +245,17 @@ def edit_doctor_data(request, doctor_id):
         social_media_serializer.save()
         return Response({'status': 200})
     else:
-        return Response({'status': 403})
+        errors = {
+            'doctor_serializer': doctor_serializer.errors,
+            'image_serializer': image_serializer.errors,
+            'present_address_serializer': present_address_serializer.errors,
+            'permanent_address_serializer': permanent_address_serializer.errors,
+            'awards_serializer': awards_serializer.errors,
+            'availability_serializer': availability_serializer.errors,
+            'services_serializer': services_serializer.errors,
+            'social_media_serializer': social_media_serializer.errors,
+        }
+        return Response({'status': 403, 'errors': errors})
 
 
 @api_view(['PUT', 'GET'])
