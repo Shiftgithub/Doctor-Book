@@ -1,9 +1,13 @@
 from django.urls import path
 
+from landing.views.apis.logout import logout
 from landing.views.webs.landing_web import *
 from landing.views.webs.login_web import *
 
 urlpatterns = [
+    # auth paths ..
+    path('logout/', logout, name='logout'),
+
     # Landing Frontend paths
     path('', landing_dashboard, name="landing_dashboard"),
     path('landing/doctors/', landing_doctors, name="landing_doctors"),
