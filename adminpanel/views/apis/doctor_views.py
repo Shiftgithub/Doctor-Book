@@ -1,4 +1,5 @@
 import hashlib
+from .signals import *
 from django.utils import timezone
 from django.core.mail import send_mail
 from rest_framework.response import Response
@@ -218,13 +219,14 @@ def edit_doctor_data(request, doctor_id):
         return Response({'status': 404})
 
     doctor_serializer = DoctorSerializer(doctor, data=request.data)
-    image_serializer = ImageSerializer(doctor, data=request.data)
+    image_serializer = ImageSerializer(doctor.images.first(), data=request.data)
     present_address_serializer = PresentAddressSerializer(doctor, data=request.data)
     permanent_address_serializer = PermanentAddressSerializer(doctor, data=request.data)
     awards_serializer = AwardsSerializer(doctor, data=request.data)
     availability_serializer = AvailabilitySerializer(doctor, data=request.data)
     services_serializer = ServicesSerializer(doctor, data=request.data)
     social_media_serializer = SocialMediaSerializer(doctor, data=request.data)
+
     if (
             doctor_serializer.is_valid() and
             image_serializer.is_valid() and
@@ -236,7 +238,7 @@ def edit_doctor_data(request, doctor_id):
             social_media_serializer.is_valid()
     ):
         doctor_serializer.save(updated_at=timezone.now())
-        image_serializer.save()
+        image_serializer.save()  # This will trigger the pre_delete signal handler
         present_address_serializer.save()
         permanent_address_serializer.save()
         awards_serializer.save()
