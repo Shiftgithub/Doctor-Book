@@ -55,11 +55,6 @@ def store_doctor_data(request):
         return Response({'status': 400})
 
 
-# @api_view(['GET'])
-# def get_all_doctors_name(request):
-#     doctors = Doctor_Profile.objects.filter(deleted_at=None)
-#     serializer = DoctorSerializer(doctors, many=True)
-#     serialized_data = serializer.data
 #     return Response(serialized_data)
 @api_view(['GET'])
 def get_all_doctors_name(request):
@@ -199,23 +194,6 @@ def get_all_doctors_list(request):
     return Response(serializer.data)
 
 
-@api_view(['PUT', 'POST'])
-def edit_doctor_data(request, doctor_id):
-    doctor = Doctor_Profile.objects.get(id=doctor_id)
-    serializer = DoctorAllDataSerializer(doctor, data=request.data)
-    awards_serializer = AwardsSerializer(data=request.data)
-    availability_serializer = AvailabilitySerializer(data=request.data)
-    services_serializer = ServicesSerializer(data=request.data)
-    social_media_serializer = SocialMediaSerializer(data=request.data)
-    if serializer.is_valid():
-        if serializer.save(updated_at=datetime.now()):
-            return Response({'status': 200})
-        else:
-            return Response({'status': 403})
-    else:
-        return Response({'status': 403})
-
-
 @api_view(['GET'])
 def doctor_data(request, doctor_id):
     doctor = Doctor_Profile.objects.filter(id=doctor_id, deleted_at=None).select_related(
@@ -230,6 +208,62 @@ def doctor_data(request, doctor_id):
         return Response(serializer.data)
     else:
         return Response(status=404)
+
+
+@api_view(['PUT', 'POST'])
+def edit_doctor_data(request, doctor_id):
+    try:
+        doctor = Doctor_Profile.objects.get(id=doctor_id)
+    except Doctor_Profile.DoesNotExist:
+        return Response({'status': 404})
+
+    doctor_serializer = DoctorSerializer(doctor, data=request.data)
+    image_serializer = ImageSerializer(doctor, data=request.data)
+    present_address_serializer = PresentAddressSerializer(doctor, data=request.data)
+    permanent_address_serializer = PermanentAddressSerializer(doctor, data=request.data)
+    awards_serializer = AwardsSerializer(doctor, data=request.data)
+    availability_serializer = AvailabilitySerializer(doctor, data=request.data)
+    services_serializer = ServicesSerializer(doctor, data=request.data)
+    social_media_serializer = SocialMediaSerializer(doctor, data=request.data)
+
+    de = doctor_serializer.is_valid()
+    de2 = image_serializer.is_valid()
+    de3 = present_address_serializer.is_valid()
+    de4 = permanent_address_serializer.is_valid()
+    de5 = awards_serializer.is_valid()
+    de6 = availability_serializer.is_valid()
+    de7 = services_serializer.is_valid()
+    de8 = social_media_serializer.is_valid()
+
+    print('doctor_serializer ', de)
+    print('image_serializer ', de2)
+    print('present_address_serializer ', de3)
+    print('permanent_address_serializer ', de4)
+    print('awards_serializer ', de5)
+    print('availability_serializer ', de6)
+    print('services_serializer ', de7)
+    print('social_media_serializer ', de8)
+    if (
+            doctor_serializer.is_valid() and
+            image_serializer.is_valid() and
+            present_address_serializer.is_valid() and
+            permanent_address_serializer.is_valid() and
+            awards_serializer.is_valid() and
+            availability_serializer.is_valid() and
+            services_serializer.is_valid() and
+            social_media_serializer.is_valid()
+    ):
+        doctor_serializer.save(updated_at=datetime.now())
+        image_serializer.save()
+        present_address_serializer.save()
+        permanent_address_serializer.save()
+        awards_serializer.save()
+        availability_serializer.save()
+        services_serializer.save()
+        social_media_serializer.save()
+        return Response({'status': 200})
+    else:
+        return Response({'status': 403})
 
 
 @api_view(['PUT', 'GET'])

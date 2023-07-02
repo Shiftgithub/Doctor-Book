@@ -112,6 +112,17 @@ def edit_doctor_form(request, doctor_id):
                    })
 
 
+def edit_doctor(request, doctor_id):
+    operation_response = edit_doctor_data(request, doctor_id)
+
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, "Doctor data edited successfully")
+    else:
+        messages.add_message(request, messages.ERROR, "Error editing Doctor data")
+
+    return redirect('edit_doctor_form', doctor_id=doctor_id)
+
+
 def delete_doctor(request, doctor_id):
     operation_response = softdelete_doctor_data(request, doctor_id)
     print(operation_response)
