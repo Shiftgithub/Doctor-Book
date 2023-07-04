@@ -12,9 +12,13 @@ def check_login_is_valid(request):
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Login successfully")
 
-        # Redirect to dashboard based on user role
+        # if request.session['user_role'] == ROLE_DOCTOR:
+        #     return redirect('doctor_dashboard')
+        # elif request.session['user_role'] == ROLE_PATIENT:
+        #     return redirect('patient_dashboard')
+        # else:
+        #     return redirect('admin_dashboard')
         return redirect('admin_dashboard')
-
     else:
-        messages.add_message(request, messages.ERROR, "Error in login")
+        messages.add_message(request, messages.ERROR, "Authentication failed! Please try again")
         return redirect('login')
