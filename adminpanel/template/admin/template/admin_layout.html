@@ -42,7 +42,7 @@
 
     <!-- Navbar -->
 
-    {% include 'templates/admin/includes/navbar.html' %}
+    {% include 'admin/template/includes/navbar.html' %}
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
@@ -56,10 +56,13 @@
 
         <!-- Sidebar -->
         {% if request.session.user_role == 'Doctor' %}
-        {% include 'templates/admin/includes/doctor_sidebar.html' %}
+        {% include 'admin/template/includes/doctor_sidebar.html' %}
+        {% elif request.session.user_role == 'Patient' %}
+        {% include 'admin/template/includes/patient_sidebar.html' %}
         {% else %}
-        {% include 'templates/admin/includes/sidebar.html' %}
+        {% include 'admin/template/includes/sidebar.html' %}
         {% endif %}
+
 
         <!-- /.sidebar -->
     </aside>
@@ -78,7 +81,7 @@
         </section>
     </div>
 
-    {% include 'templates/admin/includes/footer.html' %}
+    {% include 'admin/template/includes/footer.html' %}
 
 </div>
 
@@ -89,6 +92,8 @@
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button)
+
+
 </script>
 <!-- Bootstrap 4 -->
 <script src="{% static 'adminlte_assets/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -119,6 +124,8 @@
         text: '{{ message }}',
         timer: 3000 // 3secs
     })
+
+
 </script>
 {% endfor %}
 {% endif %}

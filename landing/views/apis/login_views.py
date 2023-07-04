@@ -9,6 +9,7 @@ from landing.serializers.login_serializers import *
 def checking_authorization(request):
     if request.method == 'POST':
         login_serializer = LoginSerializer(data=request.data)
+        print(login_serializer)
 
         if login_serializer.is_valid():
             user_fields = [login_serializer.validated_data['user_name']]
@@ -25,8 +26,15 @@ def checking_authorization(request):
                 return Response({'status': 403, 'message': 'User does not exist'})
 
             # Check user role and status
-            if user.role == 'Doctor' and user.status == 'Approved':
+            if user.role == 'Admin' and user.status == 'active':
+                return Response({'status': 200, 'message': 'Admin'})
+
+            elif user.role == 'Doctor' and user.status == 'Approved':
                 return Response({'status': 200, 'message': 'Doctor'})
+
+            elif user.role == 'Patient' and user.status == 'Approved':
+                return Response({'status': 200, 'message': 'Patient'})
+
             else:
                 return Response({'status': 403, 'message': 'User is not a doctor or is not approved'})
 

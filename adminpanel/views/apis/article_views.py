@@ -25,3 +25,11 @@ def get_all_article_list(request):
     serializer = ArticleSerializer(article, many=True)
     serialized_data = serializer.data
     return Response(serialized_data)
+
+
+@api_view(['GET'])
+def get_all_article_list_created_by(request, id):
+    articles = Article.objects.filter(created_by=id, deleted_at=None)
+    serializer = ArticleSerializer(articles, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)

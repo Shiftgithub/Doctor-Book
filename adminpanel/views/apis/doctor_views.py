@@ -1,4 +1,5 @@
 import hashlib
+from .signals import *
 from django.utils import timezone
 from django.core.mail import send_mail
 from rest_framework.response import Response
@@ -55,11 +56,6 @@ def store_doctor_data(request):
         return Response({'status': 400})
 
 
-# @api_view(['GET'])
-# def get_all_doctors_name(request):
-#     doctors = Doctor_Profile.objects.filter(deleted_at=None)
-#     serializer = DoctorSerializer(doctors, many=True)
-#     serialized_data = serializer.data
 #     return Response(serialized_data)
 @api_view(['GET'])
 def get_all_doctors_name(request):
@@ -169,16 +165,18 @@ def store_doctor_work_details_data(request):
                         education_obj = Education(
                             certificate_degree=certificate_degree,
                             institution=institution,
-                            board=board,
                             result=result,
                             passing_year=passing_year,
                             doctor_profile_id=doctor_profile_id
                         )
-                        board_instance = Board.objects.get(id=board)
-                        education_obj.board = board_instance
-                        education_obj.save()
-
-                    return Response({'status': 200})
+                        try:
+                            board_instance = Board.objects.get(id=board)
+                            education_obj.board = board_instance
+                            education_obj.save()
+                            return Response({'status': 200})
+                        except Board.DoesNotExist:
+                            # Handle the case when the board with the given ID does not exist
+                            return Response({'status': 404})
                 else:
                     return Response({'status': 403})
         else:
@@ -213,6 +211,56 @@ def doctor_data(request, doctor_id):
         return Response(serializer.data)
     else:
         return Response(status=404)
+
+
+@api_view(['PUT', 'POST'])
+def edit_doctor_data(request, doctor_id):
+    # doctor_id = request.session.user_id
+    try:
+        doctor = Doctor_Profile.objects.get(id=doctor_id)
+    except Doctor_Profile.DoesNotExist:
+        return Response({'status': 404})
+
+    doctor_serializer = DoctorSerializer(doctor, data=request.data)
+    image_serializer = ImageSerializer(doctor.images.first(), data=request.data)
+    present_address_serializer = PresentAddressSerializer(doctor, data=request.data)
+    permanent_address_serializer = PermanentAddressSerializer(doctor, data=request.data)
+    awards_serializer = AwardsSerializer(doctor, data=request.data)
+    availability_serializer = AvailabilitySerializer(doctor, data=request.data)
+    services_serializer = ServicesSerializer(doctor, data=request.data)
+    social_media_serializer = SocialMediaSerializer(doctor, data=request.data)
+
+    if (
+            doctor_serializer.is_valid() and
+            image_serializer.is_valid() and
+            present_address_serializer.is_valid() and
+            permanent_address_serializer.is_valid() and
+            awards_serializer.is_valid() and
+            availability_serializer.is_valid() and
+            services_serializer.is_valid() and
+            social_media_serializer.is_valid()
+    ):
+        doctor_serializer.save(updated_at=timezone.now())
+        image_serializer.save()  # This will trigger the pre_delete signal handler
+        present_address_serializer.save()
+        permanent_address_serializer.save()
+        awards_serializer.save()
+        availability_serializer.save()
+        services_serializer.save()
+        social_media_serializer.save()
+        return Response({'status': 200})
+    else:
+        errors = {
+            'doctor_serializer': doctor_serializer.errors,
+            'image_serializer': image_serializer.errors,
+            'present_address_serializer': present_address_serializer.errors,
+            'permanent_address_serializer': permanent_address_serializer.errors,
+            'awards_serializer': awards_serializer.errors,
+            'availability_serializer': availability_serializer.errors,
+            'services_serializer': services_serializer.errors,
+            'social_media_serializer': social_media_serializer.errors,
+        }
+        return Response({'status': 403, 'errors': errors})
 
 
 @api_view(['PUT', 'GET'])

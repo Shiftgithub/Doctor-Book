@@ -67,3 +67,13 @@ def softdelete_faq_data(request, faq_id):
             return Response({'status': 403})
     else:
         return Response({'status': 403})
+
+
+# for doctor side
+
+@api_view(['GET'])
+def get_all_faq_list_created_by(request, id):
+    articles = FAQ.objects.filter(created_by=id, deleted_at=None)
+    serializer = FAQSerializer(articles, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)

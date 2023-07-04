@@ -40,7 +40,6 @@ class PermanentAddress(models.Model):
     doctor_profile = models.ForeignKey(
         'Doctor_Profile', on_delete=models.CASCADE, related_name="permanent_addresses", null=True)
 
-
     def __str__(self):
         return self.permanent_address
 
@@ -79,12 +78,13 @@ def doctor_filepath(instance, filename):
 
 
 class Images(models.Model):
-    doctor_photos = models.ImageField(upload_to=doctor_filepath)
+    doctor_photos = models.ImageField(upload_to=doctor_filepath, null=True)
     doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="images", null=True)
 
 
 class Availability(models.Model):
-    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="availability")
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="availability",
+                                       null=True)
     appointment_availability = models.DateTimeField(null=True)
     accepting_new_patients = models.CharField(max_length=255, null=True)
     average_wait_time = models.DurationField(null=True)
@@ -93,9 +93,8 @@ class Availability(models.Model):
 
 
 class Awards(models.Model):
-    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="awards")
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="awards", null=True)
     awards_and_honors = models.CharField(max_length=255, null=True)
-    publications = models.CharField(max_length=255, null=True)
     publications = models.CharField(max_length=255, null=True)
     memberships = models.CharField(max_length=255, null=True)
     board_certification_number = models.CharField(max_length=255, null=True)  # doctor board certification number
@@ -117,7 +116,7 @@ class Education(models.Model):
 # all the information of this will be optional ...
 
 class Services(models.Model):
-    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="services")
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="services", null=True)
     treatments = models.CharField(max_length=255)
     procedures = models.CharField(max_length=255)
     hours = models.CharField(max_length=255)
@@ -129,7 +128,8 @@ class Social_Media(models.Model):
     facebook = models.URLField(null=True)
     instagram = models.URLField(null=True)
     linkedin = models.URLField(null=True)
-    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="social_media")
+    doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="social_media",
+                                       null=True)
 
 
 class Gender(models.Model):

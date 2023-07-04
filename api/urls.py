@@ -84,10 +84,15 @@ urlpatterns = [
     path('api/faq/delete/<int:faq_id>/', softdelete_faq_data, name='delete_faq'),
     path('api/faq/view/<int:faq_id>/', faq_dataview, name='view_faq'),
 
+    # for doctor side
+    path('api/faq/all/list/<int:id>/', get_all_faq_list_created_by, name='all_faq_list_created_by'),
     # article api paths
 
     path('api/add/article/', store_article_data, name="add_article"),
     path('api/article/list/', get_all_article_list, name="article_list"),
+
+    # for doctor side
+    path('api/article/all/list/<int:id>/', get_all_article_list_created_by, name='all_article_list_created_by'),
 
     path('api/login/', checking_authorization, name="login"),
 

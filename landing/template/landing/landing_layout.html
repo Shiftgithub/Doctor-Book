@@ -38,7 +38,7 @@
 
 <body>
 
-{% include 'templates/landing/includes/navbar.html' %}
+{% include 'landing/includes/navbar.html' %}
 
 {% block hero %}
 {% endblock %}
@@ -48,7 +48,7 @@
     {% endblock %}
 </main>
 
-{% include 'templates/landing/includes/footer.html' %}
+{% include 'landing/includes/footer.html' %}
 
 <!-- jQuery -->
 <script src="{% static 'adminlte_assets/plugins/jquery/jquery.min.js' %}"></script>
@@ -76,6 +76,7 @@
         text: '{{ message }}',
         timer: 3000 // 3secs
     })
+
 </script>
 {% endfor %}
 {% endif %}
