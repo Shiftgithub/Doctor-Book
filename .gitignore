@@ -6,3 +6,4 @@ adminpanel/__pycache__/
 static/uploads/
 # vs code folder ignored
 /.vscode/
+virtual_env
