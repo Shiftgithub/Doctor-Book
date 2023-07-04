@@ -89,7 +89,7 @@ urlpatterns = [
 
         path('doctor/', include([
             path('add/', protected_view(store_doctor_data), name="add_doctor"),
-            path('work/details/store/',
+            path('work/details/add/',
                  protected_view(store_doctor_work_details_data), name="store_doctor_work_details"),
             path('list/', protected_view(get_all_doctors_list), name="doctor_list"),
 

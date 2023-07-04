@@ -114,11 +114,11 @@ urlpatterns = [
 
         path('doctor/', include([
             path('add/', protected_view(doctor_form), name="add_doctor_form"),
-            path('add/doctor/work/details/', protected_view(doctor_work_details_form),
+            path('work/details/add/', protected_view(doctor_work_details_form),
                  name="add_doctor_work_details_form"),
 
             path('store/', protected_view(store_doctor), name="store_doctor"),
-            path('store/', protected_view(store_doctor_work_details), name="store_doctor_work_details"),
+            path('work_details/store/', protected_view(store_doctor_work_details), name="store_doctor_work_details"),
 
             path('list/', protected_view(doctor_data_view), name="doctor_list"),
 
