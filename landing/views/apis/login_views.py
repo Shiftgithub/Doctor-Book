@@ -3,6 +3,8 @@ import hashlib
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from landing.serializers.login_serializers import *
+# constants
+from backend.constants import *
 
 
 @api_view(['POST'])
@@ -26,13 +28,13 @@ def checking_authorization(request):
                 return Response({'status': 403, 'message': 'User does not exist'})
 
             # Check user role and status
-            if user.role == 'Admin' and user.status == 'Approved':
+            if user.role == ROLE_ADMIN and user.status == STATUS_ACTIVE:
                 return Response({'status': 200, 'message': 'Admin'})
 
-            elif user.role == 'Doctor' and user.status == 'Approved':
+            elif user.role == ROLE_DOCTOR and user.status == STATUS_ACTIVE:
                 return Response({'status': 200, 'message': 'Doctor'})
 
-            elif user.role == 'Patient' and user.status == 'Approved':
+            elif user.role == ROLE_PATIENT and user.status == STATUS_ACTIVE:
                 return Response({'status': 200, 'message': 'Patient'})
 
             else:
