@@ -14,20 +14,20 @@ from adminpanel.views.apis.ajax_views import *
 from backend.login_decorators import protected_view
 
 urlpatterns = [
-    
     # adminpanel path groups
     path('adminpanel/', include([
         # adminpanel dashboard path
         path('dashboard/', protected_view(dashboard), name="admin_dashboard"),
 
         # bodypart adminpanel path
-        path('add/bodypart/', bodypart_form, name="add_bodypart_form"),
+        path('add/bodypart/', protected_view(bodypart_form), name="add_bodypart_form"),
         path('store/bodypart/', store_bodypart, name="store_bodypart"),
+
         path('bodypart/', include([
-            path('list/', bodypart_data_view, name="bodypart_list"),
-            path('update/<int:bodypart_id>/', edit_bodypart_form, name="edit_bodypart_form"),
-            path('edit/<int:bodypart_id>/', edit_bodypart, name='edit_bodypart'),
-            path('delete/<int:bodypart_id>/', delete_bodypart, name='delete_bodypart'),
+            path('list/', bodypart_data_view, name="bodypart_list"), # http://baseurl/adminpanel/bodypart/list/
+            path('update/<int:bodypart_id>/', edit_bodypart_form, name="edit_bodypart_form"), # http://baseurl/adminpanel/bodypart/update/1/
+            path('edit/<int:bodypart_id>/', edit_bodypart, name='edit_bodypart'), # http://baseurl/adminpanel/bodypart/edit/1/
+            path('delete/<int:bodypart_id>/', delete_bodypart, name='delete_bodypart'), # http://baseurl/adminpanel/bodypart/delete/1/
         ])),
 
         # organ adminpanel path

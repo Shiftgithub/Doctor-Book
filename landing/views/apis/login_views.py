@@ -26,7 +26,7 @@ def checking_authorization(request):
                 return Response({'status': 403, 'message': 'User does not exist'})
 
             # Check user role and status
-            if user.role == 'Admin' and user.status == 'Approved':
+            if user.role == 'Admin' and user.status == 'active':
                 return Response({'status': 200, 'message': 'Admin'})
 
             elif user.role == 'Doctor' and user.status == 'Approved':
