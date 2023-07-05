@@ -1,5 +1,6 @@
 from django.urls import path, include
 
+from backend.login_decorators import protected_view
 from landing.views.webs.landing_web import *
 from adminpanel.views.webs.login_web import *
 from adminpanel.views.apis.logout import logout
@@ -25,6 +26,7 @@ urlpatterns = [
         path('patient/', include([
             path('add/', patient_form, name="add_patient_form"),
             path('store/', store_patient, name="store_patient"),
+            path('view/<int:patient_id>/', protected_view(view_patient), name='view_patient_data'),
         ])),
     ])),
 ]

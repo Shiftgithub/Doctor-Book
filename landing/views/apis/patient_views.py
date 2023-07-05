@@ -48,3 +48,31 @@ def store_patient_data(request):
             return Response({'status': 405})
     except User_Profile.DoesNotExist:
         return Response({'status': 400})
+
+
+@api_view(['GET'])
+def patient_data(request, patient_id):
+    try:
+        patient = Patient_Profile.objects.select_related('user').get(user__id=patient_id, deleted_at=None)
+        serializer = PatientSerializer(patient)
+        serialized_data = serializer.data
+
+        # Retrieve the associated user data
+        user_data = serialized_data['user']
+
+        if isinstance(user_data, int):
+            user_id = user_data
+            user = User_Profile.objects.get(id=user_id)
+            user_serializer = UserSerializer(user)
+            user_serialized_data = user_serializer.data
+        else:
+            user_id = user_data['id']
+            user = User_Profile.objects.get(id=user_id)
+            user_serialized_data = user_data
+
+        # Merge the patient data and user data
+        merged_data = {**serialized_data, 'user': user_serialized_data}
+
+        return Response(merged_data)
+    except (Patient_Profile.DoesNotExist, User_Profile.DoesNotExist):
+        return Response({'status': 404})

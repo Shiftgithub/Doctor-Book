@@ -22,9 +22,9 @@ def checking_authorization(request):
 
             # Check if user exists in database
             try:
-                user = UserProfile.objects.get(user_name=user_name, hash=hashed_password)
+                user = User_Profile.objects.get(user_name=user_name, hash=hashed_password)
                 setAuthenticatedUser(request, user)
-            except UserProfile.DoesNotExist:
+            except User_Profile.DoesNotExist:
                 return Response({'status': 403, 'message': 'User does not exist'})
 
             # Check user role and status

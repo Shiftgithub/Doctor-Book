@@ -1,5 +1,5 @@
 import hashlib
-from .signals import *
+from django.db import transaction
 from django.utils import timezone
 from django.core.mail import send_mail
 from rest_framework.response import Response
@@ -7,8 +7,6 @@ from rest_framework.decorators import api_view
 from adminpanel.serializers.user_serializers import *
 from adminpanel.serializers.doctor_serializers import *
 from adminpanel.models.doctor_models import *
-from django.views.decorators.csrf import csrf_protect
-from django.db import transaction, InternalError
 
 
 @api_view(['POST'])
@@ -39,9 +37,9 @@ def store_doctor_data(request):
                         'Doctor-Book From', message, 'settings.EMAIL_HOST_USER',
                         [email], fail_silently=False)
                     try:
-                        user_profile_instance = UserProfile.objects.get(pk=user_instance)
+                        user_profile_instance = User_Profile.objects.get(pk=user_instance)
                         doctor_data['user'] = user_profile_instance
-                    except UserProfile.DoesNotExist:
+                    except User_Profile.DoesNotExist:
                         return Response({'status': 400})
                     doctor_instance = doctor_serializer.save(**doctor_data)
                     image_serializer.save(doctor_profile=doctor_instance)
@@ -52,7 +50,7 @@ def store_doctor_data(request):
                 return Response({'status': 400})
         else:
             return Response({'status': 405})
-    except UserProfile.DoesNotExist:
+    except User_Profile.DoesNotExist:
         return Response({'status': 400})
 
 
