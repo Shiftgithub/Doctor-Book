@@ -13,7 +13,6 @@ def store_patient_data(request):
         if request.method == 'POST':
             user_serializer = UserSerializer(data=request.data)
             patient_serializer = PatientSerializer(data=request.data)
-
             if user_serializer.is_valid(
                     raise_exception=True) and patient_serializer.is_valid():
                 password = request.data.get('password')

@@ -1,4 +1,6 @@
 import hashlib
+from django.db.models import Q
+
 from django.db import transaction
 from django.utils import timezone
 from django.core.mail import send_mail
@@ -134,50 +136,49 @@ def upazila_list(request):
 
 @api_view(['POST'])
 def store_doctor_work_details_data(request):
-    if request.method == 'POST':
-        awards_serializer = AwardsSerializer(data=request.data)
-        availability_serializer = AvailabilitySerializer(data=request.data)
+    awards_serializer = AwardsSerializer(data=request.data)
+    availability_serializer = AvailabilitySerializer(data=request.data)
+    services_serializer = ServicesSerializer(data=request.data)
+    social_media_serializer = SocialMediaSerializer(data=request.data)
 
-        doctor_profile_id = request.POST.get('doctor_profile')
-        certificate_degrees = request.POST.getlist('certificate_degrees[]')
-        institutions = request.POST.getlist('institutions[]')
-        boards = request.POST.getlist('boards[]')
-        results = request.POST.getlist('results[]')
-        passing_years = request.POST.getlist('passing_years[]')
+    if all(
+            serializer.is_valid() for serializer in
+            [awards_serializer, availability_serializer, services_serializer, social_media_serializer]
+    ):
+        with transaction.atomic():
+            awards_instance = awards_serializer.save()
+            availability_instance = availability_serializer.save()
+            services_instance = services_serializer.save()
+            social_media_instance = social_media_serializer.save()
 
-        services_serializer = ServicesSerializer(data=request.data)
-        social_media_serializer = SocialMediaSerializer(data=request.data)
+            if awards_instance and availability_instance and services_instance and social_media_instance:
+                doctor_profile_id = request.data.get('doctor_profile')
+                certificate_degrees = request.data.getlist('certificate_degrees[]')
+                institutions = request.data.getlist('institutions[]')
+                boards = request.data.getlist('boards[]')
+                results = request.data.getlist('results[]')
+                passing_years = request.data.getlist('passing_years[]')
 
-        if awards_serializer.is_valid() and availability_serializer.is_valid() and services_serializer.is_valid() and social_media_serializer.is_valid():
-            with transaction.atomic():
-                awards_instance = awards_serializer.save()
-                availability_instance = availability_serializer.save()
-                services_instance = services_serializer.save()
-                social_media_instance = social_media_serializer.save()
-
-                if awards_instance and availability_instance and services_instance and social_media_instance:
-                    for certificate_degree, institution, board, result, passing_year in zip(certificate_degrees,
-                                                                                            institutions, boards,
-                                                                                            results, passing_years):
-                        education_obj = Education(
+                for certificate_degree, institution, board_id, result, passing_year in zip(
+                        certificate_degrees, institutions, boards, results, passing_years
+                ):
+                    try:
+                        board_instance = Board.objects.get(id=board_id)
+                        education_obj = Education.objects.create(
                             certificate_degree=certificate_degree,
                             institution=institution,
                             result=result,
                             passing_year=passing_year,
-                            doctor_profile_id=doctor_profile_id
+                            doctor_profile_id=doctor_profile_id,
+                            board=board_instance,  # Assign the board_instance to the board field
                         )
-                        try:
-                            board_instance = Board.objects.get(id=board)
-                            education_obj.board = board_instance
-                            education_obj.save()
-                            return Response({'status': 200})
-                        except Board.DoesNotExist:
-                            # Handle the case when the board with the given ID does not exist
-                            return Response({'status': 404})
-                else:
-                    return Response({'status': 403})
-        else:
-            return Response({'status': 403})
+                    except Board.DoesNotExist:
+                        # Handle the case when the board with the given ID does not exist
+                        return Response({'status': 404})
+
+                return Response({'status': 200})
+            else:
+                return Response({'status': 403})
     else:
         return Response({'status': 403})
 
@@ -195,12 +196,13 @@ def get_all_doctors_list(request):
 
 
 @api_view(['GET'])
-def doctor_data(request, doctor_id):
-    doctor = Doctor_Profile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+def doctor_data(request, id):
+    doctor = Doctor_Profile.objects.filter(
+        Q(id=id, deleted_at=None) | Q(user=id, deleted_at=None)
+    ).select_related(
         'gender', 'religion', 'blood_group', 'matrimony', 'department'
     ).prefetch_related(
         'user', 'images', 'awards', 'availability', 'education', 'services', 'social_media'
-
     ).first()
 
     if doctor:
@@ -248,12 +250,12 @@ def edit_doctor_data(request, doctor_id):
         return Response({'status': 200})
     else:
         errors = {
+            'awards_serializer': awards_serializer.errors,
+            'availability_serializer': availability_serializer.errors,
             'doctor_serializer': doctor_serializer.errors,
             'image_serializer': image_serializer.errors,
             'present_address_serializer': present_address_serializer.errors,
             'permanent_address_serializer': permanent_address_serializer.errors,
-            'awards_serializer': awards_serializer.errors,
-            'availability_serializer': availability_serializer.errors,
             'services_serializer': services_serializer.errors,
             'social_media_serializer': social_media_serializer.errors,
         }
@@ -264,12 +266,17 @@ def edit_doctor_data(request, doctor_id):
 def softdelete_doctor_data(request, doctor_id):
     try:
         doctor_data = Doctor_Profile.objects.get(id=doctor_id)
-        serializer = DoctorSerializer(doctor_data, data=request.data, partial=True)
+        doctor_serializer = DoctorSerializer(doctor_data, data=request.data, partial=True)
 
-        if serializer.is_valid():
-            serializer.save(deleted_at=timezone.now())
+        # Assuming there is a foreign key relationship between Doctor_Profile and User_Profile
+        user_data = doctor_data.user  # Use the appropriate foreign key field
+        user_serializer = UserSerializer(user_data, data=request.data, partial=True)
+
+        if doctor_serializer.is_valid() and user_serializer.is_valid():
+            doctor_serializer.save(deleted_at=timezone.now())
+            user_serializer.save(status='inactive', deleted_at=timezone.now())
             return Response({'status': 200})
         else:
-            return Response(serializer.errors, status=400)
+            return Response(doctor_serializer.errors, status=400)
     except Doctor_Profile.DoesNotExist:
         return Response(status=404)
