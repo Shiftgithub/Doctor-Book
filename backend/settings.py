@@ -21,12 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-hn&2ig7$+&xli8!r4m-t8$%=(ta1u%1qs=36p^u=25!p+#t!xf'
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'doctorbook.official@gmail.com'
-EMAIL_HOST_PASSWORD = 'nxizitxsmhfssxkm'
-EMAIL_PORT = 587
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+from backend.constants import *
+
+EMAIL_USE_TLS = EMAIL_USE_TLS
+EMAIL_HOST = EMAIL_HOST
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
+EMAIL_PORT = EMAIL_PORT
+EMAIL_BACKEND = EMAIL_BACKEND
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,10 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # app
     'api.apps.ApiConfig',
     'adminpanel.apps.AdminpanelConfig',
     'landing.apps.LandingConfig',
+
     # rest_framework
     'rest_framework',
 ]
@@ -58,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'django.middleware.csrf.CsrfViewMiddleware'
 ]
 ROOT_URLCONF = 'backend.urls'
 
@@ -65,9 +71,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # BASE_DIR / 'static',
-            BASE_DIR / 'adminpanel/template',
-            BASE_DIR / 'landing/template',
+            BASE_DIR / 'adminpanel/templates',
+            BASE_DIR / 'landing/templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -93,9 +98,6 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '3306',
-        # 'OPTIONS': {
-        #     'sql_mode': 'STRICT_ALL_TABLES',
-        # },
     },
 }
 # Password validation
@@ -142,4 +144,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 60 * 30  # 30 minutes
-

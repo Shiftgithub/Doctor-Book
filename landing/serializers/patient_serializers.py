@@ -4,5 +4,5 @@ from landing.models.patient_models import *
 
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Patient
+        model = Patient_Profile
         fields = '__all__'
