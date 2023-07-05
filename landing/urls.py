@@ -26,7 +26,6 @@ urlpatterns = [
         path('patient/', include([
             path('add/', patient_form, name="add_patient_form"),
             path('store/', store_patient, name="store_patient"),
-            path('view/<int:patient_id>/', protected_view(view_patient), name='view_patient_data'),
         ])),
     ])),
 ]

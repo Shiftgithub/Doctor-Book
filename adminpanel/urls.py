@@ -12,6 +12,7 @@ from adminpanel.views.webs.faq_web import *
 from adminpanel.views.apis.ajax_views import *
 # To protect admin panel paths from unauthenticated users
 from backend.login_decorators import protected_view
+from landing.views.webs.patient_web import *
 
 urlpatterns = [
     # adminpanel path groups
@@ -153,6 +154,12 @@ urlpatterns = [
             path('article/all/list/<int:id>/', article_view_created_by, name="article_all_list"),
         ])),
 
+        # patient adminpanel path
+        path('patient/', include([
+            path('update/<int:patient_id>/', protected_view(view_patient), name='edit_patient_form'),
+            path('view/<int:patient_id>/', protected_view(view_patient), name='view_patient_data'),
+
+        ])),
         # Ajax path
 
         path('ajax/', include([
