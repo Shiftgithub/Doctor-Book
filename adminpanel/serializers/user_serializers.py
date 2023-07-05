@@ -4,7 +4,7 @@ from adminpanel.models.user_models import *
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserProfile
+        model = User_Profile
         fields = '__all__'
 
     def create(self, validated_data):

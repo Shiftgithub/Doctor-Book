@@ -9,7 +9,7 @@ from adminpanel.views.apis.organ_views import *
 from adminpanel.views.apis.organ_problem_specification_views import *
 from adminpanel.views.apis.faq_views import *
 from backend.login_decorators import protected_view
-from landing.views.apis.login_views import *
+from adminpanel.views.apis.login_views import *
 
 urlpatterns = [
     # api path groups

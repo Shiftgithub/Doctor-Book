@@ -19,6 +19,8 @@ urlpatterns = [
         # adminpanel dashboard path
 
         path('dashboard/', protected_view(dashboard), name="admin_dashboard"),
+        path('doctor/dashboard/', protected_view(doctor_dashboard), name="doctor_dashboard"),
+        path('patient/dashboard/', protected_view(patient_dashboard), name="patient_dashboard"),
 
         # bodypart adminpanel path
 
@@ -124,7 +126,7 @@ urlpatterns = [
 
             path('view/<int:doctor_id>/', protected_view(view_doctor), name='view_doctor_data'),
             path('update/<int:doctor_id>/', protected_view(edit_doctor_form), name="edit_doctor_form"),
-            path('/edit/<int:doctor_id>/', protected_view(edit_doctor), name='edit_doctor'),
+            path('edit/<int:doctor_id>/', protected_view(edit_doctor), name='edit_doctor'),
             path('delete/<int:doctor_id>/', protected_view(delete_doctor), name='delete_doctor'),
         ])),
 

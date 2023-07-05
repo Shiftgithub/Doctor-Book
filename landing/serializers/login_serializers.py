@@ -4,7 +4,7 @@ from adminpanel.models.user_models import *
 
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserProfile
+        model = User_Profile
         fields = ('user_name', 'password', 'hash', 'role', 'status')
 
     def create(self, validated_data):

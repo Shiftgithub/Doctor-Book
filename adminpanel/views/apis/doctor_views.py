@@ -27,7 +27,7 @@ def store_doctor_data(request):
                 hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
                 with transaction.atomic():
-                    user_instance = user_serializer.save(hash=hashed_password, role="Doctor", status="Approved")
+                    user_instance = user_serializer.save(hash=hashed_password, role="doctor", status="active")
                     doctor_data = doctor_serializer.validated_data
                     user_fields = [user_serializer.validated_data['user_name']]
                     user_name = ' - '.join(user_fields)
@@ -56,7 +56,6 @@ def store_doctor_data(request):
         return Response({'status': 400})
 
 
-#     return Response(serialized_data)
 @api_view(['GET'])
 def get_all_doctors_name(request):
     doctors = Doctor_Profile.objects.filter(deleted_at=None)
