@@ -192,13 +192,16 @@ def get_all_doctors_list(request):
     )
 
     serializer = DoctorAllDataSerializer(doctors, many=True)
+    print(serializer.data)
     return Response(serializer.data)
 
 
+# Getting doctor's full details by doctor id ......................................................................
 @api_view(['GET'])
 def doctor_data(request, id):
+
     doctor = Doctor_Profile.objects.filter(
-        Q(id=id, deleted_at=None) | Q(user=id, deleted_at=None)
+        Q(id=id, deleted_at=None)
     ).select_related(
         'gender', 'religion', 'blood_group', 'matrimony', 'department'
     ).prefetch_related(
