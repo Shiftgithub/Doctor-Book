@@ -124,8 +124,6 @@ def edit_doctor(request, doctor_id):
 
 def delete_doctor(request, doctor_id):
     operation_response = softdelete_doctor_data(request, doctor_id)
-    print(operation_response)
-
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Doctor data deleted Successfully")
     else:

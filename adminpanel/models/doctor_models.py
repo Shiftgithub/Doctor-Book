@@ -1,7 +1,5 @@
 import os
 import datetime
-
-from .department_models import *
 from .user_models import *
 
 
@@ -21,7 +19,7 @@ class Doctor_Profile(models.Model):
     biography = models.CharField(max_length=255, null=True)
     languages_spoken = models.CharField(max_length=255)
     passport_no = models.CharField(max_length=255, null=True)
-    user = models.ForeignKey('UserProfile', on_delete=models.SET_NULL, related_name="doctors", null=True)
+    user = models.ForeignKey(User_Profile, on_delete=models.SET_NULL, related_name="doctors", null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)

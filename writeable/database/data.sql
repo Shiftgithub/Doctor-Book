@@ -678,7 +678,5 @@ INSERT INTO `adminpanel_board` (`id`, `name`) VALUES
 (12, 'National Curriculum and Textbook Board.');
 
 
-INSERT INTO `adminpanel_userprofile`( `id`, `user_name`, `email`, `password`, `hash`, `role`, `status`, `created_at`, `updated_at`, `deleted_at` ) VALUES
-(1, 'admin', 'admin@admin.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'Admin', 'Approved', '2023-07-02 23:27:25.000000', NULL, NULL ),
-(2, 'doctor', 'doctor@doctor.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'Doctor', 'Approved', '2023-07-02 23:27:25.000000', NULL, NULL),
-(2, 'patient', 'patient@patient.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'Patient', 'Approved', '2023-07-02 23:27:25.000000', NULL, NULL);
+INSERT INTO `adminpanel_user_profile`( `id`, `user_name`, `email`, `password`, `hash`, `role`, `status`, `created_at`, `updated_at`, `deleted_at` ) VALUES
+(1, 'admin', 'admin@admin.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'admin', 'active', '2023-07-02 23:27:25', NULL, NULL );

@@ -2,7 +2,7 @@ import os
 import datetime
 from django.db import models
 
-from .user_models import UserProfile
+from .user_models import User_Profile
 
 
 def article_filepath(instance, filename):
@@ -24,9 +24,9 @@ class Article(models.Model):
     tag = models.CharField(max_length=1000)
     description = models.CharField(max_length=10000)
     image = models.ImageField(upload_to=article_filepath)
-    created_by = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, related_name="created_by", blank=True,
+    created_by = models.ForeignKey(User_Profile, on_delete=models.SET_NULL, related_name="created_by", blank=True,
                                    null=True)
-    modified_by = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, related_name="modified_by", blank=True,
+    modified_by = models.ForeignKey(User_Profile, on_delete=models.SET_NULL, related_name="modified_by", blank=True,
                                     null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
