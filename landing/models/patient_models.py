@@ -13,7 +13,7 @@ class Patient_Profile(models.Model):
 
     date_of_birth = models.DateField(auto_now_add=False, null=True)
     nid_no = models.CharField(max_length=20, null=True)
-    passport_no = models.CharField(max_length=20, null=True)
+    address = models.CharField(max_length=255, null=True)
     gender = models.ForeignKey(Gender, on_delete=models.CASCADE, related_name="patients", null=True)
     religion = models.ForeignKey(Religion, on_delete=models.CASCADE, related_name="patients", null=True)
     matrimony = models.ForeignKey(Matrimony, on_delete=models.CASCADE, related_name="patients", null=True)

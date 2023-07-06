@@ -156,7 +156,7 @@ urlpatterns = [
 
         # patient adminpanel path
         path('patient/', include([
-            path('update/<int:patient_id>/', protected_view(view_patient), name='edit_patient_form'),
+            path('update/<int:patient_id>/', protected_view(edit_patient_form), name='edit_patient_form'),
             path('view/<int:patient_id>/', protected_view(view_patient), name='view_patient_data'),
 
         ])),
