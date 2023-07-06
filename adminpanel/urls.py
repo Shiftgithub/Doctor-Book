@@ -1,4 +1,6 @@
 from django.urls import path, include
+
+from adminpanel.views.webs.user_views import get_user_details
 from adminpanel.views.webs.article_web import *
 from adminpanel.views.webs.bodypart_web import *
 from adminpanel.views.webs.dashboard_web import *
@@ -15,6 +17,9 @@ from backend.login_decorators import protected_view
 from landing.views.webs.patient_web import *
 
 urlpatterns = [
+    # user details path ...
+    path('user/details/', get_user_details, name="user_details"),
+
     # adminpanel path groups
     path('adminpanel/', include([
         # adminpanel dashboard path

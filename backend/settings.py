@@ -52,6 +52,8 @@ INSTALLED_APPS = [
 
     # rest_framework
     'rest_framework',
+
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -63,7 +65,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'django.middleware.csrf.CsrfViewMiddleware'
+    'django.middleware.csrf.CsrfViewMiddleware',
+
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 ROOT_URLCONF = 'backend.urls'
 
@@ -143,4 +147,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = 60 * 30  # 30 minutes
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

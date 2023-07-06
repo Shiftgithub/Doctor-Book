@@ -15,30 +15,14 @@
             </li>
 
             <li class="nav-item mainItem">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-user-md"></i>
+                <a href="{% url 'user_details' %}" class="nav-link">
+                    <i class="nav-icon fas fa-align-justify"></i>
                     <p>
                         My Profile
-                        <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item nav-child">
-                        <a href="{% url 'edit_doctor_form' request.session.user_id %}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Edit Profile</p>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item nav-child">
-                        <a href="{% url 'view_doctor_data' request.session.user_id %}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>View Profile</p>
-                        </a>
-                    </li>
-                </ul>
             </li>
+
             <!-- Article -->
             <li class="nav-item mainItem">
                 <a href="#" class="nav-link">
