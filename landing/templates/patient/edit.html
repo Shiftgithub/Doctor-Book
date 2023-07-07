@@ -3,11 +3,16 @@
 
 {% block content %}
 <div class="container mt-4">
-    <form action="" enctype="multipart/form-data" id="PostForm" method="POST">
+    <form action="{% url 'edit_patient' patient_all_data.id %}" enctype="multipart/form-data" id="PostForm"
+          method="POST">
         {% csrf_token %}
         <div class="card">
             <div class="card-header">
                 <h1 class="card-title">Data Details</h1>
+                <h1 class="card-title float-right">
+                    <a href="{% url 'user_details' %}" class="nav-link btn btn-info float-right"
+                       type="submit">Back View</a>
+                </h1>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -23,42 +28,29 @@
                             <label class="col-md-3 col-form-label" for="fatherNameID">Father Name : </label>
                             <div class="col-md-9">
                                 <input class="form-control" type="text" id="fatherNameID"
-                                       value="{{ patient_all_data.father_name }}" name="full_name"/>
+                                       value="{{ patient_all_data.father_name }}" name="father_name"/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="motherNameID">Mother Name : </label>
                             <div class="col-md-9">
-                                {% if patient_all_data.mother_name %}
                                 <input class="form-control" value=" {{ patient_all_data.mother_name }}"
-                                       id="motherNameID"
-                                       name="mother_name"/>
-                                {% else %}
-                                <span class="badge badge-warning">Not Provided</span>
-                                {% endif %}
+                                       id="motherNameID" type="text" name="mother_name"/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="dateOfBirthID">Date of Birth : </label>
                             <div class="col-md-9">
-                                {% if patient_all_data.date_of_birth %}
-                                <input class="form-control" value=" {{ patient_all_data.date_of_birth }}"
-                                       id="dateOfBirthID" name="date_of_birth"/>
-                                {% else %}
-                                <span class="badge badge-warning">Not Provided</span>
-                                {% endif %}
+                                <input class="form-control" value="{{ patient_all_data.date_of_birth }}"
+                                       type="date" id="dateOfBirthID" name="date_of_birth"/>
                             </div>
                         </div>
                         <!-- Phone Number -->
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="phoneNoID">Phone Number : </label>
                             <div class="col-md-9">
-                                {% if patient_all_data.phone_no %}
                                 <input class="form-control" value=" {{ patient_all_data.phone_no }}" id="phoneNoID"
-                                       name="phone_no"/>
-                                {% else %}
-                                <span class="badge badge-warning">Not Provided</span>
-                                {% endif %}
+                                       type="text" name="phone_no"/>
                             </div>
                         </div>
                     </div>
@@ -80,24 +72,19 @@
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label">Gender :</label>
                     <div class="col-md-4">
-                        {% if patient_all_data.gender %}
                         <select class="form-control select2" id="genderID" name="gender">
                             <option selected>Select Gender</option>
                             {% for item in gender_data %}
-                            {% if item.name == patient_all_data.gender.name %}
+                            {% if item.name == patient_all_data.gender %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>
                             {% else %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endif %}
                             {% endfor %}
                         </select>
-                        {% else %}
-                        <span class="badge badge-warning">Not Provided</span>
-                        {% endif %}
                     </div>
                     <label class="col-md-2 col-form-label">Religion :</label>
                     <div class="col-md-4">
-                        {% if patient_all_data.religion %}
                         <select class="form-control select2" id="religionID" name="religion">
                             <option selected>Select Religion</option>
                             {% for item in religion_data %}
@@ -108,15 +95,11 @@
                             {% endif %}
                             {% endfor %}
                         </select>
-                        {% else %}
-                        <span class="badge badge-warning">Not Provided</span>
-                        {% endif %}
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label">Blood Group : </label>
                     <div class="col-md-4">
-                        {% if patient_all_data.blood_group %}
                         <select class="form-control select2" id="bloodGroupID" name="blood_group">
                             <option selected>Select Blood Group</option>
                             {% for item in blood_group_data %}
@@ -127,13 +110,9 @@
                             {% endif %}
                             {% endfor %}
                         </select>
-                        {% else %}
-                        <span class="badge badge-warning">Not Provided</span>
-                        {% endif %}
                     </div>
                     <label class="col-md-2 col-form-label">Matrimony Status : </label>
                     <div class="col-md-4">
-                        {% if patient_all_data.matrimony %}
                         <select class="form-control select2" id="matrimonyID" name="matrimony">
                             <option selected>Select Matrimony</option>
                             {% for item in matrimony_data %}
@@ -144,29 +123,18 @@
                             {% endif %}
                             {% endfor %}
                         </select>
-                        {% else %}
-                        <span class="badge badge-warning">Not Provided</span>
-                        {% endif %}
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label">NID No: </label>
                     <div class="col-md-4">
-                        {% if patient_all_data.nid_no %}
                         <input class="form-control" type="text" value="{{ patient_all_data.nid_no }}"
                                id="nidNOID" name="nid_no"/>
-                        {% else %}
-                        <span class="badge badge-warning">Not Provided</span>
-                        {% endif %}
                     </div>
                     <label class="col-md-2 col-form-label" for="addressID">Address : </label>
                     <div class="col-md-4">
-                        {% if patient_all_data.address %}
                         <input class="form-control" value=" {{ patient_all_data.address }}" id="addressID"
-                               name="address"/>
-                        {% else %}
-                        <span class="badge badge-warning">Not Provided</span>
-                        {% endif %}
+                               type="text" name="address"/>
                     </div>
                 </div>
                 <div class="card-footer">

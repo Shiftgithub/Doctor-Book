@@ -1,6 +1,5 @@
 from django.db import models
-
-from adminpanel.models.doctor_models import *
+from adminpanel.models.personal_data_models import *
 from adminpanel.models.user_models import *
 
 
@@ -18,7 +17,7 @@ class Patient_Profile(models.Model):
     religion = models.ForeignKey(Religion, on_delete=models.CASCADE, related_name="patients", null=True)
     matrimony = models.ForeignKey(Matrimony, on_delete=models.CASCADE, related_name="patients", null=True)
     blood_group = models.ForeignKey(Blood_Group, on_delete=models.CASCADE, related_name="patients", null=True)
-    user = models.ForeignKey(User_Profile, on_delete=models.SET_NULL, related_name="patients", null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name="patients", null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)

@@ -1,6 +1,7 @@
 import os
 import datetime
 from .user_models import *
+from django.db import models
 
 
 class Doctor_Profile(models.Model):
@@ -19,7 +20,7 @@ class Doctor_Profile(models.Model):
     biography = models.CharField(max_length=255, null=True)
     languages_spoken = models.CharField(max_length=255)
     passport_no = models.CharField(max_length=255, null=True)
-    user = models.ForeignKey(User_Profile, on_delete=models.SET_NULL, related_name="doctors", null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name="doctors", null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -130,25 +131,6 @@ class Social_Media(models.Model):
                                        null=True)
 
 
-class Gender(models.Model):
-    name = models.CharField(max_length=255)
-
-
-class Religion(models.Model):
-    name = models.CharField(max_length=255)
-
-
-class Matrimony(models.Model):
-    name = models.CharField(max_length=110)
-
-    def __str__(self):
-        return self.name
-
-
-class Blood_Group(models.Model):
-    name = models.CharField(max_length=255)
-
-
 class Board(models.Model):
     name = models.CharField(max_length=255)
 
@@ -156,35 +138,3 @@ class Board(models.Model):
         return self.name
 
 
-class Division(models.Model):
-    name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-
-    def __str__(self):
-        return self.name
-
-
-class District(models.Model):
-    name = models.CharField(max_length=255)
-    division = models.ForeignKey('Division', on_delete=models.CASCADE)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-
-    def __str__(self):
-        return self.name
-
-
-class Upazila(models.Model):
-    name = models.CharField(max_length=255)
-    district = models.ForeignKey('District', on_delete=models.CASCADE)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-
-    def __str__(self):
-        return self.name

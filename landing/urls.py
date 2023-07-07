@@ -1,6 +1,4 @@
 from django.urls import path, include
-
-from backend.login_decorators import protected_view
 from landing.views.webs.landing_web import *
 from adminpanel.views.webs.login_web import *
 from adminpanel.views.apis.logout import logout

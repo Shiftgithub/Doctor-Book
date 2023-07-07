@@ -10,8 +10,13 @@ def get_user_details(request):
         return render(request, 'admin/doctor/view.html', {'doctor_all_data': doctor_all_data})
 
     elif request.session.get('user_role') == ROLE_PATIENT:
-        user_details = get_patient_details(request.session.get('user_id'))
+        user_details = get_patient_details(request, request.session.get('user_id'))
+        patient_all_data = user_details.data
+        return render(request, 'patient/view.html', {'patient_all_data': patient_all_data})
         # render patient details templates ...
     else:
-        user_details = request.session.get('user_id')
+        user_details = get_patient_details(request.session.get('user_id'))
+        patient_all_data = user_details.data
+        return render(request, 'landing/patient/view.html', {'patient_all_data': patient_all_data})
+
         # render user details templates ...

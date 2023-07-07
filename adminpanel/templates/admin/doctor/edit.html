@@ -8,6 +8,11 @@
         <div class="card">
             <div class="card-header">
                 <h1 class="card-title">Data Details</h1>
+                <h1 class="card-title float-right">
+                    <a href="{% url 'view_doctor_data' doctor_all_data.id %}"
+                       class="nav-link btn btn-info float-right"
+                       type="submit">Back View</a>
+                </h1>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -280,85 +285,112 @@
                     <i class="fas fa-user-graduate"></i> Education
                 </legend>
                 <hr>
-                {% if doctor_all_data.education %}
-                {% for education_obj in doctor_all_data.education %}
-                <div class="row mb-3">
-                    <label class="col-md-2 col-form-label">Certificate/Degree : <span
-                            class="text-danger">*</span></label>
-                    <div class="col-md-4">
-                        <input class="form-control" type="text" value="{{ education_obj.certificate_degree }}"
-                               name="certificate_degree"/>
+                <div id="education-sections">
+                    <div class="education-section">
+                        {% if doctor_all_data.education %}
+                        {% for education_obj in doctor_all_data.education %}
+                        <div class="row mb-3">
+                            <div class="col-md-4 col-form-label"><label class="col-form-label section-index">Certificate
+                                Or Degree No </label></div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Certificate/Degree : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="text" value="{{ education_obj.certificate_degree }}"
+                                       name="certificate_degrees[]"/>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-danger remove-education-section float-right">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="boardID">Board Name : <span class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <select class="form-control select2" id="boardID" name="boards[]">
+                                    <option selected>Select Board Name</option>
+                                    {% for item in board_data %}
+                                    {% if item.name == education_obj.board %}
+                                    <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                                    {% else %}
+                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <label class="col-md-2 col-form-label">Institution : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="text" value="{{ education_obj.institution }}"
+                                       name="institutions[]"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Result : <span class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="number" value="{{ education_obj.result }}"
+                                       name="results[]"/>
+                            </div>
+                            <label class="col-md-2 col-form-label">Passing Year : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="date" value="{{ education_obj.passing_year }}"
+                                       name="passing_years[]"/>
+                            </div>
+                        </div>
+                        <hr>
+                        {% endfor %}
+                        {% else %}
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Certificate/Degree : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="text" name="certificate_degree"
+                                       placeholder="Not Provided"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Board Name : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <select class="form-control select2" name="board">
+                                    <option selected>Select Board Name</option>
+                                    {% for item in board_data %}
+                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <label class="col-md-2 col-form-label">Institution : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="text" name="institution"
+                                       placeholder="Not Provided"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Result : <span class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="number" name="result" placeholder="Not Provided"/>
+                            </div>
+                            <label class="col-md-2 col-form-label">Passing Year : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="date" name="passing_year" placeholder="Not Provided"/>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="boardID">Board Name : <span class="text-danger">*</span></label>
-                    <div class="col-md-4">
-                        <select class="form-control select2" id="boardID" name="board">
-                            <option selected>Select Board Name</option>
-                            {% for item in board_data %}
-                            {% if item.name == education_obj.board %}
-                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
-                            {% else %}
-                            <option value="{{ item.id }}">{{ item.name }}</option>
-                            {% endif %}
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <label class="col-md-2 col-form-label">Institution : <span class="text-danger">*</span></label>
-                    <div class="col-md-4">
-                        <input class="form-control" type="text" value="{{ education_obj.institution }}"
-                               name="institution"/>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" class="btn btn-primary add-education-section float-right">Add More
+                        </button>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-md-2 col-form-label">Result : <span class="text-danger">*</span></label>
-                    <div class="col-md-4">
-                        <input class="form-control" type="number" value="{{ education_obj.result }}" name="result"/>
-                    </div>
-                    <label class="col-md-2 col-form-label">Passing Year : <span class="text-danger">*</span></label>
-                    <div class="col-md-4">
-                        <input class="form-control" type="date" value="{{ education_obj.passing_year }}"
-                               name="passing_year"/>
-                    </div>
-                </div>
-                <hr>
-                {% endfor %}
-                {% else %}
-                <div class="row mb-3">
-                    <label class="col-md-2 col-form-label">Certificate/Degree : <span
-                            class="text-danger">*</span></label>
-                    <div class="col-md-4">
-                        <input class="form-control" type="text" name="certificate_degree"
-                               placeholder="Not Provided"/>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-2 col-form-label">Board Name : <span class="text-danger">*</span></label>
-                    <div class="col-md-4">
-                        <select class="form-control select2" name="board">
-                            <option selected>Select Board Name</option>
-                            {% for item in board_data %}
-                            <option value="{{ item.id }}">{{ item.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <label class="col-md-2 col-form-label">Institution : <span class="text-danger">*</span></label>
-                    <div class="col-md-4">
-                        <input class="form-control" type="text" name="institution"
-                               placeholder="Not Provided"/>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-2 col-form-label">Result : <span class="text-danger">*</span></label>
-                    <div class="col-md-4">
-                        <input class="form-control" type="number" name="result" placeholder="Not Provided"/>
-                    </div>
-                    <label class="col-md-2 col-form-label">Passing Year : <span class="text-danger">*</span></label>
-                    <div class="col-md-4">
-                        <input class="form-control" type="date" name="passing_year" placeholder="Not Provided"/>
-                    </div>
-                </div>
-                {% endif %}
+
                 <legend class="text-info"><i class="far fa-edit"></i> Personal Skills</legend>
                 <hr>
                 <div class="row mb-3">
@@ -643,6 +675,7 @@
 </div>
 {% endblock %}
 {% block scripts %}
+<script src="{% static 'adminlte_assets/js/education-callback.js' %}"></script>
 <script>
     function previewImage(event) {
     var input = event.target;
@@ -660,5 +693,16 @@
         imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 </script>
 {% endblock %}
