@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from adminpanel.views.webs.user_views import get_user_details
+from adminpanel.views.webs.user_web import get_user_details
 from adminpanel.views.webs.article_web import *
 from adminpanel.views.webs.bodypart_web import *
 from adminpanel.views.webs.dashboard_web import *
@@ -17,8 +17,6 @@ from backend.login_decorators import protected_view
 from landing.views.webs.patient_web import *
 
 urlpatterns = [
-    # user details path ...
-    path('user/details/', get_user_details, name="user_details"),
 
     # adminpanel path groups
     path('adminpanel/', include([
@@ -28,6 +26,8 @@ urlpatterns = [
         path('doctor/dashboard/', protected_view(doctor_dashboard), name="doctor_dashboard"),
         path('patient/dashboard/', protected_view(patient_dashboard), name="patient_dashboard"),
 
+        # user details path ...
+        path('user/details/', get_user_details, name="user_details"),
         # bodypart adminpanel path
 
         path('bodypart/', include([
@@ -161,8 +161,8 @@ urlpatterns = [
 
         # patient adminpanel path
         path('patient/', include([
-            path('update/<int:patient_id>/', protected_view(view_patient), name='edit_patient_form'),
-            path('view/<int:patient_id>/', protected_view(view_patient), name='view_patient_data'),
+            path('update/<int:patient_id>/', protected_view(edit_patient_form), name='edit_patient_form'),
+            path('edit/<int:patient_id>/', protected_view(edit_patient), name='edit_patient'),
 
         ])),
         # Ajax path

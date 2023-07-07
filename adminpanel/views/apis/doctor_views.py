@@ -199,12 +199,8 @@ def get_all_doctors_list(request):
 # Getting doctor's full details by doctor id ......................................................................
 @api_view(['GET'])
 def doctor_data(request, id):
-
-    doctor = Doctor_Profile.objects.filter(
-        Q(id=id, deleted_at=None)
-    ).select_related(
-        'gender', 'religion', 'blood_group', 'matrimony', 'department'
-    ).prefetch_related(
+    doctor = Doctor_Profile.objects.filter(id=id, deleted_at=None).select_related(
+        'gender', 'religion', 'blood_group', 'matrimony', 'department').prefetch_related(
         'user', 'images', 'awards', 'availability', 'education', 'services', 'social_media'
     ).first()
 

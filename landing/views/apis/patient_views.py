@@ -1,4 +1,6 @@
 import hashlib
+from datetime import datetime
+
 from django.db import transaction
 from django.core.mail import send_mail
 from rest_framework.response import Response
@@ -31,9 +33,9 @@ def store_patient_data(request):
                         'Doctor-Book From', message, 'settings.EMAIL_HOST_USER',
                         [email], fail_silently=False)
                     try:
-                        user_profile_instance = User_Profile.objects.get(pk=user_instance)
+                        user_profile_instance = User.objects.get(pk=user_instance)
                         patient_data['user'] = user_profile_instance
-                    except User_Profile.DoesNotExist:
+                    except User.DoesNotExist:
                         return Response({'status': 400})
                     patient_instance = patient_serializer.save(**patient_data)
                     if patient_instance:
@@ -45,33 +47,18 @@ def store_patient_data(request):
 
         else:
             return Response({'status': 405})
-    except User_Profile.DoesNotExist:
+    except User.DoesNotExist:
         return Response({'status': 400})
 
 
-@api_view(['GET'])
-def patient_data(request, patient_id):
-    try:
-        patient = Patient_Profile.objects.select_related('user').get(user__id=patient_id, deleted_at=None)
-        serializer = PatientSerializer(patient)
-        serialized_data = serializer.data
-
-        # Retrieve the associated user data
-        user_data = serialized_data['user']
-
-        if isinstance(user_data, int):
-            user_id = user_data
-            user = User_Profile.objects.get(id=user_id)
-            user_serializer = UserSerializer(user)
-            user_serialized_data = user_serializer.data
+@api_view(['PUT', 'POST'])
+def edit_patient_data(request, bodypart_id):
+    patient = Patient_Profile.objects.get(id=bodypart_id)
+    serializer = PatientSerializer(patient, data=request.data)
+    if serializer.is_valid():
+        if serializer.save(updated_at=datetime.now()):
+            return Response({'status': 200})
         else:
-            user_id = user_data['id']
-            user = User_Profile.objects.get(id=user_id)
-            user_serialized_data = user_data
-
-        # Merge the patient data and user data
-        merged_data = {**serialized_data, 'user': user_serialized_data}
-
-        return Response(merged_data)
-    except (Patient_Profile.DoesNotExist, User_Profile.DoesNotExist):
-        return Response({'status': 404})
+            return Response({'status': 403})
+    else:
+        return Response({'status': 403})

@@ -1,5 +1,5 @@
 from .department_models import *
-from .organ_problem_specification import *
+from .organ_problem_specification_models import *
 
 
 class DepartmentSpecification(models.Model):

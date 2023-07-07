@@ -1,3 +1,93 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jul 07, 2023 at 09:07 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `doctor_book`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_article`
+--
+
+CREATE TABLE `adminpanel_article` (
+  `id` bigint(20) NOT NULL,
+  `heading` varchar(1000) NOT NULL,
+  `tag` varchar(1000) NOT NULL,
+  `description` varchar(10000) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `created_by_id` bigint(20) DEFAULT NULL,
+  `modified_by_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_availability`
+--
+
+CREATE TABLE `adminpanel_availability` (
+  `id` bigint(20) NOT NULL,
+  `appointment_availability` datetime(6) DEFAULT NULL,
+  `accepting_new_patients` varchar(255) DEFAULT NULL,
+  `average_wait_time` bigint(20) DEFAULT NULL,
+  `consultation_fee` decimal(10,2) DEFAULT NULL,
+  `available_facilities` varchar(255) DEFAULT NULL,
+  `doctor_profile_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_awards`
+--
+
+CREATE TABLE `adminpanel_awards` (
+  `id` bigint(20) NOT NULL,
+  `awards_and_honors` varchar(255) DEFAULT NULL,
+  `publications` varchar(255) DEFAULT NULL,
+  `memberships` varchar(255) DEFAULT NULL,
+  `board_certification_number` varchar(255) DEFAULT NULL,
+  `research_interests` varchar(255) DEFAULT NULL,
+  `doctor_profile_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_blood_group`
+--
+
+CREATE TABLE `adminpanel_blood_group` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_blood_group`
+--
+
 INSERT INTO `adminpanel_blood_group` (`id`, `name`) VALUES
 (1, 'A+'),
 (2, 'A-'),
@@ -7,6 +97,69 @@ INSERT INTO `adminpanel_blood_group` (`id`, `name`) VALUES
 (6, 'O-'),
 (7, 'AB+'),
 (8, 'AB-');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_board`
+--
+
+CREATE TABLE `adminpanel_board` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_board`
+--
+
+INSERT INTO `adminpanel_board` (`id`, `name`) VALUES
+(1, 'Barisal Board'),
+(2, 'Chittagong Board'),
+(3, 'Comilla Board'),
+(4, 'Dhaka Board'),
+(5, 'Dinajpur Board'),
+(6, 'Jessore Board'),
+(7, 'Mymensingh Board'),
+(8, 'Rajshahi Board'),
+(9, 'Sylhet Board'),
+(10, 'Madrasah Education Board'),
+(11, 'Technical Education Board'),
+(12, 'National Curriculum and Textbook Board.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_bodypart`
+--
+
+CREATE TABLE `adminpanel_bodypart` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(1000) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_department`
+--
+
+CREATE TABLE `adminpanel_department` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(1000) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_department`
+--
 
 INSERT INTO `adminpanel_department` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Cardiology', 'Cardiology is the study of the heart. Cardiology is a branch of medicine that deals with disorders of the heart and the cardiovascular system. The field includes medical diagnosis and treatment of congenital heart defects, coronary artery disease, heart failure, valvular heart disease, and electrophysiology', '2023-06-27 15:31:23.024744', NULL, NULL),
@@ -27,16 +180,40 @@ INSERT INTO `adminpanel_department` (`id`, `name`, `description`, `created_at`, 
 (16, 'Unit of measurement', 'A unit of measurement is a definite magnitude of a quantity, defined and adopted by convention or by law, that is used as a standard for measurement of the same kind of quantity. Any other quantity of that kind can be expressed as a multiple of the unit of measurement. For example, a length is a physical quantity.', '2023-06-27 15:42:42.684938', NULL, NULL),
 (17, 'Information', 'Information is an abstract concept that refers to that which has the power to inform. At the most fundamental level, information pertains to the interpretation of that which may be sensed, or their abstractions', '2023-06-27 15:42:58.511780', NULL, NULL);
 
-INSERT INTO `adminpanel_division` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Rajshahi Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
-(2, 'Rangpur Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
-(3, 'Mymensingh Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
-(4, 'Barishal Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
-(5, 'Chattogram Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
-(6, 'Dhaka Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
-(7, 'Khulna Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
-(8, 'Sylhet Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL);
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `adminpanel_departmentspecification`
+--
+
+CREATE TABLE `adminpanel_departmentspecification` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(1000) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `department_id` bigint(20) DEFAULT NULL,
+  `organ_problem_specification_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_district`
+--
+
+CREATE TABLE `adminpanel_district` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `division_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_district`
+--
 
 INSERT INTO `adminpanel_district` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`, `division_id`) VALUES
 (1, 'Joypurhat District', '2020-11-11 12:25:10.000000', '2020-11-11 12:25:10.000000', NULL, 1),
@@ -103,6 +280,285 @@ INSERT INTO `adminpanel_district` (`id`, `name`, `created_at`, `updated_at`, `de
 (62, 'Moulvibazar District', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL, 8),
 (63, 'Sunamganj District', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL, 8),
 (64, 'Sylhet District', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL, 8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_division`
+--
+
+CREATE TABLE `adminpanel_division` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_division`
+--
+
+INSERT INTO `adminpanel_division` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Rajshahi Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
+(2, 'Rangpur Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
+(3, 'Mymensingh Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
+(4, 'Barishal Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
+(5, 'Chattogram Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
+(6, 'Dhaka Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
+(7, 'Khulna Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL),
+(8, 'Sylhet Division', '2020-11-11 12:25:13.000000', '2020-11-11 12:25:13.000000', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_doctor_profile`
+--
+
+CREATE TABLE `adminpanel_doctor_profile` (
+  `id` bigint(20) NOT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `father_name` varchar(255) NOT NULL,
+  `mother_name` varchar(255) NOT NULL,
+  `date_of_birth` date NOT NULL,
+  `nid_no` varchar(255) NOT NULL,
+  `phone_no` varchar(110) NOT NULL,
+  `experience` varchar(255) DEFAULT NULL,
+  `biography` varchar(255) DEFAULT NULL,
+  `languages_spoken` varchar(255) NOT NULL,
+  `passport_no` varchar(255) DEFAULT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `blood_group_id` bigint(20) NOT NULL,
+  `department_id` bigint(20) NOT NULL,
+  `gender_id` bigint(20) NOT NULL,
+  `matrimony_id` bigint(20) NOT NULL,
+  `religion_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_education`
+--
+
+CREATE TABLE `adminpanel_education` (
+  `id` bigint(20) NOT NULL,
+  `certificate_degree` varchar(255) NOT NULL,
+  `institution` varchar(255) NOT NULL,
+  `result` varchar(255) NOT NULL,
+  `passing_year` date NOT NULL,
+  `board_id` bigint(20) NOT NULL,
+  `doctor_profile_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_faq`
+--
+
+CREATE TABLE `adminpanel_faq` (
+  `id` bigint(20) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `answer` varchar(1000) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `created_by_id` bigint(20) DEFAULT NULL,
+  `modified_by_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_gender`
+--
+
+CREATE TABLE `adminpanel_gender` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_gender`
+--
+
+INSERT INTO `adminpanel_gender` (`id`, `name`) VALUES
+(1, 'Male'),
+(2, 'Female'),
+(3, 'Other');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_images`
+--
+
+CREATE TABLE `adminpanel_images` (
+  `id` bigint(20) NOT NULL,
+  `doctor_photos` varchar(100) DEFAULT NULL,
+  `doctor_profile_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_matrimony`
+--
+
+CREATE TABLE `adminpanel_matrimony` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(110) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_matrimony`
+--
+
+INSERT INTO `adminpanel_matrimony` (`id`, `name`) VALUES
+(1, 'Married'),
+(2, 'Unmarried'),
+(3, 'Separated, or Widowed'),
+(4, 'Divorced'),
+(5, 'Other');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_organ`
+--
+
+CREATE TABLE `adminpanel_organ` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(1000) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `body_part_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_organsproblemspecification`
+--
+
+CREATE TABLE `adminpanel_organsproblemspecification` (
+  `id` bigint(20) NOT NULL,
+  `problem` varchar(255) NOT NULL,
+  `problem_specification` varchar(1000) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `organ_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_permanentaddress`
+--
+
+CREATE TABLE `adminpanel_permanentaddress` (
+  `id` bigint(20) NOT NULL,
+  `permanent_village_state` varchar(255) NOT NULL,
+  `permanent_postal_code` int(11) NOT NULL,
+  `doctor_profile_id` bigint(20) DEFAULT NULL,
+  `permanent_district_id` bigint(20) NOT NULL,
+  `permanent_division_id` bigint(20) NOT NULL,
+  `permanent_upazila_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_presentaddress`
+--
+
+CREATE TABLE `adminpanel_presentaddress` (
+  `id` bigint(20) NOT NULL,
+  `present_village_state` varchar(255) NOT NULL,
+  `present_postal_code` int(11) NOT NULL,
+  `doctor_profile_id` bigint(20) DEFAULT NULL,
+  `present_district_id` bigint(20) NOT NULL,
+  `present_division_id` bigint(20) NOT NULL,
+  `present_upazila_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_religion`
+--
+
+CREATE TABLE `adminpanel_religion` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_religion`
+--
+
+INSERT INTO `adminpanel_religion` (`id`, `name`) VALUES
+(1, 'Islam'),
+(2, 'Hinduism'),
+(3, 'Christianity'),
+(4, 'Buddhism'),
+(5, 'Other');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_services`
+--
+
+CREATE TABLE `adminpanel_services` (
+  `id` bigint(20) NOT NULL,
+  `treatments` varchar(255) NOT NULL,
+  `procedures` varchar(255) NOT NULL,
+  `hours` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `doctor_profile_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_social_media`
+--
+
+CREATE TABLE `adminpanel_social_media` (
+  `id` bigint(20) NOT NULL,
+  `website` varchar(200) DEFAULT NULL,
+  `facebook` varchar(200) DEFAULT NULL,
+  `instagram` varchar(200) DEFAULT NULL,
+  `linkedin` varchar(200) DEFAULT NULL,
+  `doctor_profile_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminpanel_upazila`
+--
+
+CREATE TABLE `adminpanel_upazila` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `district_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `adminpanel_upazila`
+--
 
 INSERT INTO `adminpanel_upazila` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`, `district_id`) VALUES
 (1, 'Akkelpur Upazila', '2020-11-11 12:26:07.000000', '2020-11-11 12:26:07.000000', NULL, 1),
@@ -643,40 +1099,1033 @@ INSERT INTO `adminpanel_upazila` (`id`, `name`, `created_at`, `updated_at`, `del
 (535, 'Sylhet Sadar Upazila', '2020-11-11 12:26:26.000000', '2020-11-11 12:26:26.000000', NULL, 64),
 (536, 'Zakiganj Upazila', '2020-11-11 12:26:26.000000', '2020-11-11 12:26:26.000000', NULL, 64);
 
-INSERT INTO `adminpanel_gender` (`id`, `name`) VALUES
-(1, 'Male'),
-(2, 'Female'),
-(3, 'Other');
+-- --------------------------------------------------------
 
-INSERT INTO `adminpanel_matrimony` (`id`, `name`) VALUES
-(1, 'Married'),
-(2, 'Unmarried'),
-(3, 'Separated, or Widowed'),
-(4, 'Divorced'),
-(5, 'Other');
+--
+-- Table structure for table `adminpanel_user`
+--
 
+CREATE TABLE `adminpanel_user` (
+  `id` bigint(20) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `hash` varchar(64) DEFAULT NULL,
+  `role` varchar(20) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `adminpanel_religion` (`id`, `name`) VALUES
-(1, 'Islam'),
-(2, 'Hinduism'),
-(3, 'Christianity'),
-(4, 'Buddhism'),
-(5, 'Other');
+--
+-- Dumping data for table `adminpanel_user`
+--
 
-INSERT INTO `adminpanel_board` (`id`, `name`) VALUES
-(1, 'Barisal Board'),
-(2, 'Chittagong Board'),
-(3, 'Comilla Board'),
-(4, 'Dhaka Board'),
-(5, 'Dinajpur Board'),
-(6, 'Jessore Board'),
-(7, 'Mymensingh Board'),
-(8, 'Rajshahi Board'),
-(9, 'Sylhet Board'),
-(10, 'Madrasah Education Board'),
-(11, 'Technical Education Board'),
-(12, 'National Curriculum and Textbook Board.');
+INSERT INTO `adminpanel_user` (`id`, `user_name`, `email`, `password`, `hash`, `role`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'admin', 'admin@admin.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'admin', 'active', '2023-07-02 23:27:25.000000', NULL, NULL);
 
+-- --------------------------------------------------------
 
-INSERT INTO `adminpanel_user`( `id`, `user_name`, `email`, `password`, `hash`, `role`, `status`, `created_at`, `updated_at`, `deleted_at` ) VALUES
-(1, 'admin', 'admin@admin.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'admin', 'active', '2023-07-02 23:27:25', NULL, NULL );
+--
+-- Table structure for table `auth_group`
+--
+
+CREATE TABLE `auth_group` (
+  `id` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_group_permissions`
+--
+
+CREATE TABLE `auth_group_permissions` (
+  `id` bigint(20) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_permission`
+--
+
+CREATE TABLE `auth_permission` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `codename` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `auth_permission`
+--
+
+INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALUES
+(1, 'Can add log entry', 1, 'add_logentry'),
+(2, 'Can change log entry', 1, 'change_logentry'),
+(3, 'Can delete log entry', 1, 'delete_logentry'),
+(4, 'Can view log entry', 1, 'view_logentry'),
+(5, 'Can add permission', 2, 'add_permission'),
+(6, 'Can change permission', 2, 'change_permission'),
+(7, 'Can delete permission', 2, 'delete_permission'),
+(8, 'Can view permission', 2, 'view_permission'),
+(9, 'Can add group', 3, 'add_group'),
+(10, 'Can change group', 3, 'change_group'),
+(11, 'Can delete group', 3, 'delete_group'),
+(12, 'Can view group', 3, 'view_group'),
+(13, 'Can add user', 4, 'add_user'),
+(14, 'Can change user', 4, 'change_user'),
+(15, 'Can delete user', 4, 'delete_user'),
+(16, 'Can view user', 4, 'view_user'),
+(17, 'Can add content type', 5, 'add_contenttype'),
+(18, 'Can change content type', 5, 'change_contenttype'),
+(19, 'Can delete content type', 5, 'delete_contenttype'),
+(20, 'Can view content type', 5, 'view_contenttype'),
+(21, 'Can add session', 6, 'add_session'),
+(22, 'Can change session', 6, 'change_session'),
+(23, 'Can delete session', 6, 'delete_session'),
+(24, 'Can view session', 6, 'view_session'),
+(25, 'Can add blood_ group', 7, 'add_blood_group'),
+(26, 'Can change blood_ group', 7, 'change_blood_group'),
+(27, 'Can delete blood_ group', 7, 'delete_blood_group'),
+(28, 'Can view blood_ group', 7, 'view_blood_group'),
+(29, 'Can add board', 8, 'add_board'),
+(30, 'Can change board', 8, 'change_board'),
+(31, 'Can delete board', 8, 'delete_board'),
+(32, 'Can view board', 8, 'view_board'),
+(33, 'Can add body part', 9, 'add_bodypart'),
+(34, 'Can change body part', 9, 'change_bodypart'),
+(35, 'Can delete body part', 9, 'delete_bodypart'),
+(36, 'Can view body part', 9, 'view_bodypart'),
+(37, 'Can add department', 10, 'add_department'),
+(38, 'Can change department', 10, 'change_department'),
+(39, 'Can delete department', 10, 'delete_department'),
+(40, 'Can view department', 10, 'view_department'),
+(41, 'Can add district', 11, 'add_district'),
+(42, 'Can change district', 11, 'change_district'),
+(43, 'Can delete district', 11, 'delete_district'),
+(44, 'Can view district', 11, 'view_district'),
+(45, 'Can add division', 12, 'add_division'),
+(46, 'Can change division', 12, 'change_division'),
+(47, 'Can delete division', 12, 'delete_division'),
+(48, 'Can view division', 12, 'view_division'),
+(49, 'Can add doctor_ profile', 13, 'add_doctor_profile'),
+(50, 'Can change doctor_ profile', 13, 'change_doctor_profile'),
+(51, 'Can delete doctor_ profile', 13, 'delete_doctor_profile'),
+(52, 'Can view doctor_ profile', 13, 'view_doctor_profile'),
+(53, 'Can add gender', 14, 'add_gender'),
+(54, 'Can change gender', 14, 'change_gender'),
+(55, 'Can delete gender', 14, 'delete_gender'),
+(56, 'Can view gender', 14, 'view_gender'),
+(57, 'Can add matrimony', 15, 'add_matrimony'),
+(58, 'Can change matrimony', 15, 'change_matrimony'),
+(59, 'Can delete matrimony', 15, 'delete_matrimony'),
+(60, 'Can view matrimony', 15, 'view_matrimony'),
+(61, 'Can add organ', 16, 'add_organ'),
+(62, 'Can change organ', 16, 'change_organ'),
+(63, 'Can delete organ', 16, 'delete_organ'),
+(64, 'Can view organ', 16, 'view_organ'),
+(65, 'Can add religion', 17, 'add_religion'),
+(66, 'Can change religion', 17, 'change_religion'),
+(67, 'Can delete religion', 17, 'delete_religion'),
+(68, 'Can view religion', 17, 'view_religion'),
+(69, 'Can add user', 18, 'add_user'),
+(70, 'Can change user', 18, 'change_user'),
+(71, 'Can delete user', 18, 'delete_user'),
+(72, 'Can view user', 18, 'view_user'),
+(73, 'Can add upazila', 19, 'add_upazila'),
+(74, 'Can change upazila', 19, 'change_upazila'),
+(75, 'Can delete upazila', 19, 'delete_upazila'),
+(76, 'Can view upazila', 19, 'view_upazila'),
+(77, 'Can add social_ media', 20, 'add_social_media'),
+(78, 'Can change social_ media', 20, 'change_social_media'),
+(79, 'Can delete social_ media', 20, 'delete_social_media'),
+(80, 'Can view social_ media', 20, 'view_social_media'),
+(81, 'Can add services', 21, 'add_services'),
+(82, 'Can change services', 21, 'change_services'),
+(83, 'Can delete services', 21, 'delete_services'),
+(84, 'Can view services', 21, 'view_services'),
+(85, 'Can add present address', 22, 'add_presentaddress'),
+(86, 'Can change present address', 22, 'change_presentaddress'),
+(87, 'Can delete present address', 22, 'delete_presentaddress'),
+(88, 'Can view present address', 22, 'view_presentaddress'),
+(89, 'Can add permanent address', 23, 'add_permanentaddress'),
+(90, 'Can change permanent address', 23, 'change_permanentaddress'),
+(91, 'Can delete permanent address', 23, 'delete_permanentaddress'),
+(92, 'Can view permanent address', 23, 'view_permanentaddress'),
+(93, 'Can add organs problem specification', 24, 'add_organsproblemspecification'),
+(94, 'Can change organs problem specification', 24, 'change_organsproblemspecification'),
+(95, 'Can delete organs problem specification', 24, 'delete_organsproblemspecification'),
+(96, 'Can view organs problem specification', 24, 'view_organsproblemspecification'),
+(97, 'Can add images', 25, 'add_images'),
+(98, 'Can change images', 25, 'change_images'),
+(99, 'Can delete images', 25, 'delete_images'),
+(100, 'Can view images', 25, 'view_images'),
+(101, 'Can add faq', 26, 'add_faq'),
+(102, 'Can change faq', 26, 'change_faq'),
+(103, 'Can delete faq', 26, 'delete_faq'),
+(104, 'Can view faq', 26, 'view_faq'),
+(105, 'Can add education', 27, 'add_education'),
+(106, 'Can change education', 27, 'change_education'),
+(107, 'Can delete education', 27, 'delete_education'),
+(108, 'Can view education', 27, 'view_education'),
+(109, 'Can add department specification', 28, 'add_departmentspecification'),
+(110, 'Can change department specification', 28, 'change_departmentspecification'),
+(111, 'Can delete department specification', 28, 'delete_departmentspecification'),
+(112, 'Can view department specification', 28, 'view_departmentspecification'),
+(113, 'Can add awards', 29, 'add_awards'),
+(114, 'Can change awards', 29, 'change_awards'),
+(115, 'Can delete awards', 29, 'delete_awards'),
+(116, 'Can view awards', 29, 'view_awards'),
+(117, 'Can add availability', 30, 'add_availability'),
+(118, 'Can change availability', 30, 'change_availability'),
+(119, 'Can delete availability', 30, 'delete_availability'),
+(120, 'Can view availability', 30, 'view_availability'),
+(121, 'Can add article', 31, 'add_article'),
+(122, 'Can change article', 31, 'change_article'),
+(123, 'Can delete article', 31, 'delete_article'),
+(124, 'Can view article', 31, 'view_article'),
+(125, 'Can add patient_ profile', 32, 'add_patient_profile'),
+(126, 'Can change patient_ profile', 32, 'change_patient_profile'),
+(127, 'Can delete patient_ profile', 32, 'delete_patient_profile'),
+(128, 'Can view patient_ profile', 32, 'view_patient_profile');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_user`
+--
+
+CREATE TABLE `auth_user` (
+  `id` int(11) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `last_login` datetime(6) DEFAULT NULL,
+  `is_superuser` tinyint(1) NOT NULL,
+  `username` varchar(150) NOT NULL,
+  `first_name` varchar(150) NOT NULL,
+  `last_name` varchar(150) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `is_staff` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `date_joined` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_user_groups`
+--
+
+CREATE TABLE `auth_user_groups` (
+  `id` bigint(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_user_user_permissions`
+--
+
+CREATE TABLE `auth_user_user_permissions` (
+  `id` bigint(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_admin_log`
+--
+
+CREATE TABLE `django_admin_log` (
+  `id` int(11) NOT NULL,
+  `action_time` datetime(6) NOT NULL,
+  `object_id` longtext DEFAULT NULL,
+  `object_repr` varchar(200) NOT NULL,
+  `action_flag` smallint(5) UNSIGNED NOT NULL CHECK (`action_flag` >= 0),
+  `change_message` longtext NOT NULL,
+  `content_type_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_content_type`
+--
+
+CREATE TABLE `django_content_type` (
+  `id` int(11) NOT NULL,
+  `app_label` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `django_content_type`
+--
+
+INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
+(1, 'admin', 'logentry'),
+(31, 'adminpanel', 'article'),
+(30, 'adminpanel', 'availability'),
+(29, 'adminpanel', 'awards'),
+(7, 'adminpanel', 'blood_group'),
+(8, 'adminpanel', 'board'),
+(9, 'adminpanel', 'bodypart'),
+(10, 'adminpanel', 'department'),
+(28, 'adminpanel', 'departmentspecification'),
+(11, 'adminpanel', 'district'),
+(12, 'adminpanel', 'division'),
+(13, 'adminpanel', 'doctor_profile'),
+(27, 'adminpanel', 'education'),
+(26, 'adminpanel', 'faq'),
+(14, 'adminpanel', 'gender'),
+(25, 'adminpanel', 'images'),
+(15, 'adminpanel', 'matrimony'),
+(16, 'adminpanel', 'organ'),
+(24, 'adminpanel', 'organsproblemspecification'),
+(23, 'adminpanel', 'permanentaddress'),
+(22, 'adminpanel', 'presentaddress'),
+(17, 'adminpanel', 'religion'),
+(21, 'adminpanel', 'services'),
+(20, 'adminpanel', 'social_media'),
+(19, 'adminpanel', 'upazila'),
+(18, 'adminpanel', 'user'),
+(3, 'auth', 'group'),
+(2, 'auth', 'permission'),
+(4, 'auth', 'user'),
+(5, 'contenttypes', 'contenttype'),
+(32, 'landing', 'patient_profile'),
+(6, 'sessions', 'session');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_migrations`
+--
+
+CREATE TABLE `django_migrations` (
+  `id` bigint(20) NOT NULL,
+  `app` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `applied` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `django_migrations`
+--
+
+INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
+(1, 'contenttypes', '0001_initial', '2023-07-07 07:06:54.455095'),
+(2, 'auth', '0001_initial', '2023-07-07 07:06:56.673529'),
+(3, 'admin', '0001_initial', '2023-07-07 07:06:56.999113'),
+(4, 'admin', '0002_logentry_remove_auto_add', '2023-07-07 07:06:57.014630'),
+(5, 'admin', '0003_logentry_add_action_flag_choices', '2023-07-07 07:06:57.031677'),
+(6, 'adminpanel', '0001_initial', '2023-07-07 07:07:03.848305'),
+(7, 'contenttypes', '0002_remove_content_type_name', '2023-07-07 07:07:04.043403'),
+(8, 'auth', '0002_alter_permission_name_max_length', '2023-07-07 07:07:04.184686'),
+(9, 'auth', '0003_alter_user_email_max_length', '2023-07-07 07:07:04.222512'),
+(10, 'auth', '0004_alter_user_username_opts', '2023-07-07 07:07:04.245199'),
+(11, 'auth', '0005_alter_user_last_login_null', '2023-07-07 07:07:04.439950'),
+(12, 'auth', '0006_require_contenttypes_0002', '2023-07-07 07:07:04.462665'),
+(13, 'auth', '0007_alter_validators_add_error_messages', '2023-07-07 07:07:04.490137'),
+(14, 'auth', '0008_alter_user_username_max_length', '2023-07-07 07:07:04.593221'),
+(15, 'auth', '0009_alter_user_last_name_max_length', '2023-07-07 07:07:04.622782'),
+(16, 'auth', '0010_alter_group_name_max_length', '2023-07-07 07:07:04.682854'),
+(17, 'auth', '0011_update_proxy_permissions', '2023-07-07 07:07:04.730583'),
+(18, 'auth', '0012_alter_user_first_name_max_length', '2023-07-07 07:07:04.770256'),
+(19, 'landing', '0001_initial', '2023-07-07 07:07:05.781112'),
+(20, 'sessions', '0001_initial', '2023-07-07 07:07:05.874986');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_session`
+--
+
+CREATE TABLE `django_session` (
+  `session_key` varchar(40) NOT NULL,
+  `session_data` longtext NOT NULL,
+  `expire_date` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `landing_patient_profile`
+--
+
+CREATE TABLE `landing_patient_profile` (
+  `id` bigint(20) NOT NULL,
+  `full_name` varchar(255) DEFAULT NULL,
+  `father_name` varchar(255) DEFAULT NULL,
+  `mother_name` varchar(255) DEFAULT NULL,
+  `phone_no` varchar(110) DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `nid_no` varchar(20) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `blood_group_id` bigint(20) DEFAULT NULL,
+  `gender_id` bigint(20) DEFAULT NULL,
+  `matrimony_id` bigint(20) DEFAULT NULL,
+  `religion_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `adminpanel_article`
+--
+ALTER TABLE `adminpanel_article`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_article_created_by_id_a17110c1_fk_adminpanel_user_id` (`created_by_id`),
+  ADD KEY `adminpanel_article_modified_by_id_1caf1b55_fk_adminpanel_user_id` (`modified_by_id`);
+
+--
+-- Indexes for table `adminpanel_availability`
+--
+ALTER TABLE `adminpanel_availability`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_availabil_doctor_profile_id_2164014c_fk_adminpane` (`doctor_profile_id`);
+
+--
+-- Indexes for table `adminpanel_awards`
+--
+ALTER TABLE `adminpanel_awards`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_awards_doctor_profile_id_8a212cb1_fk_adminpane` (`doctor_profile_id`);
+
+--
+-- Indexes for table `adminpanel_blood_group`
+--
+ALTER TABLE `adminpanel_blood_group`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `adminpanel_board`
+--
+ALTER TABLE `adminpanel_board`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `adminpanel_bodypart`
+--
+ALTER TABLE `adminpanel_bodypart`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `adminpanel_department`
+--
+ALTER TABLE `adminpanel_department`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `adminpanel_departmentspecification`
+--
+ALTER TABLE `adminpanel_departmentspecification`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_departmen_department_id_36a3130d_fk_adminpane` (`department_id`),
+  ADD KEY `adminpanel_departmen_organ_problem_specif_cc6990f1_fk_adminpane` (`organ_problem_specification_id`);
+
+--
+-- Indexes for table `adminpanel_district`
+--
+ALTER TABLE `adminpanel_district`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_district_division_id_cead86ca_fk_adminpane` (`division_id`);
+
+--
+-- Indexes for table `adminpanel_division`
+--
+ALTER TABLE `adminpanel_division`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `adminpanel_doctor_profile`
+--
+ALTER TABLE `adminpanel_doctor_profile`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_doctor_pr_gender_id_336c5df2_fk_adminpane` (`gender_id`),
+  ADD KEY `adminpanel_doctor_pr_matrimony_id_f8614aef_fk_adminpane` (`matrimony_id`),
+  ADD KEY `adminpanel_doctor_pr_religion_id_04558daa_fk_adminpane` (`religion_id`),
+  ADD KEY `adminpanel_doctor_profile_user_id_ab620e9f_fk_adminpanel_user_id` (`user_id`),
+  ADD KEY `adminpanel_doctor_pr_blood_group_id_b7d86c86_fk_adminpane` (`blood_group_id`),
+  ADD KEY `adminpanel_doctor_pr_department_id_73f6d080_fk_adminpane` (`department_id`);
+
+--
+-- Indexes for table `adminpanel_education`
+--
+ALTER TABLE `adminpanel_education`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_education_board_id_85e5cbb8_fk_adminpanel_board_id` (`board_id`),
+  ADD KEY `adminpanel_education_doctor_profile_id_dfe3a9a8_fk_adminpane` (`doctor_profile_id`);
+
+--
+-- Indexes for table `adminpanel_faq`
+--
+ALTER TABLE `adminpanel_faq`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_faq_created_by_id_7f3c9366_fk_adminpanel_user_id` (`created_by_id`),
+  ADD KEY `adminpanel_faq_modified_by_id_b3d0f2ab_fk_adminpanel_user_id` (`modified_by_id`);
+
+--
+-- Indexes for table `adminpanel_gender`
+--
+ALTER TABLE `adminpanel_gender`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `adminpanel_images`
+--
+ALTER TABLE `adminpanel_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_images_doctor_profile_id_c588c3f1_fk_adminpane` (`doctor_profile_id`);
+
+--
+-- Indexes for table `adminpanel_matrimony`
+--
+ALTER TABLE `adminpanel_matrimony`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `adminpanel_organ`
+--
+ALTER TABLE `adminpanel_organ`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_organ_body_part_id_0c3e2b95_fk_adminpanel_bodypart_id` (`body_part_id`);
+
+--
+-- Indexes for table `adminpanel_organsproblemspecification`
+--
+ALTER TABLE `adminpanel_organsproblemspecification`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_organspro_organ_id_0b63d7fb_fk_adminpane` (`organ_id`);
+
+--
+-- Indexes for table `adminpanel_permanentaddress`
+--
+ALTER TABLE `adminpanel_permanentaddress`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_permanent_doctor_profile_id_75229c0e_fk_adminpane` (`doctor_profile_id`),
+  ADD KEY `adminpanel_permanent_permanent_district_i_2985c0ac_fk_adminpane` (`permanent_district_id`),
+  ADD KEY `adminpanel_permanent_permanent_division_i_5f98fbbd_fk_adminpane` (`permanent_division_id`),
+  ADD KEY `adminpanel_permanent_permanent_upazila_id_0e3e5141_fk_adminpane` (`permanent_upazila_id`);
+
+--
+-- Indexes for table `adminpanel_presentaddress`
+--
+ALTER TABLE `adminpanel_presentaddress`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_presentad_doctor_profile_id_009d9956_fk_adminpane` (`doctor_profile_id`),
+  ADD KEY `adminpanel_presentad_present_district_id_db798df3_fk_adminpane` (`present_district_id`),
+  ADD KEY `adminpanel_presentad_present_division_id_5cf3f6dc_fk_adminpane` (`present_division_id`),
+  ADD KEY `adminpanel_presentad_present_upazila_id_e1608841_fk_adminpane` (`present_upazila_id`);
+
+--
+-- Indexes for table `adminpanel_religion`
+--
+ALTER TABLE `adminpanel_religion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `adminpanel_services`
+--
+ALTER TABLE `adminpanel_services`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_services_doctor_profile_id_2b3017c7_fk_adminpane` (`doctor_profile_id`);
+
+--
+-- Indexes for table `adminpanel_social_media`
+--
+ALTER TABLE `adminpanel_social_media`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_social_me_doctor_profile_id_c8311008_fk_adminpane` (`doctor_profile_id`);
+
+--
+-- Indexes for table `adminpanel_upazila`
+--
+ALTER TABLE `adminpanel_upazila`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminpanel_upazila_district_id_117c100b_fk_adminpane` (`district_id`);
+
+--
+-- Indexes for table `adminpanel_user`
+--
+ALTER TABLE `adminpanel_user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `auth_group`
+--
+ALTER TABLE `auth_group`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `auth_group_permissions`
+--
+ALTER TABLE `auth_group_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_group_permissions_group_id_permission_id_0cd325b0_uniq` (`group_id`,`permission_id`),
+  ADD KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`);
+
+--
+-- Indexes for table `auth_permission`
+--
+ALTER TABLE `auth_permission`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`);
+
+--
+-- Indexes for table `auth_user`
+--
+ALTER TABLE `auth_user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
+-- Indexes for table `auth_user_groups`
+--
+ALTER TABLE `auth_user_groups`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_user_groups_user_id_group_id_94350c0c_uniq` (`user_id`,`group_id`),
+  ADD KEY `auth_user_groups_group_id_97559544_fk_auth_group_id` (`group_id`);
+
+--
+-- Indexes for table `auth_user_user_permissions`
+--
+ALTER TABLE `auth_user_user_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_user_user_permissions_user_id_permission_id_14a6b632_uniq` (`user_id`,`permission_id`),
+  ADD KEY `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` (`permission_id`);
+
+--
+-- Indexes for table `django_admin_log`
+--
+ALTER TABLE `django_admin_log`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),
+  ADD KEY `django_admin_log_user_id_c564eba6_fk_auth_user_id` (`user_id`);
+
+--
+-- Indexes for table `django_content_type`
+--
+ALTER TABLE `django_content_type`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`);
+
+--
+-- Indexes for table `django_migrations`
+--
+ALTER TABLE `django_migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `django_session`
+--
+ALTER TABLE `django_session`
+  ADD PRIMARY KEY (`session_key`),
+  ADD KEY `django_session_expire_date_a5c62663` (`expire_date`);
+
+--
+-- Indexes for table `landing_patient_profile`
+--
+ALTER TABLE `landing_patient_profile`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `landing_patient_prof_blood_group_id_39ad4652_fk_adminpane` (`blood_group_id`),
+  ADD KEY `landing_patient_prof_gender_id_ea271215_fk_adminpane` (`gender_id`),
+  ADD KEY `landing_patient_prof_matrimony_id_4dfc7197_fk_adminpane` (`matrimony_id`),
+  ADD KEY `landing_patient_prof_religion_id_26d8885c_fk_adminpane` (`religion_id`),
+  ADD KEY `landing_patient_profile_user_id_b0ef12bd_fk_adminpanel_user_id` (`user_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `adminpanel_article`
+--
+ALTER TABLE `adminpanel_article`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_availability`
+--
+ALTER TABLE `adminpanel_availability`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_awards`
+--
+ALTER TABLE `adminpanel_awards`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_blood_group`
+--
+ALTER TABLE `adminpanel_blood_group`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_board`
+--
+ALTER TABLE `adminpanel_board`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_bodypart`
+--
+ALTER TABLE `adminpanel_bodypart`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_department`
+--
+ALTER TABLE `adminpanel_department`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_departmentspecification`
+--
+ALTER TABLE `adminpanel_departmentspecification`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_district`
+--
+ALTER TABLE `adminpanel_district`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_division`
+--
+ALTER TABLE `adminpanel_division`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_doctor_profile`
+--
+ALTER TABLE `adminpanel_doctor_profile`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_education`
+--
+ALTER TABLE `adminpanel_education`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_faq`
+--
+ALTER TABLE `adminpanel_faq`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_gender`
+--
+ALTER TABLE `adminpanel_gender`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_images`
+--
+ALTER TABLE `adminpanel_images`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_matrimony`
+--
+ALTER TABLE `adminpanel_matrimony`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_organ`
+--
+ALTER TABLE `adminpanel_organ`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_organsproblemspecification`
+--
+ALTER TABLE `adminpanel_organsproblemspecification`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_permanentaddress`
+--
+ALTER TABLE `adminpanel_permanentaddress`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_presentaddress`
+--
+ALTER TABLE `adminpanel_presentaddress`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_religion`
+--
+ALTER TABLE `adminpanel_religion`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_services`
+--
+ALTER TABLE `adminpanel_services`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_social_media`
+--
+ALTER TABLE `adminpanel_social_media`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_upazila`
+--
+ALTER TABLE `adminpanel_upazila`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=537;
+
+--
+-- AUTO_INCREMENT for table `adminpanel_user`
+--
+ALTER TABLE `adminpanel_user`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `auth_group`
+--
+ALTER TABLE `auth_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `auth_group_permissions`
+--
+ALTER TABLE `auth_group_permissions`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `auth_permission`
+--
+ALTER TABLE `auth_permission`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+
+--
+-- AUTO_INCREMENT for table `auth_user`
+--
+ALTER TABLE `auth_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `auth_user_groups`
+--
+ALTER TABLE `auth_user_groups`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `auth_user_user_permissions`
+--
+ALTER TABLE `auth_user_user_permissions`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `django_admin_log`
+--
+ALTER TABLE `django_admin_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `django_content_type`
+--
+ALTER TABLE `django_content_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `django_migrations`
+--
+ALTER TABLE `django_migrations`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `landing_patient_profile`
+--
+ALTER TABLE `landing_patient_profile`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `adminpanel_article`
+--
+ALTER TABLE `adminpanel_article`
+  ADD CONSTRAINT `adminpanel_article_created_by_id_a17110c1_fk_adminpanel_user_id` FOREIGN KEY (`created_by_id`) REFERENCES `adminpanel_user` (`id`),
+  ADD CONSTRAINT `adminpanel_article_modified_by_id_1caf1b55_fk_adminpanel_user_id` FOREIGN KEY (`modified_by_id`) REFERENCES `adminpanel_user` (`id`);
+
+--
+-- Constraints for table `adminpanel_availability`
+--
+ALTER TABLE `adminpanel_availability`
+  ADD CONSTRAINT `adminpanel_availabil_doctor_profile_id_2164014c_fk_adminpane` FOREIGN KEY (`doctor_profile_id`) REFERENCES `adminpanel_doctor_profile` (`id`);
+
+--
+-- Constraints for table `adminpanel_awards`
+--
+ALTER TABLE `adminpanel_awards`
+  ADD CONSTRAINT `adminpanel_awards_doctor_profile_id_8a212cb1_fk_adminpane` FOREIGN KEY (`doctor_profile_id`) REFERENCES `adminpanel_doctor_profile` (`id`);
+
+--
+-- Constraints for table `adminpanel_departmentspecification`
+--
+ALTER TABLE `adminpanel_departmentspecification`
+  ADD CONSTRAINT `adminpanel_departmen_department_id_36a3130d_fk_adminpane` FOREIGN KEY (`department_id`) REFERENCES `adminpanel_department` (`id`),
+  ADD CONSTRAINT `adminpanel_departmen_organ_problem_specif_cc6990f1_fk_adminpane` FOREIGN KEY (`organ_problem_specification_id`) REFERENCES `adminpanel_organsproblemspecification` (`id`);
+
+--
+-- Constraints for table `adminpanel_district`
+--
+ALTER TABLE `adminpanel_district`
+  ADD CONSTRAINT `adminpanel_district_division_id_cead86ca_fk_adminpane` FOREIGN KEY (`division_id`) REFERENCES `adminpanel_division` (`id`);
+
+--
+-- Constraints for table `adminpanel_doctor_profile`
+--
+ALTER TABLE `adminpanel_doctor_profile`
+  ADD CONSTRAINT `adminpanel_doctor_pr_blood_group_id_b7d86c86_fk_adminpane` FOREIGN KEY (`blood_group_id`) REFERENCES `adminpanel_blood_group` (`id`),
+  ADD CONSTRAINT `adminpanel_doctor_pr_department_id_73f6d080_fk_adminpane` FOREIGN KEY (`department_id`) REFERENCES `adminpanel_department` (`id`),
+  ADD CONSTRAINT `adminpanel_doctor_pr_gender_id_336c5df2_fk_adminpane` FOREIGN KEY (`gender_id`) REFERENCES `adminpanel_gender` (`id`),
+  ADD CONSTRAINT `adminpanel_doctor_pr_matrimony_id_f8614aef_fk_adminpane` FOREIGN KEY (`matrimony_id`) REFERENCES `adminpanel_matrimony` (`id`),
+  ADD CONSTRAINT `adminpanel_doctor_pr_religion_id_04558daa_fk_adminpane` FOREIGN KEY (`religion_id`) REFERENCES `adminpanel_religion` (`id`),
+  ADD CONSTRAINT `adminpanel_doctor_profile_user_id_ab620e9f_fk_adminpanel_user_id` FOREIGN KEY (`user_id`) REFERENCES `adminpanel_user` (`id`);
+
+--
+-- Constraints for table `adminpanel_education`
+--
+ALTER TABLE `adminpanel_education`
+  ADD CONSTRAINT `adminpanel_education_board_id_85e5cbb8_fk_adminpanel_board_id` FOREIGN KEY (`board_id`) REFERENCES `adminpanel_board` (`id`),
+  ADD CONSTRAINT `adminpanel_education_doctor_profile_id_dfe3a9a8_fk_adminpane` FOREIGN KEY (`doctor_profile_id`) REFERENCES `adminpanel_doctor_profile` (`id`);
+
+--
+-- Constraints for table `adminpanel_faq`
+--
+ALTER TABLE `adminpanel_faq`
+  ADD CONSTRAINT `adminpanel_faq_created_by_id_7f3c9366_fk_adminpanel_user_id` FOREIGN KEY (`created_by_id`) REFERENCES `adminpanel_user` (`id`),
+  ADD CONSTRAINT `adminpanel_faq_modified_by_id_b3d0f2ab_fk_adminpanel_user_id` FOREIGN KEY (`modified_by_id`) REFERENCES `adminpanel_user` (`id`);
+
+--
+-- Constraints for table `adminpanel_images`
+--
+ALTER TABLE `adminpanel_images`
+  ADD CONSTRAINT `adminpanel_images_doctor_profile_id_c588c3f1_fk_adminpane` FOREIGN KEY (`doctor_profile_id`) REFERENCES `adminpanel_doctor_profile` (`id`);
+
+--
+-- Constraints for table `adminpanel_organ`
+--
+ALTER TABLE `adminpanel_organ`
+  ADD CONSTRAINT `adminpanel_organ_body_part_id_0c3e2b95_fk_adminpanel_bodypart_id` FOREIGN KEY (`body_part_id`) REFERENCES `adminpanel_bodypart` (`id`);
+
+--
+-- Constraints for table `adminpanel_organsproblemspecification`
+--
+ALTER TABLE `adminpanel_organsproblemspecification`
+  ADD CONSTRAINT `adminpanel_organspro_organ_id_0b63d7fb_fk_adminpane` FOREIGN KEY (`organ_id`) REFERENCES `adminpanel_organ` (`id`);
+
+--
+-- Constraints for table `adminpanel_permanentaddress`
+--
+ALTER TABLE `adminpanel_permanentaddress`
+  ADD CONSTRAINT `adminpanel_permanent_doctor_profile_id_75229c0e_fk_adminpane` FOREIGN KEY (`doctor_profile_id`) REFERENCES `adminpanel_doctor_profile` (`id`),
+  ADD CONSTRAINT `adminpanel_permanent_permanent_district_i_2985c0ac_fk_adminpane` FOREIGN KEY (`permanent_district_id`) REFERENCES `adminpanel_district` (`id`),
+  ADD CONSTRAINT `adminpanel_permanent_permanent_division_i_5f98fbbd_fk_adminpane` FOREIGN KEY (`permanent_division_id`) REFERENCES `adminpanel_division` (`id`),
+  ADD CONSTRAINT `adminpanel_permanent_permanent_upazila_id_0e3e5141_fk_adminpane` FOREIGN KEY (`permanent_upazila_id`) REFERENCES `adminpanel_upazila` (`id`);
+
+--
+-- Constraints for table `adminpanel_presentaddress`
+--
+ALTER TABLE `adminpanel_presentaddress`
+  ADD CONSTRAINT `adminpanel_presentad_doctor_profile_id_009d9956_fk_adminpane` FOREIGN KEY (`doctor_profile_id`) REFERENCES `adminpanel_doctor_profile` (`id`),
+  ADD CONSTRAINT `adminpanel_presentad_present_district_id_db798df3_fk_adminpane` FOREIGN KEY (`present_district_id`) REFERENCES `adminpanel_district` (`id`),
+  ADD CONSTRAINT `adminpanel_presentad_present_division_id_5cf3f6dc_fk_adminpane` FOREIGN KEY (`present_division_id`) REFERENCES `adminpanel_division` (`id`),
+  ADD CONSTRAINT `adminpanel_presentad_present_upazila_id_e1608841_fk_adminpane` FOREIGN KEY (`present_upazila_id`) REFERENCES `adminpanel_upazila` (`id`);
+
+--
+-- Constraints for table `adminpanel_services`
+--
+ALTER TABLE `adminpanel_services`
+  ADD CONSTRAINT `adminpanel_services_doctor_profile_id_2b3017c7_fk_adminpane` FOREIGN KEY (`doctor_profile_id`) REFERENCES `adminpanel_doctor_profile` (`id`);
+
+--
+-- Constraints for table `adminpanel_social_media`
+--
+ALTER TABLE `adminpanel_social_media`
+  ADD CONSTRAINT `adminpanel_social_me_doctor_profile_id_c8311008_fk_adminpane` FOREIGN KEY (`doctor_profile_id`) REFERENCES `adminpanel_doctor_profile` (`id`);
+
+--
+-- Constraints for table `adminpanel_upazila`
+--
+ALTER TABLE `adminpanel_upazila`
+  ADD CONSTRAINT `adminpanel_upazila_district_id_117c100b_fk_adminpane` FOREIGN KEY (`district_id`) REFERENCES `adminpanel_district` (`id`);
+
+--
+-- Constraints for table `auth_group_permissions`
+--
+ALTER TABLE `auth_group_permissions`
+  ADD CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  ADD CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`);
+
+--
+-- Constraints for table `auth_permission`
+--
+ALTER TABLE `auth_permission`
+  ADD CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`);
+
+--
+-- Constraints for table `auth_user_groups`
+--
+ALTER TABLE `auth_user_groups`
+  ADD CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  ADD CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `auth_user_user_permissions`
+--
+ALTER TABLE `auth_user_user_permissions`
+  ADD CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  ADD CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `django_admin_log`
+--
+ALTER TABLE `django_admin_log`
+  ADD CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `landing_patient_profile`
+--
+ALTER TABLE `landing_patient_profile`
+  ADD CONSTRAINT `landing_patient_prof_blood_group_id_39ad4652_fk_adminpane` FOREIGN KEY (`blood_group_id`) REFERENCES `adminpanel_blood_group` (`id`),
+  ADD CONSTRAINT `landing_patient_prof_gender_id_ea271215_fk_adminpane` FOREIGN KEY (`gender_id`) REFERENCES `adminpanel_gender` (`id`),
+  ADD CONSTRAINT `landing_patient_prof_matrimony_id_4dfc7197_fk_adminpane` FOREIGN KEY (`matrimony_id`) REFERENCES `adminpanel_matrimony` (`id`),
+  ADD CONSTRAINT `landing_patient_prof_religion_id_26d8885c_fk_adminpane` FOREIGN KEY (`religion_id`) REFERENCES `adminpanel_religion` (`id`),
+  ADD CONSTRAINT `landing_patient_profile_user_id_b0ef12bd_fk_adminpanel_user_id` FOREIGN KEY (`user_id`) REFERENCES `adminpanel_user` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

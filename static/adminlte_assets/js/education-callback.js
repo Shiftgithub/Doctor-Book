@@ -27,7 +27,7 @@ $(document).ready(function() {
 
             // Update index numbers
             $('.education-section').each(function(index) {
-                $(this).find('.section-index').text('NO : ' + (index + 1));
+                $(this).find('.section-index').text('Certificate Or Degree No : ' + (index + 1));
             });
 
             // Hide the remove button when there is only one education section left
