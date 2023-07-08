@@ -109,6 +109,9 @@ urlpatterns = [
         path('article/', include([
             path('add/', protected_view(store_article_data), name="add_article"),
             path('list/', protected_view(get_all_article_list), name="article_list"),
+            path('edit/<int:article_id>/', protected_view(edit_article_data), name='edit_article'),
+            path('delete/<int:article_id>/', protected_view(softdelete_article_data), name='delete_article'),
+            path('view/<int:article_id>/', protected_view(article_dataview), name='view_article'),
         ])),
 
         path('all/', include([

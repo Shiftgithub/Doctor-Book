@@ -1,9 +1,10 @@
-from datetime import datetime
-from django.shortcuts import get_object_or_404
+from django.utils import timezone
+from adminpanel.models.organ_models import *
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from adminpanel.serializers.organ_serializers import *
-from adminpanel.models.organ_models import *
+from adminpanel.models.organ_problem_specification_models import *
 
 
 # store organ data
@@ -47,7 +48,7 @@ def edit_organ_data(request, organ_id):
     organ = Organ.objects.get(id=organ_id)
     serializer = OrganStoreSerializer(organ, data=request.data)
     if serializer.is_valid():
-        if (serializer.save(updated_at=datetime.now())):
+        if (serializer.save(updated_at=timezone.now())):
             return Response({'status': 200})
         else:
             return Response({'status': 403})
@@ -61,12 +62,12 @@ def edit_organ_data(request, organ_id):
 def softdelete_organ_data(request, organ_id):
     organ = Organ.objects.get(id=organ_id)
     serializer = OrganDeleteSerializer(organ, data=request.data)
-    organ_problems = OrgansProblem.objects.filter(organ_id=organ_id)
+    organ_problems = OrgansProblemSpecification.objects.filter(organ_id=organ_id)
     if organ_problems:
         return Response({'status': 404})
     else:
         if serializer.is_valid():
-            if serializer.save(deleted_at=datetime.now()):
+            if serializer.save(deleted_at=timezone.now()):
                 return Response({'status': 200})
             else:
                 return Response({'status': 403})

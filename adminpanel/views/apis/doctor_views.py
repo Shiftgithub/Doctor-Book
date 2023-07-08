@@ -1,6 +1,4 @@
 import hashlib
-from django.db.models import Q
-
 from django.db import transaction
 from django.utils import timezone
 from django.core.mail import send_mail

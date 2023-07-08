@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from adminpanel.serializers.bodypart_serializers import *
@@ -73,7 +73,7 @@ def softdelete_bodypart_data(request, bodypart_id):
         return Response({'status': 404})
     else:
         if serializer.is_valid():
-            if serializer.save(deleted_at=datetime.now()):
+            if serializer.save(deleted_at=timezone.now()):
                 return Response({'status': 200})
             else:
                 return Response({'status': 403})

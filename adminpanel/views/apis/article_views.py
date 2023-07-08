@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from adminpanel.serializers.article_serializers import *
@@ -25,6 +26,43 @@ def get_all_article_list(request):
     serializer = ArticleSerializer(article, many=True)
     serialized_data = serializer.data
     return Response(serialized_data)
+
+
+@api_view(['GET'])
+def article_dataview(request, article_id):
+    # getting bodypart data from Article model ...
+    article = Article.objects.get(id=article_id)
+
+    # serializing article data ...
+    serializer = ArticleSerializer(article, many=False)
+
+    return Response(serializer.data)
+
+
+@api_view(['PUT', 'POST'])
+def edit_article_data(request, article_id):
+    article = Article.objects.get(id=article_id)
+    serializer = ArticleSerializer(article, data=request.data)
+    if serializer.is_valid():
+        if serializer.save(updated_at=timezone.now()):
+            return Response({'status': 200})
+        else:
+            return Response({'status': 403})
+    else:
+        return Response({'status': 403})
+
+
+@api_view(['PUT', 'GET'])
+def softdelete_article_data(request, article_id):
+    article = Article.objects.get(id=article_id)
+    serializer = ArticleDeleteSerializer(article, data=request.data)
+    if serializer.is_valid():
+        if serializer.save(deleted_at=timezone.now()):
+            return Response({'status': 200})
+        else:
+            return Response({'status': 403})
+    else:
+        return Response({'status': 403})
 
 
 @api_view(['GET'])

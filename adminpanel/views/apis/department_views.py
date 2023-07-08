@@ -62,7 +62,7 @@ def softdelete_department_data(request, department_id):
         return Response({'status': 404})
     else:
         if serializer.is_valid():
-            if serializer.save(deleted_at=datetime.now()):
+            if serializer.save(deleted_at=timezone.now()):
                 return Response({'status': 200})
             else:
                 return Response({'status': 403})

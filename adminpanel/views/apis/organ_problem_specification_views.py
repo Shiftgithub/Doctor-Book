@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -50,7 +50,7 @@ def edit_organ_problem_specification_data(request, organ_problem_specification_i
     organ_problem_specification = OrgansProblemSpecification.objects.get(id=organ_problem_specification_id)
     serializer = OrganProblemStoreSerializer(organ_problem_specification, data=request.data)
     if serializer.is_valid():
-        if serializer.save(updated_at=datetime.now()):
+        if serializer.save(updated_at=timezone.now()):
             return Response({'status': 200})
         else:
             return Response({'status': 403})
@@ -70,7 +70,7 @@ def softdelete_organ_problem_specification_data(request, organ_problem_specifica
         return Response({'status': 404})
     else:
         if serializer.is_valid():
-            if serializer.save(deleted_at=datetime.now()):
+            if serializer.save(deleted_at=timezone.now()):
                 return Response({'status': 200})
             else:
                 return Response({'status': 403})

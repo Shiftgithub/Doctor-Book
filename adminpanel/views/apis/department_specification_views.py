@@ -1,10 +1,7 @@
-from rest_framework.generics import get_object_or_404
-
-from adminpanel.serializers.department_specification_serializers import *
-from datetime import datetime
-from django.db import connection
+from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from adminpanel.serializers.department_specification_serializers import *
 
 
 @api_view(['POST'])
@@ -49,7 +46,7 @@ def edit_department_specification_data(request, department_specification_id):
     department_specification = DepartmentSpecification.objects.get(id=department_specification_id)
     serializer = DepartmentSpecificationStoreSerializer(department_specification, data=request.data)
     if serializer.is_valid():
-        if serializer.save(updated_at=datetime.now()):
+        if serializer.save(updated_at=timezone.now()):
             return Response({'status': 200})
         else:
             return Response({'status': 403})
@@ -65,7 +62,7 @@ def softdelete_department_specification_data(request, department_specification_i
     department_specification = DepartmentSpecification.objects.get(id=department_specification_id)
     serializer = DepartmentSpecificationDeleteSerializer(department_specification, data=request.data)
     if serializer.is_valid():
-        if serializer.save(deleted_at=datetime.now()):
+        if serializer.save(deleted_at=timezone.now()):
             return Response({'status': 200})
         else:
             return Response({'status': 403})
