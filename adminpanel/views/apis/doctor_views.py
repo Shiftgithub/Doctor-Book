@@ -9,6 +9,7 @@ from rest_framework.decorators import api_view
 from adminpanel.serializers.user_serializers import *
 from adminpanel.serializers.doctor_serializers import *
 from adminpanel.models.doctor_models import *
+from adminpanel.models.user_models import *
 
 
 @api_view(['POST'])
@@ -39,9 +40,9 @@ def store_doctor_data(request):
                         'Doctor-Book From', message, 'settings.EMAIL_HOST_USER',
                         [email], fail_silently=False)
                     try:
-                        user_profile_instance = User_Profile.objects.get(pk=user_instance)
-                        doctor_data['user'] = user_profile_instance
-                    except User_Profile.DoesNotExist:
+                        user_instance = User.objects.get(pk=user_instance)
+                        doctor_data['user'] = user_instance
+                    except User.DoesNotExist:
                         return Response({'status': 400})
                     doctor_instance = doctor_serializer.save(**doctor_data)
                     image_serializer.save(doctor_profile=doctor_instance)
@@ -52,7 +53,7 @@ def store_doctor_data(request):
                 return Response({'status': 400})
         else:
             return Response({'status': 405})
-    except User_Profile.DoesNotExist:
+    except User.DoesNotExist:
         return Response({'status': 400})
 
 
@@ -213,20 +214,21 @@ def doctor_data(request, id):
 
 @api_view(['PUT', 'POST'])
 def edit_doctor_data(request, doctor_id):
-    # doctor_id = request.session.user_id
     try:
         doctor = Doctor_Profile.objects.get(id=doctor_id)
     except Doctor_Profile.DoesNotExist:
         return Response({'status': 404})
 
-    doctor_serializer = DoctorSerializer(doctor, data=request.data)
+    doctor_serializer = DoctorSerializer(doctor, data=request.data, partial=True)
     image_serializer = ImageSerializer(doctor.images.first(), data=request.data)
-    present_address_serializer = PresentAddressSerializer(doctor, data=request.data)
-    permanent_address_serializer = PermanentAddressSerializer(doctor, data=request.data)
-    awards_serializer = AwardsSerializer(doctor, data=request.data)
-    availability_serializer = AvailabilitySerializer(doctor, data=request.data)
-    services_serializer = ServicesSerializer(doctor, data=request.data)
-    social_media_serializer = SocialMediaSerializer(doctor, data=request.data)
+    present_address_serializer = PresentAddressSerializer(doctor.present_addresses.first(), data=request.data,
+                                                          partial=True)
+    permanent_address_serializer = PermanentAddressSerializer(doctor.permanent_addresses.first(), data=request.data,
+                                                              partial=True)
+    awards_serializer = AwardsSerializer(doctor.awards.first(), data=request.data, partial=True)
+    availability_serializer = AvailabilitySerializer(doctor.availability.first(), data=request.data, partial=True)
+    services_serializer = ServicesSerializer(doctor.services.first(), data=request.data, partial=True)
+    social_media_serializer = SocialMediaSerializer(doctor.social_media.first(), data=request.data, partial=True)
 
     if (
             doctor_serializer.is_valid() and
@@ -239,7 +241,7 @@ def edit_doctor_data(request, doctor_id):
             social_media_serializer.is_valid()
     ):
         doctor_serializer.save(updated_at=timezone.now())
-        image_serializer.save()  # This will trigger the pre_delete signal handler
+        image_serializer.save()
         present_address_serializer.save()
         permanent_address_serializer.save()
         awards_serializer.save()
@@ -249,12 +251,12 @@ def edit_doctor_data(request, doctor_id):
         return Response({'status': 200})
     else:
         errors = {
-            'awards_serializer': awards_serializer.errors,
-            'availability_serializer': availability_serializer.errors,
             'doctor_serializer': doctor_serializer.errors,
             'image_serializer': image_serializer.errors,
             'present_address_serializer': present_address_serializer.errors,
             'permanent_address_serializer': permanent_address_serializer.errors,
+            'awards_serializer': awards_serializer.errors,
+            'availability_serializer': availability_serializer.errors,
             'services_serializer': services_serializer.errors,
             'social_media_serializer': social_media_serializer.errors,
         }
@@ -267,7 +269,7 @@ def softdelete_doctor_data(request, doctor_id):
         doctor_data = Doctor_Profile.objects.get(id=doctor_id)
         doctor_serializer = DoctorSerializer(doctor_data, data=request.data, partial=True)
 
-        # Assuming there is a foreign key relationship between Doctor_Profile and User_Profile
+        # Assuming there is a foreign key relationship between Doctor_Profile and User
         user_data = doctor_data.user  # Use the appropriate foreign key field
         user_serializer = UserSerializer(user_data, data=request.data, partial=True)
 
@@ -278,4 +280,16 @@ def softdelete_doctor_data(request, doctor_id):
         else:
             return Response(doctor_serializer.errors, status=400)
     except Doctor_Profile.DoesNotExist:
-        return Response(status=404)
+        return Response({'status': 404})
+
+
+@api_view(['GET'])
+def get_all_doctors_info_for_landing(request):
+    doctors = Doctor_Profile.objects.filter(deleted_at=None).select_related('department').prefetch_related(
+        'images', 'social_media')
+    if doctors.exists():
+        serializer = DoctorDataForLandingDataSerializer(doctors, many=True)
+        return Response(serializer.data)
+    else:
+        return Response({'status': 404})
+
