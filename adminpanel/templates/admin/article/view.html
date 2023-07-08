@@ -9,20 +9,20 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-3"><strong>Body Part Name:</strong></div>
-                <div class="col-md-9">{{ bodypart_data.name }}</div>
+                <div class="col-md-3"><strong>Heading:</strong></div>
+                <div class="col-md-9">{{ article_data.heading }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Tag:</strong></div>
+                <div class="col-md-9">{{ article_data.tag }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Image :</strong></div>
+                <div class="col-md-9"><img src="{{ article_data.image }}" alt="Article Image" width="250" height="250"></div>
             </div>
             <div class="row">
                 <div class="col-md-3"><strong>Description :</strong></div>
-                <div class="col-md-9">{{ bodypart_data.description }}</div>
-            </div>
-            <div class="row">
-                <div class="col-md-3"><strong>Created At :</strong></div>
-                <div class="col-md-9">{{ bodypart_data.created_at }}</div>
-            </div>           
-            <div class="row">
-                <div class="col-md-3"><strong>Updated At :</strong></div>
-                <div class="col-md-9">{{ bodypart_data.updated_at }}</div>
+                <div class="col-md-9">{{ article_data.description }}</div>
             </div>
             <!-- Add more rows for additional fields -->
         </div>
