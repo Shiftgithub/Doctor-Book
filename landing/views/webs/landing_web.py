@@ -14,7 +14,6 @@ def landing_dashboard(request):
 def landing_doctors(request):
     response_doctor = get_all_doctors_info_for_landing(request)
     doctor_data = response_doctor.data
-    print(doctor_data)
     return render(request, 'landing/pages/doctors.html', {'doctor_data': doctor_data})
 
     # Renders Landing FAQ page
