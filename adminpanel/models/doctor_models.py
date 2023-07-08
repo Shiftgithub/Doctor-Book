@@ -116,10 +116,10 @@ class Education(models.Model):
 
 class Services(models.Model):
     doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="services", null=True)
-    treatments = models.CharField(max_length=255)
-    procedures = models.CharField(max_length=255)
-    hours = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
+    treatments = models.CharField(max_length=255, null=True)
+    procedures = models.CharField(max_length=255, null=True)
+    hours = models.CharField(max_length=255, null=True)
+    location = models.CharField(max_length=255, null=True)
 
 
 class Social_Media(models.Model):
@@ -136,5 +136,3 @@ class Board(models.Model):
 
     def __str__(self):
         return self.name
-
-

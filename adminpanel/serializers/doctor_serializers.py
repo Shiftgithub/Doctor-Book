@@ -48,9 +48,6 @@ class PermanentAddressSerializer(serializers.ModelSerializer):
         return instance.pk  # Fetch the primary key of the saved object
 
 
-
-
-
 class AvailabilitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Availability
@@ -160,4 +157,16 @@ class DoctorAllDataSerializer(serializers.ModelSerializer):
             'biography', 'languages_spoken', 'passport_no', 'department', 'blood_group', 'gender', 'matrimony',
             'religion', 'user_name', 'email', 'availability', 'awards', 'education', 'images', 'permanent_addresses',
             'present_addresses', 'services', 'social_media'
+        ]
+
+
+class DoctorDataForLandingDataSerializer(serializers.ModelSerializer):
+    department = serializers.CharField(source='department.name', required=False)
+    images = ImageSerializer(many=True)
+    social_media = SocialMediaSerializer(many=True)
+
+    class Meta:
+        model = Doctor_Profile
+        fields = [
+            'id', 'full_name', 'biography', 'department', 'images', 'social_media'
         ]

@@ -182,7 +182,6 @@
                 <label class="col-md-2 col-form-label">Certificate/Degree : </label>
                 <div class="col-md-4">
                     {% if education_obj.certificate_degree %}
-
                     <input class="form-control" value="{{ education_obj.certificate_degree }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
@@ -294,7 +293,7 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Appointment :</label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.availability %}
+                    {% if doctor_all_data.0.appointment_availability %}
                     <input class="form-control" value="{{ doctor_all_data.availability.0.appointment_availability }}"
                            readonly/>
                     {% else %}
@@ -303,7 +302,7 @@
                 </div>
                 <label class="col-md-2 col-form-label">Awards And Honors :</label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.awards %}
+                    {% if doctor_all_data.awards.0.awards_and_honors %}
                     <input class="form-control" value="{{ doctor_all_data.awards.0.awards_and_honors }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
@@ -313,7 +312,7 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Accepting Patients :</label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.availability %}
+                    {% if doctor_all_data.availability.0.accepting_new_patients %}
                     <input class="form-control" value="{{ doctor_all_data.availability.0.accepting_new_patients }}"
                            readonly/>
                     {% else %}
@@ -323,7 +322,7 @@
 
                 <label class="col-md-2 col-form-label">Board Certifications :</label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.awards %}
+                    {% if doctor_all_data.awards.0.board_certification_number %}
                     <input class="form-control" value="{{ doctor_all_data.awards.0.board_certification_number }}"
                            readonly/>
                     {% else %}
@@ -334,7 +333,7 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Average Wait Time :</label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.availability %}
+                    {% if doctor_all_data.availability.0.average_wait_time %}
                     <input class="form-control" value="{{ doctor_all_data.availability.0.average_wait_time }}"
                            readonly/>
                     {% else %}
@@ -344,7 +343,7 @@
 
                 <label class="col-md-2 col-form-label">Publications :</label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.awards %}
+                    {% if doctor_all_data.awards.0.publications %}
                     <input class="form-control" value="{{ doctor_all_data.awards.0.publications }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
@@ -354,7 +353,7 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Consultation Fee :</label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.availability %}
+                    {% if doctor_all_data.availability.0.consultation_fee %}
                     <input class="form-control" value="{{ doctor_all_data.availability.0.consultation_fee }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
@@ -363,7 +362,7 @@
 
                 <label class="col-md-2 col-form-label">Research Interests :</label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.awards %}
+                    {% if doctor_all_data.awards.0.research_interests %}
                     <input class="form-control" value="{{ doctor_all_data.awards.0.research_interests }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
@@ -373,7 +372,7 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Available Facilities :</label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.availability %}
+                    {% if doctor_all_data.availability.0.available_facilities %}
                     <input class="form-control" value="{{ doctor_all_data.availability.0.available_facilities }}"
                            readonly/>
                     {% else %}
@@ -383,7 +382,7 @@
 
                 <label class="col-md-2 col-form-label">Memberships :</label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.awards %}
+                    {% if doctor_all_data.awards.0.memberships %}
                     <input class="form-control" value="{{ doctor_all_data.awards.0.memberships }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
@@ -402,7 +401,7 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Treatments : </label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.services %}
+                    {% if doctor_all_data.services.0.treatments %}
                     <input class="form-control" value="{{ doctor_all_data.services.0.treatments }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
@@ -410,7 +409,7 @@
                 </div>
                 <label class="col-md-2 col-form-label">Website : </label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.social_media %}
+                    {% if doctor_all_data.social_media.0.website %}
                     <input class="form-control" value="{{ doctor_all_data.social_media.0.website }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
@@ -420,7 +419,7 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Procedures : </label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.services %}
+                    {% if doctor_all_data.services.0.procedures %}
                     <input class="form-control" value="{{ doctor_all_data.services.0.procedures }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
@@ -428,7 +427,7 @@
                 </div>
                 <label class="col-md-2 col-form-label">Linkedin : </label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.social_media %}
+                    {% if doctor_all_data.social_media.0.linkedin %}
                     <input class="form-control" value="{{ doctor_all_data.social_media.0.linkedin }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
@@ -438,7 +437,7 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Hours : </label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.services %}
+                    {% if doctor_all_data.services.0.hours %}
                     <input class="form-control" value="{{ doctor_all_data.services.0.hours }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
@@ -446,7 +445,7 @@
                 </div>
                 <label class="col-md-2 col-form-label">Facebook : </label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.social_media %}
+                    {% if doctor_all_data.social_media.0.facebook %}
                     <input class="form-control" value="{{ doctor_all_data.social_media.0.facebook }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
@@ -456,7 +455,7 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Location : </label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.services %}
+                    {% if doctor_all_data.services.0.location %}
                     <input class="form-control" value="{{ doctor_all_data.services.0.location }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
@@ -464,8 +463,9 @@
                 </div>
                 <label class="col-md-2 col-form-label">Instagram : </label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.social_media %}
-                    <a href="{{ doctor_all_data.social_media.0.instagram }}"><i class="fas fa-instagram-square"></i></a>
+                    {% if doctor_all_data.social_media.0.instagram %}
+                    <input class="form-control" value="{{ doctor_all_data.social_media.0.instagram }}" readonly/>
+<!--                    <a href="{{ doctor_all_data.social_media.0.instagram }}"><i class="fas fa-instagram-square"></i></a>-->
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
