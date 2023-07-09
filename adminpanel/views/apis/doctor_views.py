@@ -6,8 +6,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from adminpanel.serializers.user_serializers import *
 from adminpanel.serializers.doctor_serializers import *
-from adminpanel.models.doctor_models import *
 from adminpanel.models.user_models import *
+from adminpanel.models.doctor_models import *
 
 
 @api_view(['POST'])
@@ -290,4 +290,3 @@ def get_all_doctors_info_for_landing(request):
         return Response(serializer.data)
     else:
         return Response({'status': 404})
-

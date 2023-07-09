@@ -43,6 +43,7 @@
           <option value="adminpanel.models.user_models.UserProfile.DoesNotExist" />
           <option value="adminpanel.models.doctor_models.Religion.objects" />
           <option value="adminpanel.models.doctor_models.Gender.objects" />
+          <option value="adminpanel.models.personal_data_models.Upazila.objects" />
         </list>
       </option>
     </inspection_tool>

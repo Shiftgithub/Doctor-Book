@@ -1,54 +1,78 @@
-var template = $('#section-template').html();
-$("#sections-container").append(template);
+// For organ and organ problem specification fields call back
+$(document).ready(function() {
+        // Hide the remove button for the initial section
+        $('.section-callback').first().find('.remove-section-callback').hide();
 
-updateSections();
+        // Add section
+        $(document).on('click', '.add-section-callback', function() {
+            var section = $('.section-callback').first().clone();
+            section.find('input[name="names[]"]').val(''); // Clear input values in the cloned section
+            section.find('textarea[name="descriptions[]"]').val(''); // Clear textarea value in the cloned section
+            section.find('input[name="problems[]"]').val(''); // Clear input values in the cloned section
+            section.find('textarea[name="problem_specifications[]"]').val(''); // Clear textarea value in the cloned section
+            section.find('.section-index').text('No ' + ($('.section-callback').length + 1)); // Update section index
+            section.find('.remove-section-callback').show(); // Show the remove button for the cloned section
 
-function updateSections() {
-    var items = $(".sections");
-    var itemsLength = parseInt(items.length);
-    itemsLength = itemsLength - 1;
+            section.appendTo('#section-callbacks');
 
-    items.each(function (index, value) {
-        var currentitems = $(value);
+            // Show the remove button when there is more than one section
+            $('.section-callback').find('.remove-section-callback').show();
+        });
 
+        // Remove section
+        $(document).on('click', '.remove-section-callback', function() {
+                if ($('.section-callback').length > 1) {
+                    $(this).closest('.section-callback').remove();
+
+                    // Update section indexes
+                    $('.section-callback').each(function(index) {
+                        $(this).find('.section-index').text('No ' + (index + 1));
+                    });
+
+                    if ($('.section-callback').length === 1) {
+                    $('.section-callback .remove-section-callback').hide();
+                }
+            }
+        });
+    });
+
+// For education fields call back
+$(document).ready(function() {
+    // Hide the remove button for the initial education section
+    $('.education-section .remove-education-section').hide();
+
+    // Add education section
+    $('.add-education-section').click(function() {
+        var section = $('.education-section').first().clone();
+        section.find('input').val(''); // Clear input values in the cloned section
+        section.find('.remove-education-section').show(); // Show the remove button for the cloned section
+
+        // Update index number
+        var index = $('.education-section').length;
+        section.find('.section-index').text('Certificate Or Degree No ' + (index + 1));
+
+        section.appendTo('#education-sections');
+
+        // Show the remove button when there is more than one education section
         if (index > 0) {
-            currentitems.find('.card-title').html("No " + (index));
-
-            currentitems.find('.name-label')
-                .attr('for', 'name' + index);
-            currentitems.find('.name-input')
-                .attr('id', 'name' + index)
-                .attr('required', 'true')
-                .attr('name', 'names[' + (index - 1) + ']');
-
-            currentitems.find('.description-label')
-                .attr('for', 'description' + index);
-            currentitems.find('.description-input')
-                .attr('id', 'description' + index)
-                .attr('name', 'descriptions[' + (index - 1) + ']');
-        }
-
-        if (itemsLength == 1) {
-            currentitems.find('.remove-button').hide();
-        } else {
-            currentitems.find('.remove-button').show();
+            $('.education-section .remove-education-section').show();
         }
     });
-}
 
-function addSection() {
-    $("#sections-container").append(template);
-    updateSections();
-}
+    // Remove education section
+    $(document).on('click', '.remove-education-section', function() {
+        if ($('.education-section').length > 1) {
+            $(this).closest('.education-section').remove();
 
-function removeSection(currentBlock) {
-    var currentBlock = $(currentBlock);
-    currentBlock.parent().parent().parent().remove();
-    updateSections();
-}
+            // Update index numbers
+            $('.education-section').each(function(index) {
+                $(this).find('.section-index').text('Certificate Or Degree No : ' + (index + 1));
+            });
 
-// Submit the form
-$('#PostForm').submit(function (event) {
-    // Remove the first empty section before submitting
-    $(".sections").first().remove();
+            // Hide the remove button when there is only one education section left
+            if ($('.education-section').length === 1) {
+                $('.education-section .remove-education-section').hide();
+            }
+        }
+    });
 });

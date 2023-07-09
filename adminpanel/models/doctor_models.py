@@ -84,9 +84,9 @@ class Images(models.Model):
 class Availability(models.Model):
     doctor_profile = models.ForeignKey('Doctor_Profile', on_delete=models.CASCADE, related_name="availability",
                                        null=True)
-    appointment_availability = models.DateTimeField(null=True)
+    appointment_availability = models.CharField(max_length=255, null=True)
     accepting_new_patients = models.CharField(max_length=255, null=True)
-    average_wait_time = models.DurationField(null=True)
+    average_wait_time = models.CharField(max_length=255, null=True)
     consultation_fee = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     available_facilities = models.CharField(max_length=255, null=True)
 

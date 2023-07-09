@@ -293,7 +293,7 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Appointment :</label>
                 <div class="col-md-4">
-                    {% if doctor_all_data.0.appointment_availability %}
+                    {% if doctor_all_data.availability.0.appointment_availability %}
                     <input class="form-control" value="{{ doctor_all_data.availability.0.appointment_availability }}"
                            readonly/>
                     {% else %}
