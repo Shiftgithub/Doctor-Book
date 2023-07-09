@@ -39,12 +39,12 @@ def article_dataview(request, article_id):
     return Response(serializer.data)
 
 
-@api_view(['PUT', 'POST'])
+@api_view(['PUT','POST'])
 def edit_article_data(request, article_id):
-    article = get_object_or_404(Article, id=article_id, deleted_at=None)
-    serializer = ArticleSerializer(article, data=request.data)
+    article = Article.objects.get(id=article_id, deleted_at=None)
+    serializer = ArticleSerializer(article, data=request.data, partial=True)
     if serializer.is_valid():
-        serializer.save(updated_at=timezone.now())
+        serializer.save()
         return Response({'status': 200})
     else:
         return Response({'status': 403})
