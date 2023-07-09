@@ -18,6 +18,7 @@
 
 
 
+
 </style>
 {% endblock %}
 
@@ -34,10 +35,10 @@
         <div class="row">
             {% if doctor_data %}
             {% for data in doctor_data %}
-            <div class="col-lg-6">
+            <div class="col-6">
                 <div class="member d-flex align-items-start">
-                    <div class="pic">
-                        <img src="{{ data.images.0.doctor_photos }}" class="img-fluid" alt=""/>
+                    <div>
+                        <img src="{{ data.images.0.doctor_photos }}" alt="Doctor Image" height="120px" width="100%"/>
                     </div>
                     <div class="member-info">
                         <h4>{{ data.full_name }}</h4>
