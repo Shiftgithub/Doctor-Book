@@ -1,10 +1,11 @@
 from django.utils import timezone
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from adminpanel.serializers.article_serializers import *
 
 
-# Article 
+# Article
 @api_view(['POST'])
 def store_article_data(request):
     if request.method == 'POST':
@@ -22,45 +23,40 @@ def store_article_data(request):
 
 @api_view(['GET'])
 def get_all_article_list(request):
-    article = Article.objects.all()
-    serializer = ArticleSerializer(article, many=True)
-    serialized_data = serializer.data
-    return Response(serialized_data)
+    articles = Article.objects.filter(deleted_at=None).order_by('id')
+    serializer = ArticleSerializer(articles, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
 def article_dataview(request, article_id):
-    # getting bodypart data from Article model ...
-    article = Article.objects.get(id=article_id)
+    # Getting article data from Article model ...
+    article = get_object_or_404(Article, id=article_id, deleted_at=None).order_by('id')
 
-    # serializing article data ...
-    serializer = ArticleSerializer(article, many=False)
+    # Serializing article data ...
+    serializer = ArticleSerializer(article)
 
     return Response(serializer.data)
 
 
 @api_view(['PUT', 'POST'])
 def edit_article_data(request, article_id):
-    article = Article.objects.get(id=article_id)
+    article = get_object_or_404(Article, id=article_id, deleted_at=None)
     serializer = ArticleSerializer(article, data=request.data)
     if serializer.is_valid():
-        if serializer.save(updated_at=timezone.now()):
-            return Response({'status': 200})
-        else:
-            return Response({'status': 403})
+        serializer.save(updated_at=timezone.now())
+        return Response({'status': 200})
     else:
         return Response({'status': 403})
 
 
 @api_view(['PUT', 'GET'])
 def softdelete_article_data(request, article_id):
-    article = Article.objects.get(id=article_id)
+    article = get_object_or_404(Article.objects.filter(id=article_id, deleted_at=None).order_by('id'))
     serializer = ArticleDeleteSerializer(article, data=request.data)
     if serializer.is_valid():
-        if serializer.save(deleted_at=timezone.now()):
-            return Response({'status': 200})
-        else:
-            return Response({'status': 403})
+        serializer.save(deleted_at=timezone.now())
+        return Response({'status': 200})
     else:
         return Response({'status': 403})
 
