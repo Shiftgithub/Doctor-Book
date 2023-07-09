@@ -6,6 +6,11 @@
     #hero {
         background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
     }
+
+
+
+
+
 </style>
 {% endblock %}
 
@@ -37,9 +42,10 @@
             <div class="col-lg-4 d-flex align-items-stretch">
                 <div class="content">
                     <h3>Why Choose Doctor Book?</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit Asperiores dolores sed et.
-                        Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.</p>
+                    <p>Comprehensive Information: Our medical website provides comprehensive information about various
+                        medical departments, services, and specialties offered by our hospital. Users can easily access
+                        detailed information about different medical conditions, treatments, procedures, and healthcare
+                        providers.</p>
                     <div class="text-center">
                         <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
                     </div>
@@ -51,24 +57,31 @@
                         <div class="col-xl-4 d-flex align-items-stretch">
                             <div class="icon-box mt-4 mt-xl-0">
                                 <i class="bx bx-receipt"></i>
-                                <h4>Corporis voluptates sit</h4>
-                                <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut
-                                    aliquip</p>
+                                <h4>Easy Navigation</h4>
+                                <p>The website is designed with user-friendly navigation, allowing
+                                    visitors to quickly
+                                    find the information they are looking for. The intuitive interface and organized
+                                    layout make it easy to browse through different departments and access relevant
+                                    information effortlessly.</p>
                             </div>
                         </div>
                         <div class="col-xl-4 d-flex align-items-stretch">
                             <div class="icon-box mt-4 mt-xl-0">
                                 <i class="bx bx-cube-alt"></i>
-                                <h4>Ullamco laboris ladore pan</h4>
-                                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                    deserunt</p>
+                                <h4>Reliable and Credible Content</h4>
+                                <p>The content on our medical website is curated by medical professionals and experts,
+                                    ensuring its accuracy and reliability. Users can trust the information provided,
+                                    making informed decisions about their healthcare needs.</p>
                             </div>
                         </div>
                         <div class="col-xl-4 d-flex align-items-stretch">
                             <div class="icon-box mt-4 mt-xl-0">
                                 <i class="bx bx-images"></i>
-                                <h4>Labore consequatur</h4>
-                                <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+                                <h4>Patient Resources:</h4>
+                                <p>We provide resources and educational materials for patients to enhance their
+                                    understanding of medical conditions, treatments, and preventive measures. These
+                                    resources empower patients to take an active role in managing their health and
+                                    making informed healthcare choices</p>
                             </div>
                         </div>
                     </div>
@@ -83,47 +96,29 @@
 <!-- ======= Counts Section ======= -->
 <section id="counts" class="counts">
     <div class="container">
-
         <div class="row">
-
-            <div class="col-lg-3 col-md-6">
-                <div class="count-box">
-                    <i class="fas fa-user-md"></i>
-                    <span data-purecounter-start="0" data-purecounter-end="85" data-purecounter-duration="1"
-                          class="purecounter"></span>
-                    <p>Doctors</p>
-                </div>
-            </div>
-
             <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
                 <div class="count-box">
                     <i class="far fa-hospital"></i>
-                    <span data-purecounter-start="0" data-purecounter-end="18" data-purecounter-duration="1"
-                          class="purecounter"></span>
+                    <span>{{department_data.department_count}}</span>
                     <p>Departments</p>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="col-lg-3 col-md-6">
                 <div class="count-box">
-                    <i class="fas fa-flask"></i>
-                    <span data-purecounter-start="0" data-purecounter-end="12" data-purecounter-duration="1"
-                          class="purecounter"></span>
-                    <p>Research Labs</p>
+                    <i class="fas fa-user-md"></i>
+                    <span>{{doctor_data.doctor_count}}</span>
+                    <p>Doctors</p>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
                 <div class="count-box">
-                    <i class="fas fa-award"></i>
-                    <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1"
-                          class="purecounter"></span>
-                    <p>Awards</p>
+                    <i class="far fa-hospital"></i>
+                    <span>{{patient_data.patient_count}}</span>
+                    <p>Patients</p>
                 </div>
             </div>
-
         </div>
-
     </div>
 </section>
 <!-- End Counts Section -->
@@ -131,131 +126,54 @@
 <!-- ======= Departments Section ======= -->
 <section id="departments" class="departments">
     <div class="container">
-
         <div class="section-title">
             <h2>Departments</h2>
-            <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat
-                sit
-                in iste officiis commodi quidem hic quas.</p>
+            <p>Hospitals may have acute services such as an emergency department or specialist trauma center, burn unit,
+                surgery, or urgent care. These may be backed up by more specialist units such as cardiology or coronary
+                care, intensive care units, neurology, cancer center, and obstetrics and gynecology.</p>
         </div>
 
         <div class="row gy-4">
             <div class="col-lg-3">
+                {% if all_data %}
                 <ul class="nav nav-tabs flex-column">
+                    {% for data in all_data %}
                     <li class="nav-item">
-                        <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Cardiology</a>
+                        <a class="nav-link {% if forloop.first %}active show{% endif %}" data-bs-toggle="tab"
+                           href="#tab-{{ forloop.counter }}">{{ data.name }}</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Neurology</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Hepatology</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Pediatrics</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Eye Care</a>
-                    </li>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="col-lg-9">
                 <div class="tab-content">
-                    <div class="tab-pane active show" id="tab-1">
+                    {% for data in all_data %}
+                    <div class="tab-pane {% if forloop.first %}active show{% endif %}" id="tab-{{ forloop.counter }}">
                         <div class="row gy-4">
                             <div class="col-lg-8 details order-2 order-lg-1">
-                                <h3>Cardiology</h3>
-                                <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde
-                                    sonata raqer
-                                    a videna mareta paulona marka</p>
-                                <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos
-                                    ipsum ipsa
-                                    odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et
-                                    quis magni
-                                    nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
+                                <h3>{{ data.name }}</h3>
+                                <p class="fst-italic">{{ data.description }}</p>
                             </div>
-                            <div class="col-lg-4 text-center order-1 order-lg-2">
-                                <img src="{% static 'landing_assets//img/departments-1.jpg' %}" alt="" class="img-fluid">
-                            </div>
+                            <!-- <div class="col-lg-4 text-center order-1 order-lg-2">
+                              <img src="{% static 'landing_assets/img/departments-1.jpg' %}" alt="" class="img-fluid">
+                            </div> -->
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab-2">
-                        <div class="row gy-4">
-                            <div class="col-lg-8 details order-2 order-lg-1">
-                                <h3>Et blanditiis nemo veritatis excepturi</h3>
-                                <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde
-                                    sonata raqer
-                                    a videna mareta paulona marka</p>
-                                <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis
-                                    sunt sunt
-                                    est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio
-                                    nesciunt eaque
-                                    beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
-                            </div>
-                            <div class="col-lg-4 text-center order-1 order-lg-2">
-                                <img src="{% static 'landing_assets//img/departments-2.jpg' %}" alt="" class="img-fluid">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="tab-3">
-                        <div class="row gy-4">
-                            <div class="col-lg-8 details order-2 order-lg-1">
-                                <h3>Impedit facilis occaecati odio neque aperiam sit</h3>
-                                <p class="fst-italic">Eos voluptatibus quo. Odio similique illum id quidem non enim
-                                    fuga. Qui natus
-                                    non sunt dicta dolor et. In asperiores velit quaerat perferendis aut</p>
-                                <p>Iure officiis odit rerum. Harum sequi eum illum corrupti culpa veritatis quisquam.
-                                    Neque
-                                    necessitatibus illo rerum eum ut. Commodi ipsam minima molestiae sed laboriosam a
-                                    iste odio. Earum
-                                    odit nesciunt fugiat sit ullam. Soluta et harum voluptatem optio quae</p>
-                            </div>
-                            <div class="col-lg-4 text-center order-1 order-lg-2">
-                                <img src="{% static 'landing_assets//img/departments-3.jpg' %}" alt="" class="img-fluid">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="tab-4">
-                        <div class="row gy-4">
-                            <div class="col-lg-8 details order-2 order-lg-1">
-                                <h3>Fuga dolores inventore laboriosam ut est accusamus laboriosam dolore</h3>
-                                <p class="fst-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure
-                                    porro quis
-                                    delectus</p>
-                                <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam
-                                    necessitatibus aliquam
-                                    fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque.
-                                    Eligendi asperiores
-                                    sed qui veritatis aperiam quia a laborum inventore</p>
-                            </div>
-                            <div class="col-lg-4 text-center order-1 order-lg-2">
-                                <img src="{% static 'landing_assets//img/departments-4.jpg' %}" alt="" class="img-fluid">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="tab-5">
-                        <div class="row gy-4">
-                            <div class="col-lg-8 details order-2 order-lg-1">
-                                <h3>Est eveniet ipsam sindera pad rone matrelat sando reda</h3>
-                                <p class="fst-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>
-                                <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut
-                                    non quam ut
-                                    quod eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint
-                                    aut vitae
-                                    molestiae voluptate vel</p>
-                            </div>
-                            <div class="col-lg-4 text-center order-1 order-lg-2">
-                                <img src="{% static 'landing_assets//img/departments-5.jpg '%}" alt="" class="img-fluid">
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
+            {% else %}
+            <div class="row alert alert-warning">
+                <h3>No Department Found</h3>
+                <br>
+                <a href="{% url 'landing_dashboard' %}"><i class="fas fa-arrow-left"></i> Go Back</a>
+            </div>
+            {% endif %}
         </div>
-
     </div>
 </section>
+
+
 <!-- End Departments Section -->
 {% endblock %}
 
@@ -269,5 +187,29 @@
         waitUntilVisible: true,
         loop: true
     }).go();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 {% endblock %}

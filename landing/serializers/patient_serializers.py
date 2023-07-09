@@ -1,7 +1,5 @@
-from rest_framework import serializers
 from landing.models.patient_models import *
 from adminpanel.serializers.personal_data_serializers import *
-from adminpanel.models.user_models import User
 
 
 class PatientSerializer(serializers.ModelSerializer):
@@ -22,5 +20,5 @@ class PatientAllDataSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'full_name', 'father_name', 'mother_name', 'date_of_birth',
             'nid_no', 'phone_no', 'address', 'blood_group',
-            'gender', 'matrimony', 'religion','email'
+            'gender', 'matrimony', 'religion', 'email'
         ]

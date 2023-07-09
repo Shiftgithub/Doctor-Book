@@ -1,6 +1,5 @@
 import hashlib
 from datetime import datetime
-
 from django.db import transaction
 from django.core.mail import send_mail
 from rest_framework.response import Response
