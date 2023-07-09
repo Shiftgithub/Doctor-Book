@@ -30,6 +30,10 @@
 
 
 
+
+
+
+
 </style>
 {% endblock %}
 
@@ -49,10 +53,12 @@
                 {% for data in all_data %}
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
                     <div class="icon-box">
-                        <div class="icon"><i class="fas fa-heartbeat"></i></div>
-                        <h3><a href="{% url 'landing_single_article' data.id %}">{{data.heading}}</a></h3>
-                        <h5>{{data.tag}}</h5>
-                        <p>{{data.description}}</p>
+                        <a href="{% url 'landing_single_article' data.id %}">
+                            <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                            <h3>{{data.heading}}</h3>
+                            <h5>{{data.tag}}</h5>
+                            <p>{{data.description}}</p>
+                        </a>
                     </div>
                 </div>
                 {% endfor %}
