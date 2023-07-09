@@ -289,4 +289,4 @@ def get_all_doctors_info_for_landing(request):
         serializer = DoctorDataForLandingDataSerializer(doctors, many=True)
         return Response(serializer.data)
     else:
-        return Response({'status': 404})
+        return Response([])
