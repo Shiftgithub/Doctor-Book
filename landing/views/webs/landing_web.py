@@ -45,6 +45,12 @@ def landing_article(request):
     return render(request, 'landing/pages/articles.html', {'all_data': all_data})
 
 
+def landing_single_article(request, article_id):
+    response = get_article_by_id(request, article_id)
+    all_data = response.data
+    return render(request, 'landing/pages/article_view.html', {'all_data': all_data})
+
+
 def doctor_register(request):
     return render(request, 'landing/pages/register.html')
 

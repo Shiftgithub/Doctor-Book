@@ -31,7 +31,7 @@ def get_all_article_list(request):
 @api_view(['GET'])
 def article_dataview(request, article_id):
     # Getting article data from Article model ...
-    article = get_object_or_404(Article, id=article_id, deleted_at=None).order_by('id')
+    article = get_object_or_404(Article, id=article_id, deleted_at=None)
 
     # Serializing article data ...
     serializer = ArticleSerializer(article)
@@ -67,3 +67,10 @@ def get_all_article_list_created_by(request, id):
     serializer = ArticleSerializer(articles, many=True)
     serialized_data = serializer.data
     return Response(serialized_data)
+
+
+@api_view(['GET'])
+def get_article_by_id(request, article_id):
+    article = get_object_or_404(Article, id=article_id, deleted_at=None)
+    serializer = ArticleSerializer(article)
+    return Response(serializer.data)

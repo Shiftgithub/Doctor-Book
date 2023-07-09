@@ -15,7 +15,11 @@ urlpatterns = [
     path('landing/', include([
         path('doctors/', landing_doctors, name="landing_doctors"),
         path('faq/', landing_faq, name="landing_faq"),
-        path('article/', landing_article, name="landing_article"),
+        path('article/', include([
+            path('', landing_article, name="landing_article"),
+            path('view/<int:article_id>/', landing_single_article, name="landing_single_article"),
+        ])),
+
         path('login/', login, name="login"),
         path('login/checking/', check_login_is_valid, name="check_login_is_valid"),
         # path('landing/doctor/register/', doctor_register, name="doctor_register"),
