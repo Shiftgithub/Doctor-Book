@@ -191,7 +191,6 @@ def get_all_doctors_list(request):
     )
 
     serializer = DoctorAllDataSerializer(doctors, many=True)
-    print(serializer.data)
     return Response(serializer.data)
 
 
