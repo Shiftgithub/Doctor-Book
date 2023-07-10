@@ -218,7 +218,7 @@ def edit_doctor_data(request, doctor_id):
         return Response({'status': 404})
 
     doctor_serializer = DoctorSerializer(doctor, data=request.data, partial=True)
-    image_serializer = ImageSerializer(doctor.images.first(), data=request.data)
+    image_serializer = ImageSerializer(doctor.images.first(), data=request.data, partial=True)
     present_address_serializer = PresentAddressSerializer(doctor.present_addresses.first(), data=request.data,
                                                           partial=True)
     permanent_address_serializer = PermanentAddressSerializer(doctor.permanent_addresses.first(), data=request.data,
@@ -239,6 +239,14 @@ def edit_doctor_data(request, doctor_id):
             social_media_serializer.is_valid()
     ):
         doctor_serializer.save(updated_at=timezone.now())
+
+        if 'doctor_photos' in request.data and request.data['doctor_photos']:
+            # New image is selected
+            image_serializer.validated_data['doctor_photos'] = request.data['doctor_photos']
+        else:
+            # No new image selected, retain the existing image
+            image_serializer.validated_data['doctor_photos'] = doctor.images.first().doctor_photos
+
         image_serializer.save()
         present_address_serializer.save()
         permanent_address_serializer.save()
@@ -246,6 +254,7 @@ def edit_doctor_data(request, doctor_id):
         availability_serializer.save()
         services_serializer.save()
         social_media_serializer.save()
+
         return Response({'status': 200})
     else:
         errors = {

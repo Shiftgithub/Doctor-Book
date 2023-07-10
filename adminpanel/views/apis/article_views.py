@@ -39,12 +39,20 @@ def article_dataview(request, article_id):
     return Response(serializer.data)
 
 
-@api_view(['PUT','POST'])
+@api_view(['PUT', 'POST'])
 def edit_article_data(request, article_id):
     article = Article.objects.get(id=article_id, deleted_at=None)
     serializer = ArticleSerializer(article, data=request.data, partial=True)
+
     if serializer.is_valid():
-        serializer.save()
+        if 'image' in request.data and request.data['image']:
+            # New image is selected
+            serializer.validated_data['image'] = request.data['image']
+        else:
+            # No new image selected, retain the existing image
+            serializer.validated_data['image'] = article.image
+
+        serializer.save(updated_at=timezone.now())
         return Response({'status': 200})
     else:
         return Response({'status': 403})
