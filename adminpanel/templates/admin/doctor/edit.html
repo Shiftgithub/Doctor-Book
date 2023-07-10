@@ -622,7 +622,7 @@
                         <input class="form-control" type="url" value="{{ doctor_all_data.social_media.0.facebook }}"
                                name="facebook"/>
                         {% else %}
-                        <input class="form-control" type="text" name="facebook" placeholder="Not Provided"/>
+                        <input class="form-control" type="url" name="facebook" placeholder="Not Provided"/>
                         {% endif %}
                     </div>
                 </div>
@@ -643,7 +643,7 @@
                         <input class="form-control" type="url" value="{{ doctor_all_data.social_media.0.instagram }}"
                                name="instagram"/>
                         {% else %}
-                        <input class="form-control" type="text" name="instagram" placeholder="Not Provided"/>
+                        <input class="form-control" type="url" name="instagram" placeholder="Not Provided"/>
                         {% endif %}
                     </div>
                 </div>
@@ -681,6 +681,7 @@
         imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
     }
 }
+
 
 
 
