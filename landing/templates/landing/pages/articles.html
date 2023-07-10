@@ -30,50 +30,48 @@
 
 
 
-
-
-
-
 </style>
 {% endblock %}
-
 {% block content %}
 <!-- ======= Services Section ======= -->
-<main id="main">
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>Articles</h2>
-                <p>An original article contains the following items: A title page, an Abstract, Introduction, Patients
-                    (or materials) and methods, Results, Discussion, Summary or conclusion, the References, Tables,
-                    Figures, legends to Figures and any acknowledgements.</p>
-            </div>
-            <div class="row">
-                {% if all_data %}
-                {% for data in all_data %}
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                    <div class="icon-box">
-                        <a href="{% url 'landing_single_article' data.id %}">
-                            <div class="icon"><i class="fas fa-heartbeat"></i></div>
-                            <h3>{{data.heading}}</h3>
-                            <h5>{{data.tag}}</h5>
-                            <p>{{data.description}}</p>
-                        </a>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            {% else %}
-            <div class="row alert alert-warning">
-                <h3>No Article Found</h3>
-                <br>
-                <a href="{% url 'landing_dashboard' %}"><i class="fas fa-arrow-left"></i> Go Back</a>
-            </div>
-            {% endif %}
+<section id="services" class="services">
+    <div class="container">
+        <div class="section-title">
+            <h2>Articles</h2>
+            <p>An original article contains the following items: A title page, an Abstract, Introduction, Patients
+                (or materials) and methods, Results, Discussion, Summary or conclusion, the References, Tables,
+                Figures, legends to Figures and any acknowledgements.</p>
         </div>
-    </section><!-- End Services Section -->
-</main>
-
+        <div class="row">
+            {% if all_data %}
+            {% for data in all_data %}
+            <div class="col-4 d-flex align-items-stretch">
+                <div class="icon-box">
+                    <a href="{% url 'landing_article_view' data.id %}">
+                        <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                        <h3>{{data.heading}}</h3>
+                        <h5>{{data.tag}}</h5>
+                        {% if data.description|wordcount > 15 %}
+                        <p class="text-dark">{{ data.description|truncatewords:15 }}
+                            <a href="{% url 'landing_article_view' data.id %}">See More</a>
+                        </p>
+                        {% else %}
+                        <p>{{ data.description }}</p>
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="row alert alert-warning">
+            <h3>No Article Found</h3>
+            <br>
+            <a href="{% url 'landing_dashboard' %}"><i class="fas fa-arrow-left"></i> Go Back</a>
+        </div>
+        {% endif %}
+    </div>
+</section><!-- End Services Section -->
 {% endblock %}
 
 {% block scripts %}

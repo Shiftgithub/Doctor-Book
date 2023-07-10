@@ -17,12 +17,12 @@ urlpatterns = [
         path('faq/', landing_faq, name="landing_faq"),
         path('article/', include([
             path('', landing_article, name="landing_article"),
-            path('view/<int:article_id>/', landing_single_article, name="landing_single_article"),
+            path('view/<int:article_id>/', landing_single_article, name="landing_article_view"),
         ])),
 
         path('login/', login, name="login"),
         path('login/checking/', check_login_is_valid, name="check_login_is_valid"),
-        # path('landing/doctor/register/', doctor_register, name="doctor_register"),
+        path('doctor/register/', doctor_register, name="doctor_register"),
         path('predict/', predict, name="predict"),
 
         path('patient/', include([
