@@ -20,24 +20,25 @@ def checking_authorization(request):
 
         # Check if user exists in database
         try:
-            user = User.objects.get(user_name=user_name, hash=hashed_password, status='active')
+            user = User.objects.get(user_name=user_name, hash=hashed_password)
             setAuthenticatedUser(request, user)
         except User.DoesNotExist:
             return Response({'status': 403, 'message': 'User does not exist'})
 
         # Check user role and status
-        if user.role == ROLE_ADMIN and user.status == STATUS_ACTIVE:
-            return Response({'status': 200, 'message': 'Admin'})
-
-        elif user.role == ROLE_DOCTOR and user.status == STATUS_ACTIVE:
-            return Response({'status': 200, 'message': 'Doctor'})
-
-        elif user.role == ROLE_PATIENT and user.status == STATUS_ACTIVE:
-            return Response({'status': 200, 'message': 'Patient'})
-
+        if user.status == STATUS_ACTIVE:
+            if user.role == ROLE_ADMIN:
+                return Response({'status': 200, 'message': 'Admin'})
+            elif user.role == ROLE_DOCTOR:
+                return Response({'status': 200, 'message': 'Doctor'})
+            elif user.role == ROLE_PATIENT:
+                return Response({'status': 200, 'message': 'Patient'})
+            else:
+                return Response({'status': 403, 'message': 'User is not a doctor or is not approved'})
+        elif user.status == STATUS_INACTIVE:
+            return Response({'status': 308})  # 308 Permanent Redirect
         else:
             return Response({'status': 403, 'message': 'User is not a doctor or is not approved'})
-
     else:
         return Response({'status': 403, 'message': login_serializer.errors})
 

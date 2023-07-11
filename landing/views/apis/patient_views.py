@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 from adminpanel.serializers.user_serializers import *
 from landing.models.varify_otp_models import VarifyOtp
 from landing.serializers.patient_serializers import *
-from landing.views.apis.otp_views import generate_token
+from adminpanel.views.apis.otp_views import generate_token
 
 
 @api_view(['POST'])

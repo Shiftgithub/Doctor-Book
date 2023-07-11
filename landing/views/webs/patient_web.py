@@ -3,7 +3,7 @@ from django.contrib import messages
 
 from adminpanel.views.apis.doctor_views import *
 from adminpanel.views.apis.user_views import get_patient_details
-from landing.views.apis.otp_views import varify_otp
+from adminpanel.views.apis.otp_views import varify_otp
 from landing.views.apis.patient_views import *
 
 
@@ -11,25 +11,11 @@ def patient_form(request):
     return render(request, 'patient/form.html')
 
 
-def patient_otp_form(request):
-    return render(request, 'patient/otp_form.html')
-
-
-def verify_patient_otp(request):
-    operation_response = varify_otp(request)
-    if operation_response.status_code == 200:
-        messages.add_message(request, messages.INFO, "Patient data stored successfully")
-        return redirect('login')
-    else:
-        messages.add_message(request, messages.ERROR, "OTP are incorrect!")
-        return redirect('patient_otp')
-
-
 def store_patient(request):
     operation_response = store_patient_data(request)
     if operation_response.status_code == 200:
         # messages.add_message(request, messages.INFO, "Patient data stored successfully")
-        return redirect('patient_otp')
+        return redirect('otp')
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Patient data")
         return redirect('add_patient_form')

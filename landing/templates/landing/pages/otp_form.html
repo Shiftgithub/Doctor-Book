@@ -6,9 +6,6 @@
     #register {
         background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
     }
-
-
-
 </style>
 
 {% endblock %}
@@ -22,14 +19,14 @@
                 <img src="{% static 'landing_assets/img/gummy-medical-lab.png' %}" class="img-fluid"
                      style="width: 100%">
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div style="padding-top:20px !important;"></div>
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title text-center">Patient Registration OTP Form</h4>
                     </div>
                     <div class="card-body">
-                        <form id="PostForm" action="{% url 'patient_otp_varify' %}" method="POST">
+                        <form id="PostForm" action="{% url 'otp_varify' %}" method="POST">
                             {% csrf_token %}
                             <div class="form-group mb-3">
                                 <input type="text" class="form-control" name="otp" id="otpID"

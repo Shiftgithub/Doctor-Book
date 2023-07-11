@@ -20,6 +20,9 @@ def check_login_is_valid(request):
             return redirect('patient_dashboard')
         else:
             return redirect('patient_dashboard')
+    elif operation_response.data.get('status') == 308:
+        messages.add_message(request, messages.ERROR, "Please Varifyed your Account!")
+        return redirect('otp')
     else:
         messages.add_message(request, messages.ERROR, "Authentication failed! Please try again")
         return redirect('login')
