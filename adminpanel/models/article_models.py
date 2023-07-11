@@ -23,7 +23,7 @@ class Article(models.Model):
     heading = models.CharField(max_length=1000)
     tag = models.CharField(max_length=1000)
     description = models.CharField(max_length=10000)
-    image = models.ImageField(upload_to=article_filepath)
+    image = models.ImageField(upload_to=article_filepath, null=True)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, related_name="created_by", blank=True,
                                    null=True)
     modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, related_name="modified_by", blank=True,

@@ -54,7 +54,7 @@ def edit_bodypart_data(request, bodypart_id):
     bodypart = BodyPart.objects.get(id=bodypart_id)
     serializer = BodyPartSerializer(bodypart, data=request.data)
     if serializer.is_valid():
-        if serializer.save(updated_at=datetime.now()):
+        if serializer.save(updated_at=timezone.now()):
             return Response({'status': 200})
         else:
             return Response({'status': 403})

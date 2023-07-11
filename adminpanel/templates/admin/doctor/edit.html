@@ -380,6 +380,7 @@
                                 <input class="form-control" type="date" name="passing_year" placeholder="Not Provided"/>
                             </div>
                         </div>
+                        <hr>
                         {% endif %}
                     </div>
                 </div>
@@ -450,7 +451,8 @@
                                value="{{ doctor_all_data.availability.0.appointment_availability }}"
                                id="appointmentAvailabilityID" name="appointment_availability"/>
                         {% else %}
-                        <input class="form-control" type="text" name="appointment_availability" placeholder="Not Provided"/>
+                        <input class="form-control" type="text" name="appointment_availability"
+                               placeholder="Not Provided"/>
                         {% endif %}
                     </div>
                     <label class="col-md-2 col-form-label" for="awardsAndHonorsID">Awards And Honors :<span
@@ -473,7 +475,8 @@
                                value="{{ doctor_all_data.availability.0.accepting_new_patients }}"
                                name="accepting_new_patients"/>
                         {% else %}
-                        <input class="form-control" type="text" name="accepting_new_patients" placeholder="Not Provided"/>
+                        <input class="form-control" type="text" name="accepting_new_patients"
+                               placeholder="Not Provided"/>
                         {% endif %}
                     </div>
                     <label class="col-md-2 col-form-label">Board Certifications :<span
@@ -620,7 +623,7 @@
                         <input class="form-control" type="url" value="{{ doctor_all_data.social_media.0.facebook }}"
                                name="facebook"/>
                         {% else %}
-                        <input class="form-control" type="text" name="facebook" placeholder="Not Provided"/>
+                        <input class="form-control" type="url" name="facebook" placeholder="Not Provided"/>
                         {% endif %}
                     </div>
                 </div>
@@ -641,7 +644,7 @@
                         <input class="form-control" type="url" value="{{ doctor_all_data.social_media.0.instagram }}"
                                name="instagram"/>
                         {% else %}
-                        <input class="form-control" type="text" name="instagram" placeholder="Not Provided"/>
+                        <input class="form-control" type="url" name="instagram" placeholder="Not Provided"/>
                         {% endif %}
                     </div>
                 </div>
@@ -661,7 +664,7 @@
 </div>
 {% endblock %}
 {% block scripts %}
-<script src="{% static 'adminlte_assets/js/education-callback.js' %}"></script>
+<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
 <script>
     function previewImage(event) {
     var input = event.target;
@@ -679,28 +682,5 @@
         imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 {% endblock %}

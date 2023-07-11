@@ -1,4 +1,6 @@
 from django.urls import path, include
+
+from landing.views.apis.otp_views import varify_otp
 from landing.views.webs.landing_web import *
 from adminpanel.views.webs.login_web import *
 from adminpanel.views.apis.logout import logout
@@ -15,15 +17,23 @@ urlpatterns = [
     path('landing/', include([
         path('doctors/', landing_doctors, name="landing_doctors"),
         path('faq/', landing_faq, name="landing_faq"),
-        path('article/', landing_article, name="landing_article"),
+        path('article/', include([
+            path('', landing_article, name="landing_article"),
+            path('view/<int:article_id>/', landing_single_article, name="landing_article_view"),
+        ])),
+
         path('login/', login, name="login"),
         path('login/checking/', check_login_is_valid, name="check_login_is_valid"),
-        # path('landing/doctor/register/', doctor_register, name="doctor_register"),
+        path('doctor/register/', doctor_register, name="doctor_register"),
         path('predict/', predict, name="predict"),
 
         path('patient/', include([
             path('add/', patient_form, name="add_patient_form"),
             path('store/', store_patient, name="store_patient"),
+            path('otp/', include([
+                path('', patient_otp_form, name="patient_otp"),
+                path('varify/', verify_patient_otp, name="patient_otp_varify"),
+            ])),
         ])),
     ])),
 ]

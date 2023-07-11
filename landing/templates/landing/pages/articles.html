@@ -27,66 +27,51 @@
         display: block;
     }
 
+
+
+
 </style>
 {% endblock %}
-
 {% block content %}
-<!-- ======= article Section ======= -->
-<section id="article" class="articles">
+<!-- ======= Services Section ======= -->
+<section id="services" class="services">
     <div class="container">
-        <div class="articles-slider swiper" data-aos="fade-up" data-aos-delay="100">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="article-wrap">
-                        <div class="article-item">
-                            <img src="{% static 'landing_assets/img/articles/turan.jpg' %}" class="article-img" alt=""/>
-                            <h3>Mamun Mia Turan</h3>
-                            <h4>CEO &amp; Founder</h4>
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Keep your friends rich and your enemies rich, and wait to find out which is which.
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                        </div>
-                        <div class="article-item">
-                            <img src="{% static 'landing_assets/img/articles/mumu.jpg' %}" class="article-img" alt=""/>
-                            <h3>Meherun Nesa Mumu</h3>
-                            <h4>MD &amp; Co-Founder</h4>
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                What sets you apart can sometimes feel like a burden and it's not. And a lot of the
-                                time, it's what makes you great.
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                        </div>
-
-
-                        {% for data in all_data %}
-                        <div class="article-item">
-                            <div class="image-container">
-                                <img src="{{ data.image }}" alt="Article Image" width="100" class="article-img" alt="">
-                                <div class="image-popup">
-                                    <img src="{{ data.image }}" alt="Full Image" width="1800" height="700">
-                                </div>
-                            </div>
-                            <h3>{{data.heading}}</h3>
-                            <h4>{{data.tag}}</h4>
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                {{data.description}}
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <!-- End article item -->
-            </div>
-            <div class="swiper-pagination"></div>
+        <div class="section-title">
+            <h2>Articles</h2>
+            <p>An original article contains the following items: A title page, an Abstract, Introduction, Patients
+                (or materials) and methods, Results, Discussion, Summary or conclusion, the References, Tables,
+                Figures, legends to Figures and any acknowledgements.</p>
         </div>
+        <div class="row">
+            {% if all_data %}
+            {% for data in all_data %}
+            <div class="col-4 d-flex align-items-stretch">
+                <div class="icon-box">
+                    <a href="{% url 'landing_article_view' data.id %}">
+                        <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                        <h3>{{data.heading}}</h3>
+                        <h5>{{data.tag}}</h5>
+                        {% if data.description|wordcount > 15 %}
+                        <p class="text-dark">{{ data.description|truncatewords:15 }}
+                            <a href="{% url 'landing_article_view' data.id %}">See More</a>
+                        </p>
+                        {% else %}
+                        <p>{{ data.description }}</p>
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="row alert alert-warning">
+            <h3>No Article Found</h3>
+            <br>
+            <a href="{% url 'landing_dashboard' %}"><i class="fas fa-arrow-left"></i> Go Back</a>
+        </div>
+        {% endif %}
     </div>
-</section>
-<!-- End Articles Section -->
+</section><!-- End Services Section -->
 {% endblock %}
 
 {% block scripts %}

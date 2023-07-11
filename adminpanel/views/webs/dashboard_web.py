@@ -18,8 +18,10 @@ def get_time_of_day():
         return "morning"
     elif current_time.hour < 18:
         return "afternoon"
-    else:
+    elif current_time.hour < 20:
         return "evening"
+    else:
+        return "night"
 
 
 time_of_day = get_time_of_day()
