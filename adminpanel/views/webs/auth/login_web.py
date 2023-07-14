@@ -1,5 +1,5 @@
 from django.contrib import messages
-from adminpanel.views.apis.login_views import *
+from adminpanel.views.apis.auth.login_views import *
 from django.shortcuts import render, redirect
 
 
@@ -21,8 +21,9 @@ def check_login_is_valid(request):
         else:
             return redirect('patient_dashboard')
     elif operation_response.data.get('status') == 308:
+        email = operation_response.data.get('email')
         messages.add_message(request, messages.ERROR, "Please Varifyed your Account!")
-        return redirect('otp')
+        return render(request, 'landing/pages/otp_form.html', {'email': email})
     else:
         messages.add_message(request, messages.ERROR, "Authentication failed! Please try again")
         return redirect('login')

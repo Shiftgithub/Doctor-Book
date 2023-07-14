@@ -9,19 +9,16 @@ from adminpanel.serializers.organ_problem_specification_serializers import *
 # store organ problem data
 @api_view(['POST'])
 def store_organ_problem_specification_data(request):
-    if request.method == 'POST':
-        organ_id = request.POST.get('organ')
-        problems = request.POST.getlist('problems[]')
-        problem_specifications = request.POST.getlist('problem_specifications[]')
-        organ_id = Organ.objects.get(id=organ_id)
+    organ_id = request.POST.get('organ')
+    problems = request.POST.getlist('problems[]')
+    problem_specifications = request.POST.getlist('problem_specifications[]')
+    organ_id = Organ.objects.get(id=organ_id)
 
-        for problem, problem_specification in zip(problems, problem_specifications):
-            organ_problem_specification_obj = OrgansProblemSpecification(organ=organ_id, problem=problem,
-                                                                         problem_specification=problem_specification)
-            organ_problem_specification_obj.save()
-        return Response({'status': 200})
-    else:
-        return Response({'status': 403})
+    for problem, problem_specification in zip(problems, problem_specifications):
+        organ_problem_specification_obj = OrgansProblemSpecification(organ=organ_id, problem=problem,
+                                                                     problem_specification=problem_specification)
+        organ_problem_specification_obj.save()
+    return Response({'status': 200})
 
 
 # all organproblem data

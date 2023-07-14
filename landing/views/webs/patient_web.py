@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
-from adminpanel.views.apis.doctor_views import *
-from adminpanel.views.apis.user_views import get_patient_details
-from adminpanel.views.apis.otp_views import varify_otp
 from landing.views.apis.patient_views import *
+from adminpanel.views.apis.personal_data_views import *
+from adminpanel.views.apis.user_views import get_patient_details
 
 
 def patient_form(request):
@@ -13,7 +11,8 @@ def patient_form(request):
 
 def store_patient(request):
     operation_response = store_patient_data(request)
-    if operation_response.status_code == 200:
+    if operation_response.data.get('status') == 200:
+        email = operation_response.data.get('email')
         # messages.add_message(request, messages.INFO, "Patient data stored successfully")
         return redirect('otp')
     else:

@@ -8,8 +8,9 @@ from adminpanel.views.apis.doctor_views import *
 from adminpanel.views.apis.organ_views import *
 from adminpanel.views.apis.organ_problem_specification_views import *
 from adminpanel.views.apis.faq_views import *
+from adminpanel.views.apis.personal_data_views import *
 from backend.login_decorators import protected_view
-from adminpanel.views.apis.login_views import *
+from adminpanel.views.apis.auth.login_views import *
 
 urlpatterns = [
     # api path groups

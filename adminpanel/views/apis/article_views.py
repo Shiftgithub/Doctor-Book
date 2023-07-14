@@ -8,13 +8,10 @@ from adminpanel.serializers.article_serializers import *
 # Article
 @api_view(['POST'])
 def store_article_data(request):
-    if request.method == 'POST':
-        article_serializer = ArticleSerializer(data=request.data)
-        if article_serializer.is_valid():
-            if article_serializer.save():
-                return Response({'status': 200})
-            else:
-                return Response({'status': 403})
+    article_serializer = ArticleSerializer(data=request.data)
+    if article_serializer.is_valid():
+        if article_serializer.save():
+            return Response({'status': 200})
         else:
             return Response({'status': 403})
     else:

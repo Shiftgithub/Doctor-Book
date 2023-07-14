@@ -2,7 +2,7 @@ import hashlib
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from landing.serializers.login_serializers import *
+from adminpanel.serializers.auth.login_serializers import *
 # constants
 from backend.constants import *
 
@@ -10,7 +10,6 @@ from backend.constants import *
 @api_view(['POST'])
 def checking_authorization(request):
     login_serializer = LoginSerializer(data=request.data)
-
     if login_serializer.is_valid():
         user_fields = [login_serializer.validated_data['user_name']]
         user_name = ' - '.join(user_fields)
@@ -36,7 +35,7 @@ def checking_authorization(request):
             else:
                 return Response({'status': 403, 'message': 'User is not a doctor or is not approved'})
         elif user.status == STATUS_INACTIVE:
-            return Response({'status': 308})  # 308 Permanent Redirect
+            return Response({'status': 308, 'email': user.email})  # 308 Permanent Redirect
         else:
             return Response({'status': 403, 'message': 'User is not a doctor or is not approved'})
     else:
