@@ -67,7 +67,7 @@
                                        onchange="previewImage(event)"
                                        type="file"/>
                                 <img id="preview" src="{% static 'adminlte_assets/img/nobody.png' %}"
-                                     style="width: 50%; height: 280px;">
+                                     style="width: 100%; height: 280px;">
                             </div>
                         </div>
                     </div>
@@ -424,6 +424,7 @@
         imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
     }
 }
+
 
 </script>
 {% endblock %}

@@ -6,14 +6,11 @@ from adminpanel.serializers.department_specification_serializers import *
 
 @api_view(['POST'])
 def store_department_specification_data(request):
-    if request.method == 'POST':
-        department_specification_serializer = DepartmentSpecificationStoreSerializer(
-            data=request.data)
-        if department_specification_serializer.is_valid():
-            if department_specification_serializer.save():
-                return Response({'status': 200})
-            else:
-                return Response({'status': 403})
+    department_specification_serializer = DepartmentSpecificationStoreSerializer(
+        data=request.data)
+    if department_specification_serializer.is_valid():
+        if department_specification_serializer.save():
+            return Response({'status': 200})
         else:
             return Response({'status': 403})
     else:

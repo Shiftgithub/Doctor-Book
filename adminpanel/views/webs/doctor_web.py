@@ -2,6 +2,7 @@ from adminpanel.views.apis.doctor_views import *
 from adminpanel.views.apis.department_views import *
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from adminpanel.views.apis.personal_data_views import *
 
 
 # Doctor
