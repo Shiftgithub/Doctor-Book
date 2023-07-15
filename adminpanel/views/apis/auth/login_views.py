@@ -20,7 +20,7 @@ def checking_authorization(request):
         # Check if user exists in database
         try:
             user = User.objects.get(user_name=user_name, hash=hashed_password)
-            setAuthenticatedUser(request, user)
+            set_authenticated_user(request, user)
         except User.DoesNotExist:
             return Response({'status': 403, 'message': 'User does not exist'})
 
@@ -43,7 +43,7 @@ def checking_authorization(request):
 
 
 # Setting authenticated user into session ...
-def setAuthenticatedUser(request, user):
+def set_authenticated_user(request, user):
     request.session['user_id'] = user.id
     request.session['user_name'] = user.user_name
     request.session['user_role'] = user.role

@@ -20,7 +20,7 @@ def check_login_is_valid(request):
             return redirect('patient_dashboard')
         else:
             return redirect('patient_dashboard')
-    elif operation_response.data.get('status') == 308:
+    elif operation_response.data.get('status') == 308:  # 308 Permanent Redirect
         email = operation_response.data.get('email')
         messages.add_message(request, messages.ERROR, "Please Varifyed your Account!")
         return render(request, 'landing/pages/otp_form.html', {'email': email})
