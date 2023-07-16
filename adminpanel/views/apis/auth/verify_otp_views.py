@@ -25,13 +25,7 @@ def varify_otp(request):
             user.save(update_fields=['status'])
             message = 'Message From Doctor-Book [Personalized Doctor Predictor]:\n\n' \
                       'Your Doctor Book Account has activate'
-            changed_message = 'Message From Doctor-Book [Personalized Doctor Predictor]:\n\n' \
-                              'Your Doctor Book Account Password has been Changed'
-            id_pass_message = 'Message From Doctor-Book [Personalized Doctor Predictor]:\n\n' \
-                              'Your UserName: ' + user.user_name + '\n' 'Your Password: ' + user.password
             # send_mail = send_email(user.email, message)
-            # send_mail = send_email(user.email, changed_message)
-            # send_mail = send_email(user.email, id_pass_message)
-        return Response({'email': user.email, 'status': 200})
+        return Response({'id': user.id, 'email': user.email, 'status': 200})
     else:
         return Response({'status': 403})
