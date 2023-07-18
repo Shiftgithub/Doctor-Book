@@ -6,6 +6,7 @@
     #predictor {
         background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
     }
+
 </style>
 {% endblock %}
 
@@ -17,7 +18,7 @@
             <h4 class="text-center">Problem Specification</h4>
         </div>
         <hr/>
-        <form id="PostForm" action="#" method="POST">
+        <form id="PostForm" action="{% url 'prediction_result' %}" method="POST">
             {% csrf_token %}
 
             <!-- Body Part Name -->
@@ -128,5 +129,6 @@
             })
         }
     })
+
 </script>
 {% endblock %}

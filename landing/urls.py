@@ -3,12 +3,14 @@ from django.urls import path, include
 from adminpanel.views.webs.auth.change_password_web import *
 from adminpanel.views.webs.auth.verify_otp_web import *
 from adminpanel.views.webs.auth.forget_password_web import *
+from landing.views.apis.prediction_views import prediction
 from landing.views.webs.landing_web import *
 from adminpanel.views.webs.auth.login_web import *
 from adminpanel.views.apis.auth.logout_views import logout
 from landing.views.webs.patient_web import *
 from adminpanel.views.apis.auth.resend_otp_views import resend_otp
 from adminpanel.views.webs.auth.resend_otp_web import *
+from landing.views.webs.prediction_web import prediction_result
 
 urlpatterns = [
     # auth paths ..
@@ -29,6 +31,7 @@ urlpatterns = [
         path('login/checking/', check_login_is_valid, name="check_login_is_valid"),
         path('doctor/register/', doctor_register, name="doctor_register"),
         path('predict/', predict, name="predict"),
+        path('prediction/', prediction_result, name='prediction_result'),
 
         path('patient/', include([
             path('add/', patient_form, name="add_patient_form"),

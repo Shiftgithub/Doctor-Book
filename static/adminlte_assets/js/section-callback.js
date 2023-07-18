@@ -7,9 +7,9 @@ $(document).ready(function() {
         $(document).on('click', '.add-section-callback', function() {
             var section = $('.section-callback').first().clone();
             section.find('input[name="names[]"]').val(''); // Clear input values in the cloned section
-            section.find('textarea[name="descriptions[]"]').val(''); // Clear textarea value in the cloned section
+            section.find('textarea[name="descriptions[]"]').val('N/A');; // Clear textarea value in the cloned section
             section.find('input[name="problems[]"]').val(''); // Clear input values in the cloned section
-            section.find('textarea[name="problem_specifications[]"]').val(''); // Clear textarea value in the cloned section
+            section.find('textarea[name="problem_specifications[]"]').val('N/A'); // Clear textarea value in the cloned section
             section.find('.section-index').text('No ' + ($('.section-callback').length + 1)); // Update section index
             section.find('.remove-section-callback').show(); // Show the remove button for the cloned section
 
