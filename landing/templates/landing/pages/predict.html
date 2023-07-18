@@ -109,11 +109,13 @@
                             tableHTML += '<tbody>';
 
                             $.each(specifications, function (key, value) {
+                                var checkboxId = 'prbSpec' + key;
                                 tableHTML += '<tr>';
-                                tableHTML += '<td><input type="checkbox" name="problem_specs[]" id="prbSpec'+ key + '"></td>';
-                                tableHTML +=  `<td><label for="prbSpec${key}">(${value.problem}) ${value.problem_specification}</label></td>`;
+                                tableHTML += '<td><input type="checkbox" name="problem_specs[]" value="' + value.id + '" id="' + checkboxId + '"></td>';
+                                tableHTML += '<td><label for="' + checkboxId + '">(' + value.problem + ') ' + value.problem_specification + '</label></td>';
                                 tableHTML += '</tr>';
                             });
+
 
                             tableHTML += '</tbody>';
                             tableHTML += '</table>';
