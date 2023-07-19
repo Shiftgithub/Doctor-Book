@@ -42,7 +42,7 @@
                                 name="organ_problem_specification">
                             <option selected>Select Problem Name</option>
                             {% for item in problem_data %}
-                            <option value="{{ item.id }}">{{ item.problem }}</option>
+                            <option value="{{ item.id }}">{{ item.problem }} ({{ item.organ }})</option>
                             {% endfor %}
                         </select>
                     </div>

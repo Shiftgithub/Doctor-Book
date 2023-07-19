@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from adminpanel.models.user_models import User
 from adminpanel.models.varify_otp_models import VarifyOtp
-from adminpanel.views.apis.auth.send_email import generate_token, send_email
+from adminpanel.views.apis.auth.send_email import *
 
 
 @api_view(['POST'])

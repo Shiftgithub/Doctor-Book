@@ -1,6 +1,4 @@
 from django.db import models
-# Constants from backend/constants.py
-from backend.constants import *
 
 
 class User(models.Model):

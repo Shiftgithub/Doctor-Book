@@ -4,12 +4,6 @@ from django.shortcuts import render, redirect
 
 
 # Dashboard
-# def dashboard(request):
-#     messages.add_message(request, messages.INFO, "Welcome to the dashboard")
-#     # return redirect('admin_dashboard')
-#     return render(request, 'admin/dashboard.html')
-
-
 def get_time_of_day():
     current_time = datetime.datetime.now().time()
     if current_time.hour < 6:

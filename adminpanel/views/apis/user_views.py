@@ -1,10 +1,7 @@
-from django.http import HttpRequest
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
 from adminpanel.models.doctor_models import Doctor_Profile
 from landing.models.patient_models import Patient_Profile
-
 from adminpanel.serializers.doctor_serializers import DoctorAllDataSerializer
 from landing.serializers.patient_serializers import PatientAllDataSerializer
 

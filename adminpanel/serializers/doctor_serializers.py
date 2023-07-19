@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from adminpanel.models.doctor_models import *
-from adminpanel.models.personal_data_models import *
 from adminpanel.serializers.personal_data_serializers import *
 
 
