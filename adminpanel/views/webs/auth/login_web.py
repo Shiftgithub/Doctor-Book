@@ -1,10 +1,10 @@
 from django.contrib import messages
-from adminpanel.views.apis.login_views import *
+from adminpanel.views.apis.auth.login_views import *
 from django.shortcuts import render, redirect
 
 
 def login(request):
-    return render(request, 'landing/pages/login.html')
+    return render(request, 'landing/pages/auth/login.html')
 
 
 def check_login_is_valid(request):
@@ -20,6 +20,13 @@ def check_login_is_valid(request):
             return redirect('patient_dashboard')
         else:
             return redirect('patient_dashboard')
+    elif operation_response.data.get('status') == 308:  # 308 Permanent Redirect
+        messages.add_message(request, messages.ERROR, "Please Varifyed your Account!")
+        email = operation_response.data.get('email')
+        request.session['temp_verify_email'] = email
+        return redirect('otp_form')
     else:
         messages.add_message(request, messages.ERROR, "Authentication failed! Please try again")
         return redirect('login')
+
+

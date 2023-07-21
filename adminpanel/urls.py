@@ -1,5 +1,4 @@
 from django.urls import path, include
-
 from adminpanel.views.webs.user_web import get_user_details
 from adminpanel.views.webs.article_web import *
 from adminpanel.views.webs.bodypart_web import *
@@ -10,7 +9,6 @@ from adminpanel.views.webs.department_specification_web import *
 from adminpanel.views.webs.organ_web import *
 from adminpanel.views.webs.organ_problem_specification_web import *
 from adminpanel.views.webs.faq_web import *
-
 from adminpanel.views.apis.ajax_views import *
 # To protect admin panel paths from unauthenticated users
 from backend.login_decorators import protected_view

@@ -1,5 +1,4 @@
 from adminpanel.views.apis.bodypart_views import *
-
 from django.contrib import messages
 from django.shortcuts import render, redirect
 

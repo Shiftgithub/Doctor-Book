@@ -1,7 +1,5 @@
 from django.utils import timezone
-
 from adminpanel.serializers.faq_serializers import *
-
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -9,13 +7,10 @@ from rest_framework.decorators import api_view
 # FAQ
 @api_view(['POST'])
 def store_faq_data(request):
-    if request.method == 'POST':
-        faq_serializer = FAQSerializer(data=request.data)
-        if faq_serializer.is_valid():
-            if faq_serializer.save():
-                return Response({'status': 200})
-            else:
-                return Response({'status': 403})
+    faq_serializer = FAQSerializer(data=request.data)
+    if faq_serializer.is_valid():
+        if faq_serializer.save():
+            return Response({'status': 200})
         else:
             return Response({'status': 403})
     else:

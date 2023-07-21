@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
-from adminpanel.views.apis.doctor_views import *
-from adminpanel.views.apis.user_views import get_patient_details
 from landing.views.apis.patient_views import *
+from adminpanel.views.apis.personal_data_views import *
+from adminpanel.views.apis.user_views import get_patient_details
 
 
 def patient_form(request):
@@ -12,11 +11,14 @@ def patient_form(request):
 
 def store_patient(request):
     operation_response = store_patient_data(request)
-    if operation_response.status_code == 200:
-        messages.add_message(request, messages.INFO, "Patient data stored successfully")
+    if operation_response.data.get('status') == 200:
+        email = operation_response.data.get('email')
+        request.session['temp_verify_email'] = email
+        messages.add_message(request, messages.INFO, "Please activate your account")
+        return redirect('otp_form')
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Patient data")
-    return redirect('add_patient_form')
+        return redirect('add_patient_form')
 
 
 def edit_patient_form(request, patient_id):
@@ -45,5 +47,4 @@ def edit_patient_form(request, patient_id):
 def edit_patient(request, patient_id):
     response_patient = edit_patient_data(request, patient_id)
     patient_data = response_patient.data
-    print(patient_data)
     return redirect('edit_patient_form', patient_id=patient_id)

@@ -8,13 +8,10 @@ from adminpanel.models.department_specification_models import *
 
 @api_view(['POST'])
 def store_department_data(request):
-    if request.method == 'POST':
-        department_serializer = DepartmentSerializer(data=request.data)
-        if department_serializer.is_valid():
-            if department_serializer.save():
-                return Response({'status': 200})
-        else:
-            return Response({'status': 403})
+    department_serializer = DepartmentSerializer(data=request.data)
+    if department_serializer.is_valid():
+        if department_serializer.save():
+            return Response({'status': 200})
     else:
         return Response({'status': 403})
 

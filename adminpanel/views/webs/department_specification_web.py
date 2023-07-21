@@ -12,7 +12,6 @@ def department_specification_form(request):
 
     problem_response = get_all_organ_problem_specification_list(request)
     problem_data = problem_response.data
-
     return render(request, 'admin/department_specification/form.html',
                   {'department_data': department_data, 'problem_data': problem_data})
 

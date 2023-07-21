@@ -1,11 +1,9 @@
 from django.db import models
-# Constants from backend/constants.py
-from backend.constants import *
 
 
 class User(models.Model):
     user_name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(max_length=255)
     password = models.CharField(max_length=255)
 
     hash = models.CharField(max_length=64, null=True)  # Assuming SHA-256 hash is 64 characters long

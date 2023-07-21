@@ -1,14 +1,27 @@
 from django.shortcuts import render
-from django.contrib import messages
-from adminpanel.views.apis.article_views import *
-from adminpanel.views.apis.bodypart_views import *
-from adminpanel.views.apis.doctor_views import get_all_doctors_info_for_landing
 from adminpanel.views.apis.faq_views import *
-from landing.views.apis.patient_views import *
+from landing.views.apis.landing_views import *
+from adminpanel.views.apis.article_views import *
+from adminpanel.views.apis.department_views import get_all_departments_list
+from adminpanel.views.apis.doctor_views import get_all_doctors_info_for_landing
 
 
 def landing_dashboard(request):
-    return render(request, 'landing/pages/home.html')
+    response = get_all_departments_list(request)
+    all_data = response.data
+
+    department_response = count_department(request)
+    department_data = department_response.data
+
+    doctor_response = count_doctor(request)
+    doctor_data = doctor_response.data
+
+    patient_response = count_patient(request)
+    patient_data = patient_response.data
+
+    return render(request, 'landing/pages/home.html',
+                  {'all_data': all_data, 'department_data': department_data, 'doctor_data': doctor_data,
+                   'patient_data': patient_data})
 
 
 def landing_doctors(request):
@@ -31,11 +44,14 @@ def landing_article(request):
     return render(request, 'landing/pages/articles.html', {'all_data': all_data})
 
 
+def landing_single_article(request, article_id):
+    response = get_article_by_id(request, article_id)
+    all_data = response.data
+    return render(request, 'landing/pages/article_view.html', {'all_data': all_data})
+
+
 def doctor_register(request):
     return render(request, 'landing/pages/register.html')
 
 
-def predict(request):
-    response_bodypart = get_all_bodypart_list(request)
-    bodypart_data = response_bodypart.data
-    return render(request, 'landing/pages/predict.html', {'bodypart_data': bodypart_data})
+

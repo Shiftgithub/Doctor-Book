@@ -9,13 +9,10 @@ from adminpanel.models.bodypart_models import *
 # store bodypart function
 @api_view(['POST'])
 def store_bodypart_data(request):
-    if request.method == 'POST':
-        bodypart_serializer = BodyPartSerializer(data=request.data)
-        if bodypart_serializer.is_valid():
-            if bodypart_serializer.save():
-                return Response({'status': 200})
-            else:
-                return Response({'status': 403})
+    bodypart_serializer = BodyPartSerializer(data=request.data)
+    if bodypart_serializer.is_valid():
+        if bodypart_serializer.save():
+            return Response({'status': 200})
         else:
             return Response({'status': 403})
     else:
@@ -54,7 +51,7 @@ def edit_bodypart_data(request, bodypart_id):
     bodypart = BodyPart.objects.get(id=bodypart_id)
     serializer = BodyPartSerializer(bodypart, data=request.data)
     if serializer.is_valid():
-        if serializer.save(updated_at=datetime.now()):
+        if serializer.save(updated_at=timezone.now()):
             return Response({'status': 200})
         else:
             return Response({'status': 403})
