@@ -2,7 +2,6 @@ from django.shortcuts import render
 from adminpanel.views.apis.faq_views import *
 from landing.views.apis.landing_views import *
 from adminpanel.views.apis.article_views import *
-from adminpanel.views.apis.bodypart_views import *
 from adminpanel.views.apis.department_views import get_all_departments_list
 from adminpanel.views.apis.doctor_views import get_all_doctors_info_for_landing
 
@@ -55,7 +54,4 @@ def doctor_register(request):
     return render(request, 'landing/pages/register.html')
 
 
-def predict(request):
-    response_bodypart = get_all_bodypart_list(request)
-    bodypart_data = response_bodypart.data
-    return render(request, 'landing/pages/predict.html', {'bodypart_data': bodypart_data})
+

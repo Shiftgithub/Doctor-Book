@@ -13,8 +13,9 @@ def store_patient(request):
     operation_response = store_patient_data(request)
     if operation_response.data.get('status') == 200:
         email = operation_response.data.get('email')
-        # messages.add_message(request, messages.INFO, "Patient data stored successfully")
-        return redirect('otp')
+        request.session['temp_verify_email'] = email
+        messages.add_message(request, messages.INFO, "Please activate your account")
+        return redirect('otp_form')
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Patient data")
         return redirect('add_patient_form')

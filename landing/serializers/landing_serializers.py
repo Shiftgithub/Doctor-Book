@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from adminpanel.models.department_models import Department
 from adminpanel.models.doctor_models import Doctor_Profile
 from landing.models.patient_models import *

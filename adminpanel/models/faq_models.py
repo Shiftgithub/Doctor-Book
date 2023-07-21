@@ -1,5 +1,4 @@
 from django.db import models
-
 from adminpanel.models.user_models import User
 
 

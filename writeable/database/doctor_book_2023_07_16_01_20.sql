@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2023 at 09:07 AM
+-- Generation Time: Jul 15, 2023 at 09:19 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -33,7 +33,7 @@ CREATE TABLE `adminpanel_article` (
   `heading` varchar(1000) NOT NULL,
   `tag` varchar(1000) NOT NULL,
   `description` varchar(10000) NOT NULL,
-  `image` varchar(100) NOT NULL,
+  `image` varchar(100) DEFAULT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) DEFAULT NULL,
   `deleted_at` datetime(6) DEFAULT NULL,
@@ -49,9 +49,9 @@ CREATE TABLE `adminpanel_article` (
 
 CREATE TABLE `adminpanel_availability` (
   `id` bigint(20) NOT NULL,
-  `appointment_availability` datetime(6) DEFAULT NULL,
+  `appointment_availability` varchar(255) DEFAULT NULL,
   `accepting_new_patients` varchar(255) DEFAULT NULL,
-  `average_wait_time` bigint(20) DEFAULT NULL,
+  `average_wait_time` varchar(255) DEFAULT NULL,
   `consultation_fee` decimal(10,2) DEFAULT NULL,
   `available_facilities` varchar(255) DEFAULT NULL,
   `doctor_profile_id` bigint(20) DEFAULT NULL
@@ -519,10 +519,10 @@ INSERT INTO `adminpanel_religion` (`id`, `name`) VALUES
 
 CREATE TABLE `adminpanel_services` (
   `id` bigint(20) NOT NULL,
-  `treatments` varchar(255) NOT NULL,
-  `procedures` varchar(255) NOT NULL,
-  `hours` varchar(255) NOT NULL,
-  `location` varchar(255) NOT NULL,
+  `treatments` varchar(255) DEFAULT NULL,
+  `procedures` varchar(255) DEFAULT NULL,
+  `hours` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
   `doctor_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -1128,6 +1128,22 @@ INSERT INTO `adminpanel_user` (`id`, `user_name`, `email`, `password`, `hash`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `adminpanel_varifyotp`
+--
+
+CREATE TABLE `adminpanel_varifyotp` (
+  `id` bigint(20) NOT NULL,
+  `otp` varchar(6) NOT NULL,
+  `is_verified` tinyint(1) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `auth_group`
 --
 
@@ -1238,62 +1254,66 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (70, 'Can change user', 18, 'change_user'),
 (71, 'Can delete user', 18, 'delete_user'),
 (72, 'Can view user', 18, 'view_user'),
-(73, 'Can add upazila', 19, 'add_upazila'),
-(74, 'Can change upazila', 19, 'change_upazila'),
-(75, 'Can delete upazila', 19, 'delete_upazila'),
-(76, 'Can view upazila', 19, 'view_upazila'),
-(77, 'Can add social_ media', 20, 'add_social_media'),
-(78, 'Can change social_ media', 20, 'change_social_media'),
-(79, 'Can delete social_ media', 20, 'delete_social_media'),
-(80, 'Can view social_ media', 20, 'view_social_media'),
-(81, 'Can add services', 21, 'add_services'),
-(82, 'Can change services', 21, 'change_services'),
-(83, 'Can delete services', 21, 'delete_services'),
-(84, 'Can view services', 21, 'view_services'),
-(85, 'Can add present address', 22, 'add_presentaddress'),
-(86, 'Can change present address', 22, 'change_presentaddress'),
-(87, 'Can delete present address', 22, 'delete_presentaddress'),
-(88, 'Can view present address', 22, 'view_presentaddress'),
-(89, 'Can add permanent address', 23, 'add_permanentaddress'),
-(90, 'Can change permanent address', 23, 'change_permanentaddress'),
-(91, 'Can delete permanent address', 23, 'delete_permanentaddress'),
-(92, 'Can view permanent address', 23, 'view_permanentaddress'),
-(93, 'Can add organs problem specification', 24, 'add_organsproblemspecification'),
-(94, 'Can change organs problem specification', 24, 'change_organsproblemspecification'),
-(95, 'Can delete organs problem specification', 24, 'delete_organsproblemspecification'),
-(96, 'Can view organs problem specification', 24, 'view_organsproblemspecification'),
-(97, 'Can add images', 25, 'add_images'),
-(98, 'Can change images', 25, 'change_images'),
-(99, 'Can delete images', 25, 'delete_images'),
-(100, 'Can view images', 25, 'view_images'),
-(101, 'Can add faq', 26, 'add_faq'),
-(102, 'Can change faq', 26, 'change_faq'),
-(103, 'Can delete faq', 26, 'delete_faq'),
-(104, 'Can view faq', 26, 'view_faq'),
-(105, 'Can add education', 27, 'add_education'),
-(106, 'Can change education', 27, 'change_education'),
-(107, 'Can delete education', 27, 'delete_education'),
-(108, 'Can view education', 27, 'view_education'),
-(109, 'Can add department specification', 28, 'add_departmentspecification'),
-(110, 'Can change department specification', 28, 'change_departmentspecification'),
-(111, 'Can delete department specification', 28, 'delete_departmentspecification'),
-(112, 'Can view department specification', 28, 'view_departmentspecification'),
-(113, 'Can add awards', 29, 'add_awards'),
-(114, 'Can change awards', 29, 'change_awards'),
-(115, 'Can delete awards', 29, 'delete_awards'),
-(116, 'Can view awards', 29, 'view_awards'),
-(117, 'Can add availability', 30, 'add_availability'),
-(118, 'Can change availability', 30, 'change_availability'),
-(119, 'Can delete availability', 30, 'delete_availability'),
-(120, 'Can view availability', 30, 'view_availability'),
-(121, 'Can add article', 31, 'add_article'),
-(122, 'Can change article', 31, 'change_article'),
-(123, 'Can delete article', 31, 'delete_article'),
-(124, 'Can view article', 31, 'view_article'),
-(125, 'Can add patient_ profile', 32, 'add_patient_profile'),
-(126, 'Can change patient_ profile', 32, 'change_patient_profile'),
-(127, 'Can delete patient_ profile', 32, 'delete_patient_profile'),
-(128, 'Can view patient_ profile', 32, 'view_patient_profile');
+(73, 'Can add varify otp', 19, 'add_varifyotp'),
+(74, 'Can change varify otp', 19, 'change_varifyotp'),
+(75, 'Can delete varify otp', 19, 'delete_varifyotp'),
+(76, 'Can view varify otp', 19, 'view_varifyotp'),
+(77, 'Can add upazila', 20, 'add_upazila'),
+(78, 'Can change upazila', 20, 'change_upazila'),
+(79, 'Can delete upazila', 20, 'delete_upazila'),
+(80, 'Can view upazila', 20, 'view_upazila'),
+(81, 'Can add social_ media', 21, 'add_social_media'),
+(82, 'Can change social_ media', 21, 'change_social_media'),
+(83, 'Can delete social_ media', 21, 'delete_social_media'),
+(84, 'Can view social_ media', 21, 'view_social_media'),
+(85, 'Can add services', 22, 'add_services'),
+(86, 'Can change services', 22, 'change_services'),
+(87, 'Can delete services', 22, 'delete_services'),
+(88, 'Can view services', 22, 'view_services'),
+(89, 'Can add present address', 23, 'add_presentaddress'),
+(90, 'Can change present address', 23, 'change_presentaddress'),
+(91, 'Can delete present address', 23, 'delete_presentaddress'),
+(92, 'Can view present address', 23, 'view_presentaddress'),
+(93, 'Can add permanent address', 24, 'add_permanentaddress'),
+(94, 'Can change permanent address', 24, 'change_permanentaddress'),
+(95, 'Can delete permanent address', 24, 'delete_permanentaddress'),
+(96, 'Can view permanent address', 24, 'view_permanentaddress'),
+(97, 'Can add organs problem specification', 25, 'add_organsproblemspecification'),
+(98, 'Can change organs problem specification', 25, 'change_organsproblemspecification'),
+(99, 'Can delete organs problem specification', 25, 'delete_organsproblemspecification'),
+(100, 'Can view organs problem specification', 25, 'view_organsproblemspecification'),
+(101, 'Can add images', 26, 'add_images'),
+(102, 'Can change images', 26, 'change_images'),
+(103, 'Can delete images', 26, 'delete_images'),
+(104, 'Can view images', 26, 'view_images'),
+(105, 'Can add faq', 27, 'add_faq'),
+(106, 'Can change faq', 27, 'change_faq'),
+(107, 'Can delete faq', 27, 'delete_faq'),
+(108, 'Can view faq', 27, 'view_faq'),
+(109, 'Can add education', 28, 'add_education'),
+(110, 'Can change education', 28, 'change_education'),
+(111, 'Can delete education', 28, 'delete_education'),
+(112, 'Can view education', 28, 'view_education'),
+(113, 'Can add department specification', 29, 'add_departmentspecification'),
+(114, 'Can change department specification', 29, 'change_departmentspecification'),
+(115, 'Can delete department specification', 29, 'delete_departmentspecification'),
+(116, 'Can view department specification', 29, 'view_departmentspecification'),
+(117, 'Can add awards', 30, 'add_awards'),
+(118, 'Can change awards', 30, 'change_awards'),
+(119, 'Can delete awards', 30, 'delete_awards'),
+(120, 'Can view awards', 30, 'view_awards'),
+(121, 'Can add availability', 31, 'add_availability'),
+(122, 'Can change availability', 31, 'change_availability'),
+(123, 'Can delete availability', 31, 'delete_availability'),
+(124, 'Can view availability', 31, 'view_availability'),
+(125, 'Can add article', 32, 'add_article'),
+(126, 'Can change article', 32, 'change_article'),
+(127, 'Can delete article', 32, 'delete_article'),
+(128, 'Can view article', 32, 'view_article'),
+(129, 'Can add patient_ profile', 33, 'add_patient_profile'),
+(130, 'Can change patient_ profile', 33, 'change_patient_profile'),
+(131, 'Can delete patient_ profile', 33, 'delete_patient_profile'),
+(132, 'Can view patient_ profile', 33, 'view_patient_profile');
 
 -- --------------------------------------------------------
 
@@ -1374,36 +1394,37 @@ CREATE TABLE `django_content_type` (
 
 INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (1, 'admin', 'logentry'),
-(31, 'adminpanel', 'article'),
-(30, 'adminpanel', 'availability'),
-(29, 'adminpanel', 'awards'),
+(32, 'adminpanel', 'article'),
+(31, 'adminpanel', 'availability'),
+(30, 'adminpanel', 'awards'),
 (7, 'adminpanel', 'blood_group'),
 (8, 'adminpanel', 'board'),
 (9, 'adminpanel', 'bodypart'),
 (10, 'adminpanel', 'department'),
-(28, 'adminpanel', 'departmentspecification'),
+(29, 'adminpanel', 'departmentspecification'),
 (11, 'adminpanel', 'district'),
 (12, 'adminpanel', 'division'),
 (13, 'adminpanel', 'doctor_profile'),
-(27, 'adminpanel', 'education'),
-(26, 'adminpanel', 'faq'),
+(28, 'adminpanel', 'education'),
+(27, 'adminpanel', 'faq'),
 (14, 'adminpanel', 'gender'),
-(25, 'adminpanel', 'images'),
+(26, 'adminpanel', 'images'),
 (15, 'adminpanel', 'matrimony'),
 (16, 'adminpanel', 'organ'),
-(24, 'adminpanel', 'organsproblemspecification'),
-(23, 'adminpanel', 'permanentaddress'),
-(22, 'adminpanel', 'presentaddress'),
+(25, 'adminpanel', 'organsproblemspecification'),
+(24, 'adminpanel', 'permanentaddress'),
+(23, 'adminpanel', 'presentaddress'),
 (17, 'adminpanel', 'religion'),
-(21, 'adminpanel', 'services'),
-(20, 'adminpanel', 'social_media'),
-(19, 'adminpanel', 'upazila'),
+(22, 'adminpanel', 'services'),
+(21, 'adminpanel', 'social_media'),
+(20, 'adminpanel', 'upazila'),
 (18, 'adminpanel', 'user'),
+(19, 'adminpanel', 'varifyotp'),
 (3, 'auth', 'group'),
 (2, 'auth', 'permission'),
 (4, 'auth', 'user'),
 (5, 'contenttypes', 'contenttype'),
-(32, 'landing', 'patient_profile'),
+(33, 'landing', 'patient_profile'),
 (6, 'sessions', 'session');
 
 -- --------------------------------------------------------
@@ -1424,26 +1445,26 @@ CREATE TABLE `django_migrations` (
 --
 
 INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
-(1, 'contenttypes', '0001_initial', '2023-07-07 07:06:54.455095'),
-(2, 'auth', '0001_initial', '2023-07-07 07:06:56.673529'),
-(3, 'admin', '0001_initial', '2023-07-07 07:06:56.999113'),
-(4, 'admin', '0002_logentry_remove_auto_add', '2023-07-07 07:06:57.014630'),
-(5, 'admin', '0003_logentry_add_action_flag_choices', '2023-07-07 07:06:57.031677'),
-(6, 'adminpanel', '0001_initial', '2023-07-07 07:07:03.848305'),
-(7, 'contenttypes', '0002_remove_content_type_name', '2023-07-07 07:07:04.043403'),
-(8, 'auth', '0002_alter_permission_name_max_length', '2023-07-07 07:07:04.184686'),
-(9, 'auth', '0003_alter_user_email_max_length', '2023-07-07 07:07:04.222512'),
-(10, 'auth', '0004_alter_user_username_opts', '2023-07-07 07:07:04.245199'),
-(11, 'auth', '0005_alter_user_last_login_null', '2023-07-07 07:07:04.439950'),
-(12, 'auth', '0006_require_contenttypes_0002', '2023-07-07 07:07:04.462665'),
-(13, 'auth', '0007_alter_validators_add_error_messages', '2023-07-07 07:07:04.490137'),
-(14, 'auth', '0008_alter_user_username_max_length', '2023-07-07 07:07:04.593221'),
-(15, 'auth', '0009_alter_user_last_name_max_length', '2023-07-07 07:07:04.622782'),
-(16, 'auth', '0010_alter_group_name_max_length', '2023-07-07 07:07:04.682854'),
-(17, 'auth', '0011_update_proxy_permissions', '2023-07-07 07:07:04.730583'),
-(18, 'auth', '0012_alter_user_first_name_max_length', '2023-07-07 07:07:04.770256'),
-(19, 'landing', '0001_initial', '2023-07-07 07:07:05.781112'),
-(20, 'sessions', '0001_initial', '2023-07-07 07:07:05.874986');
+(1, 'contenttypes', '0001_initial', '2023-07-15 19:18:21.753996'),
+(2, 'auth', '0001_initial', '2023-07-15 19:18:23.111380'),
+(3, 'admin', '0001_initial', '2023-07-15 19:18:23.501574'),
+(4, 'admin', '0002_logentry_remove_auto_add', '2023-07-15 19:18:23.516845'),
+(5, 'admin', '0003_logentry_add_action_flag_choices', '2023-07-15 19:18:23.530742'),
+(6, 'adminpanel', '0001_initial', '2023-07-15 19:18:31.333828'),
+(7, 'contenttypes', '0002_remove_content_type_name', '2023-07-15 19:18:31.504399'),
+(8, 'auth', '0002_alter_permission_name_max_length', '2023-07-15 19:18:31.651974'),
+(9, 'auth', '0003_alter_user_email_max_length', '2023-07-15 19:18:31.688973'),
+(10, 'auth', '0004_alter_user_username_opts', '2023-07-15 19:18:31.707120'),
+(11, 'auth', '0005_alter_user_last_login_null', '2023-07-15 19:18:31.819106'),
+(12, 'auth', '0006_require_contenttypes_0002', '2023-07-15 19:18:31.834297'),
+(13, 'auth', '0007_alter_validators_add_error_messages', '2023-07-15 19:18:31.857708'),
+(14, 'auth', '0008_alter_user_username_max_length', '2023-07-15 19:18:31.957372'),
+(15, 'auth', '0009_alter_user_last_name_max_length', '2023-07-15 19:18:32.006245'),
+(16, 'auth', '0010_alter_group_name_max_length', '2023-07-15 19:18:32.039774'),
+(17, 'auth', '0011_update_proxy_permissions', '2023-07-15 19:18:32.075251'),
+(18, 'auth', '0012_alter_user_first_name_max_length', '2023-07-15 19:18:32.117209'),
+(19, 'landing', '0001_initial', '2023-07-15 19:18:32.881159'),
+(20, 'sessions', '0001_initial', '2023-07-15 19:18:33.051133');
 
 -- --------------------------------------------------------
 
@@ -1665,8 +1686,14 @@ ALTER TABLE `adminpanel_upazila`
 -- Indexes for table `adminpanel_user`
 --
 ALTER TABLE `adminpanel_user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `adminpanel_varifyotp`
+--
+ALTER TABLE `adminpanel_varifyotp`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD KEY `adminpanel_varifyotp_user_id_b55e44d6_fk_adminpanel_user_id` (`user_id`);
 
 --
 -- Indexes for table `auth_group`
@@ -1907,6 +1934,12 @@ ALTER TABLE `adminpanel_user`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `adminpanel_varifyotp`
+--
+ALTER TABLE `adminpanel_varifyotp`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `auth_group`
 --
 ALTER TABLE `auth_group`
@@ -1922,7 +1955,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 
 --
 -- AUTO_INCREMENT for table `auth_user`
@@ -1952,7 +1985,7 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `django_migrations`
@@ -2080,6 +2113,12 @@ ALTER TABLE `adminpanel_social_media`
 --
 ALTER TABLE `adminpanel_upazila`
   ADD CONSTRAINT `adminpanel_upazila_district_id_117c100b_fk_adminpane` FOREIGN KEY (`district_id`) REFERENCES `adminpanel_district` (`id`);
+
+--
+-- Constraints for table `adminpanel_varifyotp`
+--
+ALTER TABLE `adminpanel_varifyotp`
+  ADD CONSTRAINT `adminpanel_varifyotp_user_id_b55e44d6_fk_adminpanel_user_id` FOREIGN KEY (`user_id`) REFERENCES `adminpanel_user` (`id`);
 
 --
 -- Constraints for table `auth_group_permissions`

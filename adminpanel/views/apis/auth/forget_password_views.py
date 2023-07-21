@@ -1,16 +1,9 @@
-from backend.constants import *
-from rest_framework.response import Response
-from adminpanel.models.user_models import User
-from rest_framework.decorators import api_view
 from adminpanel.views.apis.auth.send_email import *
 from adminpanel.views.apis.auth.verify_otp_views import *
 from adminpanel.models.varify_otp_models import VarifyOtp
 from adminpanel.serializers.auth.varify_otp_serializers import VarifyOtpSerializer
 from adminpanel.serializers.auth.forget_password_seriailzers import ForgetPasswordSerializer
-
-
-def varify_otp(request):
-    pass
+from backend.constants import *
 
 
 @api_view(['POST'])
@@ -23,24 +16,19 @@ def forget_password(request):
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             return Response({'status': 404})
-        if user.status == STATUS_ACTIVE:
-            if user is not None:
-                varify_otp = VarifyOtp.objects.filter(user=user).first()
-                if varify_otp:
-                    varify_otp_serializer = VarifyOtpSerializer(varify_otp, data={'otp': token_str}, partial=True)
-                    if varify_otp_serializer.is_valid():
-                        varify_otp_serializer.save()
-                        message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP Number is: {token_str}'
-                        send_email(email, message)
-                        return Response({'status': 200})
-                    else:
-                        return Response({'status': 400})
-                else:
-                    return Response({'status': 400})
-            else:
-                return Response({'status': 403})
-        elif user.status == STATUS_INACTIVE:
-            pass
 
+        varify_otp = VarifyOtp.objects.filter(user=user).first()
+        varify_otp_serializer = VarifyOtpSerializer(varify_otp, data={'otp': token_str}, partial=True)
+
+        if user.status == STATUS_ACTIVE or user.status == STATUS_INACTIVE:
+            if varify_otp_serializer.is_valid():
+                varify_otp_serializer.save()
+                message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP Number is: {token_str}'
+                # send_email(email, message)
+                return Response({'status': 200, 'email': email})
+            else:
+                return Response({'status': 400})
+        else:
+            return Response({'status': 403})
     else:
         return Response({'status': 400})

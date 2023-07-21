@@ -3,7 +3,6 @@ from django.db import transaction
 from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from adminpanel.serializers.auth.varify_otp_serializers import VarifyOtpAllSerializer
 from adminpanel.serializers.user_serializers import *
 from adminpanel.serializers.doctor_serializers import *
 from adminpanel.models.doctor_models import *

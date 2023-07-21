@@ -1,8 +1,6 @@
 from rest_framework import serializers
-
-from adminpanel.models.doctor_models import *
-from adminpanel.models.organ_problem_specification_models import *
 from adminpanel.models.personal_data_models import *
+from adminpanel.models.organ_problem_specification_models import *
 
 
 class OrganBodyPartSerializer(serializers.ModelSerializer):

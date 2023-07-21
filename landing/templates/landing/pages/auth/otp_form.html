@@ -6,13 +6,7 @@
     #register {
         background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
     }
-
-
-
-
-
 </style>
-
 {% endblock %}
 
 {% block content %}
@@ -28,7 +22,7 @@
                 <div style="padding-top:20px !important;"></div>
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title text-center">OTP Form</h4>
+                        <h4 class="card-title text-center">Enter your OTP</h4>
                     </div>
                     <div class="card-body">
                         <form id="PostForm" action="{% url 'otp_varify' %}" method="POST">
@@ -38,7 +32,7 @@
                                        placeholder="Enter your OTP" required>
                             </div>
                             <div class="form-group mb-3">
-                                <a href="{% url 'resend_otp' email %}">Resend OTP</a>
+                                <a href="{% url 'resend_otp' %}">Resend OTP</a>
                             </div>
                             <div class="text-center mb-3">
                                 <button type="submit" class="btn btn-success">Submit</button>
@@ -51,7 +45,4 @@
     </div>
 </section>
 <!-- End Login Section -->
-{% endblock %}
-
-{% block scripts %}
 {% endblock %}
