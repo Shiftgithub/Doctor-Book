@@ -1,6 +1,6 @@
 from django.urls import path, include
 from adminpanel.views.webs.auth.change_password_web import *
-from adminpanel.views.webs.auth.verify_otp_web import *
+from adminpanel.views.webs.auth.otp_web import *
 from adminpanel.views.webs.auth.forget_password_web import *
 from landing.views.webs.landing_web import *
 from adminpanel.views.webs.auth.login_web import *

@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from adminpanel.views.apis.auth.send_email import send_email
 from adminpanel.serializers.auth.varify_otp_serializers import *
+from backend.constants import *
 
 
 @api_view(['POST'])

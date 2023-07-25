@@ -679,6 +679,6 @@ INSERT INTO `adminpanel_board` (`id`, `name`) VALUES
 
 
 INSERT INTO `adminpanel_user`( `id`, `user_name`, `email`, `password`, `hash`, `role`, `status`, `created_at`, `updated_at`, `deleted_at` ) VALUES
-(1, 'admin', 'admin@admin.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'admin', 'active', '2023-07-02 23:27:25', NULL, NULL );
+(1, 'admin', 'admin@admin.com', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'admin', 'active', '2023-07-02 23:27:25', NULL, NULL );
 
 INSERT INTO `adminpanel_varifyotp` (`id`, `otp`, `is_verified`, `created_at`, `updated_at`, `deleted_at`, `user_id`) VALUES ('1', '0', '1', '2023-07-18 02:29:37.183232', NULL, NULL, '1');
