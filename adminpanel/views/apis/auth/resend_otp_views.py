@@ -4,7 +4,8 @@ from adminpanel.models.user_models import User
 from adminpanel.models.varify_otp_models import VarifyOtp
 from adminpanel.views.apis.auth.send_email import *
 
-@api_view(['GET'])
+
+
 def resend_otp(request):
     email = request.session['temp_verify_email']
     user_instance = User.objects.filter(email=email).first()
