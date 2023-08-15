@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from adminpanel.views.apis.auth.verify_otp_views import varify_otp
+from adminpanel.views.apis.auth.otp_views import varify_otp
 
 
 def otp_form(request):

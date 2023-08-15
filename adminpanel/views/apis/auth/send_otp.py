@@ -1,4 +1,6 @@
+from rest_framework.decorators import api_view
 from adminpanel.serializers.auth.varify_otp_serializers import VarifyOtpAllSerializer
+
 
 
 def send_otp(user_instance, otp, is_verified):
@@ -9,4 +11,3 @@ def send_otp(user_instance, otp, is_verified):
         return True
     else:
         return False
-

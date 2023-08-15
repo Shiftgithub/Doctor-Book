@@ -1,5 +1,5 @@
 from adminpanel.views.apis.auth.send_email import *
-from adminpanel.views.apis.auth.verify_otp_views import *
+from adminpanel.views.apis.auth.otp_views import *
 from adminpanel.models.varify_otp_models import VarifyOtp
 from adminpanel.serializers.auth.varify_otp_serializers import VarifyOtpSerializer
 from adminpanel.serializers.auth.forget_password_seriailzers import ForgetPasswordSerializer
