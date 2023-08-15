@@ -47,12 +47,38 @@ INSTALLED_APPS = [
 
     # app
     'api.apps.ApiConfig',
-    'adminpanel.apps.AdminpanelConfig',
-    'landing.apps.LandingConfig',
+
+    # adminpanel/
+    'adminpanel.ajax.apps.AjaxConfig',
+    'adminpanel.article.apps.ArticleConfig',
+    'adminpanel.bodypart.apps.BodypartConfig',
+    'adminpanel.dashboard.apps.DashboardConfig',
+    'adminpanel.department.apps.DepartmentConfig',
+    'adminpanel.department_speci.apps.DepartmentSpeciConfig',
+    'adminpanel.doctor.apps.DoctorConfig',
+    'adminpanel.faq.apps.FaqConfig',
+    'adminpanel.organ.apps.OrganConfig',
+    'adminpanel.organ_problem_speci.apps.OrganProblemSpeciConfig',
+    'adminpanel.patient.apps.PatientConfig',
+    'adminpanel.personal_data.apps.PersonalDataConfig',
+    'adminpanel.user.apps.UserConfig',
+
+    # adminpanel/authentication
+    'adminpanel.authentication.login',
+    'adminpanel.authentication.logout',
+    'adminpanel.authentication.registration',
+
+    # adminpanel/authentication/otp
+    'adminpanel.authentication.otp.resendotp',
+    'adminpanel.authentication.otp.resetpassword',
+    'adminpanel.authentication.otp.verifyotp',
+
+    # landing
+    'landing.landing.apps.LandingConfig',
+    'landing.prediction.apps.PredictionConfig',
 
     # rest_framework
     'rest_framework',
-
     "debug_toolbar",
 ]
 
@@ -75,8 +101,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'adminpanel/templates',
-            BASE_DIR / 'landing/templates',
+            BASE_DIR / 'adminpanel/',
+            BASE_DIR / 'landing/',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
