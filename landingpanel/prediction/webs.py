@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from adminpanel.bodypart.views import get_all_bodypart_list
-from landing.prediction.views import prediction
+from landingpanel.prediction.views import prediction
 
 
 def predict_form(request):

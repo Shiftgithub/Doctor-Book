@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.db import transaction
-from landing.landing.models import *
+from landingpanel.landing.models import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404

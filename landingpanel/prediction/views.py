@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from landing.prediction.serializers import *
+from landingpanel.prediction.serializers import *
 from adminpanel.doctor.models import Doctor_Profile
 from adminpanel.department_speci.models import DepartmentSpecification
 

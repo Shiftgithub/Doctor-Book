@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from landing.landing.serializers import *
+from landingpanel.landing.serializers import *
 
 
 @api_view(['GET'])

@@ -28,8 +28,13 @@ urlpatterns = [
         path("organ/problem/specification/", include("adminpanel.organ_problem_speci.urls")),
         path("patient/", include("adminpanel.patient.urls")),
         path("user/details/", include("adminpanel.user.urls")),
-
     ])),
-    
-    # Include landing app URL patterns here
+    path("landing/", include([
+        path("login/", include("adminpanel.authentication.login.urls")),
+        path("logout/", include("adminpanel.authentication.logout.urls")),
+        path("resend/otp/", include("adminpanel.authentication.otp.resendotp.urls")),
+        path("", include("adminpanel.authentication.otp.resetpassword.urls")),
+        path("", include("adminpanel.authentication.otp.verifyotp.urls")),
+        
+    ])),
 ]

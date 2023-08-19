@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from landing.landing.views import *
+from landingpanel.landing.views import *
 from adminpanel.personal_data.views import *
 from adminpanel.patient.views import *
 from adminpanel.user.views import get_patient_details

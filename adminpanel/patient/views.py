@@ -2,7 +2,7 @@ import hashlib
 from datetime import datetime
 from django.db import transaction
 from rest_framework import status
-from landing.landing.serializers import *
+from landingpanel.landing.serializers import *
 from adminpanel.patient.models import *
 from adminpanel.patient.serializers import *
 from adminpanel.user.serializers import *

@@ -1,5 +1,5 @@
 from adminpanel.faq.views import *
-from landing.landing.views import *
+from landingpanel.landing.views import *
 from adminpanel.article.views import *
 from adminpanel.department.views import get_all_departments_list
 from adminpanel.doctor.views import get_all_doctors_info_for_landing

@@ -662,7 +662,7 @@ INSERT INTO `personal_data_religion` (`id`, `name`) VALUES
 (4, 'Buddhism'),
 (5, 'Other');
 
-INSERT INTO `adminpanel_board` (`id`, `name`) VALUES
+INSERT INTO `doctor_board` (`id`, `name`) VALUES
 (1, 'Barisal Board'),
 (2, 'Chittagong Board'),
 (3, 'Comilla Board'),

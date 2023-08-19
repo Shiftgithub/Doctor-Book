@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'adminpanel.organ_problem_speci.apps.OrganProblemSpeciConfig',
     'adminpanel.patient.apps.PatientConfig',
     'adminpanel.personal_data.apps.PersonalDataConfig',
+    'adminpanel.urls.apps.UrlsConfig',
     'adminpanel.user.apps.UserConfig',
 
     # adminpanel/authentication
@@ -74,8 +75,9 @@ INSTALLED_APPS = [
     'adminpanel.authentication.otp.verifyotp',
 
     # landing
-    'landing.landing.apps.LandingConfig',
-    'landing.prediction.apps.PredictionConfig',
+    'landingpanel.landing.apps.LandingConfig',
+    'landingpanel.prediction.apps.PredictionConfig',
+    'landingpanel.url.apps.UrlConfig',
 
     # rest_framework
     'rest_framework',
@@ -102,7 +104,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'adminpanel/',
-            BASE_DIR / 'landing/',
+            BASE_DIR / 'landingpanel/',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
