@@ -1,9 +1,9 @@
 import os
 import datetime
 from django.db import models
+from adminpanel.user.models import *
 from adminpanel.department.models import *
 from adminpanel.personal_data.models import *
-from adminpanel.user.models import *
 
 
 class Doctor_Profile(models.Model):
@@ -18,17 +18,17 @@ class Doctor_Profile(models.Model):
         Matrimony, on_delete=models.CASCADE, related_name="doctors"
     )
     date_of_birth = models.DateField(auto_now_add=False)
-    nid_no = models.CharField(max_length=255)
+    nid_no = models.CharField(max_length=255, null=True)
     blood_group = models.ForeignKey(
         Blood_Group, on_delete=models.CASCADE, related_name="doctors"
     )
-    phone_no = models.CharField(max_length=110)
+    phone_no = models.CharField(max_length=110,null=True)
     department = models.ForeignKey(
         Department, on_delete=models.CASCADE, related_name="doctors"
     )
     experience = models.CharField(max_length=255, null=True)
     biography = models.CharField(max_length=255, null=True)
-    languages_spoken = models.CharField(max_length=255)
+    languages_spoken = models.CharField(max_length=255, null=True)
     passport_no = models.CharField(max_length=255, null=True)
     user = models.ForeignKey(
         User, on_delete=models.SET_NULL, related_name="doctors", null=True
@@ -59,7 +59,7 @@ class PermanentAddress(models.Model):
     )
 
     def __str__(self):
-        return self.permanent_address
+        return self.permanent_village_state
 
 
 class PresentAddress(models.Model):
@@ -82,7 +82,7 @@ class PresentAddress(models.Model):
     )
 
     def __str__(self):
-        return self.present_address
+        return self.present_village_state
 
 
 def doctor_filepath(instance, filename):
@@ -134,13 +134,6 @@ class Awards(models.Model):
         max_length=255, null=True
     )  # doctor board certification number
     research_interests = models.CharField(max_length=255, null=True)
-
-
-class Board(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
 
 
 class Education(models.Model):
