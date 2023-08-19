@@ -1,4 +1,4 @@
-INSERT INTO `adminpanel_department` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `department_department` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Cardiology', 'Cardiology is the study of the heart. Cardiology is a branch of medicine that deals with disorders of the heart and the cardiovascular system. The field includes medical diagnosis and treatment of congenital heart defects, coronary artery disease, heart failure, valvular heart disease, and electrophysiology', '2023-06-27 15:31:23.024744', NULL, NULL),
 (2, 'Radiology', 'Radiology is the medical discipline that uses medical imaging to diagnose diseases and guide their treatment, within the bodies of humans and other animals', '2023-06-27 15:31:51.912129', NULL, NULL),
 (3, 'Orthopedic', 'Orthopedic surgery or orthopedics, is the branch of surgery concerned with conditions involving the musculoskeletal system. Orthopedic surgeons use both surgical and nonsurgical means to treat musculoskeletal trauma, spine diseases, sports injuries, degenerative diseases, infections, tumors, and congenital disorders', '2023-06-27 15:37:36.134056', NULL, NULL),
@@ -17,7 +17,7 @@ INSERT INTO `adminpanel_department` (`id`, `name`, `description`, `created_at`, 
 (16, 'Unit of measurement', 'A unit of measurement is a definite magnitude of a quantity, defined and adopted by convention or by law, that is used as a standard for measurement of the same kind of quantity. Any other quantity of that kind can be expressed as a multiple of the unit of measurement. For example, a length is a physical quantity.', '2023-06-27 15:42:42.684938', NULL, NULL),
 (17, 'Information', 'Information is an abstract concept that refers to that which has the power to inform. At the most fundamental level, information pertains to the interpretation of that which may be sensed, or their abstractions', '2023-06-27 15:42:58.511780', NULL, NULL);
 
-INSERT INTO `adminpanel_division` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `personal_data_division` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Rajshahi Division', '2023-07-18 02:29:37.183232' , NULL, NULL),
 (2, 'Rangpur Division', '2023-07-18 02:29:37.183232' , NULL, NULL),
 (3, 'Mymensingh Division', '2023-07-18 02:29:37.183232' , NULL, NULL),
@@ -27,8 +27,7 @@ INSERT INTO `adminpanel_division` (`id`, `name`, `created_at`, `updated_at`, `de
 (7, 'Khulna Division', '2023-07-18 02:29:37.183232' , NULL, NULL),
 (8, 'Sylhet Division', '2023-07-18 02:29:37.183232' , NULL, NULL);
 
-
-INSERT INTO `adminpanel_district` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`, `division_id`) VALUES
+INSERT INTO `personal_data_district` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`, `division_id`) VALUES
 (1, 'Joypurhat District', '2023-07-18 02:29:37.183232', NULL, NULL, 1),
 (2, 'Bogura District', '2023-07-18 02:29:37.183232', NULL, NULL, 1),
 (3, 'Naogaon District', '2023-07-18 02:29:37.183232', NULL, NULL, 1),
@@ -94,7 +93,7 @@ INSERT INTO `adminpanel_district` (`id`, `name`, `created_at`, `updated_at`, `de
 (63, 'Sunamganj District', '2023-07-18 02:29:37.183232', NULL, NULL, 8),
 (64, 'Sylhet District', '2023-07-18 02:29:37.183232', NULL, NULL, 8);
 
-INSERT INTO `adminpanel_upazila` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`, `district_id`) VALUES
+INSERT INTO `personal_data_upazila` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`, `district_id`) VALUES
 (1, 'Akkelpur Upazila', '2023-07-18 02:29:37.183232', NULL, NULL, 1),
 (2, 'Joypurhat Sadar Upazila', '2023-07-18 02:29:37.183232', NULL, NULL, 1),
 (3, 'Kalai Upazila', '2023-07-18 02:29:37.183232', NULL, NULL, 1),
@@ -617,7 +616,7 @@ INSERT INTO `adminpanel_upazila` (`id`, `name`, `created_at`, `updated_at`, `del
 (520, 'Jamalganj Upazila', '2023-07-18 02:29:37.183232', NULL, NULL, 63),
 (521, 'Sullah Upazila', '2023-07-18 02:29:37.183232', NULL, NULL, 63),
 (522, 'Sunamganj Sadar Upazila', '2023-07-18 02:29:37.183232', NULL, NULL, 63);
-INSERT INTO `adminpanel_upazila` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`, `district_id`) VALUES
+INSERT INTO `personal_data_upazila` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`, `district_id`) VALUES
 (523, 'Tahirpur Upazila', '2023-07-18 02:29:37.183232', NULL, NULL, 63),
 (524, 'Balaganj Upazila', '2023-07-18 02:29:37.183232', NULL, NULL, 64),
 (525, 'Beanibazar Upazila', '2023-07-18 02:29:37.183232', NULL, NULL, 64),
@@ -633,12 +632,12 @@ INSERT INTO `adminpanel_upazila` (`id`, `name`, `created_at`, `updated_at`, `del
 (535, 'Sylhet Sadar Upazila', '2023-07-18 02:29:37.183232', NULL, NULL, 64),
 (536, 'Zakiganj Upazila', '2023-07-18 02:29:37.183232', NULL, NULL, 64);
 
-INSERT INTO `adminpanel_gender` (`id`, `name`) VALUES
+INSERT INTO `personal_data_gender` (`id`, `name`) VALUES
 (1, 'Male'),
 (2, 'Female'),
 (3, 'Other');
 
-INSERT INTO `adminpanel_blood_group` (`id`, `name`) VALUES
+INSERT INTO `personal_data_blood_group` (`id`, `name`) VALUES
 (1, 'A+'),
 (2, 'A-'),
 (3, 'B+'),
@@ -648,7 +647,7 @@ INSERT INTO `adminpanel_blood_group` (`id`, `name`) VALUES
 (7, 'AB+'),
 (8, 'AB-');
 
-INSERT INTO `adminpanel_matrimony` (`id`, `name`) VALUES
+INSERT INTO `personal_data_matrimony` (`id`, `name`) VALUES
 (1, 'Married'),
 (2, 'Unmarried'),
 (3, 'Separated, or Widowed'),
@@ -656,14 +655,14 @@ INSERT INTO `adminpanel_matrimony` (`id`, `name`) VALUES
 (5, 'Other');
 
 
-INSERT INTO `adminpanel_religion` (`id`, `name`) VALUES
+INSERT INTO `personal_data_religion` (`id`, `name`) VALUES
 (1, 'Islam'),
 (2, 'Hinduism'),
 (3, 'Christianity'),
 (4, 'Buddhism'),
 (5, 'Other');
 
-INSERT INTO `adminpanel_board` (`id`, `name`) VALUES
+INSERT INTO `doctor_board` (`id`, `name`) VALUES
 (1, 'Barisal Board'),
 (2, 'Chittagong Board'),
 (3, 'Comilla Board'),
@@ -678,7 +677,7 @@ INSERT INTO `adminpanel_board` (`id`, `name`) VALUES
 (12, 'National Curriculum and Textbook Board.');
 
 
-INSERT INTO `adminpanel_user`( `id`, `user_name`, `email`, `password`, `hash`, `role`, `status`, `created_at`, `updated_at`, `deleted_at` ) VALUES
-(1, 'admin', 'admin@admin.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'admin', 'active', '2023-07-02 23:27:25', NULL, NULL );
+INSERT INTO `user_user`( `id`, `user_name`, `email`, `password`, `hash`, `role`, `status`, `created_at`, `updated_at`, `deleted_at` ) VALUES
+(1, 'admin', 'admin@admin.com', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'admin', 'active', '2023-07-02 23:27:25', NULL, NULL );
 
-INSERT INTO `adminpanel_varifyotp` (`id`, `otp`, `is_verified`, `created_at`, `updated_at`, `deleted_at`, `user_id`) VALUES ('1', '0', '1', '2023-07-18 02:29:37.183232', NULL, NULL, '1');
+INSERT INTO `verifyotp_varifyotp` (`id`, `otp`, `is_verified`, `created_at`, `updated_at`, `deleted_at`, `user_id`) VALUES ('1', '0', '1', '2023-07-18 02:29:37.183232', NULL, NULL, '1');

@@ -1,0 +1,26 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Data Details</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3"><strong>Department Name:</strong></div>
+                <div class="col-md-9">{{ department_specification_data.department }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Problem :</strong></div>
+                <div class="col-md-9">{{ department_specification_data.problem }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Description :</strong></div>
+                <div class="col-md-9">{{ department_specification_data.description }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

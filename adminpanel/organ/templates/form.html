@@ -1,0 +1,80 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Add Organ</h1>
+        </div>
+        <div class="card-body">
+            <form id="PostForm" action="{% url 'store_organ' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if not bodypart_data %}
+                <div class="alert alert-default-warning">
+                    <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_bodypart_form' %}"> Add
+                    Bodypart </a> first.
+                </div>
+                {% else %}
+                <div class="row mb-3">
+                    <label for="specialtySelect" class="col-md-2 col-form-label">Body Part Name</label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="specialtySelect" name="body_part">
+                            <option value="" selected>Select Body Part Name</option>
+                            {% for item in bodypart_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                {% endif %}
+                <hr>
+                <div id="section-callbacks">
+                    <div class="section-callback">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="col-form-label section-index">No 1</label>
+                            </div>
+                            <div class="col-md-8">
+                                <button type="button" class="btn btn-danger remove-section-callback float-right">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label font-weight-bold">Organ :</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" minlength="3" maxlength="255" size="255"
+                                       name="names[]"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label font-weight-bold">Description :</label>
+                            <div class="col-md-10"><textarea class="form-control" cols="30" rows="2" minlength="3"
+                                                             maxlength="1000" name="descriptions[]"
+                                                             size="1000">{{ data.description|default:"N/A" }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" class="btn btn-primary add-section-callback float-right">Add More</button>
+                    </div>
+                </div>
+                <!-- Section Container -->
+                <div id="sections-container">
+                </div>
+                <br>
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-success float-right">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
+{% endblock %}
