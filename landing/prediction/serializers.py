@@ -7,8 +7,8 @@ from admin.organ.models import *
 
 
 class PredictionSerializer(serializers.ModelSerializer):
-    bodypart = serializers.CharField(source='bodypart.name', required=False)
-    organ = serializers.CharField(source='organ.name', required=False)
+    bodypart = serializers.CharField()
+    organ = serializers.CharField()
     organ_problem_specification_id = serializers.CharField(source='departmentdpecification.id', required=False)
 
     class Meta:

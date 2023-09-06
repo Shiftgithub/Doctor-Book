@@ -1,9 +1,12 @@
-from rest_framework.decorators import api_view
+from admin.bodypart.models import BodyPart
 from rest_framework.response import Response
 from landing.prediction.serializers import *
+from rest_framework.decorators import api_view
 from admin.doctor.models import Doctor_Profile
-from admin.bodypart.models import BodyPart
+from admin.organ.serializers import OrganBodyPartSerializer
+from admin.bodypart.serializers import BodyPartSerializerView
 from admin.department_speci.models import DepartmentSpecification
+from admin.organ_problem_speci.serializers import OrganProblemStoreSerializer
 
 
 @api_view(['POST'])
@@ -25,11 +28,30 @@ def prediction(request):
                     department__in=department_ids
                 )
                 doctor_serializer = PredictionDoctorSerializer(doctor_data, many=True)
-                return Response({'status': 200, 'doctors_data': doctor_serializer.data})
+
+                bodypart = BodyPart.objects.get(id=bodypart_id)
+                bodypart_serializer = BodyPartSerializerView(bodypart, many=False)
+
+                organ = Organ.objects.get(id=organ_id)
+                organ_serializer = OrganBodyPartSerializer(organ, many=False)
+
+                problem_specs_data = []
+                for problem_spec_id in problem_specs:
+                    try:
+                        problem_spec = OrgansProblemSpecification.objects.get(id=problem_spec_id)
+                        problem_specs_data.append(OrganProblemStoreSerializer(problem_spec).data)
+                    except OrgansProblemSpecification.DoesNotExist:
+                        pass
+
+                response_data = {
+                    'status': 200,
+                    'bodypart_name': bodypart_serializer.data,
+                    'organ_name': organ_serializer.data,
+                    'doctors_data': doctor_serializer.data,
+                    'problem_specs': problem_specs_data,
+                }
+                return Response(response_data)
             else:
                 return Response({'status': 403, 'message': 'DepartmentSpecifications have different departments'})
         else:
             return Response({'status': 403, 'message': 'DepartmentSpecification does not exist'})
-
-    else:
-        return Response({'status': 400, 'errors': predict_serializer.errors})

@@ -2,11 +2,10 @@
 {% load static %}
 
 {% block styles %}
-<style>
+<style xmlns="http://www.w3.org/1999/html">
     #doctors {
         background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
     }
-
 </style>
 {% endblock %}
 
@@ -15,6 +14,40 @@
 <section id="doctors" class="doctors">
     <div class="container pt-4">
         <div class="row">
+            <div class="member-info text-center">
+                <div class="row p-2">
+                    <label class="col-md-3 col-form-label">Body Part Name:<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-9">
+                        <input class="form-control" value="{{ bodypart_name.name }}" readonly/>
+                    </div>
+                </div>
+                <!-- Problem Specification -->
+                <div class="row p-2">
+                    <label class="col-md-3 col-form-label">Organ Name:<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-9">
+                        <input class="form-control" value="{{organ_name.name }}" readonly/>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <label class="col-md-3 col-form-label">Problem Specification:</label>
+                    <div class="col-md-9">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <tbody>
+                                {% for data in problem_specs %}
+                                <tr>
+                                    <td>{{ data.problem }}</td>
+                                    <td>{{ data.problem_specification }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% if doctor_data %}
             {% for data in doctor_data %}
             <div class="col-6">
@@ -26,6 +59,10 @@
                         <h4>{{ data.full_name }}</h4>
                         <h6>{{data.department_name}}</h6>
                         <p>{{ data.biography }}</p>
+                        <p>
+                            <button class="btn btn-success">Appointment</button>
+                            <button class="btn btn-info">Profile</button>
+                        </p>
                     </div>
                 </div>
             </div>
