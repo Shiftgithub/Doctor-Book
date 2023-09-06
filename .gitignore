@@ -13,7 +13,7 @@ adminpanel/doctor/__pycache__/
 adminpanel/faq/__pycache__/
 adminpanel/patient/__pycache__/
 adminpanel/personal_data/__pycache__/
-adminpanel/user/__pycache__/
+adminpanel/authentication/user/__pycache__/
 adminpanel/authentication/login/__pycache__/
 adminpanel/authentication/logout/__pycache__/
 adminpanel/authentication/registration/__pycache__/

@@ -1,16 +1,16 @@
 from django.urls import path, include
 
-from adminpanel.article.views import *
-from adminpanel.bodypart.views import *
-from adminpanel.department.views import *
-from adminpanel.department_speci.views import *
-from adminpanel.doctor.views import *
-from adminpanel.organ.views import *
-from adminpanel.organ_problem_speci.views import *
-from adminpanel.faq.views import *
-from adminpanel.personal_data.views import *
+from admin.article.views import *
+from admin.bodypart.views import *
+from admin.department.views import *
+from admin.department_speci.views import *
+from admin.doctor.views import *
+from admin.organ.views import *
+from admin.organ_problem_speci.views import *
+from admin.faq.views import *
+from admin.personal_data.views import *
 from backend.login_decorators import protected_view
-from adminpanel.authentication.login.views import *
+from admin.authentication.login.views import *
 
 urlpatterns = [
     # api path groups
