@@ -25,7 +25,7 @@
                 <label for="bodyPartID" class="col-md-3 col-form-label">Body Part :<span
                         class="text-danger">*</span></label>
                 <div class="col-md-9">
-                    <select class="form-control select2" id="bodyPartID">
+                    <select class="form-control select2" id="bodyPartID" name="bodypart">
                         <option value="" selected>Select Body Part Name</option>
                         {% for item in bodypart_data %}
                         <option value="{{ item.id }}">{{ item.name }}</option>
@@ -38,7 +38,7 @@
             <div class="row p-2">
                 <label for="organID" class="col-md-3 col-form-label">Organ :<span class="text-danger">*</span></label>
                 <div class="col-md-9">
-                    <select class="form-control select2" id="organID">
+                    <select class="form-control select2" id="organID" name="organ">
                         <option value="" selected>Select Organ Name</option>
                     </select>
                 </div>

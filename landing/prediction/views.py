@@ -2,14 +2,19 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from landing.prediction.serializers import *
 from admin.doctor.models import Doctor_Profile
+from admin.bodypart.models import BodyPart
 from admin.department_speci.models import DepartmentSpecification
 
 
 @api_view(['POST'])
 def prediction(request):
     predict_serializer = PredictionSerializer(data=request.data)
+
     problem_specs = request.POST.getlist('problem_specs[]')
     if predict_serializer.is_valid():
+        bodypart_id = predict_serializer.validated_data.get('bodypart')
+        organ_id = predict_serializer.validated_data.get('organ')
+
         department_specifications = DepartmentSpecification.objects.filter(
             organ_problem_specification__in=problem_specs
         )
@@ -25,5 +30,6 @@ def prediction(request):
                 return Response({'status': 403, 'message': 'DepartmentSpecifications have different departments'})
         else:
             return Response({'status': 403, 'message': 'DepartmentSpecification does not exist'})
+
     else:
         return Response({'status': 400, 'errors': predict_serializer.errors})
