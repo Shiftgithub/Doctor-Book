@@ -1,3 +1,5 @@
+from datetime import timedelta, datetime
+
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from admin.ajax.serializers import *
@@ -30,3 +32,23 @@ def get_upazila_by_district(request, district_id):
     upazilas = Upazila.objects.filter(district_id=district_id).order_by('id')
     serialized_data = UpazilaByDistrictBySerializer(upazilas, many=True).data
     return Response(serialized_data)
+
+
+def generate_time(request):
+    # Define the start and end times
+    start_time = datetime.strptime('9:00 AM', '%I:%M %p')
+    end_time = datetime.strptime('3:00 PM', '%I:%M %p')
+
+    # Initialize a list to store the time slots
+    time_slots = []
+
+    # Generate time slots with 15-minute intervals
+    current_time = start_time
+    while current_time <= end_time:
+        end_slot_time = current_time + timedelta(minutes=15)
+        time_slot = f"{current_time.strftime('%I:%M %p')} - {end_slot_time.strftime('%I:%M %p')}"
+        time_slots.append(time_slot)
+        current_time = end_slot_time
+
+    # Return the time slots as a JSON response
+    return time_slots

@@ -10,6 +10,7 @@ urlpatterns = [
         "",
         include(
             [
+                path("time/",generate_time,name="get_time"),
                 path(
                     "organ/<int:body_part_id>/",
                     get_organs_by_bodypart,

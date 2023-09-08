@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from admin.bodypart.models import BodyPart
 from rest_framework.response import Response
 from landing.prediction.serializers import *
@@ -55,3 +56,20 @@ def prediction(request):
                 return Response({'status': 403, 'message': 'DepartmentSpecifications have different departments'})
         else:
             return Response({'status': 403, 'message': 'DepartmentSpecification does not exist'})
+
+
+def generate_date(request):
+    # Get today's date
+    today = datetime.now().date()
+
+    # Create a list to store the dates as strings in "DD-MM-YYYY" format
+    date_list = []
+
+    # Generate the next 8 days
+    for i in range(8):
+        date = today + timedelta(days=i)
+        formatted_date = date.strftime("%d-%m-%Y")
+        date_list.append(formatted_date)
+    return date_list
+
+

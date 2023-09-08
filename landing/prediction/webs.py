@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from .views import *
 from django.contrib import messages
+from admin.doctor.views import doctor_data
+from django.shortcuts import render, redirect
 from admin.bodypart.views import get_all_bodypart_list
-from .views import prediction
 
 
 def predict_form(request):
@@ -24,3 +25,22 @@ def predict(request):
     else:
         messages.add_message(request, messages.ERROR, "Error")
         return redirect('predict_form')
+
+
+def doctor_profile(request, doctor_id):
+    response_doctor = doctor_data(request, doctor_id)
+    doctor_all_data = response_doctor.data
+    return render(request, 'prediction/templates/doctor_profile.html',
+                  {'doctor_all_data': doctor_all_data})
+
+
+def appointment_schedule_form(request, doctor_id):
+    response_doctor = doctor_data(request, doctor_id)
+    doctor_all_data = response_doctor.data
+    days = generate_date(request)
+
+    data = {
+        'date_list': days,
+        'doctor_all_data': doctor_all_data,
+    }
+    return render(request, 'prediction/templates/appointment_schedule.html', data)

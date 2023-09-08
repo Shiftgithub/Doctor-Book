@@ -60,8 +60,8 @@
                         <h6>{{data.department_name}}</h6>
                         <p>{{ data.biography }}</p>
                         <p>
-                            <button class="btn btn-success">Appointment</button>
-                            <button class="btn btn-info">Profile</button>
+                            <a href="{% url 'appointment_schedule_form' data.id %}" class="btn btn-success btn-sm">Appointment</a>
+                            <a href="{% url 'doctor_profile' data.id %}" class="btn btn-info btn-sm">Profile</a>
                         </p>
                     </div>
                 </div>
@@ -77,8 +77,4 @@
         </div>
     </div>
 </section>
-<!-- End Doctors Section -->
-{% endblock %}
-
-{% block scripts %}
 {% endblock %}

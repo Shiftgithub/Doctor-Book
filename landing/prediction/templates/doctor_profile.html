@@ -1,0 +1,57 @@
+{% extends 'landing_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    #article {
+        background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
+    }
+
+    .image-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .image-popup {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        height: 500px;
+        z-index: 1;
+    }
+    .image-container:hover .image-popup {
+        display: block;
+    }
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- ======= Articles Section ======= -->
+<section id="about" class="about">
+    <div class="container-fluid">
+        {% for doctor_data in doctor_all_data %}
+        <div class="row pt-5">
+            <div class="col-2 justify-content-center position-relative">
+            </div>
+            <div class="col-4 justify-content-center position-relative">
+                <img src="{{ doctor_data.images.0.photo_name }}" alt="About Image" height="350px" width="80%">
+            </div>
+            <div class="col-6 justify-content-center">
+                <p><strong>Doctor Name : {{ doctor_data.full_name }}</strong></p>
+                <p>Biography : {{ doctor_data.biography }}</p>
+                <p>Department : {{ doctor_data.department }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<!-- End Articles Section -->
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

@@ -25,5 +25,5 @@ class PredictionDoctorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor_Profile
         fields = [
-            'full_name', 'biography', 'department_name', 'images'
+            'id', 'full_name', 'biography', 'department_name', 'images'
         ]
