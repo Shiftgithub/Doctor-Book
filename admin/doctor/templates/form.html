@@ -6,7 +6,7 @@
     <form action="{% url 'store_doctor' %}" enctype="multipart/form-data" id="PostForm" method="POST">
         {% csrf_token %}
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-dark">
                 <h1 class="card-title">New Doctor</h1>
             </div>
             <div class="card-body">
@@ -280,20 +280,6 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <input class="form-control" id="userNameID" name="user_name" type="text"/>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="passwordID">Password : <span
-                            class="text-danger">*</span></label>
-                    <div class="col-md-10">
-                        <input class="form-control" id="passwordID" name="password" type="password"/>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="conPasswordID">Confirm Password : <span
-                            class="text-danger">*</span></label>
-                    <div class="col-md-10">
-                        <input class="form-control" id="conPasswordID" name="con_password" type="password"/>
                     </div>
                 </div>
             </div>

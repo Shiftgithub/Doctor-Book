@@ -3,11 +3,11 @@
 
 {% block content %}
 <div class="container mt-4">
-    <form action="{% url 'edit_doctor' doctor_id %}" enctype="multipart/form-data" id="PostForm" method="POST">
+    <form action="{% url 'edit_doctor' doctor_id %}" enctype="mqultipart/form-data" id="PostForm" method="POST">
         {% csrf_token %}
         <div class="card">
-            <div class="card-header">
-                <h1 class="card-title">Data Details</h1>
+            <div class="card-header bg-dark">
+                <h1 class="card-title">Doctor Information</h1>
                 <h1 class="card-title float-right">
                     <a href="{% url 'view_doctor_data' doctor_id %}"
                        class="nav-link btn btn-info float-right"

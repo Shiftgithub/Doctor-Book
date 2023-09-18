@@ -92,9 +92,4 @@ class DoctorAllDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Doctor_Profile
-        fields = [
-            'id', 'full_name', 'father_name', 'mother_name', 'date_of_birth', 'nid_no', 'phone_no', 'experience',
-            'biography', 'languages_spoken', 'passport_no', 'department', 'blood_group', 'gender', 'matrimony',
-            'religion', 'user_name', 'email', 'images', 'availability', 'awards', 'education', 'services',
-            'social_media', 'present_address', 'permanent_address'
-        ]
+        fields = '__all__'

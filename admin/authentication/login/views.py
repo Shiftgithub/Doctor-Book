@@ -1,9 +1,8 @@
 import hashlib
+from backend.constants import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from admin.authentication.login.serializers import *
-# constants
-from backend.constants import *
 
 
 @api_view(['POST'])

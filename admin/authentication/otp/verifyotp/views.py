@@ -1,10 +1,11 @@
 from datetime import datetime
+from backend.constants import *
 from django.db import transaction
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
+from admin.authentication.user.models import User
 from admin.authentication.otp.verifyotp.serializers import *
-from backend.constants import *
 
 
 @api_view(['POST'])

@@ -21,11 +21,12 @@ def store_doctor_data(request):
 
         if user_serializer.is_valid(
                 raise_exception=True) and doctor_serializer.is_valid() and image_serializer.is_valid() and present_address_serializer.is_valid() and permanent_address_serializer.is_valid():
-            password = request.data.get('password')
+            password = '@123456789'
             hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
             with transaction.atomic():
-                user_instance = user_serializer.save(hash=hashed_password, role="doctor", status="active")
+                user_instance = user_serializer.save(password=password, hash=hashed_password,
+                                                     role="doctor", status="active")
                 doctor_data = doctor_serializer.validated_data
                 try:
                     user_instance = User.objects.get(pk=user_instance)
@@ -191,7 +192,6 @@ def edit_doctor_data(request, doctor_id):
         return Response({'status': 200})
     else:
         return Response({'status': 404})
-
 
 
 @api_view(['PUT', 'GET'])

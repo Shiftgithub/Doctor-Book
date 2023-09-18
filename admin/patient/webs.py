@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect
+from admin.patient.views import *
 from django.contrib import messages
 from admin.personal_data.views import *
-from admin.patient.views import *
-from admin.authentication.user.webs import get_patient_details
+from django.shortcuts import render, redirect
 
 
 def patient_form(request):
@@ -34,13 +33,13 @@ def edit_patient_form(request, patient_id):
     response_matrimony = matrimony_list(request)
     matrimony_data = response_matrimony.data
 
-    user_details = get_patient_details(request, request.session.get('user_id'))
-    patient_all_data = user_details.data
+    response_patient = patient_data(request, patient_id)
+    patient_all_data = response_patient.data
 
     return render(request, 'patient/templates/edit.html',
                   {'gender_data': gender_data, 'religion_data': religion_data,
                    'blood_group_data': blood_group_data, 'matrimony_data': matrimony_data,
-                   'patient_all_data': patient_all_data
+                   'patient_all_data': patient_all_data, 'patient_id': patient_id
                    })
 
 

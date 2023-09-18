@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from admin.authentication.otp.verifyotp.models import *
 from admin.authentication.otp.function.send_email import *
+from admin.authentication.user.serializers import UserSerializer
 
 
 @api_view(["POST"])
@@ -39,6 +40,31 @@ def store_patient_data(request):
                 return Response(status=status.HTTP_403_FORBIDDEN)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from admin.doctor.models import Doctor_Profile
+from admin.patient.models import Patient_Profile
+from admin.doctor.serializers import DoctorAllDataSerializer
+from admin.patient.serializers import PatientAllDataSerializer
+
+
+@api_view(['GET'])
+def patient_data(request, patient_id):
+    patient_profile = Patient_Profile.objects.filter(user_id=patient_id).first()
+
+    if patient_profile is None:
+        return Response({"error": "Patient profile not found"}, status=404)
+
+    patient_id = patient_profile.id
+
+    patient = Patient_Profile.objects.filter(id=patient_id, deleted_at=None).select_related(
+        'gender', 'religion', 'blood_group', 'matrimony', 'user'
+    ).first()
+
+    serializer = PatientAllDataSerializer(patient)
+    return Response(serializer.data)
 
 
 @api_view(["PUT", "POST"])

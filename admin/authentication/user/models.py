@@ -1,16 +1,13 @@
 import os
-from datetime import datetime
-
 from django.db import models
-
+from datetime import datetime
 from admin.personal_data.models import *
 
 
 class User(models.Model):
     user_name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
-    password = models.CharField(max_length=255)
-
+    password = models.CharField(max_length=255, null=True)
     hash = models.CharField(max_length=64, null=True)  # Assuming SHA-256 hash is 64 characters long
     role = models.CharField(max_length=20, null=True)  # Choices: admin, doctor, patient
     status = models.CharField(max_length=20, null=True)  # Choices: active, inactive, pending
@@ -61,6 +58,7 @@ class PresentAddress(models.Model):
     class Meta:
         db_table = "present_address"
 
+
 def doctor_filepath(instance, filename):
     # Get the current timestamp
     time_now = datetime.now().strftime("%Y%m%d%H%M%S")
@@ -73,7 +71,6 @@ def doctor_filepath(instance, filename):
 
     # Return the relative path to the folder where you want to save the image
     return os.path.join("static", "uploads", "images", new_filename)
-
 
 
 class Images(models.Model):

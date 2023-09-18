@@ -57,10 +57,12 @@ INSTALLED_APPS = [
     'admin.department_speci.apps.DepartmentSpeciConfig',
     'admin.doctor.apps.DoctorConfig',
     'admin.faq.apps.FaqConfig',
+    'admin.medicine.apps.MedicineConfig',
     'admin.organ.apps.OrganConfig',
     'admin.organ_problem_speci.apps.OrganProblemSpeciConfig',
     'admin.patient.apps.PatientConfig',
     'admin.personal_data.apps.PersonalDataConfig',
+    'admin.prescription.apps.PrescriptionConfig',
     'admin.urls.apps.UrlsConfig',
 
     # admin/authentication
