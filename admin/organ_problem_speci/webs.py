@@ -19,10 +19,10 @@ def store_organ_problem_specification(request):
     operation_response = store_organ_problem_specification_data(request)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
-                             "Organ Problem data stored successfully")
+                             'Organ Problem data stored successfully')
     else:
         messages.add_message(request, messages.ERROR,
-                             "Error in storing Organ Problem data")
+                             'Error in storing Organ Problem data')
     return redirect('add_organ_problem_specification_form')
 
 
@@ -46,9 +46,9 @@ def edit_organ_problem_specification(request, organ_problem_specification_id):
     operation_response = edit_organ_problem_specification_data(request, organ_problem_specification_id)
 
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "Organ Problem data edited successfully")
+        messages.add_message(request, messages.INFO, 'Organ Problem data edited successfully')
     else:
-        messages.add_message(request, messages.ERROR, "Error editing organ problem data")
+        messages.add_message(request, messages.ERROR, 'Error editing organ problem data')
 
     return redirect('edit_organ_problem_specification_form', organ_problem_specification_id=organ_problem_specification_id)
 
@@ -63,11 +63,11 @@ def delete_organ_problem_specification(request, organ_problem_specification_id):
     operation_response = softdelete_organ_problem_specification_data(request, organ_problem_specification_id)
 
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "Organ Problem data deleted successfully")
+        messages.add_message(request, messages.INFO, 'Organ Problem data deleted successfully')
     elif operation_response.data.get('status') == 404:
         messages.add_message(request, messages.ERROR,
-                             "Organ Problem cannot delete. because it is associated with Problem Specification table.")
+                             'Organ Problem cannot delete. because it is associated with Problem Specification table.')
     else:
-        messages.add_message(request, messages.ERROR, "Error deleting Organ Problem data")
+        messages.add_message(request, messages.ERROR, 'Error deleting Organ Problem data')
 
     return redirect('organ_problem_specification_list')

@@ -20,62 +20,62 @@ class User(models.Model):
         return self.user_name
 
     class Meta:
-        db_table = "user"
+        db_table = 'user'
 
 
 class PermanentAddress(models.Model):
     permanent_division = models.ForeignKey(
-        Division, on_delete=models.CASCADE, related_name="permanent_division"
+        Division, on_delete=models.CASCADE, related_name='permanent_division'
     )
     permanent_district = models.ForeignKey(
-        District, on_delete=models.CASCADE, related_name="permanent_district"
+        District, on_delete=models.CASCADE, related_name='permanent_district'
     )
     permanent_upazila = models.ForeignKey(
-        Upazila, on_delete=models.CASCADE, related_name="permanent_upazila"
+        Upazila, on_delete=models.CASCADE, related_name='permanent_upazila'
     )
     permanent_village_state = models.CharField(max_length=255)
     permanent_postal_code = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="permanent_address", null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='permanent_address', null=True)
 
     def __str__(self):
         return self.permanent_village_state
 
     class Meta:
-        db_table = "permanent_address"
+        db_table = 'permanent_address'
 
 
 class PresentAddress(models.Model):
-    present_division = models.ForeignKey(Division, on_delete=models.CASCADE, related_name="present_division")
-    present_district = models.ForeignKey(District, on_delete=models.CASCADE, related_name="present_district")
-    present_upazila = models.ForeignKey(Upazila, on_delete=models.CASCADE, related_name="present_upazila")
+    present_division = models.ForeignKey(Division, on_delete=models.CASCADE, related_name='present_division')
+    present_district = models.ForeignKey(District, on_delete=models.CASCADE, related_name='present_district')
+    present_upazila = models.ForeignKey(Upazila, on_delete=models.CASCADE, related_name='present_upazila')
     present_village_state = models.CharField(max_length=255)
     present_postal_code = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="present_address", null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='present_address', null=True)
 
     def __str__(self):
         return self.present_village_state
 
     class Meta:
-        db_table = "present_address"
+        db_table = 'present_address'
 
 
 def doctor_filepath(instance, filename):
     # Get the current timestamp
-    time_now = datetime.now().strftime("%Y%m%d%H%M%S")
+    time_now = datetime.now().strftime('%Y%m%d%H%M%S')
 
     # Get the file extension
     file_extension = os.path.splitext(filename)[1]
 
     # Generate a new filename using the timestamp and file extension
-    new_filename = "%s%s" % (time_now, file_extension)
+    new_filename = '%s%s' % (time_now, file_extension)
 
     # Return the relative path to the folder where you want to save the image
-    return os.path.join("static", "uploads", "images", new_filename)
+    return os.path.join('static', 'uploads', 'images', new_filename)
 
 
 class Images(models.Model):
     photo_name = models.ImageField(upload_to=doctor_filepath, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="images", null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='images', null=True)
 
     class Meta:
-        db_table = "images"
+        db_table = 'images'

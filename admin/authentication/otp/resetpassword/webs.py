@@ -10,33 +10,33 @@ def forget_password_form(request):
 
 def forget_password_method(request):
     operation_response = forget_password(request)
-    if operation_response.data.get("status") == 200:
-        email = operation_response.data.get("email")
-        request.session["temp_verify_email"] = email
+    if operation_response.data.get('status') == 200:
+        email = operation_response.data.get('email')
+        request.session['temp_verify_email'] = email
         messages.add_message(
-            request, messages.INFO, "we send a mail please check your email."
+            request, messages.INFO, 'we send a mail please check your email.'
         )
-        return redirect("otp_form")
+        return redirect('otp_form')
     else:
         messages.add_message(
-            request, messages.ERROR, "email are not correct please check again"
+            request, messages.ERROR, 'email are not correct please check again'
         )
-        return redirect("forget_password_form")
+        return redirect('forget_password_form')
 
 
 def change_password_form(request):
-    return render(request, "authentication/otp/resetpassword/templates/change_password.html")
+    return render(request, 'authentication/otp/resetpassword/templates/change_password.html')
 
 
 def change_password_method(request):
     operation_response = change_password(request)
-    if operation_response.data.get("status") == 200:
+    if operation_response.data.get('status') == 200:
         messages.add_message(
-            request, messages.INFO, "you account password changed successfully"
+            request, messages.INFO, 'you account password changed successfully'
         )
-        return redirect("login")
+        return redirect('login')
     else:
-        email = operation_response.data.get("email")
-        request.session["temp_verify_email"] = email
-        messages.add_message(request, messages.ERROR, "Error")
-        return redirect("forget_password_form")
+        email = operation_response.data.get('email')
+        request.session['temp_verify_email'] = email
+        messages.add_message(request, messages.ERROR, 'Error')
+        return redirect('forget_password_form')

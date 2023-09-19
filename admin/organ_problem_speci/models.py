@@ -14,4 +14,4 @@ class OrgansProblemSpecification(models.Model):
         return self.problem
 
     class Meta:
-        db_table = "organ_problem_speci"
+        db_table = 'organ_problem_speci'

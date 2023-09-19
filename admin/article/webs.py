@@ -13,10 +13,10 @@ def store_article(request):
     operation_response = store_article_data(request)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
-                             "Article data stored successfully")
+                             'Article data stored successfully')
     else:
         messages.add_message(request, messages.ERROR,
-                             "Error in storing Article data")
+                             'Error in storing Article data')
 
     return redirect('add_article_form')
 
@@ -43,9 +43,9 @@ def edit_article(request, article_id):
     operation_response = edit_article_data(request, article_id)
 
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "Article data edited successfully")
+        messages.add_message(request, messages.INFO, 'Article data edited successfully')
     else:
-        messages.add_message(request, messages.ERROR, "Error editing Article data")
+        messages.add_message(request, messages.ERROR, 'Error editing Article data')
 
     return redirect('edit_article_form', article_id=article_id)
 
@@ -53,9 +53,9 @@ def edit_article(request, article_id):
 def delete_article(request, article_id):
     operation_response = softdelete_article_data(request, article_id)
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "Article data deleted successfully")
+        messages.add_message(request, messages.INFO, 'Article data deleted successfully')
     else:
-        messages.add_message(request, messages.ERROR, "Error deleting Article data")
+        messages.add_message(request, messages.ERROR, 'Error deleting Article data')
     return redirect('article_list')
 
 

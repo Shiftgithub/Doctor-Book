@@ -14,10 +14,10 @@ def verify_otp_method(request):
         request.session['temp_verify_id'] = user_id
         email = operation_response.data.get('email')
         request.session['temp_verify_email'] = email
-        messages.add_message(request, messages.INFO, "Verify otp your account successfully")
+        messages.add_message(request, messages.INFO, 'Verify otp your account successfully')
         return redirect('change_password_form')
     else:
         email = operation_response.data.get('email')
         request.session['temp_verify_email'] = email
-        messages.add_message(request, messages.ERROR, "OTP are incorrect!")
+        messages.add_message(request, messages.ERROR, 'OTP are incorrect!')
         return redirect('otp_form')

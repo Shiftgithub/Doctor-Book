@@ -12,4 +12,4 @@ class BodyPart(models.Model):
         return self.name
 
     class Meta:
-        db_table = "bodypart"
+        db_table = 'bodypart'

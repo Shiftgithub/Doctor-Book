@@ -20,10 +20,10 @@ def store_department_specification(request):
     operation_response = store_department_specification_data(request)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
-                             "Department Specification data stored successfully")
+                             'Department Specification data stored successfully')
     else:
         messages.add_message(request, messages.ERROR,
-                             "Error in storing Department Specification data")
+                             'Error in storing Department Specification data')
 
     return redirect('add_department_specification_form')
 
@@ -53,9 +53,9 @@ def edit_department_specification(request, department_specification_id):
     operation_response = edit_department_specification_data(request, department_specification_id)
 
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "department specification data edited successfully")
+        messages.add_message(request, messages.INFO, 'department specification data edited successfully')
     else:
-        messages.add_message(request, messages.ERROR, "Error editing department specification data")
+        messages.add_message(request, messages.ERROR, 'Error editing department specification data')
 
     return redirect('edit_department_specification_form', department_specification_id=department_specification_id)
 
@@ -72,8 +72,8 @@ def delete_department_specification(request, department_specification_id):
     operation_response = softdelete_department_specification_data(request, department_specification_id)
 
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "department specification data deleted successfully")
+        messages.add_message(request, messages.INFO, 'department specification data deleted successfully')
     else:
-        messages.add_message(request, messages.ERROR, "Error deleting problem department data")
+        messages.add_message(request, messages.ERROR, 'Error deleting problem department data')
 
     return redirect('department_specification_list')

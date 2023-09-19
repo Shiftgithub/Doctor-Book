@@ -34,11 +34,11 @@ def doctor_form(request):
 def store_doctor(request):
     operation_response = store_doctor_data(request)
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "Doctor data stored successfully")
+        messages.add_message(request, messages.INFO, 'Doctor data stored successfully')
     elif operation_response.data.get('status') == 1000:
-        messages.add_message(request, messages.ERROR, "Error: Internet are not available. Check Your internet.")
+        messages.add_message(request, messages.ERROR, 'Error: Internet are not available. Check Your internet.')
     else:
-        messages.add_message(request, messages.ERROR, "Error in storing Doctor data")
+        messages.add_message(request, messages.ERROR, 'Error in storing Doctor data')
 
     return redirect('add_doctor_form')
 
@@ -62,9 +62,9 @@ def doctor_work_details_form(request):
 def store_doctor_work_details(request):
     operation_response = store_doctor_work_details_data(request)
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "Doctor Work Details data stored successfully")
+        messages.add_message(request, messages.INFO, 'Doctor Work Details data stored successfully')
     else:
-        messages.add_message(request, messages.ERROR, "Error in storing Doctor Work Details  data")
+        messages.add_message(request, messages.ERROR, 'Error in storing Doctor Work Details  data')
 
     return redirect('add_doctor_work_details_form')
 
@@ -118,9 +118,9 @@ def edit_doctor(request, doctor_id):
     operation_response = edit_doctor_data(request, doctor_id)
 
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "Doctor data edited successfully")
+        messages.add_message(request, messages.INFO, 'Doctor data edited successfully')
     else:
-        messages.add_message(request, messages.ERROR, "Error editing Doctor data")
+        messages.add_message(request, messages.ERROR, 'Error editing Doctor data')
 
     return redirect('edit_doctor_form', doctor_id=doctor_id)
 
@@ -128,8 +128,8 @@ def edit_doctor(request, doctor_id):
 def delete_doctor(request, doctor_id):
     operation_response = softdelete_doctor_data(request, doctor_id)
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "Doctor data deleted Successfully")
+        messages.add_message(request, messages.INFO, 'Doctor data deleted Successfully')
     else:
-        messages.add_message(request, messages.ERROR, "Error deleting Doctor data")
+        messages.add_message(request, messages.ERROR, 'Error deleting Doctor data')
 
     return redirect('doctor_list')

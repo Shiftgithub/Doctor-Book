@@ -6,5 +6,5 @@ from backend.login_decorators import protected_view
 
 urlpatterns = [
     # adminpanel user path
-    path("", protected_view(get_user_details), name="user_details"),
+    path('', protected_view(get_user_details), name='user_details'),
 ]

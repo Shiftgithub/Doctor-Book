@@ -6,10 +6,10 @@ from admin.authentication.otp.resendotp.webs import *
 
 urlpatterns = [
     path(
-        "",
+        '',
         include(
             [
-                path("", resend_otp_method, name="resend_otp"),
+                path('', resend_otp_method, name='resend_otp'),
             ]
         ),
     ),

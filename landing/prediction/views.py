@@ -61,13 +61,13 @@ def generate_date(request):
     # Get today's date
     today = datetime.now().date()
 
-    # Create a list to store the dates as strings in "DD-MM-YYYY" format
+    # Create a list to store the dates as strings in 'DD-MM-YYYY' format
     date_list = []
 
     # Generate the next 8 days
     for i in range(8):
         date = today + timedelta(days=i)
-        formatted_date = date.strftime("%d-%m-%Y")
+        formatted_date = date.strftime('%d-%m-%Y')
         date_list.append(formatted_date)
     return date_list
 

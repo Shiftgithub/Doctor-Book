@@ -11,7 +11,7 @@ class Brand(models.Model):
         return self.name
 
     class Meta:
-        db_table = "medicine_brand"
+        db_table = 'medicine_brand'
 
 
 class Generic(models.Model):
@@ -24,7 +24,7 @@ class Generic(models.Model):
         return self.name
 
     class Meta:
-        db_table = "medicine_generic"
+        db_table = 'medicine_generic'
 
 
 class Strength(models.Model):
@@ -38,7 +38,7 @@ class Strength(models.Model):
         return self.name
 
     class Meta:
-        db_table = "medicine_strength"
+        db_table = 'medicine_strength'
 
 
 class MedicineType(models.Model):
@@ -51,16 +51,16 @@ class MedicineType(models.Model):
         return self.name
 
     class Meta:
-        db_table = "medicine_type"
+        db_table = 'medicine_type'
 
 
 class Medicine(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255, null=True)
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name="medicine")
-    generic = models.ForeignKey(Generic, on_delete=models.CASCADE, related_name="medicine")
-    medicine_type = models.ForeignKey(MedicineType, on_delete=models.CASCADE, related_name="medicine")
-    strength = models.ForeignKey(Strength, on_delete=models.CASCADE, related_name="medicine")
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='medicine')
+    generic = models.ForeignKey(Generic, on_delete=models.CASCADE, related_name='medicine')
+    medicine_type = models.ForeignKey(MedicineType, on_delete=models.CASCADE, related_name='medicine')
+    strength = models.ForeignKey(Strength, on_delete=models.CASCADE, related_name='medicine')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -70,4 +70,4 @@ class Medicine(models.Model):
         return self.name
 
     class Meta:
-        db_table = "medicine"
+        db_table = 'medicine'

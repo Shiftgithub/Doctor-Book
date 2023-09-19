@@ -18,12 +18,12 @@ def predict(request):
         problem_specs = operation_response.data.get('problem_specs')
         bodypart_name = operation_response.data.get('bodypart_name')
         organ_name = operation_response.data.get('organ_name')
-        messages.add_message(request, messages.INFO, "Here are all Doctor List ")
+        messages.add_message(request, messages.INFO, 'Here are all Doctor List ')
         return render(request, 'prediction/templates/predict_result.html',
                       {'doctor_data': doctor_data, 'bodypart_name': bodypart_name, 'organ_name': organ_name,
                        'problem_specs': problem_specs})
     else:
-        messages.add_message(request, messages.ERROR, "Error")
+        messages.add_message(request, messages.ERROR, 'Error')
         return redirect('predict_form')
 
 

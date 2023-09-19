@@ -28,7 +28,7 @@ def store_doctor_data(request):
 
                 with transaction.atomic():
                     user_instance = user_serializer.save(password=password, hash=hashed_password,
-                                                         role="doctor", status="active")
+                                                         role='doctor', status='active')
                     doctor_data = doctor_serializer.validated_data
                     try:
                         user_instance = User.objects.get(pk=user_instance)
@@ -64,7 +64,7 @@ def store_doctor_data(request):
             return Response({'status': 400})
     except socket.gaierror as e:
         # Handle the error gracefully, and display a custom error message.
-        error_message = "Error: Unable to resolve the hostname or no internet connection."
+        error_message = 'Error: Unable to resolve the hostname or no internet connection.'
         return Response({'status': 1000, 'message': error_message})
 
 

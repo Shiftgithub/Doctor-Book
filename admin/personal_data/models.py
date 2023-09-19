@@ -5,14 +5,14 @@ class Gender(models.Model):
     name = models.CharField(max_length=255)
 
     class Meta:
-        db_table = "gender"
+        db_table = 'gender'
 
 
 class Religion(models.Model):
     name = models.CharField(max_length=255)
 
     class Meta:
-        db_table = "religion"
+        db_table = 'religion'
 
 
 class Matrimony(models.Model):
@@ -22,7 +22,7 @@ class Matrimony(models.Model):
         return self.name
 
     class Meta:
-        db_table = "matrimony"
+        db_table = 'matrimony'
 
 
 class Blood_Group(models.Model):
@@ -32,7 +32,7 @@ class Blood_Group(models.Model):
         return self.name
 
     class Meta:
-        db_table = "blood_group"
+        db_table = 'blood_group'
 
 
 class Division(models.Model):
@@ -45,7 +45,7 @@ class Division(models.Model):
         return self.name
 
     class Meta:
-        db_table = "division"
+        db_table = 'division'
 
 
 class District(models.Model):
@@ -60,7 +60,7 @@ class District(models.Model):
         return self.name
 
     class Meta:
-        db_table = "district"
+        db_table = 'district'
 
 
 class Upazila(models.Model):
@@ -75,7 +75,7 @@ class Upazila(models.Model):
         return self.name
 
     class Meta:
-        db_table = "upazila"
+        db_table = 'upazila'
 
 
 class Board(models.Model):
@@ -85,4 +85,4 @@ class Board(models.Model):
         return self.name
 
     class Meta:
-        db_table = "board"
+        db_table = 'board'

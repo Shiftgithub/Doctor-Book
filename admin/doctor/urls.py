@@ -7,53 +7,53 @@ from backend.login_decorators import protected_view
 urlpatterns = [
     # department specification adminpanel path
     path(
-        "",
+        '',
         include(
             [
                 path(
-                    "add/",
+                    'add/',
                     protected_view(doctor_form),
-                    name="add_doctor_form",
+                    name='add_doctor_form',
                 ),
                 path(
-                    "work/details/add/",
+                    'work/details/add/',
                     protected_view(doctor_work_details_form),
-                    name="add_doctor_work_details_form",
+                    name='add_doctor_work_details_form',
                 ),
                 path(
-                    "store/",
+                    'store/',
                     protected_view(store_doctor),
-                    name="store_doctor",
+                    name='store_doctor',
                 ),
                 path(
-                    "work_details/store/",
+                    'work_details/store/',
                     protected_view(store_doctor_work_details),
-                    name="store_doctor_work_details",
+                    name='store_doctor_work_details',
                 ),
                 path(
-                    "list/",
+                    'list/',
                     protected_view(doctor_data_view),
-                    name="doctor_list",
+                    name='doctor_list',
                 ),
                 path(
-                    "view/<int:doctor_id>/",
+                    'view/<int:doctor_id>/',
                     protected_view(view_doctor),
-                    name="view_doctor_data",
+                    name='view_doctor_data',
                 ),
                 path(
-                    "update/<int:doctor_id>/",
+                    'update/<int:doctor_id>/',
                     protected_view(edit_doctor_form),
-                    name="edit_doctor_form",
+                    name='edit_doctor_form',
                 ),
                 path(
-                    "edit/<int:doctor_id>/",
+                    'edit/<int:doctor_id>/',
                     protected_view(edit_doctor),
-                    name="edit_doctor",
+                    name='edit_doctor',
                 ),
                 path(
-                    "delete/<int:doctor_id>/",
+                    'delete/<int:doctor_id>/',
                     protected_view(delete_doctor),
-                    name="delete_doctor",
+                    name='delete_doctor',
                 ),
             ]
         ),

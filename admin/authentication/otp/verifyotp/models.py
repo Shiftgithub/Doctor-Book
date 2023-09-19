@@ -13,4 +13,4 @@ class VarifyOtp(models.Model):
     deleted_at = models.DateTimeField(auto_now=False, null=True)
 
     class Meta:
-        db_table = "otp"
+        db_table = 'otp'

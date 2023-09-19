@@ -12,4 +12,4 @@ class Department(models.Model):
         return self.name
 
     class Meta:
-        db_table = "department"
+        db_table = 'department'

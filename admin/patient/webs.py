@@ -13,10 +13,10 @@ def store_patient(request):
     if operation_response.data.get('status') == 200:
         email = operation_response.data.get('email')
         request.session['temp_verify_email'] = email
-        messages.add_message(request, messages.INFO, "Please activate your account")
+        messages.add_message(request, messages.INFO, 'Please activate your account')
         return redirect('otp_form')
     else:
-        messages.add_message(request, messages.ERROR, "Error in storing Patient data")
+        messages.add_message(request, messages.ERROR, 'Error in storing Patient data')
         return redirect('add_patient_form')
 
 
@@ -47,8 +47,8 @@ def edit_patient(request, patient_id):
     operation_response = edit_patient_data(request, patient_id)
     if operation_response.data.get('status') == 200:
 
-        messages.add_message(request, messages.INFO, "Patient data are edited successfully.")
+        messages.add_message(request, messages.INFO, 'Patient data are edited successfully.')
         return redirect('edit_patient_form', patient_id=patient_id)
     else:
-        messages.add_message(request, messages.ERROR, "Error in storing Patient data")
+        messages.add_message(request, messages.ERROR, 'Error in storing Patient data')
         return redirect('edit_patient_form', patient_id=patient_id)

@@ -7,48 +7,48 @@ from backend.login_decorators import protected_view
 urlpatterns = [
     # article adminpanel path
     path(
-        "",
+        '',
         include(
             [
                 path(
-                    "add/",
+                    'add/',
                     protected_view(article_form),
-                    name="add_article_form",
+                    name='add_article_form',
                 ),
                 path(
-                    "store/",
+                    'store/',
                     protected_view(store_article),
-                    name="store_article",
+                    name='store_article',
                 ),
                 path(
-                    "list/",
+                    'list/',
                     protected_view(article_data_view),
-                    name="article_list",
+                    name='article_list',
                 ),
                 path(
-                    "view/<int:article_id>/",
+                    'view/<int:article_id>/',
                     protected_view(view_article),
-                    name="view_article_data",
+                    name='view_article_data',
                 ),
                 path(
-                    "update/<int:article_id>/",
+                    'update/<int:article_id>/',
                     protected_view(edit_article_form),
-                    name="edit_article_form",
+                    name='edit_article_form',
                 ),
                 path(
-                    "edit/<int:article_id>/",
+                    'edit/<int:article_id>/',
                     protected_view(edit_article),
-                    name="edit_article",
+                    name='edit_article',
                 ),
                 path(
-                    "delete/<int:article_id>/",
+                    'delete/<int:article_id>/',
                     protected_view(delete_article),
-                    name="delete_article",
+                    name='delete_article',
                 ),
                 path(
-                    "list/<int:id>/",
+                    'list/<int:id>/',
                     article_view_created_by,
-                    name="article_all_list",
+                    name='article_all_list',
                 ),
             ]
         ),

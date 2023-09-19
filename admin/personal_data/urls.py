@@ -7,18 +7,18 @@ from backend.login_decorators import protected_view
 urlpatterns = [
     # patient adminpanel path
     path(
-        "adminpanel/patient/",
+        'adminpanel/patient/',
         include(
             [
                 path(
-                    "update/<int:patient_id>/",
+                    'update/<int:patient_id>/',
                     protected_view(edit_patient_form),
-                    name="edit_patient_form",
+                    name='edit_patient_form',
                 ),
                 path(
-                    "edit/<int:patient_id>/",
+                    'edit/<int:patient_id>/',
                     protected_view(edit_patient),
-                    name="edit_patient",
+                    name='edit_patient',
                 ),
             ]
         ),

@@ -3,13 +3,13 @@ from landing.landing.urls import *
 from landing.prediction.urls import *
 
 urlpatterns = [
-    path("", landing_dashboard, name="landing_dashboard"),
+    path('', landing_dashboard, name='landing_dashboard'),
     path(
-        "landing/",
+        'landing/',
         include(
             [
-                path("", include("landing.landing.urls")),
-                path("", include("landing.prediction.urls")),
+                path('', include('landing.landing.urls')),
+                path('', include('landing.prediction.urls')),
             ]
         ),
     ),

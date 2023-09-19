@@ -13,10 +13,10 @@ def store_bodypart(request):
     operation_response = store_bodypart_data(request)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
-                             "Body Part data stored successfully")
+                             'Body Part data stored successfully')
     else:
         messages.add_message(request, messages.ERROR,
-                             "Error in storing Body Part data")
+                             'Error in storing Body Part data')
 
     return redirect('add_bodypart_form')
 
@@ -43,9 +43,9 @@ def edit_bodypart(request, bodypart_id):
     operation_response = edit_bodypart_data(request, bodypart_id)
 
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "Body Part data edited successfully")
+        messages.add_message(request, messages.INFO, 'Body Part data edited successfully')
     else:
-        messages.add_message(request, messages.ERROR, "Error editing Body Part data")
+        messages.add_message(request, messages.ERROR, 'Error editing Body Part data')
 
     return redirect('edit_bodypart_form', bodypart_id=bodypart_id)
 
@@ -54,10 +54,10 @@ def delete_bodypart(request, bodypart_id):
     operation_response = softdelete_bodypart_data(request, bodypart_id)
 
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "Body Part data deleted successfully")
+        messages.add_message(request, messages.INFO, 'Body Part data deleted successfully')
     elif operation_response.data.get('status') == 404:
         messages.add_message(request, messages.ERROR,
-                             "Body Part cannot delete. because it is associated with Organ table.")
+                             'Body Part cannot delete. because it is associated with Organ table.')
     else:
-        messages.add_message(request, messages.ERROR, "Error deleting Body Part data")
+        messages.add_message(request, messages.ERROR, 'Error deleting Body Part data')
     return redirect('bodypart_list')

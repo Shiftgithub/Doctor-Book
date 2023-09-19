@@ -14,4 +14,4 @@ class Organ(models.Model):
         return self.name
 
     class Meta:
-        db_table = "organ"
+        db_table = 'organ'

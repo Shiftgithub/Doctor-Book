@@ -6,20 +6,20 @@ from backend.login_decorators import protected_view
 
 urlpatterns = [
     path(
-        "",
+        '',
         include(
             [
                 # adminpanel dashboard path
-                path("", protected_view(dashboard), name="admin_dashboard"),
+                path('', protected_view(dashboard), name='admin_dashboard'),
                 path(
-                    "doctor/",
+                    'doctor/',
                     protected_view(doctor_dashboard),
-                    name="doctor_dashboard",
+                    name='doctor_dashboard',
                 ),
                 path(
-                    "patient/",
+                    'patient/',
                     protected_view(patient_dashboard),
-                    name="patient_dashboard",
+                    name='patient_dashboard',
                 ),
             ]
         ),

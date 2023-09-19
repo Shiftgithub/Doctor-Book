@@ -13,10 +13,10 @@ def store_faq(request):
     operation_response = store_faq_data(request)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
-                             "FAQ data stored successfully")
+                             'FAQ data stored successfully')
     else:
         messages.add_message(request, messages.ERROR,
-                             "Error in storing FAQ data")
+                             'Error in storing FAQ data')
 
     return redirect('add_faq_form')
 
@@ -37,9 +37,9 @@ def edit_faq(request, faq_id):
     operation_response = edit_faq_data(request, faq_id)
 
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "faq data edited successfully")
+        messages.add_message(request, messages.INFO, 'faq data edited successfully')
     else:
-        messages.add_message(request, messages.ERROR, "Error editing faq data")
+        messages.add_message(request, messages.ERROR, 'Error editing faq data')
 
     return redirect('edit_faq_form', faq_id=faq_id)
 
@@ -48,9 +48,9 @@ def delete_faq(request, faq_id):
     operation_response = softdelete_faq_data(request, faq_id)
 
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, "faq data deleted successfully")
+        messages.add_message(request, messages.INFO, 'faq data deleted successfully')
     else:
-        messages.add_message(request, messages.ERROR, "Error deleting faq data")
+        messages.add_message(request, messages.ERROR, 'Error deleting faq data')
 
     return redirect('faq_list')
 
