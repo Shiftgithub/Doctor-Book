@@ -1,5 +1,5 @@
-from rest_framework import serializers
 from .models import VarifyOtp
+from rest_framework import serializers
 
 
 class VarifyOtpSerializer(serializers.ModelSerializer):

@@ -1,4 +1,4 @@
-from admin.doctor.models import *
+from .models import *
 from rest_framework import serializers
 from admin.authentication.user.models import *
 from admin.personal_data.serializers import *

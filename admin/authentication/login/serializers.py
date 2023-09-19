@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from admin.authentication.user.models import User
 
 

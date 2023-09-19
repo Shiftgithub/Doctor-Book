@@ -1,5 +1,5 @@
+from .models import *
 from rest_framework import serializers
-from admin.department_speci.models import *
 
 
 class DepartmentSpecificationSerializer(serializers.ModelSerializer):

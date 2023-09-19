@@ -1,5 +1,5 @@
 from django.urls import path, include
-from admin.authentication.login.webs import login, check_login_is_valid
+from .webs import login, check_login_is_valid
 
 urlpatterns = [
     path(

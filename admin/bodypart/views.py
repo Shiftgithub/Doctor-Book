@@ -1,9 +1,9 @@
+from .models import *
+from admin.organ.models import *
 from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from admin.bodypart.serializers import *
-from admin.organ.models import *
-from admin.bodypart.models import *
 
 
 # store bodypart function

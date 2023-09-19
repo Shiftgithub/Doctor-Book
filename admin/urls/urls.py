@@ -15,6 +15,7 @@ urlpatterns = [
         path('organ/', include('admin.organ.urls')),
         path('organ/problem/specification/', include('admin.organ_problem_speci.urls')),
         path('patient/', include('admin.patient.urls')),
+        path('prescription/', include('admin.prescription.urls')),
         path('user/details/', include('admin.authentication.user.urls')),
     ])),
     path('landing/', include([

@@ -1,4 +1,4 @@
-from admin.faq.views import *
+from .views import *
 from django.contrib import messages
 from django.shortcuts import render, redirect
 

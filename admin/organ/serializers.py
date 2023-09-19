@@ -1,5 +1,5 @@
+from .models import *
 from rest_framework import serializers
-from admin.organ.models import *
 
 
 class OrganSerializer(serializers.ModelSerializer):

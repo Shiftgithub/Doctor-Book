@@ -1,7 +1,7 @@
-from django.contrib import messages
+from .views import *
 from admin.organ.views import *
 from admin.bodypart.views import *
-from admin.organ_problem_speci.views import *
+from django.contrib import messages
 from django.shortcuts import render, redirect
 
 
@@ -50,13 +50,15 @@ def edit_organ_problem_specification(request, organ_problem_specification_id):
     else:
         messages.add_message(request, messages.ERROR, 'Error editing organ problem data')
 
-    return redirect('edit_organ_problem_specification_form', organ_problem_specification_id=organ_problem_specification_id)
+    return redirect('edit_organ_problem_specification_form',
+                    organ_problem_specification_id=organ_problem_specification_id)
 
 
 def view_organ_problem_specification(request, organ_problem_specification_id):
     response_organ = organ_problem_specification_dataview(request, organ_problem_specification_id)
     organ_problem_specification_data = response_organ.data
-    return render(request, 'organ_problem_speci/templates/view.html', {'organ_problem_specification_data': organ_problem_specification_data})
+    return render(request, 'organ_problem_speci/templates/view.html',
+                  {'organ_problem_specification_data': organ_problem_specification_data})
 
 
 def delete_organ_problem_specification(request, organ_problem_specification_id):

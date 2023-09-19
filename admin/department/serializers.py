@@ -1,5 +1,5 @@
+from .models import *
 from rest_framework import serializers
-from admin.department.models import *
 
 
 class DepartmentSerializer(serializers.ModelSerializer):

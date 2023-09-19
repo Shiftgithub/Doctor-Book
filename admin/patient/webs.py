@@ -1,4 +1,4 @@
-from admin.patient.views import *
+from .views import *
 from django.contrib import messages
 from admin.personal_data.views import *
 from django.shortcuts import render, redirect

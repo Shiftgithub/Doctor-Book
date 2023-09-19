@@ -1,5 +1,4 @@
 from django.db import models
-
 from admin.authentication.user.models import User
 
 

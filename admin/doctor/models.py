@@ -1,10 +1,9 @@
 import os
 import datetime
 from django.db import models
-
-from admin.authentication.user.models import User
 from admin.department.models import *
 from admin.personal_data.models import *
+from admin.authentication.user.models import User
 
 
 class Doctor_Profile(models.Model):

@@ -1,6 +1,5 @@
+from .webs import *
 from django.urls import path, include
-from admin.medicine.webs import *
-
 from backend.login_decorators import protected_view
 
 urlpatterns = [

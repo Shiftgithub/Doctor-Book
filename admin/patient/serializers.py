@@ -1,5 +1,5 @@
-from rest_framework import serializers
 from .models import *
+from rest_framework import serializers
 from admin.personal_data.serializers import *
 from admin.authentication.user.serializers import ImageSerializer
 

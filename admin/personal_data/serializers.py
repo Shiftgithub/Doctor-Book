@@ -1,5 +1,5 @@
+from .models import *
 from rest_framework import serializers
-from admin.personal_data.models import *
 
 
 class DivisionSerializer(serializers.ModelSerializer):

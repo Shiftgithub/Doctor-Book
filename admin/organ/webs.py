@@ -1,4 +1,4 @@
-from admin.organ.views import *
+from .views import *
 from admin.bodypart.views import *
 from django.contrib import messages
 from django.shortcuts import render, redirect

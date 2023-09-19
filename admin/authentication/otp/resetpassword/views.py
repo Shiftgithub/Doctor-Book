@@ -1,10 +1,10 @@
 import hashlib
+from .serializers import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from admin.authentication.otp.verifyotp.views import *
 from admin.authentication.otp.function.send_email import *
 from admin.authentication.otp.verifyotp.serializers import *
-from admin.authentication.otp.resetpassword.serializers import *
 
 
 @api_view(['POST'])

@@ -1,7 +1,7 @@
+from admin.doctor.models import *
+from admin.doctor.serializers import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from admin.doctor.serializers import *
-from admin.doctor.models import *
 
 
 @api_view(['GET'])

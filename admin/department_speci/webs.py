@@ -1,6 +1,6 @@
+from .views import *
 from django.contrib import messages
 from admin.department.views import *
-from admin.department_speci.views import *
 from admin.organ_problem_speci.views import *
 from django.shortcuts import render, redirect
 

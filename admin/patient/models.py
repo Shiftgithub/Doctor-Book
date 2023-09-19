@@ -1,7 +1,6 @@
 from django.db import models
-
-from admin.authentication.user.models import User
 from admin.personal_data.models import *
+from admin.authentication.user.models import User
 
 
 class Patient_Profile(models.Model):

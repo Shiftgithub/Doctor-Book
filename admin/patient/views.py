@@ -11,10 +11,10 @@ from admin.authentication.otp.verifyotp.models import *
 from admin.authentication.otp.function.send_email import *
 from admin.authentication.user.serializers import ImageSerializer
 
+from .models import Patient_Profile
+from .serializers import PatientViewSerializer
 from admin.doctor.models import Doctor_Profile
-from admin.patient.models import Patient_Profile
 from admin.doctor.serializers import DoctorViewSerializer
-from admin.patient.serializers import PatientViewSerializer
 
 
 @api_view(['POST'])

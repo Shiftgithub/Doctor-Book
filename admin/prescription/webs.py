@@ -1,5 +1,5 @@
+from .views import *
 from django.contrib import messages
-from admin.prescription.views import *
 from django.shortcuts import render, redirect
 
 

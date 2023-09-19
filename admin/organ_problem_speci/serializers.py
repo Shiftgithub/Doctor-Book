@@ -1,5 +1,5 @@
+from .models import *
 from rest_framework import serializers
-from admin.organ_problem_speci.models import *
 
 
 class OrganProblemSerializer(serializers.ModelSerializer):

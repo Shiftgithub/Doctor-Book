@@ -1,6 +1,6 @@
+from .models import *
 from rest_framework import serializers
 from admin.personal_data.serializers import *
-from admin.authentication.user.models import *
 
 
 class UserSerializer(serializers.ModelSerializer):

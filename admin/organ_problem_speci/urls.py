@@ -1,5 +1,5 @@
+from .webs import *
 from django.urls import path, include
-from admin.organ_problem_speci.webs import *
 
 # To protect admin panel paths from unauthenticated users
 from backend.login_decorators import protected_view

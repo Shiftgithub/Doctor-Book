@@ -1,8 +1,7 @@
+from .serializers import *
 from datetime import timedelta, datetime
-
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from admin.ajax.serializers import *
 
 
 @api_view(['GET'])

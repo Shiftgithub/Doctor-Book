@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from admin.authentication.user.models import User
-from admin.authentication.otp.verifyotp.models import VarifyOtp
 from admin.authentication.otp.function.send_email import *
+from admin.authentication.otp.verifyotp.models import VarifyOtp
 
 
 

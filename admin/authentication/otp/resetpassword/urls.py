@@ -1,5 +1,5 @@
+from .webs import *
 from django.urls import path, include
-from admin.authentication.otp.resetpassword.webs import *
 
 
 urlpatterns = [

@@ -1,6 +1,6 @@
 import socket
 import hashlib
-from admin.doctor.models import *
+from .models import *
 from django.db.models import Prefetch
 from django.db import transaction
 from django.utils import timezone
