@@ -46,7 +46,7 @@ urlpatterns = [
                     name="delete_article",
                 ),
                 path(
-                    "article/all/list/<int:id>/",
+                    "list/<int:id>/",
                     article_view_created_by,
                     name="article_all_list",
                 ),

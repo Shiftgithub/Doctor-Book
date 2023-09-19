@@ -13,27 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Blood_Group',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-            ],
-            options={
-                'db_table': 'blood_group',
-            },
-        ),
-        migrations.CreateModel(
-            name='Board',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-            ],
-            options={
-                'db_table': 'board',
-            },
-        ),
-        migrations.CreateModel(
-            name='District',
+            name='Brand',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
@@ -42,11 +22,11 @@ class Migration(migrations.Migration):
                 ('deleted_at', models.DateTimeField(null=True)),
             ],
             options={
-                'db_table': 'district',
+                'db_table': 'medicine_brand',
             },
         ),
         migrations.CreateModel(
-            name='Division',
+            name='Generic',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
@@ -55,56 +35,51 @@ class Migration(migrations.Migration):
                 ('deleted_at', models.DateTimeField(null=True)),
             ],
             options={
-                'db_table': 'division',
+                'db_table': 'medicine_generic',
             },
         ),
         migrations.CreateModel(
-            name='Gender',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-            ],
-            options={
-                'db_table': 'gender',
-            },
-        ),
-        migrations.CreateModel(
-            name='Matrimony',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=110)),
-            ],
-            options={
-                'db_table': 'matrimony',
-            },
-        ),
-        migrations.CreateModel(
-            name='Religion',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-            ],
-            options={
-                'db_table': 'religion',
-            },
-        ),
-        migrations.CreateModel(
-            name='Upazila',
+            name='MedicineType',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(null=True)),
                 ('deleted_at', models.DateTimeField(null=True)),
-                ('district', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='personal_data.district')),
             ],
             options={
-                'db_table': 'upazila',
+                'db_table': 'medicine_type',
             },
         ),
-        migrations.AddField(
-            model_name='district',
-            name='division',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='personal_data.division'),
+        migrations.CreateModel(
+            name='Strength',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=255)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(null=True)),
+                ('deleted_at', models.DateTimeField(null=True)),
+            ],
+            options={
+                'db_table': 'medicine_strength',
+            },
+        ),
+        migrations.CreateModel(
+            name='Medicine',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=255)),
+                ('description', models.CharField(max_length=255, null=True)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(null=True)),
+                ('deleted_at', models.DateTimeField(null=True)),
+                ('brand', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='medicine', to='medicine.brand')),
+                ('generic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='medicine', to='medicine.generic')),
+                ('medicine_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='medicine', to='medicine.medicinetype')),
+                ('strength', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='medicine', to='medicine.strength')),
+            ],
+            options={
+                'db_table': 'medicine',
+            },
         ),
     ]

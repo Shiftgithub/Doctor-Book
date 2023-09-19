@@ -26,7 +26,7 @@ def store_organ_problem_specification_data(request):
 def get_all_organ_problem_specification_list(request):
     organ_problem_specifications = (
         OrgansProblemSpecification.objects.filter(deleted_at__isnull=True).select_related('organ').order_by('id'))
-    serialized_data = OrganProblemSerializer(organ_problem_specifications, many=True).data
+    serialized_data = OrganProblemViewSerializer(organ_problem_specifications, many=True).data
     return Response(serialized_data)
 
 
@@ -35,7 +35,7 @@ def get_all_organ_problem_specification_list(request):
 def organ_problem_specification_dataview(request, organ_problem_specification_id):
     OrganProblemSpecification = get_object_or_404(OrgansProblemSpecification, id=organ_problem_specification_id,
                                                   deleted_at__isnull=True)
-    serialized_data = OrganProblemSerializer(instance=OrganProblemSpecification).data
+    serialized_data = OrganProblemViewSerializer(instance=OrganProblemSpecification).data
 
     return Response(serialized_data)
 
@@ -45,7 +45,7 @@ def organ_problem_specification_dataview(request, organ_problem_specification_id
 @api_view(['PUT', 'POST'])
 def edit_organ_problem_specification_data(request, organ_problem_specification_id):
     organ_problem_specification = OrgansProblemSpecification.objects.get(id=organ_problem_specification_id)
-    serializer = OrganProblemStoreSerializer(organ_problem_specification, data=request.data)
+    serializer = OrganProblemSerializer(organ_problem_specification, data=request.data)
     if serializer.is_valid():
         if serializer.save(updated_at=timezone.now()):
             return Response({'status': 200})

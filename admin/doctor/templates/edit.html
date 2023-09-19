@@ -66,8 +66,14 @@
                             <div class="col-md-12">
                                 <input class="form-control mb-3" id="imageID" name="photo_name"
                                        onchange="previewImage(event)" type="file"/>
-                                <img id="preview" src="{{ doctor_data.images.0.photo_name }}"
+                                {% if patient_all_data.images.0.photo_name %}
+                                <img alt="Doctor Image" id="preview" src="{{ doctor_data.images.0.photo_name }}"
                                      style="width: 100%; height: 280px;">
+                                {% else %}
+                                <img alt="Doctor Image" src="{% static 'adminlte_assets/img/nobody.png' %}"
+                                     style="width: 100%; height: 280px;">
+                                {% endif %}
+
                             </div>
                         </div>
                     </div>

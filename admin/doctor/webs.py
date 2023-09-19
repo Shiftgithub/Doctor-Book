@@ -1,8 +1,8 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
-from admin.personal_data.views import *
 from admin.doctor.views import *
 from admin.department.views import *
+from admin.personal_data.views import *
+from django.shortcuts import render, redirect
 
 
 # Doctor
@@ -35,6 +35,8 @@ def store_doctor(request):
     operation_response = store_doctor_data(request)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, "Doctor data stored successfully")
+    elif operation_response.data.get('status') == 1000:
+        messages.add_message(request, messages.ERROR, "Error: Internet are not available. Check Your internet.")
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Doctor data")
 

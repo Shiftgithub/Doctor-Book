@@ -25,7 +25,7 @@ def store_organ_data(request):
 def get_all_organs_list(request):
     organs = (Organ.objects.filter(deleted_at__isnull=True).select_related('body_part').order_by('id'))
 
-    serialized_data = OrganSerializer(organs, many=True).data
+    serialized_data = OrganViewSerializer(organs, many=True).data
     return Response(serialized_data)
 
 
@@ -33,7 +33,7 @@ def get_all_organs_list(request):
 @api_view(['GET'])
 def organ_dataview(request, organ_id):
     organ = get_object_or_404(Organ, id=organ_id, deleted_at__isnull=True)
-    serialized_data = OrganSerializer(instance=organ).data
+    serialized_data = OrganViewSerializer(instance=organ).data
 
     return Response(serialized_data)
 
@@ -43,7 +43,7 @@ def organ_dataview(request, organ_id):
 @api_view(['PUT', 'POST'])
 def edit_organ_data(request, organ_id):
     organ = Organ.objects.get(id=organ_id)
-    serializer = OrganStoreSerializer(organ, data=request.data)
+    serializer = OrganSerializer(organ, data=request.data)
     if serializer.is_valid():
         if (serializer.save(updated_at=timezone.now())):
             return Response({'status': 200})

@@ -44,6 +44,11 @@ def edit_patient_form(request, patient_id):
 
 
 def edit_patient(request, patient_id):
-    response_patient = edit_patient_data(request, patient_id)
-    patient_data = response_patient.data
-    return redirect('edit_patient_form', patient_id=patient_id)
+    operation_response = edit_patient_data(request, patient_id)
+    if operation_response.data.get('status') == 200:
+
+        messages.add_message(request, messages.INFO, "Patient data are edited successfully.")
+        return redirect('edit_patient_form', patient_id=patient_id)
+    else:
+        messages.add_message(request, messages.ERROR, "Error in storing Patient data")
+        return redirect('edit_patient_form', patient_id=patient_id)

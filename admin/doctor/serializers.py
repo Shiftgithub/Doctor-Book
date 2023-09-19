@@ -46,7 +46,7 @@ class EducationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Education
-        fields = ['id', 'certificate_degree', 'institution', 'board', 'result', 'passing_year']
+        fields = '__all__'
 
     def create(self, validated_data):
         instance = super().create(validated_data)
@@ -73,7 +73,7 @@ class SocialMediaSerializer(serializers.ModelSerializer):
         return instance  # Fetch the primary key of the saved object
 
 
-class DoctorAllDataSerializer(serializers.ModelSerializer):
+class DoctorViewSerializer(serializers.ModelSerializer):
     department = serializers.CharField(source='department.name', required=False)
     blood_group = serializers.CharField(source='blood_group.name')
     gender = serializers.CharField(source='gender.name')

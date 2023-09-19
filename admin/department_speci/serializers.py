@@ -2,19 +2,19 @@ from rest_framework import serializers
 from admin.department_speci.models import *
 
 
-class DepartmentSpecificationStoreSerializer(serializers.ModelSerializer):
+class DepartmentSpecificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = DepartmentSpecification
         fields = '__all__'
 
 
-class DepartmentSpecificationSerializer(serializers.ModelSerializer):
+class DepartmentSpecificationViewSerializer(serializers.ModelSerializer):
     department = serializers.CharField(source='department.name')
     problem = serializers.CharField(source='organ_problem_specification.problem')
 
     class Meta:
         model = DepartmentSpecification
-        fields = ['id', 'department', 'problem', 'description']
+        fields = '__all__'
 
 
 class DepartmentSpecificationDeleteSerializer(serializers.ModelSerializer):

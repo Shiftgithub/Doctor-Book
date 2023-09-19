@@ -54,10 +54,7 @@ class PermanentAddressAllSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PermanentAddress
-        fields = [
-            'id', 'permanent_village_state', 'permanent_postal_code',
-            'permanent_division', 'permanent_district', 'permanent_upazila',
-        ]
+        fields = '__all__'
 
 
 class PresentAddressAllSerializer(serializers.ModelSerializer):
@@ -67,7 +64,4 @@ class PresentAddressAllSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PresentAddress
-        fields = [
-            'id', 'present_village_state', 'present_postal_code',
-            'present_division', 'present_district', 'present_upazila',
-        ]
+        fields = '__all__'

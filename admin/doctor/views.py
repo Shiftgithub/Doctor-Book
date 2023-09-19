@@ -1,3 +1,4 @@
+import socket
 import hashlib
 from admin.doctor.models import *
 from django.db.models import Prefetch
@@ -13,53 +14,58 @@ from admin.authentication.otp.function.send_otp import send_otp
 @api_view(['POST'])
 def store_doctor_data(request):
     try:
-        user_serializer = UserSerializer(data=request.data)
-        doctor_serializer = DoctorSerializer(data=request.data)
-        image_serializer = ImageSerializer(data=request.data)
-        present_address_serializer = PresentAddressSerializer(data=request.data)
-        permanent_address_serializer = PermanentAddressSerializer(data=request.data)
+        try:
+            user_serializer = UserSerializer(data=request.data)
+            doctor_serializer = DoctorSerializer(data=request.data)
+            image_serializer = ImageSerializer(data=request.data)
+            present_address_serializer = PresentAddressSerializer(data=request.data)
+            permanent_address_serializer = PermanentAddressSerializer(data=request.data)
 
-        if user_serializer.is_valid(
-                raise_exception=True) and doctor_serializer.is_valid() and image_serializer.is_valid() and present_address_serializer.is_valid() and permanent_address_serializer.is_valid():
-            password = '@123456789'
-            hashed_password = hashlib.sha256(password.encode()).hexdigest()
+            if user_serializer.is_valid(
+                    raise_exception=True) and doctor_serializer.is_valid() and image_serializer.is_valid() and present_address_serializer.is_valid() and permanent_address_serializer.is_valid():
+                password = '@123456789'
+                hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
-            with transaction.atomic():
-                user_instance = user_serializer.save(password=password, hash=hashed_password,
-                                                     role="doctor", status="active")
-                doctor_data = doctor_serializer.validated_data
-                try:
-                    user_instance = User.objects.get(pk=user_instance)
-                    doctor_data['user'] = user_instance
-                except User.DoesNotExist:
-                    return Response({'status': 400})
-                otp = 0
-                is_verified = True
-                save_otp = send_otp(user_instance, otp, is_verified)
-                if save_otp:
-                    doctor_instance = doctor_serializer.save(**doctor_data)
-                    image_instance = image_serializer.save(
-                        user=user_instance)  # Assuming 'user' is the ForeignKey in Images
-                    present_instance = present_address_serializer.save(user=user_instance)
-                    permanent_instance = permanent_address_serializer.save(user=user_instance)
-                    if doctor_instance and image_instance and present_instance and permanent_instance:
-                        user_fields = [user_serializer.validated_data['user_name']]
-                        user_name = ' - '.join(user_fields)
-                        email_fields = [user_serializer.validated_data['email']]
-                        email = ' - '.join(email_fields)
-                        message = 'Message From Doctor-Book [Personalized Doctor Predictor]:\n\n' \
-                                  'Your username: ' + user_name + '\n' + 'Your password: ' + password
-                        send_email(email, message)
-                        return Response({'status': 200})
+                with transaction.atomic():
+                    user_instance = user_serializer.save(password=password, hash=hashed_password,
+                                                         role="doctor", status="active")
+                    doctor_data = doctor_serializer.validated_data
+                    try:
+                        user_instance = User.objects.get(pk=user_instance)
+                        doctor_data['user'] = user_instance
+                    except User.DoesNotExist:
+                        return Response({'status': 400})
+                    otp = 0
+                    is_verified = True
+                    save_otp = send_otp(user_instance, otp, is_verified)
+                    if save_otp:
+                        doctor_instance = doctor_serializer.save(**doctor_data)
+                        image_instance = image_serializer.save(
+                            user=user_instance)  # Assuming 'user' is the ForeignKey in Images
+                        present_instance = present_address_serializer.save(user=user_instance)
+                        permanent_instance = permanent_address_serializer.save(user=user_instance)
+                        if doctor_instance and image_instance and present_instance and permanent_instance:
+                            user_fields = [user_serializer.validated_data['user_name']]
+                            user_name = ' - '.join(user_fields)
+                            email_fields = [user_serializer.validated_data['email']]
+                            email = ' - '.join(email_fields)
+                            message = 'Message From Doctor-Book [Personalized Doctor Predictor]:\n\n' \
+                                      'Your username: ' + user_name + '\n' + 'Your password: ' + password
+                            send_email(email, message)
+                            return Response({'status': 200})
+                        else:
+                            transaction.set_rollback(True)
+                            return Response({'status': 403})
                     else:
-                        transaction.set_rollback(True)
                         return Response({'status': 403})
-                else:
-                    return Response({'status': 403})
-        else:
+            else:
+                return Response({'status': 400})
+        except User.DoesNotExist:
             return Response({'status': 400})
-    except User.DoesNotExist:
-        return Response({'status': 400})
+    except socket.gaierror as e:
+        # Handle the error gracefully, and display a custom error message.
+        error_message = "Error: Unable to resolve the hostname or no internet connection."
+        return Response({'status': 1000, 'message': error_message})
 
 
 @api_view(['POST'])
@@ -122,7 +128,7 @@ def get_all_doctors_list(request):
     )
 
     # Serialize the data using the combined serializer
-    serializer = DoctorAllDataSerializer(doctors, many=True)
+    serializer = DoctorViewSerializer(doctors, many=True)
 
     return Response(serializer.data)
 
@@ -138,14 +144,14 @@ def doctor_data(request, id):
         'user__present_address', 'user__permanent_address'
     )
     # Serialize the data using the combined serializer
-    serializer = DoctorAllDataSerializer(doctors, many=True)
+    serializer = DoctorViewSerializer(doctors, many=True)
     return Response(serializer.data)
 
 
 @api_view(['PUT', 'POST'])
 def edit_doctor_data(request, doctor_id):
     try:
-        doctor = Doctor_Profile.objects.get(id=doctor_id)
+        doctor = Doctor_Profile.objects.get(id=doctor_id, deleted_at=None)
     except Doctor_Profile.DoesNotExist:
         return Response({'status': 404})
 

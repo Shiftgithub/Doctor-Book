@@ -3,7 +3,6 @@ from django.db import models
 
 class Brand(models.Model):
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -17,7 +16,6 @@ class Brand(models.Model):
 
 class Generic(models.Model):
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -32,6 +30,10 @@ class Generic(models.Model):
 class Strength(models.Model):
     name = models.CharField(max_length=255)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, null=True)
+    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
+
     def __str__(self):
         return self.name
 
@@ -41,7 +43,6 @@ class Strength(models.Model):
 
 class MedicineType(models.Model):
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)

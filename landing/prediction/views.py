@@ -5,9 +5,8 @@ from landing.prediction.serializers import *
 from rest_framework.decorators import api_view
 from admin.doctor.models import Doctor_Profile
 from admin.organ.serializers import OrganBodyPartSerializer
-from admin.bodypart.serializers import BodyPartSerializerView
 from admin.department_speci.models import DepartmentSpecification
-from admin.organ_problem_speci.serializers import OrganProblemStoreSerializer
+from admin.organ_problem_speci.serializers import OrganProblemSerializer
 
 
 @api_view(['POST'])
