@@ -53,6 +53,18 @@ def store_patient_data(request):
 
 
 @api_view(['GET'])
+def get_patients_list(request):
+    try:
+        patients = Patient_Profile.objects.filter(deleted_at=None).select_related(
+            'gender', 'religion', 'blood_group', 'matrimony', 'user'
+        )
+        serializer = PatientViewSerializer(patients, many=True)
+        return Response(serializer.data)
+    except Patient_Profile.DoesNotExist:
+        return Response({'error': 'Patient profile not found', 'status': '404'})
+
+
+@api_view(['GET'])
 def patient_data(request, patient_id):
     try:
         patient = Patient_Profile.objects.filter(id=patient_id, deleted_at=None).select_related(

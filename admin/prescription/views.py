@@ -1,3 +1,5 @@
+from .models import *
+from .serializers import *
 from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -58,3 +60,11 @@ def softdelete_prescription_data(request, prescription_id):
             return Response({'status': 403})
     else:
         return Response({'status': 403})
+
+
+@api_view(['GET'])
+def medicine_schedule_list(request):
+    medicine_schedule = MedicineSchedule.objects.all()
+    serializer = MedicineScheduleSerializer(medicine_schedule, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)
