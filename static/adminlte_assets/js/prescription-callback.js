@@ -61,19 +61,19 @@ $(document).ready(function() {
             });
 
             // Remove lab test section
-            $(document).on('click', '.remove-labtest-section', function() {
-                var labtestSections = $('.labtest-section');
-                if (labtestSections.length > 1) {
-                    $(this).closest('.labtest-section').remove();
+            $(document).on('click', '.remove-medicine-section', function() {
+                var medicineSections = $('.medicine-section');
+                if (medicineSections.length > 1) {
+                    $(this).closest('.medicine-section').remove();
 
                     // Update index numbers
-                    labtestSections.each(function(index) {
-                        $(this).find('.section-index').text('Lab Test No ' + (index + 1));
+                    medicineSections.each(function(index) {
+                        $(this).find('.section-index').text('Medicine No ' + (index + 1));
                     });
 
                     // Hide the "Remove" button when there is only one lab test section left
-                    if (labtestSections.length === 1) {
-                        labtestSections.find('.remove-labtest-section').hide();
+                    if (medicineSections.length === 1) {
+                        medicineSections.find('.remove-medicine-section').hide();
                     }
                 }
             });

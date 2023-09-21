@@ -1,6 +1,8 @@
 from .models import *
 from .serializers import *
+from django.db import transaction
 from django.utils import timezone
+from admin.medicine.models import Medicine
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -8,11 +10,47 @@ from rest_framework.decorators import api_view
 @api_view(['POST'])
 def store_prescription_data(request):
     prescription_serializer = PrescriptionSerializer(data=request.data)
-    if prescription_serializer.is_valid():
-        if prescription_serializer.save():
-            return Response({'status': 200})
+    labtest_serializer = PrescriptionLabTestSerializer(data=request.data)
+    prescription_medicine_serializer = PrescriptionMedicineSerializer(data=request.data)
+    if prescription_serializer.is_valid() and labtest_serializer.is_valid() and prescription_medicine_serializer.is_valid():
+        try:
+            with transaction.atomic():
+                # Save the prescription instance
+                prescription_instance = prescription_serializer.save()
+
+                # Get the lists of values from the request data
+                lab_test_ids = request.data.getlist('lab_test[]')
+                medicine_ids = request.data.getlist('medicine[]')
+                medicine_schedule_ids = request.data.getlist('medicine_schedule[]')
+                frequencys = request.data.getlist('frequency[]')
+                durations = request.data.getlist('duration[]')
+
+                # Iterate through the lists and create PrescriptionMedicine and PrescriptionLabTest objects
+                for lab_test_id, medicine_id, medicine_schedule_id, frequency, duration in zip(
+                        lab_test_ids, medicine_ids, medicine_schedule_ids, frequencys, durations
+                ):
+                    # Create PrescriptionMedicine instance
+                    prescription_medicine = PrescriptionMedicine.objects.create(
+                        prescription=prescription_instance,
+                        medicine_id=medicine_id,
+                        medicine_schedule_id=medicine_schedule_id,
+                        frequency=frequency,
+                        duration=duration
+                    )
+
+                    # Create PrescriptionLabTest instance
+                    prescription_labtest = PrescriptionLabTest.objects.create(
+                        prescription=prescription_instance,
+                        lab_test_id=lab_test_id
+                    )
+                if prescription_medicine and prescription_labtest:
+                    return Response({'status': 200})
+                else:
+                    return Response({'status': 404})
+        except Exception as e:
+            return Response({'status': 400, 'message': str(e)})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid data'})
 
 
 @api_view(['GET'])

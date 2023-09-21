@@ -18,7 +18,6 @@ def prescription_form(request):
 
     response_medicine_schedule = medicine_schedule_list(request)
     medicine_schedule_data = response_medicine_schedule.data
-
     return render(request, 'prescription/templates/form.html',
                   {'patient_data': patient_data, 'medicine_data': medicine_data, 'labtest_data': labtest_data,
                    'medicine_schedule_data': medicine_schedule_data})
