@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from admin.authentication.user.models import Images
 from admin.authentication.otp.verifyotp.models import *
 from admin.authentication.otp.function.send_email import *
-from admin.authentication.user.serializers import ImageSerializer
+from admin.authentication.user.serializers import *
 
 from .models import Patient_Profile
 from .serializers import PatientViewSerializer
@@ -31,7 +31,8 @@ def store_patient_data(request):
             )
 
             user_profile_instance = user_serializer.instance
-            patient_serializer.save(user_id=user_profile_instance)
+            unique_id = generate_unique(11)
+            patient_serializer.save(user_id=user_profile_instance, unique_id=unique_id)
 
             otp_serializer = Images(user_id=user_profile_instance)
             otp_serializer.save()

@@ -5,7 +5,8 @@ from django.conf import settings
 
 def generate_token(length):
     return str(secrets.randbelow(10 ** 6)).zfill(length)
-
+def generate_unique(length):
+    return str(secrets.randbelow(10 ** 11)).zfill(length)
 
 def send_email(email, message):
     send_mail(

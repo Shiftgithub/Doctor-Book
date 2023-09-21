@@ -9,6 +9,7 @@ class Patient_Profile(models.Model):
     father_name = models.CharField(max_length=255, null=True)
     mother_name = models.CharField(max_length=255, null=True)
     phone_no = models.CharField(max_length=110, null=True)
+    unique_id = models.CharField(unique=True, max_length=255, null=True)
 
     date_of_birth = models.DateField(auto_now_add=False, null=True)
     nid_no = models.CharField(max_length=20, null=True)
