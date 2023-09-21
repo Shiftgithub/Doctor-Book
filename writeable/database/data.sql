@@ -1336,4 +1336,6 @@ INSERT INTO `medicine_type` (`id`, `name`) VALUES
 (27, 'MDI(Manual Daily Injection)'),
 (28, 'DPI(Dry Powder Inhaler)'),
 (29, 'Oral Solution');
+INSERT INTO `medicine_schedule` (`id`, `schedule`) VALUES (NULL, 'After Meal'), (NULL, 'Before Meal');
+INSERT INTO `lab_test` (`id`, `name`) VALUES (NULL, 'Blood Test');
 INSERT INTO `medicine_strength` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES (1, '100 gm', '2021-02-15 16:59:49', NULL, NULL), (2, '250 gm', '2021-02-15 16:59:49', NULL, NULL), (3, '500 gm', '2021-02-15 16:59:49', NULL, NULL)

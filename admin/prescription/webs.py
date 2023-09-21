@@ -2,14 +2,26 @@ from .views import *
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from admin.patient.views import get_patients_list
+from admin.medicine.views import get_all_medicines_list
 
 
 # prescription
 def prescription_form(request):
     response_patient = get_patients_list(request)
     patient_data = response_patient.data
-    print(patient_data)
-    return render(request, 'prescription/templates/form.html', {'patient_data': patient_data})
+
+    response_medicine = get_all_medicines_list(request)
+    medicine_data = response_medicine.data
+
+    response_labtest = lab_test_list(request)
+    labtest_data = response_labtest.data
+
+    response_medicine_schedule = medicine_schedule_list(request)
+    medicine_schedule_data = response_medicine_schedule.data
+
+    return render(request, 'prescription/templates/form.html',
+                  {'patient_data': patient_data, 'medicine_data': medicine_data, 'labtest_data': labtest_data,
+                   'medicine_schedule_data': medicine_schedule_data})
 
 
 def store_prescription(request):

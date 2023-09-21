@@ -68,3 +68,11 @@ def medicine_schedule_list(request):
     serializer = MedicineScheduleSerializer(medicine_schedule, many=True)
     serialized_data = serializer.data
     return Response(serialized_data)
+
+
+@api_view(['GET'])
+def lab_test_list(request):
+    lab_test = LabTest.objects.all()
+    serializer = LabTestSerializer(lab_test, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)

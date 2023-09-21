@@ -39,7 +39,7 @@ class MedicineSchedule(models.Model):
 
 
 class PrescriptionMedicine(models.Model):
-    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
+    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE, null=True)
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE, null=True)
     medicine_schedule = models.ForeignKey(MedicineSchedule, on_delete=models.CASCADE, null=True)
 
@@ -68,7 +68,7 @@ class LabTest(models.Model):
 
 
 class PrescriptionLabTest(models.Model):
-    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
+    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE, null=True)
     lab_test = models.ForeignKey(LabTest, on_delete=models.CASCADE, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
