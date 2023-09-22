@@ -74,7 +74,6 @@ def patient_data(request, patient_id):
         if patient is None:
             return Response({'error': 'Patient profile not found', 'status': '404'})
         serializer = PatientViewSerializer(patient).data
-        print(serializer)
         return Response(serializer)
     except Patient_Profile.DoesNotExist:
         return Response({'error': 'Patient profile not found', 'status': '404'})

@@ -13,6 +13,11 @@ urlpatterns = [
                 path('store/', store_patient, name='store_patient'),
                 path('update/<int:patient_id>/', protected_view(edit_patient_form), name='edit_patient_form'),
                 path('edit/<int:patient_id>/', protected_view(edit_patient), name='edit_patient'),
+                path("doctors/list/", protected_view(find_doctors), name="find_doctors"),
+
+                path('prediction/form/', patient_predict_form, name='patient_predict_form'),
+                path('', predict_result, name='patient_prediction'),
+
             ]
         ),
     ),
