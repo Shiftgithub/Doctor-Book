@@ -18,8 +18,8 @@
                 <tr>
                     <th>#</th>
                     <th>Doctor Name</th>
-                    <th>Specialty</th>
                     <th>Image</th>
+                    <th>Specialty</th>
                     <th>Profile</th>
                     <th>Appointment</th>
                 </tr>
@@ -35,7 +35,7 @@
                     <td>{{ data.department }}</td>
                     <td>
                         <a class="dropdown-item text-info"
-                           href="{% url 'view_doctor_data' data.id %}">
+                           href="{% url 'check_doctor_profile' data.id %}">
                             <i class="fas fa-eye"></i> Profile
                         </a>
                     </td>

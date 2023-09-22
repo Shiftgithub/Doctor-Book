@@ -13,6 +13,12 @@
                        class="nav-link btn btn-info float-right"
                        type="submit">Back View</a>
                 </h1>
+                <br>
+                <h1 class="card-title float-right">
+                    <a href="{% url 'working_schedule' %}"
+                       class="nav-link btn btn-success float-right"
+                       type="submit">Working Seedule</a>
+                </h1>
             </div>
             <div class="card-body">
                 {% for doctor_data in doctor_all_data %}

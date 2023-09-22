@@ -2,6 +2,7 @@ from django.db import models
 from admin.medicine.models import Medicine
 from admin.doctor.models import Doctor_Profile
 from admin.patient.models import Patient_Profile
+from admin.authentication.user.models import User
 
 
 class Prescription(models.Model):
@@ -16,6 +17,9 @@ class Prescription(models.Model):
     pmh = models.TextField(null=True, verbose_name='Past Medical History')
 
     issue_date = models.DateField(auto_now_add=True)
+
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_prescriptions', null=True)
+    modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_prescriptions', null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -46,6 +50,11 @@ class PrescriptionMedicine(models.Model):
     frequency = models.CharField(max_length=255, null=True)
     duration = models.CharField(max_length=255, null=True)
 
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_prescription_medicines',
+                                   null=True)
+    modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_prescription_medicines',
+                                    null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
@@ -71,12 +80,19 @@ class PrescriptionLabTest(models.Model):
     prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE, null=True)
     lab_test = models.ForeignKey(LabTest, on_delete=models.CASCADE, null=True)
 
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_prescription_labtest',
+                                   null=True)
+    modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_prescription_labtest',
+                                    null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
+
     def __str__(self):
         return f'PrescriptionLabTest ID: {self.id}'
+
 
     class Meta:
         db_table = 'prescription_lab_test'

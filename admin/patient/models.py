@@ -12,7 +12,7 @@ class Patient_Profile(models.Model):
     unique_id = models.CharField(unique=True, max_length=255, null=True)
 
     date_of_birth = models.DateField(auto_now_add=False, null=True)
-    nid_no = models.CharField(max_length=20, null=True)
+    nid_no = models.IntegerField(null=True)
     address = models.CharField(max_length=255, null=True)
     gender = models.ForeignKey(Gender, on_delete=models.CASCADE, related_name='patients', null=True)
     religion = models.ForeignKey(Religion, on_delete=models.CASCADE, related_name='patients', null=True)
@@ -29,3 +29,15 @@ class Patient_Profile(models.Model):
 
     class Meta:
         db_table = 'patient'
+
+
+class Appointment_fixed(models.Model):
+    patient = models.ForeignKey(Patient_Profile, on_delete=models.CASCADE, related_name='appointments')
+    doctor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='doctor_appointments')
+    appointment_date = models.DateField(auto_now_add=False)
+    appointment_time = models.TimeField(auto_now_add=False)
+    reason_for_visit = models.TextField(null=True)
+    is_confirmed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'Appointment with {self.doctor} on {self.appointment_datetime}'

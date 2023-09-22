@@ -1,4 +1,5 @@
 from django.db import models
+from admin.authentication.user.models import User
 
 
 class Brand(models.Model):
@@ -61,6 +62,9 @@ class Medicine(models.Model):
     generic = models.ForeignKey(Generic, on_delete=models.CASCADE, related_name='medicine')
     medicine_type = models.ForeignKey(MedicineType, on_delete=models.CASCADE, related_name='medicine')
     strength = models.ForeignKey(Strength, on_delete=models.CASCADE, related_name='medicine')
+
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_medicines', null=True)
+    modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_medicines', null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=False, null=True)

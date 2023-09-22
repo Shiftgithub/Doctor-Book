@@ -70,3 +70,8 @@ class BloodGroupSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         instance = super().create(validated_data)
         return instance  # Fetch the primary key of the saved object
+
+class DaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Day
+        fields = '__all__'

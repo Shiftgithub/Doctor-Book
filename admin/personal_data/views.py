@@ -80,3 +80,11 @@ def upazila_list(request):
     serializer = UpazilaSerializer(upazila, many=True)
     serialized_data = serializer.data
     return Response(serialized_data)
+
+
+@api_view(['GET'])
+def day_list(request):
+    day = Day.objects.all()
+    serializer = DaySerializer(day, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)

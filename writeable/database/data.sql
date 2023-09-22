@@ -1305,7 +1305,7 @@ INSERT INTO `medicine_generic` (`id`, `name`) VALUES
 (447, 'Zinc Sulphate Monohydrate + Ferrous Sulphate + Folic Ac'),
 (448, 'Zinc sulphate Monohydrate +Carbonyl Iron+Folicacid+ Thi'),
 (449, 'Zoledronic Acid 5 mg solution for infusion'),
-(450, 'Zolmitriptan');2
+(450, 'Zolmitriptan');
 INSERT INTO `medicine_type` (`id`, `name`) VALUES
 (1, 'Syrup'),
 (2, 'Tablet'),
@@ -1336,6 +1336,7 @@ INSERT INTO `medicine_type` (`id`, `name`) VALUES
 (27, 'MDI(Manual Daily Injection)'),
 (28, 'DPI(Dry Powder Inhaler)'),
 (29, 'Oral Solution');
+INSERT INTO `day` (`id`, `name`) VALUES (NULL, 'Saturday '), (NULL, 'Sunday '), (NULL, 'Monday '), (NULL, 'Tuesday '), (NULL, 'Wednesday '), (NULL, 'Thursday '), (NULL, 'Friday ');
 INSERT INTO `medicine_schedule` (`id`, `schedule`) VALUES (NULL, 'After Meal'), (NULL, 'Before Meal');
 INSERT INTO `lab_test` (`id`, `name`) VALUES (NULL, 'Blood Test');
 INSERT INTO `medicine_strength` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES (1, '100 gm', '2021-02-15 16:59:49', NULL, NULL), (2, '250 gm', '2021-02-15 16:59:49', NULL, NULL), (3, '500 gm', '2021-02-15 16:59:49', NULL, NULL)

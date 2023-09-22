@@ -15,9 +15,9 @@ class DoctorSerializer(serializers.ModelSerializer):
         return instance
 
 
-class AvailabilitySerializer(serializers.ModelSerializer):
+class AppointmentScheduleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Availability
+        model = AppointmentSchedule
         fields = '__all__'
 
     def create(self, validated_data):
@@ -53,15 +53,6 @@ class EducationSerializer(serializers.ModelSerializer):
         return instance  # Fetch the primary key of the saved object
 
 
-class ServicesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Services
-        fields = '__all__'
-
-    def create(self, validated_data):
-        instance = super().create(validated_data)
-        return instance  # Fetch the primary key of the saved object
-
 
 class SocialMediaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -82,9 +73,8 @@ class DoctorViewSerializer(serializers.ModelSerializer):
     user_name = serializers.CharField(source='user.user_name')
     email = serializers.EmailField(source='user.email')
     awards = AwardsSerializer(many=True)
-    availability = AvailabilitySerializer(many=True)
+    appointment = AppointmentSchedule()
     education = EducationSerializer(many=True)
-    services = ServicesSerializer(many=True)
     social_media = SocialMediaSerializer(many=True)
     images = ImageSerializer(source='user.images', many=True)
     present_address = PresentAddressAllSerializer(source='user.present_address', many=True)
@@ -93,3 +83,6 @@ class DoctorViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor_Profile
         fields = '__all__'
+
+
+

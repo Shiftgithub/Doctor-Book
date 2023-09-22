@@ -18,7 +18,7 @@ class Doctor_Profile(models.Model):
         Matrimony, on_delete=models.CASCADE, related_name='doctors'
     )
     date_of_birth = models.DateField(auto_now_add=False)
-    nid_no = models.CharField(max_length=255, null=True)
+    birth_registration_no = models.IntegerField(null=True)
     blood_group = models.ForeignKey(
         Blood_Group, on_delete=models.CASCADE, related_name='doctors'
     )
@@ -26,8 +26,9 @@ class Doctor_Profile(models.Model):
     department = models.ForeignKey(
         Department, on_delete=models.CASCADE, related_name='doctors'
     )
-    experience = models.CharField(max_length=255, null=True)
-    biography = models.CharField(max_length=255, null=True)
+    nid_no = models.IntegerField(null=True)
+    experience = models.CharField(max_length=1000, null=True)
+    biography = models.CharField(max_length=1000, null=True)
     languages_spoken = models.CharField(max_length=255, null=True)
     passport_no = models.CharField(max_length=255, null=True)
     user = models.ForeignKey(
@@ -42,17 +43,80 @@ class Doctor_Profile(models.Model):
         db_table = 'doctor_profile'
 
 
-class Availability(models.Model):
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='availability',
-                                       null=True, )
-    appointment_availability = models.CharField(max_length=255, null=True)
-    accepting_new_patients = models.CharField(max_length=255, null=True)
-    average_wait_time = models.CharField(max_length=255, null=True)
-    consultation_fee = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    available_facilities = models.CharField(max_length=255, null=True)
+class Education(models.Model):
+    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='education')
+    certificate_degree = models.CharField(max_length=255)
+    institution = models.CharField(max_length=255)
+    board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='educationID')
+    result = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    passing_year = models.DateField(auto_now_add=False)
+
+    def get_all_education_by(self, doctor_profile_id):
+        return self.objects.filter(doctor_profile_id=doctor_profile_id)
+
+    class Meta:
+        db_table = 'doctor_educations'
+
+
+class Social_Media(models.Model):
+    website = models.URLField(null=True)
+    facebook = models.URLField(null=True)
+    instagram = models.URLField(null=True)
+    linkedin = models.URLField(null=True)
+    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='social_media', null=True)
+
+    class Meta:
+        db_table = 'doctor_social_media'
+
+
+class AppointmentSchedule(models.Model):
+    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='appointment',
+                                       null=True)
+    per_patient_time = models.IntegerField(null=True)
+    consultation_fee = models.IntegerField(null=True)
+
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_appointment', null=True)
+    modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_appointment', null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, null=True)
+    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     class Meta:
         db_table = 'doctor_availability'
+
+
+class ScheduleTime(models.Model):
+    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='schedule_time',
+                                       null=True)
+    start_time = models.TimeField(null=True)
+    end_time = models.TimeField(null=True)
+
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_schedule_time', null=True)
+    modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_schedule_time', null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, null=True)
+    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
+
+    class Meta:
+        db_table = 'schedule_time'
+
+
+class OffDay(models.Model):
+    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='off_day',
+                                       null=True)
+    off_day = models.ForeignKey(Day, on_delete=models.CASCADE, related_name='off_day', null=True)
+
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_off_day', null=True)
+    modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_off_day', null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, null=True)
+    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
+
+    class Meta:
+        db_table = 'off_day'
 
 
 class Awards(models.Model):
@@ -67,42 +131,12 @@ class Awards(models.Model):
     )  # doctor board certification number
     research_interests = models.CharField(max_length=255, null=True)
 
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_awards', null=True)
+    modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_awards', null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=False, null=True)
+    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
+
     class Meta:
         db_table = 'doctor_awards'
-
-
-class Education(models.Model):
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='education')
-    certificate_degree = models.CharField(max_length=255)
-    institution = models.CharField(max_length=255)
-    board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='educationID')
-    result = models.CharField(max_length=255)
-    passing_year = models.DateField(auto_now_add=False)
-
-    def get_all_education_by(self, doctor_profile_id):
-        return self.objects.filter(doctor_profile_id=doctor_profile_id)
-
-    class Meta:
-        db_table = 'doctor_educations'
-
-
-class Services(models.Model):
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='services', null=True)
-    treatments = models.CharField(max_length=255, null=True)
-    procedures = models.CharField(max_length=255, null=True)
-    hours = models.CharField(max_length=255, null=True)
-    location = models.CharField(max_length=255, null=True)
-
-    class Meta:
-        db_table = 'doctor_services'
-
-
-class Social_Media(models.Model):
-    website = models.URLField(null=True)
-    facebook = models.URLField(null=True)
-    instagram = models.URLField(null=True)
-    linkedin = models.URLField(null=True)
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='social_media', null=True)
-
-    class Meta:
-        db_table = 'doctor_social_media'
