@@ -66,7 +66,7 @@
             return false
         } else {
             $.ajax({
-                url: '/adminpanel/ajax/organ/' + body_part_id,
+                url: '/ajax/organ/' + body_part_id,
                 type: 'GET',
                 success: function (response) {
                     let options = '<option selected>Select Organ Name</option>';
@@ -89,7 +89,7 @@
                     return false;
                 } else {
                     $.ajax({
-                        url: '/adminpanel/ajax/problem/specification/' + organ_id,
+                        url: '/ajax/problem/specification/' + organ_id,
                         type: 'GET',
                         success: function (response) {
                             let specifications = response;

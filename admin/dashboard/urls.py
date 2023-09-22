@@ -9,18 +9,10 @@ urlpatterns = [
         '',
         include(
             [
-                # adminpanel dashboard path
-                path('', protected_view(dashboard), name='admin_dashboard'),
-                path(
-                    'doctor/',
-                    protected_view(doctor_dashboard),
-                    name='doctor_dashboard',
-                ),
-                path(
-                    'patient/',
-                    protected_view(patient_dashboard),
-                    name='patient_dashboard',
-                ),
+                # dashboard path
+                path('admin', protected_view(dashboard), name='admin_dashboard'),
+                path('doctor/', protected_view(doctor_dashboard), name='doctor_dashboard', ),
+                path('patient/', protected_view(patient_dashboard), name='patient_dashboard', ),
             ]
         ),
     ),

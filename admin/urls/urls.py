@@ -2,7 +2,7 @@ from django.urls import path, include
 
 urlpatterns = [
     # admin path groups
-    path('adminpanel/', include([
+    path('', include([
         path('ajax/', include('admin.ajax.urls')),
         path('article/', include('admin.article.urls')),
         path('bodypart/', include('admin.bodypart.urls')),
@@ -18,7 +18,7 @@ urlpatterns = [
         path('prescription/', include('admin.prescription.urls')),
         path('user/details/', include('admin.authentication.user.urls')),
     ])),
-    path('landing/', include([
+    path('', include([
         path('login/', include('admin.authentication.login.urls')),
         path('logout/', include('admin.authentication.logout.urls')),
         path('resend/otp/', include('admin.authentication.otp.resendotp.urls')),
