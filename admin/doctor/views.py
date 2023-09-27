@@ -23,7 +23,7 @@ def store_doctor_data(request):
 
             if user_serializer.is_valid(
                     raise_exception=True) and doctor_serializer.is_valid() and image_serializer.is_valid() and present_address_serializer.is_valid() and permanent_address_serializer.is_valid():
-                password = '@123456789'
+                password = '1'
                 hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
                 with transaction.atomic():
@@ -70,31 +70,32 @@ def store_doctor_data(request):
 
 @api_view(['POST'])
 def store_doctor_work_details_data(request):
-    awards_serializer = AwardsSerializer(data=request.data)
-    availability_serializer = AvailabilitySerializer(data=request.data)
-    services_serializer = ServicesSerializer(data=request.data)
+    appointment_schedule_serializer = AppointmentScheduleSerializer(data=request.data)
     social_media_serializer = SocialMediaSerializer(data=request.data)
 
-    if all(
-            serializer.is_valid() for serializer in
-            [awards_serializer, availability_serializer, services_serializer, social_media_serializer]
-    ):
+    if appointment_schedule_serializer.is_valid() and social_media_serializer.is_valid():
         with transaction.atomic():
-            awards_instance = awards_serializer.save()
-            availability_instance = availability_serializer.save()
-            services_instance = services_serializer.save()
-            social_media_instance = social_media_serializer.save()
+            doctor_profile_id = request.data.get('doctor_profile')
+            social_media_instance = social_media_serializer.save(doctor_profile_id=doctor_profile_id)
+            appointment_schedule_instance = appointment_schedule_serializer.save(doctor_profile_id=doctor_profile_id)
 
-            if awards_instance and availability_instance and services_instance and social_media_instance:
-                doctor_profile_id = request.data.get('doctor_profile')
+            if social_media_instance and appointment_schedule_instance:
                 certificate_degrees = request.data.getlist('certificate_degrees[]')
                 institutions = request.data.getlist('institutions[]')
                 boards = request.data.getlist('boards[]')
                 results = request.data.getlist('results[]')
                 passing_years = request.data.getlist('passing_years[]')
+                start_times = request.data.getlist('start_time[]')
+                end_times = request.data.getlist('end_time[]')
+                off_days = request.data.getlist('off_day[]')
+                awards = request.data.getlist('awards[]')
+                honors = request.data.getlist('honors[]')
+                publications = request.data.getlist('publications[]')
+                research_interests = request.data.getlist('research_interests[]')
 
-                for certificate_degree, institution, board_id, result, passing_year in zip(
-                        certificate_degrees, institutions, boards, results, passing_years
+                for certificate_degree, institution, board_id, result, passing_year, start_time, end_time, day_id, award, honor, publication, research_interest in zip(
+                        certificate_degrees, institutions, boards, results, passing_years, start_times, end_times,
+                        off_days, awards, honors, publications, research_interests
                 ):
                     try:
                         board_instance = Board.objects.get(id=board_id)
@@ -104,46 +105,67 @@ def store_doctor_work_details_data(request):
                             result=result,
                             passing_year=passing_year,
                             doctor_profile_id=doctor_profile_id,
-                            board=board_instance,  # Assign the board_instance to the board field
+                            board=board_instance,
+                        )
+                        schedule_time_obj = ScheduleTime.objects.create(
+                            start_time=start_time,
+                            end_time=end_time,
+                            appointment_schedule=appointment_schedule_instance,
+                        )
+                        day_instance = Day.objects.get(id=day_id)
+                        off_day_obj = OffDay.objects.create(
+                            off_day=day_instance,
+                            doctor_profile_id=doctor_profile_id,
+                        )
+                        awards_obj = Awards.objects.create(
+                            awards=award,
+                            honors=honor,
+                            publications=publication,
+                            research_interests=research_interest,
+                            doctor_profile_id=doctor_profile_id,
                         )
                     except Board.DoesNotExist:
                         # Handle the case when the board with the given ID does not exist
                         return Response({'status': 404})
-
-                return Response({'status': 200})
+                if education_obj and schedule_time_obj and awards_obj:
+                    # All items saved successfully
+                    return Response({'status': 200})
+                else:
+                    transaction.set_rollback(True)
+                    return Response({'status': 404})
             else:
+                transaction.set_rollback(True)
                 return Response({'status': 403})
     else:
         return Response({'status': 403})
 
 
+
 @api_view(['GET'])
 def get_all_doctors_list(request):
-    # Fetch all doctor profiles along with user data and related fields
+    # Fetch all doctor profiles along with related fields
     doctors = Doctor_Profile.objects.filter(deleted_at=None).select_related(
         'user', 'gender', 'religion', 'blood_group', 'matrimony', 'department'
     ).prefetch_related(
-        'awards', 'availability', 'education', 'services', 'social_media', 'user__images',
-        'user__present_address', 'user__permanent_address'
-    )
+        'awards', 'appointment_schedules', 'education', 'social_media',
+        'user__images', 'user__present_address', 'user__permanent_address',
 
+    )
     # Serialize the data using the combined serializer
     serializer = DoctorViewSerializer(doctors, many=True)
-
     return Response(serializer.data)
 
 
-# Getting doctor's full details by doctor id ......................................................................
+# Getting doctor's full details by doctor id
 @api_view(['GET'])
 def doctor_data(request, id):
     # Fetch all doctor profiles along with user data and related fields
     doctors = Doctor_Profile.objects.filter(id=id, deleted_at=None).select_related(
         'user', 'gender', 'religion', 'blood_group', 'matrimony', 'department'
     ).prefetch_related(
-        'awards', 'availability', 'education', 'services', 'social_media', 'user__images',
-        'user__present_address', 'user__permanent_address'
+        'awards', 'appointment_schedules', 'education', 'social_media',
+        'user__images', 'user__present_address', 'user__permanent_address',
     )
-    # Serialize the data using the combined serializer
     serializer = DoctorViewSerializer(doctors, many=True)
     return Response(serializer.data)
 

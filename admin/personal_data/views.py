@@ -10,8 +10,9 @@ def get_all_doctors_name(request):
     serialized_data = []
 
     for doctor in doctors:
-        availability = Availability.objects.filter(doctor_profile_id=doctor.id).exists()
-        if not availability:
+        appointment_schedule = AppointmentSchedule.objects.filter(doctor_profile_id=doctor.id).exists()
+        
+        if not appointment_schedule:
             serializer = DoctorSerializer(doctor)
             serialized_data.append(serializer.data)
 

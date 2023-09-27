@@ -95,4 +95,4 @@ class Day(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'day'
+        db_table = 'days'

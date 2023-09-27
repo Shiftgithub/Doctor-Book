@@ -75,3 +75,9 @@ class DaySerializer(serializers.ModelSerializer):
     class Meta:
         model = Day
         fields = '__all__'
+
+class DayViewSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source='days.name',required=False)
+    class Meta:
+        model = Day
+        fields = '__all__'

@@ -50,13 +50,17 @@ def doctor_data_view(request):
 
 
 def doctor_work_details_form(request):
+    response_day = day_list(request)
+    day_data = response_day.data
+
     response_doctor = get_all_doctors_name(request)
     doctor_data = response_doctor.data
 
     response_board = board_list(request)
     board_data = response_board.data
 
-    return render(request, 'doctor/templates/work_form.html', {'doctor_data': doctor_data, 'board_data': board_data})
+    return render(request, 'doctor/templates/work_form.html',
+                  {'doctor_data': doctor_data, 'board_data': board_data, 'day_data': day_data})
 
 
 def store_doctor_work_details(request):
@@ -72,6 +76,7 @@ def store_doctor_work_details(request):
 def view_doctor(request, doctor_id):
     response_doctor_data = doctor_data(request, doctor_id)
     doctor_all_data = response_doctor_data.data
+    print(doctor_all_data)
     return render(request, 'doctor/templates/view.html', {'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id})
 
 
@@ -103,6 +108,9 @@ def edit_doctor_form(request, doctor_id):
     response_board = board_list(request)
     board_data = response_board.data
 
+    response_day = day_list(request)
+    day_data = response_day.data
+
     response_doctor = doctor_data(request, doctor_id)
     doctor_all_data = response_doctor.data
     return render(request, 'doctor/templates/edit.html',
@@ -110,7 +118,7 @@ def edit_doctor_form(request, doctor_id):
                    'religion_data': religion_data, 'blood_group_data': blood_group_data,
                    'matrimony_data': matrimony_data, 'division_data': division_data,
                    'district_data': district_data, 'upazila_data': upazila_data, 'board_data': board_data,
-                   'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id
+                   'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id, 'day_data': day_data
                    })
 
 
@@ -131,7 +139,6 @@ def delete_doctor(request, doctor_id):
         messages.add_message(request, messages.INFO, 'Doctor data deleted Successfully')
     else:
         messages.add_message(request, messages.ERROR, 'Error deleting Doctor data')
-
     return redirect('doctor_list')
 
 

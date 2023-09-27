@@ -41,6 +41,13 @@
                                 <input class="form-control" id="dateOfBirthID" name="date_of_birth" type="date"/>
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="birthCertificateID">B. Certificate No: <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="birthCertificateID" name="birth_registration_no" type="number"/>
+                            </div>
+                        </div>
                         <!-- Email -->
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="emailID">Email : <span
@@ -135,7 +142,7 @@
                     <label class="col-md-2 col-form-label" for="nidNoID">NID No : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <input class="form-control" id="nidNoID" name="nid_no" type="text"/>
+                        <input class="form-control" id="nidNoID" name="nid_no" type="number"/>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -259,7 +266,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="languagesSpokenID">Languages Spoken : <span
+                    <label class="col-md-2 col-form-label" for="languagesSpokenID">Languages Spoken :<span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <input class="form-control" id="languagesSpokenID" name="languages_spoken" type="text"/>
@@ -306,7 +313,7 @@
             return false
         } else {
             $.ajax({
-                url: '/adminpanel/ajax/district/' + permanent_division_id,
+                url: '/ajax/district/' + permanent_division_id,
                 type: 'GET',
                 success: function (response) {
                     let options = '<option selected>Select Permanent District</option>';
@@ -329,7 +336,7 @@
                     return false;
                 } else {
                     $.ajax({
-                url: '/adminpanel/ajax/upazila/' + permanent_district_id,
+                url: '/ajax/upazila/' + permanent_district_id,
                 type: 'GET',
                 success: function (response) {
                     let options = '<option selected>Select Permanent Upazila</option>';
@@ -345,7 +352,6 @@
                 })
         }
     })
-
     /**
     * Present Address JS ...
     */
@@ -355,7 +361,7 @@
             return false
         } else {
             $.ajax({
-                url: '/adminpanel/ajax/district/' + present_division_id,
+                url: '/ajax/district/' + present_division_id,
                 type: 'GET',
                 success: function (response) {
                     let options = '<option selected>Select Present District</option>';
@@ -378,7 +384,7 @@
                     return false;
                 } else {
                     $.ajax({
-                url: '/adminpanel/ajax/upazila/' + present_district_id,
+                url: '/ajax/upazila/' + present_district_id,
                 type: 'GET',
                 success: function (response) {
                     let options = '<option selected>Select Present Upazila</option>';
