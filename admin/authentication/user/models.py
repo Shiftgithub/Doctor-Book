@@ -2,19 +2,16 @@ import os
 from django.db import models
 from datetime import datetime
 from admin.personal_data.models import *
+from admin.basemodel.models import BaseModel
 
 
-class User(models.Model):
+class User(BaseModel):
     user_name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
     password = models.CharField(max_length=255, null=True)
     hash = models.CharField(max_length=64, null=True)  # Assuming SHA-256 hash is 64 characters long
     role = models.CharField(max_length=20, null=True)  # Choices: admin, doctor, patient
     status = models.CharField(max_length=20, null=True)  # Choices: active, inactive, pending
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
         return self.user_name
@@ -23,7 +20,7 @@ class User(models.Model):
         db_table = 'user'
 
 
-class PermanentAddress(models.Model):
+class PermanentAddress(BaseModel):
     permanent_division = models.ForeignKey(
         Division, on_delete=models.CASCADE, related_name='permanent_division'
     )
@@ -44,7 +41,7 @@ class PermanentAddress(models.Model):
         db_table = 'permanent_address'
 
 
-class PresentAddress(models.Model):
+class PresentAddress(BaseModel):
     present_division = models.ForeignKey(Division, on_delete=models.CASCADE, related_name='present_division')
     present_district = models.ForeignKey(District, on_delete=models.CASCADE, related_name='present_district')
     present_upazila = models.ForeignKey(Upazila, on_delete=models.CASCADE, related_name='present_upazila')
@@ -73,7 +70,7 @@ def doctor_filepath(instance, filename):
     return os.path.join('static', 'uploads', 'images', new_filename)
 
 
-class Images(models.Model):
+class Images(BaseModel):
     photo_name = models.ImageField(upload_to=doctor_filepath, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='images', null=True)
 

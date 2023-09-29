@@ -1,4 +1,5 @@
 from django.db import models
+from admin.basemodel.models import BaseModel
 
 
 class Gender(models.Model):
@@ -35,11 +36,8 @@ class Blood_Group(models.Model):
         db_table = 'blood_group'
 
 
-class Division(models.Model):
+class Division(BaseModel):
     name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
         return self.name
@@ -48,13 +46,9 @@ class Division(models.Model):
         db_table = 'division'
 
 
-class District(models.Model):
+class District(BaseModel):
     name = models.CharField(max_length=255)
     division = models.ForeignKey('Division', on_delete=models.CASCADE)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
         return self.name
@@ -63,13 +57,9 @@ class District(models.Model):
         db_table = 'district'
 
 
-class Upazila(models.Model):
+class Upazila(BaseModel):
     name = models.CharField(max_length=255)
     district = models.ForeignKey('District', on_delete=models.CASCADE)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
         return self.name
