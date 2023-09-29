@@ -1,0 +1,183 @@
+{% extends 'dashboard/templates/patient/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <form action="{% url 'edit_patient' patient_id %}" enctype="multipart/form-data" id="PostForm"
+          method="POST">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header bg-dark">
+                <h1 class="card-title">Patient Details</h1>
+                <h1 class="card-title float-right">
+                    <a href="{% url 'user_details' %}" class="nav-link btn btn-info float-right"
+                       type="submit">Back View</a>
+                </h1>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="NameID">Name : </label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" id="NameID"
+                                       value="{{ patient_all_data.full_name }}" name="full_name"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="fatherNameID">Father Name : </label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" id="fatherNameID"
+                                       value="{{ patient_all_data.father_name }}" name="father_name"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="motherNameID">Mother Name : </label>
+                            <div class="col-md-9">
+                                <input class="form-control" value=" {{ patient_all_data.mother_name }}"
+                                       id="motherNameID" type="text" name="mother_name"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="dateOfBirthID">Date of Birth : </label>
+                            <div class="col-md-9">
+                                <input class="form-control" value="{{ patient_all_data.date_of_birth }}"
+                                       type="date" id="dateOfBirthID" name="date_of_birth"/>
+                            </div>
+                        </div>
+                        <!-- Phone Number -->
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="phoneNoID">Phone Number : </label>
+                            <div class="col-md-9">
+                                <input class="form-control" value=" {{ patient_all_data.phone_no }}" id="phoneNoID"
+                                       type="text" name="phone_no"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <input class="form-control mb-3" id="imageID" name="photo_name"
+                                       onchange="previewImage(event)" type="file"/>
+                                {% if patient_all_data.images.0.photo_name %}
+                                <img alt="Patient Image" src="{{ patient_all_data.images.0.photo_name }}"
+                                     style="width: 100%; height: 280px;">
+                                {% else %}
+                                <img alt="Patient Image" src="{% static 'adminlte_assets/img/nobody.png' %}"
+                                     style="width: 100%; height: 280px;">
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="far fa-address-card"></i> Personal Information</legend>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">Gender :</label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="genderID" name="gender">
+                            <option selected>Select Gender</option>
+                            {% for item in gender_data %}
+                            {% if item.name == patient_all_data.gender %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label">Religion :</label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="religionID" name="religion">
+                            <option selected>Select Religion</option>
+                            {% for item in religion_data %}
+                            {% if item.name == patient_all_data.religion %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">Blood Group : </label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="bloodGroupID" name="blood_group">
+                            <option selected>Select Blood Group</option>
+                            {% for item in blood_group_data %}
+                            {% if item.name == patient_all_data.blood_group %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label">Matrimony Status : </label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="matrimonyID" name="matrimony">
+                            <option selected>Select Matrimony</option>
+                            {% for item in matrimony_data %}
+                            {% if item.name == patient_all_data.matrimony %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">NID No: </label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" value="{{ patient_all_data.nid_no }}"
+                               id="nidNOID" name="nid_no"/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="addressID">Address : </label>
+                    <div class="col-md-4">
+                        <input class="form-control" value=" {{ patient_all_data.address }}" id="addressID"
+                               type="text" name="address"/>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-secondary" type="reset">Cancel</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-warning float-right" type="submit">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
+<script>
+    function previewImage(event) {
+    var input = event.target;
+    var imgElement = document.getElementById("preview");
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            imgElement.src = e.target.result;
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
+    }
+}
+</script>
+{% endblock %}

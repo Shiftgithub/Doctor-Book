@@ -1,0 +1,422 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <form action="{% url 'store_doctor' %}" enctype="multipart/form-data" id="PostForm" method="POST">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header bg-dark">
+                <h1 class="card-title">New Doctor</h1>
+            </div>
+            <div class="card-body">
+                <!-- Full Name, Father Name, Mother Name -->
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="fullNameId">Full Name : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="fullNameId" name="full_name" type="text"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="fatherNameId">Father Name : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="fatherNameId" name="father_name" type="text"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="motherNameId">Mother Name : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="motherNameId" name="mother_name" type="text"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="dateOfBirthID">Date of Birth : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="dateOfBirthID" name="date_of_birth" type="date"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="birthCertificateID">B. Certificate No: <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="birthCertificateID" name="birth_registration_no" type="number"/>
+                            </div>
+                        </div>
+                        <!-- Email -->
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="emailID">Email : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="emailID" name="email" type="text"/>
+                            </div>
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="phoneID">Phone Number : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="phoneID" name="phone_no" type="text"/>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <input class="form-control mb-3" id="imageID" name="photo_name"
+                                       onchange="previewImage(event)"
+                                       type="file"/>
+                                <img id="preview" src="{% static 'adminlte_assets/img/nobody.png' %}"
+                                     style="width: 100%; height: 280px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <legend class="text-info"><i class="fas fa-user-cog"></i> Personal Information</legend>
+                <hr>
+                <!-- Blood Group, Religion, Martial Status -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row mb-3">
+                            <label class="col-md-6 col-form-label" for="genderID">Gender : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <select class="form-control select2" id="genderID" name="gender">
+                                    <option selected>Select Gender</option>
+                                    {% for item in gender_data %}
+                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row mb-3">
+                            <label class="col-md-6 col-form-label" for="religionID">Religion : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <select class="form-control select2" id="religionID" name="religion">
+                                    <option selected>Select Religion</option>
+                                    {% for item in religion_data %}
+                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row mb-3">
+                            <label class="col-md-6 col-form-label" for="bloodGroupID">Blood Group : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <select class="form-control select2" id="bloodGroupID" name="blood_group">
+                                    <option selected>Select Blood Group</option>
+                                    {% for item in blood_group_data %}
+                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="matrimonyID">Matrimony : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="matrimonyID" name="matrimony">
+                            <option selected>Select Matrimony</option>
+                            {% for item in matrimony_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="nidNoID">NID No : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="nidNoID" name="nid_no" type="number"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="passportNoID">Passport No : </label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="passportNoID"
+                               name="passport_no" type="text" value="{{ data.Passport|default:'Not Applicable' }}"/>
+                    </div>
+                </div>
+
+                <!--Address-->
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="far fa-address-card"></i> Permanent Address Details</legend>
+                    </div>
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="far fa-address-card"></i> Present Address Details</legend>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentDivisionID">Division : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="permanentDivisionID" name="permanent_division">
+                            <option selected>Select Permanent Division</option>
+                            {% for item in division_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentDivisionID">Division : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="presentDivisionID" name="present_division">
+                            <option selected>Select Present Division</option>
+                            {% for item in division_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentDistrictID">District : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="permanentDistrictID" name="permanent_district">
+                            <option selected>Select Permanent District</option>
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentDistrictID">District : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="presentDistrictID" name="present_district">
+                            <option selected>Select Present District</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentUpazilaID">Upazila : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="permanentUpazilaID" name="permanent_upazila ">
+                            <option selected>Select Permanent Upazila</option>
+
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentUpazilaID">Upazila : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="presentUpazilaID" name="present_upazila ">
+                            <option selected>Select Present Upazila</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentAddressID">Village / State : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="permanentAddressID" name="permanent_village_state" type="text"/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentAddressID">Village / State : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="presentAddressID" name="present_village_state" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentPostCodeID">Postal Code : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="permanentPostCodeID" name="permanent_postal_code"
+                               type="number"/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentPostCodeID">Postal Code : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="presentPostCodeID" name="present_postal_code" type="number"/>
+                    </div>
+                </div>
+                <legend class="text-info"><i class="far fa-edit"></i> Personal Skills</legend>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="specialtyID">Dept. / Specialty : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="specialtyID" name="department">
+                            <option selected>Select Department / Specialty</option>
+                            {% for item in department_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="experienceID">Experience : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="experienceID" name="experience" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="languagesSpokenID">Languages Spoken :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="languagesSpokenID" name="languages_spoken" type="text"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="biographyID">Biography : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" cols="30" id="biographyID" name="biography" rows="2">{{ data.description|default:"Not Applicable" }}</textarea>
+                    </div>
+                </div>
+                <legend class="text-info"><i class="far fa-user"></i> User Information</legend>
+                <hr>
+                <!-- For Login-->
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="userNameID">User Name : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="userNameID" name="user_name" type="text"/>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="reset" class="btn btn-secondary">Cancel</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-success float-right">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $('#permanentDivisionID').on('change', function () {
+        let permanent_division_id = $(this).val()
+        if (permanent_division_id === '' || permanent_division_id == null) {
+            return false
+        } else {
+            $.ajax({
+                url: '/ajax/district/' + permanent_division_id,
+                type: 'GET',
+                success: function (response) {
+                    let options = '<option selected>Select Permanent District</option>';
+
+                    $.each(response, function (key, value) {
+                        options += `<option value="${value.id}">${value.name}</option>`;
+                    });
+
+                    $('#permanentDistrictID').html(options)
+                }
+            })
+
+             /**
+             * Getting upazila by district id ...
+             */
+            $('#permanentDistrictID').on('change', function () {
+                let permanent_district_id = $(this).val();
+
+                if (permanent_district_id === '' || permanent_district_id == null) {
+                    return false;
+                } else {
+                    $.ajax({
+                url: '/ajax/upazila/' + permanent_district_id,
+                type: 'GET',
+                success: function (response) {
+                    let options = '<option selected>Select Permanent Upazila</option>';
+
+                    $.each(response, function (key, value) {
+                        options += `<option value="${value.id}">${value.name}</option>`;
+                    });
+
+                    $('#permanentUpazilaID').html(options)
+                }
+                })
+                }
+                })
+        }
+    })
+    /**
+    * Present Address JS ...
+    */
+    $('#presentDivisionID').on('change', function () {
+        let present_division_id = $(this).val()
+        if (present_division_id === '' || present_division_id == null) {
+            return false
+        } else {
+            $.ajax({
+                url: '/ajax/district/' + present_division_id,
+                type: 'GET',
+                success: function (response) {
+                    let options = '<option selected>Select Present District</option>';
+
+                    $.each(response, function (key, value) {
+                        options += `<option value="${value.id}">${value.name}</option>`;
+                    });
+
+                    $('#presentDistrictID').html(options)
+                }
+            })
+
+             /**
+             * Getting upazila by district id ...
+             */
+            $('#presentDistrictID').on('change', function () {
+                let present_district_id = $(this).val();
+
+                if (present_district_id === '' || present_district_id == null) {
+                    return false;
+                } else {
+                    $.ajax({
+                url: '/ajax/upazila/' + present_district_id,
+                type: 'GET',
+                success: function (response) {
+                    let options = '<option selected>Select Present Upazila</option>';
+
+                    $.each(response, function (key, value) {
+                        options += `<option value="${value.id}">${value.name}</option>`;
+                    });
+
+                    $('#presentUpazilaID').html(options)
+                }
+                })
+                }
+                })
+        }
+    })
+    function previewImage(event) {
+    var input = event.target;
+    var imgElement = document.getElementById("preview");
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            imgElement.src = e.target.result;
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
+    }
+}
+</script>
+{% endblock %}
+
+

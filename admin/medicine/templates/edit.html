@@ -1,0 +1,105 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+{% block styles %}
+<style>
+    .error-message {
+        color: #dc3545; /* Red color for danger state */
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Edit Medicine Information</h1>
+        </div>
+        <div class="card-body">
+            <form id="PostForm" action="{% url 'edit_medicine' medicine_id %}" method="POST">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="brandNameID">Brand Name : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="brandNameID" name="brand">
+                            <option selected>Select Brand Name</option>
+                            {% for item in brand_data %}
+                            {% if item.name == medicine_data.brand_name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="genericNameID">Generic Name : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="genericNameID" name="generic">
+                            <option selected>Select Generic Name</option>
+                            {% for item in generic_data %}
+                            {% if item.name == medicine_data.generic_name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="medicineTypeID">Medicine Type : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="medicineTypeID" name="medicine_type">
+                            <option selected>Select Medicine Type</option>
+                            {% for item in medicine_type_data %}
+                            {% if item.name == medicine_data.medicine_type %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="medicineNameID" class="col-md-2 col-form-label">Medicine Name</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="medicineNameID" name="name"
+                               value="{{medicine_data.name}}"/>
+                        <div id="nameError" class="error-message"></div><!-- Error message container -->
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="strengthID">Strength : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="strengthID" name="strength">
+                            <option selected>Select Strength</option>
+                            {% for item in strength_data %}
+                            {% if item.name == medicine_data.strength %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="descriptionID" class="col-md-2 col-form-label">Description</label>
+                    <div class="col-md-10">
+                        <textarea name="description" id="descriptionID" type="text" class="form-control" cols="30"
+                                  rows="2">{{medicine_data.description}}</textarea>
+                        <div id="descriptionError" class="error-message"></div> <!-- Error message container -->
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-warning float-right">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,79 @@
+{% extends 'landing_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    #doctors {
+        background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- ======= Doctors Section ======= -->
+<section id="doctors" class="doctors">
+    <div class="container pt-4">
+        <div class="section-title">
+            <h2>Doctors</h2>
+            <p>Doctors, also known as physicians, are licensed health professionals who maintain and restore human
+                health through the practice of medicine. They examine patients, review their medical history, diagnose
+                illnesses or injuries, administer treatment, and counsel patients on their health and well-being.</p>
+        </div>
+        <div class="row">
+            {% if doctor_data %}
+            {% for data in doctor_data %}
+            <div class="col-6">
+                <div class="member d-flex align-items-start">
+                    <div>
+                        <img src="{{ data.images.0.photo_name }}" alt="Doctor Image" height="120px" width="100%"/>
+                    </div>
+                    <div class="member-info">
+                        <h4>{{ data.full_name }}</h4>
+                        <h6>Dept. {{data.department}}</h6>
+                        <p>{{ data.biography }}</p>
+                        <div class="social">
+                            {% if data.social_media.0.website %}
+                            <a href="{{ data.social_media.0.website }}" target="_blank"><i
+                                    class="ri-globe-line"></i></a>
+                            {% else %}
+                            <a href="#"><i class="ri-globe-line"></i></a>
+                            {% endif %}
+                            {% if data.social_media.0.facebook %}
+                            <a href="{{ data.social_media.0.facebook }}" target="_blank"><i
+                                    class="ri-facebook-fill"></i></a>
+                            {% else %}
+                            <a href="#"><i class="ri-facebook-fill"></i></a>
+                            {% endif %}
+                            {% if data.social_media.0.instagram %}
+                            <a href="{{ data.social_media.0.instagram }}" target="_blank"><i
+                                    class="ri-instagram-fill"></i></a>
+                            {% else %}
+                            <a href="#"><i class="ri-instagram-fill"></i></a>
+                            {% endif %}
+                            {% if data.social_media.0.linkedin %}
+                            <a href="{{ data.social_media.0.linkedin }}" target="_blank"><i
+                                    class="ri-linkedin-box-fill"></i></a>
+                            {% else %}
+                            <a href="#"><i class="ri-linkedin-box-fill"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="row alert alert-warning">
+                <h3>No Doctors Found</h3>
+                <br>
+                <a href="{% url 'landing_dashboard' %}"><i class="fas fa-arrow-left"></i> Go Back</a>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+<!-- End Doctors Section -->
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

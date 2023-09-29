@@ -1,0 +1,31 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Article View</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3"><strong>Heading:</strong></div>
+                <div class="col-md-9">{{ article_data.heading }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Tag:</strong></div>
+                <div class="col-md-9">{{ article_data.tag }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Image :</strong></div>
+                <div class="col-md-9"><img src="{{ article_data.image }}" alt="Article Image" width="250" height="250"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Description :</strong></div>
+                <div class="col-md-9">{{ article_data.description }}</div>
+            </div>
+            <!-- Add more rows for additional fields -->
+        </div>
+    </div>
+</div>
+{% endblock %}

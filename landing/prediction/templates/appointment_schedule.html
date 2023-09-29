@@ -1,0 +1,99 @@
+{% extends 'landing_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    #doctors {
+        background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
+    }
+
+    /* Style for the circular radio buttons */
+    .circular-radio {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .circular-radio input[type="radio"] {
+        width: 15px; /* Adjust the width as needed */
+        height: 15px; /* Adjust the height as needed */
+        margin-right: 10px; /* Add some spacing between the radio button and text */
+        transform: scale(1.5); /* Adjust the scale factor to make the radio button larger */
+        background-color: blue; /* Set the background color to blue */
+        border: 2px solid blue; /* Set the border color to blue */
+        border-radius: 50%; /* Make the radio button circular */
+    }
+
+    /* Style for the text */
+    .circular-radio label {
+        font-size: 18px; /* Adjust the font size as needed */
+    }
+
+    /* Style for the right-side div (initially hidden) */
+    .right-side-div {
+        display: none;
+        float: right;
+        width: 50%; /* Adjust the width as needed */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- ======= Doctors Section ======= -->
+<section id="doctors" class="doctors">
+    <div class="container pt-4">
+        {% for doctor_data in doctor_all_data %}
+        <div class="text-center text-primary">
+            <h4>{{ doctor_data.full_name }}</h4>
+            <p>{{ doctor_data.department }}</p>
+        </div>
+        {% endfor %}
+        <hr>
+        <div class="row">
+            <div class="col-3">
+                <h5 class="text-primary">Choose Appointment Date</h5>
+                <hr>
+                {% for date in date_list %}
+                <div class="circular-radio">
+                    <input type="radio" id="date-{{ forloop.counter }}" name="selected_date" data-date="{{ date }}">
+                    <label for="date-{{ forloop.counter }}">{{ date }}</label>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-3">
+                <div id="timeSelection" class="d-none">
+                    <!-- Add your time selection options here -->
+                    <h5 class="text-primary">Choose Appointment Time</h5>
+                    <hr>
+                    <select id="time">
+                        <option value="9:00 am - 9:15 am">9:00 am - 9:15 am</option>
+                        <option value="9:15 am - 9:30 am">9:15 am - 9:30 am</option>
+                        <!-- Add more time options as needed -->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Add a click event handler for radio buttons with the name "selected_date"
+        $('input[name="selected_date"]').on('click', function() {
+            // Check if the radio button is checked
+            if ($(this).is(':checked')) {
+                // Show the time selection div
+                $('#timeSelection').removeClass('d-none');
+            } else {
+                // Hide the time selection div
+                $('#timeSelection').addClass('d-none');
+            }
+        });
+    });
+</script>
+{% endblock %}
+

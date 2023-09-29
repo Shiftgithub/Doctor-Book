@@ -1,0 +1,95 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Edit Body Part Information</h1>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'edit_bodypart' bodypart_data.id %}" id="PostForm" method="POST">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label for="bodyPartNameId" class="col-md-2 col-form-label">Body Part Name</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="bodyPartNameId" name="name" type="text"
+                               value="{{ bodypart_data.name }}"/>
+                        <div class="error-message" id="nameError"></div><!-- Error message container -->
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="descriptionId" class="col-md-2 col-form-label">Description</label>
+                    <div class="col-md-10">
+                        <textarea name="description" id="descriptionId" class="form-control" cols="30" rows="10">{{ bodypart_data.description }}</textarea>
+                        <div class="error-message" id="descriptionError"></div> <!-- Error message container -->
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-warning float-right">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.error-message {
+    color: #dc3545; /* Red color for danger state */
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $("#PostForm").submit(function(event) {
+        // Clear previous error messages
+        clearErrorMessages();
+
+        // Get the values entered by the user
+        var name = $("#bodyPartNameId").val();
+        var description = $("#descriptionId").val();
+
+        // Track if any validation errors occur
+        var hasErrors = false;
+
+        // Perform validation checks
+        if (name.trim() === "") {
+            displayErrorMessage("nameError", "Please enter a body part name.");
+            hasErrors = true;
+        }
+
+        if (description.trim() === "") {
+            displayErrorMessage("descriptionError", "Please enter a description.");
+            hasErrors = true;
+        }
+
+        // Prevent form submission if errors occurred
+        if (hasErrors) {
+            event.preventDefault();
+        }
+    });
+
+    // Add input event listener to hide error messages when the user starts typing
+    $("#bodyPartNameId, #descriptionId").on("input", function() {
+        var inputId = $(this).attr("id");
+        var errorId = inputId + "Error";
+        clearErrorMessage(errorId);
+    });
+
+    function displayErrorMessage(elementId, message) {
+        $("#" + elementId).html(message);
+    }
+
+    function clearErrorMessages() {
+        $(".error-message").html("");
+    }
+
+    function clearErrorMessage(elementId) {
+        $("#" + elementId).html("");
+    }
+});
+</script>
+{% endblock %}

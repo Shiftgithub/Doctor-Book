@@ -1,0 +1,700 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <form action="{% url 'edit_doctor' doctor_id %}" enctype="mqultipart/form-data" id="PostForm" method="POST">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header bg-dark">
+                <h1 class="card-title">Doctor Information</h1>
+                <h1 class="card-title float-right">
+                    <a href="{% url 'view_doctor_data' doctor_id %}"
+                       class="nav-link btn btn-info float-right"
+                       type="submit">Back View</a>
+                </h1>
+                <br>
+                <h1 class="card-title float-right">
+                    <a href="{% url 'working_schedule' %}"
+                       class="nav-link btn btn-success float-right"
+                       type="submit">Working Seedule</a>
+                </h1>
+            </div>
+            <div class="card-body">
+                {% for doctor_data in doctor_all_data %}
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="DoctorID">Name : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" id="DoctorID"
+                                       value="{{ doctor_data.full_name }}" name="full_name"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="fatherNameID">Father Name : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" id="fatherNameID"
+                                       value="{{ doctor_data.father_name }}" name="father_name"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="motherNameID">Mother Name : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" id="motherNameID"
+                                       value="{{ doctor_data.mother_name }}" name="mother_name"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="dateOfBirthID">Date of Birth : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="date" id="dateOfBirthID"
+                                       value="{{ doctor_data.date_of_birth }}" name="date_of_birth"/>
+                            </div>
+                        </div>
+                        <!-- Phone Number -->
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="phoneNoID">Phone Number : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" value="{{ doctor_data.phone_no }}"
+                                       id="phoneNoID" name="phone_no"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <input class="form-control mb-3" id="imageID" name="photo_name"
+                                       onchange="previewImage(event)" type="file"/>
+                                {% if patient_all_data.images.0.photo_name %}
+                                <img alt="Doctor Image" id="preview" src="{{ doctor_data.images.0.photo_name }}"
+                                     style="width: 100%; height: 280px;">
+                                {% else %}
+                                <img alt="Doctor Image" src="{% static 'adminlte_assets/img/nobody.png' %}"
+                                     style="width: 100%; height: 280px;">
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="far fa-address-card"></i> Personal Information</legend>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="genderID">Gender :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="genderID" name="gender">
+                            <option selected>Select Gender</option>
+                            {% for item in gender_data %}
+                            {% if item.name == doctor_data.gender %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="religionID">Religion :<span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="religionID" name="religion">
+                            <option selected>Select Religion</option>
+                            {% for item in religion_data %}
+                            {% if item.name == doctor_data.religion %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="bloodGroupID">Blood Group : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="bloodGroupID" name="blood_group">
+                            <option selected>Select Blood Group</option>
+                            {% for item in blood_group_data %}
+                            {% if item.name == doctor_data.blood_group %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="matrimonyID">Matrimony Status : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="matrimonyID" name="matrimony">
+                            <option selected>Select Matrimony</option>
+                            {% for item in matrimony_data %}
+                            {% if item.name == doctor_data.matrimony %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="nidNOID">NID No: <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" value="{{ doctor_data.nid_no }}"
+                               id="nidNOID" name="nid_no"/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="passportID">Passport No : </label>
+                    <div class="col-md-4">
+                        {% if doctor_data.passport_no %}
+                        <input class="form-control" type="text" value=" {{ doctor_data.passport_no }}"
+                               id="passportID" name="passport_no"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="passport_no" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="far fa-address-card"></i> Permanent Address Details</legend>
+                    </div>
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="far fa-address-card"></i> Present Address Details</legend>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentDivisionID">Division :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="permanentDivisionID" name="permanent_division">
+                            <option selected>Select Permanent Division</option>
+                            {% for item in division_data %}
+                            {% if item.name == doctor_data.permanent_address.0.permanent_division.name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentDivisionID">Division :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="presentDivisionID" name="present_division">
+                            <option selected>Select Present Division</option>
+                            {% for item in division_data %}
+                            {% if item.name == doctor_data.present_address.0.present_division.name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentDistrictID">District : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="permanentDistrictID" name="permanent_district">
+                            <option selected>Select Permanent District</option>
+                            {% for item in district_data %}
+                            {% if item.name == doctor_data.permanent_address.0.permanent_district.name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentDistrictID">District : <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="presentDistrictID" name="present_district">
+                            <option selected>Select Present District</option>
+                            {% for item in district_data %}
+                            {% if item.name == doctor_data.present_address.0.present_district.name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentUpazilaID">Upazila : <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="permanentUpazilaID" name="permanent_upazila">
+                            <option selected>Select Permanent Upazila</option>
+                            {% for item in upazila_data %}
+                            {% if item.name == doctor_data.permanent_address.0.permanent_upazila.name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentUpazilaID">Upazila : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="presentUpazilaID" name="present_upazila">
+                            <option selected>Select Present Upazila</option>
+                            {% for item in upazila_data %}
+                            {% if item.name == doctor_data.present_address.0.present_upazila.name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentVaillageID">Village / State : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text"
+                               value="{{ doctor_data.permanent_address.0.permanent_village_state }}"
+                               id="permanentVaillageID" name="permanent_village_state"/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentVaillageID">Village / State : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text"
+                               value="{{ doctor_data.present_address.0.present_village_state }}"
+                               id="presentVaillageID" name="present_village_state"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentPostalCodeID">Postal Code : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="number" id="permanentPostalCodeID"
+                               name="permanent_postal_code"
+                               value="{{ doctor_data.permanent_address.0.permanent_postal_code }}"/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentPostalID">Postal Code : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="number" id="presentPostalID" name="present_postal_code"
+                               value="{{ doctor_data.present_address.0.present_postal_code }}"/>
+                    </div>
+                </div>
+                <legend class="text-info">
+                    <i class="fas fa-user-graduate"></i> Education
+                </legend>
+                <hr>
+                <div id="education-sections">
+                    <div class="education-section">
+                        {% if doctor_data.education %}
+                        {% for education_obj in doctor_data.education %}
+                        <div class="row mb-3">
+                            <div class="col-md-4 col-form-label"><label class="col-form-label section-index">Certificate
+                                Or Degree No </label></div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Certificate/Degree : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="text" value="{{ education_obj.certificate_degree }}"
+                                       name="certificate_degrees[]"/>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-danger remove-education-section float-right">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="boardID">Board Name : <span class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <select class="form-control select2" id="boardID" name="boards[]">
+                                    <option selected>Select Board Name</option>
+                                    {% for item in board_data %}
+                                    {% if item.name == education_obj.board %}
+                                    <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                                    {% else %}
+                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <label class="col-md-2 col-form-label">Institution : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="text" value="{{ education_obj.institution }}"
+                                       name="institutions[]"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Result : <span class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="number" value="{{ education_obj.result }}"
+                                       name="results[]"/>
+                            </div>
+                            <label class="col-md-2 col-form-label">Passing Year : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="date" value="{{ education_obj.passing_year }}"
+                                       name="passing_years[]"/>
+                            </div>
+                        </div>
+                        <hr>
+                        {% endfor %}
+                        {% else %}
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Certificate/Degree : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="text" name="certificate_degree"
+                                       placeholder="Not Provided"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Board Name : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <select class="form-control select2" name="board">
+                                    <option selected>Select Board Name</option>
+                                    {% for item in board_data %}
+                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <label class="col-md-2 col-form-label">Institution : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="text" name="institution"
+                                       placeholder="Not Provided"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Result : <span class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="number" name="result" placeholder="Not Provided"/>
+                            </div>
+                            <label class="col-md-2 col-form-label">Passing Year : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="date" name="passing_year" placeholder="Not Provided"/>
+                            </div>
+                        </div>
+                        <hr>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" class="btn btn-primary add-education-section float-right">Add More
+                        </button>
+                    </div>
+                </div>
+
+                <legend class="text-info"><i class="far fa-edit"></i> Personal Skills</legend>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="experienceID">Experience: <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" value="{{ doctor_data.experience }}"
+                               id="experienceID" name="experience"/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="languagesSpokenID">Languages Spoken : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" value="{{ doctor_data.languages_spoken }}"
+                               id="languagesSpokenID" name="languages_spoken"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="departmentID">Specialty: <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="departmentID" name="department">
+                            <option selected>Select Department / Specialty</option>
+                            {% for item in department_data %}
+                            {% if item.name == doctor_data.department %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label">Biography : </label>
+                    <div class="col-md-4">
+                        {% if doctor_data.biography %}
+                        <input class="form-control" type="text" value=" {{ doctor_data.biography }}"
+                               name="biography"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="biography" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="fab fa-servicestack"></i> Availability</legend>
+                    </div>
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="fas fa-award"></i> Awards</legend>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="appointmentAvailabilityID">Appointment :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.availability.0.appointment_availability %}
+                        <input class="form-control" type="text"
+                               value="{{ doctor_data.availability.0.appointment_availability }}"
+                               id="appointmentAvailabilityID" name="appointment_availability"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="appointment_availability"
+                               placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                    <label class="col-md-2 col-form-label" for="awardsAndHonorsID">Awards And Honors :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.awards.0.awards_and_honors %}
+                        <input class="form-control" type="text" value="{{ doctor_data.awards.0.awards_and_honors }}"
+                               id="awardsAndHonorsID" name="awards_and_honors"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="awards_and_honors" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">Accepting Patients :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.availability.0.accepting_new_patients %}
+                        <input class="form-control" type="text"
+                               value="{{ doctor_data.availability.0.accepting_new_patients }}"
+                               name="accepting_new_patients"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="accepting_new_patients"
+                               placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                    <label class="col-md-2 col-form-label">Board Certifications :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.awards.0.board_certification_number %}
+                        <input class="form-control" type="number"
+                               value="{{ doctor_data.awards.0.board_certification_number }}"
+                               name="board_certification_number"/>
+                        {% else %}
+                        <input class="form-control" type="number" name="board_certification_number"
+                               placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">Average Wait Time :<span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.availability.0.average_wait_time %}
+                        <input class="form-control" type="text"
+                               value="{{ doctor_data.availability.0.average_wait_time }}"
+                               name="average_wait_time"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="average_wait_time" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+
+                    <label class="col-md-2 col-form-label">Publications :<span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.awards.0.publications %}
+                        <input class="form-control" type="text" value="{{ doctor_data.awards.0.publications }}"
+                               name="publications"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="publications" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">Consultation Fee :<span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.availability.0.consultation_fee %}
+                        <input class="form-control" type="number"
+                               value="{{ doctor_data.availability.0.consultation_fee }}" name="consultation_fee"/>
+                        {% else %}
+                        <input class="form-control" type="number" name="consultation_fee" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                    <label class="col-md-2 col-form-label">Research Interests :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.awards.0.research_interests %}
+                        <input class="form-control" type="text"
+                               value="{{ doctor_data.awards.0.research_interests }}" name="research_interests"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="research_interests" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">Available Facilities :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.availability.0.available_facilities %}
+                        <input class="form-control" type="text"
+                               value="{{ doctor_data.availability.0.available_facilities }}"
+                               name="available_facilities"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="available_facilities" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+
+                    <label class="col-md-2 col-form-label">Memberships :<span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.awards.0.memberships %}
+                        <input class="form-control" type="text" value="{{ doctor_data.awards.0.memberships }}"
+                               name="memberships"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="memberships" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="fab fa-servicestack"></i> Services</legend>
+                    </div>
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="fab fa-linkedin"></i> Social Media</legend>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">Treatments : <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.services.0.treatments %}
+                        <input class="form-control" type="text" value="{{ doctor_data.services.0.treatments }}"
+                               name="treatments"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="treatments" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                    <label class="col-md-2 col-form-label">Website : <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.social_media.0.website %}
+                        <input class="form-control" type="text" value="{{ doctor_data.social_media.0.website }}"
+                               name="website"/>
+                        {% else %}
+                        <input class="form-control" type="url" name="website" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">Procedures : <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.services.0.procedures %}
+                        <input class="form-control" type="text" value="{{ doctor_data.services.0.procedures }}"
+                               name="procedures"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="procedures" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                    <label class="col-md-2 col-form-label">Linkedin : <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.social_media.0.linkedin %}
+                        <input class="form-control" type="text" value="{{ doctor_data.social_media.0.linkedin }}"
+                               name="linkedin"/>
+                        {% else %}
+                        <input class="form-control" type="url" name="linkedin" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">Hours : <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.services.0.hours %}
+                        <input class="form-control" type="text" value="{{ doctor_data.services.0.hours }}"
+                               name="hours"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="hours" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                    <label class="col-md-2 col-form-label">Facebook : <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.social_media.0.facebook %}
+                        <input class="form-control" type="url" value="{{ doctor_data.social_media.0.facebook }}"
+                               name="facebook"/>
+                        {% else %}
+                        <input class="form-control" type="url" name="facebook" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="locationID">Location : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.services.0.location %}
+                        <input class="form-control" type="text" value="{{ doctor_data.services.0.location }}"
+                               id="locationID" name="location"/>
+                        {% else %}
+                        <input class="form-control" type="text" name="location" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                    <label class="col-md-2 col-form-label">Instagram : <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        {% if doctor_data.social_media.0.instagram %}
+                        <input class="form-control" type="url" value="{{ doctor_data.social_media.0.instagram }}"
+                               name="instagram"/>
+                        {% else %}
+                        <input class="form-control" type="url" name="instagram" placeholder="Not Provided"/>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-secondary" type="reset">Cancel</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-warning float-right" type="submit">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
+<script>
+    function previewImage(event) {
+    var input = event.target;
+    var imgElement = document.getElementById("preview");
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            imgElement.src = e.target.result;
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
+    }
+}
+</script>
+{% endblock %}
