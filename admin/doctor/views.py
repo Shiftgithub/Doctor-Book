@@ -1,7 +1,6 @@
 import socket
 import hashlib
 from .models import *
-from django.db.models import Prefetch
 from django.db import transaction
 from django.utils import timezone
 from admin.doctor.serializers import *
@@ -51,7 +50,7 @@ def store_doctor_data(request):
                             email = ' - '.join(email_fields)
                             message = 'Message From Doctor-Book [Personalized Doctor Predictor]:\n\n' \
                                       'Your username: ' + user_name + '\n' + 'Your password: ' + password
-                            send_email(email, message)
+                            # send_email(email, message)
                             return Response({'status': 200})
                         else:
                             transaction.set_rollback(True)
