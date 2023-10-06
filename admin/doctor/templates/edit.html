@@ -298,10 +298,6 @@
                         {% if doctor_data.education %}
                         {% for education_obj in doctor_data.education %}
                         <div class="row mb-3">
-                            <div class="col-md-4 col-form-label"><label class="col-form-label section-index">Certificate
-                                Or Degree No </label></div>
-                        </div>
-                        <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Certificate/Degree : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
@@ -355,7 +351,7 @@
                             <label class="col-md-2 col-form-label">Certificate/Degree : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
-                                <input class="form-control" type="text" name="certificate_degree"
+                                <input class="form-control" type="text" name="certificate_degrees[]"
                                        placeholder="Not Provided" required/>
                             </div>
                         </div>
@@ -373,20 +369,20 @@
                             <label class="col-md-2 col-form-label">Institution : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
-                                <input class="form-control" type="text" name="institution"
+                                <input class="form-control" type="text" name="institutions[]"
                                        placeholder="Not Provided" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Result : <span class="text-danger">*</span></label>
                             <div class="col-md-4">
-                                <input class="form-control" type="number" name="result" placeholder="Not Provided"
+                                <input class="form-control" type="number" name="results[]" placeholder="Not Provided"
                                        required/>
                             </div>
                             <label class="col-md-2 col-form-label">Passing Year : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
-                                <input class="form-control" type="date" name="passing_year" placeholder="Not Provided"
+                                <input class="form-control" type="date" name="passing_years[]" placeholder="Not Provided"
                                        required/>
                             </div>
                         </div>
@@ -553,7 +549,8 @@
                                value="{{ doctor_data.appointment_schedules.0.per_patient_time }}"
                                name="per_patient_time" required/>
                         {% else %}
-                        <input type="number" class="form-control" name="per_patient_time" required/>
+                        <input type="number" class="form-control" name="per_patient_time" placeholder="Not Provide"
+                               required/>
                         {% endif %}
                     </div>
                 </div>
@@ -565,7 +562,8 @@
                                value="{{ doctor_data.appointment_schedules.0.consultation_fee }}"
                                name="consultation_fee" required/>
                         {% else %}
-                        <input type="number" class="form-control" name="consultation_fee" required/>
+                        <input type="number" class="form-control" name="consultation_fee" placeholder="Not Provide"
+                               required/>
                         {% endif %}
                     </div>
                 </div>
@@ -593,7 +591,8 @@
                                 <input type="text" class="form-control" value="{{ award.awards }}" name="awards[]"
                                        required/>
                                 {% else %}
-                                <input type="text" class="form-control" name="awards[]" required/>
+                                <input type="text" class="form-control" name="awards[]" placeholder="Not Provide"
+                                       required/>
                                 {% endif %}
                             </div>
                         </div>
@@ -604,7 +603,8 @@
                                 <input type="text" class="form-control" value="{{ award.honors }}" name="honors[]"
                                        required/>
                                 {% else %}
-                                <input type="text" class="form-control" name="honors[]">
+                                <input type="text" class="form-control" name="honors[]" placeholder="Not Provide"
+                                       placeholder="Not Provide">
                                 {% endif %}
                             </div>
                         </div>
@@ -615,7 +615,8 @@
                                 <input type="text" class="form-control" value="{{ award.publications }}"
                                        name="publications[]" required/>
                                 {% else %}
-                                <input type="text" class="form-control" name="publications[]" required/>
+                                <input type="text" class="form-control" name="publications[]" placeholder="Not Provide"
+                                       required/>
                                 {% endif %}
                             </div>
                         </div>
@@ -626,7 +627,8 @@
                                 <input type="text" class="form-control" value="{{ award.research_interests }}"
                                        name="research_interests[]" required/>
                                 {% else %}
-                                <input type="text" class="form-control" name="research_interests[]" required/>
+                                <input type="text" class="form-control" name="research_interests[]"
+                                       placeholder="Not Provide" required/>
                                 {% endif %}
                             </div>
                         </div>
@@ -636,25 +638,29 @@
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Awards :</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="awards[]" required/>
+                                <input type="text" class="form-control" name="awards[]" placeholder="Not Provide"
+                                       required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Honors :</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="honors[]" required/>
+                                <input type="text" class="form-control" name="honors[]" placeholder="Not Provide"
+                                       required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Publications :</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="publications[]" required/>
+                                <input type="text" class="form-control" name="publications[]" placeholder="Not Provide"
+                                       required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Research Interests :</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="research_interests[]" required/>
+                                <input type="text" class="form-control" name="research_interests[]"
+                                       placeholder="Not Provide" required/>
                             </div>
                         </div>
                         {% endif %}
