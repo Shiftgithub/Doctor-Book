@@ -76,7 +76,6 @@ def store_doctor_work_details(request):
 def view_doctor(request, doctor_id):
     response_doctor_data = doctor_data(request, doctor_id)
     doctor_all_data = response_doctor_data.data
-    print(doctor_all_data)
     return render(request, 'doctor/templates/view.html', {'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id})
 
 

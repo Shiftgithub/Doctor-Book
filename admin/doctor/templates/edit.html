@@ -500,10 +500,11 @@
                                 </button>
                             </div>
                         </div>
-                        {% if doctor_data.off_day_names %}
-                        {% for off_day_name in doctor_data.off_day_names %}
+
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Off Day : <span class="text-danger">*</span></label>
+                            {% if doctor_data.off_day_names %}
+                            {% for off_day_name in doctor_data.off_day_names %}
                             <div class="col-md-10">
                                 <select class="form-control select2" id="offDayID" name="off_day[]">
                                     {% for item in day_data %}
@@ -520,9 +521,19 @@
                                 </select>
                                 <br>
                             </div>
+                            {% endfor %}
+                            {% else %}
+                            <div class="col-md-10">
+                                <select class="form-control select2" id="offDayID" name="off_day[]">
+                                    <option selected>Select Off Day</option>
+                                    {% for item in day_data %}
+                                    <option value="{{ item.id }}">{{ item.id }} . {{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <br>
+                            </div>
+                            {% endif %}
                         </div>
-                        {% endfor %}
-                        {% endif %}
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -617,6 +628,31 @@
                         </div>
                         <hr>
                         {% endfor %}
+                        {% else %}
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Awards :</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="awards[]"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Honors :</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="honors[]">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Publications :</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="publications[]"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">Research Interests :</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="research_interests[]"/>
+                            </div>
+                        </div>
                         {% endif %}
                     </div>
                 </div>
@@ -628,7 +664,6 @@
                     </div>
                 </div>
                 <hr>
-
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <legend class="text-info"><i class="fab fa-linkedin"></i> Social Media</legend>

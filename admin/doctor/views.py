@@ -189,7 +189,8 @@ def edit_doctor_data(request, doctor_id):
     permanent_address_serializer = PermanentAddressSerializer(user.permanent_address.first(), data=request.data,
                                                               partial=True)
     appointment_schedule = doctor.appointment_schedules.first()
-    appointment_schedule_serializer = AppointmentScheduleSerializer(appointment_schedule,data=request.data, partial=True)
+    appointment_schedule_serializer = AppointmentScheduleSerializer(appointment_schedule, data=request.data,
+                                                                    partial=True)
     social_media_serializer = SocialMediaSerializer(doctor.social_media.first(), data=request.data, partial=True)
 
     # if not image_serializer.is_valid():
@@ -210,12 +211,13 @@ def edit_doctor_data(request, doctor_id):
             # No new image selected, retain the existing image
             image_serializer.validated_data['photo_name'] = user.images.first().photo_name
         image = image_serializer.save()
-        appointment_schedule_instance = appointment_schedule_serializer.save(
-            doctor_profile=doctor)  # Associate the appointment schedule with the doctor
+        appointment_schedule_instance = appointment_schedule_serializer.save(doctor_profile=doctor)
         present_address = present_address_serializer.save()
         permanent_address = permanent_address_serializer.save()
         social = social_media_serializer.save(doctor_profile=doctor)
-        if appointment_schedule and image and present_address and permanent_address and social:
+        # ...
+
+        if appointment_schedule_instance and image and present_address and permanent_address and social:
             certificate_degrees = request.data.getlist('certificate_degrees[]')
             institutions = request.data.getlist('institutions[]')
             boards = request.data.getlist('boards[]')
@@ -235,43 +237,71 @@ def edit_doctor_data(request, doctor_id):
             ):
                 try:
                     board_instance = Board.objects.get(id=board_id)
-                    education_obj = Education.objects.create(
-                        certificate_degree=certificate_degree,
-                        institution=institution,
-                        result=result,
-                        passing_year=passing_year,
+
+                    # Retrieve or create an Education instance based on the certificate degree
+                    education_obj, created = Education.objects.get_or_create(
                         doctor_profile_id=doctor_id,
-                        board=board_instance,
+                        certificate_degree=certificate_degree,
+                        defaults={
+                            'institution': institution,
+                            'result': result,
+                            'passing_year': passing_year,
+                            'board': board_instance,
+                        }
                     )
-                    schedule_time_obj = ScheduleTime.objects.create(
+
+                    # Update the existing Education instance if it was not created in this step
+                    if not created:
+                        education_obj.institution = institution
+                        education_obj.result = result
+                        education_obj.passing_year = passing_year
+                        education_obj.board = board_instance
+                        education_obj.save()
+
+                    # Retrieve or create a ScheduleTime instance based on the start time and end time
+                    schedule_time_obj, created = ScheduleTime.objects.get_or_create(
+                        appointment_schedule=appointment_schedule_instance,
                         start_time=start_time,
                         end_time=end_time,
-                        appointment_schedule=appointment_schedule_instance,
                     )
+
+                    # Update the existing ScheduleTime instance if it was not created in this step
+                    if not created:
+                        schedule_time_obj.start_time = start_time
+                        schedule_time_obj.end_time = end_time
+                        schedule_time_obj.save()
+
+                    # Retrieve or create an OffDay instance based on the day_id
                     day_instance = Day.objects.get(id=day_id)
-                    off_day_obj = OffDay.objects.create(
+                    off_day_obj, created = OffDay.objects.get_or_create(
+                        doctor_profile_id=doctor_id,
                         off_day=day_instance,
-                        doctor_profile_id=doctor_id,
                     )
-                    awards_obj = Awards.objects.create(
+
+                    # Update the existing OffDay instance if it was not created in this step
+                    if not created:
+                        off_day_obj.off_day = day_instance
+                        off_day_obj.save()
+
+                    # Retrieve or create an Awards instance based on the award
+                    awards_obj, created = Awards.objects.get_or_create(
+                        doctor_profile_id=doctor_id,
                         awards=award,
-                        honors=honor,
-                        publications=publication,
-                        research_interests=research_interest,
-                        doctor_profile_id=doctor_id,
                     )
+
+                    # Update the existing Awards instance if it was not created in this step
+                    if not created:
+                        awards_obj.awards = award
+                        awards_obj.honors = honor
+                        awards_obj.publications = publication
+                        awards_obj.research_interests = research_interest
+                        awards_obj.save()
                 except Board.DoesNotExist:
                     # Handle the case when the board with the given ID does not exist
                     return Response({'status': 404})
-            if education_obj and schedule_time_obj and awards_obj and off_day_obj:
-                # All items saved successfully
-                return Response({'status': 200})
-            else:
-                transaction.set_rollback(True)
-                return Response({'status': 404})
-        else:
-            transaction.set_rollback(True)
-            return Response({'status': 403})
+
+            # All items updated successfully
+            return Response({'status': 200})
     else:
         return Response({'status': 404})
 
