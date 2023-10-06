@@ -23,7 +23,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <input class="form-control" type="text" id="DoctorID"
-                                       value="{{ doctor_data.full_name }}" name="full_name"/>
+                                       value="{{ doctor_data.full_name }}" name="full_name" required/>
                             </div>
                         </div>
 
@@ -32,7 +32,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <input class="form-control" type="text" id="fatherNameID"
-                                       value="{{ doctor_data.father_name }}" name="father_name"/>
+                                       value="{{ doctor_data.father_name }}" name="father_name" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -40,7 +40,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <input class="form-control" type="text" id="motherNameID"
-                                       value="{{ doctor_data.mother_name }}" name="mother_name"/>
+                                       value="{{ doctor_data.mother_name }}" name="mother_name" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -48,7 +48,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <input class="form-control" type="date" id="dateOfBirthID"
-                                       value="{{ doctor_data.date_of_birth }}" name="date_of_birth"/>
+                                       value="{{ doctor_data.date_of_birth }}" name="date_of_birth" required/>
                             </div>
                         </div>
                         <!-- Phone Number -->
@@ -57,7 +57,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <input class="form-control" type="text" value="{{ doctor_data.phone_no }}"
-                                       id="phoneNoID" name="phone_no"/>
+                                       id="phoneNoID" name="phone_no" required/>
                             </div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <input class="form-control mb-3" id="imageID" name="photo_name"
-                                       onchange="previewImage(event)" type="file"/>
+                                       onchange="previewImage(event)" type="file" required/>
                                 {% if doctor_data.images.0.photo_name %}
                                 <img alt="Doctor Image" id="preview" src="{{ doctor_data.images.0.photo_name }}"
                                      style="width: 100%; height: 280px;">
@@ -147,15 +147,15 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <input class="form-control" type="text" value="{{ doctor_data.nid_no }}"
-                               id="nidNOID" name="nid_no"/>
+                               id="nidNOID" name="nid_no" required/>
                     </div>
                     <label class="col-md-2 col-form-label" for="passportID">Passport No : </label>
                     <div class="col-md-4">
                         {% if doctor_data.passport_no %}
                         <input class="form-control" type="text" value=" {{ doctor_data.passport_no }}"
-                               id="passportID" name="passport_no"/>
+                               id="passportID" name="passport_no" required/>
                         {% else %}
-                        <input class="form-control" type="text" name="passport_no" placeholder="Not Provided"/>
+                        <input class="form-control" type="text" name="passport_no" placeholder="Not Provided" required/>
                         {% endif %}
                     </div>
                 </div>
@@ -262,14 +262,14 @@
                     <div class="col-md-4">
                         <input class="form-control" type="text"
                                value="{{ doctor_data.permanent_address.0.permanent_village_state }}"
-                               id="permanentVaillageID" name="permanent_village_state"/>
+                               id="permanentVaillageID" name="permanent_village_state" required/>
                     </div>
                     <label class="col-md-2 col-form-label" for="presentVaillageID">Village / State : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <input class="form-control" type="text"
                                value="{{ doctor_data.present_address.0.present_village_state }}"
-                               id="presentVaillageID" name="present_village_state"/>
+                               id="presentVaillageID" name="present_village_state" required/>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -278,13 +278,13 @@
                     <div class="col-md-4">
                         <input class="form-control" type="number" id="permanentPostalCodeID"
                                name="permanent_postal_code"
-                               value="{{ doctor_data.permanent_address.0.permanent_postal_code }}"/>
+                               value="{{ doctor_data.permanent_address.0.permanent_postal_code }}" required/>
                     </div>
                     <label class="col-md-2 col-form-label" for="presentPostalID">Postal Code : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <input class="form-control" type="number" id="presentPostalID" name="present_postal_code"
-                               value="{{ doctor_data.present_address.0.present_postal_code }}"/>
+                               value="{{ doctor_data.present_address.0.present_postal_code }}" required/>
                     </div>
                 </div>
                 <legend class="text-info">
@@ -304,7 +304,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
                                 <input class="form-control" type="text" value="{{ education_obj.certificate_degree }}"
-                                       name="certificate_degrees[]"/>
+                                       name="certificate_degrees[]" required/>
                             </div>
                             <div class="col-md-6">
                                 <button type="button" class="btn btn-danger remove-education-section float-right">
@@ -330,20 +330,20 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
                                 <input class="form-control" type="text" value="{{ education_obj.institution }}"
-                                       name="institutions[]"/>
+                                       name="institutions[]" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Result : <span class="text-danger">*</span></label>
                             <div class="col-md-4">
                                 <input class="form-control" type="number" value="{{ education_obj.result }}"
-                                       name="results[]"/>
+                                       name="results[]" required/>
                             </div>
                             <label class="col-md-2 col-form-label">Passing Year : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
                                 <input class="form-control" type="date" value="{{ education_obj.passing_year }}"
-                                       name="passing_years[]"/>
+                                       name="passing_years[]" required/>
                             </div>
                         </div>
                         <hr>
@@ -354,7 +354,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
                                 <input class="form-control" type="text" name="certificate_degree"
-                                       placeholder="Not Provided"/>
+                                       placeholder="Not Provided" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -372,18 +372,20 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
                                 <input class="form-control" type="text" name="institution"
-                                       placeholder="Not Provided"/>
+                                       placeholder="Not Provided" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Result : <span class="text-danger">*</span></label>
                             <div class="col-md-4">
-                                <input class="form-control" type="number" name="result" placeholder="Not Provided"/>
+                                <input class="form-control" type="number" name="result" placeholder="Not Provided"
+                                       required/>
                             </div>
                             <label class="col-md-2 col-form-label">Passing Year : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
-                                <input class="form-control" type="date" name="passing_year" placeholder="Not Provided"/>
+                                <input class="form-control" type="date" name="passing_year" placeholder="Not Provided"
+                                       required/>
                             </div>
                         </div>
                         <hr>
@@ -405,13 +407,13 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <input class="form-control" type="text" value="{{ doctor_data.experience }}"
-                               id="experienceID" name="experience"/>
+                               id="experienceID" name="experience" required/>
                     </div>
                     <label class="col-md-2 col-form-label" for="languagesSpokenID">Languages Spoken : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <input class="form-control" type="text" value="{{ doctor_data.languages_spoken }}"
-                               id="languagesSpokenID" name="languages_spoken"/>
+                               id="languagesSpokenID" name="languages_spoken" required/>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -433,9 +435,9 @@
                     <div class="col-md-4">
                         {% if doctor_data.biography %}
                         <input class="form-control" type="text" value=" {{ doctor_data.biography }}"
-                               name="biography"/>
+                               name="biography" required/>
                         {% else %}
-                        <input class="form-control" type="text" name="biography" placeholder="Not Provided"/>
+                        <input class="form-control" type="text" name="biography" placeholder="Not Provided" required/>
                         {% endif %}
                     </div>
                 </div>
@@ -461,11 +463,11 @@
                                 {% if doctor_data.schedule_times %}
                                 {% for schedule_time in doctor_data.schedule_times %}
                                 <input type="time" class="form-control" value="{{ schedule_time.start_time }}"
-                                       name="start_time[]"/>
+                                       name="start_time[]" required/>
                                 <br>
                                 {% endfor %}
                                 {% else %}
-                                <input type="time" class="form-control" name="start_time[]"/>
+                                <input type="time" class="form-control" name="start_time[]" required/>
                                 {% endif %}
                             </div>
                             <label class="col-md-2 col-form-label">Ending Time :</label>
@@ -473,11 +475,11 @@
                                 {% if doctor_data.schedule_times %}
                                 {% for schedule_time in doctor_data.schedule_times %}
                                 <input type="time" class="form-control" value="{{ schedule_time.end_time }}"
-                                       name="end_time[]"/>
+                                       name="end_time[]" required/>
                                 <br>
                                 {% endfor %}
                                 {% else %}
-                                <input type="time" class="form-control" name="end_time[]"/>
+                                <input type="time" class="form-control" name="end_time[]" required/>
                                 {% endif %}
                             </div>
                         </div>
@@ -500,13 +502,12 @@
                                 </button>
                             </div>
                         </div>
-
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Off Day : <span class="text-danger">*</span></label>
                             {% if doctor_data.off_day_names %}
-                            {% for off_day_name in doctor_data.off_day_names %}
                             <div class="col-md-10">
-                                <select class="form-control select2" id="offDayID" name="off_day[]">
+                                {% for off_day_name in doctor_data.off_day_names %}
+                                <select class="form-control select2" name="off_day[]">
                                     {% for item in day_data %}
                                     {% if item.name in doctor_data.off_day_names %}
                                     {% if item.name == off_day_name %}
@@ -520,8 +521,9 @@
                                     {% endfor %}
                                 </select>
                                 <br>
+                                {% endfor %}
+                                <br>
                             </div>
-                            {% endfor %}
                             {% else %}
                             <div class="col-md-10">
                                 <select class="form-control select2" id="offDayID" name="off_day[]">
@@ -549,9 +551,9 @@
                         {% if doctor_data.appointment_schedules.0.per_patient_time %}
                         <input type="number" class="form-control"
                                value="{{ doctor_data.appointment_schedules.0.per_patient_time }}"
-                               name="per_patient_time"/>
+                               name="per_patient_time" required/>
                         {% else %}
-                        <input type="number" class="form-control" name="per_patient_time"/>
+                        <input type="number" class="form-control" name="per_patient_time" required/>
                         {% endif %}
                     </div>
                 </div>
@@ -561,9 +563,9 @@
                         {% if doctor_data.appointment_schedules.0.consultation_fee %}
                         <input type="number" class="form-control"
                                value="{{ doctor_data.appointment_schedules.0.consultation_fee }}"
-                               name="consultation_fee"/>
+                               name="consultation_fee" required/>
                         {% else %}
-                        <input type="number" class="form-control" name="consultation_fee"/>
+                        <input type="number" class="form-control" name="consultation_fee" required/>
                         {% endif %}
                     </div>
                 </div>
@@ -588,9 +590,10 @@
                             <label class="col-md-2 col-form-label">Awards :</label>
                             <div class="col-md-10">
                                 {% if award.awards %}
-                                <input type="text" class="form-control" value="{{ award.awards }}" name="awards[]"/>
+                                <input type="text" class="form-control" value="{{ award.awards }}" name="awards[]"
+                                       required/>
                                 {% else %}
-                                <input type="text" class="form-control" name="awards[]"/>
+                                <input type="text" class="form-control" name="awards[]" required/>
                                 {% endif %}
                             </div>
                         </div>
@@ -598,7 +601,8 @@
                             <label class="col-md-2 col-form-label">Honors :</label>
                             <div class="col-md-10">
                                 {% if award.honors %}
-                                <input type="text" class="form-control" value="{{ award.honors }}" name="honors[]"/>
+                                <input type="text" class="form-control" value="{{ award.honors }}" name="honors[]"
+                                       required/>
                                 {% else %}
                                 <input type="text" class="form-control" name="honors[]">
                                 {% endif %}
@@ -609,9 +613,9 @@
                             <div class="col-md-10">
                                 {% if award.publications %}
                                 <input type="text" class="form-control" value="{{ award.publications }}"
-                                       name="publications[]"/>
+                                       name="publications[]" required/>
                                 {% else %}
-                                <input type="text" class="form-control" name="publications[]"/>
+                                <input type="text" class="form-control" name="publications[]" required/>
                                 {% endif %}
                             </div>
                         </div>
@@ -620,9 +624,9 @@
                             <div class="col-md-10">
                                 {% if award.research_interests %}
                                 <input type="text" class="form-control" value="{{ award.research_interests }}"
-                                       name="research_interests[]"/>
+                                       name="research_interests[]" required/>
                                 {% else %}
-                                <input type="text" class="form-control" name="research_interests[]"/>
+                                <input type="text" class="form-control" name="research_interests[]" required/>
                                 {% endif %}
                             </div>
                         </div>
@@ -632,7 +636,7 @@
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Awards :</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="awards[]"/>
+                                <input type="text" class="form-control" name="awards[]" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -644,13 +648,13 @@
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Publications :</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="publications[]"/>
+                                <input type="text" class="form-control" name="publications[]" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Research Interests :</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="research_interests[]"/>
+                                <input type="text" class="form-control" name="research_interests[]" required/>
                             </div>
                         </div>
                         {% endif %}
@@ -674,9 +678,9 @@
                     <div class="col-md-10">
                         {% if doctor_data.social_media.0.website %}
                         <input type="url" class="form-control" value="{{ doctor_data.social_media.0.website }}"
-                               name="website"/>
+                               name="website" required/>
                         {% else %}
-                        <input type="url" class="form-control" name="website"/>
+                        <input type="url" class="form-control" name="website" required/>
                         {% endif %}
                     </div>
                 </div>
@@ -685,9 +689,9 @@
                     <div class="col-md-10">
                         {% if doctor_data.social_media.0.linkedin %}
                         <input type="url" class="form-control" value="{{ doctor_data.social_media.0.linkedin }}"
-                               name="linkedin"/>
+                               name="linkedin" required/>
                         {% else %}
-                        <input type="url" class="form-control" name="linkedin"/>
+                        <input type="url" class="form-control" name="linkedin" required/>
                         {% endif %}
                     </div>
                 </div>
@@ -696,9 +700,9 @@
                     <div class="col-md-10">
                         {% if doctor_data.social_media.0.facebook %}
                         <input type="url" class="form-control" value="{{ doctor_data.social_media.0.facebook }}"
-                               name="facebook"/>
+                               name="facebook" required/>
                         {% else %}
-                        <input type="url" class="form-control" name="facebook"/>
+                        <input type="url" class="form-control" name="facebook" required/>
                         {% endif %}
                     </div>
                 </div>
@@ -707,9 +711,9 @@
                     <div class="col-md-10">
                         {% if doctor_data.social_media.0.instagram %}
                         <input type="url" class="form-control" value="{{ doctor_data.social_media.0.instagram }}"
-                               name="instagram"/>
+                               name="instagram" required/>
                         {% else %}
-                        <input type="url" class="form-control" name="instagram"/>
+                        <input type="url" class="form-control" name="instagram" required/>
                         {% endif %}
                         {% endfor %}
                     </div>
