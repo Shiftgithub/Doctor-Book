@@ -65,7 +65,7 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <input class="form-control mb-3" id="imageID" name="photo_name"
-                                       onchange="previewImage(event)" type="file" required/>
+                                       onchange="previewImage(event)" type="file"/>
                                 {% if doctor_data.images.0.photo_name %}
                                 <img alt="Doctor Image" id="preview" src="{{ doctor_data.images.0.photo_name }}"
                                      style="width: 100%; height: 280px;">
@@ -87,7 +87,7 @@
                     <label class="col-md-2 col-form-label" for="genderID">Gender :<span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="genderID" name="gender">
+                        <select class="form-control select2" id="genderID" name="gender" required>
                             <option selected>Select Gender</option>
                             {% for item in gender_data %}
                             {% if item.name == doctor_data.gender %}
@@ -100,7 +100,7 @@
                     </div>
                     <label class="col-md-2 col-form-label" for="religionID">Religion :<span class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="religionID" name="religion">
+                        <select class="form-control select2" id="religionID" name="religion" required>
                             <option selected>Select Religion</option>
                             {% for item in religion_data %}
                             {% if item.name == doctor_data.religion %}
@@ -116,7 +116,7 @@
                     <label class="col-md-2 col-form-label" for="bloodGroupID">Blood Group : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="bloodGroupID" name="blood_group">
+                        <select class="form-control select2" id="bloodGroupID" name="blood_group" required>
                             <option selected>Select Blood Group</option>
                             {% for item in blood_group_data %}
                             {% if item.name == doctor_data.blood_group %}
@@ -130,7 +130,7 @@
                     <label class="col-md-2 col-form-label" for="matrimonyID">Matrimony Status : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="matrimonyID" name="matrimony">
+                        <select class="form-control select2" id="matrimonyID" name="matrimony" required>
                             <option selected>Select Matrimony</option>
                             {% for item in matrimony_data %}
                             {% if item.name == doctor_data.matrimony %}
@@ -172,7 +172,8 @@
                     <label class="col-md-2 col-form-label" for="permanentDivisionID">Division :<span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="permanentDivisionID" name="permanent_division">
+                        <select class="form-control select2" id="permanentDivisionID" name="permanent_division"
+                                required>
                             <option selected>Select Permanent Division</option>
                             {% for item in division_data %}
                             {% if item.name == doctor_data.permanent_address.0.permanent_division.name %}
@@ -186,7 +187,7 @@
                     <label class="col-md-2 col-form-label" for="presentDivisionID">Division :<span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="presentDivisionID" name="present_division">
+                        <select class="form-control select2" id="presentDivisionID" name="present_division" required>
                             <option selected>Select Present Division</option>
                             {% for item in division_data %}
                             {% if item.name == doctor_data.present_address.0.present_division.name %}
@@ -202,7 +203,8 @@
                     <label class="col-md-2 col-form-label" for="permanentDistrictID">District : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="permanentDistrictID" name="permanent_district">
+                        <select class="form-control select2" id="permanentDistrictID" name="permanent_district"
+                                required>
                             <option selected>Select Permanent District</option>
                             {% for item in district_data %}
                             {% if item.name == doctor_data.permanent_address.0.permanent_district.name %}
@@ -215,7 +217,7 @@
                     </div>
                     <label class="col-md-2 col-form-label" for="presentDistrictID">District : <span class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="presentDistrictID" name="present_district">
+                        <select class="form-control select2" id="presentDistrictID" name="present_district" required>
                             <option selected>Select Present District</option>
                             {% for item in district_data %}
                             {% if item.name == doctor_data.present_address.0.present_district.name %}
@@ -230,7 +232,7 @@
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label" for="permanentUpazilaID">Upazila : <span class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="permanentUpazilaID" name="permanent_upazila">
+                        <select class="form-control select2" id="permanentUpazilaID" name="permanent_upazila" required>
                             <option selected>Select Permanent Upazila</option>
                             {% for item in upazila_data %}
                             {% if item.name == doctor_data.permanent_address.0.permanent_upazila.name %}
@@ -244,7 +246,7 @@
                     <label class="col-md-2 col-form-label" for="presentUpazilaID">Upazila : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="presentUpazilaID" name="present_upazila">
+                        <select class="form-control select2" id="presentUpazilaID" name="present_upazila" required>
                             <option selected>Select Present Upazila</option>
                             {% for item in upazila_data %}
                             {% if item.name == doctor_data.present_address.0.present_upazila.name %}
@@ -315,7 +317,7 @@
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label" for="boardID">Board Name : <span class="text-danger">*</span></label>
                             <div class="col-md-4">
-                                <select class="form-control select2" id="boardID" name="boards[]">
+                                <select class="form-control select2" id="boardID" name="boards[]" required>
                                     <option selected>Select Board Name</option>
                                     {% for item in board_data %}
                                     {% if item.name == education_obj.board %}
@@ -361,7 +363,7 @@
                             <label class="col-md-2 col-form-label">Board Name : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
-                                <select class="form-control select2" name="board">
+                                <select class="form-control select2" name="boards[]" required>
                                     <option selected>Select Board Name</option>
                                     {% for item in board_data %}
                                     <option value="{{ item.id }}">{{ item.name }}</option>
@@ -403,21 +405,19 @@
                 <legend class="text-info"><i class="far fa-edit"></i> Personal Skills</legend>
                 <hr>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="experienceID">Experience: <span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="experienceID">Experience : </label>
                     <div class="col-md-4">
                         <input class="form-control" type="text" value="{{ doctor_data.experience }}"
                                id="experienceID" name="experience" required/>
                     </div>
-                    <label class="col-md-2 col-form-label" for="languagesSpokenID">Languages Spoken : <span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="languagesSpokenID">Languages Spoken : </label>
                     <div class="col-md-4">
                         <input class="form-control" type="text" value="{{ doctor_data.languages_spoken }}"
                                id="languagesSpokenID" name="languages_spoken" required/>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="departmentID">Specialty: <span
+                    <label class="col-md-2 col-form-label" for="departmentID">Specialty : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <select class="form-control select2" id="departmentID" name="department">
@@ -507,7 +507,7 @@
                             {% if doctor_data.off_day_names %}
                             <div class="col-md-10">
                                 {% for off_day_name in doctor_data.off_day_names %}
-                                <select class="form-control select2" name="off_day[]">
+                                <select class="form-control select2" name="off_day[]" required>
                                     {% for item in day_data %}
                                     {% if item.name in doctor_data.off_day_names %}
                                     {% if item.name == off_day_name %}
@@ -526,7 +526,7 @@
                             </div>
                             {% else %}
                             <div class="col-md-10">
-                                <select class="form-control select2" id="offDayID" name="off_day[]">
+                                <select class="form-control select2" id="offDayID" name="off_day[]" required>
                                     <option selected>Select Off Day</option>
                                     {% for item in day_data %}
                                     <option value="{{ item.id }}">{{ item.id }} . {{ item.name }}</option>
@@ -642,7 +642,7 @@
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Honors :</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="honors[]">
+                                <input type="text" class="form-control" name="honors[]" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
