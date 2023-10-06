@@ -1,9 +1,9 @@
 import os
+import uuid
 from django.db import models
 from datetime import datetime
 from admin.personal_data.models import *
 from admin.basemodel.models import BaseModel
-
 
 class User(BaseModel):
     user_name = models.CharField(max_length=255)
@@ -63,8 +63,11 @@ def doctor_filepath(instance, filename):
     # Get the file extension
     file_extension = os.path.splitext(filename)[1]
 
-    # Generate a new filename using the timestamp and file extension
-    new_filename = '%s%s' % (time_now, file_extension)
+    # Generate a random UUID to make the filename unique
+    unique_id = str(uuid.uuid4().hex)
+
+    # Combine the timestamp, UUID, and file extension to create a unique filename
+    new_filename = f'{time_now}_{unique_id}{file_extension}'
 
     # Return the relative path to the folder where you want to save the image
     return os.path.join('static', 'uploads', 'images', new_filename)

@@ -56,6 +56,7 @@ def store_doctor_data(request):
                             transaction.set_rollback(True)
                             return Response({'status': 403})
                     else:
+                        transaction.set_rollback(True)
                         return Response({'status': 403})
             else:
                 return Response({'status': 400})
@@ -126,7 +127,7 @@ def store_doctor_work_details_data(request):
                     except Board.DoesNotExist:
                         # Handle the case when the board with the given ID does not exist
                         return Response({'status': 404})
-                if education_obj and schedule_time_obj and awards_obj:
+                if education_obj and schedule_time_obj and awards_obj and off_day_obj:
                     # All items saved successfully
                     return Response({'status': 200})
                 else:
@@ -137,7 +138,6 @@ def store_doctor_work_details_data(request):
                 return Response({'status': 403})
     else:
         return Response({'status': 403})
-
 
 
 @api_view(['GET'])
@@ -188,18 +188,19 @@ def edit_doctor_data(request, doctor_id):
     present_address_serializer = PresentAddressSerializer(user.present_address.first(), data=request.data, partial=True)
     permanent_address_serializer = PermanentAddressSerializer(user.permanent_address.first(), data=request.data,
                                                               partial=True)
-    awards_serializer = AwardsSerializer(doctor.awards.first(), data=request.data, partial=True)
-    availability_serializer = AvailabilitySerializer(doctor.availability.first(), data=request.data, partial=True)
-    services_serializer = ServicesSerializer(doctor.services.first(), data=request.data, partial=True)
+    appointment_schedule = doctor.appointment_schedules.first()
+    appointment_schedule_serializer = AppointmentScheduleSerializer(appointment_schedule,data=request.data, partial=True)
     social_media_serializer = SocialMediaSerializer(doctor.social_media.first(), data=request.data, partial=True)
+
+    # if not image_serializer.is_valid():
+    #     print("Image Serializer Validation Errors:")
+    #     print(image_serializer.errors)
 
     if (doctor_serializer.is_valid() and
             image_serializer.is_valid() and
             present_address_serializer.is_valid() and
             permanent_address_serializer.is_valid() and
-            awards_serializer.is_valid() and
-            availability_serializer.is_valid() and
-            services_serializer.is_valid() and
+            appointment_schedule_serializer.is_valid() and
             social_media_serializer.is_valid()):
         doctor_serializer.save(updated_at=timezone.now())
         if 'photo_name' in request.data and request.data['photo_name']:
@@ -208,15 +209,69 @@ def edit_doctor_data(request, doctor_id):
         else:
             # No new image selected, retain the existing image
             image_serializer.validated_data['photo_name'] = user.images.first().photo_name
-        image_serializer.save()
-        present_address_serializer.save()
-        permanent_address_serializer.save()
-        awards_serializer.save(doctor_profile=doctor)
-        availability_serializer.save(doctor_profile=doctor)
-        services_serializer.save(doctor_profile=doctor)
-        social_media_serializer.save(doctor_profile=doctor)
+        image = image_serializer.save()
+        appointment_schedule_instance = appointment_schedule_serializer.save(
+            doctor_profile=doctor)  # Associate the appointment schedule with the doctor
+        present_address = present_address_serializer.save()
+        permanent_address = permanent_address_serializer.save()
+        social = social_media_serializer.save(doctor_profile=doctor)
+        if appointment_schedule and image and present_address and permanent_address and social:
+            certificate_degrees = request.data.getlist('certificate_degrees[]')
+            institutions = request.data.getlist('institutions[]')
+            boards = request.data.getlist('boards[]')
+            results = request.data.getlist('results[]')
+            passing_years = request.data.getlist('passing_years[]')
+            start_times = request.data.getlist('start_time[]')
+            end_times = request.data.getlist('end_time[]')
+            off_days = request.data.getlist('off_day[]')
+            awards = request.data.getlist('awards[]')
+            honors = request.data.getlist('honors[]')
+            publications = request.data.getlist('publications[]')
+            research_interests = request.data.getlist('research_interests[]')
 
-        return Response({'status': 200})
+            for certificate_degree, institution, board_id, result, passing_year, start_time, end_time, day_id, award, honor, publication, research_interest in zip(
+                    certificate_degrees, institutions, boards, results, passing_years, start_times, end_times,
+                    off_days, awards, honors, publications, research_interests
+            ):
+                try:
+                    board_instance = Board.objects.get(id=board_id)
+                    education_obj = Education.objects.create(
+                        certificate_degree=certificate_degree,
+                        institution=institution,
+                        result=result,
+                        passing_year=passing_year,
+                        doctor_profile_id=doctor_id,
+                        board=board_instance,
+                    )
+                    schedule_time_obj = ScheduleTime.objects.create(
+                        start_time=start_time,
+                        end_time=end_time,
+                        appointment_schedule=appointment_schedule_instance,
+                    )
+                    day_instance = Day.objects.get(id=day_id)
+                    off_day_obj = OffDay.objects.create(
+                        off_day=day_instance,
+                        doctor_profile_id=doctor_id,
+                    )
+                    awards_obj = Awards.objects.create(
+                        awards=award,
+                        honors=honor,
+                        publications=publication,
+                        research_interests=research_interest,
+                        doctor_profile_id=doctor_id,
+                    )
+                except Board.DoesNotExist:
+                    # Handle the case when the board with the given ID does not exist
+                    return Response({'status': 404})
+            if education_obj and schedule_time_obj and awards_obj and off_day_obj:
+                # All items saved successfully
+                return Response({'status': 200})
+            else:
+                transaction.set_rollback(True)
+                return Response({'status': 404})
+        else:
+            transaction.set_rollback(True)
+            return Response({'status': 403})
     else:
         return Response({'status': 404})
 
