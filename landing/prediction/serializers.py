@@ -4,6 +4,9 @@ from admin.doctor.models import Doctor_Profile
 from admin.authentication.user.serializers import *
 from admin.bodypart.models import *
 from admin.organ.models import *
+from admin.doctor.models import OffDay
+from admin.personal_data.models import Day
+from admin.personal_data.serializers import *
 
 
 class PredictionSerializer(serializers.ModelSerializer):
@@ -26,4 +29,14 @@ class PredictionDoctorSerializer(serializers.ModelSerializer):
         model = Doctor_Profile
         fields = [
             'id', 'full_name', 'biography', 'department_name', 'images'
+        ]
+
+
+class OffDayForAppointmentSerializer(serializers.ModelSerializer):
+    off_day_name = DaySerializer(source='off_day')
+
+    class Meta:
+        model = OffDay
+        fields = [
+            'off_day_name', 'id', 'doctor_profile', 'off_day',
         ]

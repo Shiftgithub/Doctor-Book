@@ -71,13 +71,16 @@ class BloodGroupSerializer(serializers.ModelSerializer):
         instance = super().create(validated_data)
         return instance  # Fetch the primary key of the saved object
 
+
 class DaySerializer(serializers.ModelSerializer):
     class Meta:
         model = Day
         fields = '__all__'
 
+
 class DayViewSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(source='days.name',required=False)
+    name = serializers.CharField(source='days.name', required=False)
+
     class Meta:
         model = Day
         fields = '__all__'
