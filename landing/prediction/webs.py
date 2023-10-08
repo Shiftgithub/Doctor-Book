@@ -37,8 +37,7 @@ def doctor_profile(request, doctor_id):
 def appointment_schedule_form(request, doctor_id):
     response_doctor = doctor_data(request, doctor_id)
     doctor_all_data = response_doctor.data
-    days = generate_date(request)
-    # print('days', days)
+    days = generate_date(request, doctor_id)
 
     data = {
         'date_list': days,

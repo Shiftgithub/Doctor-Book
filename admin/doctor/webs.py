@@ -141,7 +141,3 @@ def delete_doctor(request, doctor_id):
     return redirect('doctor_list')
 
 
-def working_schedule(request):
-    response_day = day_list(request)
-    day_data = response_day.data
-    return render(request, 'doctor/templates/working_schedule.html', {'day_data': day_data})

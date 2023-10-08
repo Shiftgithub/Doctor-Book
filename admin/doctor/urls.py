@@ -55,11 +55,6 @@ urlpatterns = [
                     protected_view(delete_doctor),
                     name='delete_doctor',
                 ),
-                path(
-                    'working-schedule/',
-                    protected_view(working_schedule),
-                    name='working_schedule',
-                ),
             ]
         ),
     ),

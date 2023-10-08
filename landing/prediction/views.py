@@ -60,7 +60,7 @@ def prediction(request):
             return Response({'status': 403, 'message': 'DepartmentSpecification does not exist'})
 
 
-def generate_date(request):
+def generate_date(request, doctor_id):
     # Get today's date
     today = datetime.now().date()
 
@@ -69,7 +69,6 @@ def generate_date(request):
     date_list = []
     off_day_list = []
 
-    doctor_id = 1
     off_days_response = get_off_day_list(request, doctor_id)
 
     if off_days_response.status_code == 200:
