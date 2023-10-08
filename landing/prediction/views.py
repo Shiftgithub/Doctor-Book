@@ -65,23 +65,37 @@ def generate_date(request):
     today = datetime.now().date()
 
     # Create a list to store the dates and days
-    date_list = []
 
-    # Generate the next 8 days
-    for index in range(8):
-        date = today + timedelta(days=index)
-        formatted_date = date.strftime('%d-%m-%Y')
-        day_of_week = date.strftime('%A')
-        date_with_day = f'{formatted_date} ({day_of_week})'
-        date_list.append(date_with_day)
-        print(get_off_day_list(request))
+    date_list = []
+    off_day_list = []
+
+    doctor_id = 1
+    off_days_response = get_off_day_list(request, doctor_id)
+
+    if off_days_response.status_code == 200:
+        off_days_data = off_days_response.data
+        # Iterate through the off_days_data to access doctor_profile data
+        for off_day in off_days_data:
+            off_day_list.append(off_day.get('off_day_name')['name'])
+
+        # Generate the next 8 days
+        for index in range(8):
+            date = today + timedelta(days=index)
+            formatted_date = date.strftime('%d-%m-%Y')
+            day_of_week = date.strftime('%A')
+
+            # Check if the day_of_week is not in the off_day_list before adding it
+            if day_of_week not in off_day_list:
+                date_with_day = f'{formatted_date} ({day_of_week})'
+                date_list.append(date_with_day)
     return date_list
 
 
 @api_view(['GET'])
-def get_off_day_list(request):
-    off_day = OffDay.objects.all()
-    serializer = OffDayForAppointmentSerializer(off_day, many=True)
+def get_off_day_list(request, doctor_id):
+    # Filter OffDay objects by the doctor_profile
+    off_days = OffDay.objects.filter(doctor_profile_id=doctor_id)
+
+    serializer = OffDayForAppointmentSerializer(off_days, many=True)
     serialized_data = serializer.data
-    print(serialized_data)
     return Response(serialized_data)

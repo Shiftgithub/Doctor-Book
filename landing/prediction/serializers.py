@@ -5,7 +5,6 @@ from admin.authentication.user.serializers import *
 from admin.bodypart.models import *
 from admin.organ.models import *
 from admin.doctor.models import OffDay
-from admin.personal_data.models import Day
 from admin.personal_data.serializers import *
 
 
@@ -38,5 +37,5 @@ class OffDayForAppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = OffDay
         fields = [
-            'off_day_name', 'id', 'doctor_profile', 'off_day',
+            'id', 'doctor_profile', 'off_day', 'off_day_name',
         ]
