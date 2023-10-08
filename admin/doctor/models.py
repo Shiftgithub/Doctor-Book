@@ -88,7 +88,7 @@ class OffDay(BaseModel):
 class ScheduleTime(BaseModel):
     appointment_schedule = models.ForeignKey(AppointmentSchedule,
                                              on_delete=models.CASCADE, related_name='schedule_time', null=True)
-
+    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='schedule_time')
     start_time = models.TimeField(null=True)
     end_time = models.TimeField(null=True)
 

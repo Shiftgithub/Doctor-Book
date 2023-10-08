@@ -109,6 +109,7 @@ def store_doctor_work_details_data(request):
                             start_time=start_time,
                             end_time=end_time,
                             appointment_schedule=appointment_schedule_instance,
+                            doctor_profile=doctor_profile_id
                         )
                         day_instance = Day.objects.get(id=day_id)
                         off_day_obj = OffDay.objects.create(
@@ -268,6 +269,7 @@ def edit_doctor_data(request, doctor_id):
                                     start_time=start_time,
                                     end_time=end_time,
                                     appointment_schedule=appointment_schedule_instance,
+                                    doctor_profile=doctor_id
                                 )
                                 schedule_time_objs.append(schedule_time_obj)
 
