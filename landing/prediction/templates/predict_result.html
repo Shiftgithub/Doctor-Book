@@ -38,8 +38,7 @@
                                 <tbody>
                                 {% for data in problem_specs %}
                                 <tr>
-                                    <td>{{ data.problem }}</td>
-                                    <td>{{ data.problem_specification }}</td>
+                                    <td><strong>({{ data.problem }})</strong> . ({{ data.problem_specification }}) </td>
                                 </tr>
                                 {% endfor %}
                                 </tbody>
