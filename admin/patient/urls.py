@@ -17,6 +17,7 @@ urlpatterns = [
                 path('doctor-profile/<int:doctor_id>/', protected_view(doctor_profile), name='check_doctor_profile', ),
                 path('prediction/form/', patient_predict_form, name='patient_predict_form'),
                 path('', predict_result, name='patient_prediction'),
+                path('patient-appointment', store_patient_appointment, name='store_patient_appointment'),
 
             ]
         ),

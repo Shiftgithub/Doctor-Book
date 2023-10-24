@@ -21,3 +21,9 @@ class PatientViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient_Profile
         fields = '__all__'
+
+
+class PatientAppointmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appointment_fixed
+        fields = '__all__'

@@ -91,3 +91,15 @@ def doctor_profile(request, doctor_id):
     doctor_all_data = response_doctor.data
     return render(request, 'patient/templates/doctor_profile.html',
                   {'doctor_all_data': doctor_all_data})
+
+
+def store_patient_appointment(request):
+    operation_response = store_appointment_data(request)
+    print('dfkfkdhk')
+    print('dfkfkdhk',operation_response)
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, 'Please activate your account')
+        return redirect('otp_form')
+    else:
+        messages.add_message(request, messages.ERROR, 'Error in storing Patient data')
+        return redirect('add_patient_form')

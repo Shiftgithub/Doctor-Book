@@ -1,0 +1,72 @@
+Django==4.2.1
+djangorestframework==3.14.0
+mysql-connector-python==8.0.33
+mysqlclient==2.1.1
+django-debug-toolbar
+Pillow
+
+https://www.doctorbangladesh.com/doctors-chittagong/
+
+# Standard Folder Structure for Django
+
+project_name/
+├── manage.py
+├── project_name/
+│   ├── _init_.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── admin/
+│   ├── _init_.py
+│   ├── models/
+│   │   ├── _init_.py
+│   │   ├── body_part.py
+│   │   ├── organ.py
+│   │   └── organ_problem.py
+│   ├── views/
+│   │   ├── _init_.py
+│   │   ├── body_part.py
+│   │   ├── organ.py
+│   │   └── organ_problem.py
+│   ├── forms/
+│   │   ├── _init_.py
+│   │   ├── body_part.py
+│   │   ├── organ.py
+│   │   └── organ_problem.py
+│   ├── urls.py
+│   └── templates/
+│       ├── admin/
+│       │   ├── index.html
+│       │   └── ...
+│       ├── body_part/
+│       │   ├── index.html
+│       │   └── ...
+│       ├── organ/
+│       │   ├── index.html
+│       │   └── ...
+│       └── organ_problem/
+│           ├── index.html
+│           └── ...
+├── doctor/
+│   ├── _init_.py
+│   ├── models.py
+│   ├── views.py
+│   ├── forms.py
+│   ├── urls.py
+│   └── templates/
+│       └── doctor/
+│           ├── index.html
+│           └── ...
+└── patient/
+    ├── _init_.py
+    ├── models.py
+    ├── views.py
+    ├── forms.py
+    ├── urls.py
+    └── templates/
+        └── patient/
+            ├── index.html
+            └── ...
+
+db_name = doctor_book
+active virtual_env : venv\Scripts\activate

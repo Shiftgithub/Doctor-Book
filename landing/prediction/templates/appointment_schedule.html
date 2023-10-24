@@ -51,45 +51,45 @@
         </div>
         {% endfor %}
         <hr>
-        <form action="" method="">
-        <div class="row">
-            <div class="col-3">
-                <h5 class="text-primary">Choose Appointment Date</h5>
-                <hr>
-                {% for date in date_list %}
-                <div class="circular-radio">
-                    <input type="radio" id="date-{{ forloop.counter }}" name="selected_date" data-date="{{ date }}">
-                    <label for="date-{{ forloop.counter }}">{{ date }}</label>
-                </div>
-                {% endfor %}
-            </div>
-            <div class="col-3">
-                <div id="timeSelection" class="d-none">
-                    <!-- Add your time selection options here -->
-                    <h5 class="text-primary">Choose Appointment Time</h5>
+        <form action="{% url 'store_patient_appointment' %}" method="POST">
+         {% csrf_token %}
+            <div class="row">
+                <div class="col-3">
+                    <h5 class="text-primary">Choose Appointment Date</h5>
                     <hr>
-                    {% for time in schedule_time %}
+                    {% for date in date_list %}
                     <div class="circular-radio">
-                        <input type="radio" id="time-{{ forloop.counter_loop }}" name="selected_time" data-time="{{ time }}">
-                        <label for="time-{{ forloop.counter_loop }}">{{ time }}</label>
+                        <input type="radio" id="date-{{ forloop.counter }}" name="selected_date" data-date="{{ date }}">
+                        <label for="date-{{ forloop.counter }}">{{ date }}</label>
                     </div>
                     {% endfor %}
                 </div>
+                <div class="col-3">
+                    <div id="timeSelection" class="d-none">
+                        <!-- Add your time selection options here -->
+                        <h5 class="text-primary">Choose Appointment Time</h5>
+                        <hr>
+                        {% for time in schedule_time %}
+                        <div class="circular-radio">
+                            <input type="radio" id="time-{{ forloop.counter_loop }}" name="selected_time" data-time="{{ time }}">
+                            <label for="time-{{ forloop.counter_loop }}">{{ time }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-6">
+                    <h5 id="dateID" class="text-center"></h5>
+                    <hr>
+                   <div class="right-side-div w-100">
+                   </div>
+                </div>
             </div>
-            <div class="col-6">
-                <h5 id="dateID" class="text-center text-info"></h5>
-                <hr>
-               <div class="right-side-div w-100">
-               </div>
-            </div>
-        </div>
         </form>
     </div>
 </section>
 {% endblock %}
 
 {% block scripts %}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         let selectedDate = null;
@@ -132,26 +132,12 @@
 
             if (selectedDate && selectedTime) {
                 $('.right-side-div').html(`
-                <h5 class="text-center text-info">Patient Details</h5>
-                <hr>
-            <form id="appointment-form" action="{% url 'store_bodypart' %}" method="POST">
-                {% csrf_token %}
-                    <div class="row mb-3">
-                        <label for="bodyPartNameID" class="col-md-5 col-form-label">Body Part Name</label>
-                        <div class="col-md-7">
-                            <input class="form-control" id="bodyPartNameID" name="name" type="text"/>
-                            <div class="error-message" id="nameError"></div><!-- Error message container -->
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="bodyPartNameID" class="col-md-2 col-form-label">Body Part Name</label>
-                        <div class="col-md-10">
-                            <input class="form-control" id="bodyPartNameID" name="name" type="text"/>
-                            <div class="error-message" id="nameError"></div><!-- Error message container -->
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-success">Complete the appointment</button>
-            </form>
+                <h5 class="text-center">Patient Details</h5>
+                <div>
+                <input type="text" name="registration_no" placeholder="Registration No">
+                <button class="btn btn-success">Submit</button>
+
+                </div>
                 `);
             }
         }

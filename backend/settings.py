@@ -33,7 +33,7 @@ EMAIL_BACKEND = EMAIL_BACKEND
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '10.0.2.2']
 
 # Application definition
 
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # app
+    # api
     'api.apps.ApiConfig',
 
     # admin/
@@ -82,7 +82,10 @@ INSTALLED_APPS = [
 
     # rest_framework
     'rest_framework',
-    "debug_toolbar",
+    'debug_toolbar',
+
+    # 'corsheaders',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -95,8 +98,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 ROOT_URLCONF = 'backend.urls'
 
@@ -191,5 +195,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 INTERNAL_IPS = [
-    "127.0.0.1",
+    '127.0.0.1',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True

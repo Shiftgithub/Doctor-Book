@@ -91,7 +91,7 @@ urlpatterns = [
         path('doctor/', include([
             path('add/', protected_view(store_doctor_data), name='add_doctor'),
             path('work/details/add/', protected_view(store_doctor_work_details_data), name='store_doctor_work_details'),
-            path('list/', protected_view(get_all_doctors_list), name='doctor_list'),
+            path('list/', get_all_doctors_list, name='doctor_list'),
             path('view/<int:id>/', protected_view(doctor_data), name='view_doctor'),
             path('delete/<int:doctor_id>/', protected_view(softdelete_doctor_data), name='delete_doctor'),
         ])),
@@ -99,7 +99,7 @@ urlpatterns = [
 
         path('faq/', include([
             path('add/', protected_view(store_faq_data), name='add_department'),
-            path('list/', protected_view(get_all_faq_list), name='faq_list'),
+            path('list/', get_all_faq_list, name='faq_list'),
             path('edit/<int:faq_id>/', protected_view(edit_faq_data), name='edit_faq'),
             path('delete/<int:faq_id>/', protected_view(softdelete_faq_data), name='delete_faq'),
             path('view/<int:faq_id>/', protected_view(faq_dataview), name='view_faq'),
@@ -109,7 +109,7 @@ urlpatterns = [
 
         path('article/', include([
             path('add/', protected_view(store_article_data), name='add_article'),
-            path('list/', protected_view(get_all_article_list), name='article_list'),
+            path('list/', get_all_article_list, name='article_list'),
             path('edit/<int:article_id>/', protected_view(edit_article_data), name='edit_article'),
             path('delete/<int:article_id>/', protected_view(softdelete_article_data), name='delete_article'),
             path('view/<int:article_id>/', protected_view(article_dataview), name='view_article'),

@@ -12,7 +12,7 @@ from admin.authentication.otp.function.send_email import *
 from admin.authentication.user.serializers import *
 
 from .models import Patient_Profile
-from .serializers import PatientViewSerializer
+from .serializers import *
 from admin.doctor.models import Doctor_Profile
 from admin.doctor.serializers import DoctorViewSerializer
 
@@ -98,6 +98,19 @@ def edit_patient_data(request, patient_id):
             image_serializer.validated_data['photo_name'] = patient.user.images.first().photo_name
         if patient_serializer.save(updated_at=datetime.now()) and image_serializer.save(
                 updated_at=datetime.now()):
+            return Response({'status': 200})
+        else:
+            return Response({'status': 403})
+    else:
+        return Response({'status': 403})
+
+
+@api_view(['POST'])
+def store_appointment_data(request):
+    appointment_serializer = PatientAppointmentSerializer(data=request.data)
+    print(appointment_serializer)
+    if appointment_serializer.is_valid():
+        if appointment_serializer.save():
             return Response({'status': 200})
         else:
             return Response({'status': 403})
