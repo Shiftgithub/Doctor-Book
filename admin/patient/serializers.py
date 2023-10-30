@@ -3,6 +3,8 @@ from rest_framework import serializers
 from admin.personal_data.serializers import *
 from admin.authentication.user.serializers import ImageSerializer
 
+from landing.appointment.models import GetAppointment
+
 
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,5 +27,5 @@ class PatientViewSerializer(serializers.ModelSerializer):
 
 class PatientAppointmentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Appointment_fixed
+        model = GetAppointment
         fields = '__all__'

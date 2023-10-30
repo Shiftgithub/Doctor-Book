@@ -30,27 +30,3 @@ class PredictionDoctorSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'full_name', 'biography', 'department_name', 'images'
         ]
-
-
-class OffDayForAppointmentSerializer(serializers.ModelSerializer):
-    off_day_name = DaySerializer(source='off_day')
-
-    class Meta:
-        model = OffDay
-        fields = [
-            'id', 'doctor_profile', 'off_day', 'off_day_name',
-        ]
-
-
-class ScheduleTimeInfoSerializer(serializers.ModelSerializer):
-    per_patient_time = serializers.IntegerField(source='appointment_schedule.per_patient_time')
-
-    class Meta:
-        model = ScheduleTime
-        fields = [
-            'id', 'doctor_profile', 'start_time', 'end_time', 'appointment_schedule', 'per_patient_time',
-        ]
-
-    def create(self, validated_data):
-        instance = super().create(validated_data)
-        return instance

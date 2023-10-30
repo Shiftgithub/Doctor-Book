@@ -10,6 +10,8 @@ from admin.authentication.otp.function.send_email import send_email
 from admin.authentication.otp.function.send_otp import send_otp
 from rest_framework import status, serializers
 from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404
+from .serializers import *
 
 
 @api_view(['POST'])
@@ -91,6 +93,8 @@ def store_doctor_work_details_data(request):
                 publications = request.data.getlist('publications[]')
                 research_interests = request.data.getlist('research_interests[]')
 
+                doctor_profile = get_object_or_404(Doctor_Profile, id=doctor_profile_id)
+
                 for certificate_degree, institution, board_id, result, passing_year, start_time, end_time, day_id, award, honor, publication, research_interest in zip(
                         certificate_degrees, institutions, boards, results, passing_years, start_times, end_times,
                         off_days, awards, honors, publications, research_interests
@@ -102,26 +106,26 @@ def store_doctor_work_details_data(request):
                             institution=institution,
                             result=result,
                             passing_year=passing_year,
-                            doctor_profile_id=doctor_profile_id,
+                            doctor_profile=doctor_profile,  # Assign the 'doctor_profile' instance
                             board=board_instance,
                         )
                         schedule_time_obj = ScheduleTime.objects.create(
                             start_time=start_time,
                             end_time=end_time,
                             appointment_schedule=appointment_schedule_instance,
-                            doctor_profile=doctor_profile_id
+                            doctor_profile=doctor_profile  # Assign the 'doctor_profile' instance
                         )
                         day_instance = Day.objects.get(id=day_id)
                         off_day_obj = OffDay.objects.create(
                             off_day=day_instance,
-                            doctor_profile_id=doctor_profile_id,
+                            doctor_profile=doctor_profile  # Assign the 'doctor_profile' instance
                         )
                         awards_obj = Awards.objects.create(
                             awards=award,
                             honors=honor,
                             publications=publication,
                             research_interests=research_interest,
-                            doctor_profile_id=doctor_profile_id,
+                            doctor_profile=doctor_profile  # Assign the 'doctor_profile' instance
                         )
                     except Board.DoesNotExist:
                         # Handle the case when the board with the given ID does not exist

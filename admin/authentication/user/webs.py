@@ -6,7 +6,6 @@ from admin.doctor.models import Doctor_Profile
 from admin.patient.models import Patient_Profile
 
 
-
 def get_user_details(request):
     if request.session.get('user_role') == ROLE_DOCTOR:
         user_id = request.session.get('user_id')
@@ -23,7 +22,7 @@ def get_user_details(request):
         patient_id = patient_profile.id
         user_details = patient_data(request, patient_id)
         patient_all_data = user_details.data
-        print('fdfdfdfd',patient_all_data)
+        print('fdfdfdfd', patient_all_data)
 
         return render(request, 'patient/templates/view.html',
                       {'patient_all_data': patient_all_data, 'patient_id': patient_id})

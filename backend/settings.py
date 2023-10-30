@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'admin.authentication.otp.verifyotp',
 
     # landing
+    'landing.appointment.apps.AppointmentConfig',
     'landing.landing.apps.LandingConfig',
     'landing.prediction.apps.PredictionConfig',
     'landing.url.apps.UrlConfig',

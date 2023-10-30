@@ -24,19 +24,4 @@ class Patient_Profile(BaseModel):
         return self.full_name
 
     class Meta:
-        db_table = 'patient'
-
-
-class Appointment_fixed(BaseModel):
-    patient = models.ForeignKey(Patient_Profile, on_delete=models.CASCADE, related_name='patients_appointments')
-    doctor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patients_appointments')
-    appointment_date = models.DateField(auto_now_add=False)
-    appointment_time = models.TimeField(auto_now_add=False)
-    reason_for_visit = models.TextField(null=True)
-    is_confirmed = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f'Appointment with {self.doctor} on {self.appointment_datetime}'
-
-    class Meta:
-        db_table = 'patient_appointment'
+        db_table = 'patient_profile'

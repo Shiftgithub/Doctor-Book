@@ -5,6 +5,7 @@ from datetime import datetime
 from admin.personal_data.models import *
 from admin.basemodel.models import BaseModel
 
+
 class User(BaseModel):
     user_name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
