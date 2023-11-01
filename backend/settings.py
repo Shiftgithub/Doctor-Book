@@ -86,7 +86,6 @@ INSTALLED_APPS = [
     'debug_toolbar',
 
     # 'corsheaders',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -99,7 +98,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
 
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
@@ -199,4 +198,5 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
+

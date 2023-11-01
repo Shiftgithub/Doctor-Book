@@ -10,17 +10,17 @@
             <form action="{% url 'store_bodypart' %}" id="PostForm" method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="bodyPartNameID" class="col-md-2 col-form-label">Body Part Name</label>
+                    <label for="bodyPartNameID" class="col-md-2 col-form-label">Body Part Name : <span class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <input class="form-control" id="bodyPartNameID" name="name" type="text"/>
                         <div class="error-message" id="nameError"></div><!-- Error message container -->
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="descriptionID" class="col-md-2 col-form-label">Description</label>
+                    <label for="descriptionID" class="col-md-2 col-form-label">Description :</label>
                     <div class="col-md-10">
                         <textarea class="form-control" cols="30" id="descriptionID" name="description"
-                                  rows="2" type="text">{{ data.description|default:"N/A" }}</textarea>
+                                  rows="2">{{ data.description|default:"N/A" }}</textarea>
                         <div class="error-message" id="descriptionError"></div> <!-- Error message container -->
                     </div>
                 </div>

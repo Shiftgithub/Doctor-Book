@@ -7,7 +7,6 @@ def forget_password_form(request):
     return render(request, 'authentication/otp/resetpassword/templates/forget_password.html')
 
 
-
 def forget_password_method(request):
     operation_response = forget_password(request)
     if operation_response.data.get('status') == 200:

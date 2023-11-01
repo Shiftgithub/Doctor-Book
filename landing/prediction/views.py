@@ -1,12 +1,13 @@
 from admin.bodypart.models import BodyPart
 from admin.bodypart.serializers import BodyPartSerializer
 from rest_framework.response import Response
-from landing.prediction.serializers import *
 from rest_framework.decorators import api_view
 from admin.doctor.models import Doctor_Profile
 from admin.organ.serializers import OrganBodyPartSerializer
 from admin.department_speci.models import DepartmentSpecification
 from admin.organ_problem_speci.serializers import OrganProblemSerializer
+
+from .serializers import *
 
 
 @api_view(['POST'])
@@ -55,5 +56,3 @@ def prediction(request):
                 return Response({'status': 403, 'message': 'DepartmentSpecifications have different departments'})
         else:
             return Response({'status': 403, 'message': 'DepartmentSpecification does not exist'})
-
-

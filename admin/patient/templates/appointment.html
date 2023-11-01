@@ -1,9 +1,7 @@
-{% extends 'landing_layout.html' %}
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
 {% load static %}
-
 {% block styles %}
 <style>
-    #doctors {background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;}
     /* Style for the circular radio buttons */
     .circular-radio {
       display: flex;
@@ -41,16 +39,9 @@
 <!-- ======= Doctors Section ======= -->
 <section id="doctors" class="doctors">
     <div class="container pt-4">
-        {% for doctor_data in doctor_all_data %}
-        <div class="text-center">
-            <h4><b>Doctor Name : {{ doctor_data.full_name }}</b></h4>
-            <p><b>Department Name : {{ doctor_data.department }}</b></p>
-        </div>
-
-        <hr/>
         <div class="row">
             <div class="col-3">
-                <h5 class="text-primary">Choose Appointment Date</h5>
+                <h5>Choose Appointment Date</h5>
                 <hr/>
                 {% for date in date_list %}
                 <div class="circular-radio">
@@ -63,7 +54,7 @@
             <div class="col-9">
                 <div id="timeSelection" class="d-none">
                     <!-- Add your time selection options here -->
-                    <h5 class="text-primary text-center">Choose Appointment Time</h5>
+                    <h5 class="text-center">Choose Appointment Time</h5>
                     <hr/>
                     {% if schedule_time %}
                     <div class="row">
@@ -97,12 +88,12 @@
                     <input type="hidden" id="selectedTimeID" name="appointment_time"/>
                 </div>
                 <hr>
-                <div class="text-center pt-4">
-                    <button class="btn btn-info text-white btn-lg">Next</button>
+                <div class="text-center">
+                    <button class="btn btn-info text-white">Submit</button>
                 </div>
+                <br>
             </form>
         </div>
-        {% endfor %}
     </div>
 </section>
 {% endblock %}

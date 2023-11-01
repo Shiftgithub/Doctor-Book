@@ -1,11 +1,10 @@
 from .views import *
 from django.contrib import messages
-from admin.department.views import *
-from admin.personal_data.views import *
 from django.shortcuts import render, redirect
+from ..department.views import get_all_departments_list
+from ..personal_data.views import *
 
 
-# Doctor
 def doctor_form(request):
     response_gender = gender_list(request)
     gender_data = response_gender.data
@@ -112,13 +111,13 @@ def edit_doctor_form(request, doctor_id):
 
     response_doctor = doctor_data(request, doctor_id)
     doctor_all_data = response_doctor.data
-    return render(request, 'doctor/templates/edit.html',
-                  {'department_data': department_data, 'gender_data': gender_data,
-                   'religion_data': religion_data, 'blood_group_data': blood_group_data,
-                   'matrimony_data': matrimony_data, 'division_data': division_data,
-                   'district_data': district_data, 'upazila_data': upazila_data, 'board_data': board_data,
-                   'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id, 'day_data': day_data
-                   })
+    data = {'department_data': department_data, 'gender_data': gender_data,
+            'religion_data': religion_data, 'blood_group_data': blood_group_data,
+            'matrimony_data': matrimony_data, 'division_data': division_data,
+            'district_data': district_data, 'upazila_data': upazila_data, 'board_data': board_data,
+            'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id, 'day_data': day_data
+            }
+    return render(request, 'doctor/templates/edit.html', data)
 
 
 def edit_doctor(request, doctor_id):
@@ -139,5 +138,3 @@ def delete_doctor(request, doctor_id):
     else:
         messages.add_message(request, messages.ERROR, 'Error deleting Doctor data')
     return redirect('doctor_list')
-
-

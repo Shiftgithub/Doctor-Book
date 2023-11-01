@@ -11,6 +11,6 @@ urlpatterns = [
             path('', include('landing.landing.urls')),
             path('', include('landing.prediction.urls')),
         ]
+        ),
     ),
-         ),
 ]

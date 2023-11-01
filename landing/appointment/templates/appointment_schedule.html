@@ -41,66 +41,71 @@
 <!-- ======= Doctors Section ======= -->
 <section id="doctors" class="doctors">
     <div class="container pt-4">
-        {% for doctor_data in doctor_all_data %}
         <div class="text-center">
-            <h4><b>Doctor Name : {{ doctor_data.full_name }}</b></h4>
-            <p><b>Department Name : {{ doctor_data.department }}</b></p>
+            <h4><b>Appointment Schedule</b></h4>
         </div>
-        {% endfor %}
         <hr/>
         <div class="row">
-            <div class="col-3">
-                <h5 class="text-primary">Choose Appointment Date</h5>
-                <hr/>
-                {% for date in date_list %}
-                <div class="circular-radio">
-                    <input type="radio" onclick="getDate(this)" id="date-{{ forloop.counter }}" name="selected_date"
-                           data-date="{{ date }}"/>
-                    <label for="date-{{ forloop.counter }}">{{ date }}</label>
+            <div class="col-6">
+                <div class="card">
+                    {% for doctor_data in doctor_all_data %}
+                    <p class="form-control"><b>Doctor Name : {{ doctor_data.full_name }}</b></p>
+                    <p class="form-control"><b>Department Name : {{ doctor_data.department }}</b></p>
+                    <p class="form-control"><b>Appointment Date : {{appointment_date}}</b></p>
+                    <p class="form-control"><b>Appointment Time : {{appointment_time}}</b></p>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
-            <div class="col-9">
-                <div id="timeSelection" class="d-none">
-                    <!-- Add your time selection options here -->
-                    <h5 class="text-primary text-center">Choose Appointment Time</h5>
-                    <hr/>
-                    {% if schedule_time %}
-                    <div class="row">
-                        {% for time in schedule_time %}
-                        <div class="circular-radio col-4">
-                            <input class="time-class" onclick="getTime(this)" type="radio"
-                                   id="time-{{ forloop.counter }}"
-                                   name="selected_time" data-time="{{ time }}"/>
-                            <label for="time-{{ forloop.counter }}">{{ time }}</label>
+            <div class="col-6">
+                <div class="card">
+                    <div class="registrationNo" id="registrationNo">
+                        <form id="PostFormWithID" action="{% url 'appointment_schedule' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="d-flex justify-content-between">
+                                <input type="text" class="form-control m-2" name="registration_no"
+                                       placeholder="Registration No"/>
+                                <button class="btn btn-success btn-sm m-2">Submit</button>
+                            </div>
+                        </form>
+                        <div class="p-2">
+                            <label>If you don't have Registration ID</label>
+                            <a href="#" id="showRegisterDivLink">Click Here</a>
                         </div>
-                        {% if forloop.counter|divisibleby:3 %}
                     </div>
-                    <div class="row">
-                        {% endif %}
-                        {% endfor %}
+                    <div class="registrationForm card-body d-none" id="registrationForm">
+                        <form id="PostForm" action="{% url 'appointment_schedule_method' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" name="full_name" id="fullNameId"
+                                       placeholder="Full Name" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="email" class="form-control" name="email" id="emailId" placeholder="Email"
+                                       required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" name="user_name" id="usernameID"
+                                       placeholder="Username" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="password" class="form-control" name="password" id="passwordId"
+                                       placeholder="Password" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="password" class="form-control" name="confirm_password"
+                                       id="confirmPasswordId" placeholder="Confirm Password" required>
+                            </div>
+                            <div class="text-center mb-3">
+                                <button type="submit" class="btn btn-success">Register</button>
+                            </div>
+                        </form>
+                        <div class="m-2">
+                            <label>If you have Registration ID</label>
+                            <a href="#" id="returnToRegistrationNo">Click Here</a>
+                        </div>
                     </div>
-                    {% else %}
-                    <div class="alert alert-warning">
-                        <h4 class="alert-heading">No Time Slots Found</h4>
-                        <p>There are no time slots available at the moment. Please check back later.</p>
-                    </div>
-                    {% endif %}
                 </div>
             </div>
-        </div>
-        <div class="">
-            <form action="{% url 'store_patient_appointment' %}" method="POST">
-                {% csrf_token %}
-                <div>
-                    <input type="hidden" id="selectedDateID" name="appointment_date"/>
-                    <input type="hidden" id="selectedTimeID" name="appointment_time"/>
-                </div>
-                <hr>
-                <div class="text-center pt-4">
-                    <button class="btn btn-info text-white btn-lg">Next</button>
-                </div>
-            </form>
         </div>
     </div>
 </section>
@@ -108,51 +113,27 @@
 
 {% block scripts %}
 <script>
-    function getDate(dom) {
-      let selectedDate = $(dom).attr('data-date')
-      $('#selectedDateID').val(selectedDate)
-      console.log($(dom).attr('data-date'))
-    }
-
-    function getTime(dom) {
-      let selectedTime = $(dom).attr('data-time')
-      $('#selectedTimeID').val(selectedTime)
-      console.log($(dom).attr('data-time'))
-    }
-
     $(document).ready(function () {
-      let selectedDate = null
-      let selectedTime = null
-
-      // Add a click event handler for radio buttons with the name "selected_date"
-      $('input[name="selected_date"]').on('click', function () {
-        // Check if the radio button is checked
-        if ($(this).is(':checked')) {
-          // Get the selected date from the data attribute
-          selectedDate = $(this).data('date')
-          $('#timeSelection').removeClass('d-none')
-          // Clear the form fields when changing the date
-
-          $('.time-class').each(function () {
-            this.checked = false
-          })
-        } else {
-          // Hide the time selection div and clear the right-side div
-          $('#timeSelection').addClass('d-none')
-          selectedDate = null
-          selectedTime = null
-        }
-        checkFormVisibility()
+      let registrationFrom = null
+      let registrationNo = null
+      // Add a click event handler for the "Click Here" link
+      $('#showRegisterDivLink').on('click', function (e) {
+        e.preventDefault()
+        toggleRegistrationFormsVisibility()
       })
 
-      // Add a click event handler for radio buttons with the name "selected_time"
-      $('input[name="selected_time"]').on('click', function () {
-        // Check if a date has been selected
-        if (selectedDate) {
-          // Get the selected time from the data attribute
-          selectedTime = $(this).data('time')
-        }
+      // Add a click event handler for the "Return to Registration No" link
+      $('#returnToRegistrationNo').on('click', function (e) {
+        e.preventDefault()
+        toggleRegistrationFormsVisibility();
       })
+
+      function toggleRegistrationFormsVisibility() {
+        // Toggle the visibility of registrationNo and registrationForm
+        $('#registrationNo').toggleClass('d-none');
+        $('#registrationForm').toggleClass('d-none');
+      }
     })
 </script>
 {% endblock %}
+

@@ -169,7 +169,30 @@
                     </li>
                 </ul>
             </li>
-
+            <!-- Medicine -->
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-pills"></i>
+                    <p>
+                        Medicine
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'add_medicine_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Medicine</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'medicine_list'%}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Medicines</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <!-- Frequently Asked Questions -->
             <li class="nav-item mainItem">
                 <a href="#" class="nav-link">

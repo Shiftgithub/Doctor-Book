@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="row mb-3">
-                            <label class="col-md-3 col-form-label" for="DoctorID">Name : <span
+                            <label class="col-md-3 col-form-label" for="DoctorID">Full Name : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <input class="form-control" type="text" id="DoctorID"
@@ -153,9 +153,9 @@
                     <div class="col-md-4">
                         {% if doctor_data.passport_no %}
                         <input class="form-control" type="text" value=" {{ doctor_data.passport_no }}"
-                               id="passportID" name="passport_no" required/>
+                               id="passportID" name="passport_no"/>
                         {% else %}
-                        <input class="form-control" type="text" name="passport_no" placeholder="Not Provided" required/>
+                        <input class="form-control" type="text" name="passport_no" placeholder="Not Provided"/>
                         {% endif %}
                     </div>
                 </div>

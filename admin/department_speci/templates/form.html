@@ -17,7 +17,7 @@
                 </div>
                 {% else %}
                 <div class="row mb-3">
-                    <label for="specialtySelect" class="col-md-3 col-form-label">Department Name</label>
+                    <label for="specialtySelect" class="col-md-3 col-form-label">Department Name : <span class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <select class="form-control select2" id="specialtySelect" name="department">
                             <option selected>Select Department Name</option>
@@ -36,7 +36,7 @@
                 </div>
                 {% else %}
                 <div class="row mb-3">
-                    <label for="problemSpecialtySelect" class="col-md-3 col-form-label">Problem</label>
+                    <label for="problemSpecialtySelect" class="col-md-3 col-form-label">Problem : <span class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <select class="form-control select2" id="problemSpecialtySelect"
                                 name="organ_problem_specification">
@@ -51,9 +51,9 @@
                 <hr>
                 <!-- Add form fields here -->
                 <div class="row mb-3">
-                    <label for="descriptionId" class="col-md-3 col-form-label">Description</label>
+                    <label for="descriptionId" class="col-md-3 col-form-label">Description : </label>
                     <div class="col-md-9">
-                        <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
+                        <textarea name="description" id="descriptionId" class="form-control" cols="30"
                                   rows="2">{{ data.description|default:"N/A" }}</textarea>
                     </div>
                 </div>

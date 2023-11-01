@@ -10,14 +10,15 @@
             <form id="PostForm" action="{% url 'store_prescription' %}" method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="issueDateID" class="col-md-3 col-form-label">Issue Date <span
+                    <label for="issueDateID" class="col-md-3 col-form-label">Issue Date :<span
+                            class="text-danger">*</span><span
                             class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <input name="issue_date" id="issueDateID" type="date" class="form-control">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="specialtySelect" class="col-md-3 col-form-label">Patient Name <span
+                    <label for="specialtySelect" class="col-md-3 col-form-label">Patient Name :<span
                             class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <select class="form-control select2" id="specialtySelect" name="patient_name">
@@ -29,7 +30,8 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="chiefComplainID" class="col-md-3 col-form-label">Chief Complain</label>
+                    <label for="chiefComplainID" class="col-md-3 col-form-label">Chief Complain :<span
+                            class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <textarea name="cc" id="chiefComplainID" type="text" class="form-control" cols="30"
                                   rows="2" placeholder="">{{ data.cc|default:"N/A" }}</textarea>
@@ -37,7 +39,8 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="onExaminationID" class="col-md-3 col-form-label">On Examination</label>
+                    <label for="onExaminationID" class="col-md-3 col-form-label">On Examination :<span
+                            class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <textarea name="oe" id="onExaminationID" type="text" class="form-control" cols="30"
                                   rows="2">{{ data.oe|default:"N/A" }}</textarea>
@@ -47,7 +50,7 @@
                 <div class="row mb-3">
                     <label for="onExaminationID" class="col-md-3 col-form-label">Differential Diagnosis</label>
                     <div class="col-md-9">
-                        <textarea name="dd" id="differentialDiagnosisID" type="text" class="form-control" cols="30"
+                        <textarea name="dd" id="differentialDiagnosisID" class="form-control" cols="30"
                                   rows="2">{{ data.dd|default:"N/A" }}</textarea>
                         <div id="differentialDiagnosisError" class="error-message"></div>
                         <!-- Error message container -->
@@ -56,7 +59,7 @@
                 <div class="row mb-3">
                     <label for="adviceID" class="col-md-3 col-form-label">Differential Diagnosis</label>
                     <div class="col-md-9">
-                        <textarea name="ad" id="adviceID" type="text" class="form-control" cols="30"
+                        <textarea name="ad" id="adviceID" class="form-control" cols="30"
                                   rows="2">{{ data.dd|default:"N/A" }}</textarea>
                         <div id="AdviceError" class="error-message"></div>
                         <!-- Error message container -->
@@ -65,7 +68,7 @@
                 <div class="row mb-3">
                     <label for="treatmentListID" class="col-md-3 col-form-label">Treatment List</label>
                     <div class="col-md-9">
-                        <textarea name="tl" id="treatmentListID" type="text" class="form-control" cols="30"
+                        <textarea name="tl" id="treatmentListID" class="form-control" cols="30"
                                   rows="2">{{ data.dd|default:"N/A" }}</textarea>
                         <div id="treatmentListError" class="error-message"></div>
                         <!-- Error message container -->
@@ -74,7 +77,7 @@
                 <div class="row mb-3">
                     <label for="pastMedicalHistoryID" class="col-md-3 col-form-label">Past Medical History</label>
                     <div class="col-md-9">
-                        <textarea name="pmh" id="pastMedicalHistoryID" type="text" class="form-control" cols="30"
+                        <textarea name="pmh" id="pastMedicalHistoryID" class="form-control" cols="30"
                                   rows="2">{{ data.dd|default:"N/A" }}</textarea>
                         <div id="pastMedicalHistoryError" class="error-message"></div>
                         <!-- Error message container -->
@@ -126,18 +129,20 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="medicineID" class="col-md-3 col-form-label">Medicine</label>
+                            <label for="medicineID" class="col-md-3 col-form-label">Medicine :<span class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <select class="form-control select2" id="medicineID" name="medicine[]">
                                     <option selected>Select Medicine Name</option>
                                     {% for item in medicine_data %}
-                                    <option value="{{ item.id }}">{{ item.id }} . {{ item.name }} {{ item.strength }}</option>
+                                    <option value="{{ item.id }}">{{ item.id }} . {{ item.name }} {{ item.strength }}
+                                    </option>
                                     {% endfor %}
                                 </select>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="medicineScheduleID" class="col-md-3 col-form-label">Medicine Schedule</label>
+                            <label for="medicineScheduleID" class="col-md-3 col-form-label">Medicine Schedule :<span
+                                    class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <select class="form-control select2" id="medicineScheduleID" name="medicine_schedule[]">
                                     <option selected>Select Medicine Schedule</option>
@@ -148,13 +153,14 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="frequencyID" class="col-md-3 col-form-label">Frequency</label>
+                            <label for="frequencyID" class="col-md-3 col-form-label">Frequency :<span
+                                    class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <input class="form-control select2" id="frequencyID" name="frequency[]" type="text">
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="durationID" class="col-md-3 col-form-label">Duration</label>
+                            <label for="durationID" class="col-md-3 col-form-label">Duration :<span class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <input class="form-control select2" id="durationID" name="duration[]" type="text">
                             </div>
@@ -167,7 +173,6 @@
                         <button type="button" class="btn btn-primary add-medicine-section float-right">Add More</button>
                     </div>
                 </div>
-
                 <button type="submit" class="btn btn-success float-right">Submit</button>
             </form>
         </div>

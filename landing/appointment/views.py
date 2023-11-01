@@ -1,64 +1,25 @@
-from admin.bodypart.models import BodyPart
-from admin.bodypart.serializers import BodyPartSerializer
+import hashlib
+
 from rest_framework.response import Response
 from .serializers import *
 from rest_framework.decorators import api_view
-from admin.doctor.models import Doctor_Profile
-from admin.organ.serializers import OrganBodyPartSerializer
-from admin.department_speci.models import DepartmentSpecification
-from admin.organ_problem_speci.serializers import OrganProblemSerializer
 from admin.doctor.models import OffDay
 from admin.doctor.models import ScheduleTime, AppointmentSchedule
-
 from datetime import datetime, timedelta
+from admin.patient.models import Patient_Profile
+from django.db import transaction
+from admin.doctor.models import Doctor_Profile
 
+from admin.authentication.user.serializers import UserSerializer
+from admin.patient.serializers import PatientSerializer
 
-@api_view(['POST'])
-def prediction(request):
-    predict_serializer = PredictionSerializer(data=request.data)
+from admin.authentication.otp.function.send_email import generate_unique
+from admin.authentication.user.models import Images
 
-    problem_specs = request.POST.getlist('problem_specs[]')
-    if predict_serializer.is_valid():
-        bodypart_id = predict_serializer.validated_data.get('bodypart')
-        organ_id = predict_serializer.validated_data.get('organ')
+from admin.authentication.otp.function.send_email import generate_token
+from admin.authentication.otp.verifyotp.models import VerifyOtp
 
-        department_specifications = DepartmentSpecification.objects.filter(
-            organ_problem_specification__in=problem_specs
-        )
-        if department_specifications.exists():
-            department_ids = department_specifications.values_list('department', flat=True)
-            if len(set(department_ids)) == 1:
-                doctor_data = Doctor_Profile.objects.filter(
-                    department__in=department_ids
-                )
-                doctor_serializer = PredictionDoctorSerializer(doctor_data, many=True)
-
-                bodypart = BodyPart.objects.get(id=bodypart_id)
-                bodypart_serializer = BodyPartSerializer(bodypart, many=False)
-
-                organ = Organ.objects.get(id=organ_id)
-                organ_serializer = OrganBodyPartSerializer(organ, many=False)
-
-                problem_specs_data = []
-                for problem_spec_id in problem_specs:
-                    try:
-                        problem_spec = OrgansProblemSpecification.objects.get(id=problem_spec_id)
-                        problem_specs_data.append(OrganProblemSerializer(problem_spec).data)
-                    except OrgansProblemSpecification.DoesNotExist:
-                        pass
-
-                response_data = {
-                    'status': 200,
-                    'bodypart_name': bodypart_serializer.data,
-                    'organ_name': organ_serializer.data,
-                    'doctors_data': doctor_serializer.data,
-                    'problem_specs': problem_specs_data,
-                }
-                return Response(response_data)
-            else:
-                return Response({'status': 403, 'message': 'DepartmentSpecifications have different departments'})
-        else:
-            return Response({'status': 403, 'message': 'DepartmentSpecification does not exist'})
+from admin.patient.views import store_patient_data
 
 
 def generate_date(request, doctor_id):
@@ -187,3 +148,101 @@ def get_working_schedule(request, doctor_id):
     except Exception as e:
         # Handle any other exceptions or errors that may occur during the process
         return Response({"error": str(e)}, status=500)
+
+
+@api_view(['POST'])
+def date_time(request):
+    date_time_serializer = DateTimeSerializer(data=request.data)
+    if date_time_serializer.is_valid():
+        appointment_date = date_time_serializer.validated_data['appointment_date']
+        appointment_time = date_time_serializer.validated_data['appointment_time']
+        return Response({'status': 308, 'appointment_date': appointment_date, 'appointment_time': appointment_time})
+    else:
+        return Response({'status': 403})
+
+
+@api_view(['POST'])
+def store_appointment_data(request):
+    appointment_date = request.session.get('temp_appointment_date')
+    appointment_time = request.session.get('temp_appointment_time')
+    doctor_id = request.session.get('temp_doctor_id')
+    appointment_serializer = PatientAppointmentSerializer(data=request.data)
+    if appointment_serializer.is_valid():
+        registration_id = request.data['registration_no']
+        # Retrieve the Patient_Profile instance using the registration_no
+        try:
+            patient = Patient_Profile.objects.get(registration_no=registration_id)
+        except Patient_Profile.DoesNotExist:
+            return Response({'status': 404, 'message': 'Patient not found'})
+        # Retrieve the 'Doctor_Profile' instance for the doctor using 'doctor_id'
+        try:
+            doctor = Doctor_Profile.objects.get(id=doctor_id)
+        except Doctor_Profile.DoesNotExist:
+            return Response({'status': 404, 'message': 'Doctor not found'})
+
+        # Set the 'doctor' field to the retrieved 'User' instance
+        appointment_serializer.save(
+            appointment_date=appointment_date,
+            appointment_time=appointment_time,
+            doctor=doctor,
+            patient=patient
+        )
+        return Response({'status': 200})
+    else:
+        return Response({'status': 403})
+
+
+@api_view(['POST'])
+def create_patient_account_store_appointment(request):
+    appointment_date = request.session.get('temp_appointment_date')
+    appointment_time = request.session.get('temp_appointment_time')
+    doctor_id = request.session.get('temp_doctor_id')
+
+    appointment_serializer = PatientAppointmentSerializer(data=request.data)
+    patient_serializer = PatientSerializer(data=request.data)
+    user_serializer = UserSerializer(data=request.data)
+    if user_serializer.is_valid(raise_exception=True) and patient_serializer.is_valid():
+        password = request.data.get('password')
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+
+        with transaction.atomic():
+            user_serializer.save(hash=hashed_password, role='patient', status='inactive')
+            user_profile_instance = user_serializer.instance
+            registration_no = generate_unique(11)
+            patient = patient_serializer.save(user_id=user_profile_instance, registration_no=registration_no)
+
+            image_serializer = Images(user_id=user_profile_instance)
+            image_serializer.save()
+
+            token_str = generate_token(6)
+            email_fields = [user_serializer.validated_data['email']]
+            email = ' - '.join(email_fields)
+            message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
+            otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
+            otp_serializer.save()
+            # send_mail = send_email(email, message)
+            if otp_serializer:
+                if appointment_serializer.is_valid():
+                    # Retrieve the 'Doctor_Profile' instance for the doctor using 'doctor_id'
+                    try:
+                        doctor = Doctor_Profile.objects.get(id=doctor_id)
+                    except Doctor_Profile.DoesNotExist:
+                        return Response({'status': 404, 'message': 'Doctor not found'})
+
+                    # Set the 'doctor' field to the retrieved 'User' instance
+                    appointment_serializer.save(
+                        appointment_date=appointment_date,
+                        appointment_time=appointment_time,
+                        doctor=doctor,
+                        patient=patient
+                    )
+                    data = {'email': email, 'status': 200}
+                    return Response(data)
+                else:
+                    transaction.set_rollback(True)
+                    return Response({'status': 403})
+            else:
+                transaction.set_rollback(True)
+                return Response({'status': 403})
+    else:
+        return Response({'status': 403})

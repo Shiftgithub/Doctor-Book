@@ -8,6 +8,8 @@ from admin.organ.models import *
 from admin.doctor.models import OffDay
 from admin.personal_data.serializers import *
 
+from .models import *
+
 
 class OffDayForAppointmentSerializer(serializers.ModelSerializer):
     off_day_name = DaySerializer(source='off_day')
@@ -31,3 +33,17 @@ class ScheduleTimeInfoSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         instance = super().create(validated_data)
         return instance
+
+
+class PatientAppointmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GetAppointment
+        fields = '__all__'
+
+
+class DateTimeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GetAppointment
+        fields = [
+            'appointment_date', 'appointment_time', 'doctor',
+        ]

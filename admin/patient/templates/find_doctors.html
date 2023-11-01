@@ -19,7 +19,7 @@
                     <th>#</th>
                     <th>Doctor Name</th>
                     <th>Image</th>
-                    <th>Specialty</th>
+                    <th>Department</th>
                     <th>Profile</th>
                     <th>Appointment</th>
                 </tr>
@@ -41,7 +41,7 @@
                     </td>
                     <td>
                         <a class="dropdown-item text-success"
-                           href="{% url 'view_doctor_data' data.id %}">
+                           href="{% url 'appointment' data.id %}">
                             <i class=""></i> Appointment
                         </a>
                     </td>
