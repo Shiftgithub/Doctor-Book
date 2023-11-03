@@ -1,4 +1,4 @@
-from .views import varify_otp
+from .views import verify_otp
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
