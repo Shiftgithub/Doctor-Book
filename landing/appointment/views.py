@@ -25,8 +25,8 @@ def generate_date(request, doctor_id):
     off_day_list = []
 
     off_days_response = get_off_day_list(request, doctor_id)
-    # schedule_times = get_working_schedule(request, doctor_id)
-    # print(schedule_times)
+    schedule_times = get_working_schedule(request, doctor_id)
+    print(schedule_times)
 
     if off_days_response.status_code == 200:
         off_days_data = off_days_response.data
