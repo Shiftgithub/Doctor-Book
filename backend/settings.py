@@ -33,7 +33,7 @@ EMAIL_BACKEND = EMAIL_BACKEND
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '10.0.2.2']
 
 # Application definition
 
@@ -45,43 +45,47 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # app
+    # api
     'api.apps.ApiConfig',
 
-    # adminpanel/
-    'adminpanel.ajax.apps.AjaxConfig',
-    'adminpanel.article.apps.ArticleConfig',
-    'adminpanel.bodypart.apps.BodypartConfig',
-    'adminpanel.dashboard.apps.DashboardConfig',
-    'adminpanel.department.apps.DepartmentConfig',
-    'adminpanel.department_speci.apps.DepartmentSpeciConfig',
-    'adminpanel.doctor.apps.DoctorConfig',
-    'adminpanel.faq.apps.FaqConfig',
-    'adminpanel.organ.apps.OrganConfig',
-    'adminpanel.organ_problem_speci.apps.OrganProblemSpeciConfig',
-    'adminpanel.patient.apps.PatientConfig',
-    'adminpanel.personal_data.apps.PersonalDataConfig',
-    'adminpanel.urls.apps.UrlsConfig',
-    'adminpanel.user.apps.UserConfig',
+    # admin/
+    'admin.ajax.apps.AjaxConfig',
+    'admin.article.apps.ArticleConfig',
+    'admin.bodypart.apps.BodypartConfig',
+    'admin.dashboard.apps.DashboardConfig',
+    'admin.department.apps.DepartmentConfig',
+    'admin.department_speci.apps.DepartmentSpeciConfig',
+    'admin.doctor.apps.DoctorConfig',
+    'admin.faq.apps.FaqConfig',
+    'admin.medicine.apps.MedicineConfig',
+    'admin.organ.apps.OrganConfig',
+    'admin.organ_problem_speci.apps.OrganProblemSpeciConfig',
+    'admin.patient.apps.PatientConfig',
+    'admin.personal_data.apps.PersonalDataConfig',
+    'admin.prescription.apps.PrescriptionConfig',
+    'admin.urls.apps.UrlsConfig',
 
-    # adminpanel/authentication
-    'adminpanel.authentication.login',
-    'adminpanel.authentication.logout',
-    'adminpanel.authentication.registration',
+    # admin/authentication
+    'admin.authentication.login',
+    'admin.authentication.logout',
+    'admin.authentication.user.apps.UserConfig',
 
-    # adminpanel/authentication/otp
-    'adminpanel.authentication.otp.resendotp',
-    'adminpanel.authentication.otp.resetpassword',
-    'adminpanel.authentication.otp.verifyotp',
+    # admin/authentication/otp
+    'admin.authentication.otp.resendotp',
+    'admin.authentication.otp.resetpassword',
+    'admin.authentication.otp.verifyotp',
 
     # landing
-    'landingpanel.landing.apps.LandingConfig',
-    'landingpanel.prediction.apps.PredictionConfig',
-    'landingpanel.url.apps.UrlConfig',
+    'landing.appointment.apps.AppointmentConfig',
+    'landing.landing.apps.LandingConfig',
+    'landing.prediction.apps.PredictionConfig',
+    'landing.url.apps.UrlConfig',
 
     # rest_framework
     'rest_framework',
-    "debug_toolbar",
+    'debug_toolbar',
+
+    # 'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -94,8 +98,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'django.middleware.csrf.CsrfViewMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
 
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 ROOT_URLCONF = 'backend.urls'
 
@@ -103,8 +108,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'adminpanel/',
-            BASE_DIR / 'landingpanel/',
+            BASE_DIR / 'admin/',
+            BASE_DIR / 'landing/',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -121,6 +126,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
+# local
 
 DATABASES = {
     'default': {
@@ -132,6 +138,18 @@ DATABASES = {
         'PORT': '3306',
     },
 }
+
+# cpanel
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'turanadovasoft_doctor_book',
+#         'USER': 'turanadovasoft_mamunmiaturan',
+#         'PASSWORD': 'cKjkm[;c=Ocx',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     },
+# }
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -177,5 +195,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 INTERNAL_IPS = [
-    "127.0.0.1",
+    '127.0.0.1',
 ]
+
+# CORS_ALLOW_ALL_ORIGINS = True
+

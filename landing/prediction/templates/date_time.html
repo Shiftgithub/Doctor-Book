@@ -1,0 +1,158 @@
+{% extends 'landing_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    #doctors {background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;}
+    /* Style for the circular radio buttons */
+    .circular-radio {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .circular-radio input[type='radio'] {
+      width: 15px;
+      height: 15px;
+      margin-right: 10px;
+      transform: scale(1.5);
+      background-color: blue;
+      border: 2px solid blue;
+      border-radius: 50%;
+    }
+
+    /* Style for the text */
+    .circular-radio label {
+      font-size: 18px;
+    }
+
+    /* Style for the right-side div (initially hidden) */
+    .right-side-div {
+      float: right;
+      width: 50%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- ======= Doctors Section ======= -->
+<section id="doctors" class="doctors">
+    <div class="container pt-4">
+        {% for doctor_data in doctor_all_data %}
+        <div class="text-center">
+            <h4><b>Doctor Name : {{ doctor_data.full_name }}</b></h4>
+            <p><b>Department Name : {{ doctor_data.department }}</b></p>
+        </div>
+        {% endfor %}
+        <hr/>
+        <div class="row">
+            <div class="col-3">
+                <h5 class="text-primary">Choose Appointment Date</h5>
+                <hr/>
+                {% for date in date_list %}
+                <div class="circular-radio">
+                    <input type="radio" onclick="getDate(this)" id="date-{{ forloop.counter }}" name="selected_date"
+                           data-date="{{ date }}"/>
+                    <label for="date-{{ forloop.counter }}">{{ date }}</label>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-9">
+                <div id="timeSelection" class="d-none">
+                    <!-- Add your time selection options here -->
+                    <h5 class="text-primary text-center">Choose Appointment Time</h5>
+                    <hr/>
+                    {% if schedule_time %}
+                    <div class="row">
+                        {% for time in schedule_time %}
+                        <div class="circular-radio col-4">
+                            <input class="time-class" onclick="getTime(this)" type="radio"
+                                   id="time-{{ forloop.counter }}"
+                                   name="selected_time" data-time="{{ time }}"/>
+                            <label for="time-{{ forloop.counter }}">{{ time }}</label>
+                        </div>
+                        {% if forloop.counter|divisibleby:3 %}
+                    </div>
+                    <div class="row">
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-warning">
+                        <h4 class="alert-heading">No Time Slots Found</h4>
+                        <p>There are no time slots available at the moment. Please check back later.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <form action="{% url 'store_patient_appointment' %}" method="POST">
+                {% csrf_token %}
+                <div>
+                    <input type="hidden" id="selectedDateID" name="appointment_date"/>
+                    <input type="hidden" id="selectedTimeID" name="appointment_time"/>
+                </div>
+                <hr>
+                <div class="text-center pt-4">
+                    <button class="btn btn-info text-white btn-lg">Next</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function getDate(dom) {
+      let selectedDate = $(dom).attr('data-date')
+      $('#selectedDateID').val(selectedDate)
+      console.log($(dom).attr('data-date'))
+    }
+
+    function getTime(dom) {
+      let selectedTime = $(dom).attr('data-time')
+      $('#selectedTimeID').val(selectedTime)
+      console.log($(dom).attr('data-time'))
+    }
+
+    $(document).ready(function () {
+      let selectedDate = null
+      let selectedTime = null
+
+      // Add a click event handler for radio buttons with the name "selected_date"
+      $('input[name="selected_date"]').on('click', function () {
+        // Check if the radio button is checked
+        if ($(this).is(':checked')) {
+          // Get the selected date from the data attribute
+          selectedDate = $(this).data('date')
+          $('#timeSelection').removeClass('d-none')
+          // Clear the form fields when changing the date
+
+          $('.time-class').each(function () {
+            this.checked = false
+          })
+        } else {
+          // Hide the time selection div and clear the right-side div
+          $('#timeSelection').addClass('d-none')
+          selectedDate = null
+          selectedTime = null
+        }
+        checkFormVisibility()
+      })
+
+      // Add a click event handler for radio buttons with the name "selected_time"
+      $('input[name="selected_time"]').on('click', function () {
+        // Check if a date has been selected
+        if (selectedDate) {
+          // Get the selected time from the data attribute
+          selectedTime = $(this).data('time')
+        }
+      })
+    })
+</script>
+{% endblock %}

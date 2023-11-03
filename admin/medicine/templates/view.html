@@ -1,0 +1,34 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Medicine Details</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3"><strong>Brand Name:</strong></div>
+                <div class="col-md-9">{{ medicine_all_data.brand_name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Generic Name :</strong></div>
+                <div class="col-md-9">{{ medicine_all_data.generic_name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Medicine Strength :</strong></div>
+                <div class="col-md-9">{{ medicine_all_data.strength }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Medicine Type :</strong></div>
+                <div class="col-md-9">{{ medicine_all_data.medicine_type }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><strong>Description :</strong></div>
+                <div class="col-md-9">{{ medicine_all_data.description }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

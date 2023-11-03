@@ -1,0 +1,222 @@
+{% extends 'landing_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    #doctors {background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;}
+    /* Style for the circular radio buttons */
+    .circular-radio {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .circular-radio input[type='radio'] {
+      width: 15px;
+      height: 15px;
+      margin-right: 10px;
+      transform: scale(1.5);
+      background-color: blue;
+      border: 2px solid blue;
+      border-radius: 50%;
+    }
+
+    /* Style for the text */
+    .circular-radio label {
+      font-size: 18px;
+    }
+
+    /* Style for the right-side div (initially hidden) */
+    .right-side-div {
+      float: right;
+      width: 50%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- ======= Doctors Section ======= -->
+<section id="doctors" class="doctors">
+    <div class="container pt-4">
+        {% for doctor_data in doctor_all_data %}
+        <div class="text-center text-primary">
+            <h4>Doctor Name : {{ doctor_data.full_name }}</h4>
+            <p>Department Name : {{ doctor_data.department }}</p>
+        </div>
+        {% endfor %}
+        <hr/>
+        <div class="row">
+            <div class="col-3">
+                <h5 class="text-primary">Choose Appointment Date</h5>
+                <hr/>
+                {% for date in date_list %}
+                <div class="circular-radio">
+                    <input type="radio" onclick="getDate(this)" id="date-{{ forloop.counter }}" name="selected_date"
+                           data-date="{{ date }}"/>
+                    <label for="date-{{ forloop.counter }}">{{ date }}</label>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-3">
+                <div id="timeSelection" class="d-none">
+                    <!-- Add your time selection options here -->
+                    <h5 class="text-primary">Choose Appointment Time</h5>
+                    <hr/>
+                    {% for time in schedule_time %}
+                    <div class="circular-radio">
+                        <input class="time-class" onclick="getTime(this)" type="radio"
+                               id="time-{{ forloop.counter }}" name="selected_time" data-time="{{ time }}"/>
+                        <label for="time-{{ forloop.counter }}">{{ time }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-6">
+                <form action="{% url 'store_patient_appointment' %}" method="POST">
+                    {% csrf_token %}
+                    <h5 id="dateID" class="text-center"></h5>
+                    <h5 id="infoID" class="text-center"></h5>
+                    <hr/>
+                    <div class="right-side-div w-100 d-none">
+                        <input type="hidden" id="selectedDateID" name="appointment_date"/>
+                        <input type="hidden" id="selectedTimeID" name="appointment_time"/>
+                        <div class="registrationNo" id="registrationNo">
+                            <div class="d-flex justify-content-between">
+                                <input type="text" class="form-control m-2" name="registration_no"
+                                       placeholder="Registration No"/>
+                                <button class="btn btn-success btn-sm m-2">Submit</button>
+                            </div>
+                            <div class="p-2">
+                                <label>If you don't have Registration ID</label>
+                                <a href="#" id="showRegisterDivLink">Click Here</a>
+                            </div>
+                        </div>
+                        <div class="registrationForm d-none" id="registrationForm">
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" name="full_name" id="fullNameId"
+                                       placeholder="Full Name"/>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="email" class="form-control" name="email" id="emailId" placeholder="Email"/>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" name="user_name" id="usernameID"
+                                       placeholder="Username"/>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="password" class="form-control" name="password" id="passwordId"
+                                       placeholder="Password"/>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="password" class="form-control" name="confirm_password"
+                                       id="confirmPasswordId" placeholder="Confirm Password"/>
+                            </div>
+                            <div class="text-right mb-3">
+                                <button type="submit" class="btn btn-success">Register</button>
+                            </div>
+                            <div class="m-2">
+                                <label>If you have Registration ID</label>
+                                <a href="#" id="returnToRegistrationNo">Click Here</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function getDate(dom) {
+      let selectedDate = $(dom).attr('data-date')
+      $('#selectedDateID').val(selectedDate)
+      console.log($(dom).attr('data-date'))
+    }
+
+    function getTime(dom) {
+      let selectedTime = $(dom).attr('data-time')
+      $('#selectedTimeID').val(selectedTime)
+      console.log($(dom).attr('data-time'))
+    }
+
+    $(document).ready(function () {
+      let selectedDate = null
+      let selectedTime = null
+      let registrationFrom = null
+      let registrationNo = null
+
+      // Add a click event handler for radio buttons with the name "selected_date"
+      $('input[name="selected_date"]').on('click', function () {
+        // Check if the radio button is checked
+        if ($(this).is(':checked')) {
+          // Get the selected date from the data attribute
+          selectedDate = $(this).data('date')
+          $('#timeSelection').removeClass('d-none')
+          // Clear the form fields when changing the date
+
+          $('.time-class').each(function () {
+            this.checked = false
+          })
+        } else {
+          // Hide the time selection div and clear the right-side div
+          $('#timeSelection').addClass('d-none')
+          selectedDate = null
+          selectedTime = null
+          $('.right-side-div').html('')
+        }
+        checkFormVisibility()
+      })
+
+      // Add a click event handler for radio buttons with the name "selected_time"
+      $('input[name="selected_time"]').on('click', function () {
+        // Check if a date has been selected
+        if (selectedDate) {
+          // Get the selected time from the data attribute
+          selectedTime = $(this).data('time')
+          checkFormVisibility()
+        }
+      })
+
+      // Add a click event handler for the "Click Here" link
+      $('#showRegisterDivLink').on('click', function (e) {
+        e.preventDefault()
+        toggleRegistrationFormsVisibility()
+      })
+
+      // Add a click event handler for the "Return to Registration No" link
+      $('#returnToRegistrationNo').on('click', function (e) {
+        e.preventDefault()
+        toggleRegistrationFormsVisibility();
+      })
+
+      function toggleRegistrationFormsVisibility() {
+        // Toggle the visibility of registrationNo and registrationForm
+        $('#registrationNo').toggleClass('d-none');
+        $('#registrationForm').toggleClass('d-none');
+      }
+
+      function checkFormVisibility() {
+        // Display the form if both date and time are selected
+        let dateTime = `Date : ${selectedDate} Time : ${selectedTime}`
+        let patientInfo = `Patient Details`
+        $('#dateID').text(dateTime)
+        $('#infoID').text(patientInfo)
+
+        if (selectedDate && selectedTime) {
+          // Set the values of the hidden input fields
+          $('#selected_date').val(selectedDate)
+          $('#selected_time').val(selectedTime)
+          $('.right-side-div').removeClass('d-none')
+        }
+        $('.time-class').each(function (dom){
+            $(dom).checked = false;
+        });
+      }
+    })
+</script>
+{% endblock %}
