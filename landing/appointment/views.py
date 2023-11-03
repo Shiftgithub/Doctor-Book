@@ -105,6 +105,7 @@ def generate_schedule_time(request, doctor_id):
                 print(f"Doctor ID: {doctor_id}, Date: {date}, Time: {time}")
             else:
                 print('Error: Date mismatch')
+
             appointment_times = [at for at in appointment_times if at != time]
             print(appointment_times)
         else:
