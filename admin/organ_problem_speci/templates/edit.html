@@ -8,10 +8,13 @@
             <h1 class="card-title">Edit Organ Problem Specification Details</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'edit_organ_problem_specification' organ_problem_specification_data.id %}" method="POST">
+            <form id="PostForm"
+                  action="{% url 'edit_organ_problem_specification' organ_problem_specification_data.id %}"
+                  method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="specialtySelect" class="col-md-2 col-form-label">Organ Name</label>
+                    <label for="specialtySelect" class="col-md-2 col-form-label">Organ Name : <span
+                            class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <select class="form-control select2" id="specialtySelect" name="organ">
                             <option selected>Select Body Part Name</option>
@@ -28,18 +31,21 @@
                 <hr>
                 <!-- Add form fields here -->
                 <div class="row mb-3">
-                    <label for="problemID" class="col-md-2 col-form-label">Problem</label>
+                    <label for="problemID" class="col-md-2 col-form-label">Problem : <span
+                            class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <input type="text" value="{{ organ_problem_specification_data.problem}}" class="form-control" id="problemID"
+                        <input type="text" value="{{ organ_problem_specification_data.problem}}" class="form-control"
+                               id="problemID"
                                name="problem"/>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="problemSpecificationID" class="col-md-2 col-form-label">Problem Speci.</label>
+                    <label for="problemSpecificationID" class="col-md-2 col-form-label">Problem Speci : <span
+                            class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <textarea name="problem_specification" id="problemSpecificationID" type="text" class="form-control"
-                                  cols="30"
-                                  rows="10">{{ organ_problem_specification_data.problem_specification }}</textarea>
+                        <textarea name="problem_specification" id="problemSpecificationID" class="form-control"
+                                  cols="30" rows="10">{{ organ_problem_specification_data.problem_specification }}
+                        </textarea>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-warning float-right">Update</button>

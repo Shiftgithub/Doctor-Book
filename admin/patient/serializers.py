@@ -3,6 +3,8 @@ from rest_framework import serializers
 from admin.personal_data.serializers import *
 from admin.authentication.user.serializers import ImageSerializer
 
+from landing.appointment.models import GetAppointment
+
 
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,0 +1,57 @@
+{% extends 'landing_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    #doctors {background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;}
+    /* Style for the circular radio buttons */
+    .circular-radio {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .circular-radio input[type='radio'] {
+      width: 15px;
+      height: 15px;
+      margin-right: 10px;
+      transform: scale(1.5);
+      background-color: blue;
+      border: 2px solid blue;
+      border-radius: 50%;
+    }
+
+    /* Style for the text */
+    .circular-radio label {
+      font-size: 18px;
+    }
+
+    /* Style for the right-side div (initially hidden) */
+    .right-side-div {
+      float: right;
+      width: 50%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- ======= Doctors Section ======= -->
+<section id="doctors" class="doctors">
+    <div class="container pt-4">
+        <div class="text-center">
+            <br><br><br>
+            <h4><b>Thank you Applying For Appointment. We will provide response very soon via email.</b></h4>
+            <br><br><br><br>
+            <a href="/" class="btn btn-info">Go to home</a>
+            <br><br><br><br><br><br>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+

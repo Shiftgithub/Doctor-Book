@@ -17,7 +17,8 @@
                 </div>
                 {% else %}
                 <div class="row mb-3">
-                    <label for="bodyPartID" class="col-md-2 col-form-label">Body Part Name</label>
+                    <label for="bodyPartID" class="col-md-2 col-form-label">Body Part Name : <span
+                            class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <select class="form-control select2" id="bodyPartID">
                             <option value="" selected>Select Body Part Name</option>
@@ -29,7 +30,8 @@
                 </div>
                 {% endif %}
                 <div class="row mb-3">
-                    <label for="organID" class="col-md-2 col-form-label">Organ Name</label>
+                    <label for="organID" class="col-md-2 col-form-label">Organ Name : <span
+                            class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <select class="form-control select2" id="organID" name="organ">
                             <option selected>Select Organ Name</option>
@@ -51,7 +53,8 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-md-2 col-form-label font-weight-bold">Problem:</label>
+                            <label class="col-md-2 col-form-label font-weight-bold">Problem : <span
+                            class="text-danger">*</span></label>
                             <div class="col-md-10">
                                 <input type="text" class="form-control" minlength="3" maxlength="255" size="255"
                                        name="problems[]"/>
@@ -59,11 +62,11 @@
                         </div>
                         <!-- Description -->
                         <div class="row mb-3">
-                            <label class="col-md-2 col-form-label font-weight-bold">P. Specification
-                                :</label>
+                            <label class="col-md-2 col-form-label font-weight-bold">Problem Speci : <span
+                            class="text-danger">*</span></label>
                             <div class="col-md-10">
                                     <textarea class="form-control" cols="30" rows="2" minlength="3" maxlength="1000"
-                                              name="problem_specifications[]" size="1000">{{ data.description|default:"N/A" }}</textarea>
+                                              name="problem_specifications[]">{{ data.description|default:"N/A" }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -96,7 +99,7 @@
         }
         else{
             $.ajax({
-                url: "/adminpanel/ajax/organ/" + body_part_id,
+                url: "/ajax/organ/" + body_part_id,
                 type: "GET",
                 success: function (response) {
                     let options = '<option selected>Select Organ Name</option>';

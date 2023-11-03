@@ -11,7 +11,7 @@
             <form id="PostForm" action="{% url 'edit_faq' faq_data.id %}" method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="questionID" class="col-md-2 col-form-label">Question</label>
+                    <label for="questionID" class="col-md-2 col-form-label">Question : <span class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <input type="text" value="{{ faq_data.question }}" class="form-control" id="questionID"
                                name="question"/>
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="answerID" class="col-md-2 col-form-label">Answer</label>
+                    <label for="answerID" class="col-md-2 col-form-label">Answer : <span class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <textarea name="answer" id="answerID" class="form-control" cols="30" rows="10">{{ faq_data.answer }}</textarea>
                         <div id="answerError" class="error-message"></div><!-- Error message container -->
@@ -40,7 +40,6 @@
 </style>
 {% endblock %}
 {% block scripts %}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
     $("#PostForm").submit(function(event) {

@@ -12,7 +12,7 @@
                   method="POST">
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="departmentID" class="col-md-3 col-form-label">Department Name</label>
+                    <label for="departmentID" class="col-md-3 col-form-label">Department Name : <span class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <select class="form-control select2" id="departmentID" name="department">
                             <option selected>Select Department Name</option>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="problemSpecificationID" class="col-md-3 col-form-label">Problem</label>
+                    <label for="problemSpecificationID" class="col-md-3 col-form-label">Problem : <span class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <select class="form-control select2" id="problemSpecificationID"
                                 name="organ_problem_specification">
@@ -45,7 +45,7 @@
                 <hr>
                 <!-- Add form fields here -->
                 <div class="row mb-3">
-                    <label for="descriptionID" class="col-md-3 col-form-label">Description</label>
+                    <label for="descriptionID" class="col-md-3 col-form-label">Description : </label>
                     <div class="col-md-9">
                         <textarea name="description" id="descriptionID" class="form-control" cols="30" rows="10">{{ department_specification_data.description }}</textarea>
                     </div>

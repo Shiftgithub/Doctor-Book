@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 from admin.bodypart.views import get_all_bodypart_list
 from landing.prediction.views import prediction
 
+from landing.appointment.views import generate_date, generate_schedule_time
+
 
 def patient_form(request):
     return render(request, 'patient/templates/form.html')
@@ -21,6 +23,13 @@ def store_patient(request):
     else:
         messages.add_message(request, messages.ERROR, 'Error in storing Patient data')
         return redirect('add_patient_form')
+
+
+def view_patient(request, patient_id):
+    response_doctor_data = patient_data(request, patient_id)
+    patient_all_data = response_doctor_data.data
+    data = {'patient_all_data': patient_all_data, 'patient_id': patient_id}
+    return render(request, 'patient/templates/view.html', data)
 
 
 def edit_patient_form(request, patient_id):
@@ -91,3 +100,13 @@ def doctor_profile(request, doctor_id):
     doctor_all_data = response_doctor.data
     return render(request, 'patient/templates/doctor_profile.html',
                   {'doctor_all_data': doctor_all_data})
+
+
+def appointment(request, doctor_id):
+    days = generate_date(request, doctor_id)
+    schedule_time = generate_schedule_time(request, doctor_id)
+    data = {
+        'date_list': days,
+        'schedule_time': schedule_time,
+    }
+    return render(request, 'patient/templates/appointment.html', data)

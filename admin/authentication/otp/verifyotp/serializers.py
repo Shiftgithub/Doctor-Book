@@ -1,20 +1,20 @@
-from .models import VarifyOtp
+from .models import VerifyOtp
 from rest_framework import serializers
 
 
-class VarifyOtpSerializer(serializers.ModelSerializer):
+class VerifyOtpSerializer(serializers.ModelSerializer):
     class Meta:
-        model = VarifyOtp
+        model = VerifyOtp
         fields = ['otp']
 
 
-class VarifyOtpDataSerializer(serializers.ModelSerializer):
+class VerifyOtpDataSerializer(serializers.ModelSerializer):
     class Meta:
-        model = VarifyOtp
+        model = VerifyOtp
         fields = ['otp', 'user_id']
 
 
-class VarifyOtpAllSerializer(serializers.ModelSerializer):
+class VerifyOtpAllSerializer(serializers.ModelSerializer):
     class Meta:
-        model = VarifyOtp
+        model = VerifyOtp
         fields = ['otp', 'is_verified']

@@ -20,7 +20,7 @@
                     <label class="col-md-2 col-form-label" for="doctorNameID">Doctor Name : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="doctorNameID" name="doctor_profile">
+                        <select class="form-control select2" id="doctorNameID" name="doctor_profile" required>
                             <option selected>Select Doctor Name</option>
                             {% for item in doctor_data %}
                             <option value="{{ item.id }}">{{ item.id }} . {{ item.full_name }}</option>
@@ -48,20 +48,20 @@
                                 Name: <span class="text-danger">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" id="certificateDegreeID"
-                                       name="certificate_degrees[]" type="text"/>
+                                       name="certificate_degrees[]" type="text" required />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label" for="institutionID">Institution : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" id="institutionID" name="institutions[]" type="text"/>
+                                <input class="form-control" id="institutionID" name="institutions[]" type="text" required />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label" for="boardID">Board Name : <span class="text-danger">*</span></label>
                             <div class="col-md-10">
-                                <select class="form-control select2" id="boardID" name="boards[]">
+                                <select class="form-control select2" id="boardID" name="boards[]" required>
                                     <option selected>Select Board Name</option>
                                     {% for item in board_data %}
                                     <option value="{{ item.id }}">{{ item.name }}</option>
@@ -73,14 +73,14 @@
                             <label class="col-md-2 col-form-label" for="resultID">Result :<span
                                     class="text-danger">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" id="resultID" name="results[]" type="number"/>
+                                <input class="form-control" id="resultID" name="results[]" type="number" required />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label" for="passingYearID">Passing Year : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" id="passingYearID" name="passing_years[]" type="date"/>
+                                <input class="form-control" id="passingYearID" name="passing_years[]" type="date" required />
                             </div>
                         </div>
                     </div>
@@ -113,13 +113,13 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
                                 <input class="form-control" id="startTimeID" name="start_time[]"
-                                       type="time"/>
+                                       type="time" required />
                             </div>
                             <label class="col-md-2 col-form-label" for="endTimeID">End Time :<span
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
                                 <input class="form-control" id="endTimeID" name="end_time[]"
-                                       type="time"/>
+                                       type="time" required />
                             </div>
                         </div>
                     </div>
@@ -145,7 +145,7 @@
                             <label class="col-md-2 col-form-label" for="offDayID">Off Day : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-10">
-                                <select class="form-control select2" id="offDayID" name="off_day[]">
+                                <select class="form-control select2" id="offDayID" name="off_day[]" required>
                                     <option selected>Select Off Day</option>
                                     {% for item in day_data %}
                                     <option value="{{ item.id }}">{{ item.id }} . {{ item.name }}</option>
@@ -167,12 +167,12 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <input class="form-control" id="acceptingNewPatientsID" name="per_patient_time"
-                               type="number"/>
+                               type="number" required />
                     </div>
                     <label class="col-md-2 col-form-label" for="consultationFeeID">Consultation Fee :<span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <input class="form-control" id="consultationFeeID" name="consultation_fee" type="number"/>
+                        <input class="form-control" id="consultationFeeID" name="consultation_fee" type="number" required />
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -194,21 +194,21 @@
                             <label class="col-md-2 col-form-label" for="awardsAndHonorsID">Awards :</label>
                             <div class="col-md-10">
                                 <input class="form-control" id="awardsAndHonorsID" name="awards[]" type="text"
-                                       placeholder="If you have"/>
+                                       placeholder="If you have" required />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label" for="honorID">Honors :</label>
                             <div class="col-md-10">
                                 <input class="form-control" id="honorID" name="honors[]" type="text"
-                                       placeholder="If you have"/>
+                                       placeholder="If you have" required />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label" for="publicationsID">Publications :</label>
                             <div class="col-md-10">
                                 <input class="form-control" id="publicationsID" name="publications[]" type="text"
-                                       placeholder="If you have"/>
+                                       placeholder="If you have" required />
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -216,7 +216,7 @@
                                 :</label>
                             <div class="col-md-10">
                                 <input class="form-control" id="researchInterestsID" name="research_interests[]"
-                                       type="text" placeholder="If you have"/>
+                                       type="text" placeholder="If you have" required />
                             </div>
                         </div>
                     </div>
@@ -235,35 +235,31 @@
                 </div>
                 <hr>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="websiteID">Website : <span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="websiteID">Website : </label>
                     <div class="col-md-10">
                         <input class="form-control" id="websiteID" name="website" placeholder="https://www.website.com"
-                               type="url"/>
+                               type="url" required />
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="linkedinID">Linkedin : <span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="linkedinID">Linkedin : </label>
                     <div class="col-md-10">
                         <input class="form-control" id="linkedinID" name="linkedin"
-                               placeholder="https://www.linkedin.com" type="url"/>
+                               placeholder="https://www.linkedin.com" type="url" required />
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="facebookID">Facebook : <span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="facebookID">Facebook : </label>
                     <div class="col-md-10">
                         <input class="form-control" id="facebookID" name="facebook"
-                               placeholder="https://www.facebook.com" type="url"/>
+                               placeholder="https://www.facebook.com" type="url" required />
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="instagramID">Instagram : <span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="instagramID">Instagram : </label>
                     <div class="col-md-10">
                         <input class="form-control" id="instagramID" name="instagram"
-                               placeholder="https://www.instagram.com" type="url"/>
+                               placeholder="https://www.instagram.com" type="url" required />
                     </div>
                 </div>
             </div>

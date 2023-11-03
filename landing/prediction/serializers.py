@@ -1,9 +1,12 @@
 from rest_framework import serializers
 from admin.department_speci.models import *
-from admin.doctor.models import Doctor_Profile
+from admin.doctor.models import Doctor_Profile, ScheduleTime
 from admin.authentication.user.serializers import *
 from admin.bodypart.models import *
+from admin.doctor.serializers import AppointmentScheduleSerializer
 from admin.organ.models import *
+from admin.doctor.models import OffDay
+from admin.personal_data.serializers import *
 
 
 class PredictionSerializer(serializers.ModelSerializer):

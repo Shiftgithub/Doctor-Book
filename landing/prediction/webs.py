@@ -32,15 +32,3 @@ def doctor_profile(request, doctor_id):
     doctor_all_data = response_doctor.data
     return render(request, 'prediction/templates/doctor_profile.html',
                   {'doctor_all_data': doctor_all_data})
-
-
-def appointment_schedule_form(request, doctor_id):
-    response_doctor = doctor_data(request, doctor_id)
-    doctor_all_data = response_doctor.data
-    days = generate_date(request)
-
-    data = {
-        'date_list': days,
-        'doctor_all_data': doctor_all_data,
-    }
-    return render(request, 'prediction/templates/appointment_schedule.html', data)

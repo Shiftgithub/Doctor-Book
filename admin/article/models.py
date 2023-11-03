@@ -1,6 +1,7 @@
 import os
 import datetime
 from django.db import models
+from admin.basemodel.models import BaseModel
 from admin.authentication.user.models import User
 
 
@@ -18,7 +19,7 @@ def article_filepath(instance, filename):
     return os.path.join('static', 'uploads', 'article_images', filename)
 
 
-class Article(models.Model):
+class Article(BaseModel):
     heading = models.CharField(max_length=1000)
     tag = models.CharField(max_length=1000)
     description = models.CharField(max_length=10000)
@@ -26,10 +27,6 @@ class Article(models.Model):
 
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_article', null=True)
     modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_article', null=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
         return self.heading

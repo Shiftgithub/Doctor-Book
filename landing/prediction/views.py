@@ -1,12 +1,13 @@
-from datetime import datetime, timedelta
 from admin.bodypart.models import BodyPart
+from admin.bodypart.serializers import BodyPartSerializer
 from rest_framework.response import Response
-from landing.prediction.serializers import *
 from rest_framework.decorators import api_view
 from admin.doctor.models import Doctor_Profile
 from admin.organ.serializers import OrganBodyPartSerializer
 from admin.department_speci.models import DepartmentSpecification
 from admin.organ_problem_speci.serializers import OrganProblemSerializer
+
+from .serializers import *
 
 
 @api_view(['POST'])
@@ -30,7 +31,7 @@ def prediction(request):
                 doctor_serializer = PredictionDoctorSerializer(doctor_data, many=True)
 
                 bodypart = BodyPart.objects.get(id=bodypart_id)
-                bodypart_serializer = BodyPartSerializerView(bodypart, many=False)
+                bodypart_serializer = BodyPartSerializer(bodypart, many=False)
 
                 organ = Organ.objects.get(id=organ_id)
                 organ_serializer = OrganBodyPartSerializer(organ, many=False)
@@ -39,7 +40,7 @@ def prediction(request):
                 for problem_spec_id in problem_specs:
                     try:
                         problem_spec = OrgansProblemSpecification.objects.get(id=problem_spec_id)
-                        problem_specs_data.append(OrganProblemStoreSerializer(problem_spec).data)
+                        problem_specs_data.append(OrganProblemSerializer(problem_spec).data)
                     except OrgansProblemSpecification.DoesNotExist:
                         pass
 
@@ -55,20 +56,3 @@ def prediction(request):
                 return Response({'status': 403, 'message': 'DepartmentSpecifications have different departments'})
         else:
             return Response({'status': 403, 'message': 'DepartmentSpecification does not exist'})
-
-
-def generate_date(request):
-    # Get today's date
-    today = datetime.now().date()
-
-    # Create a list to store the dates as strings in 'DD-MM-YYYY' format
-    date_list = []
-
-    # Generate the next 8 days
-    for i in range(8):
-        date = today + timedelta(days=i)
-        formatted_date = date.strftime('%d-%m-%Y')
-        date_list.append(formatted_date)
-    return date_list
-
-

@@ -10,10 +10,10 @@ from admin.authentication.user.models import User
 
 @api_view(['POST'])
 def varify_otp(request):
-    otp_serializer = VarifyOtpSerializer(data=request.data)
+    otp_serializer = VerifyOtpSerializer(data=request.data)
     if otp_serializer.is_valid():
         otp = otp_serializer.validated_data['otp']
-        otp_check = get_object_or_404(VarifyOtp, otp=otp)
+        otp_check = get_object_or_404(VerifyOtp, otp=otp)
         otp_check.otp = 0
         otp_check.is_verified = True
         otp_check.updated_at = datetime.now()
