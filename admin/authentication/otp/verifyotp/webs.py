@@ -8,7 +8,7 @@ def otp_form(request):
 
 
 def verify_otp_method(request):
-    operation_response = varify_otp(request)
+    operation_response = verify_otp(request)
     if operation_response.data.get('status') == 200:
         user_id = operation_response.data.get('id')
         request.session['temp_verify_id'] = user_id
