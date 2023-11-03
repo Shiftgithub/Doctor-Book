@@ -14,8 +14,5 @@ class GetAppointment(BaseModel):
     appointment_time = models.TextField(max_length=255, null=True)
     is_confirmed = models.BooleanField(default=False, null=True)
 
-    def __str__(self):
-        return f'Appointment with {self.doctor} on {self.appointment_datetime}'
-
     class Meta:
         db_table = 'patient_appointment'

@@ -26,7 +26,7 @@ def store_patient_data(request):
             user_serializer.save(hash=hashed_password, role='patient', status='inactive')
 
             user_profile_instance = user_serializer.instance
-            registration_no = generate_unique(11)
+            registration_no = generate_unique(18)
             patient_serializer.save(user_id=user_profile_instance, registration_no=registration_no)
 
             image_serializer = Images(user_id=user_profile_instance)

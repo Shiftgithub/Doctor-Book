@@ -178,6 +178,9 @@ def doctor_data(request, doctor_id):
     return Response(serializer.data)
 
 
+from rest_framework import status
+
+
 @api_view(['PUT', 'POST'])
 def edit_doctor_data(request, doctor_id):
     try:
@@ -197,6 +200,7 @@ def edit_doctor_data(request, doctor_id):
                                                                       data=request.data, partial=True)
             social_media_serializer = SocialMediaSerializer(doctor.social_media.first(), data=request.data,
                                                             partial=True)
+
             if (
                     doctor_serializer.is_valid()
                     and image_serializer.is_valid()
@@ -217,13 +221,33 @@ def edit_doctor_data(request, doctor_id):
                 present_address = present_address_serializer.save()
                 permanent_address = permanent_address_serializer.save()
                 social = social_media_serializer.save(doctor_profile=doctor)
+
+                off_days = request.data.getlist('off_day[]')
+                off_day_objs = []
+
+                for day_id in off_days:
+                    day_instance = Day.objects.get(id=day_id)
+                    off_day_qs = OffDay.objects.filter(doctor_profile=doctor, off_day=day_instance).first()
+
+                    if off_day_qs:
+                        # If the off-day for this day exists, update it
+                        off_day_serializer = OffDaySerializer(off_day_qs, data={'off_day': day_id}, partial=True)
+                        if off_day_serializer.is_valid():
+                            off_day = off_day_serializer.save()
+                            off_day_objs.append(off_day)
+                        else:
+                            return Response({'status': 400, 'message': 'Validation error for off-day data'})
+                    else:
+                        # Handle the case when the specified day does not exist
+                        return Response({'status': 404, 'message': f'Day with ID {day_id} does not exist'})
+
                 return Response({'status': 200})
 
             else:
                 return Response({'status': 400, 'message': 'Validation error for doctor data'})
 
     except Exception as e:
-        return Response({'status': 500, 'message': str(e)})
+        return Response({'status': 500, 'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @api_view(['PUT', 'GET'])

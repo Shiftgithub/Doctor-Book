@@ -1,5 +1,4 @@
 import hashlib
-
 from rest_framework.response import Response
 from .serializers import *
 from rest_framework.decorators import api_view
@@ -9,25 +8,19 @@ from datetime import datetime, timedelta
 from admin.patient.models import Patient_Profile
 from django.db import transaction
 from admin.doctor.models import Doctor_Profile
-
 from admin.authentication.user.serializers import UserSerializer
 from admin.patient.serializers import PatientSerializer
-
 from admin.authentication.otp.function.send_email import generate_unique
 from admin.authentication.user.models import Images
-
+from rest_framework import status
 from admin.authentication.otp.function.send_email import generate_token
 from admin.authentication.otp.verifyotp.models import VerifyOtp
-
-from admin.patient.views import store_patient_data
 
 
 def generate_date(request, doctor_id):
     # Get today's date
     today = datetime.now().date()
-
     # Create a list to store the dates and days
-
     date_list = []
     off_day_list = []
 
@@ -54,12 +47,71 @@ def generate_date(request, doctor_id):
     return date_list
 
 
-def generate_schedule_time(request, doctor_id):
+@api_view(['GET'])
+def fixed_appointment_data(request):
+    doctor_id = request.session.get('temp_doctor_id')
+    # Getting GetAppointment data from GetAppointment model ...
+    appointment_data = GetAppointment.objects.filter(doctor_id=doctor_id)
+    # Serializing appointment data ...
+    serializer = PatientAppointmentSerializer(appointment_data, many=True)
+
+    doctor_ids = []
+    appointment_dates = []
     appointment_times = []
 
+    for item in serializer.data:
+        # Process each item in the data
+        doctor = item['doctor']
+        appointment_date = item['appointment_date']
+        appointment_time = item['appointment_time']
+
+        doctor_ids.append(doctor)
+        appointment_dates.append(appointment_date)
+        appointment_times.append(appointment_time)
+
+    data = {
+        'doctor_ids': doctor_ids,
+        'appointment_dates': appointment_dates,
+        'appointment_times': appointment_times
+    }
+    print(data)
+
+    return Response(data)
+
+
+def generate_schedule_time(request, doctor_id):
     # Get the schedule times and data
     get_working_schedule_response = get_working_schedule(request, doctor_id)
 
+    # Call the fixed_appointment_data function and get its response
+    fixed_appointment_response = fixed_appointment_data(request)
+    # Extract doctor_ids from the response data
+    doctor_ids = fixed_appointment_response.data.get('doctor_ids', [])
+    dates = fixed_appointment_response.data.get('appointment_dates', [])
+    times = fixed_appointment_response.data.get('appointment_times', [])
+
+    date_response = generate_date(request, doctor_id)
+    appointment_times = fun(request, get_working_schedule_response)
+
+    for doctor, date, response_date, time, appointment_time in zip(doctor_ids, dates, date_response, times,
+                                                                   appointment_times):
+        if doctor == doctor_id:
+            if date_response == date:
+                print(f"Doctor ID: {doctor_id}, Date: {date}, Time: {time}")
+            else:
+                print('Error: Date mismatch')
+        else:
+            print('Error: Doctor mismatch')
+
+    # Create a new list with elements that don't match the 'time'
+    print(appointment_times)
+    # You can do something with the 'response' here if needed.
+
+    return appointment_times
+
+
+def fun(request, get_working_schedule_response):
+    appointment_times = []
     if get_working_schedule_response.status_code == 200:
         schedule_times_data = get_working_schedule_response.data
 
@@ -93,10 +145,13 @@ def generate_schedule_time(request, doctor_id):
             # Calculate and format the appointment times in 12-hour clock with AM/PM
             for _ in range(num_appointments):
                 end_time_patient = current_time + per_patient_time
-                formatted_start_time = (datetime(1900, 1, 1, current_time // 60, current_time % 60)).strftime(
+                formatted_start_time = (
+                    datetime(1900, 1, 1, current_time // 60, current_time % 60)).strftime(
                     "%I:%M %p")
-                formatted_end_time = (datetime(1900, 1, 1, end_time_patient // 60, end_time_patient % 60)).strftime(
+                formatted_end_time = (
+                    datetime(1900, 1, 1, end_time_patient // 60, end_time_patient % 60)).strftime(
                     "%I:%M %p")
+
                 appointment_times.append(f"{formatted_start_time} - {formatted_end_time}")
                 current_time = end_time_patient
 
@@ -208,7 +263,7 @@ def create_patient_account_store_appointment(request):
         with transaction.atomic():
             user_serializer.save(hash=hashed_password, role='patient', status='inactive')
             user_profile_instance = user_serializer.instance
-            registration_no = generate_unique(11)
+            registration_no = generate_unique(18)
             patient = patient_serializer.save(user_id=user_profile_instance, registration_no=registration_no)
 
             image_serializer = Images(user_id=user_profile_instance)
