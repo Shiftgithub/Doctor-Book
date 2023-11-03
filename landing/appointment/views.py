@@ -85,14 +85,19 @@ def generate_schedule_time(request, doctor_id):
 
     # Call the fixed_appointment_data function and get its response
     fixed_appointment_response = fixed_appointment_data(request)
-    # Extract doctor_ids from the response data
+
+    # Extract doctor_ids, dates, and times from the response data
     doctor_ids = fixed_appointment_response.data.get('doctor_ids', [])
     dates = fixed_appointment_response.data.get('appointment_dates', [])
     times = fixed_appointment_response.data.get('appointment_times', [])
 
+    # Call the generate_date function and get its response
     date_response = generate_date(request, doctor_id)
+
+    # Call the fun function to get appointment times based on the schedule
     appointment_times = fun(request, get_working_schedule_response)
 
+    # Iterate over the doctor_ids, dates, response_date, times, and appointment_times
     for doctor, date, response_date, time, appointment_time in zip(doctor_ids, dates, date_response, times,
                                                                    appointment_times):
         if doctor == doctor_id:
@@ -100,11 +105,13 @@ def generate_schedule_time(request, doctor_id):
                 print(f"Doctor ID: {doctor_id}, Date: {date}, Time: {time}")
             else:
                 print('Error: Date mismatch')
+            appointment_times = [at for at in appointment_times if at != time]
+            print(appointment_times)
         else:
             print('Error: Doctor mismatch')
 
     # Create a new list with elements that don't match the 'time'
-    print(appointment_times)
+
     # You can do something with the 'response' here if needed.
 
     return appointment_times
