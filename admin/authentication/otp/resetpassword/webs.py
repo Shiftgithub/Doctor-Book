@@ -69,7 +69,6 @@ def change_email_form(request):
 
 def change_email_method(request):
     user_id = request.session['user_id']
-    print(user_id)
     operation_response = change_email(request, user_id)
     print(operation_response)
     if operation_response.data.get('status') == 200:
