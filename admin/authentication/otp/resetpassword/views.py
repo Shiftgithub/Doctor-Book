@@ -99,3 +99,31 @@ def reset_password(request, email):
             return Response({'status': 400, 'message': 'User does not exist', 'email': email})
     else:
         return Response({'status': 400, 'message': 'Invalid password data', 'email': email})
+
+
+@api_view(['POST'])
+def change_email(request, user_id):
+    change_email_serializer = EmailSerializer(data=request.data)
+    if change_email_serializer.is_valid():
+        email = change_email_serializer.validated_data['email']
+        password = change_email_serializer.validated_data['password']
+        new_email = change_email_serializer.validated_data['new_email']
+        try:
+            user_instance = User.objects.get(email=email, password=password)
+        except User.DoesNotExist:
+            return Response({'status': 404, 'message': 'User does not exist', 'user_id': user_id})
+        # Check if the user instance was found
+        if user_instance:
+            if User.objects.filter(email=new_email).exclude(id=user_instance.id).exists():
+                return Response({'status': 400, 'message': 'This email is already in use', 'user_id': user_id})
+            else:
+                # Update the email by setting the attribute and then calling save
+                user_instance.email = new_email
+                user_instance.save()
+                message = 'Your email has been changed successfully'
+                # send_email(new_email, message)  # Uncomment and implement this function
+                return Response({'status': 200})
+        else:
+            return Response({'status': 400, 'message': 'Invalid request', 'user_id': user_id})
+    else:
+        return Response({'status': 400, 'message': 'Invalid email change data', 'user_id': user_id})

@@ -59,3 +59,26 @@ def reset_password_method(request):
         request.session['temp_verify_email'] = email
         messages.add_message(request, messages.ERROR, 'Incorrect Password')
         return redirect('reset_password_form')
+
+
+def change_email_form(request):
+    user_id = request.session['user_id']
+    print(user_id)
+    return render(request, 'authentication/otp/resetpassword/templates/change_email.html')
+
+
+def change_email_method(request):
+    user_id = request.session['user_id']
+    print(user_id)
+    operation_response = change_email(request, user_id)
+    print(operation_response)
+    if operation_response.data.get('status') == 200:
+        messages.add_message(
+            request, messages.INFO, 'Your email changed successfully'
+        )
+        return redirect('change_email_form')
+    else:
+        # user = operation_response.data.get('user_id')
+        request.session['user_id'] = user_id
+        messages.add_message(request, messages.ERROR, 'Incorrect Password')
+        return redirect('change_email_form')
