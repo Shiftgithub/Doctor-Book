@@ -16,6 +16,11 @@ def verify_otp_method(request):
         request.session['temp_verify_email'] = email
         messages.add_message(request, messages.INFO, 'Verify otp your account successfully')
         return redirect('change_password_form')
+    elif operation_response.data.get('status') == 404:
+        email = operation_response.data.get('email')
+        request.session['temp_verify_email'] = email
+        messages.add_message(request, messages.ERROR, 'OTP are not match!')
+        return redirect('otp_form')
     else:
         email = operation_response.data.get('email')
         request.session['temp_verify_email'] = email

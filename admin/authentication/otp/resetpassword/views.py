@@ -18,8 +18,8 @@ def forget_password(request):
         except User.DoesNotExist:
             return Response({'status': 404})
 
-        varify_otp = VarifyOtp.objects.filter(user=user).first()
-        varify_otp_serializer = VarifyOtpSerializer(
+        varify_otp = VerifyOtp.objects.filter(user=user).first()
+        varify_otp_serializer = VerifyOtpSerializer(
             varify_otp, data={'otp': token_str}, partial=True
         )
 
