@@ -28,6 +28,7 @@ def change_password_form(request):
 
 
 def change_password_method(request):
+    email = request.session['temp_verify_email']
     operation_response = change_password(request)
     if operation_response.data.get('status') == 200:
         messages.add_message(
@@ -39,3 +40,22 @@ def change_password_method(request):
         request.session['temp_verify_email'] = email
         messages.add_message(request, messages.ERROR, 'Error')
         return redirect('forget_password_form')
+
+
+def reset_password_form(request):
+    return render(request, 'authentication/otp/resetpassword/templates/reset_password.html')
+
+
+def reset_password_method(request):
+    email = request.session['user_email']
+    operation_response = reset_password(request, email)
+    if operation_response.data.get('status') == 200:
+        messages.add_message(
+            request, messages.INFO, 'Your account password changed successfully'
+        )
+        return redirect('reset_password_form')
+    else:
+        email = operation_response.data.get('email')
+        request.session['temp_verify_email'] = email
+        messages.add_message(request, messages.ERROR, 'Incorrect Password')
+        return redirect('reset_password_form')

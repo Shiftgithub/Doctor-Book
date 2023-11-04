@@ -45,4 +45,5 @@ def set_authenticated_user(request, user):
     request.session['user_id'] = user.id
     request.session['user_name'] = user.user_name
     request.session['user_role'] = user.role
+    request.session['user_email'] = user.email
     request.session['user_status'] = user.status

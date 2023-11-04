@@ -9,10 +9,22 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-user"></i> {{ request.session.user_name }}
-            </a>
+        <li>
+            <!-- Default dropright button -->
+            <div class="btn-group dropright">
+                <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i> {{ request.session.user_name }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <a href="{% url 'user_details' %}" class="dropdown-item">My Profile</a>
+                    <a href="{% url 'reset_password_form' %}" class="dropdown-item">Change Password</a>
+                    <a class="dropdown-item">Change Theme</a>
+                    <a href="{% url 'logout' %}" class="dropdown-item">
+                        <i class="nav-icon fas fa-sign-out-alt">Logout</i>
+                    </a>
+                </div>
+            </div>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">

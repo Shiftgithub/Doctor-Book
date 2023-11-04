@@ -12,6 +12,18 @@ class UserPasswordSerializer(serializers.ModelSerializer):
         return instance.pk  # Fetch the primary key of the saved object
 
 
+class PasswordSerializer(serializers.ModelSerializer):
+    new_password = serializers.CharField()
+
+    class Meta:
+        model = User
+        fields = ['password', 'new_password']
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        return instance.pk  # Fetch the primary key of the saved object
+
+
 class ForgetPasswordSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
