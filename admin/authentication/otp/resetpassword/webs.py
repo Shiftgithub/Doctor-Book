@@ -77,6 +77,9 @@ def change_email_method(request):
             request, messages.INFO, 'Your email changed successfully'
         )
         return redirect('change_email_form')
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, 'This email is already in use try another.')
+        return redirect('change_email_form')
     else:
         # user = operation_response.data.get('user_id')
         request.session['user_id'] = user_id

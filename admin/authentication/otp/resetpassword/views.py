@@ -115,7 +115,7 @@ def change_email(request, user_id):
         # Check if the user instance was found
         if user_instance:
             if User.objects.filter(email=new_email).exclude(id=user_instance.id).exists():
-                return Response({'status': 400, 'message': 'This email is already in use', 'user_id': user_id})
+                return Response({'status': 403, 'message': 'This email is already in use', 'user_id': user_id})
             else:
                 # Update the email by setting the attribute and then calling save
                 user_instance.email = new_email
@@ -124,6 +124,6 @@ def change_email(request, user_id):
                 # send_email(new_email, message)  # Uncomment and implement this function
                 return Response({'status': 200})
         else:
-            return Response({'status': 400, 'message': 'Invalid request', 'user_id': user_id})
+            return Response({'status': 404, 'message': 'Invalid request', 'user_id': user_id})
     else:
-        return Response({'status': 400, 'message': 'Invalid email change data', 'user_id': user_id})
+        return Response({'status': 502, 'message': 'Invalid email change data', 'user_id': user_id})
