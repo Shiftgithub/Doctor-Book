@@ -88,14 +88,24 @@ def store_doctor_work_details_data(request):
             start_times = request.data.getlist('start_time[]')
             end_times = request.data.getlist('end_time[]')
 
+            off_days = request.data.getlist('off_day[]')
+
+            awards = request.data.getlist('awards[]')
+            honors = request.data.getlist('honors[]')
+            publications = request.data.getlist('publications[]')
+            research_interests = request.data.getlist('research_interests[]')
+
             try:
                 doctor_profile = DoctorProfile.objects.get(id=doctor_profile_id)  # Retrieve the DoctorProfile instance
 
                 education_objs = []  # Create empty lists to store created instances
                 schedule_time_objs = []
+                off_day_objs = []
+                awards_objs = []
 
-                for certificate_degree, institution, board_id, result, passing_year, start_time, end_time in zip(
-                        certificate_degrees, institutions, boards, results, passing_years, start_times, end_times):
+                for certificate_degree, institution, board_id, result, passing_year, start_time, end_time, off_day, award, honor, publication, research_interest in zip(
+                        certificate_degrees, institutions, boards, results, passing_years, start_times, end_times,
+                        off_days, awards, honors, publications, research_interests):
                     board_instance = Board.objects.get(id=board_id)
                     education_obj = Education.objects.create(
                         certificate_degree=certificate_degree,
@@ -111,16 +121,29 @@ def store_doctor_work_details_data(request):
                         appointment_schedule=appointment_schedule_instance,
                         doctor_profile=doctor_profile
                     )
-
+                    day_instance = Day.objects.get(id=off_day)
+                    off_day_obj = OffDay.objects.create(
+                        off_day=day_instance,
+                        doctor_profile=doctor_profile
+                    )
+                    awards_obj = Awards.objects.create(
+                        awards=award,
+                        honors=honor,
+                        publications=publication,
+                        research_interests=research_interest,
+                        doctor_profile=doctor_profile
+                    )
                     education_objs.append(education_obj)  # Append created instances to the lists
                     schedule_time_objs.append(schedule_time_obj)
+                    off_day_objs.append(off_day_obj)
+                    awards_objs.append(awards_obj)
 
                 if all(education_objs) and all(schedule_time_objs):
                     return Response({'status': 200})
                 else:
                     transaction.set_rollback(True)
                     return Response({'status': 404, 'message': 'Data not stored'})
-            except Board.DoesNotExist:
+            except (Board.DoesNotExist, Day.DoesNotExist):
                 transaction.set_rollback(True)
                 return Response({'status': 404, 'message': 'Board not found'})
             except DoctorProfile.DoesNotExist:
