@@ -77,78 +77,84 @@ def store_doctor_work_details_data(request):
     with transaction.atomic():
         if appointment_schedule_serializer.is_valid() and social_media_serializer.is_valid():
             doctor_profile_id = request.data.get('doctor_profile')
-            social_media_instance = social_media_serializer.save(doctor_profile_id=doctor_profile_id)
             appointment_schedule_instance = appointment_schedule_serializer.save(doctor_profile_id=doctor_profile_id)
+            social_media_instance = social_media_serializer.save(doctor_profile_id=doctor_profile_id)
 
-            certificate_degrees = request.data.getlist('certificate_degrees[]')
-            institutions = request.data.getlist('institutions[]')
-            boards = request.data.getlist('boards[]')
-            results = request.data.getlist('results[]')
-            passing_years = request.data.getlist('passing_years[]')
-            start_times = request.data.getlist('start_time[]')
-            end_times = request.data.getlist('end_time[]')
+            if appointment_schedule_instance and social_media_instance:
 
-            off_days = request.data.getlist('off_day[]')
+                awards = request.data.getlist('awards[]')
+                honors = request.data.getlist('honors[]')
+                publications = request.data.getlist('publications[]')
+                research_interests = request.data.getlist('research_interests[]')
 
-            awards = request.data.getlist('awards[]')
-            honors = request.data.getlist('honors[]')
-            publications = request.data.getlist('publications[]')
-            research_interests = request.data.getlist('research_interests[]')
+                certificate_degrees = request.data.getlist('certificate_degrees[]')
+                institutions = request.data.getlist('institutions[]')
+                boards = request.data.getlist('boards[]')
+                results = request.data.getlist('results[]')
+                passing_years = request.data.getlist('passing_years[]')
 
-            try:
-                doctor_profile = DoctorProfile.objects.get(id=doctor_profile_id)  # Retrieve the DoctorProfile instance
+                off_days = request.data.getlist('off_day[]')
 
-                education_objs = []  # Create empty lists to store created instances
-                schedule_time_objs = []
-                off_day_objs = []
-                awards_objs = []
+                start_times = request.data.getlist('start_time[]')
+                end_times = request.data.getlist('end_time[]')
 
-                for certificate_degree, institution, board_id, result, passing_year, start_time, end_time, off_day, award, honor, publication, research_interest in zip(
-                        certificate_degrees, institutions, boards, results, passing_years, start_times, end_times,
-                        off_days, awards, honors, publications, research_interests):
-                    board_instance = Board.objects.get(id=board_id)
-                    education_obj = Education.objects.create(
-                        certificate_degree=certificate_degree,
-                        institution=institution,
-                        result=result,
-                        passing_year=passing_year,
-                        doctor_profile=doctor_profile,
-                        board=board_instance,
-                    )
-                    schedule_time_obj = ScheduleTime.objects.create(
-                        start_time=start_time,
-                        end_time=end_time,
-                        appointment_schedule=appointment_schedule_instance,
-                        doctor_profile=doctor_profile
-                    )
-                    day_instance = Day.objects.get(id=off_day)
-                    off_day_obj = OffDay.objects.create(
-                        off_day=day_instance,
-                        doctor_profile=doctor_profile
-                    )
-                    awards_obj = Awards.objects.create(
-                        awards=award,
-                        honors=honor,
-                        publications=publication,
-                        research_interests=research_interest,
-                        doctor_profile=doctor_profile
-                    )
-                    education_objs.append(education_obj)  # Append created instances to the lists
-                    schedule_time_objs.append(schedule_time_obj)
-                    off_day_objs.append(off_day_obj)
-                    awards_objs.append(awards_obj)
+                try:
+                    doctor_profile = DoctorProfile.objects.get(id=doctor_profile_id)
 
-                if all(education_objs) and all(schedule_time_objs):
-                    return Response({'status': 200})
-                else:
+                    awards_objs = []
+                    education_objs = []
+                    off_day_objs = []
+                    schedule_time_objs = []
+
+                    for certificate_degree, institution, board_id, result, passing_year, start_time, end_time, off_day, award, honor, publication, research_interest in zip(
+                            certificate_degrees, institutions, boards, results, passing_years, start_times, end_times,
+                            off_days, awards, honors, publications, research_interests):
+                        board_instance = Board.objects.get(id=board_id)
+                        awards_obj = Awards.objects.create(
+                            awards=award,
+                            honors=honor,
+                            publications=publication,
+                            research_interests=research_interest,
+                            doctor_profile=doctor_profile
+                        )
+                        education_obj = Education.objects.create(
+                            certificate_degree=certificate_degree,
+                            institution=institution,
+                            result=result,
+                            passing_year=passing_year,
+                            doctor_profile=doctor_profile,
+                            board=board_instance,
+                        )
+                        day_instance = Day.objects.get(id=off_day)
+                        off_day_obj = OffDay.objects.create(
+                            off_day=day_instance,
+                            doctor_profile=doctor_profile
+                        )
+                        schedule_time_obj = ScheduleTime.objects.create(
+                            start_time=start_time,
+                            end_time=end_time,
+                            appointment_schedule=appointment_schedule_instance,
+                            doctor_profile=doctor_profile
+                        )
+                        awards_objs.append(awards_obj)
+                        education_objs.append(education_obj)  # Append created instances to the lists
+                        off_day_objs.append(off_day_obj)
+                        schedule_time_objs.append(schedule_time_obj)
+
+                    if all(awards_objs) and all(education_objs) and all(off_day_objs) and all(schedule_time_objs):
+                        return Response({'status': 200})
+                    else:
+                        transaction.set_rollback(True)
+                        return Response({'status': 404, 'message': 'Data not stored'})
+                except (Board.DoesNotExist, Day.DoesNotExist):
                     transaction.set_rollback(True)
-                    return Response({'status': 404, 'message': 'Data not stored'})
-            except (Board.DoesNotExist, Day.DoesNotExist):
+                    return Response({'status': 404, 'message': 'Board not found'})
+                except DoctorProfile.DoesNotExist:
+                    transaction.set_rollback(True)
+                    return Response({'status': 404, 'message': 'DoctorProfile not found'})
+            else:
                 transaction.set_rollback(True)
-                return Response({'status': 404, 'message': 'Board not found'})
-            except DoctorProfile.DoesNotExist:
-                transaction.set_rollback(True)
-                return Response({'status': 404, 'message': 'DoctorProfile not found'})
+                return Response({'status': 400, 'message': 'Appointment Schedule Or Social Media Data insert Failed'})
         else:
             transaction.set_rollback(True)
             return Response({'status': 400, 'message': 'Bad Request'})
