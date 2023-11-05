@@ -1,8 +1,8 @@
 from .views import *
+from ..personal_data.views import *
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from ..department.views import get_all_departments_list
-from ..personal_data.views import *
 
 
 def doctor_form(request):

@@ -1,9 +1,9 @@
 from .serializers import *
 from django.utils import timezone
 from admin.doctor.models import *
+from admin.department_speci.models import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from admin.department_speci.models import *
 
 
 @api_view(['POST'])
@@ -54,7 +54,7 @@ def softdelete_department_data(request, department_id):
     department = Department.objects.get(id=department_id)
     serializer = DepartmentDeleteSerializer(department, data=request.data)
     department_specification = DepartmentSpecification.objects.filter(department_id=department_id)
-    doctors = Doctor_Profile.objects.filter(department_id=department_id)
+    doctors = DoctorProfile.objects.filter(department_id=department_id)
     if doctors.exists() or department_specification.exists():
         return Response({'status': 404})
     else:

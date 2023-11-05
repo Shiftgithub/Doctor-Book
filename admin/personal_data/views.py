@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 
 @api_view(['GET'])
 def get_all_doctors_name(request):
-    doctors = Doctor_Profile.objects.filter(deleted_at=None)
+    doctors = DoctorProfile.objects.filter(deleted_at=None)
     serialized_data = []
 
     for doctor in doctors:

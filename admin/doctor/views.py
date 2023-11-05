@@ -1,26 +1,24 @@
 import socket
 import hashlib
 from .models import *
+from .serializers import *
 from django.db import transaction
 from django.utils import timezone
 from admin.doctor.serializers import *
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from admin.authentication.otp.function.send_email import send_email
-from admin.authentication.otp.function.send_otp import send_otp
 from rest_framework import status, serializers
 from django.shortcuts import get_object_or_404
-from .serializers import *
-
-from rest_framework.response import Response
-
-from ..authentication.user.serializers import *
+from rest_framework.decorators import api_view
+from admin.authentication.user.serializers import *
+from admin.authentication.otp.function.send_otp import send_otp
+from admin.authentication.otp.function.send_email import send_email
 
 
 @api_view(['POST'])
 def store_doctor_data(request):
     try:
         user_serializer = UserSerializer(data=request.data)
+        doctor_serializer = DoctorSerializer(data=request.data)
         doctor_serializer = DoctorSerializer(data=request.data)
         image_serializer = ImageSerializer(data=request.data)
         present_address_serializer = PresentAddressSerializer(data=request.data)
@@ -75,78 +73,62 @@ def store_doctor_data(request):
 def store_doctor_work_details_data(request):
     appointment_schedule_serializer = AppointmentScheduleSerializer(data=request.data)
     social_media_serializer = SocialMediaSerializer(data=request.data)
-    if appointment_schedule_serializer.is_valid() and social_media_serializer.is_valid():
-        with transaction.atomic():
+
+    with transaction.atomic():
+        if appointment_schedule_serializer.is_valid() and social_media_serializer.is_valid():
             doctor_profile_id = request.data.get('doctor_profile')
             social_media_instance = social_media_serializer.save(doctor_profile_id=doctor_profile_id)
             appointment_schedule_instance = appointment_schedule_serializer.save(doctor_profile_id=doctor_profile_id)
 
-            if social_media_instance and appointment_schedule_instance:
-                certificate_degrees = request.data.getlist('certificate_degrees[]')
-                institutions = request.data.getlist('institutions[]')
-                boards = request.data.getlist('boards[]')
-                results = request.data.getlist('results[]')
-                passing_years = request.data.getlist('passing_years[]')
-                start_times = request.data.getlist('start_time[]')
-                end_times = request.data.getlist('end_time[]')
-                off_days = request.data.getlist('off_day[]')
-                awards = request.data.getlist('awards[]')
-                honors = request.data.getlist('honors[]')
-                publications = request.data.getlist('publications[]')
-                research_interests = request.data.getlist('research_interests[]')
+            certificate_degrees = request.data.getlist('certificate_degrees[]')
+            institutions = request.data.getlist('institutions[]')
+            boards = request.data.getlist('boards[]')
+            results = request.data.getlist('results[]')
+            passing_years = request.data.getlist('passing_years[]')
+            start_times = request.data.getlist('start_time[]')
+            end_times = request.data.getlist('end_time[]')
 
-                doctor_profile = get_object_or_404(DoctorProfile, id=doctor_profile_id)
+            try:
+                doctor_profile = DoctorProfile.objects.get(id=doctor_profile_id)  # Retrieve the DoctorProfile instance
 
-                try:
-                    for certificate_degree, institution, board_id, result, passing_year, start_time, end_time, day_id, award, honor, publication, research_interest in zip(
-                            certificate_degrees, institutions, boards, results, passing_years, start_times, end_times,
-                            off_days, awards, honors, publications, research_interests
-                    ):
-                        try:
-                            board_instance = Board.objects.get(id=board_id)
-                            education_obj = Education.objects.create(
-                                certificate_degree=certificate_degree,
-                                institution=institution,
-                                result=result,
-                                passing_year=passing_year,
-                                doctor_profile=doctor_profile,  # Assign the 'doctor_profile' instance
-                                board=board_instance,
-                            )
-                            schedule_time_obj = ScheduleTime.objects.create(
-                                start_time=start_time,
-                                end_time=end_time,
-                                appointment_schedule=appointment_schedule_instance,
-                                doctor_profile=doctor_profile  # Assign the 'doctor_profile' instance
-                            )
-                            day_instance = Day.objects.get(id=day_id)
-                            off_day_obj = OffDay.objects.create(
-                                off_day=day_instance,
-                                doctor_profile=doctor_profile  # Assign the 'doctor_profile' instance
-                            )
-                            awards_obj = Awards.objects.create(
-                                awards=award,
-                                honors=honor,
-                                publications=publication,
-                                research_interests=research_interest,
-                                doctor_profile=doctor_profile  # Assign the 'doctor_profile' instance
-                            )
-                        except Board.DoesNotExist:
-                            # Handle the case when the board with the given ID does not exist
-                            return Response({'status': 404})
-                except Exception as e:
-                    transaction.set_rollback(True)
-                    return Response({'status': 404})
-                if 'education_obj' in locals() and 'schedule_time_obj' in locals() and 'awards_obj' in locals() and 'off_day_obj' in locals():
-                    # All items saved successfully
+                education_objs = []  # Create empty lists to store created instances
+                schedule_time_objs = []
+
+                for certificate_degree, institution, board_id, result, passing_year, start_time, end_time in zip(
+                        certificate_degrees, institutions, boards, results, passing_years, start_times, end_times):
+                    board_instance = Board.objects.get(id=board_id)
+                    education_obj = Education.objects.create(
+                        certificate_degree=certificate_degree,
+                        institution=institution,
+                        result=result,
+                        passing_year=passing_year,
+                        doctor_profile=doctor_profile,
+                        board=board_instance,
+                    )
+                    schedule_time_obj = ScheduleTime.objects.create(
+                        start_time=start_time,
+                        end_time=end_time,
+                        appointment_schedule=appointment_schedule_instance,
+                        doctor_profile=doctor_profile
+                    )
+
+                    education_objs.append(education_obj)  # Append created instances to the lists
+                    schedule_time_objs.append(schedule_time_obj)
+
+                if all(education_objs) and all(schedule_time_objs):
                     return Response({'status': 200})
                 else:
                     transaction.set_rollback(True)
-                    return Response({'status': 404})
-            else:
+                    return Response({'status': 404, 'message': 'Data not stored'})
+            except Board.DoesNotExist:
                 transaction.set_rollback(True)
-                return Response({'status': 403})
-    else:
-        return Response({'status': 403})
+                return Response({'status': 404, 'message': 'Board not found'})
+            except DoctorProfile.DoesNotExist:
+                transaction.set_rollback(True)
+                return Response({'status': 404, 'message': 'DoctorProfile not found'})
+        else:
+            transaction.set_rollback(True)
+            return Response({'status': 400, 'message': 'Bad Request'})
 
 
 @api_view(['GET'])

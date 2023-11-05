@@ -1,10 +1,9 @@
 from datetime import datetime
 from django.contrib import messages
 from django.shortcuts import render
-from admin.doctor.models import DoctorProfile
 from admin.doctor.views import doctor_data
+from admin.doctor.models import DoctorProfile
 from admin.patient.models import PatientProfile
-from .views import *
 
 
 def get_time_of_day():

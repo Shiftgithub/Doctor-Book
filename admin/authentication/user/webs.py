@@ -1,7 +1,7 @@
 from backend.constants import *
-from django.shortcuts import render, redirect
 from admin.doctor.views import doctor_data
 from admin.patient.views import patient_data
+from django.shortcuts import render, redirect
 from admin.doctor.models import DoctorProfile
 from admin.patient.models import PatientProfile
 

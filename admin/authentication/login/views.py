@@ -29,13 +29,12 @@ def checking_authorization(request):
             if user.role == ROLE_ADMIN:
                 return Response({'status': 200, 'message': 'Admin'})
             elif user.role == ROLE_DOCTOR:
-                user_info = DoctorProfile.objects.get(user_id=user.id)
-                set_user_info(request, user_info, user.id)
+                doctor_info = DoctorProfile.objects.get(user_id=user.id)
+                set_user_info(request, doctor_info, user.id, user.email)
                 return Response({'status': 200, 'message': 'Doctor'})
             elif user.role == ROLE_PATIENT:
-                user_info = PatientProfile.objects.get(user_id=user.id)
-                set_user_info(request, user_info, user.id)
-                # get_user_info(request, user.id)
+                patient_info = PatientProfile.objects.get(user_id=user.id)
+                set_user_info(request, patient_info, user.id, user.email)
                 return Response({'status': 200, 'message': 'Patient'})
             else:
                 return Response({'status': 403, 'message': 'User is not a doctor or is not approved'})
@@ -56,17 +55,19 @@ def set_authenticated_user(request, user):
     request.session['user_status'] = user.status
 
 
-def set_user_info(request, user_info, user_id):
+def set_user_info(request, user_info, user_id, email):
     # Fetch user details and related images
     user = User.objects.filter(id=user_id, deleted_at=None).prefetch_related('images').first()
+    request.session['user_full_name'] = user_info.full_name
+    request.session['user_email'] = email
     if user:
         images = user.images.all()
         if images:
             for image in images:
-                photo_url = image.photo_name.url  # Assuming photo_name is an ImageField
-                request.session['user_full_name'] = user_info.full_name
-                request.session['user_email'] = user.email
-                request.session['user_image_url'] = photo_url
+                if image.photo_name:  # Check if the image has a file associated with it
+                    photo_url = image.photo_name.url
+                    request.session['user_image_url'] = photo_url
+                    break  # Assuming you want to use the first image
         else:
             return None
     else:
