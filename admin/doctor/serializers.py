@@ -33,7 +33,7 @@ class BoardSerializer(serializers.ModelSerializer):
 
 class DoctorSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Doctor_Profile
+        model = DoctorProfile
         fields = '__all__'
 
     def create(self, validated_data):
@@ -103,7 +103,7 @@ class DoctorViewSerializer(serializers.ModelSerializer):
     off_days = OffDaySerializer(many=True)
     off_day_names = serializers.SerializerMethodField()
     class Meta:
-        model = Doctor_Profile
+        model = DoctorProfile
         fields = '__all__'
 
     def get_schedule_times(self, obj):

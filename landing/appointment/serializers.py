@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from admin.department_speci.models import *
-from admin.doctor.models import Doctor_Profile, ScheduleTime
+from admin.doctor.models import DoctorProfile, ScheduleTime
 from admin.authentication.user.serializers import *
 from admin.bodypart.models import *
 

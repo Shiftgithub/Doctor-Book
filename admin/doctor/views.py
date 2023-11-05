@@ -95,7 +95,7 @@ def store_doctor_work_details_data(request):
                 publications = request.data.getlist('publications[]')
                 research_interests = request.data.getlist('research_interests[]')
 
-                doctor_profile = get_object_or_404(Doctor_Profile, id=doctor_profile_id)
+                doctor_profile = get_object_or_404(DoctorProfile, id=doctor_profile_id)
 
                 try:
                     for certificate_degree, institution, board_id, result, passing_year, start_time, end_time, day_id, award, honor, publication, research_interest in zip(
@@ -152,7 +152,7 @@ def store_doctor_work_details_data(request):
 @api_view(['GET'])
 def get_all_doctors_list(request):
     # Fetch all doctor profiles along with related fields
-    doctors = Doctor_Profile.objects.filter(deleted_at=None).select_related(
+    doctors = DoctorProfile.objects.filter(deleted_at=None).select_related(
         'user', 'gender', 'religion', 'blood_group', 'matrimony', 'department'
     ).prefetch_related(
         'awards', 'appointment_schedules', 'education', 'social_media',
@@ -168,7 +168,7 @@ def get_all_doctors_list(request):
 @api_view(['GET'])
 def doctor_data(request, doctor_id):
     # Fetch all doctor profiles along with user data and related fields
-    doctors = Doctor_Profile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
         'user', 'gender', 'religion', 'blood_group', 'matrimony', 'department'
     ).prefetch_related(
         'awards', 'appointment_schedules', 'education', 'social_media',
@@ -184,7 +184,7 @@ from rest_framework import status
 @api_view(['PUT', 'POST'])
 def edit_doctor_data(request, doctor_id):
     try:
-        doctor = get_object_or_404(Doctor_Profile, id=doctor_id, deleted_at=None)
+        doctor = get_object_or_404(DoctorProfile, id=doctor_id, deleted_at=None)
 
         if not doctor.user:
             return Response({'message': 'No associated user found', 'status': 200})
@@ -253,10 +253,10 @@ def edit_doctor_data(request, doctor_id):
 @api_view(['PUT', 'GET'])
 def softdelete_doctor_data(request, doctor_id):
     try:
-        doctor_data = Doctor_Profile.objects.get(id=doctor_id)
+        doctor_data = DoctorProfile.objects.get(id=doctor_id)
         doctor_serializer = DoctorSerializer(doctor_data, data=request.data, partial=True)
 
-        # Assuming there is a foreign key relationship between Doctor_Profile and User
+        # Assuming there is a foreign key relationship between DoctorProfile and User
         user_data = doctor_data.user  # Use the appropriate foreign key field
         user_serializer = UserSerializer(user_data, data=request.data, partial=True)
 
@@ -266,5 +266,5 @@ def softdelete_doctor_data(request, doctor_id):
             return Response({'status': 200})
         else:
             return Response(doctor_serializer.errors, status=400)
-    except Doctor_Profile.DoesNotExist:
+    except DoctorProfile.DoesNotExist:
         return Response({'status': 404})

@@ -2,7 +2,7 @@ from admin.bodypart.models import BodyPart
 from admin.bodypart.serializers import BodyPartSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from admin.doctor.models import Doctor_Profile
+from admin.doctor.models import DoctorProfile
 from admin.organ.serializers import OrganBodyPartSerializer
 from admin.department_speci.models import DepartmentSpecification
 from admin.organ_problem_speci.serializers import OrganProblemSerializer
@@ -25,7 +25,7 @@ def prediction(request):
         if department_specifications.exists():
             department_ids = department_specifications.values_list('department', flat=True)
             if len(set(department_ids)) == 1:
-                doctor_data = Doctor_Profile.objects.filter(
+                doctor_data = DoctorProfile.objects.filter(
                     department__in=department_ids
                 )
                 doctor_serializer = PredictionDoctorSerializer(doctor_data, many=True)

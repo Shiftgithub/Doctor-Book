@@ -5,9 +5,9 @@ from rest_framework.decorators import api_view
 from admin.doctor.models import OffDay
 from admin.doctor.models import ScheduleTime, AppointmentSchedule
 from datetime import datetime, timedelta
-from admin.patient.models import Patient_Profile
+from admin.patient.models import PatientProfile
 from django.db import transaction
-from admin.doctor.models import Doctor_Profile
+from admin.doctor.models import DoctorProfile
 from admin.authentication.user.serializers import UserSerializer
 from admin.patient.serializers import PatientSerializer
 from admin.authentication.otp.function.send_email import generate_unique
@@ -232,10 +232,10 @@ def store_appointment_data(request):
     appointment_serializer = PatientAppointmentSerializer(data=request.data)
     if appointment_serializer.is_valid():
         registration_id = request.data['registration_no']
-        # Retrieve the Patient_Profile instance using the registration_no
+        # Retrieve the PatientProfile instance using the registration_no
         try:
-            patient = Patient_Profile.objects.get(registration_no=registration_id)
-        except Patient_Profile.DoesNotExist:
+            patient = PatientProfile.objects.get(registration_no=registration_id)
+        except PatientProfile.DoesNotExist:
             return Response({'status': 404, 'message': 'Patient not found'})
         # Retrieve the 'Doctor_Profile' instance for the doctor using 'doctor_id'
         try:

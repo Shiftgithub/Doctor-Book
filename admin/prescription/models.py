@@ -1,14 +1,14 @@
 from django.db import models
 from admin.medicine.models import Medicine
 from admin.basemodel.models import BaseModel
-from admin.doctor.models import Doctor_Profile
-from admin.patient.models import Patient_Profile
+from admin.doctor.models import DoctorProfile
+from admin.patient.models import PatientProfile
 from admin.authentication.user.models import User
 
 
 class Prescription(BaseModel):
-    patient_name = models.ForeignKey(Patient_Profile, on_delete=models.CASCADE, null=True)
-    doctor_name = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, null=True)
+    patient_name = models.ForeignKey(PatientProfile, on_delete=models.CASCADE, null=True)
+    doctor_name = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, null=True)
 
     cc = models.TextField(null=True, verbose_name='Chief Complain')
     oe = models.TextField(null=True, verbose_name='On Examination')

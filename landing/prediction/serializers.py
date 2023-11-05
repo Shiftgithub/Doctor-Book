@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from admin.department_speci.models import *
-from admin.doctor.models import Doctor_Profile, ScheduleTime
+from admin.doctor.models import DoctorProfile, ScheduleTime
 from admin.authentication.user.serializers import *
 from admin.bodypart.models import *
 from admin.doctor.serializers import AppointmentScheduleSerializer
@@ -26,7 +26,7 @@ class PredictionDoctorSerializer(serializers.ModelSerializer):
     department_name = serializers.CharField(source='department.name', required=False)
 
     class Meta:
-        model = Doctor_Profile
+        model = DoctorProfile
         fields = [
             'id', 'full_name', 'biography', 'department_name', 'images'
         ]

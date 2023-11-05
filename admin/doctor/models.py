@@ -7,7 +7,7 @@ from admin.basemodel.models import BaseModel
 from admin.authentication.user.models import User
 
 
-class Doctor_Profile(BaseModel):
+class DoctorProfile(BaseModel):
     full_name = models.CharField(max_length=255)
     father_name = models.CharField(max_length=255)
     mother_name = models.CharField(max_length=255)
@@ -31,7 +31,7 @@ class Doctor_Profile(BaseModel):
 
 
 class AppointmentSchedule(BaseModel):
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE,
+    doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE,
                                        related_name='appointment_schedules', null=True)
 
     per_patient_time = models.IntegerField(null=True)
@@ -49,7 +49,7 @@ class Awards(BaseModel):
     honors = models.CharField(max_length=255, null=True)
     publications = models.CharField(max_length=255, null=True)
     research_interests = models.CharField(max_length=255, null=True)
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='awards', null=True)
+    doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='awards', null=True)
 
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_awards', null=True)
     modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_awards', null=True)
@@ -59,7 +59,7 @@ class Awards(BaseModel):
 
 
 class Education(BaseModel):
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='education')
+    doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='education')
     certificate_degree = models.CharField(max_length=255)
     institution = models.CharField(max_length=255)
     board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='educationID', null=True)
@@ -74,7 +74,7 @@ class Education(BaseModel):
 
 
 class OffDay(BaseModel):
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='off_days')
+    doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='off_days')
 
     off_day = models.ForeignKey(Day, on_delete=models.CASCADE, related_name='off_day_name', null=True)
 
@@ -88,7 +88,7 @@ class OffDay(BaseModel):
 class ScheduleTime(BaseModel):
     appointment_schedule = models.ForeignKey(AppointmentSchedule,
                                              on_delete=models.CASCADE, related_name='schedule_time', null=True)
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='schedule_time')
+    doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='schedule_time')
     start_time = models.TimeField(null=True)
     end_time = models.TimeField(null=True)
 
@@ -101,7 +101,7 @@ class SocialMedia(BaseModel):
     facebook = models.URLField(null=True)
     instagram = models.URLField(null=True)
     linkedin = models.URLField(null=True)
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='social_media', null=True)
+    doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='social_media', null=True)
 
     class Meta:
         db_table = 'doctor_social_media'
