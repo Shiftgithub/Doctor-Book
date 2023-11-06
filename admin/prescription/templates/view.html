@@ -1,12 +1,10 @@
 {% extends 'dashboard/templates/patient/dashboard.html' %}
 {% load static %}
-
 {% block content %}
 <div class="container mt-4">
     <div class="card">
         <div class="card-header bg-dark text-white">
             <h2 class="card-title">Prescription Details</h2>
-            <a href="#" class="btn btn-warning float-right">Edit Prescription</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -19,6 +17,10 @@
                     <tr>
                         <th style="width: 30%;">Patient Name:</th>
                         <td>{{ prescription_data.patient_name }}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 30%;">Doctor Name:</th>
+                        <td>{{ prescription_data.doctor_name }}</td>
                     </tr>
                     <tr>
                         <th>Chief Complaint (CC):</th>
@@ -46,7 +48,6 @@
                     </tr>
                     </tbody>
                 </table>
-
                 <table class="table table-bordered">
                     <tbody>
                     <tr>
@@ -75,7 +76,6 @@
                     </tr>
                     </tbody>
                 </table>
-
                 <table class="table table-bordered">
                     <tbody>
                     <tr>
@@ -88,6 +88,9 @@
                     </tr>
                     </tbody>
                 </table>
+                <br>
+                <hr style="color: #000; background-color: #000; height: 2px; border: none;" class="float: right">
+                -----------------------------------------------</h1>
             </div>
         </div>
     </div>
