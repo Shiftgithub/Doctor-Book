@@ -29,7 +29,7 @@ urlpatterns = [
                     name='delete_faq',
                 ),
                 path(
-                    'list/<int:id>/',
+                    'list-by/',
                     protected_view(faq_view_created_by),
                     name='faq_all_list',
                 ),

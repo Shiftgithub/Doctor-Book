@@ -21,7 +21,7 @@
                     <label for="specialtySelect" class="col-md-3 col-form-label">Patient Name :<span
                             class="text-danger">*</span></label>
                     <div class="col-md-9">
-                        <select class="form-control select2" id="specialtySelect" name="patient_name">
+                        <select class="form-control select2" id="specialtySelect" name="patient_profile">
                             <option selected>Select Patient Name</option>
                             {% for item in patient_data %}
                             <option value="{{ item.id }}">{{ item.id }} . {{ item.full_name }}</option>

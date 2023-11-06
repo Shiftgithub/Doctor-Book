@@ -10,7 +10,8 @@ def faq_form(request):
 
 
 def store_faq(request):
-    operation_response = store_faq_data(request)
+    user_id = request.session.get('user_id')
+    operation_response = store_faq_data(request,user_id)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              'FAQ data stored successfully')
@@ -34,7 +35,8 @@ def edit_faq_form(request, faq_id):
 
 
 def edit_faq(request, faq_id):
-    operation_response = edit_faq_data(request, faq_id)
+    user_id = request.session.get('user_id')
+    operation_response = edit_faq_data(request, faq_id,user_id)
 
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, 'faq data edited successfully')
@@ -56,7 +58,8 @@ def delete_faq(request, faq_id):
 
 
 # for doctor side
-def faq_view_created_by(request, id):
-    response = get_all_faq_list_created_by(request, id)
+def faq_view_created_by(request):
+    user_id = request.session.get('user_id')
+    response = get_all_faq_list_created_by(request, user_id)
     all_data = response.data
     return render(request, 'faq/templates/doctor/list_all.html', {'all_data': all_data})

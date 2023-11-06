@@ -58,6 +58,7 @@ def set_authenticated_user(request, user):
 def set_user_info(request, user_info, user_id, email):
     # Fetch user details and related images
     user = User.objects.filter(id=user_id, deleted_at=None).prefetch_related('images').first()
+    request.session['id'] = user_info.id
     request.session['user_full_name'] = user_info.full_name
     request.session['user_email'] = email
     if user:

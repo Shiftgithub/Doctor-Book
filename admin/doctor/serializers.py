@@ -102,6 +102,7 @@ class DoctorViewSerializer(serializers.ModelSerializer):
     schedule_times = serializers.SerializerMethodField()
     off_days = OffDaySerializer(many=True)
     off_day_names = serializers.SerializerMethodField()
+
     class Meta:
         model = DoctorProfile
         fields = '__all__'
@@ -115,3 +116,9 @@ class DoctorViewSerializer(serializers.ModelSerializer):
     def get_off_day_names(self, obj):
         off_day_names = [off_day.off_day.name for off_day in obj.off_days.all()]
         return off_day_names
+
+
+class OffDayIDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OffDay
+        fields = 'off_day'

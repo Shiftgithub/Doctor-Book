@@ -16,73 +16,76 @@
         <div class="card-body">
             <table id="bodyPartData" class="table table-sm table-bordered table-striped text-center">
                 <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Heading</th>
-                        <th>Tag</th>
-                        <th>Action</th>
-                    </tr>
+                <tr>
+                    <th>Id</th>
+                    <th>Heading</th>
+                    <th>Tag</th>
+                    <th>Action</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {% for data in all_data %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td> {# Use 'forloop.counter' to get the loop counter #}
-                        <td>{{ data.heading }}</td>
-                        <td>{{ data.tag }}</td>
-                        <td>
-                            <div class="btn-group dropleft">
-                                <span type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
+                {% for data in all_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    {# Use 'forloop.counter' to get the loop counter #}
+                    <td>{{ data.heading }}</td>
+                    <td>{{ data.tag }}</td>
+                    <td>
+                        <div class="btn-group dropleft">
+                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                      aria-expanded="false">
                                     <i class="fas fa-bars"></i>
                                     <!-- <i class="fas fa-ellipsis-v"></i> -->
                                 </span>
-                                <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item text-info">
-                                        <i class="fas fa-eye"></i> View
-                                    </a>
-                                    <a href="#" class="dropdown-item text-primary">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </a>
-                                    <!-- Button trigger modal -->
-                                    <a data-toggle="modal" data-target="#myModal" class="dropdown-item text-danger">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </a>
-                                    <div delete-url="#" id="deleteURLID">
-                                    </div>
-                                </div>
+                            <div class="dropdown-menu">
+                                <a href="{% url 'view_article_data' data.id %}"
+                                   class="dropdown-item text-info">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                                <a href="{% url 'edit_article_form' data.id %}"
+                                   class="dropdown-item text-primary">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <!-- Button trigger modal -->
+<!--                                <a data-toggle="modal" data-target="#myModal"-->
+<!--                                   data-delete-url="{% url 'delete_article' data.id %}"-->
+<!--                                   class="dropdown-item text-danger">-->
+<!--                                    <i class="fas fa-trash"></i> Delete-->
+<!--                                </a>-->
                             </div>
-                        </td>
-                        <!-- <td>
-                            <img src="{{ data.image }}" alt="Article Image" width="100">
-                        </td>
-                        </td>
-                        <td>{{ data.description }}</td> -->
-                        {% endfor %}
+                        </div>
+                    </td>
+                    <!-- <td>
+                        <img src="{{ data.image }}" alt="Article Image" width="100">
+                    </td>
+                    </td>
+                    <td>{{ data.description }}</td> -->
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Organ Data</h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h5>Are you sure?</h5>
-            </div>
-            <div class="modal-footer text-center">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="deleteButtonID">Delete</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="myModalLabel">Organ Data</h5>-->
+<!--                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <h5>Are you sure?</h5>-->
+<!--            </div>-->
+<!--            <div class="modal-footer text-center">-->
+<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>-->
+<!--                <button type="button" class="btn btn-danger" id="deleteButtonID">Delete</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 {% endblock %}
 
 {% block scripts %}

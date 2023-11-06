@@ -197,62 +197,64 @@ def edit_doctor_data(request, doctor_id):
         if not doctor.user:
             return Response({'message': 'No associated user found', 'status': 200})
 
-        with transaction.atomic():
-            appointment_schedule_serializer = AppointmentScheduleSerializer(doctor.appointment_schedules.first(),
-                                                                            data=request.data, partial=True)
-            doctor_serializer = DoctorSerializer(doctor, data=request.data, partial=True)
-            image_serializer = ImageSerializer(doctor.user.images.first(), data=request.data, partial=True)
-            present_address_serializer = PresentAddressSerializer(doctor.user.present_address.first(),
-                                                                  data=request.data, partial=True)
-            permanent_address_serializer = PermanentAddressSerializer(doctor.user.permanent_address.first(),
-                                                                      data=request.data, partial=True)
-            social_media_serializer = SocialMediaSerializer(doctor.social_media.first(), data=request.data,
-                                                            partial=True)
+        else:
+            with transaction.atomic():
+                appointment_schedule_instance = doctor.appointment_schedules.first()
 
-            if (
-                    doctor_serializer.is_valid()
-                    and image_serializer.is_valid()
-                    and present_address_serializer.is_valid()
-                    and permanent_address_serializer.is_valid()
-                    and appointment_schedule_serializer.is_valid()
-                    and social_media_serializer.is_valid()
-            ):
-                doctor_serializer.save(updated_at=timezone.now())
-                # Update 'photo_name' if provided
-                if 'photo_name' in request.data and request.data['photo_name']:
-                    image_serializer.validated_data['photo_name'] = request.data['photo_name']
-                else:
-                    image_serializer.validated_data['photo_name'] = doctor.user.images.first().photo_name
+                appointment_schedule_serializer = AppointmentScheduleSerializer(appointment_schedule_instance,
+                                                                                data=request.data, partial=True)
+                doctor_serializer = DoctorSerializer(doctor, data=request.data, partial=True)
+                image_instance = doctor.user.images.first()
+                image_serializer = ImageSerializer(image_instance, data=request.data, partial=True)
+                present_address_instance = doctor.user.present_address.first()
+                present_address_serializer = PresentAddressSerializer(present_address_instance, data=request.data,
+                                                                      partial=True)
+                permanent_address_instance = doctor.user.permanent_address.first()
+                permanent_address_serializer = PermanentAddressSerializer(permanent_address_instance, data=request.data,
+                                                                          partial=True)
+                social_media_instance = doctor.social_media.first()
+                social_media_serializer = SocialMediaSerializer(social_media_instance, data=request.data, partial=True)
 
-                image = image_serializer.save()
-                appointment_schedule_instance = appointment_schedule_serializer.save(doctor_profile=doctor)
-                present_address = present_address_serializer.save()
-                permanent_address = permanent_address_serializer.save()
-                social = social_media_serializer.save(doctor_profile=doctor)
+                if (
+                        doctor_serializer.is_valid()
+                        and image_serializer.is_valid()
+                        and present_address_serializer.is_valid()
+                        and permanent_address_serializer.is_valid()
+                        and appointment_schedule_serializer.is_valid()
+                        and social_media_serializer.is_valid()
+                ):
+                    doctor_serializer.save(updated_at=timezone.now())
 
-                off_days = request.data.getlist('off_day[]')
-                off_day_objs = []
-
-                for day_id in off_days:
-                    day_instance = Day.objects.get(id=day_id)
-                    off_day_qs = OffDay.objects.filter(doctor_profile=doctor, off_day=day_instance).first()
-
-                    if off_day_qs:
-                        # If the off-day for this day exists, update it
-                        off_day_serializer = OffDaySerializer(off_day_qs, data={'off_day': day_id}, partial=True)
-                        if off_day_serializer.is_valid():
-                            off_day = off_day_serializer.save()
-                            off_day_objs.append(off_day)
-                        else:
-                            return Response({'status': 400, 'message': 'Validation error for off-day data'})
+                    # Update 'photo_name' if provided
+                    if 'photo_name' in request.data and request.data['photo_name']:
+                        image_serializer.validated_data['photo_name'] = request.data['photo_name']
                     else:
-                        # Handle the case when the specified day does not exist
-                        return Response({'status': 404, 'message': f'Day with ID {day_id} does not exist'})
+                        image_serializer.validated_data['photo_name'] = image_instance.photo_name
 
-                return Response({'status': 200})
+                    image_serializer.save()
+                    appointment_schedule_serializer.save(doctor_profile=doctor)
+                    present_address_serializer.save()
+                    permanent_address_serializer.save()
+                    social_media_serializer.save()
 
-            else:
-                return Response({'status': 400, 'message': 'Validation error for doctor data'})
+                    off_days = request.data.getlist('off_day[]')
+                    # print(off_days)
+                    # existing_off_days = OffDay.objects.filter(doctor_profile=doctor)
+                    # for off_day, existing_off_day in zip(off_days, existing_off_days):
+                    #     day_instance = Day.objects.filter(id=off_day).first()
+                    #     # if existing_off_day.off_day == off_day:
+                    #     print('id ', existing_off_day.id)
+                    #     print(day_instance)
+                    #     print('day id ', day_instance.id)
+
+                    return Response({'status': 200})
+                    # else:
+                    #     transaction.set_rollback(True)
+                    #     return Response({'status': 403})
+                else:
+                    transaction.set_rollback(True)
+                    return Response({'status': 400, 'message': 'Validation error for doctor data'})
+
     except Exception as e:
         return Response({'status': 500, 'message': str(e)})
 

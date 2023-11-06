@@ -72,10 +72,10 @@ def store_doctor_work_details(request):
     return redirect('add_doctor_work_details_form')
 
 
-def view_doctor(request, doctor_id):
-    response_doctor_data = doctor_data(request, doctor_id)
-    doctor_all_data = response_doctor_data.data
-    return render(request, 'doctor/templates/view.html', {'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id})
+def view_doctor(request, prescription_id):
+    response_prescription_data = doctor_data(request, prescription_id)
+    prescription_all_data = response_prescription_data.data
+    return render(request, 'prescription/templates/view.html', {'prescription_all_data': prescription_all_data})
 
 
 def edit_doctor_form(request, doctor_id):
