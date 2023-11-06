@@ -189,9 +189,6 @@ def doctor_data(request, doctor_id):
     return Response(serializer.data)
 
 
-from rest_framework import status
-
-
 @api_view(['PUT', 'POST'])
 def edit_doctor_data(request, doctor_id):
     try:
@@ -256,9 +253,8 @@ def edit_doctor_data(request, doctor_id):
 
             else:
                 return Response({'status': 400, 'message': 'Validation error for doctor data'})
-
     except Exception as e:
-        return Response({'status': 500, 'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'status': 500, 'message': str(e)})
 
 
 @api_view(['PUT', 'GET'])
