@@ -41,10 +41,6 @@
                                     <!-- <i class="fas fa-ellipsis-v"></i> -->
                                 </span>
                             <div class="dropdown-menu">
-                                <a href="#" id="print-button"
-                                   class="dropdown-item Print text-warning">
-                                    <i class="fas fa-print"></i> Print
-                                </a>
                                 <a href="{% url 'view_prescription' prescription_data.id %}"
                                    class="dropdown-item text-info">
                                     <i class="fas fa-eye"></i> View
@@ -115,17 +111,6 @@
                 window.location.href = deleteURL;
             });
         });
-    });
-
-    // Find the "Print" link by its id
-    const printButton = document.getElementById("print-button");
-
-    // Add a click event listener to the link
-    printButton.addEventListener("click", function (e) {
-        e.preventDefault(); // Prevent the default link behavior (e.g., navigation)
-
-        // Trigger the browser's print functionality
-        window.print();
     });
 </script>
 {% endblock %}
