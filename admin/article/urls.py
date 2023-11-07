@@ -46,8 +46,8 @@ urlpatterns = [
                     name='delete_article'
                 ),
                 path(
-                    'list/<int:id>/',
-                    article_view_created_by,
+                    'list-by/',
+                    article_list_created_by,
                     name='article_all_list'
                 ),
             ]

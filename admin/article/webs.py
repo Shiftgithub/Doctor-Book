@@ -10,7 +10,8 @@ def article_form(request):
 
 
 def store_article(request):
-    operation_response = store_article_data(request)
+    user_id = request.session.get('user_id')
+    operation_response = store_article_data(request, user_id)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO,
                              'Article data stored successfully')
@@ -40,7 +41,8 @@ def edit_article_form(request, article_id):
 
 
 def edit_article(request, article_id):
-    operation_response = edit_article_data(request, article_id)
+    user_id = request.session.get('user_id')
+    operation_response = edit_article_data(request, article_id, user_id)
 
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, 'Article data edited successfully')
@@ -59,7 +61,8 @@ def delete_article(request, article_id):
     return redirect('article_list')
 
 
-def article_view_created_by(request, id):
-    response = get_all_article_list_created_by(request, id)
+def article_list_created_by(request):
+    user_id = request.session.get('user_id')
+    response = get_all_article_list_created_by(request, user_id)
     all_data = response.data
     return render(request, 'article/templates/doctor/list_all.html', {'all_data': all_data})

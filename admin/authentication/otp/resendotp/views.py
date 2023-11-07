@@ -8,7 +8,7 @@ def resend_otp(request):
     email = request.session['temp_verify_email']
     user_instance = User.objects.filter(email=email).first()
     if user_instance:
-        verify_otp_instance = VarifyOtp.objects.filter(user_id=user_instance.id).first()
+        verify_otp_instance = VerifyOtp.objects.filter(user_id=user_instance.id).first()
         if verify_otp_instance:
             verify_otp_instance.otp = generate_token(6)
             verify_otp_instance.save()

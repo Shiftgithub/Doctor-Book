@@ -21,12 +21,10 @@ def check_login_is_valid(request):
         else:
             return redirect('patient_dashboard')
     elif operation_response.data.get('status') == 308:  # 308 Permanent Redirect
-        messages.add_message(request, messages.ERROR, 'Please Varifyed your Account!')
+        messages.add_message(request, messages.ERROR, 'Please Verified your Account!')
         email = operation_response.data.get('email')
         request.session['temp_verify_email'] = email
         return redirect('otp_form')
     else:
         messages.add_message(request, messages.ERROR, 'Authentication failed! Please try again')
         return redirect('login')
-
-

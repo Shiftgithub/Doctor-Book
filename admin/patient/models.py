@@ -4,7 +4,7 @@ from admin.basemodel.models import BaseModel
 from admin.authentication.user.models import User
 
 
-class Patient_Profile(BaseModel):
+class PatientProfile(BaseModel):
     full_name = models.CharField(max_length=255, null=True)
     father_name = models.CharField(max_length=255, null=True)
     mother_name = models.CharField(max_length=255, null=True)

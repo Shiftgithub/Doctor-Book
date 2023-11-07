@@ -57,7 +57,7 @@ class PresentAddress(BaseModel):
         db_table = 'present_address'
 
 
-def doctor_filepath(instance, filename):
+def image_filepath(instance, filename):
     # Get the current timestamp
     time_now = datetime.now().strftime('%Y%m%d%H%M%S')
 
@@ -75,8 +75,30 @@ def doctor_filepath(instance, filename):
 
 
 class Images(BaseModel):
-    photo_name = models.ImageField(upload_to=doctor_filepath, null=True)
+    photo_name = models.ImageField(upload_to=image_filepath, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='images', null=True)
 
     class Meta:
         db_table = 'images'
+
+
+class AdminProfile(BaseModel):
+    full_name = models.CharField(max_length=255, null=True)
+    father_name = models.CharField(max_length=255, null=True)
+    mother_name = models.CharField(max_length=255, null=True)
+    phone_no = models.CharField(max_length=110, null=True)
+
+    date_of_birth = models.DateField(auto_now_add=False, null=True)
+    nid_no = models.IntegerField(null=True)
+    address = models.CharField(max_length=255, null=True)
+    gender = models.ForeignKey(Gender, on_delete=models.CASCADE, related_name='admin', null=True)
+    religion = models.ForeignKey(Religion, on_delete=models.CASCADE, related_name='admin', null=True)
+    matrimony = models.ForeignKey(Matrimony, on_delete=models.CASCADE, related_name='admin', null=True)
+    blood_group = models.ForeignKey(Blood_Group, on_delete=models.CASCADE, related_name='admin', null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='admin', null=True)
+
+    def __str__(self):
+        return self.full_name
+
+    class Meta:
+        db_table = 'admin_profile'

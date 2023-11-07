@@ -2,11 +2,10 @@ from .views import *
 from admin.doctor.views import *
 from django.contrib import messages
 from admin.personal_data.views import *
+from landing.appointment.views import *
 from django.shortcuts import render, redirect
 from admin.bodypart.views import get_all_bodypart_list
 from landing.prediction.views import prediction
-
-from landing.appointment.views import generate_date, generate_schedule_time
 
 
 def patient_form(request):

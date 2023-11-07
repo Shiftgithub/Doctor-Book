@@ -6,10 +6,11 @@ from rest_framework.decorators import api_view
 
 # FAQ
 @api_view(['POST'])
-def store_faq_data(request):
+def store_faq_data(request, user_id):
+    user_instant = User.objects.get(id=user_id)
     faq_serializer = FAQSerializer(data=request.data)
     if faq_serializer.is_valid():
-        if faq_serializer.save():
+        if faq_serializer.save(created_by=user_instant):
             return Response({'status': 200})
         else:
             return Response({'status': 403})
@@ -39,11 +40,12 @@ def faq_dataview(request, faq_id):
 # faq edit function
 
 @api_view(['PUT', 'POST'])
-def edit_faq_data(request, faq_id):
-    faq = FAQ.objects.get(id=faq_id)
+def edit_faq_data(request, faq_id, user_id):
+    user_instant = User.objects.get(id=user_id)
+    faq = FAQ.objects.get(id=faq_id, deleted_at=None)
     serializer = FAQSerializer(faq, data=request.data)
     if serializer.is_valid():
-        if serializer.save(updated_at=timezone.now()):
+        if serializer.save(updated_at=timezone.now(), modified_by=user_instant):
             return Response({'status': 200})
         else:
             return Response({'status': 403})
@@ -68,8 +70,8 @@ def softdelete_faq_data(request, faq_id):
 # for doctor side
 
 @api_view(['GET'])
-def get_all_faq_list_created_by(request, id):
-    articles = FAQ.objects.filter(created_by=id, deleted_at=None)
-    serializer = FAQSerializer(articles, many=True)
+def get_all_faq_list_created_by(request, user_id):
+    faqs = FAQ.objects.filter(created_by=user_id, deleted_at=None)
+    serializer = FAQSerializer(faqs, many=True)
     serialized_data = serializer.data
     return Response(serialized_data)

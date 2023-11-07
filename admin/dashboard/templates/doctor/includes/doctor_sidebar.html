@@ -13,15 +13,6 @@
                     </p>
                 </a>
             </li>
-
-            <li class="nav-item mainItem">
-                <a href="{% url 'user_details' %}" class="nav-link">
-                    <i class="nav-icon fas fa-user-md"></i>
-                    <p>
-                        My Profile
-                    </p>
-                </a>
-            </li>
             <li class="nav-item mainItem">
                 <a href="#" class="nav-link">
                     <i class="fas fa-pills"></i>
@@ -85,7 +76,7 @@
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a href="{% url 'article_all_list' request.session.user_id%}" class="nav-link">
+                        <a href="{% url 'article_all_list'%}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>All Articles</p>
                         </a>
@@ -109,7 +100,7 @@
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a href="{% url 'faq_all_list' request.session.user_id%}" class="nav-link">
+                        <a href="{% url 'faq_all_list'%}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>All Answers</p>
                         </a>

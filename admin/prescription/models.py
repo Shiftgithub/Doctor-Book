@@ -1,14 +1,14 @@
 from django.db import models
 from admin.medicine.models import Medicine
 from admin.basemodel.models import BaseModel
-from admin.doctor.models import Doctor_Profile
-from admin.patient.models import Patient_Profile
+from admin.doctor.models import DoctorProfile
+from admin.patient.models import PatientProfile
 from admin.authentication.user.models import User
 
 
 class Prescription(BaseModel):
-    patient_name = models.ForeignKey(Patient_Profile, on_delete=models.CASCADE, null=True)
-    doctor_name = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, null=True)
+    patient_profile = models.ForeignKey(PatientProfile, related_name='patient', on_delete=models.CASCADE, null=True)
+    doctor_profile = models.ForeignKey(DoctorProfile, related_name='doctor', on_delete=models.CASCADE, null=True)
 
     cc = models.TextField(null=True, verbose_name='Chief Complain')
     oe = models.TextField(null=True, verbose_name='On Examination')
@@ -23,7 +23,7 @@ class Prescription(BaseModel):
     modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_prescriptions', null=True)
 
     def __str__(self):
-        return f'Prescription for {self.patient_name}'
+        return f'Prescription for {self.patient_profile}'
 
     class Meta:
         db_table = 'prescription'
@@ -40,17 +40,18 @@ class MedicineSchedule(models.Model):
 
 
 class PrescriptionMedicine(BaseModel):
-    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE, null=True)
-    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE, null=True)
+    prescription = models.ForeignKey(Prescription, related_name='prescription_medicine',
+                                     on_delete=models.CASCADE, null=True)
+    medicine = models.ForeignKey(Medicine, related_name='prescription_medicine', on_delete=models.CASCADE, null=True)
     medicine_schedule = models.ForeignKey(MedicineSchedule, on_delete=models.CASCADE, null=True)
 
     frequency = models.CharField(max_length=255, null=True)
     duration = models.CharField(max_length=255, null=True)
 
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_prescription_medicines',
-                                   null=True)
-    modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_prescription_medicines',
-                                    null=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE,
+                                   related_name='created_prescription_medicines', null=True)
+    modified_by = models.ForeignKey(User, on_delete=models.CASCADE,
+                                    related_name='modified_prescription_medicines', null=True)
 
     def __str__(self):
         return f'PrescriptionMedicine ID: {self.id}'
@@ -70,8 +71,8 @@ class LabTest(models.Model):
 
 
 class PrescriptionLabTest(BaseModel):
-    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE, null=True)
-    lab_test = models.ForeignKey(LabTest, on_delete=models.CASCADE, null=True)
+    prescription = models.ForeignKey(Prescription, related_name='prescription_lab', on_delete=models.CASCADE, null=True)
+    lab_test = models.ForeignKey(LabTest, related_name='prescription_medicine', on_delete=models.CASCADE, null=True)
 
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_prescription_labtest',
                                    null=True)

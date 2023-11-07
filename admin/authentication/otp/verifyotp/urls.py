@@ -7,7 +7,7 @@ urlpatterns = [
         include(
             [
                 path('otp/form/', otp_form, name='otp_form'),
-                path('varify/otp/', verify_otp_method, name='otp_varify'),
+                path('verify/otp/', verify_otp_method, name='otp_verify'),
             ]
         ),
     ),
