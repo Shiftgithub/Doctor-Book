@@ -1,5 +1,14 @@
 {% extends 'dashboard/templates/patient/dashboard.html' %}
 {% load static %}
+{% block styles %}
+<style>
+    .signature-container {
+        text-align: center;
+    }
+
+
+</style>
+{% endblock %}
 {% block content %}
 <div class="container mt-4">
     <div class="card">
@@ -8,22 +17,51 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
+                <div class="float-right">
+                    <h4>Issue Date : {{ prescription_data.issue_date }}</h4>
+                </div>
+                <br><br>
                 <table class="table table-bordered">
                     <tbody>
                     <tr>
-                        <th>Issue Date:</th>
-                        <td>{{ prescription_data.issue_date }}</td>
+                        <th>P. Name : {{ prescription_data.patient_profile.full_name }}</th>
+                        <th>Age : {{ age }}</th>
+                        <th>Gender : {% if prescription_data.patient_profile.gender %}
+                            {{ prescription_data.patient_profile.gender }}{% else %} N/A {% endif %}
+                        </th>
+                        <th>Blood Group :
+                            {% if prescription_data.patient_profile.blood_group %}
+                            {{ prescription_data.patient_profile.blood_group }}
+                            {% else %} N/A {% endif %}
+                        </th>
                     </tr>
                     <tr>
-                        <th style="width: 30%;">Patient Name:</th>
-                        <td>{{ prescription_data.patient_name }}</td>
+                        <th>R- : {{ prescription_data.patient_profile.registration_no }}</th>
+                        <th><i class="fas fa-phone"></i> {% if prescription_data.patient_profile.phone_no %}
+                            {{prescription_data.patient_profile.phone_no }}{% else %} : N/A {% endif %}
+                        </th>
+                        <th><i class="fas fa-envelope"></i> {{ prescription_data.patient_profile.email }}</th>
+                        <th>Address : {% if prescription_data.patient_profile.address %}
+                            {{ prescription_data.patient_profile.address }}{% else %} N/A {% endif %}
+                        </th>
                     </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-bordered">
+                    <tbody>
                     <tr>
-                        <th style="width: 30%;">Doctor Name:</th>
-                        <td>{{ prescription_data.doctor_name }}</td>
+                        <th>Dr. Name : {{ prescription_data.doctor_profile.full_name }}</th>
+                        <th>Department : {{ prescription_data.doctor_profile.department }}</th>
+                        <th><i class="fas fa-phone"></i> {{ prescription_data.doctor_profile.phone_no }}</th>
+                        <th><i class="fas fa-envelope"></i> {{ prescription_data.doctor_profile.email }}</th>
                     </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                    <tbody>
                     <tr>
-                        <th>Chief Complaint (CC):</th>
+                        <th style="width: 30%;">Chief Complaint (CC):</th>
                         <td>{{ prescription_data.cc }}</td>
                     </tr>
                     <tr>
@@ -88,12 +126,37 @@
                     </tr>
                     </tbody>
                 </table>
+                <hr style="color: #000; background-color: #000; height: 2px; border: none;">
                 <br>
-                <hr style="color: #000; background-color: #000; height: 2px; border: none;" class="float: right">
-                -----------------------------------------------</h1>
+                <!--                <h5 class="float-right">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</h5>-->
+                <!--                <h5 class="float-right">signature</h5>-->
+                <div class="signature-container float-right">
+                    <h5 >------------------------------------------------</h5>
+                    <h5 class="signature">Signature</h5>
+                </div>
             </div>
         </div>
+        <div class="text-center">
+            <!-- Add an id to the "Print" link for easier targeting with JavaScript -->
+            <a href="#" id="print-button" class="btn btn-info">Print</a>
+        </div>
+        <br>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Find the "Print" link by its id
+    const printButton = document.getElementById("print-button");
+
+    // Add a click event listener to the link
+    printButton.addEventListener("click", function (e) {
+        e.preventDefault(); // Prevent the default link behavior (e.g., navigation)
+
+        // Trigger the browser's print functionality
+        window.print();
+    });
+</script>
 {% endblock %}
 

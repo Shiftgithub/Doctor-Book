@@ -1,3 +1,4 @@
+from datetime import datetime
 from .views import *
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -51,15 +52,35 @@ def prescription_data_view(request):
 def view_prescription(request, prescription_id):
     response = prescription_dataview(request, prescription_id)
     prescription_data = response.data
-    # print(prescription_data)
-    medicines_with_schedule = list(zip(prescription_data['medicine_name'], prescription_data['medicine_schedule_time']))
+    date_of_birth = prescription_data.get('patient_profile', {}).get('date_of_birth', '')
+    issue_date = prescription_data.get('issue_date', '')
 
+    age = calculate_age(date_of_birth, issue_date)
+    if age is not None:
+        age = f"{age} years"
+    else:
+        age = "N/A"
+    medicines_with_schedule = list(zip(prescription_data['medicine_name'], prescription_data['medicine_schedule_time']))
     data = {
+        'age': age,
         'prescription_data': prescription_data,
         'medicines_with_schedule': medicines_with_schedule,
     }
-    # data = {'prescription_data': prescription_data}
     return render(request, 'prescription/templates/view.html', data)
+
+
+def calculate_age(date_of_birth, issue_date):
+    if date_of_birth is None or issue_date is None:
+        return None  # Handle the case where one or both dates are missing
+
+    # Parse date strings into datetime objects
+    birth_date = datetime.strptime(date_of_birth, "%Y-%m-%d")
+    issue_date = datetime.strptime(issue_date, "%Y-%m-%d")
+
+    # Calculate the age based on date_of_birth and issue_date
+    age = issue_date.year - birth_date.year - (
+            (issue_date.month, issue_date.day) < (birth_date.month, birth_date.day))
+    return age
 
 
 def edit_prescription_form(request, prescription_id):

@@ -1,5 +1,7 @@
 from .models import *
 from rest_framework import serializers
+from admin.patient.serializers import PatientViewSerializer
+from admin.doctor.serializers import DoctorPrescriptionSerializer
 
 
 class PrescriptionSerializer(serializers.ModelSerializer):
@@ -42,8 +44,13 @@ class PrescriptionLabTestSerializer(serializers.ModelSerializer):
 
 
 class PrescriptionViewSerializer(serializers.ModelSerializer):
-    patient_name = serializers.CharField(source='patient_profile.full_name', allow_null=True)
-    doctor_name = serializers.CharField(source='doctor_profile.full_name', allow_null=True)
+    patient_profile = PatientViewSerializer()
+    # patient_name = serializers.CharField(source='patient_profile.full_name', allow_null=True)
+    # birth_date = serializers.CharField(source='patient_profile.date_of_birth', allow_null=True)
+    # address = serializers.CharField(source='patient_profile.address', allow_null=True)
+    # phone_no = serializers.CharField(source='patient_profile.phone_no', allow_null=True)
+    # registration_no = serializers.CharField(source='patient_profile.registration_no', allow_null=True)
+    doctor_profile = DoctorPrescriptionSerializer()
     medicine = PrescriptionMedicineSerializer(source='prescription_medicine', many=True)
     lab_test_name = serializers.SerializerMethodField()
     medicine_name = serializers.SerializerMethodField()

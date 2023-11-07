@@ -122,3 +122,10 @@ class OffDayIDSerializer(serializers.ModelSerializer):
     class Meta:
         model = OffDay
         fields = 'off_day'
+
+class DoctorPrescriptionSerializer(serializers.ModelSerializer):
+    department = serializers.CharField(source='department.name', required=False)
+    email = serializers.EmailField(source='user.email')
+    class Meta:
+        model = DoctorProfile
+        fields = '__all__'
