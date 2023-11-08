@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Book | Admin Register</title>
+
+    <!-- Favicons -->
+    <link href="{% static 'adminlte_assets/img/icon.png' %}" rel="icon" />
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/fontawesome-free/css/fonts.googleapis.css' %}" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/fontawesome-free/css/all.min.css' %}" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/ionicons/css/ionicons.min.css' %}" />
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}" />
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}" />
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/jqvmap/jqvmap.min.css' %}" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/css/adminlte.min.css' %}" />
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}" />
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/daterangepicker/daterangepicker.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/sweetalert2/sweetalert2.css' %}" />
+  </head>
+  <body>
+    <div class="container mt-4">
+      <form action="{% url 'store_admin' %}" enctype="multipart/form-data" id="PostForm" method="POST">
+        {% csrf_token %}
+        <div class="card">
+          <div class="card-header bg-dark">
+            <h1 class="card-title">Admin Form</h1>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="row mb-3">
+                  <label class="col-md-3 col-form-label" for="NameID">Name :<span class="text-danger">*</span></label>
+                  <div class="col-md-9">
+                    <input class="form-control" type="text" id="NameID" name="full_name" required />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label class="col-md-3 col-form-label" for="fatherNameID">Father Name :<span class="text-danger">*</span></label>
+                  <div class="col-md-9">
+                    <input class="form-control" type="text" id="fatherNameID" name="father_name" required/>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label class="col-md-3 col-form-label" for="motherNameID">Mother Name :<span class="text-danger">*</span></label>
+                  <div class="col-md-9">
+                    <input class="form-control" id="motherNameID" type="text" name="mother_name" required/>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label class="col-md-3 col-form-label" for="dateOfBirthID">Date of Birth :<span class="text-danger">*</span></label>
+                  <div class="col-md-9">
+                    <input class="form-control" type="date" id="dateOfBirthID" name="date_of_birth" required/>
+                  </div>
+                </div>
+                <!-- Phone Number -->
+                <div class="row mb-3">
+                  <label class="col-md-3 col-form-label" for="emailID">Email :<span class="text-danger">*</span></label>
+                  <div class="col-md-9">
+                    <input class="form-control" id="emailID" type="text" name="email" required/>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label class="col-md-3 col-form-label" for="phoneNoID">Phone Number :<span class="text-danger">*</span></label>
+                  <div class="col-md-9">
+                    <input class="form-control" id="phoneNoID" type="text" name="phone_no" required/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <input class="form-control mb-3" id="imageID" name="photo_name" onchange="previewImage(event)" type="file"/>
+                    <img alt="Patient Image" id="preview" src="{% static 'adminlte_assets/img/nobody.png' %}" style="width: 100%; height: 280px;" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <legend class="text-info">
+                  <i class="far fa-address-card"></i> Personal Information
+                </legend>
+              </div>
+            </div>
+            <hr />
+            <div class="row mb-3">
+              <label class="col-md-2 col-form-label">Gender :<span class="text-danger">*</span></label>
+              <div class="col-md-4">
+                <select class="form-control select2" id="genderID" name="gender" required>
+                  <option selected>Select Gender</option>
+                  {% for item in gender_data %}
+                    <option value="{{ item.id }}">{{ item.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <label class="col-md-2 col-form-label">Religion :<span class="text-danger">*</span></label>
+              <div class="col-md-4">
+                <select class="form-control select2" id="religionID" name="religion" required>
+                  <option selected>Select Religion</option>
+                  {% for item in religion_data %}
+                    <option value="{{ item.id }}">{{ item.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-md-2 col-form-label">Blood Group :<span class="text-danger">*</span></label>
+              <div class="col-md-4">
+                <select class="form-control select2" id="bloodGroupID" name="blood_group" required>
+                  <option selected>Select Blood Group</option>
+                  {% for item in blood_group_data %}
+                    <option value="{{ item.id }}">{{ item.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <label class="col-md-2 col-form-label">Matrimony Status :<span class="text-danger">*</span></label>
+              <div class="col-md-4">
+                <select class="form-control select2" id="matrimonyID" name="matrimony" required>
+                  <option selected>Select Matrimony</option>
+                  {% for item in matrimony_data %}
+                    <option value="{{ item.id }}">{{ item.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-md-2 col-form-label">NID No:<span class="text-danger">*</span></label>
+              <div class="col-md-4">
+                <input class="form-control" type="number" id="nidNOID" name="nid_no" required/>
+              </div>
+              <label class="col-md-2 col-form-label" for="addressID">Address :<span class="text-danger">*</span></label>
+              <div class="col-md-4">
+                <input class="form-control" id="addressID" type="text" name="address" required/>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <legend class="text-info">
+                  <i class="far fa-address-card"></i> Login Details
+                </legend>
+              </div>
+            </div>
+            <hr />
+            <!-- For Login -->
+            <div class="row mb-3">
+              <label class="col-md-2 col-form-label" for="userNameID">User Name : <span class="text-danger">*</span></label>
+              <div class="col-md-10">
+                <input class="form-control" id="userNameID" name="user_name" type="text" required />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-md-2 col-form-label" id="passwordID">Password :<span class="text-danger">*</span></label>
+              <div class="col-md-4">
+                <input class="form-control" id="passwordID" name="password" type="password" required />
+              </div>
+              <label class="col-md-2 col-form-label" id="conpassID">Confirm Password :<span class="text-danger">*</span></label>
+              <div class="col-md-4">
+                <input class="form-control" id="conpassID" name="con_pass" type="password" required />
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-success float-right" type="submit">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+  <script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
+  <script>
+    function previewImage(event) {
+      var input = event.target
+      var imgElement = document.getElementById('preview')
+    
+      if (input.files && input.files[0]) {
+        var reader = new FileReader()
+    
+        reader.onload = function (e) {
+          imgElement.src = e.target.result
+        }
+        reader.readAsDataURL(input.files[0])
+      } else {
+        imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}"
+      }
+    }
+  </script>
+</html>

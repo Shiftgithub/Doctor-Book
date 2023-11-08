@@ -237,25 +237,51 @@ def edit_doctor_data(request, doctor_id):
                     permanent_address_serializer.save()
                     social_media_serializer.save()
 
-                    off_days = request.data.getlist('off_day[]')
-                    # print(off_days)
-                    # existing_off_days = OffDay.objects.filter(doctor_profile=doctor)
-                    # for off_day, existing_off_day in zip(off_days, existing_off_days):
-                    #     day_instance = Day.objects.filter(id=off_day).first()
-                    #     # if existing_off_day.off_day == off_day:
-                    #     print('id ', existing_off_day.id)
-                    #     print(day_instance)
-                    #     print('day id ', day_instance.id)
+                    #############################################
 
-                    return Response({'status': 200})
-                    # else:
-                    #     transaction.set_rollback(True)
-                    #     return Response({'status': 403})
+                    awards = request.data.getlist('awards[]')
+                    honors = request.data.getlist('honors[]')
+                    publications = request.data.getlist('publications[]')
+                    research_interests = request.data.getlist('research_interests[]')
+
+                    certificate_degrees = request.data.getlist('certificate_degrees[]')
+                    institutions = request.data.getlist('institutions[]')
+                    boards = request.data.getlist('boards[]')
+                    results = request.data.getlist('results[]')
+                    passing_years = request.data.getlist('passing_years[]')
+
+                    off_days = request.data.getlist('off_day[]')
+
+                    start_times = request.data.getlist('start_time[]')
+                    end_times = request.data.getlist('end_time[]')
+
+                    # print(off_days)
+                    existing_off_days = OffDay.objects.filter(doctor_profile=doctor)
+                    award_instances = Awards.objects.get(doctor_profile=doctor)
+
+                    print(existing_off_days)
+                    for award, award_instance, honor, publication, research_interest, off_day, existing_off_day in zip(
+                            awards, award_instances, honors, publications, research_interests, off_days,
+                            existing_off_days):
+                        # Create a new instance of Awards for each set of data
+
+                        award_serializer = AwardsSerializer(award_instance, data={'awards': award, 'honors': honor,
+                                                                                  'publications': publication,
+                                                                                  'research_interests': research_interest})
+
+                        if award_serializer.is_valid():
+                            award_serializer.save(updated_at=timezone.now())
+                            return Response({'status': 200})
+                        else:
+                            transaction.set_rollback(True)
+                            return Response({'status': 400, 'message': 'Validation error for awards'})
                 else:
                     transaction.set_rollback(True)
                     return Response({'status': 400, 'message': 'Validation error for doctor data'})
 
     except Exception as e:
+        print(e)
+        print('fgflglfg')
         return Response({'status': 500, 'message': str(e)})
 
 

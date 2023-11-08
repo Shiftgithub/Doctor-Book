@@ -65,3 +65,12 @@ class PresentAddressAllSerializer(serializers.ModelSerializer):
     class Meta:
         model = PresentAddress
         fields = '__all__'
+
+class AdminProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdminProfile
+        fields = '__all__'
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        return instance.pk  # Fetch the primary key of the saved object
