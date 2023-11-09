@@ -74,3 +74,15 @@ class AdminProfileSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         instance = super().create(validated_data)
         return instance.pk  # Fetch the primary key of the saved object
+
+class AdminViewSerializer(serializers.ModelSerializer):
+    blood_group = serializers.CharField(source='blood_group.name', required=False)
+    gender = serializers.CharField(source='gender.name', required=False)
+    matrimony = serializers.CharField(source='matrimony.name', required=False)
+    religion = serializers.CharField(source='religion.name', required=False)
+    email = serializers.CharField(source='user.email', required=False)
+    images = ImageSerializer(source='user.images', many=True)
+
+    class Meta:
+        model = AdminProfile
+        fields = '__all__'

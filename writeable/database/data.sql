@@ -677,10 +677,6 @@ INSERT INTO `board` (`id`, `name`) VALUES
 (12, 'National Curriculum and Textbook Board.');
 
 
-INSERT INTO `user`( `id`, `user_name`, `email`, `password`, `hash`, `role`, `status`, `created_at`, `updated_at`, `deleted_at` ) VALUES
-(1, 'admin', 'admin@admin.com', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'admin', 'active', '2023-07-02 23:27:25', NULL, NULL );
-
-INSERT INTO `otp` (`id`, `otp`, `is_verified`, `created_at`, `updated_at`, `deleted_at`, `user_id`) VALUES ('1', '0', '1', '2023-07-18 02:29:37.183232', NULL, NULL, '1');
 
 INSERT INTO `medicine_brand` (`id`, `name`) VALUES
 (1, 'ACI Limited'),

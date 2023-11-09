@@ -25,8 +25,8 @@ def store_patient(request):
 
 
 def view_patient(request, patient_id):
-    response_doctor_data = patient_data(request, patient_id)
-    patient_all_data = response_doctor_data.data
+    response_patient_data = patient_data(request, patient_id)
+    patient_all_data = response_patient_data.data
     data = {"patient_all_data": patient_all_data, "patient_id": patient_id}
     return render(request, "patient/templates/view.html", data)
 

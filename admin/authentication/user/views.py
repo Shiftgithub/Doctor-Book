@@ -27,8 +27,7 @@ def store_admin_data(request):
             user_serializer.save(hash=hashed_password, role='admin', status='inactive')
 
             user_profile_instance = user_serializer.instance
-            registration_no = generate_unique(18)
-            admin_serializer.save(user_id=user_profile_instance, registration_no=registration_no)
+            admin_serializer.save(user_id=user_profile_instance)
 
             image_serializer = Images(user_id=user_profile_instance)
             image_serializer.save()
@@ -48,3 +47,43 @@ def store_admin_data(request):
                 return Response({'status': 403})
     else:
         return Response({'status': 400})
+
+
+@api_view(['GET'])
+def admin_data(request, user_id):
+    try:
+        admin = AdminProfile.objects.filter(id=user_id, deleted_at=None).select_related(
+            'gender', 'religion', 'blood_group', 'matrimony', 'user'
+        ).first()
+        if admin is None:
+            return Response({'error': 'Admin profile not found', 'status': '404'})
+        else:
+            serializer = AdminViewSerializer(admin).data
+            return Response(serializer)
+    except AdminProfile.DoesNotExist:
+        return Response({'error': 'Admin profile not found', 'status': '404'})
+
+
+@api_view(['PUT', 'POST'])
+def edit_admin_data(request, admin_id):
+    try:
+        admin = AdminProfile.objects.get(id=admin_id, deleted_at=None)
+    except AdminProfile.DoesNotExist:
+        return Response({'status': '404'})
+
+    admin_serializer = AdminProfileSerializer(admin, data=request.data)
+    image_serializer = ImageSerializer(admin.user.images.first(), data=request.data)
+    if admin_serializer.is_valid() and image_serializer.is_valid():
+        if 'photo_name' in request.data and request.data['photo_name']:
+            # New image is selected
+            image_serializer.validated_data['photo_name'] = request.data['photo_name']
+        else:
+            # No new image selected, retain the existing image
+            image_serializer.validated_data['photo_name'] = admin.user.images.first().photo_name
+        if admin_serializer.save(updated_at=datetime.now()) and image_serializer.save(
+                updated_at=datetime.now()):
+            return Response({'status': 200})
+        else:
+            return Response({'status': 403})
+    else:
+        return Response({'status': 403})

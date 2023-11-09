@@ -1,13 +1,13 @@
-{% extends 'dashboard/templates/patient/dashboard.html' %}
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
 {% load static %}
 
 {% block content %}
 <div class="container mt-4">
     <div class="card">
         <div class="card-header bg-dark">
-            <h1 class="card-title">Patient Details</h1>
+            <h1 class="card-title">Admin Details</h1>
             <h1 class="card-title float-right">
-                <a href="{% url 'edit_patient_form' patient_id %}"
+                <a href="{% url 'edit_admin_form' admin_id %}"
                    class="nav-link btn btn-warning float-right"
                    type="submit">Edit Profile</a>
             </h1>
@@ -18,27 +18,21 @@
                     <div class="row mb-3">
                         <label class="col-md-3 col-form-label">Name : </label>
                         <div class="col-md-9">
-                            <input class="form-control" value="{{ patient_all_data.full_name }}" readonly/>
+                            <input class="form-control" value="{{ admin_all_data.full_name }}" readonly/>
                         </div>
                     </div>
                     <!-- Email -->
                     <div class="row mb-3">
                         <label class="col-md-3 col-form-label">Email : </label>
                         <div class="col-md-9">
-                            <input class="form-control" value=" {{ patient_all_data.email }}" readonly/>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-md-3 col-form-label">Registration ID : </label>
-                        <div class="col-md-9">
-                            <input class="form-control" value=" {{ patient_all_data.registration_no }}" readonly/>
+                            <input class="form-control" value=" {{ admin_all_data.email }}" readonly/>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-md-3 col-form-label">Father Name : </label>
                         <div class="col-md-9">
-                            {% if patient_all_data.father_name %}
-                            <input class="form-control" value=" {{ patient_all_data.father_name }}" readonly/>
+                            {% if admin_all_data.father_name %}
+                            <input class="form-control" value=" {{ admin_all_data.father_name }}" readonly/>
                             {% else %}
                             <span class="badge badge-warning">Not Provided</span>
                             {% endif %}
@@ -47,8 +41,8 @@
                     <div class="row mb-3">
                         <label class="col-md-3 col-form-label">Mother Name : </label>
                         <div class="col-md-9">
-                            {% if patient_all_data.mother_name %}
-                            <input class="form-control" value=" {{ patient_all_data.mother_name }}" readonly/>
+                            {% if admin_all_data.mother_name %}
+                            <input class="form-control" value=" {{ admin_all_data.mother_name }}" readonly/>
                             {% else %}
                             <span class="badge badge-warning">Not Provided</span>
                             {% endif %}
@@ -57,8 +51,8 @@
                     <div class="row mb-3">
                         <label class="col-md-3 col-form-label">Date of Birth : </label>
                         <div class="col-md-9">
-                            {% if patient_all_data.date_of_birth %}
-                            <input class="form-control" value=" {{ patient_all_data.date_of_birth }}" readonly/>
+                            {% if admin_all_data.date_of_birth %}
+                            <input class="form-control" value=" {{ admin_all_data.date_of_birth }}" readonly/>
                             {% else %}
                             <span class="badge badge-warning">Not Provided</span>
                             {% endif %}
@@ -68,8 +62,8 @@
                     <div class="row mb-3">
                         <label class="col-md-3 col-form-label">Phone Number : </label>
                         <div class="col-md-9">
-                            {% if patient_all_data.phone_no %}
-                            <input class="form-control" value=" {{ patient_all_data.phone_no }}" readonly/>
+                            {% if admin_all_data.phone_no %}
+                            <input class="form-control" value=" {{ admin_all_data.phone_no }}" readonly/>
                             {% else %}
                             <span class="badge badge-warning">Not Provided</span>
                             {% endif %}
@@ -79,8 +73,8 @@
                 <div class="col-md-4">
                     <div class="row mb-3">
                         <div class="col-md-12">
-                            {% if patient_all_data.images.0.photo_name %}
-                            <img alt="Doctor Image" src="{{ patient_all_data.images.0.photo_name }}"
+                            {% if admin_all_data.images.0.photo_name %}
+                            <img alt="Doctor Image" src="{{ admin_all_data.images.0.photo_name }}"
                                  style="width: 100%; height: 280px;">
                             {% else %}
                             <img alt="Doctor Image" src="{% static 'adminlte_assets/img/nobody.png' %}"
@@ -100,16 +94,16 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Gender :</label>
                 <div class="col-md-4">
-                    {% if patient_all_data.gender %}
-                    <input class="form-control" value=" {{ patient_all_data.gender }}" readonly/>
+                    {% if admin_all_data.gender %}
+                    <input class="form-control" value=" {{ admin_all_data.gender }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
                 <label class="col-md-2 col-form-label">Religion :</label>
                 <div class="col-md-4">
-                    {% if patient_all_data.religion %}
-                    <input class="form-control" value=" {{ patient_all_data.religion }}" readonly/>
+                    {% if admin_all_data.religion %}
+                    <input class="form-control" value=" {{ admin_all_data.religion }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
@@ -118,16 +112,16 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Blood Group : </label>
                 <div class="col-md-4">
-                    {% if patient_all_data.blood_group %}
-                    <input class="form-control" value=" {{ patient_all_data.blood_group }}" readonly/>
+                    {% if admin_all_data.blood_group %}
+                    <input class="form-control" value=" {{ admin_all_data.blood_group }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
                 <label class="col-md-2 col-form-label">Matrimony Status : </label>
                 <div class="col-md-4">
-                    {% if patient_all_data.matrimony %}
-                    <input class="form-control" value=" {{ patient_all_data.matrimony }}" readonly/>
+                    {% if admin_all_data.matrimony %}
+                    <input class="form-control" value=" {{ admin_all_data.matrimony }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
@@ -136,16 +130,16 @@
             <div class="row mb-3">
                 <label class="col-md-2 col-form-label">NID No: </label>
                 <div class="col-md-4">
-                    {% if patient_all_data.nid_no %}
-                    <input class="form-control" value=" {{ patient_all_data.nid_no }}" readonly/>
+                    {% if admin_all_data.nid_no %}
+                    <input class="form-control" value=" {{ admin_all_data.nid_no }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
                     {% endif %}
                 </div>
                 <label class="col-md-2 col-form-label">Address : </label>
                 <div class="col-md-4">
-                    {% if patient_all_data.address %}
-                    <input class="form-control" value=" {{ patient_all_data.address }}" readonly/>
+                    {% if admin_all_data.address %}
+                    <input class="form-control" value=" {{ admin_all_data.address }}" readonly/>
                     {% else %}
                     <span class="badge badge-warning">Not Provided</span>
                     {% endif %}

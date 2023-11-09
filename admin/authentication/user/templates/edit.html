@@ -1,14 +1,15 @@
-{% extends 'dashboard/templates/admin/dashboard.html' %}
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+
 {% load static %}
 
 {% block content %}
 <div class="container mt-4">
-    <form action="{% url 'edit_patient' patient_id %}" enctype="multipart/form-data" id="PostForm"
+    <form action="{% url 'edit_admin' admin_id %}" enctype="multipart/form-data" id="PostForm"
           method="POST">
         {% csrf_token %}
         <div class="card">
             <div class="card-header bg-dark">
-                <h1 class="card-title">Patient Details</h1>
+                <h1 class="card-title">Admin Details</h1>
                 <h1 class="card-title float-right">
                     <a href="{% url 'user_details' %}" class="nav-link btn btn-info float-right"
                        type="submit">Back View</a>
@@ -21,27 +22,27 @@
                             <label class="col-md-3 col-form-label" for="NameID">Name :</label>
                             <div class="col-md-9">
                                 <input class="form-control" type="text" id="NameID"
-                                       value="{{ patient_all_data.full_name }}" name="full_name"/>
+                                       value="{{ admin_all_data.full_name }}" name="full_name"/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="fatherNameID">Father Name :</label>
                             <div class="col-md-9">
                                 <input class="form-control" type="text" id="fatherNameID"
-                                       value="{{ patient_all_data.father_name }}" name="father_name"/>
+                                       value="{{ admin_all_data.father_name }}" name="father_name"/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="motherNameID">Mother Name : </label>
                             <div class="col-md-9">
-                                <input class="form-control" value=" {{ patient_all_data.mother_name }}"
+                                <input class="form-control" value=" {{ admin_all_data.mother_name }}"
                                        id="motherNameID" type="text" name="mother_name"/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="dateOfBirthID">Date of Birth : </label>
                             <div class="col-md-9">
-                                <input class="form-control" value="{{ patient_all_data.date_of_birth }}"
+                                <input class="form-control" value="{{ admin_all_data.date_of_birth }}"
                                        type="date" id="dateOfBirthID" name="date_of_birth"/>
                             </div>
                         </div>
@@ -49,7 +50,7 @@
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="phoneNoID">Phone Number : </label>
                             <div class="col-md-9">
-                                <input class="form-control" value=" {{ patient_all_data.phone_no }}" id="phoneNoID"
+                                <input class="form-control" value=" {{ admin_all_data.phone_no }}" id="phoneNoID"
                                        type="text" name="phone_no"/>
                             </div>
                         </div>
@@ -59,11 +60,12 @@
                             <div class="col-md-12">
                                 <input class="form-control mb-3" id="imageID" name="photo_name"
                                        onchange="previewImage(event)" type="file"/>
-                                {% if patient_all_data.images.0.photo_name %}
-                                <img alt="Patient Image" id="preview" src="{{ patient_all_data.images.0.photo_name }}"
+                                {% if admin_all_data.images.0.photo_name %}
+                                <img alt="Patient Image" id="preview" src="{{ admin_all_data.images.0.photo_name }}"
                                      style="width: 100%; height: 280px;">
                                 {% else %}
-                                <img alt="Patient Image" id="preview" src="{% static 'adminlte_assets/img/nobody.png' %}"
+                                <img alt="Patient Image" id="preview"
+                                     src="{% static 'adminlte_assets/img/nobody.png' %}"
                                      style="width: 100%; height: 280px;">
                                 {% endif %}
 
@@ -83,7 +85,7 @@
                         <select class="form-control select2" id="genderID" name="gender">
                             <option selected>Select Gender</option>
                             {% for item in gender_data %}
-                            {% if item.name == patient_all_data.gender %}
+                            {% if item.name == admin_all_data.gender %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>
                             {% else %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
@@ -96,7 +98,7 @@
                         <select class="form-control select2" id="religionID" name="religion">
                             <option selected>Select Religion</option>
                             {% for item in religion_data %}
-                            {% if item.name == patient_all_data.religion %}
+                            {% if item.name == admin_all_data.religion %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>
                             {% else %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
@@ -111,7 +113,7 @@
                         <select class="form-control select2" id="bloodGroupID" name="blood_group">
                             <option selected>Select Blood Group</option>
                             {% for item in blood_group_data %}
-                            {% if item.name == patient_all_data.blood_group %}
+                            {% if item.name == admin_all_data.blood_group %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>
                             {% else %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
@@ -124,7 +126,7 @@
                         <select class="form-control select2" id="matrimonyID" name="matrimony">
                             <option selected>Select Matrimony</option>
                             {% for item in matrimony_data %}
-                            {% if item.name == patient_all_data.matrimony %}
+                            {% if item.name == admin_all_data.matrimony %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>
                             {% else %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
@@ -136,12 +138,12 @@
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label">NID No: </label>
                     <div class="col-md-4">
-                        <input class="form-control" type="number" value="{{ patient_all_data.nid_no }}"
+                        <input class="form-control" type="number" value="{{ admin_all_data.nid_no }}"
                                id="nidNOID" name="nid_no"/>
                     </div>
                     <label class="col-md-2 col-form-label" for="addressID">Address : </label>
                     <div class="col-md-4">
-                        <input class="form-control" value=" {{ patient_all_data.address }}" id="addressID"
+                        <input class="form-control" value=" {{ admin_all_data.address }}" id="addressID"
                                type="text" name="address"/>
                     </div>
                 </div>
