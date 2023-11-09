@@ -1,0 +1,56 @@
+Brain (মস্তিষ্ক):
+
+Problems: Brain Tumor, Stroke, Epilepsy
+Specifications: Abnormal cell growth in the brain, disruption of blood supply leading to cell damage, neurological disorder causing seizures.
+Eyes (চোখ:):
+
+Problems: Cataracts, Glaucoma, Conjunctivitis
+Specifications: Clouding of the eye's lens, increased intraocular pressure, inflammation of the conjunctiva.
+Ears (কান):
+
+Problems: Hearing Loss, Tinnitus, Ear Infections
+Specifications: Impairment of auditory function, ringing in the ears, inflammation or infection of the ear.
+Nose (নাক):
+
+Problems: Sinusitis, Allergic Rhinitis, Deviated Septum
+Specifications: Inflammation of the sinuses, allergic reaction affecting the nasal passages, displacement of the nasal septum.
+Mouth (মুখ):
+
+Problems: Tooth Decay, Gum Disease, Oral Cancer
+Specifications: Deterioration of tooth structure, inflammation of the gums, cancer affecting the oral cavity.
+Throat structures (গলা প্রতিরক্ষা):
+
+Problems: Pharyngitis, Laryngitis, Tonsillitis
+Specifications: Inflammation of the pharynx, larynx, or tonsils.
+Heart (হৃদয়):
+
+Problems: Coronary Artery Disease, Heart Failure, Arrhythmia
+Specifications: Narrowing of coronary arteries, weakened heart function, irregular heart rhythms.
+Lungs (ফুসফুস):
+
+Problems: Asthma, Chronic Obstructive Pulmonary Disease (COPD), Pneumonia
+Specifications: Chronic inflammation leading to airflow obstruction, respiratory condition causing difficulty in breathing.
+Shoulder joint (কাঁধ জয়েন্ট):
+
+Problems: Frozen Shoulder, Rotator Cuff Tear, Bursitis
+Specifications: Restricted movement, tear in the rotator cuff muscles, inflammation of the shoulder bursa.
+Upper arm muscles ( উপরের বাহুর পেশী):
+
+Problems: Strain, Sprain, Tendonitis
+Specifications: Overstretching or tearing of muscle fibers, inflammation of tendons.
+Forearm muscles ( হাতের পেশী):
+
+Problems: Tennis Elbow, Golfer's Elbow, Forearm Strain
+Specifications: Inflammation of the tendons on the outer or inner side of the elbow, overuse or injury of forearm muscles.
+Wrist joint (কব্জি জয়েন্ট):
+
+Problems: Carpal Tunnel Syndrome, Wrist Sprain, Arthritis
+Specifications: Compression of the median nerve, stretching or tearing of ligaments, inflammation of the wrist joint.
+Hand bones and muscles (হাতের হাড় এবং পেশী):
+
+Problems: Hand Fracture, Carpal Tunnel Syndrome, Trigger Finger
+Specifications: Break in hand bones, compression of the median nerve, locking or catching of a finger tendon.
+Hip joint (ঊরুসন্ধি):
+
+Problems: Osteoarthritis, Hip Fracture, Bursitis
+Specifications: Degeneration of joint cartilage, break in the hip bone, inflammation of the hip bursa.
