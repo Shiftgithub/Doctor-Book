@@ -5,6 +5,7 @@ from admin.patient.models import PatientProfile
 from django.contrib import messages
 from backend.constants import *
 from admin.personal_data.views import *
+from django.http import HttpResponse
 
 
 def admin_form(request):
@@ -105,4 +106,4 @@ def get_user_details(request):
         patient_id = patient_profile.id
         return redirect('view_patient', patient_id=patient_id)
     else:
-        pass
+        return HttpResponse('Please Enter Valid Information')

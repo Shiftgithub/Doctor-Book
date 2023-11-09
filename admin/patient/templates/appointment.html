@@ -45,8 +45,8 @@
                 <hr/>
                 {% for date in date_list %}
                 <div class="circular-radio">
-                    <input type="radio" onclick="getDate(this)" id="date-{{ forloop.counter }}" name="selected_date"
-                           data-date="{{ date }}"/>
+                    <input type="radio" onclick="getDate(this)" id="date-{{ forloop.counter }}"
+                           name="selected_date" data-date="{{ date }}"/>
                     <label for="date-{{ forloop.counter }}">{{ date }}</label>
                 </div>
                 {% endfor %}
@@ -61,8 +61,7 @@
                         {% for time in schedule_time %}
                         <div class="circular-radio col-4">
                             <input class="time-class" onclick="getTime(this)" type="radio"
-                                   id="time-{{ forloop.counter }}"
-                                   name="selected_time" data-time="{{ time }}"/>
+                                   id="time-{{ forloop.counter }}" name="selected_time" data-time="{{ time }}"/>
                             <label for="time-{{ forloop.counter }}">{{ time }}</label>
                         </div>
                         {% if forloop.counter|divisibleby:3 %}
