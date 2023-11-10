@@ -75,7 +75,6 @@ class Education(BaseModel):
 
 class OffDay(BaseModel):
     doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='off_days')
-
     off_day = models.ForeignKey(Day, on_delete=models.CASCADE, related_name='off_day_name', null=True)
 
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_off_day', null=True)

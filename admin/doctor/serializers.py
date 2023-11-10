@@ -53,6 +53,16 @@ class EducationSerializer(serializers.ModelSerializer):
         return instance  # Fetch the primary key of the saved object
 
 
+class EducationEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Education
+        fields = '__all__'
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        return instance  # Fetch the primary key of the saved object
+
+
 class OffDaySerializer(serializers.ModelSerializer):
     class Meta:
         model = OffDay
@@ -123,9 +133,11 @@ class OffDayIDSerializer(serializers.ModelSerializer):
         model = OffDay
         fields = 'off_day'
 
+
 class DoctorPrescriptionSerializer(serializers.ModelSerializer):
     department = serializers.CharField(source='department.name', required=False)
     email = serializers.EmailField(source='user.email')
+
     class Meta:
         model = DoctorProfile
         fields = '__all__'

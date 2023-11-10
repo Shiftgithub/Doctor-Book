@@ -243,45 +243,83 @@ def edit_doctor_data(request, doctor_id):
                     honors = request.data.getlist('honors[]')
                     publications = request.data.getlist('publications[]')
                     research_interests = request.data.getlist('research_interests[]')
-
                     certificate_degrees = request.data.getlist('certificate_degrees[]')
                     institutions = request.data.getlist('institutions[]')
                     boards = request.data.getlist('boards[]')
                     results = request.data.getlist('results[]')
                     passing_years = request.data.getlist('passing_years[]')
-
                     off_days = request.data.getlist('off_day[]')
-
                     start_times = request.data.getlist('start_time[]')
                     end_times = request.data.getlist('end_time[]')
 
-                    # print(off_days)
+                    existing_awards = Awards.objects.filter(doctor_profile=doctor)
+                    existing_educations = Education.objects.filter(doctor_profile=doctor)
                     existing_off_days = OffDay.objects.filter(doctor_profile=doctor)
-                    award_instances = Awards.objects.get(doctor_profile=doctor)
+                    existing_schedule_times = ScheduleTime.objects.filter(doctor_profile=doctor)
+                    # Iterate through the existing awards
+                    for award_instance, award, honor, publication, research_interest, education_instance, certificate_degree, institution, board_id, result, passing_year, off_day_instance, off_day, schedule_time_instance, start_time, end_time in zip(
+                            existing_awards, awards, honors, publications, research_interests, existing_educations,
+                            certificate_degrees, institutions, boards, results, passing_years, existing_off_days,
+                            off_days, existing_schedule_times, start_times, end_times
+                    ):
+                        try:
+                            board = Board.objects.get(id=board_id)
+                            off_day_id = OffDay.objects.get(id=off_day)
+                        except (Board, OffDay).DoesNotExist as e:
+                            data = {'status': 404,
+                                    'message': 'Board or off day are not Existing in db',
+                                    'error': str(e)
+                                    }
+                            return Response(data)
 
-                    print(existing_off_days)
-                    for award, award_instance, honor, publication, research_interest, off_day, existing_off_day in zip(
-                            awards, award_instances, honors, publications, research_interests, off_days,
-                            existing_off_days):
-                        # Create a new instance of Awards for each set of data
-
-                        award_serializer = AwardsSerializer(award_instance, data={'awards': award, 'honors': honor,
-                                                                                  'publications': publication,
-                                                                                  'research_interests': research_interest})
-
-                        if award_serializer.is_valid():
-                            award_serializer.save(updated_at=timezone.now())
-                            return Response({'status': 200})
+                        award_serializer = AwardsSerializer(award_instance, data={
+                            'awards': award,
+                            'honors': honor,
+                            'publications': publication,
+                            'research_interests': research_interest,
+                            'doctor_profile': doctor.id,
+                        })
+                        edu_serializer = EducationEditSerializer(education_instance, data={
+                            'certificate_degree': certificate_degree,
+                            'institution': institution,
+                            'result': result,
+                            'passing_year': passing_year,
+                            'board': board.id,
+                            'doctor_profile': doctor.id,
+                        })
+                        off_day_serializer = OffDaySerializer(off_day_instance, data={
+                            'off_day': off_day_id.id,
+                            'doctor_profile': doctor.id
+                        })
+                        schedule_time_serializer = ScheduleTimeSerializer(schedule_time_instance, data={
+                            'start_time': start_time,
+                            'end_time': end_time,
+                            'doctor_profile': doctor.id
+                        })
+                        if (
+                                award_serializer.is_valid() and
+                                edu_serializer.is_valid() and
+                                off_day_serializer.is_valid() and
+                                schedule_time_serializer.is_valid()
+                        ):
+                            award = award_serializer.save(updated_at=timezone.now())
+                            edu = edu_serializer.save(updated_at=timezone.now())
+                            day = off_day_serializer.save(updated_at=timezone.now())
+                            time = schedule_time_serializer.save(updated_at=timezone.now())
                         else:
                             transaction.set_rollback(True)
-                            return Response({'status': 400, 'message': 'Validation error for awards'})
+                            return Response(
+                                {'status': 404, 'message': 'Request data are invalid.'})
+                    if award and edu and day and time:
+                        return Response({'status': 200})
+                    else:
+                        transaction.set_rollback(True)
+                        return Response(
+                            {'status': 404, 'message': 'Data updated failed.'})
                 else:
                     transaction.set_rollback(True)
                     return Response({'status': 400, 'message': 'Validation error for doctor data'})
-
     except Exception as e:
-        print(e)
-        print('fgflglfg')
         return Response({'status': 500, 'message': str(e)})
 
 
