@@ -46,6 +46,7 @@ def prescription_data_view(request):
     response = get_all_prescriptions_list(request)
     all_prescription_data = response.data
     data = {'all_prescription_data': all_prescription_data}
+    print(data)
     return render(request, 'prescription/templates/list_all.html', data)
 
 
@@ -65,6 +66,7 @@ def view_prescription(request, prescription_id):
         'age': age,
         'prescription_data': prescription_data,
         'medicines_with_schedule': medicines_with_schedule,
+        'prescription_id': prescription_id
     }
     return render(request, 'prescription/templates/view.html', data)
 
@@ -86,7 +88,7 @@ def calculate_age(date_of_birth, issue_date):
 def edit_prescription_form(request, prescription_id):
     response_prescription = prescription_dataview(request, prescription_id)
     prescription_data = response_prescription.data
-    data = {'prescription_data': prescription_data}
+    data = {'prescription_data': prescription_data, 'prescription_id': prescription_id}
     return render(request, 'prescription/templates/edit.html', data)
 
 

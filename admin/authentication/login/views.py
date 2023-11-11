@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from admin.doctor.models import DoctorProfile
 from admin.patient.models import PatientProfile
+from admin.authentication.user.models import AdminProfile
 
 
 @api_view(['POST'])
@@ -27,6 +28,8 @@ def checking_authorization(request):
         # Check user role and status
         if user.status == STATUS_ACTIVE:
             if user.role == ROLE_ADMIN:
+                admin_info = AdminProfile.objects.get(user_id=user.id)
+                set_user_info(request, admin_info, user.id, user.email)
                 return Response({'status': 200, 'message': 'Admin'})
             elif user.role == ROLE_DOCTOR:
                 doctor_info = DoctorProfile.objects.get(user_id=user.id)
@@ -37,7 +40,7 @@ def checking_authorization(request):
                 set_user_info(request, patient_info, user.id, user.email)
                 return Response({'status': 200, 'message': 'Patient'})
             else:
-                return Response({'status': 403, 'message': 'User is not a doctor or is not approved'})
+                return Response({'status': 403, 'message': 'User is not a approved'})
         elif user.status == STATUS_INACTIVE:
             return Response({'status': 308, 'email': user.email})  # 308 Permanent Redirect
         else:

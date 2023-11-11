@@ -16,16 +16,14 @@
         <div class="row">
             <div class="member-info text-center">
                 <div class="row p-2">
-                    <label class="col-md-3 col-form-label">Body Part Name:<span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-3 col-form-label">Body Part Name :</label>
                     <div class="col-md-9">
                         <input class="form-control" value="{{ bodypart_name.name }}" readonly/>
                     </div>
                 </div>
                 <!-- Problem Specification -->
                 <div class="row p-2">
-                    <label class="col-md-3 col-form-label">Organ Name:<span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-3 col-form-label">Organ Name :</label>
                     <div class="col-md-9">
                         <input class="form-control" value="{{organ_name.name }}" readonly/>
                     </div>
@@ -38,7 +36,7 @@
                                 <tbody>
                                 {% for data in problem_specs %}
                                 <tr>
-                                    <td><strong>({{ data.problem }})</strong> . ({{ data.problem_specification }}) </td>
+                                    <td><strong>({{ data.problem }})</strong> . ({{ data.problem_specification }})</td>
                                 </tr>
                                 {% endfor %}
                                 </tbody>
@@ -70,9 +68,13 @@
             <div class="row alert alert-warning">
                 <h3>No Doctors Found</h3>
                 <br>
-                <a href="{% url 'landing_dashboard' %}"><i class="fas fa-arrow-left"></i> Go Back</a>
+                <a href="{% url 'predict_form' %}"><i class="fas fa-arrow-left"></i> Go Back</a>
             </div>
             {% endif %}
+            <div class="text-center">
+                <br>
+                <a href="{% url 'predict_form' %}"><i class="fas fa-arrow-left"></i> Go Back</a>
+            </div>
         </div>
     </div>
 </section>

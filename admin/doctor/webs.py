@@ -23,11 +23,9 @@ def doctor_form(request):
 
     response_division = division_list(request)
     division_data = response_division.data
-
-    return render(request, 'doctor/templates/form.html',
-                  {'department_data': department_data, 'gender_data': gender_data, 'religion_data': religion_data,
-                   'blood_group_data': blood_group_data, 'matrimony_data': matrimony_data,
-                   'division_data': division_data})
+    data = {'department_data': department_data, 'gender_data': gender_data, 'religion_data': religion_data,
+            'blood_group_data': blood_group_data, 'matrimony_data': matrimony_data, 'division_data': division_data}
+    return render(request, 'doctor/templates/form.html', data)
 
 
 def store_doctor(request):
@@ -53,13 +51,12 @@ def doctor_work_details_form(request):
     day_data = response_day.data
 
     response_doctor = get_all_doctors_name(request)
-    doctor_data = response_doctor.data
+    doctors_data = response_doctor.data
 
     response_board = board_list(request)
     board_data = response_board.data
-
-    return render(request, 'doctor/templates/work_form.html',
-                  {'doctor_data': doctor_data, 'board_data': board_data, 'day_data': day_data})
+    data = {'doctor_data': doctors_data, 'board_data': board_data, 'day_data': day_data}
+    return render(request, 'doctor/templates/work_form.html', data)
 
 
 def store_doctor_work_details(request):
@@ -72,10 +69,11 @@ def store_doctor_work_details(request):
     return redirect('add_doctor_work_details_form')
 
 
-def view_doctor(request, prescription_id):
-    response_prescription_data = doctor_data(request, prescription_id)
-    prescription_all_data = response_prescription_data.data
-    return render(request, 'prescription/templates/view.html', {'prescription_all_data': prescription_all_data})
+def view_doctor(request, doctor_id):
+    response_doctor_data = doctor_data(request, doctor_id)
+    doctor_all_data = response_doctor_data.data
+    data = {'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id}
+    return render(request, 'doctor/templates/view.html', data)
 
 
 def edit_doctor_form(request, doctor_id):

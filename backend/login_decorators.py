@@ -8,7 +8,6 @@ def protected_view(view_func):
         if request.session.get('user_id'):
             role = request.session.get('user_role')
             if role == ROLE_ADMIN:
-
                 # Logic for admin role
                 return view_func(request, *args, **kwargs)
             elif role == ROLE_DOCTOR:

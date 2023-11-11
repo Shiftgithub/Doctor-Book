@@ -42,7 +42,7 @@ CREATE TABLE `organ_organ` (
 -- Dumping data for table `organ_organ`
 --
 
-INSERT INTO `organ_organ` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`, `body_part_id`) VALUES
+INSERT INTO `organ` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`, `body_part_id`) VALUES
 (1, 'Brain (মস্তিষ্ক)', 'The central control center of the nervous system, responsible for processing. (স্নায়ু তন্ত্রের কেন্দ্রীয় নিয়ন্ত্রণ কেন্দ্র, তথ্য প্রক্রিয়া করা, শারীরিক কাজ নিয়ন্ত্রণ এবং ভাবনা এবং আবেগ উৎপন্ন করা জন্য দায়িত্বপ্রাপ্ত।)', '2023-08-16 16:39:35.767875', NULL, NULL, 1),
 (2, 'Eyes (চোখ:)', 'Sensory organs that detect light and allow us to see and perceive our environment. (প্রকাশ চিহ্নিত করে এবং আমাদেরকে দেখতে এবং আমাদের পরিবেশ অনুভব করতে সাহায্য করে যেমন দৃষ্টি এবং পর্যবেক্ষণ।)', '2023-08-16 16:39:35.775348', NULL, NULL, 1),
 (3, 'Ears (কান)', 'Sensory organs that enable hearing and help maintain balance. (শ্রবণ সহায়ক অঙ্গ, যা শ্রবণ সক্ষমতা সৃষ্টি করে এবং সমর্থন করে মধ্যবর্তী সমতল।)', '2023-08-16 16:39:35.782385', NULL, NULL, 1),

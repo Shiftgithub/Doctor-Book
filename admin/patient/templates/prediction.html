@@ -42,12 +42,11 @@
                     <div id="problemSpecificationID"></div>
                 </div>
             </div>
-
             <!-- Submit Button -->
             <div class="row p-2">
                 <div class="col-md-3"></div>
                 <div class="col-md-9">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary float-right">Submit</button>
                 </div>
             </div>
         </form>
@@ -101,7 +100,7 @@
                                 var checkboxId = 'prbSpec' + key;
                                 tableHTML += '<tr>';
                                 tableHTML += '<td><input type="checkbox" name="problem_specs[]" value="' + value.id + '" id="' + checkboxId + '"></td>';
-                                tableHTML += '<td><label for="' + checkboxId + '">(' + value.problem + ') ' + value.problem_specification + '</label></td>';
+                                tableHTML += '<td><label for="' + checkboxId + '">' + value.problem +  value.problem_specification + '</label></td>';
                                 tableHTML += '</tr>';
                             });
 

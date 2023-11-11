@@ -13,24 +13,21 @@ from .serializers import *
 @api_view(['POST'])
 def prediction(request):
     predict_serializer = PredictionSerializer(data=request.data)
-    print(predict_serializer)
+
+    problem_specs = request.POST.getlist('problem_specs[]')
     if predict_serializer.is_valid():
         bodypart_id = predict_serializer.validated_data.get('bodypart')
         organ_id = predict_serializer.validated_data.get('organ')
-        problem_specs = request.POST.getlist('problem_specs[]')
 
         department_specifications = DepartmentSpecification.objects.filter(
             organ_problem_specification__in=problem_specs
         )
-        print(department_specifications)
         if department_specifications.exists():
             department_ids = department_specifications.values_list('department', flat=True)
-            print(department_ids)
             if len(set(department_ids)) == 1:
                 doctor_data = DoctorProfile.objects.filter(
                     department__in=department_ids
                 )
-                print(doctor_data)
                 doctor_serializer = PredictionDoctorSerializer(doctor_data, many=True)
 
                 bodypart = BodyPart.objects.get(id=bodypart_id)

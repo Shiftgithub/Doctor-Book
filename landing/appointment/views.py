@@ -98,22 +98,18 @@ def generate_schedule_time(request, doctor_id):
     appointment_times = fun(request, get_working_schedule_response)
 
     # Iterate over the doctor_ids, dates, response_date, times, and appointment_times
-    for doctor, date, response_date, time, appointment_time in zip(doctor_ids, dates, date_response, times,
-                                                                   appointment_times):
+    for doctor, date, response_date, time, appointment_time in zip(
+            doctor_ids, dates, date_response, times, appointment_times):
         if doctor == doctor_id:
-            if date_response == date:
-                print(f"Doctor ID: {doctor_id}, Date: {date}, Time: {time}")
-            else:
-                print('Error: Date mismatch')
-
+            # if date_response == date:
+            #     print(f"Doctor ID: {doctor_id}, Date: {date}, Time: {time}")
+            #     appointment_times = [at for at in appointment_times if at != time]
+            #     print(appointment_times)
+            # else:
             appointment_times = [at for at in appointment_times if at != time]
-            print(appointment_times)
+
         else:
             print('Error: Doctor mismatch')
-
-    # Create a new list with elements that don't match the 'time'
-
-    # You can do something with the 'response' here if needed.
 
     return appointment_times
 
@@ -237,10 +233,10 @@ def store_appointment_data(request):
             patient = PatientProfile.objects.get(registration_no=registration_id)
         except PatientProfile.DoesNotExist:
             return Response({'status': 404, 'message': 'Patient not found'})
-        # Retrieve the 'Doctor_Profile' instance for the doctor using 'doctor_id'
+        # Retrieve the 'DoctorProfile' instance for the doctor using 'doctor_id'
         try:
-            doctor = Doctor_Profile.objects.get(id=doctor_id)
-        except Doctor_Profile.DoesNotExist:
+            doctor = DoctorProfile.objects.get(id=doctor_id)
+        except DoctorProfile.DoesNotExist:
             return Response({'status': 404, 'message': 'Doctor not found'})
 
         # Set the 'doctor' field to the retrieved 'User' instance
@@ -286,10 +282,10 @@ def create_patient_account_store_appointment(request):
             # send_mail = send_email(email, message)
             if otp_serializer:
                 if appointment_serializer.is_valid():
-                    # Retrieve the 'Doctor_Profile' instance for the doctor using 'doctor_id'
+                    # Retrieve the 'DoctorProfile' instance for the doctor using 'doctor_id'
                     try:
-                        doctor = Doctor_Profile.objects.get(id=doctor_id)
-                    except Doctor_Profile.DoesNotExist:
+                        doctor = DoctorProfile.objects.get(id=doctor_id)
+                    except DoctorProfile.DoesNotExist:
                         return Response({'status': 404, 'message': 'Doctor not found'})
 
                     # Set the 'doctor' field to the retrieved 'User' instance

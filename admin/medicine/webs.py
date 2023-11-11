@@ -39,7 +39,8 @@ def store_medicine(request):
 def medicine_data_view(request):
     response = get_all_medicines_list(request)
     all_data = response.data
-    return render(request, 'medicine/templates/list_all.html', {'all_data': all_data})
+    data = {'all_data': all_data}
+    return render(request, 'medicine/templates/list_all.html', data)
 
 
 def view_medicine(request, medicine_id):
