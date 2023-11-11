@@ -237,8 +237,6 @@ def edit_doctor_data(request, doctor_id):
                     permanent_address_serializer.save()
                     social_media_serializer.save()
 
-                    #############################################
-
                     awards = request.data.getlist('awards[]')
                     honors = request.data.getlist('honors[]')
                     publications = request.data.getlist('publications[]')

@@ -63,13 +63,10 @@ def get_all_prescriptions_list(request):
         'prescription_medicine', 'prescription_lab'
     ).order_by('id')
 
-    if prescriptions.exists():  # Check if there are any prescriptions
-        serializer = PrescriptionViewSerializer(instance=prescriptions, many=True)
-        serializer_data = serializer.data
-        return Response(serializer_data)
-    else:
-        return Response({"detail": "No prescriptions found"}, status=404)
-
+    serializer = PrescriptionViewSerializer(instance=prescriptions, many=True)
+    serializer_data = serializer.data
+    return Response(serializer_data)
+   
 
 @api_view(['GET'])
 def prescription_dataview(request, prescription_id):
@@ -81,7 +78,7 @@ def prescription_dataview(request, prescription_id):
         print(serializer_data)
         return Response(serializer_data)
     except Prescription.DoesNotExist:
-        return Response({"detail": "Prescription not found"}, status=404)
+        return Response({'detail': 'Prescription not found'}, status=404)
 
 
 # prescription edit function
