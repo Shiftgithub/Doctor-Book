@@ -2,7 +2,7 @@ from .webs import *
 from django.urls import path, include
 
 # To protect admin panel paths from unauthenticated users
-from backend.login_decorators import protected_view
+from core.login_decorators import protected_view
 
 urlpatterns = [
     # article adminpanel path

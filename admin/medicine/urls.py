@@ -1,6 +1,6 @@
 from .webs import *
 from django.urls import path, include
-from backend.login_decorators import protected_view
+from core.login_decorators import protected_view
 
 urlpatterns = [
     # medicine adminpanel path
