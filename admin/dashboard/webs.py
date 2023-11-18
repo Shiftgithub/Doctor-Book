@@ -48,3 +48,7 @@ def notification(request):
         messages.add_message(request, messages.INFO, 'Good evening!  Welcome to the dashboard')
     else:
         messages.add_message(request, messages.INFO, 'Good night!  Welcome to the dashboard')
+
+
+def change_theme(request):
+    return render(request, 'dashboard/templates/admin/change_theme.html')

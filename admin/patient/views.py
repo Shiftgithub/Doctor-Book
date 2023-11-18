@@ -94,6 +94,7 @@ def edit_patient_data(request, patient_id):
             image_serializer.validated_data['photo_name'] = patient.user.images.first().photo_name
         if patient_serializer.save(updated_at=datetime.now()) and image_serializer.save(
                 updated_at=datetime.now()):
+            set_user_info(request, patient, patient_id, patient.user.email)
             return Response({'status': 200})
         else:
             return Response({'status': 403})

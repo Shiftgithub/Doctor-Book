@@ -26,10 +26,6 @@
     .image-container:hover .image-popup {
         display: block;
     }
-
-
-
-
 </style>
 {% endblock %}
 {% block content %}
@@ -45,7 +41,8 @@
         <div class="row">
             {% if all_data %}
             {% for data in all_data %}
-            <div class="col-4 d-flex align-items-stretch">
+<!--                <div class="col-sm-12 col-md-4 d-flex align-items-stretch">-->
+            <div class="col-sm-12 col-md-4">
                 <div class="icon-box">
                     <a href="{% url 'landing_article_view' data.id %}">
                         <div class="icon"><i class="fas fa-heartbeat"></i></div>

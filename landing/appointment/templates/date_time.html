@@ -49,7 +49,7 @@
 
         <hr/>
         <div class="row">
-            <div class="col-3">
+            <div class="col-sm-12 col-md-3">
                 <h5 class="text-primary">Choose Appointment Date</h5>
                 <hr/>
                 {% for date in date_list %}
@@ -60,7 +60,7 @@
                 </div>
                 {% endfor %}
             </div>
-            <div class="col-9">
+            <div class="col-sm-12 col-md-9">
                 <div id="timeSelection" class="d-none">
                     <!-- Add your time selection options here -->
                     <h5 class="text-primary text-center">Choose Appointment Time</h5>
@@ -68,7 +68,7 @@
                     {% if schedule_time %}
                     <div class="row">
                         {% for time in schedule_time %}
-                        <div class="circular-radio col-4">
+                        <div class="circular-radio col-sm-12 col-md-4">
                             <input class="time-class" onclick="getTime(this)" type="radio"
                                    id="time-{{ forloop.counter }}"
                                    name="selected_time" data-time="{{ time }}"/>

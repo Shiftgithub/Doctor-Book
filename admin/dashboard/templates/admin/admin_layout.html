@@ -139,11 +139,24 @@
         timer: 3000 // 3secs
     })
 
-
 </script>
 {% endfor %}
 {% endif %}
+<script>
+    $( document ).ready(function() {
+    let navbar = $('.navbar-dark');
+    navbar.css('background-color',sessionStorage.mycolor+' !important');
+    //let cardHeader = $('.card-header .bg-dark') ;
+    //cardHeader.css('background-color',sessionStorage.mycolor+' !important');
 
+    let sideBar = $('.sidebar-dark-primary') ;
+    sideBar.css('background-color',sessionStorage.mycolor+' !important');
+
+    let profile = $('#profileID') ;
+    profile.css('background-color',sessionStorage.mycolor+' !important');
+    profile.css('border-color','white !important');
+    });
+</script>
 <!-- Custom JS -->
 {% block scripts %}
 

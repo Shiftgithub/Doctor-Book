@@ -13,6 +13,7 @@ from admin.authentication.user.serializers import *
 from .serializers import *
 from admin.authentication.otp.verifyotp.models import VerifyOtp
 from admin.authentication.user.serializers import UserSerializer, ImageSerializer
+from admin.authentication.login.views import set_user_info
 
 
 @api_view(['POST'])
@@ -82,6 +83,9 @@ def edit_admin_data(request, admin_id):
             image_serializer.validated_data['photo_name'] = admin.user.images.first().photo_name
         if admin_serializer.save(updated_at=datetime.now()) and image_serializer.save(
                 updated_at=datetime.now()):
+            # session variable should be updated here
+            set_user_info(request, admin, admin_id, admin.user.email)
+
             return Response({'status': 200})
         else:
             return Response({'status': 403})
