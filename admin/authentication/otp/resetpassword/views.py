@@ -122,6 +122,12 @@ def change_email(request, user_id):
                 user_instance.save()
                 message = 'Your email has been changed successfully'
                 # send_email(new_email, message)  # Uncomment and implement this function
+                # if user_instance.role == 'admin':
+                # elif user_instance.role == 'doctor':
+                # elif user_instance.role == 'patient':
+                # else:
+                #     pass
+                # set_user_info(request, admin, admin_id, admin.user.email)
                 return Response({'status': 200})
         else:
             return Response({'status': 404, 'message': 'Invalid request', 'user_id': user_id})

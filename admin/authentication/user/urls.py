@@ -1,6 +1,6 @@
 from django.urls import path
 from .webs import *
-from backend.login_decorators import protected_view
+from core.login_decorators import protected_view
 
 # To protect admin panel paths from unauthenticated users
 

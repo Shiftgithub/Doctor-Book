@@ -9,8 +9,8 @@ from admin.organ.views import *
 from admin.organ_problem_speci.views import *
 from admin.faq.views import *
 from admin.personal_data.views import *
-from backend.login_decorators import protected_view
 from admin.authentication.login.views import *
+from core.login_decorators import protected_view
 
 urlpatterns = [
     # api path groups

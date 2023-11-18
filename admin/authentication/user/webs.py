@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from admin.doctor.models import DoctorProfile
 from admin.patient.models import PatientProfile
 from django.contrib import messages
-from backend.constants import *
+from core.constants import *
 from admin.personal_data.views import *
 from django.http import HttpResponse
 
