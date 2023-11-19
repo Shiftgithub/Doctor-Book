@@ -9,4 +9,5 @@ urlpatterns = [
     path('appointment-schedule/', store_appointment_schedule, name='appointment_schedule'),
     path('appointment-schedule-method/', store_appointment_and_create_account, name='appointment_schedule_method'),
     path('go-home/', go_home, name='go_home'),
+    path('ajax-time/<int:doctor_id>/<str:date>/', generate_schedule_time, name='time'),
 ]

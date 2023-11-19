@@ -3,11 +3,9 @@ from admin.department_speci.models import *
 from admin.doctor.models import DoctorProfile, ScheduleTime
 from admin.authentication.user.serializers import *
 from admin.bodypart.models import *
-
 from admin.organ.models import *
 from admin.doctor.models import OffDay
 from admin.personal_data.serializers import *
-
 from .models import *
 
 

@@ -9,12 +9,14 @@ def date_time_form(request, doctor_id):
     doctor_all_data = response_doctor.data
     days = generate_date(request, doctor_id)
     request.session['temp_doctor_id'] = doctor_id
-    schedule_time = generate_schedule_time(request, doctor_id)
+    # schedule_time = generate_schedule_time(request, doctor_id, date)
+
     data = {
         'date_list': days,
         'doctor_all_data': doctor_all_data,
-        'schedule_time': schedule_time,
+        # 'schedule_time': schedule_time,
     }
+
     return render(request, 'appointment/templates/date_time.html', data)
 
 

@@ -12,9 +12,29 @@ from admin.authentication.user.serializers import UserSerializer
 from admin.patient.serializers import PatientSerializer
 from admin.authentication.otp.function.send_email import generate_unique
 from admin.authentication.user.models import Images
-from rest_framework import status
 from admin.authentication.otp.function.send_email import generate_token
 from admin.authentication.otp.verifyotp.models import VerifyOtp
+from django.http import JsonResponse
+
+
+@api_view(['GET'])
+def get_off_day_list(request, doctor_id):
+    try:
+        # Filter OffDay objects by the doctor_profile
+        off_days = OffDay.objects.filter(doctor_profile_id=doctor_id)
+
+        # Serialize the OffDay objects using OffDayForAppointmentSerializer
+        serializer = OffDayForAppointmentSerializer(off_days, many=True)
+        serialized_data = serializer.data
+
+        # Return the serialized data as a JSON response
+        return Response(serialized_data)
+    except OffDay.DoesNotExist:
+        # Handle the case where no off days are found for the specified doctor
+        return Response({"error": "No off days found for this doctor", "status": 404})
+    except Exception as e:
+        # Handle any other exceptions or errors that may occur during the process
+        return Response({"error": str(e), "status": 500})
 
 
 def generate_date(request, doctor_id):
@@ -25,8 +45,6 @@ def generate_date(request, doctor_id):
     off_day_list = []
 
     off_days_response = get_off_day_list(request, doctor_id)
-    schedule_times = get_working_schedule(request, doctor_id)
-    print(schedule_times)
 
     if off_days_response.status_code == 200:
         off_days_data = off_days_response.data
@@ -47,139 +65,82 @@ def generate_date(request, doctor_id):
     return date_list
 
 
-@api_view(['GET'])
-def fixed_appointment_data(request):
-    doctor_id = request.session.get('temp_doctor_id')
-    # Getting GetAppointment data from GetAppointment model ...
-    appointment_data = GetAppointment.objects.filter(doctor_id=doctor_id)
-    # Serializing appointment data ...
-    serializer = PatientAppointmentSerializer(appointment_data, many=True)
-
-    doctor_ids = []
-    appointment_dates = []
-    appointment_times = []
-
-    for item in serializer.data:
-        # Process each item in the data
-        doctor = item['doctor']
-        appointment_date = item['appointment_date']
-        appointment_time = item['appointment_time']
-
-        doctor_ids.append(doctor)
-        appointment_dates.append(appointment_date)
-        appointment_times.append(appointment_time)
-
-    data = {
-        'doctor_ids': doctor_ids,
-        'appointment_dates': appointment_dates,
-        'appointment_times': appointment_times
-    }
-    print(data)
-
-    return Response(data)
+# Function to get existing appointment times
+def get_existing_appointment_times(doctor_id, date):
+    existing_appointment_data = GetAppointment.objects.filter(doctor=doctor_id, appointment_date=date)
+    serializer = PatientAppointmentSerializer(existing_appointment_data, many=True)
+    return [item['appointment_time'] for item in serializer.data]
 
 
-def generate_schedule_time(request, doctor_id):
-    # Get the schedule times and data
+# Function to generate schedule time
+def generate_schedule_time(request, doctor_id, date):
     get_working_schedule_response = get_working_schedule(request, doctor_id)
+    existing_appointment_times = get_existing_appointment_times(doctor_id, date)
 
-    # Call the fixed_appointment_data function and get its response
-    fixed_appointment_response = fixed_appointment_data(request)
+    appointment_times = doctor_schedule_time(get_working_schedule_response, existing_appointment_times)
 
-    # Extract doctor_ids, dates, and times from the response data
-    doctor_ids = fixed_appointment_response.data.get('doctor_ids', [])
-    dates = fixed_appointment_response.data.get('appointment_dates', [])
-    times = fixed_appointment_response.data.get('appointment_times', [])
-
-    # Call the generate_date function and get its response
-    date_response = generate_date(request, doctor_id)
-
-    # Call the fun function to get appointment times based on the schedule
-    appointment_times = fun(request, get_working_schedule_response)
-
-    # Iterate over the doctor_ids, dates, response_date, times, and appointment_times
-    for doctor, date, response_date, time, appointment_time in zip(
-            doctor_ids, dates, date_response, times, appointment_times):
-        if doctor == doctor_id:
-            # if date_response == date:
-            #     print(f"Doctor ID: {doctor_id}, Date: {date}, Time: {time}")
-            #     appointment_times = [at for at in appointment_times if at != time]
-            #     print(appointment_times)
-            # else:
-            appointment_times = [at for at in appointment_times if at != time]
-
-        else:
-            print('Error: Doctor mismatch')
-
-    return appointment_times
+    # Return the appointment times as a JSON response
+    data = {'appointment_times': appointment_times}
+    return JsonResponse(data)
 
 
-def fun(request, get_working_schedule_response):
-    appointment_times = []
+# Function to simplify doctor_schedule_time
+def doctor_schedule_time(get_working_schedule_response, existing_appointment_times):
     if get_working_schedule_response.status_code == 200:
         schedule_times_data = get_working_schedule_response.data
+        available_appointment_times = []
 
         for item in schedule_times_data:
-            start_time_str = item['start_time']
-            end_time_str = item['end_time']
+            start_time, end_time = convert_to_datetime(item['start_time'], item['end_time'])
 
-            try:
-                # Convert time strings to datetime objects
-                start_time = datetime.strptime(start_time_str, "%H:%M:%S")
-                end_time = datetime.strptime(end_time_str, "%H:%M:%S")
-            except ValueError:
-                # Handle invalid time format
+            if not is_valid_hour(start_time.hour) or not is_valid_hour(end_time.hour):
                 continue
 
-            # Check if hours are in the valid range (0 to 23)
-            if not (0 <= start_time.hour <= 23) or not (0 <= end_time.hour <= 23):
-                # Handle invalid hour values
-                continue
-
-            # Calculate the time duration in minutes
-            minutes_duration = (end_time - start_time).seconds // 60
-
-            # Calculate the number of appointments that can be scheduled
+            minutes_duration = calculate_duration_in_minutes(start_time, end_time)
             per_patient_time = item['per_patient_time']
-            num_appointments = minutes_duration // per_patient_time
+            num_appointments = calculate_num_appointments(minutes_duration, per_patient_time)
 
-            # Initialize current_time as the number of minutes since midnight
-            current_time = start_time.hour * 60 + start_time.minute
+            current_time = calculate_minutes_since_midnight(start_time)
 
-            # Calculate and format the appointment times in 12-hour clock with AM/PM
             for _ in range(num_appointments):
                 end_time_patient = current_time + per_patient_time
-                formatted_start_time = (
-                    datetime(1900, 1, 1, current_time // 60, current_time % 60)).strftime(
-                    "%I:%M %p")
-                formatted_end_time = (
-                    datetime(1900, 1, 1, end_time_patient // 60, end_time_patient % 60)).strftime(
-                    "%I:%M %p")
+                formatted_start_time = format_time(current_time)
 
-                appointment_times.append(f"{formatted_start_time} - {formatted_end_time}")
+                appointment_time_str = f"{formatted_start_time} - {format_time(end_time_patient)}"
+                if appointment_time_str not in existing_appointment_times:
+                    available_appointment_times.append(appointment_time_str)
+
                 current_time = end_time_patient
 
-    return appointment_times
+        return available_appointment_times
+
+    return None
 
 
-@api_view(['GET'])
-def get_off_day_list(request, doctor_id):
-    try:
-        # Filter OffDay objects by the doctor_profile
-        off_days = OffDay.objects.filter(doctor_profile_id=doctor_id)
+def convert_to_datetime(start_time_str, end_time_str):
+    start_time = datetime.strptime(start_time_str, "%H:%M:%S")
+    end_time = datetime.strptime(end_time_str, "%H:%M:%S")
+    return start_time, end_time
 
-        # Serialize the OffDay objects using OffDayForAppointmentSerializer
-        serializer = OffDayForAppointmentSerializer(off_days, many=True)
-        serialized_data = serializer.data
 
-        # Return the serialized data as a JSON response
-        return Response(serialized_data)
-    except OffDay.DoesNotExist:
-        # Handle the case where no off days are found for the specified doctor
-        return Response({"error": "No off days found for this doctor"}, status=404)
-    except Exception as e:
-        # Handle any other exceptions or errors that may occur during the process
-        return Response({"error": str(e)}, status=500)
+def is_valid_hour(hour):
+    return 0 <= hour <= 23
+
+
+def calculate_duration_in_minutes(start_time, end_time):
+    return (end_time - start_time).seconds // 60
+
+
+def calculate_num_appointments(minutes_duration, per_patient_time):
+    return minutes_duration // per_patient_time
+
+
+def calculate_minutes_since_midnight(time):
+    return time.hour * 60 + time.minute
+
+
+def format_time(minutes_since_midnight):
+    return datetime(1900, 1, 1, minutes_since_midnight // 60, minutes_since_midnight % 60).strftime("%I:%M %p")
 
 
 @api_view(['GET'])
@@ -187,26 +148,19 @@ def get_working_schedule(request, doctor_id):
     try:
         # Query the database for ScheduleTime objects related to the specified doctor_id
         schedule_times = ScheduleTime.objects.filter(doctor_profile_id=doctor_id)
-
-        # Use select_related or prefetch_related to optimize database queries if applicable
-        # schedule_times = ScheduleTime.objects.filter(doctor_profile_id=doctor_id).select_related('doctor_profile')
-
         # Check if the doctor exists; if not, return a 404 Not Found response
         if not schedule_times.exists():
-            return Response({"error": "Doctor not found"}, status=404)
-
+            return Response({"error": "Doctor not found", "status": 404})
         # Serialize the ScheduleTime objects
         serializer = ScheduleTimeInfoSerializer(schedule_times, many=True)
         serialized_data = serializer.data
-
         # Return the serialized data as a JSON response
         return Response(serialized_data)
-
     except ScheduleTime.DoesNotExist:
-        return Response({"error": "No schedule times found for the specified doctor"}, status=404)
+        return Response({"error": "No schedule times found for the specified doctor", "status": 404})
     except Exception as e:
         # Handle any other exceptions or errors that may occur during the process
-        return Response({"error": str(e)}, status=500)
+        return Response({"error": str(e)})
 
 
 @api_view(['POST'])
