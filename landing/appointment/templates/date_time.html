@@ -92,44 +92,44 @@
     let doctorId = $('#doctorID').val();
 
     $.ajax({
-        url: `/ajax-time/${doctorId}/${selectedDate}/`,
-        type: 'GET',
-        success: function (response) {
-            console.log('Success:', response);
+    url: `/ajax-time/${doctorId}/${selectedDate}/`,
+    type: 'GET',
+    success: function (response) {
+        console.log('Success:', response);
 
-            if (response.appointment_times.length > 0) {
-                // Time slots are available
-                let options = '<h5 class="text-primary text-center">Choose Appointment Time</h5><hr/>';
+        let options = '<h5 class="text-primary text-center">Choose Appointment Time</h5><hr/>';
 
-                // Group time slots into rows of three
-                for (let i = 0; i < response.appointment_times.length; i += 3) {
-                    options += '<div class="row">';
-                    for (let j = i; j < i + 3 && j < response.appointment_times.length; j++) {
-                        options += `
-                            <div class="circular-radio col-sm-12 col-md-4">
-                                <input class="time-class" onclick="getTime(this)" type="radio"
-                                    id="time-${j}" name="selected_time" data-time="${response.appointment_times[j]}"/>
-                                <label for="time-${j}">${response.appointment_times[j]}</label>
-                            </div>`;
-                    }
-                    options += '</div>';
+        if (response.appointment_times.length > 0) {
+            // Time slots are available
+            for (let i = 0; i < response.appointment_times.length; i += 3) {
+                options += '<div class="row">';
+                for (let j = i; j < i + 3 && j < response.appointment_times.length; j++) {
+                    options += `
+                        <div class="circular-radio col-sm-12 col-md-4">
+                            <input class="time-class" onclick="getTime(this)" type="radio"
+                                id="time-${j}" name="selected_time" data-time="${response.appointment_times[j]}"/>
+                            <label for="time-${j}">${response.appointment_times[j]}</label>
+                        </div>`;
                 }
-
-                $('#timeSelection').html(options);
-            } else {
-                // No time slots found
-                let noTimeSlotsMessage = `
-                    <div class="alert alert-warning">
-                        <h4 class="alert-heading">No Time Slots Found</h4>
-                        <p>There are no time slots available at the moment. Please check back later.</p>
-                    </div>`;
-                $('#timeSelection').html(noTimeSlotsMessage);
+                options += '</div>';
             }
-        },
-        error: function (error) {
-            console.error('Error:', error);
+        } else {
+            // No time slots found
+            options += `
+                <div class="alert alert-warning">
+                    <h4 class="alert-heading">No Time Slots Found</h4>
+                    <p>There are no time slots available at the moment. Please check back later.</p>
+                    <a href="{% url 'predict_form' %}" class="btn-info" >Go Back</a>
+                </div>`;
         }
+
+        $('#timeSelection').html(options);
+    },
+    error: function (error) {
+        console.error('Error:', error);
+    }
     });
+
 }
 
 
