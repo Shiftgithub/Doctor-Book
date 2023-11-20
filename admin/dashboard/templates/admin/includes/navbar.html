@@ -15,6 +15,7 @@
       display: block;
       margin: 0 auto; /* Center the image horizontally */
     }
+
     .small-text {
     font-size: 16px; /* Adjust the size as needed */
     margin: 0; /* Remove margin between elements */
@@ -40,12 +41,12 @@
         <li>
             <!-- Default dropright button -->
             <div class="btn-group dropright">
-                <a class="btn btn-dark" id="profileID" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    {% if request.session.user_image_url == None%}
-                    <img src="{% static 'adminlte_assets/img/nobody.png' %}" alt="profile picture" class="profile-logo">
+                <a id="profileID" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% if request.session.user_image_url == None %}
+                    <img src="{% static 'adminlte_assets/img/nobody.png' %}" alt="profile picture"
+                         class="profile-logo circular">
                     {% else %}
-                    <img src="{{ request.session.user_image_url }}" alt="profile picture" class="profile-logo">
+                    <img src="{{ request.session.user_image_url }}" alt="profile picture" class="profile-logo circular">
                     {% endif %}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
