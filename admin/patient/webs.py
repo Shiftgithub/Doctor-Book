@@ -4,7 +4,7 @@ from django.contrib import messages
 from admin.personal_data.views import *
 from landing.appointment.views import *
 from django.shortcuts import render, redirect
-from admin.bodypart.views import get_all_bodypart_list
+from admin.bodypart.views import get_all_body_part_list
 from landing.prediction.views import prediction
 
 
@@ -79,7 +79,7 @@ def find_doctors(request):
 
 ################################
 def patient_predict_form(request):
-    response_bodypart = get_all_bodypart_list(request)
+    response_bodypart = get_all_body_part_list(request)
     bodypart_data = response_bodypart.data
     return render(
         request, "patient/templates/prediction.html", {"bodypart_data": bodypart_data}

@@ -30,9 +30,7 @@ def department_data_view(request):
 def edit_department_form(request, department_id):
     response_department = department_dataview(request, department_id)
     department_data = response_department.data
-    return render(
-        request, 'department/templates/edit.html', {'department_data': department_data}
-    )
+    return render(request, 'department/templates/edit.html', {'department_data': department_data})
 
 
 def edit_department(request, department_id):

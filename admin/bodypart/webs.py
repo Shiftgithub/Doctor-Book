@@ -5,59 +5,61 @@ from django.shortcuts import render, redirect
 
 # Body part
 
-def bodypart_form(request):
+def body_part_form(request):
     return render(request, 'bodypart/templates/form.html')
 
 
-def store_bodypart(request):
-    operation_response = store_bodypart_data(request)
+def store_body_part(request):
+    operation_response = store_body_part_data(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO,
-                             'Body Part data stored successfully')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR,
-                             'Error in storing Body Part data')
-
-    return redirect('add_bodypart_form')
+        messages.add_message(request, messages.ERROR, message)
+    return redirect('add_body_part_form')
 
 
-def bodypart_data_view(request):
-    # Call the get_all_bodypart_list API view to retrieve all body parts
-    response = get_all_bodypart_list(request)
-    # Retrieve the serialized data from the response
-    all_data = response.data
-    # Render the data in the 'admin/body_part/list_all.html' template
-    return render(request, 'bodypart/templates/list_all.html', {'all_data': all_data})
+def body_part_data_view(request):
+    response = get_all_body_part_list(request)
+    return render(request, 'bodypart/templates/list_all.html', {'all_data': response.data})
 
 
-def edit_bodypart_form(request, bodypart_id):
-    response_bodypart = bodypart_dataview(request, bodypart_id)
-    bodypart_data = response_bodypart.data
-    if bodypart_data.get('id'):  # Check if id exists in bodypart_data
-        return render(request, 'bodypart/templates/edit.html', {'bodypart_data': bodypart_data})
-    else:
-        return redirect('error_page')  # Redirect to the error page
+def edit_body_part_form(request, body_part_id):
+    response_body_part = get_body_part_data(request, body_part_id)
+    body_part_data = response_body_part.data
+    return render(request, 'bodypart/templates/edit.html', {'body_part_data': body_part_data})
 
 
-def edit_bodypart(request, bodypart_id):
-    operation_response = edit_bodypart_data(request, bodypart_id)
-
+def edit_body_part(request, body_part_id):
+    operation_response = edit_body_part_data(request, body_part_id)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Body Part data edited successfully')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error editing Body Part data')
+        messages.add_message(request, messages.ERROR, message)
+    return redirect('edit_body_part_form', body_part_id=body_part_id)
 
-    return redirect('edit_bodypart_form', bodypart_id=bodypart_id)
 
-
-def delete_bodypart(request, bodypart_id):
-    operation_response = softdelete_bodypart_data(request, bodypart_id)
-
+def delete_body_part(request, body_part_id):
+    operation_response = delete_body_part_data(request, body_part_id)
+    message = operation_response.data.get('message')
+    print(message)
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Body Part data deleted successfully')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     elif operation_response.data.get('status') == 404:
-        messages.add_message(request, messages.ERROR,
-                             'Body Part cannot delete. because it is associated with Organ table.')
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error deleting Body Part data')
-    return redirect('bodypart_list')
+        messages.add_message(request, messages.ERROR, message)
+    return redirect('body_part_list')

@@ -1,9 +1,10 @@
-from .serializers import VerifyOtpSerializer
-from .models import VerifyOtp
 from datetime import datetime
-from core.constants import STATUS_ACTIVE
+from .models import VerifyOtp
 from django.db import transaction
+from rest_framework import status
+from core.constants import STATUS_ACTIVE
 from rest_framework.response import Response
+from .serializers import VerifyOtpSerializer
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from admin.authentication.user.models import User
@@ -13,18 +14,14 @@ from admin.authentication.user.models import User
 def verify_otp(request):
     email = request.session.get('temp_verify_email')
     user = get_object_or_404(User, email=email)
-
     otp_serializer = VerifyOtpSerializer(data=request.data)
-
     if otp_serializer.is_valid():
         otp = otp_serializer.validated_data['otp']
-
         try:
             otp_check = VerifyOtp.objects.get(otp=otp, user=user)
         except VerifyOtp.DoesNotExist:
-            return Response({'status': 404, 'message': 'OTP not found', 'email': email})
+            return Response({'status': 401, 'message': 'OTP are not match!', 'email': email})
 
-        # Set the time zone-aware datetime
         with transaction.atomic():
             if otp_check:
                 now = datetime.now()
@@ -41,10 +38,13 @@ def verify_otp(request):
                 # Send an activation email to the user (You should implement this function)
                 message = 'Your Doctor Book Account has been activated'
                 # send_email(user.email, message)
-                data = {'id': user.id, 'email': user.email, 'status': 200, 'message': 'Account activated successfully'}
-                return Response(data)
+                response = {'id': user.id, 'email': user.email, 'status': 200,
+                            'message': 'Account Activated Successfully'}
+                return Response(response)
             else:
                 transaction.set_rollback(True)
-                return Response({'status': 400, 'message': 'Enter Correct Otp', 'email': email})
+                response = {'status': 401, 'message': 'OTP are not match!', 'email': email}
+                return Response(response)
     else:
-        return Response({'status': 400, 'message': 'Invalid OTP data', 'email': email})
+        response = {'status': 400, 'email': email, 'message ': 'HTTP_400_BAD_REQUEST.', 'errors': otp_serializer.errors}
+        return Response(response)

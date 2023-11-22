@@ -16,14 +16,14 @@ urlpatterns = [
     # api path groups
     path('api/', include([
 
-        # bodypart api path
+        # body_part api path
 
-        path('bodypart/', include([
-            path('add/', protected_view(store_bodypart_data), name='add_bodypart'),
-            path('list/', protected_view(get_all_bodypart_list), name='bodypart_list'),
-            path('edit/<int:bodypart_id>/', protected_view(edit_bodypart_data), name='edit_bodypart'),
-            path('delete/<int:bodypart_id>/', protected_view(softdelete_bodypart_data), name='softdelete_bodypart'),
-            path('view/<int:bodypart_id>/', protected_view(bodypart_dataview), name='view_bodypart'),
+        path('body_part/', include([
+            path('add/', protected_view(store_body_part_data), name='add_body_part'),
+            path('list/', protected_view(get_all_body_part_list), name='body_part_list'),
+            path('edit/<int:body_part_id>/', protected_view(edit_body_part_data), name='edit_body_part'),
+            path('delete/<int:body_part_id>/', protected_view(delete_body_part_data), name='delete_body_part_data'),
+            path('view/<int:body_part_id>/', protected_view(get_body_part_data), name='view_body_part'),
         ])),
 
         # organ api path
@@ -111,7 +111,7 @@ urlpatterns = [
             path('add/', protected_view(store_article_data), name='add_article'),
             path('list/', get_all_article_list, name='article_list'),
             path('edit/<int:article_id>/', protected_view(edit_article_data), name='edit_article'),
-            path('delete/<int:article_id>/', protected_view(softdelete_article_data), name='delete_article'),
+            path('delete/<int:article_id>/', protected_view(delete_article_data), name='delete_article'),
             path('view/<int:article_id>/', protected_view(article_dataview), name='view_article'),
         ])),
 

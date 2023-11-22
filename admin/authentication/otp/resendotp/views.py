@@ -14,8 +14,8 @@ def resend_otp(request):
             verify_otp_instance.save()
             message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {verify_otp_instance.otp}'
             # send_email(email, message)  # Uncomment this line to send the email
-            return Response({'status': 200, 'email': email})
+            return Response({'status': 200, 'email': email, 'message': 'We send a mail please check your email.'})
         else:
-            return Response({'status': 400, 'message': 'User not verified'})
+            return Response({'status': 403, 'message': 'User not verified'})
     else:
-        return Response({'status': 404, 'message': 'User not found'})
+        return Response({'status': 401, 'message': 'User not found'})

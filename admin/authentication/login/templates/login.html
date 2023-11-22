@@ -25,7 +25,7 @@
                     {% csrf_token %}
                     <div class="card bg-transparent">
                         <div class="card-header bg-transparent">
-                            <h4 class="card-title text-center">Login Page</h4>
+                            <h4 class="card-title text-center ">Login Page</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group mb-3">
@@ -33,8 +33,13 @@
                                        type="text" required>
                             </div>
                             <div class="form-group mb-3">
-                                <input class="form-control" id="password" name="password" type="password"
-                                       placeholder="Password" required>
+                                <div class="input-group">
+                                    <input class="form-control" id="passwordID" name="password" type="password"
+                                           placeholder="Password" required>
+                                    <span class="input-group-text toggle-password bg-transparent"
+                                          data-target="passwordID"><i class="fas fa-eye-slash"></i>
+                                </span>
+                                </div>
                             </div>
                             <div class="form-group mb-3">
                                 <label class="custom-control-label">
@@ -57,4 +62,22 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePasswordIcons = document.querySelectorAll('.toggle-password');
+
+        togglePasswordIcons.forEach(function(icon) {
+            icon.addEventListener('click', function() {
+                const targetId = icon.dataset.target;
+                const passwordField = document.getElementById(targetId);
+
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+
+                // Toggle eye icon
+                icon.innerHTML = type === 'password' ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
+            });
+        });
+    });
+</script>
 {% endblock %}

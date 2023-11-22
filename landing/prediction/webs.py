@@ -2,13 +2,13 @@ from .views import *
 from django.contrib import messages
 from admin.doctor.views import doctor_data
 from django.shortcuts import render, redirect
-from admin.bodypart.views import get_all_bodypart_list
+from admin.bodypart.views import get_all_body_part_list
 
 
 def predict_form(request):
-    response_bodypart = get_all_bodypart_list(request)
-    bodypart_data = response_bodypart.data
-    return render(request, 'prediction/templates/predict.html', {'bodypart_data': bodypart_data})
+    response_body_part = get_all_body_part_list(request)
+    body_part_data = response_body_part.data
+    return render(request, 'prediction/templates/predict.html', {'bodypart_data': body_part_data})
 
 
 def predict(request):

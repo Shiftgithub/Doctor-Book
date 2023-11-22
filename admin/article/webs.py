@@ -53,7 +53,7 @@ def edit_article(request, article_id):
 
 
 def delete_article(request, article_id):
-    operation_response = softdelete_article_data(request, article_id)
+    operation_response = delete_article_data(request, article_id)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, 'Article data deleted successfully')
     else:

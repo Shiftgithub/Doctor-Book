@@ -23,30 +23,32 @@ def checking_authorization(request):
             user = User.objects.get(user_name=user_name, hash=hashed_password)
             set_authenticated_user(request, user)
         except User.DoesNotExist:
-            return Response({'status': 403, 'message': 'User does not exist'})
+            return Response({'status': 401, 'message': 'User name and Password are not match!'})
 
         # Check user role and status
         if user.status == STATUS_ACTIVE:
             if user.role == ROLE_ADMIN:
                 admin_info = AdminProfile.objects.get(user_id=user.id)
                 set_user_info(request, admin_info, user.id, user.email)
-                return Response({'status': 200, 'message': 'Admin'})
+                return Response({'status': 200, 'role': 'Admin', 'message': 'Login Successfully'})
             elif user.role == ROLE_DOCTOR:
                 doctor_info = DoctorProfile.objects.get(user_id=user.id)
                 set_user_info(request, doctor_info, user.id, user.email)
-                return Response({'status': 200, 'message': 'Doctor'})
+                return Response({'status': 200, 'role': 'Doctor', 'message': 'Login Successfully'})
             elif user.role == ROLE_PATIENT:
                 patient_info = PatientProfile.objects.get(user_id=user.id)
                 set_user_info(request, patient_info, user.id, user.email)
-                return Response({'status': 200, 'message': 'Patient'})
+                return Response({'status': 200, 'role': 'Patient', 'message': 'Login Successfully'})
             else:
-                return Response({'status': 403, 'message': 'User is not a approved'})
+                return Response({'status': 404, 'message': 'User is not a approved'})
         elif user.status == STATUS_INACTIVE:
-            return Response({'status': 308, 'email': user.email})  # 308 Permanent Redirect
+            response = {'status': 308, 'email': user.email, 'message': 'Please Verified your Account!'}
+            return Response(response)  # 308 Permanent Redirect
         else:
-            return Response({'status': 403, 'message': 'User is not a doctor or is not approved'})
+            response = {'status': 404, 'message': 'User is not a doctor or is not approved'}
+            return Response(response)
     else:
-        return Response({'status': 403, 'message': login_serializer.errors})
+        return Response({'status': 403, 'message': 'Authentication failed! Please try again'})
 
 
 # Setting authenticated user into session ...

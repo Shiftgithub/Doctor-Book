@@ -1,78 +1,79 @@
 from .models import *
 from admin.organ.models import *
+from rest_framework import status
 from django.utils import timezone
+from admin.bodypart.serializers import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from admin.bodypart.serializers import *
 
 
-# store bodypart function
+# store body_part function
 @api_view(['POST'])
-def store_bodypart_data(request):
-    bodypart_serializer = BodyPartSerializer(data=request.data)
-    if bodypart_serializer.is_valid():
-        if bodypart_serializer.save():
-            return Response({'status': 200})
+def store_body_part_data(request):
+    serializer = BodyPartSerializer(data=request.data)
+    if serializer.is_valid():
+        if serializer.save():
+            return Response({'status': 200, 'message': 'Body Part data stored Successfully'})
         else:
-            return Response({'status': 403})
+            response = {'status': 403, 'message': 'Error in storing Body Part data'}
+            return Response(response, status=status.HTTP_403_FORBIDDEN)
     else:
-        return Response({'status': 403})
+        response = {'status': 400, 'message ': 'HTTP_400_BAD_REQUEST.', 'errors': serializer.errors}
+        return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
 
-# all bodypart list function
+# all body_part list function
 @api_view(['GET'])
-def get_all_bodypart_list(request):
-    # getting all bodypart data from BodyPart model ...
-    bodyparts = BodyPart.objects.filter(deleted_at=None).order_by('id')
-
-    # serializing bodypart data ...
-    serializer = BodyPartSerializer(bodyparts, many=True)
-
+def get_all_body_part_list(request):
+    body_parts = BodyPart.objects.filter(deleted_at=None).order_by('id')
+    serializer = BodyPartSerializer(body_parts, many=True)
     return Response(serializer.data)
 
 
-#  bodypart data show using id function
-
+#  body_part data show using id function
 @api_view(['GET'])
-def bodypart_dataview(request, bodypart_id):
-    # getting bodypart data from BodyPart model ...
-    bodypart = BodyPart.objects.get(id=bodypart_id)
-
-    # serializing bodypart data ...
-    serializer = BodyPartSerializer(bodypart, many=False)
-
+def get_body_part_data(request, body_part_id):
+    body_part = BodyPart.objects.get(id=body_part_id)
+    serializer = BodyPartSerializer(body_part, many=False)
     return Response(serializer.data)
 
 
-# bodypart edit function
-
+# body_part edit function
 @api_view(['PUT', 'POST'])
-def edit_bodypart_data(request, bodypart_id):
-    bodypart = BodyPart.objects.get(id=bodypart_id)
-    serializer = BodyPartSerializer(bodypart, data=request.data)
+def edit_body_part_data(request, body_part_id):
+    body_part = BodyPart.objects.get(id=body_part_id)
+    serializer = BodyPartSerializer(body_part, data=request.data)
     if serializer.is_valid():
         if serializer.save(updated_at=timezone.now()):
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'Body Part data updated Successfully'})
         else:
-            return Response({'status': 403})
+            response = {'status': 403, 'message': 'Error in updated Body Part data'}
+            return Response(response, status=status.HTTP_403_FORBIDDEN)
     else:
-        return Response({'status': 403})
+        response = {'status': 400, 'message ': 'HTTP_400_BAD_REQUEST.', 'errors': serializer.errors}
+        return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
 
-# bodypart delete function
+# body_part delete function
 @api_view(['PUT', 'GET'])
-def softdelete_bodypart_data(request, bodypart_id):
-    bodypart = BodyPart.objects.get(id=bodypart_id)
-    serializer = BodyPartDeleteSerializer(bodypart, data=request.data)
-    organs = Organ.objects.filter(body_part_id=bodypart_id)
+def delete_body_part_data(request, body_part_id):
+    try:
+        body_part = BodyPart.objects.get(id=body_part_id)
+    except BodyPart.DoesNotExist:
+        response = {'status': 404, 'message': 'Body Part not found'}
+        return Response(response, status=status.HTTP_404_NOT_FOUND)
 
-    if organs:
-        return Response({'status': 404})
+    organs = Organ.objects.filter(body_part_id=body_part_id)
+
+    if organs.exists():
+        response = {'status': 403, 'message': 'Body Part cannot be deleted because it is associated with Organ table.'}
+        return Response(response, status=status.HTTP_403_FORBIDDEN)
     else:
+        serializer = BodyPartSerializer(body_part, data={'deleted_at': timezone.now()}, partial=True)
+
         if serializer.is_valid():
-            if serializer.save(deleted_at=timezone.now()):
-                return Response({'status': 200})
-            else:
-                return Response({'status': 403})
+            serializer.save()
+            return Response({'status': 200, 'message': 'Body Part data deleted successfully'})
         else:
-            return Response({'status': 403})
+            response = {'status': 400, 'message': 'Bad Request', 'errors': serializer.errors}
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)

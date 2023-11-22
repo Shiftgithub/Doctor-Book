@@ -58,7 +58,7 @@ def edit_article_data(request, article_id, user_id):
 
 
 @api_view(['PUT', 'GET'])
-def softdelete_article_data(request, article_id):
+def delete_article_data(request, article_id):
     article = get_object_or_404(Article.objects.filter(id=article_id, deleted_at=None).order_by('id'))
     serializer = ArticleDeleteSerializer(article, data=request.data)
     if serializer.is_valid():
