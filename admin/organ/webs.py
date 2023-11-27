@@ -6,9 +6,9 @@ from django.shortcuts import render, redirect
 
 # Organ
 def organ_form(request):
-    response_bodypart = get_all_bodypart_list(request)
-    bodypart_data = response_bodypart.data
-    return render(request, 'organ/templates/form.html', {'bodypart_data': bodypart_data})
+    response_body_part = get_all_body_part_list(request)
+    body_part_data = response_body_part.data
+    return render(request, 'organ/templates/form.html', {'bodypart_data': body_part_data})
 
 
 def store_organ(request):
@@ -30,12 +30,12 @@ def organ_data_view(request):
 
 
 def edit_organ_form(request, organ_id):
-    response_bodypart = get_all_bodypart_list(request)
-    bodypart_data = response_bodypart.data
+    response_body_part = get_all_body_part_list(request)
+    body_part_data = response_body_part.data
 
     response_organ = organ_dataview(request, organ_id)
     organ_data = response_organ.data
-    return render(request, 'organ/templates/edit.html', {'bodypart_data': bodypart_data, 'organ_data': organ_data})
+    return render(request, 'organ/templates/edit.html', {'bodypart_data': body_part_data, 'organ_data': organ_data})
 
 
 def edit_organ(request, organ_id):

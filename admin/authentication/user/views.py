@@ -19,19 +19,16 @@ from admin.authentication.login.views import set_user_info
 @api_view(['POST'])
 def store_admin_data(request):
     admin_serializer = AdminProfileSerializer(data=request.data)
+    image_serializer = ImageSerializer(data=request.data)
     user_serializer = UserSerializer(data=request.data)
-    if user_serializer.is_valid(raise_exception=True) and admin_serializer.is_valid():
+    if  admin_serializer.is_valid() and image_serializer.is_valid() and user_serializer.is_valid(raise_exception=True):
         password = request.data.get('password')
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
-
         with transaction.atomic():
             user_serializer.save(hash=hashed_password, role='admin', status='inactive')
-
             user_profile_instance = user_serializer.instance
             admin_serializer.save(user_id=user_profile_instance)
-
-            image_serializer = Images(user_id=user_profile_instance)
-            image_serializer.save()
+            image_serializer.save(user_id=user_profile_instance)
 
             token_str = generate_token(6)
             email_fields = [user_serializer.validated_data['email']]

@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 
 # Organ Problem
 def organ_problem_specification_form(request):
-    response_bodypart = get_all_bodypart_list(request)
+    response_bodypart = get_all_body_part_list(request)
     bodypart_data = response_bodypart.data
 
     response_organ = get_all_organs_list(request)

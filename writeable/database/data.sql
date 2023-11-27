@@ -1393,9 +1393,9 @@ INSERT INTO `organ` (`id`, `name`, `description`, `created_at`, `updated_at`, `d
 (37, 'Dermis (ডার্মিস)', 'The layer beneath the epidermis that contains blood vessels, nerves, sweat glands, hair follicles, and connective tissue. (এপিডার্মিসের নীচের স্তর যা রক্তনালী, স্নায়ু, ঘাম গ্রন্থি, চুলের ফলিকল এবং সংযোগকারী টিস্যু ধারণ করে।)', '2023-08-16 18:54:13.566648', NULL, NULL, 12),
 (38, 'Subcutaneous Tissue (Hypodermis) (সাবকুটেনিয়াস টিস্যু (হাইপোডার্মিস))', 'The layer beneath the dermis that contains fat cells and helps insulate the body. (ডার্মিসের নীচের স্তর যাতে চর্বি কোষ থাকে এবং শরীরকে নিরোধক করতে সাহায্য করে।)', '2023-08-16 18:54:13.572578', NULL, NULL, 12);
 
-INSERT INTO `department_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, `description`, `department_id`, `organ_problem_specification_id`) VALUES
-(1, '2023-11-09 15:57:00.610974', NULL, NULL, 'N/A', 4, 1),
-(2, '2023-11-09 16:00:04.620841', NULL, NULL, 'N/A', 18, 2),
-(3, '2023-11-09 16:01:11.777925', NULL, NULL, 'N/A', 9, 3),
-(4, '2023-11-09 16:02:03.717110', NULL, NULL, 'N/A', 9, 4),
-(5, '2023-11-09 16:03:32.824346', NULL, NULL, 'N/A', 19, 5);
+--INSERT INTO `department_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, `description`, `department_id`, `organ_problem_specification_id`) VALUES
+--(1, '2023-11-09 15:57:00.610974', NULL, NULL, 'N/A', 4, 1),
+--(2, '2023-11-09 16:00:04.620841', NULL, NULL, 'N/A', 18, 2),
+--(3, '2023-11-09 16:01:11.777925', NULL, NULL, 'N/A', 9, 3),
+--(4, '2023-11-09 16:02:03.717110', NULL, NULL, 'N/A', 9, 4),
+--(5, '2023-11-09 16:03:32.824346', NULL, NULL, 'N/A', 19, 5);
