@@ -9,10 +9,10 @@ urlpatterns = [
         '',
         include(
             [
-                path('add/', protected_view(body_part_form), name='add_body_part_form'),
+                path('form/', protected_view(body_part_form), name='body_part_form'),
                 path('store/', protected_view(store_body_part), name='store_body_part'),
                 path('list/', protected_view(body_part_data_view), name='body_part_list'),
-                path('update/<int:body_part_id>/', protected_view(edit_body_part_form), name='edit_body_part_form'),
+                path('edit-form/<int:body_part_id>/', protected_view(edit_body_part_form), name='edit_body_part_form'),
                 path('edit/<int:body_part_id>/', protected_view(edit_body_part), name='edit_body_part'),
                 path('delete/<int:body_part_id>/', protected_view(delete_body_part), name='delete_body_part'),
             ]

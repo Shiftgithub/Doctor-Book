@@ -10,7 +10,7 @@ urlpatterns = [
         '',
         include(
             [
-                path('add/', protected_view(doctor_form), name='doctor_form', ),
+                path('form/', protected_view(doctor_form), name='doctor_form', ),
                 path('store/', protected_view(store_doctor), name='store_doctor'),
 
                 path('work-form/', protected_view(work_form), name='work_form', ),
@@ -25,8 +25,21 @@ urlpatterns = [
                 path('award-form/', protected_view(award_form), name='award_form'),
                 path('award-store/', protected_view(store_award), name='store_award'),
 
+                path('working-list/', protected_view(get_doctor_working_data), name='working_list'),
+                path('edu-list/', protected_view(get_doctor_edu_data), name='edu_list'),
+                path('social-list/', protected_view(get_doctor_social_data), name='social_list'),
+                path('award-list/', protected_view(get_doctor_award_data), name='award_list'),
+
                 path('list/', protected_view(get_doctor_data), name='doctor_list'),
-                path('view/<int:doctor_id>/', protected_view(get_doctor_data_by_id), name='view_doctor_data', ),
+
+                path('view/<int:doctor_id>/', protected_view(get_doctor_data_by_id), name='view_doctor_data'),
+
+                path('working-view/<int:doctor_id>/', protected_view(get_doctor_working_data_by_id),
+                     name='working_view'),
+                path('edu-view/<int:doctor_id>/', protected_view(get_doctor_edu_data_by_id), name='edu_view'),
+                path('award-view/<int:doctor_id>/', protected_view(get_doctor_award_data_by_id), name='award_view'),
+                path('social-view/<int:doctor_id>/', protected_view(get_doctor_social_data_by_id), name='social_view'),
+
                 path('update/<int:doctor_id>/', protected_view(edit_doctor_form), name='edit_doctor_form'),
                 path('edit/<int:doctor_id>/', protected_view(edit_doctor), name='edit_doctor'),
                 path('delete/<int:doctor_id>/', protected_view(delete_doctor), name='delete_doctor'),

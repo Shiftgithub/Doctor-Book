@@ -23,9 +23,15 @@ def doctor_form(request):
 
     response_division = division_list(request)
     division_data = response_division.data
-    data = {'department_data': department_data, 'gender_data': gender_data, 'religion_data': religion_data,
-            'blood_group_data': blood_group_data, 'matrimony_data': matrimony_data, 'division_data': division_data}
-    return render(request, 'doctor/templates/form.html', data)
+    data = {
+        'department_data': department_data,
+        'gender_data': gender_data,
+        'religion_data': religion_data,
+        'blood_group_data': blood_group_data,
+        'matrimony_data': matrimony_data,
+        'division_data': division_data
+    }
+    return render(request, 'doctor/templates/forms/form.html', data)
 
 
 def store_doctor(request):
@@ -118,14 +124,69 @@ def store_social(request):
 def get_doctor_data(request):
     response = get_all_doctors_list(request)
     all_data = response.data
-    return render(request, 'doctor/templates/list_all.html', {'all_data': all_data})
+    return render(request, 'doctor/templates/lists/list_all.html', {'all_data': all_data})
+
+
+def get_doctor_working_data(request):
+    response = get_doctors_name_department_data(request)
+    all_data = response.data
+    return render(request, 'doctor/templates/lists/working_list.html', {'all_data': all_data})
+
+
+def get_doctor_edu_data(request):
+    response = get_doctors_name_department_data(request)
+    all_data = response.data
+    return render(request, 'doctor/templates/lists/edu_list.html', {'all_data': all_data})
+
+
+def get_doctor_social_data(request):
+    response = get_doctors_name_department_data(request)
+    all_data = response.data
+    return render(request, 'doctor/templates/lists/social_list.html', {'all_data': all_data})
+
+
+def get_doctor_award_data(request):
+    response = get_doctors_name_department_data(request)
+    all_data = response.data
+    return render(request, 'doctor/templates/lists/award_list.html', {'all_data': all_data})
 
 
 def get_doctor_data_by_id(request, doctor_id):
     response_doctor_data = doctor_data(request, doctor_id)
     doctor_all_data = response_doctor_data.data
     data = {'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id}
-    return render(request, 'doctor/templates/view.html', data)
+    return render(request, 'doctor/templates/views/view.html', data)
+
+
+def get_doctor_working_data_by_id(request, doctor_id):
+    response_doctor_data = doctor_working_data(request, doctor_id)
+    doctor_all_data = response_doctor_data.data
+    print(doctor_all_data)
+    data = {'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id}
+    return render(request, 'doctor/templates/views/working_view.html', data)
+
+
+def get_doctor_social_data_by_id(request, doctor_id):
+    response_doctor_data = doctor_social_data(request, doctor_id)
+    doctor_all_data = response_doctor_data.data
+    data = {'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id}
+    return render(request, 'doctor/templates/views/social_view.html', data)
+
+
+def get_doctor_award_data_by_id(request, doctor_id):
+    response_doctor_data = doctor_award_data(request, doctor_id)
+    doctor_all_data = response_doctor_data.data
+    print(doctor_all_data)
+    data = {'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id}
+    return render(request, 'doctor/templates/views/award_view.html', data)
+
+
+def get_doctor_edu_data_by_id(request, doctor_id):
+    response_doctor_data = doctor_edu_data(request, doctor_id)
+    doctor_all_data = response_doctor_data.data
+    print(doctor_all_data)
+    data = {'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id}
+    return render(request, 'doctor/templates/views/edu_view.html', data)
 
 
 def edit_doctor_form(request, doctor_id):

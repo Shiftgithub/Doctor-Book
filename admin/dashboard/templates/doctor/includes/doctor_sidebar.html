@@ -36,6 +36,42 @@
                     </li>
                 </ul>
             </li>
+            <!-- Doctor data modification-->
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user-md"></i>
+                    <p>
+                        Doctor Modification
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'working_list' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Doctors Working Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'edu_list' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Doctors Education Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a class="nav-link" href="{% url 'social_list' %}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Doctors Social Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'award_list' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Doctors Awards Details</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="nav-item mainItem">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-file-medical"></i>
@@ -70,7 +106,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_article_form' %}" class="nav-link">
+                        <a href="{% url 'article_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Article</p>
                         </a>

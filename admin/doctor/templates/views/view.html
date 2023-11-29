@@ -1,0 +1,224 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Doctor Information</h1>
+            <h6 class="card-title float-right">
+                <a href="{% url 'edit_doctor_form' doctor_id %}"
+                   class="nav-link btn btn-warning float-right"
+                   type="submit">Edit Profile</a>
+            </h6>
+        </div>
+        <div class="card-body">
+            {% for doctor_data in doctor_all_data %}
+            <div class="row">
+                <div class="col-md-8">
+
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Doctor Name:</label>
+                        <div class="col-md-9">
+                            <input class="form-control" value="{{ doctor_data.full_name }}" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Father Name : </label>
+                        <div class="col-md-9">
+                            <input class="form-control" value="{{ doctor_data.father_name }}" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Mother Name : </label>
+                        <div class="col-md-9">
+                            <input class="form-control" value="{{ doctor_data.mother_name }}" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Date of Birth : </label>
+                        <div class="col-md-9">
+                            <input class="form-control" value="{{ doctor_data.date_of_birth }}" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label" for="birthCertificateID">B. Certificate No: </label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="birthCertificateID"
+                                   value="{{ doctor_data.birth_registration_no }}" readonly/>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- Email -->
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Email : </label>
+                        <div class="col-md-9">
+                            <input class="form-control" value="{{ doctor_data.email }}" readonly/>
+                        </div>
+                    </div>
+                    <!-- Phone Number -->
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Phone Number : </label>
+                        <div class="col-md-9">
+                            <input class="form-control" value="{{ doctor_data.phone_no }}" readonly/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {% if doctor_data.images.0.photo_name %}
+                            <img alt="Doctor Image" src="{{ doctor_data.images.0.photo_name }}"
+                                 style="width: 100%; height: 280px;">
+                            {% else %}
+                            <img alt="Doctor Image" src="{% static 'adminlte_assets/img/nobody.png' %}"
+                                 style="width: 100%; height: 280px;">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <legend class="text-info"><i class="far fa-address-card"></i> Personal Information</legend>
+                </div>
+            </div>
+            <hr>
+            <div class="row mb-3">
+                <label class="col-md-2 col-form-label">Gender :</label>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ doctor_data.gender }}" readonly/>
+                </div>
+                <label class="col-md-2 col-form-label">Religion :</label>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ doctor_data.religion }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-2 col-form-label">Blood Group : </label>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ doctor_data.blood_group }}" readonly/>
+                </div>
+                <label class="col-md-2 col-form-label">Matrimony Status : </label>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ doctor_data.matrimony }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-2 col-form-label">NID No: </label>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ doctor_data.nid_no }}" readonly/>
+                </div>
+                <label class="col-md-2 col-form-label">Passport No : </label>
+                <div class="col-md-4">
+                    {% if doctor_data.passport_no %}
+                    <input class="form-control" value=" {{ doctor_data.passport_no }}" readonly/>
+                    {% else %}
+                    <span class="badge badge-warning">Not Provided</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <legend class="text-info"><i class="far fa-address-card"></i> Permanent Address Details</legend>
+                </div>
+                <div class="col-md-6">
+                    <legend class="text-info"><i class="far fa-address-card"></i> Present Address Details</legend>
+                </div>
+            </div>
+            <hr>
+            <div class="row mb-3">
+                <label class="col-md-2 col-form-label">Division :</label>
+                <div class="col-md-4">
+                    <input class="form-control"
+                           value="{{ doctor_data.permanent_address.0.permanent_division.name }}" readonly/>
+                </div>
+                <label class="col-md-2 col-form-label">Division :</label>
+                <div class="col-md-4">
+                    <input class="form-control"
+                           value="{{ doctor_data.present_address.0.present_division.name }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-2 col-form-label">District : </label>
+                <div class="col-md-4">
+                    <input class="form-control"
+                           value="{{ doctor_data.permanent_address.0.permanent_district.name }}" readonly/>
+                </div>
+                <label class="col-md-2 col-form-label">District : </label>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ doctor_data.present_address.0.present_district.name }}"
+                           readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-2 col-form-label">Upazila : </label>
+                <div class="col-md-4">
+                    <input class="form-control"
+                           value="{{ doctor_data.permanent_address.0.permanent_upazila.name }}" readonly/>
+                </div>
+                <label class="col-md-2 col-form-label">Upazila : </label>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ doctor_data.present_address.0.present_upazila.name }}"
+                           readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-2 col-form-label">Village / State : </label>
+                <div class="col-md-4">
+                    <input class="form-control"
+                           value="{{ doctor_data.permanent_address.0.permanent_village_state }}" readonly/>
+                </div>
+                <label class="col-md-2 col-form-label">Village / State : </label>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ doctor_data.present_address.0.present_village_state }}"
+                           readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-2 col-form-label">Postal Code : </label>
+                <div class="col-md-4">
+                    <input class="form-control"
+                           value="{{ doctor_data.permanent_address.0.permanent_postal_code }}" readonly/>
+                </div>
+                <label class="col-md-2 col-form-label">Postal Code : </label>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ doctor_data.present_address.0.present_postal_code }}"
+                           readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <legend class="text-info"><i class="far fa-edit"></i> Personal Skills</legend>
+                </div>
+            </div>
+            <hr>
+            <div class="row mb-3">
+                <label class="col-md-2 col-form-label">Experience: </label>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ doctor_data.experience }}" readonly/>
+                </div>
+                <label class="col-md-2 col-form-label">Languages Spoken : </label>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ doctor_data.languages_spoken }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-2 col-form-label">Specialty: </label>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ doctor_data.department }}" readonly/>
+                </div>
+                <label class="col-md-2 col-form-label">Biography : </label>
+                <div class="col-md-4">
+                    {% if doctor_data.biography %}
+                    <input class="form-control" value=" {{ doctor_data.biography }}" readonly/>
+                    {% else %}
+                    <span class="badge badge-warning">Not Provided</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

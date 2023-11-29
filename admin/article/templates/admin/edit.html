@@ -1,6 +1,12 @@
 {% extends 'dashboard/templates/admin/admin_layout.html' %}
 {% load static %}
-
+{% block styles %}
+<style>
+    .error-message {
+        color: #dc3545; /* Red color for danger state */
+    }
+</style>
+{% endblock %}
 {% block content %}
 <div class="container mt-4">
     <div class="card">
@@ -10,8 +16,7 @@
         </div>
         <div class="card-body">
             <form action="{% url 'edit_article' article_data.id %}" enctype="multipart/form-data" id="PostForm"
-                  method="POST"
-                  onsubmit="return validateForm()">
+                  method="POST" onsubmit="return validateForm()">
                 {% csrf_token %}
 
                 <div class="row mb-3">
@@ -54,15 +59,7 @@
     </div>
 </div>
 {% endblock %}
-{% block styles %}
-<style>
-    .error-message {
-        color: #dc3545; /* Red color for danger state */
-    }
 
-
-</style>
-{% endblock %}
 {% block scripts %}
 <script>
     function validateForm() {
@@ -119,6 +116,7 @@
             errorElements[i].innerHTML = "";
         }
     }
+
     function previewImage(event) {
         var input = event.target;
         var imgElement = document.getElementById("preview");
@@ -134,6 +132,7 @@
         } else {
             imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
         }
-     }
+    }
+
 </script>
 {% endblock %}

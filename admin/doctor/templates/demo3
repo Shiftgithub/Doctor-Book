@@ -382,8 +382,7 @@
                             <label class="col-md-2 col-form-label">Passing Year : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
-                                <input class="form-control" type="date" name="passing_years[]"
-                                       placeholder="Not Provided"
+                                <input class="form-control" type="date" name="passing_years[]" placeholder="Not Provided"
                                        required/>
                             </div>
                         </div>

@@ -216,12 +216,20 @@ def get_all_doctors_list(request):
     doctors = DoctorProfile.objects.filter(deleted_at=None).select_related(
         'user', 'gender', 'religion', 'blood_group', 'matrimony', 'department'
     ).prefetch_related(
-        'awards', 'appointment_schedules', 'education', 'social_media',
         'user__images', 'user__present_address', 'user__permanent_address',
 
     )
     # Serialize the data using the combined serializer
     serializer = DoctorViewSerializer(doctors, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_doctors_name_department_data(request):
+    # Fetch all doctor profiles along with related fields
+    doctors = DoctorProfile.objects.filter(deleted_at=None).select_related().prefetch_related('education')
+    # Serialize the data using the combined serializer
+    serializer = DoctorNameDepartmentSerializer(doctors, many=True)
     return Response(serializer.data)
 
 
@@ -236,6 +244,47 @@ def doctor_data(request, doctor_id):
         'user__images', 'user__present_address', 'user__permanent_address',
     )
     serializer = DoctorViewSerializer(doctors, many=True)
+    return Response(serializer.data)
+
+
+#############################
+
+@api_view(['GET'])
+def doctor_working_data(request, doctor_id):
+    # Fetch all doctor profiles along with user data and related fields
+    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+        'user').prefetch_related('appointment_schedules', 'user__images')
+    serializer = DoctorWorkingSerializer(doctors, many=True)
+    print(serializer.data)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def doctor_edu_data(request, doctor_id):
+    # Fetch all doctor profiles along with user data and related fields
+    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+        'user').prefetch_related('education', 'user__images')
+    serializer = DoctorEduSerializer(doctors, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def doctor_social_data(request, doctor_id):
+    # Fetch all doctor profiles along with user data and related fields
+    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+        'user').prefetch_related('awards', 'user__images')
+    serializer = DoctorSocialSerializer(doctors, many=True)
+    print(serializer.data)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def doctor_award_data(request, doctor_id):
+    # Fetch all doctor profiles along with user data and related fields
+    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+        'user').prefetch_related('social_media', 'user__images')
+    serializer = DoctorAwardSerializer(doctors, many=True)
+    print(serializer.data)
     return Response(serializer.data)
 
 

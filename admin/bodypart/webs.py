@@ -20,7 +20,7 @@ def store_body_part(request):
         messages.add_message(request, messages.ERROR, message)
     else:
         messages.add_message(request, messages.ERROR, message)
-    return redirect('add_body_part_form')
+    return redirect('body_part_form')
 
 
 def body_part_data_view(request):

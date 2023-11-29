@@ -19,22 +19,22 @@ def store_article(request):
         messages.add_message(request, messages.ERROR,
                              'Error in storing Article data')
 
-    return redirect('add_article_form')
+    return redirect('article_form')
 
 
-def article_data_view(request):
+def get_article_data(request):
     response = get_all_article_list(request)
     all_data = response.data
     return render(request, 'article/templates/admin/list_all.html', {'all_data': all_data})
 
 
-def view_article(request, article_id):
+def view_article_data(request, article_id):
     response_article = article_dataview(request, article_id)
     article_data = response_article.data
     return render(request, 'article/templates/admin/view.html', {'article_data': article_data})
 
 
-def edit_article_form(request, article_id):
+def article_edit_form(request, article_id):
     response_article = article_dataview(request, article_id)
     article_data = response_article.data
     return render(request, 'article/templates/admin/edit.html', {'article_data': article_data})
