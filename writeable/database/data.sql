@@ -1393,9 +1393,16 @@ INSERT INTO `organ` (`id`, `name`, `description`, `created_at`, `updated_at`, `d
 (37, 'Dermis (ডার্মিস)', 'The layer beneath the epidermis that contains blood vessels, nerves, sweat glands, hair follicles, and connective tissue. (এপিডার্মিসের নীচের স্তর যা রক্তনালী, স্নায়ু, ঘাম গ্রন্থি, চুলের ফলিকল এবং সংযোগকারী টিস্যু ধারণ করে।)', '2023-08-16 18:54:13.566648', NULL, NULL, 12),
 (38, 'Subcutaneous Tissue (Hypodermis) (সাবকুটেনিয়াস টিস্যু (হাইপোডার্মিস))', 'The layer beneath the dermis that contains fat cells and helps insulate the body. (ডার্মিসের নীচের স্তর যাতে চর্বি কোষ থাকে এবং শরীরকে নিরোধক করতে সাহায্য করে।)', '2023-08-16 18:54:13.572578', NULL, NULL, 12);
 
---INSERT INTO `department_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, `description`, `department_id`, `organ_problem_specification_id`) VALUES
---(1, '2023-11-09 15:57:00.610974', NULL, NULL, 'N/A', 4, 1),
---(2, '2023-11-09 16:00:04.620841', NULL, NULL, 'N/A', 18, 2),
---(3, '2023-11-09 16:01:11.777925', NULL, NULL, 'N/A', 9, 3),
---(4, '2023-11-09 16:02:03.717110', NULL, NULL, 'N/A', 9, 4),
---(5, '2023-11-09 16:03:32.824346', NULL, NULL, 'N/A', 19, 5);
+INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, `problem`, `problem_specification`, `organ_id`) VALUES
+(1, '2023-11-09 15:51:24.223814', NULL, NULL, '  Brain Tumor, Stroke, Epilepsy (মস্তিষ্কের টিউমার, স্ট্রোক, মৃগীরোগ)', 'Abnormal cell growth in the brain, disruption of blood supply leading to cell damage, neurological disorder causing seizures. (মস্তিষ্কে অস্বাভাবিক কোষের বৃদ্ধি, রক্ত সরবরাহ ব্যাহত হওয়ার ফলে কোষের ক্ষতি হয়, স্নায়বিক ব্যাধি খিঁচুনি সৃষ্টি করে।)', 1),
+(2, '2023-11-09 15:52:20.439895', NULL, NULL, ' Cataracts, Glaucoma, Conjunctivitis ( ছানি, গ্লুকোমা, কনজেক্টিভাইটিস)', 'Clouding of the eye\'s lens, increased intraocular pressure, inflammation of the conjunctiva. (চোখের লেন্সের মেঘ, ইন্ট্রাওকুলার চাপ বৃদ্ধি, কনজেক্টিভার প্রদাহ।)', 2),
+(3, '2023-11-09 15:53:12.062282', NULL, NULL, 'Hearing Loss, Tinnitus, Ear Infections (শ্রবণশক্তি হ্রাস, টিনিটাস, কানের সংক্রমণ)', ' Impairment of auditory function, ringing in the ears, inflammation or infection of the ear. ( শ্রবণ ফাংশনের দুর্বলতা, কানে বাজানো, কানের প্রদাহ বা সংক্রমণ।)', 3),
+(4, '2023-11-09 15:54:06.646672', NULL, NULL, 'Sinusitis, Allergic Rhinitis, Deviated Septum (সাইনোসাইটিস, অ্যালার্জিক রাইনাইটিস, বিচ্যুত সেপ্টাম)', 'Inflammation of the sinuses, allergic reaction affecting the nasal passages, displacement of the nasal septum. (সাইনাসের প্রদাহ, অনুনাসিক প্যাসেজগুলিকে প্রভাবিত করে অ্যালার্জির প্রতিক্রিয়া, অনুনাসিক সেপ্টামের স্থানচ্যুতি।)', 4),
+(5, '2023-11-09 15:55:01.306669', NULL, NULL, 'Tooth Decay, Gum Disease, Oral Cancer (দাঁত ক্ষয়, মাড়ির রোগ, মুখের ক্যান্সার)', ' Deterioration of tooth structure, inflammation of the gums, cancer affecting the oral cavity. ( দাঁতের গঠনের অবনতি, মাড়ির প্রদাহ, মুখের গহ্বরকে প্রভাবিত করে ক্যান্সার।)', 5);
+
+INSERT INTO `department_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, `description`, `department_id`, `organ_problem_specification_id`) VALUES
+(1, '2023-11-09 15:57:00.610974', NULL, NULL, 'N/A', 4, 1),
+(2, '2023-11-09 16:00:04.620841', NULL, NULL, 'N/A', 18, 2),
+(3, '2023-11-09 16:01:11.777925', NULL, NULL, 'N/A', 9, 3),
+(4, '2023-11-09 16:02:03.717110', NULL, NULL, 'N/A', 9, 4),
+(5, '2023-11-09 16:03:32.824346', NULL, NULL, 'N/A', 19, 5);

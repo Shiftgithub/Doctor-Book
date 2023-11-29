@@ -12,6 +12,7 @@ from admin.authentication.user.serializers import *
 from .serializers import *
 from ..authentication.otp.verifyotp.models import VerifyOtp
 from ..authentication.user.serializers import UserSerializer, ImageSerializer
+from ..authentication.login.views import set_user_info
 
 
 @api_view(['POST'])

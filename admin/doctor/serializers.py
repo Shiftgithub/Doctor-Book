@@ -40,7 +40,14 @@ class DoctorSerializer(serializers.ModelSerializer):
         instance = super().create(validated_data)
         return instance
 
+class DoctorUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = 'user_name','email',
 
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        return instance.pk  # Fetch the primary key of the saved object
 class EducationSerializer(serializers.ModelSerializer):
     board = serializers.CharField(source='board.name')  # Serialize the board's name
 

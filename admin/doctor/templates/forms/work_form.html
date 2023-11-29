@@ -1,0 +1,135 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <form action="{% url 'store_work' %}" enctype="multipart/form-data" id="PostForm" method="POST">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header bg-dark">
+                <h1 class="card-title">Add Doctor Work Details</h1>
+            </div>
+            <div class="card-body">
+                {% if not doctor_data %}
+                <div class="alert alert-default-warning">
+                    <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'doctor_form' %}"> Add
+                    Doctor </a> first.
+                </div>
+                {% else %}
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="doctorNameID">Doctor Name : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="doctorNameID" name="doctor_id" required>
+                            <option selected>Select Doctor Name</option>
+                            {% for item in doctor_data %}
+                            <option value="{{ item.id }}">{{ item.id }} . {{ item.full_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="fab fa-servicestack"></i> Appointment Schedule</legend>
+                    </div>
+                </div>
+                <hr>
+                <div id="schedule-sections">
+                    <div class="schedule-section">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <button type="button"
+                                        class="btn btn-danger remove-schedule-section float-right">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="startTimeID">Start Time :<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" id="startTimeID" name="start_time[]"
+                                       type="time" required/>
+                            </div>
+                            <label class="col-md-2 col-form-label" for="endTimeID">End Time :<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-4">
+                                <input class="form-control" id="endTimeID" name="end_time[]"
+                                       type="time" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" class="btn btn-primary add-schedule-section float-right">Add More
+                        </button>
+                    </div>
+                </div>
+                <div id="off-day-sections">
+                    <div class="off-day-section">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <button type="button"
+                                        class="btn btn-danger remove-off-day-section float-right">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="offDayID">Off Day : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" id="offDayID" name="off_day[]" required>
+                                    <option selected>Select Off Day</option>
+                                    {% for item in day_data %}
+                                    <option value="{{ item.id }}">{{ item.id }} . {{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" class="btn btn-primary add-off-day-section float-right">Add More
+                        </button>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="acceptingNewPatientsID">Per Patient Time:<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="acceptingNewPatientsID" name="per_patient_time"
+                               type="number" required/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="consultationFeeID">Consultation Fee :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="consultationFeeID" name="consultation_fee" type="number"
+                               required/>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-secondary" type="reset">Cancel</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success float-right" type="submit">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
+{% endblock %}
+

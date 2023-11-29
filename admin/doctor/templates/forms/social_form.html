@@ -1,0 +1,81 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <form action="{% url 'store_social' %}" enctype="multipart/form-data" id="PostForm" method="POST">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header bg-dark">
+                <h1 class="card-title">Add Doctor Work Details</h1>
+            </div>
+            <div class="card-body">
+                {% if not doctor_data %}
+                <div class="alert alert-default-warning">
+                    <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'doctor_form' %}"> Add
+                    Doctor </a> first.
+                </div>
+                {% else %}
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="doctorNameID">Doctor Name : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="doctorNameID" name="doctor_id" required>
+                            <option selected>Select Doctor Name</option>
+                            {% for item in doctor_data %}
+                            <option value="{{ item.id }}">{{ item.id }} . {{ item.full_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="fab fa-linkedin"></i> Social Media</legend>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="websiteID">Website : </label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="websiteID" name="website" placeholder="https://www.website.com"
+                               type="url" required/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="linkedinID">Linkedin : </label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="linkedinID" name="linkedin"
+                               placeholder="https://www.linkedin.com" type="url" required/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="facebookID">Facebook : </label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="facebookID" name="facebook"
+                               placeholder="https://www.facebook.com" type="url" required/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="instagramID">Instagram : </label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="instagramID" name="instagram"
+                               placeholder="https://www.instagram.com" type="url" required/>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-secondary" type="reset">Cancel</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success float-right" type="submit">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

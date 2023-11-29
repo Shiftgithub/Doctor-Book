@@ -149,21 +149,75 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_doctor_form' %}" class="nav-link">
+                        <a href="{% url 'doctor_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Doctor</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a class="nav-link" href="{% url 'add_doctor_work_details_form' %}">
+                        <a class="nav-link" href="{% url 'work_form' %}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Add work Details</p>
+                            <p>Add Working Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'edu_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Education Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'social_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Social Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'award_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Award Details </p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
                         <a href="{% url 'doctor_list' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>All Doctors</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- Doctor data modification-->
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user-md"></i>
+                    <p>
+                        Doctor Modification
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'add_medicine_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Edit Working Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'doctor_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Education Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a class="nav-link" href="{% url 'work_form' %}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Edit work Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'doctor_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Edit Awards and Social </p>
                         </a>
                     </li>
                 </ul>

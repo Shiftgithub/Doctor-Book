@@ -81,7 +81,7 @@ class OffDay(BaseModel):
     modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_off_day', null=True)
 
     class Meta:
-        db_table = 'off_day'
+        db_table = 'doctor_off_day'
 
 
 class ScheduleTime(BaseModel):

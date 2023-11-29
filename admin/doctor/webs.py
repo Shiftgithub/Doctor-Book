@@ -37,16 +37,10 @@ def store_doctor(request):
     else:
         messages.add_message(request, messages.ERROR, 'Error in storing Doctor data')
 
-    return redirect('add_doctor_form')
+    return redirect('doctor_form')
 
 
-def doctor_data_view(request):
-    response = get_all_doctors_list(request)
-    all_data = response.data
-    return render(request, 'doctor/templates/list_all.html', {'all_data': all_data})
-
-
-def doctor_work_details_form(request):
+def work_form(request):
     response_day = day_list(request)
     day_data = response_day.data
 
@@ -56,20 +50,78 @@ def doctor_work_details_form(request):
     response_board = board_list(request)
     board_data = response_board.data
     data = {'doctor_data': doctors_data, 'board_data': board_data, 'day_data': day_data}
-    return render(request, 'doctor/templates/work_form.html', data)
+    return render(request, 'doctor/templates/forms/work_form.html', data)
 
 
-def store_doctor_work_details(request):
-    operation_response = store_doctor_work_details_data(request)
+def store_work_details(request):
+    operation_response = work_details_store(request)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, 'Doctor Work Details data stored successfully')
     else:
         messages.add_message(request, messages.ERROR, 'Error in storing Doctor Work Details  data')
 
-    return redirect('add_doctor_work_details_form')
+    return redirect('work_form')
 
 
-def view_doctor(request, doctor_id):
+def edu_form(request):
+    response_doctor = get_all_doctors_name_by_edu(request)
+    doctors_data = response_doctor.data
+
+    response_board = board_list(request)
+    board_data = response_board.data
+
+    data = {'doctor_data': doctors_data, 'board_data': board_data}
+    return render(request, 'doctor/templates/forms/edu_form.html', data)
+
+
+def store_edu(request):
+    operation_response = edu_store(request)
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, 'Doctor Education data stored Successfully')
+    else:
+        messages.add_message(request, messages.ERROR, 'Error in storing Doctor Education details data')
+    return redirect('edu_form')
+
+
+def award_form(request):
+    response_doctor = get_all_doctors_name_by_award(request)
+    doctors_data = response_doctor.data
+    data = {'doctor_data': doctors_data}
+    return render(request, 'doctor/templates/forms/award_form.html', data)
+
+
+def store_award(request):
+    operation_response = award_store(request)
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, 'Doctor Award data stored Successfully')
+    else:
+        messages.add_message(request, messages.ERROR, 'Error in storing Award details data')
+    return redirect('award_form')
+
+
+def social_form(request):
+    response_doctor = get_all_doctors_name_by_social(request)
+    doctors_data = response_doctor.data
+    data = {'doctor_data': doctors_data}
+    return render(request, 'doctor/templates/forms/social_form.html', data)
+
+
+def store_social(request):
+    operation_response = social_store(request)
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, 'Doctor Social data stored Successfully')
+    else:
+        messages.add_message(request, messages.ERROR, 'Error in storing Social details data')
+    return redirect('social_form')
+
+
+def get_doctor_data(request):
+    response = get_all_doctors_list(request)
+    all_data = response.data
+    return render(request, 'doctor/templates/list_all.html', {'all_data': all_data})
+
+
+def get_doctor_data_by_id(request, doctor_id):
     response_doctor_data = doctor_data(request, doctor_id)
     doctor_all_data = response_doctor_data.data
     data = {'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id}
