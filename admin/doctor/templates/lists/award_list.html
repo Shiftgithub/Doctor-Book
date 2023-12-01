@@ -29,6 +29,7 @@
                     <td>{{ forloop.counter }}</td>
                     {# Use 'forloop.counter' to get the loop counter #}
                     <td>{{ data.full_name }}</td>
+                    <td>{{ data.id }}</td>
                     <td>{{ data.department }}</td>
                     <td>
                         <div class="btn-group dropleft">
@@ -42,7 +43,7 @@
                                    href="{% url 'award_view' data.id %}">
                                     <i class="fas fa-eye"></i> View
                                 </a>
-                                <a href="{% url 'edit_doctor_form' data.id %}" class="dropdown-item text-primary">
+                                <a href="{% url 'edit_award_form' data.id %}" class="dropdown-item text-primary">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
                                 <!-- Button trigger modal -->

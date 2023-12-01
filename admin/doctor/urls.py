@@ -41,6 +41,13 @@ urlpatterns = [
                 path('social-view/<int:doctor_id>/', protected_view(get_doctor_social_data_by_id), name='social_view'),
 
                 path('update/<int:doctor_id>/', protected_view(edit_doctor_form), name='edit_doctor_form'),
+
+                path('edit-social/<int:doctor_id>/', protected_view(edit_social_form), name='edit_social_form'),
+                path('update-social/<int:doctor_id>/', protected_view(edit_doctor_social), name='edit_social'),
+
+                path('edit-award/<int:doctor_id>/', protected_view(edit_award_form), name='edit_award_form'),
+                path('update-award/<int:doctor_id>/', protected_view(edit_doctor_award), name='edit_award'),
+
                 path('edit/<int:doctor_id>/', protected_view(edit_doctor), name='edit_doctor'),
                 path('delete/<int:doctor_id>/', protected_view(delete_doctor), name='delete_doctor'),
             ]

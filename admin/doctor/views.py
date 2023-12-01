@@ -15,6 +15,7 @@ from admin.authentication.otp.function.send_email import send_email
 
 
 @api_view(['POST'])
+@transaction.atomic
 def store_doctor_data(request):
     try:
         user_serializer = DoctorUserSerializer(data=request.data)
@@ -28,41 +29,41 @@ def store_doctor_data(request):
             password = '1'
             hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
-            with transaction.atomic():
-                user_instance = user_serializer.save(password=password, hash=hashed_password,
-                                                     role='doctor', status='active')
-                doctor_user_id = doctor_serializer.validated_data
-                try:
-                    user_instance = User.objects.get(pk=user_instance)
-                    doctor_user_id['user'] = user_instance
-                except User.DoesNotExist:
-                    return Response({'status': 400})
-                otp = 0
-                is_verified = True
-                save_otp = send_otp(user_instance, otp, is_verified)
-                if save_otp:
-                    doctor_instance = doctor_serializer.save(**doctor_user_id)
-                    image_instance = image_serializer.save(
-                        user=user_instance)  # Assuming 'user' is the ForeignKey in Images
-                    present_instance = present_address_serializer.save(user=user_instance)
-                    permanent_instance = permanent_address_serializer.save(user=user_instance)
-                    if doctor_instance and image_instance and present_instance and permanent_instance:
-                        user_fields = [user_serializer.validated_data['user_name']]
-                        user_name = ' - '.join(user_fields)
-                        email_fields = [user_serializer.validated_data['email']]
-                        email = ' - '.join(email_fields)
-                        message = 'Message From Doctor-Book [Personalized Doctor Predictor]:\n\n' \
-                                  'Your username: ' + user_name + '\n' + 'Your password: ' + password
-                        # send_email(email, message)
-                        return Response({'status': 200})
-                    else:
-                        transaction.set_rollback(True)
-                        return Response({'status': 403})
+            user_instance = user_serializer.save(password=password, hash=hashed_password,
+                                                 role='doctor', status='active')
+            doctor_user_id = doctor_serializer.validated_data
+            try:
+                user_instance = User.objects.get(pk=user_instance)
+                doctor_user_id['user'] = user_instance
+            except User.DoesNotExist:
+                return Response({'status': 400})
+            otp = 0
+            is_verified = True
+            save_otp = send_otp(user_instance, otp, is_verified)
+            if save_otp:
+                doctor_instance = doctor_serializer.save(**doctor_user_id)
+                image_instance = image_serializer.save(
+                    user=user_instance)  # Assuming 'user' is the ForeignKey in Images
+                present_instance = present_address_serializer.save(user=user_instance)
+                permanent_instance = permanent_address_serializer.save(user=user_instance)
+                if doctor_instance and image_instance and present_instance and permanent_instance:
+                    user_fields = [user_serializer.validated_data['user_name']]
+                    user_name = ' - '.join(user_fields)
+                    email_fields = [user_serializer.validated_data['email']]
+                    email = ' - '.join(email_fields)
+                    message = 'Message From Doctor-Book [Personalized Doctor Predictor]:\n\n' \
+                              'Your username: ' + user_name + '\n' + 'Your password: ' + password
+                    # send_email(email, message)
+                    return Response({'status': 200})
                 else:
                     transaction.set_rollback(True)
                     return Response({'status': 403})
+            else:
+                transaction.set_rollback(True)
+                return Response({'status': 403})
         else:
             return Response({'status': 400})
+
     except socket.gaierror as e:
         error_message = 'Error: Unable to resolve the hostname or no internet connection.'
         return Response({'status': 1000, 'message': error_message})
@@ -72,8 +73,6 @@ def store_doctor_data(request):
 @transaction.atomic
 def work_details_store(request):
     appointment_schedule_serializer = AppointmentScheduleSerializer(data=request.data)
-    print(appointment_schedule_serializer)
-
     if appointment_schedule_serializer.is_valid():
         doctor_profile_id = request.data.get('doctor_id')
         off_days = request.data.getlist('off_day[]')
@@ -166,7 +165,6 @@ def social_store(request):
     social_media_serializer = SocialMediaSerializer(data=request.data)
     if social_media_serializer.is_valid():
         doctor_profile_id = request.data.get('doctor_id')
-        print(doctor_profile_id)
         social_media_serializer.save(doctor_profile_id=doctor_profile_id)
         return Response({'status': 200, 'message': 'Social Media Data stored successfully'})
     else:
@@ -240,7 +238,6 @@ def doctor_data(request, doctor_id):
     doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
         'user', 'gender', 'religion', 'blood_group', 'matrimony', 'department'
     ).prefetch_related(
-        'awards', 'appointment_schedules', 'education', 'social_media',
         'user__images', 'user__present_address', 'user__permanent_address',
     )
     serializer = DoctorViewSerializer(doctors, many=True)
@@ -255,7 +252,6 @@ def doctor_working_data(request, doctor_id):
     doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
         'user').prefetch_related('appointment_schedules', 'user__images')
     serializer = DoctorWorkingSerializer(doctors, many=True)
-    print(serializer.data)
     return Response(serializer.data)
 
 
@@ -274,7 +270,6 @@ def doctor_social_data(request, doctor_id):
     doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
         'user').prefetch_related('awards', 'user__images')
     serializer = DoctorSocialSerializer(doctors, many=True)
-    print(serializer.data)
     return Response(serializer.data)
 
 
@@ -284,7 +279,6 @@ def doctor_award_data(request, doctor_id):
     doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
         'user').prefetch_related('social_media', 'user__images')
     serializer = DoctorAwardSerializer(doctors, many=True)
-    print(serializer.data)
     return Response(serializer.data)
 
 
@@ -340,6 +334,7 @@ def edit_doctor_data(request, doctor_id):
                     honors = request.data.getlist('honors[]')
                     publications = request.data.getlist('publications[]')
                     research_interests = request.data.getlist('research_interests[]')
+
                     certificate_degrees = request.data.getlist('certificate_degrees[]')
                     institutions = request.data.getlist('institutions[]')
                     boards = request.data.getlist('boards[]')
@@ -350,6 +345,7 @@ def edit_doctor_data(request, doctor_id):
                     end_times = request.data.getlist('end_time[]')
 
                     existing_awards = Awards.objects.filter(doctor_profile=doctor)
+
                     existing_educations = Education.objects.filter(doctor_profile=doctor)
                     existing_off_days = OffDay.objects.filter(doctor_profile=doctor)
                     existing_schedule_times = ScheduleTime.objects.filter(doctor_profile=doctor)
@@ -418,6 +414,66 @@ def edit_doctor_data(request, doctor_id):
                     return Response({'status': 400, 'message': 'Validation error for doctor data'})
     except Exception as e:
         return Response({'status': 500, 'message': str(e)})
+
+
+@api_view(['PUT', 'POST'])
+def edit_social_data(request, doctor_id):
+    social_data = SocialMedia.objects.get(id=doctor_id)
+    serializer = SocialMediaSerializer(social_data, data=request.data)
+    if serializer.is_valid():
+        if serializer.save(updated_at=timezone.now()):
+            return Response({'status': 200, 'message': 'Doctor Social Media data updated Successfully'})
+        else:
+            response = {'status': 403, 'message': 'Doctor Social Media data updated Failed'}
+            return Response(response)
+    else:
+        response = {'status': 404, 'message ': 'Invalid Data.', 'errors': serializer.errors}
+        return Response(response)
+
+
+@api_view(['PUT', 'POST'])
+@transaction.atomic
+def edit_award_data(request, doctor_id):
+    try:
+        doctor = get_object_or_404(DoctorProfile, id=doctor_id)
+        awards = request.data.getlist('awards[]')
+        honors = request.data.getlist('honors[]')
+        publications = request.data.getlist('publications[]')
+        research_interests = request.data.getlist('research_interests[]')
+
+        for award_name, honor, publication, research_interest in zip(awards, honors, publications, research_interests):
+            existing_award = Awards.objects.filter(doctor_profile=doctor, awards=award_name).first()
+
+            if existing_award:
+                # If award with the same name exists, update it
+                award_serializer = AwardsSerializer(existing_award, data={
+                    'awards': award_name,
+                    'honors': honor,
+                    'publications': publication,
+                    'research_interests': research_interest,
+                    'doctor_profile': doctor.id,
+                })
+            else:
+                # If award doesn't exist, create a new one
+                award_serializer = AwardsSerializer(data={
+                    'awards': award_name,
+                    'honors': honor,
+                    'publications': publication,
+                    'research_interests': research_interest,
+                    'doctor_profile': doctor.id,
+                })
+
+            if award_serializer.is_valid():
+                award_serializer.save(updated_at=timezone.now())
+            else:
+                transaction.set_rollback(True)
+                return Response({'status': 400, 'message': 'Invalid data', 'errors': award_serializer.errors})
+
+        return Response({'status': 200, 'message': 'Doctor Award Data updated successfully'})
+
+    except DoctorProfile.DoesNotExist:
+        transaction.set_rollback(True)
+        return Response({'status': 404, 'message': 'DoctorProfile not found'})
 
 
 @api_view(['PUT', 'GET'])

@@ -242,6 +242,54 @@ def edit_doctor(request, doctor_id):
     return redirect('edit_doctor_form', doctor_id=doctor_id)
 
 
+def edit_social_form(request, doctor_id):
+    response_doctor = doctor_social_data(request, doctor_id)
+    doctor_all_data = response_doctor.data
+    data = {
+        'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id
+    }
+    return render(request, 'doctor/templates/edits/social_edit.html', data)
+
+
+def edit_doctor_social(request, doctor_id):
+    operation_response = edit_social_data(request, doctor_id)
+    message = operation_response.data.get('message')
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+    else:
+        messages.add_message(request, messages.ERROR, message)
+
+    return redirect('edit_social_form', doctor_id=doctor_id)
+
+
+def edit_award_form(request, doctor_id):
+    response_doctor = doctor_award_data(request, doctor_id)
+    doctor_all_data = response_doctor.data
+    data = {
+        'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id
+    }
+    return render(request, 'doctor/templates/edits/award_edit.html', data)
+
+
+def edit_doctor_award(request, doctor_id):
+    operation_response = edit_award_data(request, doctor_id)
+    message = operation_response.data.get('message')
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+    else:
+        messages.add_message(request, messages.ERROR, message)
+
+    return redirect('edit_award_form', doctor_id=doctor_id)
+
+
 def delete_doctor(request, doctor_id):
     operation_response = softdelete_doctor_data(request, doctor_id)
     if operation_response.data.get('status') == 200:

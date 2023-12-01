@@ -168,11 +168,6 @@ $(document).ready(function() {
                 var section = $('.award-section:first').clone();
                 section.find('input[type="text"]').val(''); // Clear input values in the cloned section
                 section.find('.remove-award-section').show(); // Show the remove button for the cloned section
-
-                // Update index number
-                var index = $('.award-section').length + 1;
-                section.find('.section-index').text('Working Time ' + index);
-
                 section.appendTo('#award-sections');
 
                 // Show the "Remove" button when there is more than one lab test section
@@ -186,11 +181,6 @@ $(document).ready(function() {
                 var scheduleSections = $('.award-section');
                 if (scheduleSections.length > 1) {
                     $(this).closest('.award-section').remove();
-
-                    // Update index numbers
-                    scheduleSections.each(function(index) {
-                        $(this).find('.section-index').text('Working Time No ' + (index + 1));
-                    });
 
                     // Hide the "Remove" button when there is only one lab test section left
                     if (scheduleSections.length === 1) {
