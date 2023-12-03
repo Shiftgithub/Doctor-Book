@@ -4,18 +4,11 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header bg-dark">
-            <h1 class="card-title">Add Prescription</h1>
+            <h1 class="card-title">Add Lab Prescription</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'store_medicine_prescription' %}" method="POST">
+            <form id="PostForm" action="{% url 'store_lab_prescription' %}" method="POST">
                 {% csrf_token %}
-                <!--                <div class="row mb-3">-->
-                <!--                    <label for="issueDateID" class="col-md-3 col-form-label">Issue Date :<span-->
-                <!--                            class="text-danger">*</span></label>-->
-                <!--                    <div class="col-md-9">-->
-                <!--                        <input name="issue_date" id="issueDateID" type="date" class="form-control">-->
-                <!--                    </div>-->
-                <!--                </div>-->
                 <div class="row mb-3">
                     <label for="specialtySelect" class="col-md-3 col-form-label">Patient Name :<span
                             class="text-danger">*</span></label>
@@ -83,53 +76,27 @@
                     </div>
                 </div>
                 <hr>
-                <div id="medicine-sections">
-                    <div class="medicine-section">
+                <div id="labtest-sections">
+                    <div class="labtest-section">
                         <div class="row mb-3">
                             <div class="col-md-4">
-                                <label class="col-form-label section-index">Medicine No 1</label>
+                                <label class="col-form-label section-index">Lab Test No 1</label>
                             </div>
                             <div class="col-md-8">
-                                <button type="button" class="btn btn-danger remove-medicine-section float-right">
+                                <button type="button" class="btn btn-danger remove-labtest-section float-right">
                                     Remove
                                 </button>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="medicineID" class="col-md-3 col-form-label">Medicine :<span class="text-danger">*</span></label>
+                            <label for="labTestID" class="col-md-3 col-form-label">Lab Test</label>
                             <div class="col-md-9">
-                                <select class="form-control select2" id="medicineID" name="medicine[]">
-                                    <option selected>Select Medicine Name</option>
-                                    {% for item in medicine_data %}
-                                    <option value="{{ item.id }}">{{ item.id }} . {{ item.name }} {{ item.strength }}
-                                    </option>
+                                <select class="form-control select2 labTestSelect" id="labTestID" name="lab_test[]">
+                                    <option selected>Select Lab Test Name</option>
+                                    {% for item in labtest_data %}
+                                    <option value="{{ item.id }}">{{ item.id }} . {{ item.name }}</option>
                                     {% endfor %}
                                 </select>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="medicineScheduleID" class="col-md-3 col-form-label">Medicine Schedule :<span
-                                    class="text-danger">*</span></label>
-                            <div class="col-md-9">
-                                <select class="form-control select2" id="medicineScheduleID" name="medicine_schedule[]">
-                                    <option selected>Select Medicine Schedule</option>
-                                    {% for item in medicine_schedule_data %}
-                                    <option value="{{ item.id }}">{{ item.id }} . {{ item.schedule }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="frequencyID" class="col-md-3 col-form-label">Frequency :<span
-                                    class="text-danger">*</span></label>
-                            <div class="col-md-9">
-                                <input class="form-control select2" id="frequencyID" name="frequency[]" type="text">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="durationID" class="col-md-3 col-form-label">Duration :<span class="text-danger">*</span></label>
-                            <div class="col-md-9">
-                                <input class="form-control select2" id="durationID" name="duration[]" type="text">
                             </div>
                         </div>
                     </div>
@@ -137,7 +104,7 @@
                 <div class="row mb-3">
                     <div class="col-md-2"></div>
                     <div class="col-md-10">
-                        <button type="button" class="btn btn-primary add-medicine-section float-right">Add More</button>
+                        <button type="button" class="btn btn-primary add-labtest-section float-right">Add More</button>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success float-right">Submit</button>

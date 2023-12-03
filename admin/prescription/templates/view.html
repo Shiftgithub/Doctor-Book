@@ -5,133 +5,41 @@
     .signature-container {
         text-align: center;
     }
-
-
+    #logo {
+        background: url("{% static 'adminlte_assets/img/icon.png' %}") center center no-repeat;
+         opacity: 0.5;
+    }
 </style>
 {% endblock %}
 {% block content %}
 <div class="container mt-4">
     <div class="card">
-        <div class="card-header bg-dark text-white">
-            <h2 class="card-title">Prescription Details</h2>
-        </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <div class="float-right">
-                    <h4>Issue Date : {{ prescription_data.issue_date }}</h4>
+                <div class="first-div">
+                    <div class="float-left">
+                        <h4>Doctor Name : {{ prescription_data.doctor_name }}</h4>
+                        <h4>Department : {{ prescription_data.department }}</h4>
+                        <h4>Doctor Name : {{ prescription_data.doctor_phone_no }}</h4>
+                    </div>
+                    <div class="float-right">
+                        <h4>Hospital Name : Islamic Hospital</h4>
+                        <h4>Hospital Address : New Dhaka</h4>
+                        <h4>Code : 4111021</h4>
+                        <h4>Phone : 01965572363,01943019803</h4>
+                        <h4>Am 8:00 Close 10:00 pm</h4>
+                    </div>
                 </div>
-                <br><br>
-                <table class="table table-bordered">
-                    <tbody>
-                    <tr>
-                        <th>P. Name : {{ prescription_data.patient_profile.full_name }}</th>
-                        <th>Age : {{ age }}</th>
-                        <th>Gender : {% if prescription_data.patient_profile.gender %}
-                            {{ prescription_data.patient_profile.gender }}{% else %} N/A {% endif %}
-                        </th>
-                        <th>Blood Group :
-                            {% if prescription_data.patient_profile.blood_group %}
-                            {{ prescription_data.patient_profile.blood_group }}
-                            {% else %} N/A {% endif %}
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>R- : {{ prescription_data.patient_profile.registration_no }}</th>
-                        <th><i class="fas fa-phone"></i> {% if prescription_data.patient_profile.phone_no %}
-                            {{prescription_data.patient_profile.phone_no }}{% else %} : N/A {% endif %}
-                        </th>
-                        <th><i class="fas fa-envelope"></i> {{ prescription_data.patient_profile.email }}</th>
-                        <th>Address : {% if prescription_data.patient_profile.address %}
-                            {{ prescription_data.patient_profile.address }}{% else %} N/A {% endif %}
-                        </th>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="second-div">
+                    Reg ID : {{ prescription_data.registration_no }}
+                </div>
 
-                <table class="table table-bordered">
-                    <tbody>
-                    <tr>
-                        <th>Dr. Name : {{ prescription_data.doctor_profile.full_name }}</th>
-                        <th>Department : {{ prescription_data.doctor_profile.department }}</th>
-                        <th><i class="fas fa-phone"></i> {{ prescription_data.doctor_profile.phone_no }}</th>
-                        <th><i class="fas fa-envelope"></i> {{ prescription_data.doctor_profile.email }}</th>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered">
-                    <tbody>
-                    <tr>
-                        <th style="width: 30%;">Chief Complaint (CC):</th>
-                        <td>{{ prescription_data.cc }}</td>
-                    </tr>
-                    <tr>
-                        <th>On Examination (OE):</th>
-                        <td>{{ prescription_data.oe }}</td>
-                    </tr>
-                    <tr>
-                        <th>Diagnosis (DD):</th>
-                        <td>{{ prescription_data.dd }}</td>
-                    </tr>
-                    <tr>
-                        <th>Advice (AD):</th>
-                        <td>{{ prescription_data.ad }}</td>
-                    </tr>
-                    <tr>
-                        <th>Treatment Line (TL):</th>
-                        <td>{{ prescription_data.tl }}</td>
-                    </tr>
-                    <tr>
-                        <th>Past Medical History (PMH):</th>
-                        <td>{{ prescription_data.pmh }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered">
-                    <tbody>
-                    <tr>
-                        <th>Medicine Name:</th>
-                        <td>
-                            {% for medicine_name, medicine_schedule_time in medicines_with_schedule %}
-                            {{ forloop.counter }} . {{ medicine_name }} ({{ medicine_schedule_time }})<br>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="width: 30%;">Frequency:</th>
-                        <td>
-                            {% for medicine in prescription_data.medicine %}
-                            {{ forloop.counter }} . {{ medicine.frequency }}<br>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="width: 30%;">Duration:</th>
-                        <td>
-                            {% for medicine in prescription_data.medicine %}
-                            {{ forloop.counter }} . {{ medicine.duration }}<br>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered">
-                    <tbody>
-                    <tr>
-                        <th style="width: 30%;">Labtest Name:</th>
-                        <td>
-                            {% for lab_test_name in prescription_data.lab_test_name %}
-                            {{ forloop.counter }} . {{ lab_test_name }}<br>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <br><br>
-                <div class="signature-container float-right">
-                    <h5 >-------------------------------------------</h5>
-                    <h5 class="signature">Signature</h5>
-                </div>
-            </div>
+                <!--                    <div class="float-right">-->
+                <!--                        <h6>Issue Date : {{ prescription_data.issue_date }}</h6>-->
+                <!--                    </div>-->
+                <!--                    <div class="signature-container float-right">-->
+                <!--                        <h5>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</h5>-->
+                <!--                        <h5 class="signature">Signature</h5>-->
+                <!--                    </div>-->
         </div>
         <div class="text-center">
             <!-- Add an id to the "Print" link for easier targeting with JavaScript -->
