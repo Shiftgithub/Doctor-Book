@@ -10,6 +10,7 @@ from rest_framework import status, serializers
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from admin.authentication.user.serializers import *
+from admin.authentication.login.views import set_user_info
 from admin.authentication.otp.function.send_otp import send_otp
 from admin.authentication.otp.function.send_email import send_email
 
@@ -283,135 +284,53 @@ def doctor_award_data(request, doctor_id):
 
 
 @api_view(['PUT', 'POST'])
+@transaction.atomic
 def edit_doctor_data(request, doctor_id):
     try:
         doctor = get_object_or_404(DoctorProfile, id=doctor_id, deleted_at=None)
-
         if not doctor.user:
             return Response({'message': 'No associated user found', 'status': 200})
 
         else:
-            with transaction.atomic():
-                appointment_schedule_instance = doctor.appointment_schedules.first()
-
-                appointment_schedule_serializer = AppointmentScheduleSerializer(appointment_schedule_instance,
-                                                                                data=request.data, partial=True)
-                doctor_serializer = DoctorSerializer(doctor, data=request.data, partial=True)
-                image_instance = doctor.user.images.first()
-                image_serializer = ImageSerializer(image_instance, data=request.data, partial=True)
-                present_address_instance = doctor.user.present_address.first()
-                present_address_serializer = PresentAddressSerializer(present_address_instance, data=request.data,
+            doctor_serializer = DoctorSerializer(doctor, data=request.data, partial=True)
+            image_instance = doctor.user.images.first()
+            image_serializer = ImageSerializer(image_instance, data=request.data, partial=True)
+            present_address_instance = doctor.user.present_address.first()
+            present_address_serializer = PresentAddressSerializer(present_address_instance, data=request.data,
+                                                                  partial=True)
+            permanent_address_instance = doctor.user.permanent_address.first()
+            permanent_address_serializer = PermanentAddressSerializer(permanent_address_instance, data=request.data,
                                                                       partial=True)
-                permanent_address_instance = doctor.user.permanent_address.first()
-                permanent_address_serializer = PermanentAddressSerializer(permanent_address_instance, data=request.data,
-                                                                          partial=True)
-                social_media_instance = doctor.social_media.first()
-                social_media_serializer = SocialMediaSerializer(social_media_instance, data=request.data, partial=True)
+            if (
+                    doctor_serializer.is_valid()
+                    and image_serializer.is_valid()
+                    and present_address_serializer.is_valid()
+                    and permanent_address_serializer.is_valid()
+            ):
+                doctor_data_updated = doctor_serializer.save(updated_at=timezone.now())
 
-                if (
-                        doctor_serializer.is_valid()
-                        and image_serializer.is_valid()
-                        and present_address_serializer.is_valid()
-                        and permanent_address_serializer.is_valid()
-                        and appointment_schedule_serializer.is_valid()
-                        and social_media_serializer.is_valid()
-                ):
-                    doctor_serializer.save(updated_at=timezone.now())
+                # Update 'photo_name' if provided
+                if 'photo_name' in request.data and request.data['photo_name']:
+                    image_serializer.validated_data['photo_name'] = request.data['photo_name']
+                else:
+                    image_serializer.validated_data['photo_name'] = image_instance.photo_name
 
-                    # Update 'photo_name' if provided
-                    if 'photo_name' in request.data and request.data['photo_name']:
-                        image_serializer.validated_data['photo_name'] = request.data['photo_name']
-                    else:
-                        image_serializer.validated_data['photo_name'] = image_instance.photo_name
+                image_updated = image_serializer.save()
 
-                    image_serializer.save()
-                    appointment_schedule_serializer.save(doctor_profile=doctor)
-                    present_address_serializer.save()
-                    permanent_address_serializer.save()
-                    social_media_serializer.save()
-
-                    awards = request.data.getlist('awards[]')
-                    honors = request.data.getlist('honors[]')
-                    publications = request.data.getlist('publications[]')
-                    research_interests = request.data.getlist('research_interests[]')
-
-                    certificate_degrees = request.data.getlist('certificate_degrees[]')
-                    institutions = request.data.getlist('institutions[]')
-                    boards = request.data.getlist('boards[]')
-                    results = request.data.getlist('results[]')
-                    passing_years = request.data.getlist('passing_years[]')
-                    off_days = request.data.getlist('off_day[]')
-                    start_times = request.data.getlist('start_time[]')
-                    end_times = request.data.getlist('end_time[]')
-
-                    existing_awards = Awards.objects.filter(doctor_profile=doctor)
-
-                    existing_educations = Education.objects.filter(doctor_profile=doctor)
-                    existing_off_days = OffDay.objects.filter(doctor_profile=doctor)
-                    existing_schedule_times = ScheduleTime.objects.filter(doctor_profile=doctor)
-                    # Iterate through the existing awards
-                    for award_instance, award, honor, publication, research_interest, education_instance, certificate_degree, institution, board_id, result, passing_year, off_day_instance, off_day, schedule_time_instance, start_time, end_time in zip(
-                            existing_awards, awards, honors, publications, research_interests, existing_educations,
-                            certificate_degrees, institutions, boards, results, passing_years, existing_off_days,
-                            off_days, existing_schedule_times, start_times, end_times
-                    ):
-                        try:
-                            board = Board.objects.get(id=board_id)
-                            off_day_id = OffDay.objects.get(id=off_day)
-                        except (Board, OffDay).DoesNotExist as e:
-                            data = {'status': 404,
-                                    'message': 'Board or off day are not Existing in db',
-                                    'error': str(e)
-                                    }
-                            return Response(data)
-
-                        award_serializer = AwardsSerializer(award_instance, data={
-                            'awards': award,
-                            'honors': honor,
-                            'publications': publication,
-                            'research_interests': research_interest,
-                            'doctor_profile': doctor.id,
-                        })
-                        edu_serializer = EducationEditSerializer(education_instance, data={
-                            'certificate_degree': certificate_degree,
-                            'institution': institution,
-                            'result': result,
-                            'passing_year': passing_year,
-                            'board': board.id,
-                            'doctor_profile': doctor.id,
-                        })
-                        off_day_serializer = OffDaySerializer(off_day_instance, data={
-                            'off_day': off_day_id.id,
-                            'doctor_profile': doctor.id
-                        })
-                        schedule_time_serializer = ScheduleTimeSerializer(schedule_time_instance, data={
-                            'start_time': start_time,
-                            'end_time': end_time,
-                            'doctor_profile': doctor.id
-                        })
-                        if (
-                                award_serializer.is_valid() and
-                                edu_serializer.is_valid() and
-                                off_day_serializer.is_valid() and
-                                schedule_time_serializer.is_valid()
-                        ):
-                            award = award_serializer.save(updated_at=timezone.now())
-                            edu = edu_serializer.save(updated_at=timezone.now())
-                            day = off_day_serializer.save(updated_at=timezone.now())
-                            time = schedule_time_serializer.save(updated_at=timezone.now())
-                        else:
-                            transaction.set_rollback(True)
-                            return Response(
-                                {'status': 404, 'message': 'Request data are invalid.'})
-                    if award and edu and day and time:
-                        return Response({'status': 200})
-                    else:
-                        transaction.set_rollback(True)
-                        return Response(
-                            {'status': 404, 'message': 'Data updated failed.'})
+                present_address = present_address_serializer.save()
+                permanent_address = permanent_address_serializer.save()
+                if doctor_data_updated and image_updated and present_address and permanent_address:
+                    # session variable should be updated here
+                    set_user_info(request, doctor, doctor.user.id, doctor.user.email)
+                    return Response({'status': 200})
                 else:
                     transaction.set_rollback(True)
-                    return Response({'status': 400, 'message': 'Validation error for doctor data'})
+                    return Response(
+                        {'status': 404, 'message': 'Data updated failed.'})
+            else:
+                transaction.set_rollback(True)
+            return Response({'status': 400, 'message': 'Validation error for doctor data'})
+
     except Exception as e:
         return Response({'status': 500, 'message': str(e)})
 

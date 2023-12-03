@@ -102,6 +102,7 @@ def get_user_details(request):
         return redirect('view_doctor_data', doctor_id=doctor_id)
     elif request.session.get('user_role') == ROLE_PATIENT:
         user_id = request.session.get('user_id')
+        print(user_id)
         patient_profile = PatientProfile.objects.filter(user_id=user_id).first()
         patient_id = patient_profile.id
         return redirect('view_patient', patient_id=patient_id)

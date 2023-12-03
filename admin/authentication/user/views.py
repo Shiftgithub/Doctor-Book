@@ -21,7 +21,7 @@ def store_admin_data(request):
     admin_serializer = AdminProfileSerializer(data=request.data)
     image_serializer = ImageSerializer(data=request.data)
     user_serializer = UserSerializer(data=request.data)
-    if  admin_serializer.is_valid() and image_serializer.is_valid() and user_serializer.is_valid(raise_exception=True):
+    if admin_serializer.is_valid() and image_serializer.is_valid() and user_serializer.is_valid(raise_exception=True):
         password = request.data.get('password')
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
         with transaction.atomic():
@@ -81,7 +81,7 @@ def edit_admin_data(request, admin_id):
         if admin_serializer.save(updated_at=datetime.now()) and image_serializer.save(
                 updated_at=datetime.now()):
             # session variable should be updated here
-            set_user_info(request, admin, admin_id, admin.user.email)
+            set_user_info(request, admin, admin.user.id, admin.user.email)
 
             return Response({'status': 200})
         else:
