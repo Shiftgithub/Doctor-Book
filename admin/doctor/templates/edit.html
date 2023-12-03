@@ -159,7 +159,177 @@
                         {% endif %}
                     </div>
                 </div>
-                {% endfor %}
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="far fa-address-card"></i> Permanent Address Details</legend>
+                    </div>
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="far fa-address-card"></i> Present Address Details</legend>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentDivisionID">Division :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="permanentDivisionID" name="permanent_division"
+                                required>
+                            <option selected>Select Permanent Division</option>
+                            {% for item in division_data %}
+                            {% if item.name == doctor_data.permanent_address.0.permanent_division.name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentDivisionID">Division :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="presentDivisionID" name="present_division" required>
+                            <option selected>Select Present Division</option>
+                            {% for item in division_data %}
+                            {% if item.name == doctor_data.present_address.0.present_division.name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentDistrictID">District : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="permanentDistrictID" name="permanent_district"
+                                required>
+                            <option selected>Select Permanent District</option>
+                            {% for item in district_data %}
+                            {% if item.name == doctor_data.permanent_address.0.permanent_district.name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentDistrictID">District : <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="presentDistrictID" name="present_district" required>
+                            <option selected>Select Present District</option>
+                            {% for item in district_data %}
+                            {% if item.name == doctor_data.present_address.0.present_district.name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentUpazilaID">Upazila : <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="permanentUpazilaID" name="permanent_upazila" required>
+                            <option selected>Select Permanent Upazila</option>
+                            {% for item in upazila_data %}
+                            {% if item.name == doctor_data.permanent_address.0.permanent_upazila.name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentUpazilaID">Upazila : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="presentUpazilaID" name="present_upazila" required>
+                            <option selected>Select Present Upazila</option>
+                            {% for item in upazila_data %}
+                            {% if item.name == doctor_data.present_address.0.present_upazila.name %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentVaillageID">Village / State : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text"
+                               value="{{ doctor_data.permanent_address.0.permanent_village_state }}"
+                               id="permanentVaillageID" name="permanent_village_state" required/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentVaillageID">Village / State : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text"
+                               value="{{ doctor_data.present_address.0.present_village_state }}"
+                               id="presentVaillageID" name="present_village_state" required/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="permanentPostalCodeID">Postal Code : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="number" id="permanentPostalCodeID"
+                               name="permanent_postal_code"
+                               value="{{ doctor_data.permanent_address.0.permanent_postal_code }}" required/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="presentPostalID">Postal Code : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="number" id="presentPostalID" name="present_postal_code"
+                               value="{{ doctor_data.present_address.0.present_postal_code }}" required/>
+                    </div>
+                </div>
+                <legend class="text-info"><i class="far fa-edit"></i> Personal Skills</legend>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="experienceID">Experience : </label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" value="{{ doctor_data.experience }}"
+                               id="experienceID" name="experience" required/>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="languagesSpokenID">Languages Spoken : </label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" value="{{ doctor_data.languages_spoken }}"
+                               id="languagesSpokenID" name="languages_spoken" required/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="departmentID">Specialty : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="departmentID" name="department">
+                            <option selected>Select Department / Specialty</option>
+                            {% for item in department_data %}
+                            {% if item.name == doctor_data.department %}
+                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-md-2 col-form-label">Biography : </label>
+                    <div class="col-md-4">
+                        {% if doctor_data.biography %}
+                        <input class="form-control" type="text" value=" {{ doctor_data.biography }}"
+                               name="biography" required/>
+                        {% else %}
+                        <input class="form-control" type="text" name="biography" placeholder="Not Provided" required/>
+                        {% endif %}
+                    </div>
+                </div>
+
+                 {% endfor %}
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-6">
