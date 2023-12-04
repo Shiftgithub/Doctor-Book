@@ -71,6 +71,19 @@ def lab_prescription_data_view(request):
 def view_medicine_prescription(request, prescription_id):
     response = get_medicine_prescription_by_id(request, prescription_id)
     prescription_data = response.data
+    prescription_data['medicine_details'] = zip(
+        prescription_data['medicine_name'],
+        prescription_data['medicine_schedule_time'],
+        prescription_data['frequency'],
+        prescription_data['duration']
+    )
+
+    # Convert 'created_at' string to datetime object
+    prescription_data['created_at'] = datetime.strptime(prescription_data['created_at'], "%Y-%m-%dT%H:%M:%S.%fZ")
+
+    # Format the 'created_at' field with the desired format
+    prescription_data['created_at'] = prescription_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
+
     # date_of_birth = prescription_data.get('patient_profile', {}).get('date_of_birth', '')
     # issue_date = prescription_data.get('issue_date', '')
 
@@ -80,6 +93,7 @@ def view_medicine_prescription(request, prescription_id):
     # else:
     #     age = "N/A"
     # medicines_with_schedule = list(zip(prescription_data['medicine_name'], prescription_data['medicine_schedule_time']))
+    # print(prescription_data)
     data = {
         # 'age': age,
         'prescription_data': prescription_data,

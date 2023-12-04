@@ -75,7 +75,7 @@ def get_medicine_prescription_by_id(request, prescription_id):
     barcode_image_path = generate_barcode(request, registration_data_to_encode)
 
     # Add barcode_image_path to serializer_data
-    serializer_data['barcode_image_path'] = barcode_image_path
+    serializer_data['barcode_image'] = barcode_image_path
 
     return Response(serializer_data)
 
@@ -85,7 +85,7 @@ def generate_barcode(request, registration):
     encrypted_registration = hashlib.sha256(registration.encode()).hexdigest()
 
     # Limit the length to 8 characters
-    truncated_encrypted_registration = encrypted_registration[:64]
+    truncated_encrypted_registration = encrypted_registration[:8]
 
     # Generate barcode
     code = barcode.get('code128', registration, writer=ImageWriter())
@@ -117,7 +117,9 @@ def generate_barcode(request, registration):
     # Close the BytesIO buffer
     buffer.close()
 
-    return barcode_image_path
+    # Return the relative path to the generated barcode image without the 'static' prefix
+    relative_path = os.path.relpath(barcode_image_path, 'static')
+    return relative_path
 
 
 # # prescription edit function
@@ -172,7 +174,6 @@ def get_all_lab_test_prescriptions_list(request):
     lab_tests = PrescriptionForLabTest.objects.filter(deleted_at=None).prefetch_related(
         'prescription_lab').order_by('id')
     serializer_data = PrescriptionForLabTestViewSerializer(instance=lab_tests, many=True).data
-    print(serializer_data)
     return Response(serializer_data)
 
 

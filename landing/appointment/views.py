@@ -62,6 +62,7 @@ def generate_date(request, doctor_id):
             if day_of_week not in off_day_list:
                 date_with_day = f'{formatted_date} ({day_of_week})'
                 date_list.append(date_with_day)
+
     return date_list
 
 
@@ -76,12 +77,52 @@ def get_existing_appointment_times(doctor_id, date):
 def generate_schedule_time(request, doctor_id, date):
     get_working_schedule_response = get_working_schedule(request, doctor_id)
     existing_appointment_times = get_existing_appointment_times(doctor_id, date)
+    today_date = datetime.now().date()
+    # Format today_date
+    formatted_today_date = today_date.strftime('%d-%m-%Y (%A)')
+    # Check if the date is today
+    if date == formatted_today_date:
+        current_time = datetime.now().strftime("%I:%M %p")
+        print(current_time)
 
-    appointment_times = doctor_schedule_time(get_working_schedule_response, existing_appointment_times)
+        # Remove times that have already passed today
+        existing_appointment_times = [time for time in existing_appointment_times if
+                                      is_time_after_current(time, current_time)]
+        print('existing_appointment_times :', existing_appointment_times)
+        appointment_times = doctor_schedule_time(get_working_schedule_response, existing_appointment_times)
 
-    # Return the appointment times as a JSON response
-    data = {'appointment_times': appointment_times}
-    return JsonResponse(data)
+        # Return the appointment times as a JSON response
+
+        data = {'appointment_times': appointment_times}
+        print('if')
+        # print(appointment_times)
+        return JsonResponse(data)
+    else:
+        print('else')
+        appointment_times = doctor_schedule_time(get_working_schedule_response, existing_appointment_times)
+
+        # Return the appointment times as a JSON response
+        data = {'appointment_times': appointment_times}
+        return JsonResponse(data)
+
+
+# Add a new helper function to check if the time is after the current time
+def is_time_after_current(time_str, current_time):
+    formatted_time = datetime.strptime(time_str.split(" - ")[0], "%I:%M %p").time()
+    print('formatted_time :', formatted_time)
+    return formatted_time > current_time
+
+
+# # Function to generate schedule time
+# def generate_schedule_time(request, doctor_id, date):
+#     get_working_schedule_response = get_working_schedule(request, doctor_id)
+#     existing_appointment_times = get_existing_appointment_times(doctor_id, date)
+#
+#     appointment_times = doctor_schedule_time(get_working_schedule_response, existing_appointment_times)
+#
+#     # Return the appointment times as a JSON response
+#     data = {'appointment_times': appointment_times}
+#     return JsonResponse(data)
 
 
 # Function to simplify doctor_schedule_time
@@ -111,7 +152,7 @@ def doctor_schedule_time(get_working_schedule_response, existing_appointment_tim
                     available_appointment_times.append(appointment_time_str)
 
                 current_time = end_time_patient
-
+            print(available_appointment_times)
         return available_appointment_times
 
     return None

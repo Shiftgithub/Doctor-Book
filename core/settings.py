@@ -87,7 +87,10 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'barcode',
 
-    # 'corsheaders',
+#     'chatterbot',
+#     'chatterbot.ext.django',
+#
+#     # 'corsheaders',
 ]
 
 MIDDLEWARE = [
