@@ -228,3 +228,44 @@ class DoctorPrescriptionSerializer(serializers.ModelSerializer):
 #     def get_off_day_names(self, obj):
 #         off_day_names = [off_day.off_day.name for off_day in obj.off_days.all()]
 #         return off_day_names
+
+
+class DoctorViewForLandingSerializer(serializers.ModelSerializer):
+    awards = AwardsSerializer(many=True)
+    appointment_schedules = AppointmentScheduleSerializer(many=True)
+    blood_group = serializers.CharField(source='blood_group.name')
+    department = serializers.CharField(source='department.name', required=False)
+    email = serializers.EmailField(source='user.email')
+    education = EducationSerializer(many=True)
+    gender = serializers.CharField(source='gender.name')
+    images = ImageSerializer(source='user.images', many=True)
+    matrimony = serializers.CharField(source='matrimony.name')
+    present_address = PresentAddressAllSerializer(source='user.present_address', many=True)
+    permanent_address = PermanentAddressAllSerializer(source='user.permanent_address', many=True)
+    religion = serializers.CharField(source='religion.name')
+    social_media = SocialMediaSerializer(many=True)
+    user_name = serializers.CharField(source='user.user_name')
+
+    schedule_times = serializers.SerializerMethodField()
+    off_days = OffDaySerializer(many=True)
+    off_day_names = serializers.SerializerMethodField()
+
+    class Meta:
+        model = DoctorProfile
+        fields = '__all__'
+
+    def get_schedule_times(self, obj):
+        schedule_times = []
+        for appointment_schedule in obj.appointment_schedules.all():
+            schedule_times.extend(appointment_schedule.schedule_time.all())
+        return ScheduleTimeSerializer(schedule_times, many=True).data
+
+    def get_off_day_names(self, obj):
+        off_day_names = [off_day.off_day.name for off_day in obj.off_days.all()]
+        return off_day_names
+
+
+class OffDayIDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OffDay
+        fields = 'off_day'

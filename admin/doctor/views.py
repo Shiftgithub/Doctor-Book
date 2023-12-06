@@ -27,6 +27,15 @@ def store_doctor_data(request):
 
         if user_serializer.is_valid(
                 raise_exception=True) and doctor_serializer.is_valid() and image_serializer.is_valid() and present_address_serializer.is_valid() and permanent_address_serializer.is_valid():
+
+            user_name = request.data.get('user_name')
+            email = request.data.get('email')
+
+            if User.objects.filter(user_name=user_name).exists():
+                return Response({'message': 'This User name already taken. Please try another.', 'status': 404})
+
+            if User.objects.filter(email=email, ).exists():
+                return Response({'message': 'This email already used. Please try another.', 'status': 404})
             password = '1'
             hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
@@ -220,6 +229,21 @@ def get_all_doctors_list(request):
     )
     # Serialize the data using the combined serializer
     serializer = DoctorViewSerializer(doctors, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_all_doctors_list_for_landing(request):
+    # Fetch all doctor profiles along with related fields
+    doctors = DoctorProfile.objects.filter(deleted_at=None).select_related(
+        'user', 'gender', 'religion', 'blood_group', 'matrimony', 'department'
+    ).prefetch_related(
+        'awards', 'appointment_schedules', 'education', 'social_media',
+        'user__images', 'user__present_address', 'user__permanent_address',
+
+    )
+    # Serialize the data using the combined serializer
+    serializer = DoctorViewForLandingSerializer(doctors, many=True)
     return Response(serializer.data)
 
 

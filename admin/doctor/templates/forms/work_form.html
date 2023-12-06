@@ -3,7 +3,8 @@
 
 {% block content %}
 <div class="container mt-4">
-    <form action="{% url 'store_work' %}" enctype="multipart/form-data" id="PostForm" method="POST">
+    <form action="{% url 'store_work' %}" enctype="multipart/form-data" id="PostForm" method="POST"
+          class="needs-validation" novalidate>
         {% csrf_token %}
         <div class="card">
             <div class="card-header bg-dark">
@@ -21,11 +22,12 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <select class="form-control select2" id="doctorNameID" name="doctor_id" required>
-                            <option selected>Select Doctor Name</option>
+                            <option selected disabled value="">Select Doctor Name</option>
                             {% for item in doctor_data %}
                             <option value="{{ item.id }}">{{ item.id }} . {{ item.full_name }}</option>
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select doctor name.</div>
                     </div>
                 </div>
                 {% endif %}
@@ -51,12 +53,14 @@
                             <div class="col-md-4">
                                 <input class="form-control" id="startTimeID" name="start_time[]"
                                        type="time" required/>
+                                <div class="invalid-feedback">Please enter start time.</div>
                             </div>
                             <label class="col-md-2 col-form-label" for="endTimeID">End Time :<span
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
                                 <input class="form-control" id="endTimeID" name="end_time[]"
                                        type="time" required/>
+                                <div class="invalid-feedback">Please enter end time.</div>
                             </div>
                         </div>
                     </div>
@@ -83,11 +87,12 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" id="offDayID" name="off_day[]" required>
-                                    <option selected>Select Off Day</option>
+                                    <option selected disabled value="">Select Off Day</option>
                                     {% for item in day_data %}
                                     <option value="{{ item.id }}">{{ item.id }} . {{ item.name }}</option>
                                     {% endfor %}
                                 </select>
+                                <div class="invalid-feedback">Please select off day name.</div>
                             </div>
                         </div>
                     </div>
@@ -105,12 +110,14 @@
                     <div class="col-md-4">
                         <input class="form-control" id="acceptingNewPatientsID" name="per_patient_time"
                                type="number" required/>
+                        <div class="invalid-feedback">Please enter per patient time.</div>
                     </div>
                     <label class="col-md-2 col-form-label" for="consultationFeeID">Consultation Fee :<span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <input class="form-control" id="consultationFeeID" name="consultation_fee" type="number"
                                required/>
+                        <div class="invalid-feedback">Please enter consultation fee.</div>
                     </div>
                 </div>
             </div>
@@ -131,5 +138,23 @@
 
 {% block scripts %}
 <script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+</script>
 {% endblock %}
 

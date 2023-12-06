@@ -25,7 +25,7 @@
                     <h5>{{ prescription_data.doctor_phone_no }}</h5>
                 </div>
                 <div class="col-4 text-center">
-                    <img src="{% static 'adminlte_assets/img/icon.png' %}" alt="logo">
+                    <img src="{% static 'adminlte_assets/img/icon.png' %}" alt="logo" width="160px" height="120px">
                 </div>
                 <div class="col-4">
                     <h5>Hospital Name : Islamic Hospital</h5>
@@ -37,9 +37,14 @@
             </div>
             <hr class="darker-hr">
             <div class="row">
-                <div class="col-6">
-                    <img src="{% static prescription_data.barcode_image %}" alt="Barcode Image" width="200px"
-                         height="50px">
+                <div class="col-12">
+                    <img src="{% static prescription_data.barcode_image %}" alt="Barcode Image" width="140px"
+                         height="30px"><br>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-6 pl-3">
                     <h5>Reg : {{ prescription_data.registration_no }}</h5>
                     <h5>Patient Name : {{ prescription_data.patient_name }}</h5>
                     <h5>Address : {{ prescription_data.patient_name }}</h5>
@@ -98,6 +103,7 @@
             <br><br><br><br><br>
             <div class="signature-container float-right mb-5">
                 <h5>-------------------------------------------</h5>
+                <span class="italic">{{ prescription_data.doctor_name }}</span>
                 <h5 class="signature">Signature</h5>
             </div>
         </div>

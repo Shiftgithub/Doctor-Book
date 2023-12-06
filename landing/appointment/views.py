@@ -247,6 +247,7 @@ def store_appointment_data(request):
 
 
 @api_view(['POST'])
+@transaction.atomic
 def create_patient_account_store_appointment(request):
     appointment_date = request.session.get('temp_appointment_date')
     appointment_time = request.session.get('temp_appointment_time')
@@ -256,47 +257,54 @@ def create_patient_account_store_appointment(request):
     patient_serializer = PatientSerializer(data=request.data)
     user_serializer = UserSerializer(data=request.data)
     if user_serializer.is_valid(raise_exception=True) and patient_serializer.is_valid():
-        password = request.data.get('password')
-        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+        user_name = request.data.get('user_name')
+        email = request.data.get('email')
 
-        with transaction.atomic():
-            user_serializer.save(hash=hashed_password, role='patient', status='inactive')
-            user_profile_instance = user_serializer.instance
-            registration_no = generate_unique(18)
-            patient = patient_serializer.save(user_id=user_profile_instance, registration_no=registration_no)
+        if User.objects.filter(user_name=user_name).exists():
+            return Response({'message': 'This User name already taken. Please try another.', 'status': 404})
 
-            image_serializer = Images(user_id=user_profile_instance)
-            image_serializer.save()
+        if User.objects.filter(email=email, ).exists():
+            return Response({'message': 'This email already used. Please try another.', 'status': 404})
 
-            token_str = generate_token(6)
-            email_fields = [user_serializer.validated_data['email']]
-            email = ' - '.join(email_fields)
-            message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
-            otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
-            otp_serializer.save()
-            # send_mail = send_email(email, message)
-            if otp_serializer:
-                if appointment_serializer.is_valid():
-                    # Retrieve the 'DoctorProfile' instance for the doctor using 'doctor_id'
-                    try:
-                        doctor = DoctorProfile.objects.get(id=doctor_id)
-                    except DoctorProfile.DoesNotExist:
-                        return Response({'status': 404, 'message': 'Doctor not found'})
+        hashed_password = hashlib.sha256(request.data.get('password').encode()).hexdigest()
 
-                    # Set the 'doctor' field to the retrieved 'User' instance
-                    appointment_serializer.save(
-                        appointment_date=appointment_date,
-                        appointment_time=appointment_time,
-                        doctor=doctor,
-                        patient=patient
-                    )
-                    data = {'email': email, 'status': 200}
-                    return Response(data)
-                else:
-                    transaction.set_rollback(True)
-                    return Response({'status': 403})
+        user_serializer.save(hash=hashed_password, role='patient', status='inactive')
+        user_profile_instance = user_serializer.instance
+        registration_no = generate_unique(18)
+        patient = patient_serializer.save(user_id=user_profile_instance, registration_no=registration_no)
+
+        image_serializer = Images(user_id=user_profile_instance)
+        image_serializer.save()
+
+        token_str = generate_token(6)
+        email_fields = [user_serializer.validated_data['email']]
+        email = ' - '.join(email_fields)
+        message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
+        otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
+        otp_serializer.save()
+        # send_mail = send_email(email, message)
+        if otp_serializer:
+            if appointment_serializer.is_valid():
+                # Retrieve the 'DoctorProfile' instance for the doctor using 'doctor_id'
+                try:
+                    doctor = DoctorProfile.objects.get(id=doctor_id)
+                except DoctorProfile.DoesNotExist:
+                    return Response({'status': 404, 'message': 'Doctor not found'})
+
+                # Set the 'doctor' field to the retrieved 'User' instance
+                appointment_serializer.save(
+                    appointment_date=appointment_date,
+                    appointment_time=appointment_time,
+                    doctor=doctor,
+                    patient=patient
+                )
+                data = {'email': email, 'status': 200}
+                return Response(data)
             else:
                 transaction.set_rollback(True)
                 return Response({'status': 403})
+        else:
+            transaction.set_rollback(True)
+            return Response({'status': 403})
     else:
         return Response({'status': 403})

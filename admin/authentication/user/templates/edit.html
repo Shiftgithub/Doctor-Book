@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container mt-4">
     <form action="{% url 'edit_admin' admin_id %}" enctype="multipart/form-data" id="PostForm"
-          method="POST">
+          method="POST" class="needs-validation" novalidate>
         {% csrf_token %}
         <div class="card">
             <div class="card-header bg-dark">
@@ -22,28 +22,32 @@
                             <label class="col-md-3 col-form-label" for="NameID">Name :</label>
                             <div class="col-md-9">
                                 <input class="form-control" type="text" id="NameID"
-                                       value="{{ admin_all_data.full_name }}" name="full_name"/>
+                                       value="{{ admin_all_data.full_name }}" name="full_name" required/>
+                                <div class="invalid-feedback">Please enter your full name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="fatherNameID">Father Name :</label>
                             <div class="col-md-9">
                                 <input class="form-control" type="text" id="fatherNameID"
-                                       value="{{ admin_all_data.father_name }}" name="father_name"/>
+                                       value="{{ admin_all_data.father_name }}" name="father_name" required/>
+                                <div class="invalid-feedback">Please enter your father name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="motherNameID">Mother Name : </label>
                             <div class="col-md-9">
                                 <input class="form-control" value=" {{ admin_all_data.mother_name }}"
-                                       id="motherNameID" type="text" name="mother_name"/>
+                                       id="motherNameID" type="text" name="mother_name" required/>
+                                <div class="invalid-feedback">Please enter your mother name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="dateOfBirthID">Date of Birth : </label>
                             <div class="col-md-9">
                                 <input class="form-control" value="{{ admin_all_data.date_of_birth }}"
-                                       type="date" id="dateOfBirthID" name="date_of_birth"/>
+                                       type="date" id="dateOfBirthID" name="date_of_birth" required/>
+                                <div class="invalid-feedback">Please enter your date of birth.</div>
                             </div>
                         </div>
                         <!-- Phone Number -->
@@ -51,24 +55,27 @@
                             <label class="col-md-3 col-form-label" for="phoneNoID">Phone Number : </label>
                             <div class="col-md-9">
                                 <input class="form-control" value=" {{ admin_all_data.phone_no }}" id="phoneNoID"
-                                       type="text" name="phone_no"/>
+                                       type="text" name="phone_no" required/>
+                                <div class="invalid-feedback">Please enter your phone no.</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="row mb-3">
+                        <div class="row mb-3 text-center">
                             <div class="col-md-12">
                                 <input class="form-control mb-3" id="imageID" name="photo_name"
                                        onchange="previewImage(event)" type="file"/>
                                 {% if admin_all_data.images.0.photo_name %}
                                 <img alt="Patient Image" id="preview" src="{{ admin_all_data.images.0.photo_name }}"
-                                     style="width: 100%; height: 280px;">
+                                     style="width: 75%; height: 200px;">
                                 {% else %}
                                 <img alt="Patient Image" id="preview"
                                      src="{% static 'adminlte_assets/img/nobody.png' %}"
-                                     style="width: 100%; height: 280px;">
+                                     style="width: 75%; height: 200px;">
                                 {% endif %}
-
+                                <div id="imageDescription" class="form-text">Choose an image file (JPEG, PNG, GIF) with
+                                    a maximum size of 5MB.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -80,10 +87,10 @@
                 </div>
                 <hr>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label">Gender :</label>
+                    <label class="col-md-2 col-form-label" for="genderID">Gender :</label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="genderID" name="gender">
-                            <option selected>Select Gender</option>
+                        <select class="form-control select2" id="genderID" name="gender" required>
+                            <option selected disabled value="">Select Gender</option>
                             {% for item in gender_data %}
                             {% if item.name == admin_all_data.gender %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>
@@ -92,11 +99,12 @@
                             {% endif %}
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select your gender.</div>
                     </div>
-                    <label class="col-md-2 col-form-label">Religion :</label>
+                    <label class="col-md-2 col-form-label" for="religionID">Religion :</label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="religionID" name="religion">
-                            <option selected>Select Religion</option>
+                        <select class="form-control select2" id="religionID" name="religion" required>
+                            <option selected disabled value="">Select Religion</option>
                             {% for item in religion_data %}
                             {% if item.name == admin_all_data.religion %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>
@@ -105,13 +113,14 @@
                             {% endif %}
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select your religion.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label">Blood Group : </label>
+                    <label class="col-md-2 col-form-label" for="bloodGroupID">Blood Group : </label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="bloodGroupID" name="blood_group">
-                            <option selected>Select Blood Group</option>
+                        <select class="form-control select2" id="bloodGroupID" name="blood_group" required>
+                            <option selected disabled value="">Select Blood Group</option>
                             {% for item in blood_group_data %}
                             {% if item.name == admin_all_data.blood_group %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>
@@ -120,11 +129,12 @@
                             {% endif %}
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select your blood group.</div>
                     </div>
-                    <label class="col-md-2 col-form-label">Matrimony Status : </label>
+                    <label class="col-md-2 col-form-label" for="matrimonyID">Matrimony Status : </label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="matrimonyID" name="matrimony">
-                            <option selected>Select Matrimony</option>
+                        <select class="form-control select2" id="matrimonyID" name="matrimony" required>
+                            <option selected disabled value="">Select Matrimony</option>
                             {% for item in matrimony_data %}
                             {% if item.name == admin_all_data.matrimony %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>
@@ -133,18 +143,21 @@
                             {% endif %}
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select your matrimony.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label">NID No: </label>
+                    <label class="col-md-2 col-form-label" for="nidID">NID No: </label>
                     <div class="col-md-4">
                         <input class="form-control" type="number" value="{{ admin_all_data.nid_no }}"
-                               id="nidNOID" name="nid_no"/>
+                               id="nidID" name="nid_no" required/>
+                        <div class="invalid-feedback">Please enter NID no.</div>
                     </div>
                     <label class="col-md-2 col-form-label" for="addressID">Address : </label>
                     <div class="col-md-4">
                         <input class="form-control" value=" {{ admin_all_data.address }}" id="addressID"
-                               type="text" name="address"/>
+                               type="text" name="address" required/>
+                        <div class="invalid-feedback">Please enter your address.</div>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -165,6 +178,22 @@
 {% block scripts %}
 <script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
 <script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
     function previewImage(event) {
     var input = event.target;
     var imgElement = document.getElementById("preview");

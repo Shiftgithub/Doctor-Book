@@ -2,7 +2,7 @@ from .views import *
 from admin.faq.views import *
 from admin.article.views import *
 from admin.department.views import get_all_departments_list
-from admin.doctor.views import get_all_doctors_list
+from admin.doctor.views import get_all_doctors_list_for_landing
 from django.shortcuts import render
 
 
@@ -25,7 +25,7 @@ def landing_dashboard(request):
 
 
 def landing_doctors(request):
-    response_doctor = get_all_doctors_list(request)
+    response_doctor = get_all_doctors_list_for_landing(request)
     doctor_data = response_doctor.data
     return render(request, 'landing/templates/pages/doctors.html', {'doctor_data': doctor_data})
 
@@ -41,6 +41,7 @@ def landing_faq(request):
 def landing_article(request):
     response = get_all_article_list(request)
     all_data = response.data
+    print(all_data)
     return render(request, 'landing/templates/pages/articles.html', {'all_data': all_data})
 
 

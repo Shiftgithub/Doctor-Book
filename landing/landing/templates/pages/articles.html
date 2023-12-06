@@ -41,11 +41,11 @@
         <div class="row">
             {% if all_data %}
             {% for data in all_data %}
-<!--                <div class="col-sm-12 col-md-4 d-flex align-items-stretch">-->
+            <!--                <div class="col-sm-12 col-md-4 d-flex align-items-stretch">-->
             <div class="col-sm-12 col-md-4">
                 <div class="icon-box">
                     <a href="{% url 'landing_article_view' data.id %}">
-                        <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                        <div><img src="{{ data.image }}" alt="Article Image" height="200px" width="300px"></div>
                         <h3>{{data.heading}}</h3>
                         <h5>{{data.tag}}</h5>
                         {% if data.description|wordcount > 15 %}

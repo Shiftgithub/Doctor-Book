@@ -7,18 +7,20 @@
             <h1 class="card-title">Add Lab Prescription</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'store_lab_prescription' %}" method="POST">
+            <form id="PostForm" action="{% url 'store_lab_prescription' %}" method="POST"
+                  class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="row mb-3">
                     <label for="specialtySelect" class="col-md-3 col-form-label">Patient Name :<span
                             class="text-danger">*</span></label>
                     <div class="col-md-9">
-                        <select class="form-control select2" id="specialtySelect" name="patient_profile">
-                            <option selected>Select Patient Name</option>
+                        <select class="form-control select2" id="specialtySelect" name="patient_profile" required>
+                            <option selected disabled value="">Select Patient Name</option>
                             {% for item in patient_data %}
                             <option value="{{ item.id }}">{{ item.id }} . {{ item.full_name }}</option>
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select patient name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -26,8 +28,8 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <textarea name="cc" id="chiefComplainID" class="form-control" cols="30"
-                                  rows="2" placeholder="">{{ data.cc|default:"N/A" }}</textarea>
-                        <div id="chiefComplainError" class="error-message"></div> <!-- Error message container -->
+                                  rows="2" required>{{ data.cc|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter chief complain or type n/a.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -35,16 +37,16 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <textarea name="oe" id="onExaminationID" class="form-control" cols="30"
-                                  rows="2">{{ data.oe|default:"N/A" }}</textarea>
-                        <div id="onExaminationError" class="error-message"></div> <!-- Error message container -->
+                                  rows="2" required>{{ data.oe|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter chief complain or type n/a.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="onExaminationID" class="col-md-3 col-form-label">Differential Diagnosis</label>
                     <div class="col-md-9">
                         <textarea name="dd" id="differentialDiagnosisID" class="form-control" cols="30"
-                                  rows="2">{{ data.dd|default:"N/A" }}</textarea>
-                        <div id="differentialDiagnosisError" class="error-message"></div>
+                                  rows="2" required>{{ data.dd|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter chief complain or type n/a.</div>
                         <!-- Error message container -->
                     </div>
                 </div>
@@ -52,8 +54,8 @@
                     <label for="adviceID" class="col-md-3 col-form-label">Differential Diagnosis</label>
                     <div class="col-md-9">
                         <textarea name="ad" id="adviceID" class="form-control" cols="30"
-                                  rows="2">{{ data.dd|default:"N/A" }}</textarea>
-                        <div id="AdviceError" class="error-message"></div>
+                                  rows="2" required>{{ data.dd|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter differential diagnosis or type n/a.</div>
                         <!-- Error message container -->
                     </div>
                 </div>
@@ -61,8 +63,8 @@
                     <label for="treatmentListID" class="col-md-3 col-form-label">Treatment List</label>
                     <div class="col-md-9">
                         <textarea name="tl" id="treatmentListID" class="form-control" cols="30"
-                                  rows="2">{{ data.dd|default:"N/A" }}</textarea>
-                        <div id="treatmentListError" class="error-message"></div>
+                                  rows="2" required>{{ data.dd|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter treatment list or type n/a.</div>
                         <!-- Error message container -->
                     </div>
                 </div>
@@ -70,8 +72,8 @@
                     <label for="pastMedicalHistoryID" class="col-md-3 col-form-label">Past Medical History</label>
                     <div class="col-md-9">
                         <textarea name="pmh" id="pastMedicalHistoryID" class="form-control" cols="30"
-                                  rows="2">{{ data.dd|default:"N/A" }}</textarea>
-                        <div id="pastMedicalHistoryError" class="error-message"></div>
+                                  rows="2" required>{{ data.dd|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter past medical history or type n/a.</div>
                         <!-- Error message container -->
                     </div>
                 </div>
@@ -91,12 +93,14 @@
                         <div class="row mb-3">
                             <label for="labTestID" class="col-md-3 col-form-label">Lab Test</label>
                             <div class="col-md-9">
-                                <select class="form-control select2 labTestSelect" id="labTestID" name="lab_test[]">
-                                    <option selected>Select Lab Test Name</option>
+                                <select class="form-control select2 labTestSelect" id="labTestID" name="lab_test[]"
+                                        required>
+                                    <option selected disabled value="">Select Lab Test Name</option>
                                     {% for item in labtest_data %}
                                     <option value="{{ item.id }}">{{ item.id }} . {{ item.name }}</option>
                                     {% endfor %}
                                 </select>
+                                <div class="invalid-feedback">Please select lab test name.</div>
                             </div>
                         </div>
                     </div>
@@ -115,5 +119,23 @@
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'adminlte_assets/js/prescription-callback.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+</script>
 {% endblock %}
 

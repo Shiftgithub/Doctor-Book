@@ -10,14 +10,23 @@ from admin.organ_problem_speci.models import *
 # store organ data
 @api_view(['POST'])
 def store_organ_data(request):
-    body_part_id = request.POST.get('body_part')
-    organs = request.POST.getlist('names[]')
-    descriptions = request.POST.getlist('descriptions[]')
-    body_part = BodyPart.objects.get(id=body_part_id)
-    for organ, description in zip(organs, descriptions):
-        organ_obj = Organ(body_part=body_part, name=organ, description=description)
-        organ_obj.save()
-    return Response({'status': 200})
+    try:
+        # Retrieve data from the request
+        body_part_id = request.POST.get('body_part')
+        organs = request.POST.getlist('names[]')
+        descriptions = request.POST.getlist('descriptions[]')
+
+        # Validate the body_part_id
+        body_part = get_object_or_404(BodyPart, id=body_part_id)
+
+        # Save organ objects
+        for organ, description in zip(organs, descriptions):
+            organ_obj = Organ(body_part=body_part, name=organ, description=description)
+            organ_obj.save()
+        return Response({'status': 200})
+    except Exception as e:
+        # Handle other exceptions here if needed
+        return Response({'status': 500, 'error': str(e)})
 
 
 # all organ list function

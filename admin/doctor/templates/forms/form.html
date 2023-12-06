@@ -3,11 +3,12 @@
 
 {% block content %}
 <div class="container mt-4">
-    <form action="{% url 'store_doctor' %}" enctype="multipart/form-data" id="PostForm" method="POST">
+    <form action="{% url 'store_doctor' %}" enctype="multipart/form-data" id="PostForm" method="POST"
+          class="needs-validation" novalidate>
         {% csrf_token %}
         <div class="card">
             <div class="card-header bg-dark">
-                <h1 class="card-title">New Doctor</h1>
+                <h1 class="card-title">New Doctor Form</h1>
             </div>
             <div class="card-body">
                 <!-- Full Name, Father Name, Mother Name -->
@@ -18,6 +19,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <input class="form-control" id="fullNameId" name="full_name" type="text" required/>
+                                <div class="invalid-feedback">Please enter your full name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -25,6 +27,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <input class="form-control" id="fatherNameId" name="father_name" type="text" required/>
+                                <div class="invalid-feedback">Please enter your father name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -32,6 +35,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <input class="form-control" id="motherNameId" name="mother_name" type="text" required/>
+                                <div class="invalid-feedback">Please enter your mother name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -40,6 +44,7 @@
                             <div class="col-md-9">
                                 <input class="form-control" id="dateOfBirthID" name="date_of_birth" type="date"
                                        required/>
+                                <div class="invalid-feedback">Please choose your date f birth.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -48,6 +53,7 @@
                             <div class="col-md-9">
                                 <input class="form-control" id="birthCertificateID" name="birth_registration_no"
                                        type="number" required/>
+                                <div class="invalid-feedback">Please enter your birth certificate no.</div>
                             </div>
                         </div>
                         <!-- Email -->
@@ -55,7 +61,10 @@
                             <label class="col-md-3 col-form-label" for="emailID">Email : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
-                                <input class="form-control" id="emailID" name="email" type="text" required/>
+                                <input type="email" class="form-control" name="email" id="emailID" required>
+                                <div id="emailError" class="invalid-feedback"></div>
+                                <div id="emailAvailability" class="invalid-feedback"></div>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
                             </div>
                         </div>
 
@@ -65,6 +74,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
                                 <input class="form-control" id="phoneID" name="phone_no" type="text" required/>
+                                <div class="invalid-feedback">Please enter your phone no.</div>
                             </div>
                         </div>
 
@@ -76,6 +86,9 @@
                                        onchange="previewImage(event)" type="file"/>
                                 <img id="preview" src="{% static 'adminlte_assets/img/nobody.png' %}"
                                      style="width: 100%; height: 280px;">
+                                <div id="imageDescription" class="form-text">Choose an image file (JPEG, PNG, GIF) with
+                                    a maximum size of 5MB.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -90,11 +103,12 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <select class="form-control select2" id="genderID" name="gender" required>
-                                    <option selected>Select Gender</option>
+                                    <option selected disabled value="">Select Gender</option>
                                     {% for item in gender_data %}
                                     <option value="{{ item.id }}">{{ item.name }}</option>
                                     {% endfor %}
                                 </select>
+                                <div class="invalid-feedback">Please select your gender.</div>
                             </div>
                         </div>
                     </div>
@@ -104,11 +118,12 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <select class="form-control select2" id="religionID" name="religion" required>
-                                    <option selected>Select Religion</option>
+                                    <option selected disabled value="">Select Religion</option>
                                     {% for item in religion_data %}
                                     <option value="{{ item.id }}">{{ item.name }}</option>
                                     {% endfor %}
                                 </select>
+                                <div class="invalid-feedback">Please select religion.</div>
                             </div>
                         </div>
                     </div>
@@ -118,11 +133,12 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <select class="form-control select2" id="bloodGroupID" name="blood_group" required>
-                                    <option selected>Select Blood Group</option>
+                                    <option selected disabled value="">Select Blood Group</option>
                                     {% for item in blood_group_data %}
                                     <option value="{{ item.id }}">{{ item.name }}</option>
                                     {% endfor %}
                                 </select>
+                                <div class="invalid-feedback">Please select blood group.</div>
                             </div>
                         </div>
                     </div>
@@ -132,11 +148,12 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <select class="form-control select2" id="matrimonyID" name="matrimony" required>
-                            <option selected>Select Matrimony</option>
+                            <option selected disabled value="">Select Matrimony</option>
                             {% for item in matrimony_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select matrimony.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -144,13 +161,16 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <input class="form-control" id="nidNoID" name="nid_no" type="number" required/>
+                        <div class="invalid-feedback">Please enter your nid no.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label" for="passportNoID">Passport No : </label>
                     <div class="col-md-10">
                         <input class="form-control" id="passportNoID"
-                               name="passport_no" type="text" value="{{ data.Passport|default:'Not Applicable' }}"/>
+                               name="passport_no" type="text" value="{{ data.Passport|default:'Not Applicable' }}"
+                               required/>
+                        <div class="invalid-feedback">Please enter your passport no or type n/a.</div>
                     </div>
                 </div>
 
@@ -171,21 +191,23 @@
                     <div class="col-md-4">
                         <select class="form-control select2" id="permanentDivisionID" name="permanent_division"
                                 required>
-                            <option selected>Select Permanent Division</option>
+                            <option selected disabled value="">Select Permanent Division</option>
                             {% for item in division_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select your permanent division name.</div>
                     </div>
                     <label class="col-md-2 col-form-label" for="presentDivisionID">Division : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <select class="form-control select2" id="presentDivisionID" name="present_division" required>
-                            <option selected>Select Present Division</option>
+                            <option selected disabled value="">Select your Present Division</option>
                             {% for item in division_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select division name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -194,15 +216,17 @@
                     <div class="col-md-4">
                         <select class="form-control select2" id="permanentDistrictID" name="permanent_district"
                                 required>
-                            <option selected>Select Permanent District</option>
+                            <option selected disabled value="">Select Permanent District</option>
                         </select>
+                        <div class="invalid-feedback">Please select your permanent district name.</div>
                     </div>
                     <label class="col-md-2 col-form-label" for="presentDistrictID">District : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <select class="form-control select2" id="presentDistrictID" name="present_district" required>
-                            <option selected>Select Present District</option>
+                            <option selected disabled value="">Select Present District</option>
                         </select>
+                        <div class="invalid-feedback">Please select your present district name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -210,16 +234,17 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <select class="form-control select2" id="permanentUpazilaID" name="permanent_upazila" required>
-                            <option selected>Select Permanent Upazila</option>
-
+                            <option selected disabled value="">Select Permanent Upazila</option>
                         </select>
+                        <div class="invalid-feedback">Please select your permanent upazila name.</div>
                     </div>
                     <label class="col-md-2 col-form-label" for="presentUpazilaID">Upazila : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <select class="form-control select2" id="presentUpazilaID" name="present_upazila" required>
-                            <option selected>Select Present Upazila</option>
+                            <option selected disabled value="">Select Present Upazila</option>
                         </select>
+                        <div class="invalid-feedback">Please select present upazila name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -228,12 +253,14 @@
                     <div class="col-md-4">
                         <input class="form-control" id="permanentAddressID" name="permanent_village_state" type="text"
                                required/>
+                        <div class="invalid-feedback">Please enter your permanent village / state name.</div>
                     </div>
                     <label class="col-md-2 col-form-label" for="presentAddressID">Village / State : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <input class="form-control" id="presentAddressID" name="present_village_state" type="text"
                                required/>
+                        <div class="invalid-feedback">Please enter your present village / state name name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -242,12 +269,14 @@
                     <div class="col-md-4">
                         <input class="form-control" id="permanentPostCodeID" name="permanent_postal_code"
                                type="number" required/>
+                        <div class="invalid-feedback">Please enter your permanent postal code.</div>
                     </div>
                     <label class="col-md-2 col-form-label" for="presentPostCodeID">Postal Code : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <input class="form-control" id="presentPostCodeID" name="present_postal_code" type="number"
                                required/>
+                        <div class="invalid-feedback">Please enter your present postal code.</div>
                     </div>
                 </div>
                 <legend class="text-info"><i class="far fa-edit"></i> Personal Skills</legend>
@@ -257,11 +286,12 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <select class="form-control select2" id="specialtyID" name="department" required>
-                            <option selected>Select Department / Specialty</option>
+                            <option selected disabled value="">Select Department / Specialty</option>
                             {% for item in department_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select your department name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -289,7 +319,10 @@
                     <label class="col-md-2 col-form-label" for="userNameID">User Name : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <input class="form-control" id="userNameID" name="user_name" type="text" required/>
+                        <input type="text" class="form-control" name="user_name" id="usernameID" required>
+                        <div id="usernameError" class="invalid-feedback"></div>
+                        <div id="usernameAvailability" class="invalid-feedback"></div>
+                        <div class="invalid-feedback">Please enter a username.</div>
                     </div>
                 </div>
             </div>
@@ -319,7 +352,7 @@
                 url: '/ajax/district/' + permanent_division_id,
                 type: 'GET',
                 success: function (response) {
-                    let options = '<option selected>Select Permanent District</option>';
+                    let options = '<option selected disabled value="">Select Permanent District</option>';
 
                     $.each(response, function (key, value) {
                         options += `<option value="${value.id}">${value.name}</option>`;
@@ -342,7 +375,7 @@
                 url: '/ajax/upazila/' + permanent_district_id,
                 type: 'GET',
                 success: function (response) {
-                    let options = '<option selected>Select Permanent Upazila</option>';
+                    let options = '<option selected disabled value="">Select Permanent Upazila</option>';
 
                     $.each(response, function (key, value) {
                         options += `<option value="${value.id}">${value.name}</option>`;
@@ -367,7 +400,7 @@
                 url: '/ajax/district/' + present_division_id,
                 type: 'GET',
                 success: function (response) {
-                    let options = '<option selected>Select Present District</option>';
+                    let options = '<option selected disabled value="">Select Present District</option>';
 
                     $.each(response, function (key, value) {
                         options += `<option value="${value.id}">${value.name}</option>`;
@@ -390,7 +423,7 @@
                 url: '/ajax/upazila/' + present_district_id,
                 type: 'GET',
                 success: function (response) {
-                    let options = '<option selected>Select Present Upazila</option>';
+                    let options = '<option selected disabled value="">Select Present Upazila</option>';
 
                     $.each(response, function (key, value) {
                         options += `<option value="${value.id}">${value.name}</option>`;
@@ -418,7 +451,137 @@
     } else {
         imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
     }
-}
+    }
+    $(document).ready(function () {
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    form.classList.add('was-validated');
+                }, false);
+            });
+
+        // check user-name is available
+        const usernameField = $('#usernameID');
+        const usernameAvailability = $('#usernameAvailability');
+        const usernameError = $('#usernameError');
+
+        // check user-email is available
+        const emailField = $('#emailID');
+        const emailAvailability = $('#emailAvailability');
+        const emailError = $('#emailError');
+
+
+        const form = $('#PostForm');
+
+        // Event listener for input on username field
+        usernameField.on('input', function () {
+            checkUsernameAvailability(usernameField.val());
+        });
+
+        // Event listener for input on email field
+        emailField.on('input', function () {
+            const emailValue = emailField.val().trim();
+
+            // Clear existing error messages
+            emailError.text('');
+            emailField.removeClass('is-invalid');
+            emailAvailability.text('');
+
+            if (emailValue === '') {
+                emailError.text('Please enter a valid email address.');
+                emailField.addClass('is-invalid');
+            } else {
+                checkEmailAvailability(emailValue);
+            }
+        });
+
+        // Function to check username availability
+        const checkUsernameAvailability = function (username) {
+            const url = `/user-check-username-availability/${username}/`;
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.message === "Username already taken") {
+                        usernameError.text('Username already taken.Try another');
+                        usernameField.addClass('is-invalid');
+                        usernameAvailability.text('');
+                    } else {
+                        usernameError.text('');
+                        usernameField.removeClass('is-invalid');
+                        usernameAvailability.text('');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error checking username availability:', error);
+                }
+            });
+        };
+
+        // Function to check email availability
+        const checkEmailAvailability = function (email) {
+            const url = `/user-check-email-availability/${email}/`;
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.message === 'Email is empty') {
+                        emailError.text('Please enter a valid email address.');
+                        emailField.addClass('is-invalid');
+                        emailAvailability.text('');
+                    } else if (data.message === 'Email already taken') {
+                        emailError.text('This email is already used in our system. Please try another.');
+                        emailField.addClass('is-invalid');
+                        emailAvailability.text('');
+                    } else {
+                        emailError.text('');
+                        emailField.removeClass('is-invalid');
+                        emailAvailability.text('');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error checking email availability:', error);
+                }
+            });
+        };
+
+        form.on('submit', function (event) {
+            let hasErrors = false;
+
+            $('#emailError').text('');
+            $('#emailID').removeClass('is-invalid');
+            usernameError.text('');
+            emailAvailability.text('');
+
+            // Check for other form validations and set hasErrors accordingly
+            // (e.g., check for additional errors like "Username already taken" and "Email already taken")
+
+            if (hasErrors) {
+                console.log('Validation errors detected. Form submission prevented.');
+                event.preventDefault(); // Prevent form submission if there are errors
+            }
+
+            // Enable/disable the register button based on the hasErrors flag
+            $('#registerBtn').prop('disabled', hasErrors);
+        });
+    });
 </script>
 {% endblock %}
 

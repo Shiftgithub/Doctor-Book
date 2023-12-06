@@ -3,7 +3,8 @@
 
 {% block content %}
 <div class="container mt-4">
-    <form action="{% url 'store_edu' %}" enctype="multipart/form-data" id="PostForm" method="POST">
+    <form action="{% url 'store_edu' %}" enctype="multipart/form-data" id="PostForm" method="POST"
+          class="needs-validation" novalidate>
         {% csrf_token %}
         <div class="card">
             <div class="card-header bg-dark">
@@ -21,11 +22,12 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <select class="form-control select2" id="doctorNameID" name="doctor_id" required>
-                            <option selected>Select Doctor Name</option>
+                            <option selected disabled value="">Select Doctor Name</option>
                             {% for item in doctor_data %}
                             <option value="{{ item.id }}">{{ item.id }} . {{ item.full_name }}</option>
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select doctor name.</div>
                     </div>
                 </div>
                 {% endif %}
@@ -49,6 +51,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" id="certificateDegreeID"
                                        name="certificate_degrees[]" type="text" required/>
+                                <div class="invalid-feedback">Please enter certificate / degree name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -57,17 +60,19 @@
                             <div class="col-md-10">
                                 <input class="form-control" id="institutionID" name="institutions[]" type="text"
                                        required/>
+                                <div class="invalid-feedback">Please enter institution name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label" for="boardID">Board Name : <span class="text-danger">*</span></label>
                             <div class="col-md-10">
                                 <select class="form-control select2" id="boardID" name="boards[]" required>
-                                    <option selected>Select Board Name</option>
+                                    <option selected disabled value="">Select Board Name</option>
                                     {% for item in board_data %}
                                     <option value="{{ item.id }}">{{ item.name }}</option>
                                     {% endfor %}
                                 </select>
+                                <div class="invalid-feedback">Please select board name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -75,6 +80,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-10">
                                 <input class="form-control" id="resultID" name="results[]" type="number" required/>
+                                <div class="invalid-feedback">Please enter result.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -83,6 +89,7 @@
                             <div class="col-md-10">
                                 <input class="form-control" id="passingYearID" name="passing_years[]" type="date"
                                        required/>
+                                <div class="invalid-feedback">Please enter passing year.</div>
                             </div>
                         </div>
                     </div>
@@ -112,5 +119,23 @@
 
 {% block scripts %}
 <script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+</script>
 {% endblock %}
 

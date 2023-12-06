@@ -8,17 +8,24 @@
             <h1 class="card-title">Department Specification Details</h1>
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-3"><strong>Department Name:</strong></div>
-                <div class="col-md-9">{{ department_specification_data.department }}</div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">department Name:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ department_specification_data.department }}" readonly/>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-3"><strong>Problem :</strong></div>
-                <div class="col-md-9">{{ department_specification_data.problem }}</div>
+            <hr>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Problem Speci Name:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ department_specification_data.problem }}" readonly/>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-3"><strong>Description :</strong></div>
-                <div class="col-md-9">{{ department_specification_data.description }}</div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Problem Speci Description :</label>
+                <div class="col-md-9">
+                    <textarea class="form-control" readonly rows="10" cols="30">{{ department_specification_data.description }}</textarea>
+                </div>
             </div>
         </div>
     </div>

@@ -8,7 +8,8 @@
             <h1 class="card-title">Add Department Specification</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'store_department_specification' %}" method="POST">
+            <form id="PostForm" action="{% url 'store_department_specification' %}" method="POST"
+                  class="needs-validation" novalidate>
                 {% csrf_token %}
                 {% if not department_data %}
                 <div class="alert alert-default-warning">
@@ -17,14 +18,16 @@
                 </div>
                 {% else %}
                 <div class="row mb-3">
-                    <label for="specialtySelect" class="col-md-3 col-form-label">Department Name : <span class="text-danger">*</span></label>
+                    <label for="specialtySelect" class="col-md-3 col-form-label">Department Name : <span
+                            class="text-danger">*</span></label>
                     <div class="col-md-9">
-                        <select class="form-control select2" id="specialtySelect" name="department">
-                            <option selected>Select Department Name</option>
+                        <select class="form-control select2" id="specialtySelect" name="department" required>
+                            <option selected disabled value="">Select Department Name</option>
                             {% for item in department_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select department name.</div>
                     </div>
                 </div>
                 {% endif %}
@@ -36,15 +39,17 @@
                 </div>
                 {% else %}
                 <div class="row mb-3">
-                    <label for="problemSpecialtySelect" class="col-md-3 col-form-label">Problem : <span class="text-danger">*</span></label>
+                    <label for="problemSpecialtySelect" class="col-md-3 col-form-label">Problem : <span
+                            class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <select class="form-control select2" id="problemSpecialtySelect"
-                                name="organ_problem_specification">
-                            <option selected>Select Problem Name</option>
+                                name="organ_problem_specification" required>
+                            <option selected disabled value="">Select Problem Name</option>
                             {% for item in problem_data %}
                             <option value="{{ item.id }}">{{ item.problem }} ({{ item.organ }})</option>
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select problem name.</div>
                     </div>
                 </div>
                 {% endif %}
@@ -54,7 +59,8 @@
                     <label for="descriptionId" class="col-md-3 col-form-label">Description : </label>
                     <div class="col-md-9">
                         <textarea name="description" id="descriptionId" class="form-control" cols="30"
-                                  rows="2">{{ data.description|default:"N/A" }}</textarea>
+                                  rows="2" required>{{ data.description|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter a description name.</div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success float-right">Submit</button>
@@ -62,4 +68,25 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+</script>
 {% endblock %}
