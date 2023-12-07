@@ -68,8 +68,11 @@ def store_appointment_schedule(request):
 def store_appointment_and_create_account(request):
     operation_response = create_patient_account_store_appointment(request)
     if operation_response.data.get('status') == 200:
+        email = operation_response.data.get("email")
+        request.session["temp_verify_email"] = email
         messages.add_message(request, messages.INFO,
                              'Appointment Request Send successfully. We send otp on your email please active your account using otp')
+
         return redirect('otp_form')
     else:
         messages.add_message(request, messages.ERROR,

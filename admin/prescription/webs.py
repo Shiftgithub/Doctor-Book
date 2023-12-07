@@ -1,9 +1,10 @@
-from datetime import datetime
+import datetime
 from .views import *
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from admin.patient.views import get_patients_list
-from admin.medicine.views import get_all_medicines_list
+from admin.medicine.views import *
+from admin.labtest.views import *
 
 
 # prescription
@@ -79,7 +80,8 @@ def view_medicine_prescription(request, prescription_id):
     )
 
     # Convert 'created_at' string to datetime object
-    prescription_data['created_at'] = datetime.strptime(prescription_data['created_at'], "%Y-%m-%dT%H:%M:%S.%fZ")
+    prescription_data['created_at'] = datetime.datetime.strptime(prescription_data['created_at'],
+                                                                 "%Y-%m-%dT%H:%M:%S.%fZ")
 
     # Format the 'created_at' field with the desired format
     prescription_data['created_at'] = prescription_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
@@ -178,11 +180,11 @@ def lab_prescription_form(request):
     response_patient = get_patients_list(request)
     patient_data = response_patient.data
 
-    response_labtest = lab_test_list(request)
-    labtest_data = response_labtest.data
+    response_lab_test = get_all_lab_test_list(request)
+    lab_test_data = response_lab_test.data
 
     data = {
         'patient_data': patient_data,
-        'labtest_data': labtest_data
+        'labtest_data': lab_test_data
     }
     return render(request, 'prescription/templates/labtest/form.html', data)

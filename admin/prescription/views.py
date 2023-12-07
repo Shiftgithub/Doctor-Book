@@ -5,6 +5,7 @@ from django.utils import timezone
 from admin.medicine.models import Medicine
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from admin.medicine.serializers import MedicineScheduleSerializer
 
 # import for barcode
 import os
@@ -59,7 +60,7 @@ def store_prescription_data(request, doctor_id, user_id):
 @api_view(['GET'])
 def get_all_medicine_prescriptions_list(request):
     medicines = PrescriptionForMedicine.objects.filter(deleted_at=None).prefetch_related(
-        'medicine_prescription').order_by('id')
+        'medicine_prescription').order_by('-id')
     serializer = PrescriptionForMedicineViewSerializer(instance=medicines, many=True)
     serializer_data = serializer.data
 
@@ -69,7 +70,7 @@ def get_all_medicine_prescriptions_list(request):
 @api_view(['GET'])
 def get_medicine_prescription_by_id(request, prescription_id):
     medicine = PrescriptionForMedicine.objects.filter(id=prescription_id, deleted_at=None).prefetch_related(
-        'medicine_prescription', ).get()
+        'medicine_prescription').get()
     serializer_data = PrescriptionForMedicineViewSerializer(instance=medicine).data
     registration_data_to_encode = str(serializer_data.get('registration_no', ''))
     barcode_image_path = generate_barcode(request, registration_data_to_encode)
@@ -172,7 +173,7 @@ def store_lab_prescription_data(request, doctor_id, user_id):
 @api_view(['GET'])
 def get_all_lab_test_prescriptions_list(request):
     lab_tests = PrescriptionForLabTest.objects.filter(deleted_at=None).prefetch_related(
-        'prescription_lab').order_by('id')
+        'prescription_lab').order_by('-id')
     serializer_data = PrescriptionForLabTestViewSerializer(instance=lab_tests, many=True).data
     return Response(serializer_data)
 
@@ -189,46 +190,3 @@ def get_lab_prescription_by_id(request, prescription_id):
     serializer_data['barcode_image_path'] = barcode_image_path
 
     return Response(serializer_data)
-
-
-@api_view(['GET'])
-def medicine_schedule_list(request):
-    medicine_schedule = MedicineSchedule.objects.all()
-    serializer = MedicineScheduleSerializer(medicine_schedule, many=True)
-    serialized_data = serializer.data
-    return Response(serialized_data)
-
-
-@api_view(['GET'])
-def lab_test_list(request):
-    lab_test = LabTest.objects.all()
-    serializer = LabTestSerializer(lab_test, many=True)
-    serialized_data = serializer.data
-    return Response(serialized_data)
-
-# def generate_barcode(request, registration):
-#     # Generate barcode
-#     code = barcode.get('code128', registration, writer=ImageWriter())
-#
-#     # Create a BytesIO buffer to store the image data
-#     buffer = BytesIO()
-#
-#     # Write the barcode to the buffer
-#     code.write(buffer, options={'write_text': False})
-#
-#     # Reset the buffer position to the beginning
-#     buffer.seek(0)
-#
-#     # Create a PIL Image from the barcode
-#     pil_image = Image.open(buffer)
-#
-#     # Create response with barcode image
-#     response = HttpResponse(content_type='image/png')
-#
-#     # Save the PIL Image to the response
-#     pil_image.save(response, format='PNG')
-#
-#     # Close the BytesIO buffer
-#     buffer.close()
-#
-#     return response

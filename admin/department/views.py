@@ -18,7 +18,7 @@ def store_department_data(request):
 
 @api_view(['GET'])
 def get_all_departments_list(request):
-    departments = Department.objects.filter(deleted_at=None).order_by('id')
+    departments = Department.objects.filter(deleted_at=None).order_by('-id')
     serializer = DepartmentSerializer(departments, many=True)
     return Response(serializer.data)
 

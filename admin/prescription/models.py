@@ -1,19 +1,10 @@
 from django.db import models
-from admin.medicine.models import Medicine
+from admin.labtest.models import LabTest
 from admin.basemodel.models import BaseModel
 from admin.doctor.models import DoctorProfile
 from admin.patient.models import PatientProfile
 from admin.authentication.user.models import User
-
-
-class MedicineSchedule(models.Model):
-    schedule = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.schedule
-
-    class Meta:
-        db_table = 'medicine_schedule'
+from admin.medicine.models import Medicine, MedicineSchedule
 
 
 class PrescriptionForMedicine(BaseModel):
@@ -54,16 +45,6 @@ class MedicinePrescription(BaseModel):
 
     class Meta:
         db_table = 'medicine_prescription'
-
-
-class LabTest(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'lab_test'
 
 
 class PrescriptionForLabTest(BaseModel):

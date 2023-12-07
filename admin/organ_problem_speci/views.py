@@ -29,7 +29,7 @@ def store_organ_problem_specification_data(request):
 @api_view(['GET'])
 def get_all_organ_problem_specification_list(request):
     organ_problem_specifications = (
-        OrgansProblemSpecification.objects.filter(deleted_at__isnull=True).select_related('organ').order_by('id'))
+        OrgansProblemSpecification.objects.filter(deleted_at__isnull=True).select_related('organ').order_by('-id'))
     serialized_data = OrganProblemViewSerializer(organ_problem_specifications, many=True).data
     return Response(serialized_data)
 

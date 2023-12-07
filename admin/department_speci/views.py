@@ -35,7 +35,7 @@ def get_all_problem_speci_depend_on_department_speci(request):
 @api_view(['GET'])
 def get_all_department_specifications_list(request):
     department_specifications = (
-        DepartmentSpecification.objects.filter(deleted_at__isnull=True).order_by('id'))
+        DepartmentSpecification.objects.filter(deleted_at__isnull=True).order_by('-id'))
     serialized_data = DepartmentSpecificationViewSerializer(department_specifications, many=True).data
     return Response(serialized_data)
 

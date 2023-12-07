@@ -228,7 +228,7 @@ def edit_doctor_form(request, doctor_id):
             'district_data': district_data, 'upazila_data': upazila_data, 'board_data': board_data,
             'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id, 'day_data': day_data
             }
-    return render(request, 'doctor/templates/edit.html', data)
+    return render(request, 'doctor/templates/edits/edit.html', data)
 
 
 def edit_doctor(request, doctor_id):

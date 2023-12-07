@@ -12,6 +12,7 @@ urlpatterns = [
         path('doctor-', include('admin.doctor.urls')),
         path('faq-', include('admin.faq.urls')),
         path('medicine-', include('admin.medicine.urls')),
+        path('lab-test-', include('admin.labtest.urls')),
         path('organ-', include('admin.organ.urls')),
         path('organ-problem-', include('admin.organ_problem_speci.urls')),
         path('patient-', include('admin.patient.urls')),

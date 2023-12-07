@@ -246,26 +246,26 @@
                     </li>
                 </ul>
             </li>
-            <!-- Frequently Asked Questions -->
+            <!-- Lab test -->
             <li class="nav-item mainItem">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-question"></i>
+                    <i class="nav-icon fas fa-vial"></i>
                     <p>
-                        FAQ
+                        Lab Test
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_faq_form' %}" class="nav-link">
+                        <a href="{% url 'lab_test_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Add Question</p>
+                            <p>Add Lab Test</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a href="{% url 'faq_list' %}" class="nav-link">
+                        <a href="{% url 'lab_test_list'%}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>All Answers</p>
+                            <p>All Lab Test</p>
                         </a>
                     </li>
                 </ul>
@@ -294,7 +294,39 @@
                     </li>
                 </ul>
             </li>
-
+            <!-- Frequently Asked Questions -->
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-question"></i>
+                    <p>
+                        FAQ
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'add_faq_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Question</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'faq_list' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Answers</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-question"></i>
+                    <p>
+                        User Manual
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+            </li>
         </ul>
     </nav>
     <!-- /.sidebar-menu -->

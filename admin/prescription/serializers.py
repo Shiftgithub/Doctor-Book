@@ -2,6 +2,7 @@ from .models import *
 from rest_framework import serializers
 from admin.patient.serializers import PatientViewSerializer
 from admin.doctor.serializers import DoctorPrescriptionSerializer
+# from admin.medicine.serializers import MedicineScheduleSerializer
 from admin.authentication.user.models import User
 
 
@@ -14,18 +15,6 @@ class PrescriptionForMedicineSerializer(serializers.ModelSerializer):
 class MedicinePrescriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = MedicinePrescription
-        fields = '__all__'
-
-
-class MedicineScheduleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MedicineSchedule
-        fields = '__all__'
-
-
-class LabTestSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = LabTest
         fields = '__all__'
 
 

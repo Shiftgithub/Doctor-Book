@@ -1,6 +1,5 @@
 from .models import *
 from admin.organ.models import *
-from rest_framework import status
 from django.utils import timezone
 from admin.bodypart.serializers import *
 from rest_framework.response import Response
@@ -16,10 +15,10 @@ def store_body_part_data(request):
             return Response({'status': 200, 'message': 'Body Part data stored Successfully'})
         else:
             response = {'status': 403, 'message': 'Error in storing Body Part data'}
-            return Response(response, status=status.HTTP_403_FORBIDDEN)
+            return Response(response)
     else:
         response = {'status': 400, 'message ': 'HTTP_400_BAD_REQUEST.', 'errors': serializer.errors}
-        return Response(response, status=status.HTTP_400_BAD_REQUEST)
+        return Response(response)
 
 
 # all body_part list function
@@ -48,10 +47,10 @@ def edit_body_part_data(request, body_part_id):
             return Response({'status': 200, 'message': 'Body Part data updated Successfully'})
         else:
             response = {'status': 403, 'message': 'Error in updated Body Part data'}
-            return Response(response, status=status.HTTP_403_FORBIDDEN)
+            return Response(response)
     else:
         response = {'status': 400, 'message ': 'HTTP_400_BAD_REQUEST.', 'errors': serializer.errors}
-        return Response(response, status=status.HTTP_400_BAD_REQUEST)
+        return Response(response)
 
 
 # body_part delete function
@@ -61,13 +60,13 @@ def delete_body_part_data(request, body_part_id):
         body_part = BodyPart.objects.get(id=body_part_id)
     except BodyPart.DoesNotExist:
         response = {'status': 404, 'message': 'Body Part not found'}
-        return Response(response, status=status.HTTP_404_NOT_FOUND)
+        return Response(response)
 
     organs = Organ.objects.filter(body_part_id=body_part_id)
 
     if organs.exists():
         response = {'status': 403, 'message': 'Body Part cannot be deleted because it is associated with Organ table.'}
-        return Response(response, status=status.HTTP_403_FORBIDDEN)
+        return Response(response)
     else:
         serializer = BodyPartSerializer(body_part, data={'deleted_at': timezone.now()}, partial=True)
 
@@ -76,4 +75,4 @@ def delete_body_part_data(request, body_part_id):
             return Response({'status': 200, 'message': 'Body Part data deleted successfully'})
         else:
             response = {'status': 400, 'message': 'Bad Request', 'errors': serializer.errors}
-            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+            return Response(response)

@@ -225,8 +225,7 @@ def get_all_doctors_list(request):
         'user', 'gender', 'religion', 'blood_group', 'matrimony', 'department'
     ).prefetch_related(
         'user__images', 'user__present_address', 'user__permanent_address',
-
-    )
+    ).order_by('-id')
     # Serialize the data using the combined serializer
     serializer = DoctorViewSerializer(doctors, many=True)
     return Response(serializer.data)

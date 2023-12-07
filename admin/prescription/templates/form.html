@@ -90,6 +90,12 @@
                                 </button>
                             </div>
                         </div>
+                        {% if not medicine_data %}
+                        <div class="alert alert-default-warning">
+                            <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_medicine_form' %}">
+                            Add Medicine </a> first.
+                        </div>
+                        {% else %}
                         <div class="row mb-3">
                             <label for="medicineID" class="col-md-3 col-form-label">Medicine :<span class="text-danger">*</span></label>
                             <div class="col-md-9">
@@ -103,6 +109,7 @@
                                 <div class="invalid-feedback">Please select medicine name.</div>
                             </div>
                         </div>
+                        {% endif %}
                         <div class="row mb-3">
                             <label for="medicineScheduleID" class="col-md-3 col-form-label">Medicine Schedule :<span
                                     class="text-danger">*</span></label>

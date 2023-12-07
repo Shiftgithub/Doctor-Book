@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'admin.doctor.apps.DoctorConfig',
     'admin.faq.apps.FaqConfig',
     'admin.medicine.apps.MedicineConfig',
+    'admin.labtest.apps.LabtestConfig',
     'admin.organ.apps.OrganConfig',
     'admin.organ_problem_speci.apps.OrganProblemSpeciConfig',
     'admin.patient.apps.PatientConfig',
@@ -87,10 +88,10 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'barcode',
 
-#     'chatterbot',
-#     'chatterbot.ext.django',
-#
-#     # 'corsheaders',
+    #     'chatterbot',
+    #     'chatterbot.ext.django',
+    #
+    #     # 'corsheaders',
 ]
 
 MIDDLEWARE = [

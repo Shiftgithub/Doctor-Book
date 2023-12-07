@@ -18,7 +18,7 @@ def store_medicine_data(request):
 
 @api_view(['GET'])
 def get_all_medicines_list(request):
-    medicines = Medicine.objects.filter(deleted_at=None).order_by('id')
+    medicines = Medicine.objects.filter(deleted_at=None).order_by('-id')
     serializer = MedicineViewSerializer(medicines, many=True)
     return Response(serializer.data)
 
@@ -88,5 +88,13 @@ def medicine_type_list(request):
 def strength_list(request):
     strength = Strength.objects.all()
     serializer = StrengthSerializer(strength, many=True)
+    serialized_data = serializer.data
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def medicine_schedule_list(request):
+    medicine_schedule = MedicineSchedule.objects.all()
+    serializer = MedicineScheduleSerializer(medicine_schedule, many=True)
     serialized_data = serializer.data
     return Response(serialized_data)

@@ -12,17 +12,14 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='BodyPart',
+            name='LabTest',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(null=True)),
-                ('deleted_at', models.DateTimeField(null=True)),
                 ('name', models.CharField(max_length=255)),
-                ('description', models.CharField(max_length=1000)),
+                ('description', models.CharField(max_length=1000, null=True)),
             ],
             options={
-                'db_table': 'body_part',
+                'db_table': 'lab_test',
             },
         ),
     ]

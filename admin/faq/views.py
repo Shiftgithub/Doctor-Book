@@ -20,7 +20,7 @@ def store_faq_data(request, user_id):
 
 @api_view(['GET'])
 def get_all_faq_list(request):
-    faqs = FAQ.objects.filter(deleted_at=None).order_by('id')
+    faqs = FAQ.objects.filter(deleted_at=None).order_by('-id')
 
     serialized_data = FAQSerializer(faqs, many=True).data
     return Response(serialized_data)

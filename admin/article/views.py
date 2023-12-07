@@ -21,7 +21,7 @@ def store_article_data(request, user_id):
 
 @api_view(['GET'])
 def get_all_article_list(request):
-    articles = Article.objects.filter(deleted_at=None).order_by('id')
+    articles = Article.objects.filter(deleted_at=None).order_by('-id')
     serializer = ArticleSerializer(articles, many=True)
     return Response(serializer.data)
 

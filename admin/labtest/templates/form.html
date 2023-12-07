@@ -4,28 +4,27 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header bg-dark">
-            <h1 class="card-title">Edit Body Part</h1>
+            <h1 class="card-title">Add Lab Test</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'edit_body_part' body_part_data.id %}" method="POST"
-                  class="needs-validation" novalidate>
+            <form id="PostForm" action="{% url 'store_lab_test' %}" method="POST" class="needs-validation"
+                  novalidate>
                 {% csrf_token %}
 
                 <div class="row mb-3">
-                    <label for="bodyPartNameID" class="col-sm-12 col-md-2 form-label">Body Part Name <span
+                    <label for="bodyPartNameID" class="col-sm-12 col-md-2 form-label">Lab Test Name <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" id="bodyPartNameID" name="name"
-                               value="{{ body_part_data.name }}" required>
-                        <div class=" invalid-feedback">Please enter body part name.
-                        </div>
+                        <input type="text" class="form-control" id="bodyPartNameID" name="name" required>
+                        <div class="invalid-feedback">Please enter Lab Test name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="descriptionID" class="col-sm-12 col-md-2 form-label">Description</label>
                     <div class="col-md-10">
-                        <textarea class="form-control" id="descriptionID" name="description"
-                                  required rows="10" cols="30">{{ body_part_data.description }}</textarea>
+                        <textarea class="form-control" id="descriptionID"
+                                  required rows="10" cols="30"
+                                  name="description">{{ data.description|default:"N/A" }}</textarea>
                         <div class="invalid-feedback">Please enter description or type N/A.</div>
                     </div>
                 </div>
@@ -55,5 +54,6 @@
                 }, false);
         });
      });
+
 </script>
 {% endblock %}
