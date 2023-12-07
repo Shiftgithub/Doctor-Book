@@ -5,15 +5,17 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-body">
-            <form action="{% url 'store_new_email' %}" id="PostForm" method="POST" onsubmit="return validateForm()">
+            <form action="{% url 'store_new_email' %}" id="PostForm" method="POST"
+                  class="needs-validation" novalidate onsubmit="return validateForm()">
                 {% csrf_token %}
                 <div class="row mb-3">
                     <label for="oldEmailID" class="col-md-2 col-form-label">Old Email : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <input class="form-control" id="oldEmailID" name="email" type="email" placeholder="Old Email"
-                        />
-                        <div class="error-message-old-email" style="color: red;"></div>
+                               required/>
+                        <div class="error-message-old-email invalid-feedback"></div>
+                        <div class="invalid-feedback">Please enter old valid email address.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -21,8 +23,9 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <input class="form-control" id="newEmailID" name="new_email" type="email"
-                               placeholder="New Email"/>
-                        <div class="error-message-email" style="color: red;"></div>
+                               placeholder="New Email" required/>
+                        <div class="error-message-email invalid-feedback"></div>
+                        <div class="invalid-feedback">Please enter new valid email address.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -31,12 +34,14 @@
                     <div class="col-md-10">
                         <div class="input-group">
                             <input class="form-control password-field" id="passwordID" name="password" type="password"
-                                   placeholder="Password"/>
+                                   placeholder="Password" required/>
                             <span class="input-group-text toggle-password bg-transparent"
                                   data-target="passwordID"><i class="fas fa-eye-slash"></i>
                             </span>
+                            <div class="error-message-password invalid-feedback"></div>
+                            <div class="invalid-feedback">Please enter your password.</div>
                         </div>
-                        <div class="error-message-password" style="color: red;"></div>
+
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success float-right">Submit</button>
@@ -48,6 +53,22 @@
 
 {% block scripts %}
 <script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
     document.addEventListener('DOMContentLoaded', function() {
         const togglePasswordIcons = document.querySelectorAll('.toggle-password');
         const oldEmailField = document.getElementById('oldEmailID');

@@ -22,7 +22,7 @@ urlpatterns = [
     path('', include([
         path('login/', include('admin.authentication.login.urls')),
         path('logout/', include('admin.authentication.logout.urls')),
-        path('resend/otp/', include('admin.authentication.otp.resendotp.urls')),
+        path('resend-otp/', include('admin.authentication.otp.resendotp.urls')),
         path('', include('admin.authentication.otp.resetpassword.urls')),
         path('', include('admin.authentication.otp.verifyotp.urls')),
 
