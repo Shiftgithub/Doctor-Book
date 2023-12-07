@@ -10,8 +10,9 @@ def department_specification_form(request):
     response_department = get_all_departments_list(request)
     department_data = response_department.data
 
-    problem_response = get_all_organ_problem_specification_list(request)
+    problem_response = get_all_problem_speci_depend_on_department_speci(request)
     problem_data = problem_response.data
+
     return render(request, 'department_speci/templates/form.html',
                   {'department_data': department_data, 'problem_data': problem_data})
 

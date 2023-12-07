@@ -2,6 +2,7 @@ from .serializers import *
 from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from admin.organ_problem_speci.serializers import OrganProblemViewSerializer
 
 
 @api_view(['POST'])
@@ -15,6 +16,20 @@ def store_department_specification_data(request):
             return Response({'status': 403})
     else:
         return Response({'status': 403})
+
+
+@api_view(['GET'])
+def get_all_problem_speci_depend_on_department_speci(request):
+    organ_problems = OrgansProblemSpecification.objects.filter(deleted_at=None)
+    serialized_data = []
+
+    for organ_problem in organ_problems:
+        print(organ_problem.id)
+        specification = DepartmentSpecification.objects.filter(organ_problem_specification=organ_problem.id).exists()
+        if not specification:
+            serializer = OrganProblemViewSerializer(organ_problem)
+            serialized_data.append(serializer.data)
+    return Response(serialized_data)
 
 
 @api_view(['GET'])

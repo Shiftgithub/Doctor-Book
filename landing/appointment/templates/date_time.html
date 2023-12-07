@@ -55,8 +55,7 @@
                 {% for date in date_list %}
                 <div class="circular-radio">
                     <input type="radio" onclick="getDate(this); showTime(); " id="date-{{ forloop.counter }}"
-                           name="selected_date"
-                           data-date="{{ date }}"/>
+                           name="selected_date" data-date="{{ date }}"/>
                     <label for="date-{{ forloop.counter }}">{{ date }}</label>
                 </div>
                 {% endfor %}
@@ -76,8 +75,11 @@
                 </div>
                 <hr>
                 <div class="text-center pt-4">
-                    <button class="btn btn-info text-white btn-lg">Next</button>
+                    <button id="nextButton" class="btn btn-info text-white btn-lg" disabled>Next</button>
                 </div>
+                <!--                <div class="text-center pt-4">-->
+                <!--                    <button class="btn btn-info text-white btn-lg">Next</button>-->
+                <!--                </div>-->
             </form>
         </div>
         {% endfor %}
@@ -129,22 +131,35 @@
         console.error('Error:', error);
     }
     });
-
 }
 
-
-
- function getDate(dom) {
-     let selectedDate = $(dom).attr('data-date');
-     $('#selectedDateID').val(selectedDate);
-     console.log($(dom).attr('data-date'));
- }
+     function getDate(dom) {
+         let selectedDate = $(dom).attr('data-date');
+         $('#selectedDateID').val(selectedDate);
+         console.log($(dom).attr('data-date'));
+         enableDisableNextButton(); // Call the function to enable/disable the "Next" button
+     }
 
      function getTime(dom) {
        let selectedTime = $(dom).attr('data-time');
        $('#selectedTimeID').val(selectedTime);
        console.log($(dom).attr('data-time'));
+       enableDisableNextButton(); // Call the function to enable/disable the "Next" button
      }
+
+     function enableDisableNextButton() {
+        // Check if both date and time have been selected
+        let selectedDate = $('#selectedDateID').val();
+        let selectedTime = $('#selectedTimeID').val();
+
+        if (selectedDate && selectedTime) {
+            // Enable the "Next" button
+            $('#nextButton').prop('disabled', false);
+        } else {
+            // Disable the "Next" button
+            $('#nextButton').prop('disabled', true);
+        }
+    }
 
      $(document).ready(function () {
        // Add a click event handler for radio buttons with the name "selected_date"
@@ -161,6 +176,7 @@
            $('#selectedDateID').val('');
            $('#selectedTimeID').val('');
          }
+          enableDisableNextButton();
        });
 
        // Add a click event handler for radio buttons with the name "selected_time"
@@ -171,6 +187,7 @@
            let selectedTime = $(this).attr('data-time');
            $('#selectedTimeID').val(selectedTime);
          }
+          enableDisableNextButton(); // Call the function to enable/disable the "Next" button
        });
      });
 </script>

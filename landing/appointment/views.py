@@ -68,68 +68,48 @@ def generate_date(request, doctor_id):
 
 # Function to get existing appointment times
 def get_existing_appointment_times(doctor_id, date):
-    existing_appointment_data = GetAppointment.objects.filter(doctor=doctor_id, appointment_date=date)
-    serializer = PatientAppointmentSerializer(existing_appointment_data, many=True)
-    return [item['appointment_time'] for item in serializer.data]
+    # Step 1: Get all existing appointments for the specified doctor and date
+    existing_appointments = GetAppointment.objects.filter(doctor=doctor_id, appointment_date=date)
+
+    # Step 2: Extract the 'appointment_time' field from each appointment
+    extracted_times = existing_appointments.values('appointment_time')
+
+    # Step 3: Convert the queryset to a list of appointment times
+    appointment_times = [appointment['appointment_time'] for appointment in extracted_times]
+
+    # Step 4: Return the list of appointment times
+    return appointment_times
+
+
+# Add a new helper function to check if the time is after the current time
+def is_time_after_current(time_str, current_time_str):
+    formatted_time = datetime.strptime(time_str.split(" - ")[0], "%I:%M %p").time()
+    current_time = datetime.strptime(current_time_str, "%I:%M %p").time()
+    print('formatted_time:', formatted_time)
+    print('current_time:', current_time)
+    return formatted_time > current_time
 
 
 # Function to generate schedule time
 def generate_schedule_time(request, doctor_id, date):
     get_working_schedule_response = get_working_schedule(request, doctor_id)
     existing_appointment_times = get_existing_appointment_times(doctor_id, date)
-    today_date = datetime.now().date()
-    # Format today_date
-    formatted_today_date = today_date.strftime('%d-%m-%Y (%A)')
-    # Check if the date is today
-    if date == formatted_today_date:
-        current_time = datetime.now().strftime("%I:%M %p")
-        print(current_time)
 
-        # Remove times that have already passed today
-        existing_appointment_times = [time for time in existing_appointment_times if
-                                      is_time_after_current(time, current_time)]
-        print('existing_appointment_times :', existing_appointment_times)
-        appointment_times = doctor_schedule_time(get_working_schedule_response, existing_appointment_times)
+    appointment_times = doctor_schedule_time(get_working_schedule_response, existing_appointment_times, date)
 
-        # Return the appointment times as a JSON response
-
-        data = {'appointment_times': appointment_times}
-        print('if')
-        # print(appointment_times)
-        return JsonResponse(data)
-    else:
-        print('else')
-        appointment_times = doctor_schedule_time(get_working_schedule_response, existing_appointment_times)
-
-        # Return the appointment times as a JSON response
-        data = {'appointment_times': appointment_times}
-        return JsonResponse(data)
-
-
-# Add a new helper function to check if the time is after the current time
-def is_time_after_current(time_str, current_time):
-    formatted_time = datetime.strptime(time_str.split(" - ")[0], "%I:%M %p").time()
-    print('formatted_time :', formatted_time)
-    return formatted_time > current_time
-
-
-# # Function to generate schedule time
-# def generate_schedule_time(request, doctor_id, date):
-#     get_working_schedule_response = get_working_schedule(request, doctor_id)
-#     existing_appointment_times = get_existing_appointment_times(doctor_id, date)
-#
-#     appointment_times = doctor_schedule_time(get_working_schedule_response, existing_appointment_times)
-#
-#     # Return the appointment times as a JSON response
-#     data = {'appointment_times': appointment_times}
-#     return JsonResponse(data)
+    # Return the appointment times as a JSON response
+    data = {'appointment_times': appointment_times}
+    return JsonResponse(data)
 
 
 # Function to simplify doctor_schedule_time
-def doctor_schedule_time(get_working_schedule_response, existing_appointment_times):
+def doctor_schedule_time(get_working_schedule_response, existing_appointment_times, date):
     if get_working_schedule_response.status_code == 200:
         schedule_times_data = get_working_schedule_response.data
+        print('schedule_times_data:', schedule_times_data)
         available_appointment_times = []
+        today_date = datetime.now().date()
+        formatted_today_date = today_date.strftime('%d-%m-%Y (%A)')
 
         for item in schedule_times_data:
             start_time, end_time = convert_to_datetime(item['start_time'], item['end_time'])
@@ -147,12 +127,29 @@ def doctor_schedule_time(get_working_schedule_response, existing_appointment_tim
                 end_time_patient = current_time + per_patient_time
                 formatted_start_time = format_time(current_time)
 
-                appointment_time_str = f"{formatted_start_time} - {format_time(end_time_patient)}"
-                if appointment_time_str not in existing_appointment_times:
-                    available_appointment_times.append(appointment_time_str)
+                # Check if the date is today
+                if date == formatted_today_date:
+                    current_time_now = datetime.now().strftime("%I:%M %p")
+
+                    # Check if the appointment time is in the future
+                    if is_time_after_current(formatted_start_time, current_time_now):
+                        appointment_time_str = f"{formatted_start_time} - {format_time(end_time_patient)}"
+                        print('appointment_time_str::', appointment_time_str)
+
+                        # Check if the appointment time is not in existing_appointment_times
+                        if appointment_time_str not in existing_appointment_times:
+                            available_appointment_times.append(appointment_time_str)
+                else:
+                    appointment_time_str = f"{formatted_start_time} - {format_time(end_time_patient)}"
+
+                    # Check if the appointment time is not in existing_appointment_times
+                    if appointment_time_str not in existing_appointment_times:
+                        available_appointment_times.append(appointment_time_str)
 
                 current_time = end_time_patient
-            print(available_appointment_times)
+
+        # Move the return statement outside the loop
+        print(available_appointment_times)
         return available_appointment_times
 
     return None
@@ -181,7 +178,15 @@ def calculate_minutes_since_midnight(time):
 
 
 def format_time(minutes_since_midnight):
-    return datetime(1900, 1, 1, minutes_since_midnight // 60, minutes_since_midnight % 60).strftime("%I:%M %p")
+    # Calculate hours and minutes
+    hours = minutes_since_midnight // 60
+    minutes = minutes_since_midnight % 60
+
+    # Ensure hours is within the valid range (0 to 23)
+    hours = hours % 24
+
+    # Create a datetime object with a dummy date (1900, 1, 1)
+    return datetime(1900, 1, 1, hours, minutes).strftime("%I:%M %p")
 
 
 @api_view(['GET'])
@@ -252,59 +257,68 @@ def create_patient_account_store_appointment(request):
     appointment_date = request.session.get('temp_appointment_date')
     appointment_time = request.session.get('temp_appointment_time')
     doctor_id = request.session.get('temp_doctor_id')
-
-    appointment_serializer = PatientAppointmentSerializer(data=request.data)
-    patient_serializer = PatientSerializer(data=request.data)
-    user_serializer = UserSerializer(data=request.data)
-    if user_serializer.is_valid(raise_exception=True) and patient_serializer.is_valid():
-        user_name = request.data.get('user_name')
-        email = request.data.get('email')
-
-        if User.objects.filter(user_name=user_name).exists():
-            return Response({'message': 'This User name already taken. Please try another.', 'status': 404})
-
-        if User.objects.filter(email=email, ).exists():
-            return Response({'message': 'This email already used. Please try another.', 'status': 404})
-
-        hashed_password = hashlib.sha256(request.data.get('password').encode()).hexdigest()
-
-        user_serializer.save(hash=hashed_password, role='patient', status='inactive')
-        user_profile_instance = user_serializer.instance
-        registration_no = generate_unique(18)
-        patient = patient_serializer.save(user_id=user_profile_instance, registration_no=registration_no)
-
-        image_serializer = Images(user_id=user_profile_instance)
-        image_serializer.save()
-
-        token_str = generate_token(6)
-        email_fields = [user_serializer.validated_data['email']]
-        email = ' - '.join(email_fields)
-        message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
-        otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
-        otp_serializer.save()
-        # send_mail = send_email(email, message)
-        if otp_serializer:
-            if appointment_serializer.is_valid():
-                # Retrieve the 'DoctorProfile' instance for the doctor using 'doctor_id'
-                try:
-                    doctor = DoctorProfile.objects.get(id=doctor_id)
-                except DoctorProfile.DoesNotExist:
-                    return Response({'status': 404, 'message': 'Doctor not found'})
-
-                # Set the 'doctor' field to the retrieved 'User' instance
-                appointment_serializer.save(
-                    appointment_date=appointment_date,
-                    appointment_time=appointment_time,
-                    doctor=doctor,
-                    patient=patient
-                )
-                data = {'email': email, 'status': 200}
-                return Response(data)
-            else:
-                transaction.set_rollback(True)
-                return Response({'status': 403})
+    if appointment_date and appointment_time and doctor_id:
+        get_appointment = GetAppointment.objects.filter(doctor=doctor_id,
+                                                        appointment_date=appointment_date,
+                                                        appointment_time=appointment_time,
+                                                        deleted_at=None)
+        if get_appointment:
+            return Response({'status': 403, 'message': 'this time already taken'})
         else:
-            transaction.set_rollback(True)
-            return Response({'status': 403})
+            appointment_serializer = PatientAppointmentSerializer(data=request.data)
+            patient_serializer = PatientSerializer(data=request.data)
+            user_serializer = UserSerializer(data=request.data)
+            if user_serializer.is_valid(raise_exception=True) and patient_serializer.is_valid():
+                user_name = request.data.get('user_name')
+                email = request.data.get('email')
+
+                if User.objects.filter(user_name=user_name).exists():
+                    return Response({'message': 'This User name already taken. Please try another.', 'status': 404})
+
+                if User.objects.filter(email=email, ).exists():
+                    return Response({'message': 'This email already used. Please try another.', 'status': 404})
+
+                hashed_password = hashlib.sha256(request.data.get('password').encode()).hexdigest()
+
+                user_serializer.save(hash=hashed_password, role='patient', status='inactive')
+                user_profile_instance = user_serializer.instance
+                registration_no = generate_unique(18)
+                patient = patient_serializer.save(user_id=user_profile_instance, registration_no=registration_no)
+
+                image_serializer = Images(user_id=user_profile_instance)
+                image_serializer.save()
+
+                token_str = generate_token(6)
+                email_fields = [user_serializer.validated_data['email']]
+                email = ' - '.join(email_fields)
+                message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
+                otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
+                otp_serializer.save()
+                # send_mail = send_email(email, message)
+                if otp_serializer:
+                    if appointment_serializer.is_valid():
+                        # Retrieve the 'DoctorProfile' instance for the doctor using 'doctor_id'
+                        try:
+                            doctor = DoctorProfile.objects.get(id=doctor_id)
+                        except DoctorProfile.DoesNotExist:
+                            return Response({'status': 404, 'message': 'Doctor not found'})
+
+                        # Set the 'doctor' field to the retrieved 'User' instance
+                        appointment_serializer.save(
+                            appointment_date=appointment_date,
+                            appointment_time=appointment_time,
+                            doctor=doctor,
+                            patient=patient
+                        )
+                        data = {'email': email, 'status': 200}
+                        return Response(data)
+                    else:
+                        transaction.set_rollback(True)
+                        return Response({'status': 403})
+                else:
+                    transaction.set_rollback(True)
+                    return Response({'status': 403})
+            else:
+                return Response({'status': 403})
     else:
         return Response({'status': 403})
