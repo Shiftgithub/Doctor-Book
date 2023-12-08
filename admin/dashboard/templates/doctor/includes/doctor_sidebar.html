@@ -3,7 +3,6 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
             <!-- Dashboard -->
             <li class="nav-item mainItem">
                 <a href="{% url 'doctor_dashboard' %}" class="nav-link">
@@ -24,27 +23,33 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
+                        <a href="{% url 'view_doctor_data' request.session.doctor_id %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Profile</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
                         <a href="{% url 'working_list' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Doctors Working Details</p>
+                            <p>Working Details</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
                         <a href="{% url 'edu_list' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Doctors Education Details</p>
+                            <p>Education Details</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
                         <a class="nav-link" href="{% url 'social_list' %}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Doctors Social Details</p>
+                            <p>Social Media Details</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a href="{% url 'award_list' %}" class="nav-link">
+                        <a href="{% url 'award_view' request.session.doctor_id %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Doctors Awards Details</p>
+                            <p>Awards Details</p>
                         </a>
                     </li>
                 </ul>

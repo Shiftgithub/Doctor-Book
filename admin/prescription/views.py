@@ -59,7 +59,10 @@ def store_prescription_data(request, doctor_id, user_id):
 
 @api_view(['GET'])
 def get_all_medicine_prescriptions_list(request):
-    medicines = PrescriptionForMedicine.objects.filter(deleted_at=None).prefetch_related(
+    user_id = request.session.get('user_id')
+    doctor_profile = DoctorProfile.objects.filter(user_id=user_id).first()
+    doctor_id = doctor_profile.id
+    medicines = PrescriptionForMedicine.objects.filter(deleted_at=None, doctor_profile=doctor_id).prefetch_related(
         'medicine_prescription').order_by('-id')
     serializer = PrescriptionForMedicineViewSerializer(instance=medicines, many=True)
     serializer_data = serializer.data

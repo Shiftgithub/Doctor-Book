@@ -1,14 +1,22 @@
 from admin.bodypart.models import BodyPart
 from admin.bodypart.serializers import BodyPartSerializer
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from admin.doctor.models import DoctorProfile
+from admin.organ.models import Organ
 from admin.organ.serializers import OrganBodyPartSerializer
 from admin.department_speci.models import DepartmentSpecification
+from admin.organ_problem_speci.models import OrgansProblemSpecification
 from admin.organ_problem_speci.serializers import OrganProblemSerializer
 from sklearn.neighbors import KNeighborsClassifier
-from .serializers import *
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import PredictionSerializer, PredictionDoctorSerializer
 
+# Assuming you have a trained KNN model and X_train, y_train
+# Replace these with your actual model and training data
+knn_model = KNeighborsClassifier(n_neighbors=3)
+X_train = # Your training data
+y_train = # Your training labels
+knn_model.fit(X_train, y_train)
 
 @api_view(['POST'])
 def prediction(request):
@@ -44,12 +52,18 @@ def prediction(request):
                         data = {'status': 403, 'message': 'Organ Problem not exist'}
                         return Response(data)
 
+                # Assuming you have features for prediction, you can use the k-NN model here
+                # Replace X_new with your actual input features
+                X_new = # Your input features
+                prediction_result = knn_model.predict([X_new])
+
                 response_data = {
                     'status': 200,
                     'bodypart_name': bodypart_serializer.data,
                     'organ_name': organ_serializer.data,
                     'doctors_data': doctor_serializer.data,
                     'problem_specs': problem_specs_data,
+                    'prediction_result': prediction_result.tolist(),  # Convert to list if necessary
                 }
                 return Response(response_data)
             else:

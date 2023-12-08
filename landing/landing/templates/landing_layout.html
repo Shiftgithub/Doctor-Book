@@ -79,6 +79,14 @@
 </script>
 {% endfor %}
 {% endif %}
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+        chat-icon="{% static 'landing_assets/img/chaticon2.png' %}"
+        chat-title="chatbot"
+        agent-id="98432111-10fe-4750-9463-a6c8594429be"
+        language-code="en"
+></df-messenger>
+
 
 <!-- Custom JS -->
 {% block scripts %}

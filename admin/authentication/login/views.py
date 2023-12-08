@@ -35,6 +35,7 @@ def checking_authorization(request):
             elif user.role == ROLE_DOCTOR:
                 doctor_info = DoctorProfile.objects.get(user_id=user.id)
                 set_user_info(request, doctor_info, user.id, user.email)
+                request.session['doctor_id'] = doctor_info.id
                 return Response({'status': 200, 'role': 'Doctor', 'message': 'Login Successfully'})
             elif user.role == ROLE_PATIENT:
                 patient_info = PatientProfile.objects.get(user_id=user.id)
@@ -62,7 +63,6 @@ def set_authenticated_user(request, user):
 
 
 def set_user_info(request, user_info, user_id, email):
-    print('sdsdsd',user_id)
     # Fetch user details and related images
     user = User.objects.filter(id=user_id, deleted_at=None).prefetch_related('images').first()
     request.session['id'] = user_info.id
