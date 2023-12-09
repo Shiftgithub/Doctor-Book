@@ -77,6 +77,7 @@
                     {% if doctor_data.awards %}
                     <div id="award">
                         {% for award in doctor_data.awards %}
+                        <input type="hidden" class="form-control" name="ids[]" value="{{ award.id }}"/>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Awards :</label>
                             <div class="col-md-10">
@@ -124,40 +125,36 @@
                     </div>
                     <hr>
                     <div class="award-section">
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-danger remove-award-section float-right">
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
                         {% endfor %}
                         {% else %}
-                        <div class="row mb-3">
-                            <label class="col-md-2 col-form-label">Awards :</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" name="awards[]" placeholder="Not Provide"/>
+                        <div class="award-section">
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label">Awards :</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" name="awards[]" placeholder="Not Provide"/>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-2 col-form-label">Honors :</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" name="honors[]" placeholder="Not Provide"/>
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label">Honors :</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" name="honors[]" placeholder="Not Provide"/>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-2 col-form-label">Publications :</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" name="publications[]"
-                                       placeholder="Not Provide"/>
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label">Publications :</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" name="publications[]"
+                                           placeholder="Not Provide"/>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-2 col-form-label">Research Interests :</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" name="research_interests[]"
-                                       placeholder="Not Provide"/>
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label">Research Interests :</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" name="research_interests[]"
+                                           placeholder="Not Provide"/>
+                                </div>
                             </div>
+
                         </div>
                         {% endif %}
                     </div>
@@ -184,6 +181,41 @@
         {% endfor %}
     </div>
 </div>
+<div class="d-none" id="templateID">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-danger remove-award-section float-right">
+                Remove
+            </button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label">Awards :</label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="awards[]" placeholder="Not Provide"/>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label">Honors :</label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="honors[]" placeholder="Not Provide"/>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label">Publications :</label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="publications[]"
+                   placeholder="Not Provide"/>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label">Research Interests :</label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="research_interests[]"
+                   placeholder="Not Provide"/>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
@@ -204,5 +236,7 @@
         imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
     }
 }
+
 </script>
+
 {% endblock %}

@@ -19,9 +19,14 @@ def landing_dashboard(request):
     patient_response = count_patient(request)
     patient_data = patient_response.data
 
-    return render(request, 'landing/templates/pages/home.html',
-                  {'all_data': all_data, 'department_data': department_data, 'doctor_data': doctor_data,
-                   'patient_data': patient_data})
+    data = {
+        'all_data': all_data,
+        'department_data': department_data,
+        'doctor_data': doctor_data,
+        'patient_data': patient_data
+    }
+
+    return render(request, 'landing/templates/pages/home.html', data)
 
 
 def landing_doctors(request):

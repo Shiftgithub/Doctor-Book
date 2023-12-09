@@ -24,6 +24,12 @@ def store_patient(request):
         return redirect("add_patient_form")
 
 
+def get_patient_data(request):
+    response = get_patients_list(request)
+    all_data = response.data
+    return render(request, 'patient/templates/list_all.html', {'all_data': all_data})
+
+
 def view_patient(request, patient_id):
     response_patient_data = patient_data(request, patient_id)
     patient_all_data = response_patient_data.data

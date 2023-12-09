@@ -2,6 +2,7 @@ from .webs import *
 from django.urls import path, include
 # To protect admin panel paths from unauthenticated users
 from core.login_decorators import protected_view
+
 # from admin.authentication.user.views import check_username_availability, check_email_availability
 
 urlpatterns = [
@@ -12,6 +13,7 @@ urlpatterns = [
             [
                 path('form/', patient_form, name='add_patient_form'),
                 path('store/', store_patient, name='store_patient'),
+                path('list/', get_patient_data, name='patient_list'),
                 path('view/<int:patient_id>/', protected_view(view_patient), name='view_patient'),
                 path('update/<int:patient_id>/', protected_view(edit_patient_form), name='edit_patient_form'),
                 path('edit/<int:patient_id>/', protected_view(edit_patient), name='edit_patient'),

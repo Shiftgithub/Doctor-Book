@@ -193,3 +193,20 @@ def get_lab_prescription_by_id(request, prescription_id):
     serializer_data['barcode_image_path'] = barcode_image_path
 
     return Response(serializer_data)
+
+
+@api_view(['GET'])
+def count_medicine_prescription(request, doctor_id):
+    # Get the PrescriptionForMedicine instances for the given doctor_id
+    prescriptions_for_medicine = PrescriptionForMedicine.objects.filter(doctor_profile=doctor_id)
+
+    # Get the MedicinePrescription instances related to the prescriptions_for_medicine
+    medicine_prescriptions = MedicinePrescription.objects.filter(prescription__in=prescriptions_for_medicine)
+
+    # Get the count of medicine_prescription_count
+    medicine_prescription_count = medicine_prescriptions.count()
+
+    # Serializing medicine_prescription_count
+    serialized_data = {'medicine_prescription_count': medicine_prescription_count}
+
+    return Response(serialized_data)

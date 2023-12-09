@@ -378,14 +378,17 @@ def edit_social_data(request, doctor_id):
 def edit_award_data(request, doctor_id):
     try:
         doctor = get_object_or_404(DoctorProfile, id=doctor_id)
+        ids = request.data.getlist('ids[]')
+        print(ids)
         awards = request.data.getlist('awards[]')
         honors = request.data.getlist('honors[]')
         publications = request.data.getlist('publications[]')
         research_interests = request.data.getlist('research_interests[]')
 
-        for award_name, honor, publication, research_interest in zip(awards, honors, publications, research_interests):
-            existing_award = Awards.objects.filter(doctor_profile=doctor, awards=award_name).first()
-
+        for id, award_name, honor, publication, research_interest in zip(
+                ids, awards, honors, publications, research_interests):
+            existing_award = Awards.objects.filter(doctor_profile=doctor, id=id).first()
+            print(existing_award)
             if existing_award:
                 # If award with the same name exists, update it
                 award_serializer = AwardsSerializer(existing_award, data={
