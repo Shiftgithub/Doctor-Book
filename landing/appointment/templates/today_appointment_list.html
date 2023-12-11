@@ -20,10 +20,11 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Issue Date</th>
-                    <th>Patient Name</th>
-                    <th>Appointment Date</th>
-                    <th>Appointment Time</th>
+                    <th>P. Name</th>
+                    <th>P. Phone No</th>
+                    <th>P. email</th>
+                    <th>A. Date</th>
+                    <th>A. Time</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -31,9 +32,10 @@
                 {% for data in all_data %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ data.created_at }}</td>
                     {# Use 'forloop.counter' to get the loop counter #}
                     <td>{{ data.patient_name }}</td>
+                    <td>{{ data.patient_phone_no }}</td>
+                    <td>{{ data.patient_email }}</td>
                     <td>{{ data.appointment_date }}</td>
                     <td>{{ data.appointment_time }}</td>
                     <td>
@@ -44,11 +46,11 @@
                                     <!-- <i class="fas fa-ellipsis-v"></i> -->
                                 </span>
                             <div class="dropdown-menu">
-                                <a href="{% url 'medicine_view' data.id %}"
+                                <a href="{% url 'view_appointment' data.id %}"
                                    class="dropdown-item text-info">
                                     <i class="fas fa-eye"></i> View
                                 </a>
-                                <a href="{% url 'edit_prescription_form' data.id %}"
+                                <a href="{% url 'edit_appointment_form' data.id %}"
                                    class="dropdown-item text-primary">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>

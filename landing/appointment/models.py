@@ -6,10 +6,8 @@ from admin.doctor.models import DoctorProfile
 
 
 class GetAppointment(BaseModel):
-    patient = models.ForeignKey(PatientProfile, on_delete=models.CASCADE, related_name='patients_appointments',
-                                null=True)
-    doctor = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='patients_appointments',
-                               null=True)
+    patient = models.ForeignKey(PatientProfile, on_delete=models.CASCADE, related_name='patients_appointments')
+    doctor = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='patients_appointments')
     appointment_date = models.TextField(max_length=255, null=True)
     appointment_time = models.TextField(max_length=255, null=True)
     is_confirmed = models.BooleanField(default=False, null=True)

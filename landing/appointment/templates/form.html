@@ -1,6 +1,5 @@
-{% extends 'landing_layout.html' %}
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
 {% load static %}
-
 {% block styles %}
 <style>
     #doctors {background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;}
@@ -36,53 +35,73 @@
     }
 </style>
 {% endblock %}
-
 {% block content %}
-<!-- ======= Doctors Section ======= -->
-<section id="doctors" class="doctors">
-    <div class="container pt-4">
-        {% for doctor_data in doctor_all_data %}
-        <div class="text-center">
-            <h4><b>Doctor Name : {{ doctor_data.full_name }}</b></h4>
-            <p><b>Department Name : {{ doctor_data.department }}</b></p>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Add Patient Appointment</h1>
         </div>
-        <hr/>
-        <div class="row">
-            <div class="col-sm-12 col-md-3">
-                <h5 class="text-primary">Choose Appointment Date</h5>
-                <hr/>
-                {% for date in date_list %}
-                <div class="circular-radio">
-                    <input type="radio" onclick="getDate(this); showTime(); " id="date-{{ forloop.counter }}"
-                           name="selected_date" data-date="{{ date }}"/>
-                    <label for="date-{{ forloop.counter }}">{{ date }}</label>
-                </div>
-                {% endfor %}
-            </div>
-            <div class="col-sm-12 col-md-9">
-                <div id="timeSelection">
-                </div>
-            </div>
-        </div>
-        <div class="">
-            <form action="{% url 'get_date_time'%}" method="POST">
+        <div class="card-body">
+            <form action="{% url 'store_appointment_by_doctor' %}" method="POST" id="formID">
                 {% csrf_token %}
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="patientID">Patient Name : </label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="patientID" name="patient" required>
+                            <option selected disabled value="">Select Patient Name</option>
+                            {% for item in all_patient_data %}
+                            <option value="{{ item.id }}">{{ item.id }} . {{ item.full_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="doctorID">Doctor Name : </label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="doctorID" name="doctor" required>
+                            <option selected disabled value="">Select Doctor Name</option>
+                            {% for item in all_doctor_data %}
+                            {% if item.id == doctor_id %}
+                            <option value="{{ item.id }}" selected>{{ item.full_name }} ({{ item.department }})</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.full_name }} ({{ item.department }})</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-sm-12 col-md-3">
+                        <h5 class="text-primary">Choose Appointment Date</h5>
+                        <hr/>
+                        {% for date in date_list %}
+                        <div class="circular-radio">
+                            <input type="radio" onclick="getDate(this); showTime(); "
+                                   id="date-{{ forloop.counter }}"
+                                   name="selected_date" data-date="{{ date }}"/>
+                            <label for="date-{{ forloop.counter }}">{{ date }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-12 col-md-9">
+                        <div id="timeSelection">
+                        </div>
+                    </div>
+                </div>
                 <div>
                     <input type="hidden" id="selectedDateID" name="appointment_date"/>
                     <input type="hidden" id="selectedTimeID" name="appointment_time"/>
-                    <input type="hidden" id="doctorID" value="{{doctor_data.id}}" name="doctor_id"/>
                 </div>
                 <hr>
-                <div class="text-center pt-4">
-                    <button id="nextButton" class="btn btn-info text-white btn-lg" disabled>Next</button>
+                <div class="text-center">
+                    <button id="nextButton" class="btn btn-success text-white btn" disabled>Submit</button>
                 </div>
             </form>
         </div>
-        {% endfor %}
     </div>
-</section>
+</div>
 {% endblock %}
-
 {% block scripts %}
 <script>
     function showTime() {
@@ -116,8 +135,7 @@
             options += `
                 <div class="alert alert-light">
                     <h4 class="alert-heading">No Time Slots Found</h4>
-                    <p>There are no time slots available at the moment. Please check back later .or try another doctor.</p>
-                    <a href="{% url 'predict_form' %}" class="btn-info" >Go Back</a>
+                    <p>There are no time slots available at the moment. Please check back later. or try another doctor.</p>
                 </div>`;
         }
 
@@ -185,6 +203,6 @@
          }
           enableDisableNextButton(); // Call the function to enable/disable the "Next" button
        });
-     });
+    });
 </script>
 {% endblock %}

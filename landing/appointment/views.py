@@ -15,6 +15,8 @@ from admin.authentication.user.models import Images
 from admin.authentication.otp.function.send_email import generate_token
 from admin.authentication.otp.verifyotp.models import VerifyOtp
 from django.http import JsonResponse
+from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
 
 @api_view(['GET'])
@@ -334,7 +336,8 @@ def get_all_appointment_list(request):
 
 @api_view(['GET'])
 def get_all_appointment_by_doctor(request, doctor_id):
-    appointments = GetAppointment.objects.filter(doctor=doctor_id, deleted_at=None).order_by('-id')
+    appointments = GetAppointment.objects.filter(doctor=doctor_id, deleted_at=None).order_by('-appointment_date',
+                                                                                             '-appointment_time')
     serialized_data = PatientAppointmentViewSerializer(appointments, many=True).data
     return Response(serialized_data)
 
@@ -344,8 +347,10 @@ def get_appointment_list_by_date(request, doctor_id):
     today_date = datetime.now().date()
     formatted_today_date = today_date.strftime('%d-%m-%Y (%A)')
 
-    appointments = GetAppointment.objects.filter(appointment_date=formatted_today_date,
-                                                 doctor=doctor_id, deleted_at=None).order_by('-id')
+    appointments = GetAppointment.objects.filter(
+        appointment_date=formatted_today_date, doctor=doctor_id, deleted_at=None
+    ).order_by('-appointment_date', '-appointment_time')  # Add this line to order by date and time
+
     serialized_data = PatientAppointmentViewSerializer(appointments, many=True).data
     return Response(serialized_data)
 
@@ -404,3 +409,42 @@ def get_store_appointment(request):
                 return Response({'status': 403, 'message': 'Invalid data'})
     else:
         return Response({'status': 403, 'message': 'Missing data'})
+
+
+@api_view(['PUT', 'POST'])
+def edit_appointment_data(request, appointment_id):
+    # Use get_object_or_404 for fetching the appointment
+    appointment = get_object_or_404(GetAppointment, id=appointment_id, deleted_at=None)
+
+    serializer = PatientAppointmentSerializer(appointment, data=request.data)
+    print(serializer)
+    # Check if the appointment is found before proceeding
+    if not appointment:
+        return Response({'status': 404, 'message': 'Appointment not found'})
+
+    if serializer.is_valid():
+        doctor_id = request.data.get('doctor')
+
+        try:
+            doctor = DoctorProfile.objects.get(id=doctor_id)
+        except DoctorProfile.DoesNotExist:
+            return Response({'status': 404, 'message': 'Doctor not found'})
+
+        # Use save() directly without checking, as it returns the saved object
+        updated_appointment = serializer.save(doctor=doctor, updated_at=timezone.now())
+
+        if updated_appointment:
+            return Response({'status': 200})
+        else:
+            return Response({'status': 403})
+    else:
+        return Response({'status': 403, 'errors': serializer.errors})
+
+
+@api_view(['GET'])
+def appointment_data_view(request, appointment_id):
+    appointment = GetAppointment.objects.get(id=appointment_id)
+
+    serializer = PatientAppointmentViewSerializer(appointment, many=False)
+
+    return Response(serializer.data)

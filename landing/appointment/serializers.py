@@ -41,6 +41,8 @@ class PatientAppointmentSerializer(serializers.ModelSerializer):
 
 class PatientAppointmentViewSerializer(serializers.ModelSerializer):
     patient_name = serializers.CharField(source='patient.full_name', allow_null=True)
+    patient_email = serializers.CharField(source='patient.user.email', allow_null=True)
+    patient_phone_no = serializers.CharField(source='patient.phone_no', allow_null=True)
 
     class Meta:
         model = GetAppointment

@@ -114,25 +114,48 @@
                     <li class="nav-item nav-child">
                         <a href="{% url 'add_prescription_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Add Prescription</p>
-                        </a>
-                    </li>
-                    <li class="nav-item nav-child">
-                        <a href="{% url 'lab_prescription_form' %}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Add Lab Test</p>
+                            <p>Add Medicine Prescription</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
                         <a href="{% url 'medine_prescription_list'%}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>All Prescriptions</p>
+                            <p>All Medicine Prescriptions</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'lab_prescription_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Lab Test Prescription</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
                         <a href="{% url 'lab_prescription_list'%}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>All Lab Test</p>
+                            <p>All Lab Test Prescription</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-calendar-check"></i>
+                    <p>
+                        Appointment
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'appointment_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Appointment</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'appointment_list_by_doctor'%}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Appointments</p>
                         </a>
                     </li>
                 </ul>
@@ -154,7 +177,7 @@
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a href="{% url 'appointment_list_by_doctor'%}" class="nav-link">
+                        <a href="" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Patient Appointments</p>
                         </a>

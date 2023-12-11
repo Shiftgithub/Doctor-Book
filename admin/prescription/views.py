@@ -13,7 +13,7 @@ import hashlib
 import barcode
 from io import BytesIO
 from PIL import Image, ImageDraw
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from barcode.writer import ImageWriter
 
 
@@ -126,21 +126,6 @@ def generate_barcode(request, registration):
     return relative_path
 
 
-# # prescription edit function
-# @api_view(['PUT', 'POST'])
-# def edit_prescription_data(request, prescription_id):
-#     prescription = Prescription.objects.get(id=prescription_id)
-#     serializer = PrescriptionSerializer(prescription, data=request.data)
-#
-#     if serializer.is_valid():
-#         if serializer.save(updated_at=timezone.now()):
-#             return Response({'status': 200})
-#         else:
-#             return Response({'status': 403})
-#     else:
-#         return Response({'status': 403})
-#
-
 @api_view(['POST'])
 @transaction.atomic
 def store_lab_prescription_data(request, doctor_id, user_id):
@@ -210,3 +195,4 @@ def count_medicine_prescription(request, doctor_id):
     serialized_data = {'medicine_prescription_count': medicine_prescription_count}
 
     return Response(serialized_data)
+
