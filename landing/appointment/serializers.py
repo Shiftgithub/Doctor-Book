@@ -39,6 +39,14 @@ class PatientAppointmentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class PatientAppointmentViewSerializer(serializers.ModelSerializer):
+    patient_name = serializers.CharField(source='patient.full_name', allow_null=True)
+
+    class Meta:
+        model = GetAppointment
+        fields = '__all__'
+
+
 class DateTimeSerializer(serializers.ModelSerializer):
     class Meta:
         model = GetAppointment

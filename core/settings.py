@@ -85,13 +85,7 @@ INSTALLED_APPS = [
 
     # rest_framework
     'rest_framework',
-    'debug_toolbar',
     'barcode',
-
-    #     'chatterbot',
-    #     'chatterbot.ext.django',
-    #
-    #     # 'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -102,11 +96,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
     'django.middleware.csrf.CsrfViewMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware',
-
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -121,7 +111,6 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -193,8 +182,3 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
-
-# CORS_ALLOW_ALL_ORIGINS = True
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

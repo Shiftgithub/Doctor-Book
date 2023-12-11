@@ -100,16 +100,13 @@ def predict_result(request):
         bodypart_name = operation_response.data.get("bodypart_name")
         organ_name = operation_response.data.get("organ_name")
         messages.add_message(request, messages.INFO, "Here are all Doctor List ")
-        return render(
-            request,
-            "patient/templates/predict_result.html",
-            {
-                "doctor_data": doctor_data,
-                "bodypart_name": bodypart_name,
-                "organ_name": organ_name,
-                "problem_specs": problem_specs,
-            },
-        )
+        data = {
+            "doctor_data": doctor_data,
+            "bodypart_name": bodypart_name,
+            "organ_name": organ_name,
+            "problem_specs": problem_specs,
+        }
+        return render(request, "patient/templates/predict_result.html", data)
     else:
         messages.add_message(request, messages.ERROR, "Error")
         return redirect("patient_predict_form")
@@ -118,18 +115,19 @@ def predict_result(request):
 def doctor_profile(request, doctor_id):
     response_doctor = doctor_data(request, doctor_id)
     doctor_all_data = response_doctor.data
-    return render(
-        request,
-        "patient/templates/doctor_profile.html",
-        {"doctor_all_data": doctor_all_data},
-    )
+    return render(request, "patient/templates/doctor_profile.html", {"doctor_all_data": doctor_all_data})
 
 
 def appointment(request, doctor_id):
+    response_doctor = doctor_data(request, doctor_id)
+    doctor_all_data = response_doctor.data
     days = generate_date(request, doctor_id)
-    schedule_time = generate_schedule_time(request, doctor_id)
+    request.session['temp_doctor_id'] = doctor_id
+    # schedule_time = generate_schedule_time(request, doctor_id, date)
+
     data = {
-        "date_list": days,
-        "schedule_time": schedule_time,
+        'date_list': days,
+        'doctor_all_data': doctor_all_data,
+        # 'schedule_time': schedule_time,
     }
     return render(request, "patient/templates/appointment.html", data)

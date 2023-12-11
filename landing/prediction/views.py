@@ -6,7 +6,6 @@ from admin.doctor.models import DoctorProfile
 from admin.organ.serializers import OrganBodyPartSerializer
 from admin.department_speci.models import DepartmentSpecification
 from admin.organ_problem_speci.serializers import OrganProblemSerializer
-from sklearn.neighbors import KNeighborsClassifier
 from .serializers import *
 
 

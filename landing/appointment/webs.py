@@ -1,3 +1,4 @@
+import datetime
 from .views import *
 from django.contrib import messages
 from admin.doctor.views import doctor_data
@@ -78,6 +79,45 @@ def store_appointment_and_create_account(request):
         messages.add_message(request, messages.ERROR,
                              'Error in Request Send')
         return redirect('appointment_schedule_form')
+
+
+def appointment_list_by_doctor(request):
+    doctor_id = request.session.get('temp_doctor_id')
+    response = get_all_appointment_by_doctor(request, doctor_id)
+    all_data = response.data
+    for item in all_data:
+        # Convert 'created_at' string to datetime object
+        item['created_at'] = datetime.strptime(item['created_at'], "%Y-%m-%dT%H:%M:%S.%fZ")
+
+        # Format the 'created_at' field with the desired format
+        item['created_at'] = item['created_at'].strftime("%Y-%m-%d %I:%M %p")
+    return render(request, 'appointment/templates/list_all.html', {'all_data': all_data})
+
+
+def appointment_list_by_date(request):
+    doctor_id = request.session.get('temp_doctor_id')
+    response = get_appointment_list_by_date(request, doctor_id)
+    all_data = response.data
+
+    # Assuming all_data is a list of dictionaries
+    for item in all_data:
+        # Convert 'created_at' string to datetime object
+        item['created_at'] = datetime.strptime(item['created_at'], "%Y-%m-%dT%H:%M:%S.%fZ")
+
+        # Format the 'created_at' field with the desired format
+        item['created_at'] = item['created_at'].strftime("%Y-%m-%d %I:%M %p")
+
+    return render(request, 'appointment/templates/today_appointment_list.html', {'all_data': all_data})
+
+
+def store_appointment(request):
+    operation_response = get_store_appointment(request)
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, 'Appointment Request Send successfully')
+        return redirect('patient_predict_form')
+    else:
+        messages.add_message(request, messages.ERROR, 'Error in Request Send')
+        return redirect('patient_predict_form')
 
 
 def go_home(request):

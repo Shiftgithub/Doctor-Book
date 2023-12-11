@@ -8,17 +8,17 @@
                 <div class="small-box bg-blue">
                     <div class="inner">
                         <h6 class="text-center">Today's Appointment</h6>
-                        <p class="text-center">{{patient_data.patient_count}}</p>
+                        <p class="text-center">{{count_appointment_data.appointments_count}}</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-hospital-user"></i>
                     </div>
-                    <a href="{% url 'patient_list' %}" class="small-box-footer">see More..<i
+                    <a href="{% url 'appointment_list_by_date' %}" class="small-box-footer">see More..<i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-sm-4 col-md-4">
-                <div class="small-box bg-blue">
+                <div class="small-box bg-green">
                     <div class="inner">
                         <h6 class="text-center">Total Patient</h6>
                         <p class="text-center">{{patient_data.patient_count}}</p>

@@ -5,6 +5,7 @@ from admin.doctor.views import doctor_data
 from admin.doctor.models import DoctorProfile
 from admin.patient.models import PatientProfile
 from landing.landing.views import *
+from landing.appointment.views import *
 from admin.prescription.views import count_medicine_prescription
 
 
@@ -47,17 +48,20 @@ def admin_dashboard(request):
 def doctor_dashboard(request):
     doctor_id = request.session['doctor_id']
 
-    print(doctor_id)
     notification(request)
 
     medicine_prescription_response = count_medicine_prescription(request, doctor_id)
     medicine_prescription_data = medicine_prescription_response.data
+
+    count_appointment_response = count_appointments(request, doctor_id)
+    count_appointment_data = count_appointment_response.data
 
     patient_response = count_patient(request)
     patient_data = patient_response.data
     data = {
         'patient_data': patient_data,
         'medicine_prescription_data': medicine_prescription_data,
+        'count_appointment_data': count_appointment_data
     }
     return render(request, 'dashboard/templates/doctor/dashboard.html', data)
 

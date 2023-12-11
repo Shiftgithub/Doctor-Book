@@ -40,6 +40,7 @@ def checking_authorization(request):
             elif user.role == ROLE_PATIENT:
                 patient_info = PatientProfile.objects.get(user_id=user.id)
                 set_user_info(request, patient_info, user.id, user.email)
+                request.session['patient_id'] = patient_info.id
                 return Response({'status': 200, 'role': 'Patient', 'message': 'Login Successfully'})
             else:
                 return Response({'status': 404, 'message': 'User is not a approved'})

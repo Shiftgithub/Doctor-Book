@@ -3,7 +3,6 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-header">{{ request.session.user_role }} Panel</li>
             <!-- Dashboard -->
             <li class="nav-item mainItem">
                 <a href="{% url 'patient_dashboard' %}" class="nav-link">
@@ -13,8 +12,6 @@
                     </p>
                 </a>
             </li>
-            <!-- My Profile -->
-
             <!-- Prediction History -->
             <li class="nav-item mainItem">
                 <a href="{% url 'patient_predict_form' %}" class="nav-link">

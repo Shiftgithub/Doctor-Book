@@ -85,8 +85,6 @@ def get_existing_appointment_times(doctor_id, date):
 def is_time_after_current(time_str, current_time_str):
     formatted_time = datetime.strptime(time_str.split(" - ")[0], "%I:%M %p").time()
     current_time = datetime.strptime(current_time_str, "%I:%M %p").time()
-    print('formatted_time:', formatted_time)
-    print('current_time:', current_time)
     return formatted_time > current_time
 
 
@@ -106,7 +104,6 @@ def generate_schedule_time(request, doctor_id, date):
 def doctor_schedule_time(get_working_schedule_response, existing_appointment_times, date):
     if get_working_schedule_response.status_code == 200:
         schedule_times_data = get_working_schedule_response.data
-        print('schedule_times_data:', schedule_times_data)
         available_appointment_times = []
         today_date = datetime.now().date()
         formatted_today_date = today_date.strftime('%d-%m-%Y (%A)')
@@ -134,8 +131,6 @@ def doctor_schedule_time(get_working_schedule_response, existing_appointment_tim
                     # Check if the appointment time is in the future
                     if is_time_after_current(formatted_start_time, current_time_now):
                         appointment_time_str = f"{formatted_start_time} - {format_time(end_time_patient)}"
-                        print('appointment_time_str::', appointment_time_str)
-
                         # Check if the appointment time is not in existing_appointment_times
                         if appointment_time_str not in existing_appointment_times:
                             available_appointment_times.append(appointment_time_str)
@@ -147,9 +142,7 @@ def doctor_schedule_time(get_working_schedule_response, existing_appointment_tim
                         available_appointment_times.append(appointment_time_str)
 
                 current_time = end_time_patient
-
         # Move the return statement outside the loop
-        print(available_appointment_times)
         return available_appointment_times
 
     return None
@@ -225,28 +218,37 @@ def store_appointment_data(request):
     appointment_date = request.session.get('temp_appointment_date')
     appointment_time = request.session.get('temp_appointment_time')
     doctor_id = request.session.get('temp_doctor_id')
-    appointment_serializer = PatientAppointmentSerializer(data=request.data)
-    if appointment_serializer.is_valid():
-        registration_id = request.data['registration_no']
-        # Retrieve the PatientProfile instance using the registration_no
-        try:
-            patient = PatientProfile.objects.get(registration_no=registration_id)
-        except PatientProfile.DoesNotExist:
-            return Response({'status': 404, 'message': 'Patient not found'})
-        # Retrieve the 'DoctorProfile' instance for the doctor using 'doctor_id'
-        try:
-            doctor = DoctorProfile.objects.get(id=doctor_id)
-        except DoctorProfile.DoesNotExist:
-            return Response({'status': 404, 'message': 'Doctor not found'})
+    if appointment_date and appointment_time and doctor_id:
+        get_appointment = GetAppointment.objects.filter(doctor=doctor_id, appointment_date=appointment_date,
+                                                        appointment_time=appointment_time, deleted_at=None)
+        if get_appointment.exists():
 
-        # Set the 'doctor' field to the retrieved 'User' instance
-        appointment_serializer.save(
-            appointment_date=appointment_date,
-            appointment_time=appointment_time,
-            doctor=doctor,
-            patient=patient
-        )
-        return Response({'status': 200})
+            return Response({'status': 403, 'message': 'this time already taken'})
+        else:
+            appointment_serializer = PatientAppointmentSerializer(data=request.data)
+            if appointment_serializer.is_valid():
+                registration_id = request.data['registration_no']
+                # Retrieve the PatientProfile instance using the registration_no
+                try:
+                    patient = PatientProfile.objects.get(registration_no=registration_id)
+                except PatientProfile.DoesNotExist:
+                    return Response({'status': 404, 'message': 'Patient not found'})
+                # Retrieve the 'DoctorProfile' instance for the doctor using 'doctor_id'
+                try:
+                    doctor = DoctorProfile.objects.get(id=doctor_id)
+                except DoctorProfile.DoesNotExist:
+                    return Response({'status': 404, 'message': 'Doctor not found'})
+
+                # Set the 'doctor' field to the retrieved 'User' instance
+                appointment_serializer.save(
+                    appointment_date=appointment_date,
+                    appointment_time=appointment_time,
+                    doctor=doctor,
+                    patient=patient
+                )
+                return Response({'status': 200})
+            else:
+                return Response({'status': 403})
     else:
         return Response({'status': 403})
 
@@ -258,11 +260,9 @@ def create_patient_account_store_appointment(request):
     appointment_time = request.session.get('temp_appointment_time')
     doctor_id = request.session.get('temp_doctor_id')
     if appointment_date and appointment_time and doctor_id:
-        get_appointment = GetAppointment.objects.filter(doctor=doctor_id,
-                                                        appointment_date=appointment_date,
-                                                        appointment_time=appointment_time,
-                                                        deleted_at=None)
-        if get_appointment:
+        get_appointment = GetAppointment.objects.filter(doctor=doctor_id, appointment_date=appointment_date,
+                                                        appointment_time=appointment_time, deleted_at=None)
+        if get_appointment.exists():
             return Response({'status': 403, 'message': 'this time already taken'})
         else:
             appointment_serializer = PatientAppointmentSerializer(data=request.data)
@@ -322,3 +322,85 @@ def create_patient_account_store_appointment(request):
                 return Response({'status': 403})
     else:
         return Response({'status': 403})
+
+
+@api_view(['GET'])
+def get_all_appointment_list(request):
+    appointments = GetAppointment.objects.filter(deleted_at=None).order_by('-id')
+
+    serialized_data = PatientAppointmentSerializer(appointments, many=True).data
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def get_all_appointment_by_doctor(request, doctor_id):
+    appointments = GetAppointment.objects.filter(doctor=doctor_id, deleted_at=None).order_by('-id')
+    serialized_data = PatientAppointmentViewSerializer(appointments, many=True).data
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def get_appointment_list_by_date(request, doctor_id):
+    today_date = datetime.now().date()
+    formatted_today_date = today_date.strftime('%d-%m-%Y (%A)')
+
+    appointments = GetAppointment.objects.filter(appointment_date=formatted_today_date,
+                                                 doctor=doctor_id, deleted_at=None).order_by('-id')
+    serialized_data = PatientAppointmentViewSerializer(appointments, many=True).data
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def count_appointments(request, doctor_id):
+    today_date = datetime.now().date()
+    formatted_today_date = today_date.strftime('%d-%m-%Y (%A)')
+
+    appointments = GetAppointment.objects.filter(appointment_date=formatted_today_date,
+                                                 doctor=doctor_id, deleted_at=None).order_by('-id')
+    appointments_count = appointments.count()
+
+    serialized_data = {'appointments_count': appointments_count}
+
+    return Response(serialized_data)
+
+
+@api_view(['POST'])
+def get_store_appointment(request):
+    appointment_serializer = PatientAppointmentSerializer(data=request.data)
+    if appointment_serializer.is_valid():
+        patient_id = request.data.get('patient')
+        doctor_id = request.data.get('doctor')
+        appointment_date = appointment_serializer.validated_data['appointment_date']
+        appointment_time = appointment_serializer.validated_data['appointment_time']
+        try:
+            patient = PatientProfile.objects.get(id=patient_id, deleted_at=None)
+        except PatientProfile.DoesNotExist:
+            return Response({'status': 404, 'message': 'Patient not found'})
+
+        try:
+            doctor = DoctorProfile.objects.get(id=doctor_id)
+        except DoctorProfile.DoesNotExist:
+            return Response({'status': 404, 'message': 'Doctor not found'})
+
+        # Try to retrieve the existing appointment
+        get_appointment = GetAppointment.objects.filter(
+            doctor_id=doctor_id,  # Use the actual ID, assuming doctor_id is the ID of DoctorProfile
+            appointment_date=appointment_date,
+            appointment_time=appointment_time,
+            deleted_at=None
+        )
+        if get_appointment.exists():
+            # If the appointment exists, return an appropriate response
+            return Response({'status': 403, 'message': 'This time is already taken'})
+        else:
+            if appointment_serializer.save(
+                    appointment_date=appointment_date,
+                    appointment_time=appointment_time,
+                    doctor=doctor,
+                    patient=patient
+            ):
+                return Response({'status': 200})
+            else:
+                return Response({'status': 403, 'message': 'Invalid data'})
+    else:
+        return Response({'status': 403, 'message': 'Missing data'})
