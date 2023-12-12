@@ -1,3 +1,4 @@
+from .models import Prediction
 from rest_framework import serializers
 from admin.department_speci.models import *
 from admin.doctor.models import DoctorProfile, ScheduleTime
@@ -30,3 +31,9 @@ class PredictionDoctorSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'full_name', 'biography', 'department_name', 'images'
         ]
+
+
+class PredictionStoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prediction
+        fields = '__all__'

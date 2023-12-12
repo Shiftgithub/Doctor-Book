@@ -81,15 +81,17 @@ def store_appointment_and_create_account(request):
 
 
 def appointment_list_by_doctor(request):
-    doctor_id = request.session.get('temp_doctor_id')
+    doctor_id = request.session.get('doctor_id')
     response = get_all_appointment_by_doctor(request, doctor_id)
     all_data = response.data
+    print('dddd')
+    print(all_data)
 
     return render(request, 'appointment/templates/list_all.html', {'all_data': all_data})
 
 
 def appointment_list_by_date(request):
-    doctor_id = request.session.get('temp_doctor_id')
+    doctor_id = request.session.get('doctor_id')
     response = get_appointment_list_by_date(request, doctor_id)
     all_data = response.data
 

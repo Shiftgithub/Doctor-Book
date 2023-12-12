@@ -43,15 +43,41 @@ def prediction(request):
                         data = {'status': 403, 'message': 'Organ Problem not exist'}
                         return Response(data)
 
-                response_data = {
-                    'status': 200,
-                    'bodypart_name': bodypart_serializer.data,
-                    'organ_name': organ_serializer.data,
-                    'doctors_data': doctor_serializer.data,
-                    'problem_specs': problem_specs_data,
-                }
-                return Response(response_data)
+                # Assuming Prediction model has a field 'department_speci'
+                department_speci = department_specifications.first()
+
+                prediction_store_serializer = PredictionStoreSerializer(data=request.data)
+                if prediction_store_serializer.is_valid():
+                    # Save the model with the department and department_speci
+                    save = prediction_store_serializer.save(
+                        department=department_ids,
+                        department_speci=department_speci
+                    )
+
+                    if save:
+                        response_data = {
+                            'status': 200,
+                            'bodypart_name': bodypart_serializer.data,
+                            'organ_name': organ_serializer.data,
+                            'doctors_data': doctor_serializer.data,
+                            'problem_specs': problem_specs_data,
+                        }
+                        return Response(response_data)
+                    else:
+                        response_data = {'status': 403,
+                                         'message': 'DepartmentSpecifications have different departments'}
+                        return Response(response_data)
+                else:
+                    response_data = {'status': 403,
+                                     'message': 'DepartmentSpecifications have different departments'}
+                    return Response(response_data)
             else:
-                return Response({'status': 403, 'message': 'DepartmentSpecifications have different departments'})
+                response_data = {'status': 403,
+                                 'message': 'DepartmentSpecifications have different departments'}
+                return Response(response_data)
         else:
-            return Response({'status': 403, 'message': 'DepartmentSpecification does not exist'})
+            response_data = {'status': 403,
+                             'message': 'DepartmentSpecifications have different departments'}
+            return Response(response_data)
+    else:
+        return Response({'status': 400, 'message': 'Invalid data'})
