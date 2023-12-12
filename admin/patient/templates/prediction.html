@@ -23,7 +23,6 @@
                     </select>
                 </div>
             </div>
-
             <!-- Organ Name -->
             <div class="row p-2">
                 <label for="organID" class="col-md-3 col-form-label">Organ :<span class="text-danger">*</span></label>
@@ -33,7 +32,6 @@
                     </select>
                 </div>
             </div>
-
             <!-- Problem Specification -->
             <div class="row p-2">
                 <label for="problemSpecificationID" class="col-md-3 col-form-label">Problem Specification :<span
@@ -42,6 +40,7 @@
                     <div id="problemSpecificationID"></div>
                 </div>
             </div>
+            <input type="hidden" value="{{ request.session.patient_id }}" name="created_by">
             <!-- Submit Button -->
             <div class="row p-2">
                 <div class="col-md-3"></div>

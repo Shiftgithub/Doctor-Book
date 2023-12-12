@@ -17,7 +17,7 @@ def predict(request):
     if operation_response.data.get('status') == 200:
         doctor_response = operation_response.data.get('doctors_data')
         problem_specs = operation_response.data.get('problem_specs')
-        body_part_name = operation_response.data.get('bodypart_name')
+        body_part_name = operation_response.data.get('body_part_name')
         organ_name = operation_response.data.get('organ_name')
         messages.add_message(request, messages.INFO, 'Here are all Doctor List ')
         data = {
