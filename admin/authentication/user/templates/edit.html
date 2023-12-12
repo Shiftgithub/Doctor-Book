@@ -4,18 +4,18 @@
 
 {% block content %}
 <div class="container mt-4">
-    <form action="{% url 'edit_admin' admin_id %}" enctype="multipart/form-data" id="PostForm"
-          method="POST" class="needs-validation" novalidate>
-        {% csrf_token %}
-        <div class="card">
-            <div class="card-header bg-dark">
-                <h1 class="card-title">Admin Details</h1>
-                <h1 class="card-title float-right">
-                    <a href="{% url 'user_details' %}" class="nav-link btn btn-info float-right"
-                       type="submit">Back View</a>
-                </h1>
-            </div>
-            <div class="card-body">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Admin Details</h1>
+            <h1 class="card-title float-right">
+                <a href="{% url 'view_admin' v %}" class="nav-link btn btn-info float-right"
+                   type="submit">Back View</a>
+            </h1>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'edit_admin' admin_id %}" enctype="multipart/form-data" id="PostForm"
+                  method="POST" class="needs-validation" novalidate>
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-md-8">
                         <div class="row mb-3">
@@ -29,16 +29,24 @@
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="fatherNameID">Father Name :</label>
                             <div class="col-md-9">
+                                {% if patient_all_data.father_name %}
                                 <input class="form-control" type="text" id="fatherNameID"
                                        value="{{ admin_all_data.father_name }}" name="father_name" required/>
+                                {% else %}
+                                <input class="form-control" type="text" id="fatherNameID" name="father_name" required/>
+                                {% endif %}
                                 <div class="invalid-feedback">Please enter your father name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="motherNameID">Mother Name : </label>
                             <div class="col-md-9">
+                                {% if admin_all_data.mother_name %}
                                 <input class="form-control" value=" {{ admin_all_data.mother_name }}"
                                        id="motherNameID" type="text" name="mother_name" required/>
+                                {% else %}
+                                <input class="form-control" type="text" id="motherNameID" name="mother_name" required/>
+                                {% endif %}
                                 <div class="invalid-feedback">Please enter your mother name.</div>
                             </div>
                         </div>
@@ -149,14 +157,22 @@
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label" for="nidID">NID No: </label>
                     <div class="col-md-4">
+                        {% if admin_all_data.mother_name %}
                         <input class="form-control" type="number" value="{{ admin_all_data.nid_no }}"
-                               id="nidID" name="nid_no" required/>
+                               id="nidID" name="nid_no"/>
+                        {% else %}
+                        <input class="form-control" type="number" id="nidID" name="nid_no" required/>
+                        {% endif %}
                         <div class="invalid-feedback">Please enter NID no.</div>
                     </div>
                     <label class="col-md-2 col-form-label" for="addressID">Address : </label>
                     <div class="col-md-4">
+                        {% if admin_all_data.mother_name %}
                         <input class="form-control" value=" {{ admin_all_data.address }}" id="addressID"
                                type="text" name="address" required/>
+                        {% else %}
+                        <input class="form-control" type="text" id="addressID" name="address" required/>
+                        {% endif %}
                         <div class="invalid-feedback">Please enter your address.</div>
                     </div>
                 </div>
@@ -170,9 +186,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 {% endblock %}
 {% block scripts %}

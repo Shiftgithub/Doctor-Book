@@ -12,6 +12,28 @@ def patient_form(request):
     return render(request, "patient/templates/form.html")
 
 
+def patient_form_for_doctor(request):
+    response_gender = gender_list(request)
+    gender_data = response_gender.data
+
+    response_religion = religion_list(request)
+    religion_data = response_religion.data
+
+    response_blood_group = blood_group_list(request)
+    blood_group_data = response_blood_group.data
+
+    response_matrimony = matrimony_list(request)
+    matrimony_data = response_matrimony.data
+
+    data = {
+        "gender_data": gender_data,
+        "religion_data": religion_data,
+        "blood_group_data": blood_group_data,
+        "matrimony_data": matrimony_data,
+    }
+    return render(request, "patient/templates/patient_form.html", data)
+
+
 def store_patient(request):
     operation_response = store_patient_data(request)
     if operation_response.data.get("status") == 200:
@@ -22,6 +44,18 @@ def store_patient(request):
     else:
         messages.add_message(request, messages.ERROR, "Error in storing Patient data")
         return redirect("add_patient_form")
+
+
+def store_patient_by_doctor(request):
+    operation_response = store_patient_data(request)
+    if operation_response.data.get("status") == 200:
+        # email = operation_response.data.get("email")
+        # request.session["temp_verify_email"] = email
+        messages.add_message(request, messages.INFO, "Patient data store successfully.")
+        return redirect("patient_form")
+    else:
+        messages.add_message(request, messages.ERROR, "Error in storing Patient data")
+        return redirect("patient_form")
 
 
 def get_patient_data(request):
@@ -52,6 +86,8 @@ def edit_patient_form(request, patient_id):
 
     response_patient = patient_data(request, patient_id)
     patient_all_data = response_patient.data
+    print(patient_all_data)
+
     data = {
         "gender_data": gender_data,
         "religion_data": religion_data,

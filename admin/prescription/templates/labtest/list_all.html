@@ -45,19 +45,13 @@
                                     <!-- <i class="fas fa-ellipsis-v"></i> -->
                                 </span>
                             <div class="dropdown-menu">
-                                <a href="{% url 'lab_view' prescription_data.id %}"
+                                <a href="{% url 'lab_prescription_view' prescription_data.id %}"
                                    class="dropdown-item text-info">
                                     <i class="fas fa-eye"></i> View
                                 </a>
-                                <a href="{% url 'edit_prescription_form' prescription_data.id %}"
-                                   class="dropdown-item text-primary">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>
-                                <!-- Button trigger modal -->
-                                <a data-toggle="modal" data-target="#myModal"
-                                   data-delete-url="{% url 'delete_prescription' prescription_data.id %}"
-                                   class="dropdown-item text-danger">
-                                    <i class="fas fa-trash"></i> Delete
+                                <!-- Modify the onclick attribute to pass the prescription_data.id -->
+                                <a href="" onclick="printPrescription('{{ prescription_data.id }}')" id="print-button"
+                                   class="dropdown-item text-warning"><i class="fas fa-print"></i> Print
                                 </a>
                             </div>
                         </div>
@@ -66,26 +60,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
-    </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Organ Data</h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h5>Are you sure?</h5>
-            </div>
-            <div class="modal-footer text-center">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="deleteButtonID">Delete</button>
-            </div>
         </div>
     </div>
 </div>
@@ -106,15 +80,17 @@
             "order": false,
             "buttons": ["copy", "csv", "excel", "print", "colvis"]
         }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
-
-        $('#myModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var deleteURL = button.data('delete-url');
-            $('#deleteButtonID').click(function () {
-                console.log('deleteButtonID');
-                window.location.href = deleteURL;
-            });
-        });
     });
+    function printPrescription(id) {
+        // Check if the ID is not empty or undefined
+        // Find the "Print" link by its id
+        const printButton = document.getElementById("print-button");
+        if (id) {
+            var printUrl = `/print-labtest-prescription/${id}/`;  // Use backticks for string interpolation
+            window.open(printUrl, '_blank');
+        } else {
+            console.error("Prescription ID is empty or undefined.");
+        }
+    }
 </script>
 {% endblock %}

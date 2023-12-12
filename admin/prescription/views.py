@@ -1,19 +1,15 @@
 from .models import *
 from .serializers import *
 from django.db import transaction
-from django.utils import timezone
-from admin.medicine.models import Medicine
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from admin.medicine.serializers import MedicineScheduleSerializer
 
 # import for barcode
 import os
 import hashlib
 import barcode
 from io import BytesIO
-from PIL import Image, ImageDraw
-# from django.http import HttpResponse
+from PIL import Image
 from barcode.writer import ImageWriter
 
 
@@ -84,48 +80,7 @@ def get_medicine_prescription_by_id(request, prescription_id):
     return Response(serializer_data)
 
 
-def generate_barcode(request, registration):
-    # Encrypt the registration string (you can use a stronger encryption method)
-    encrypted_registration = hashlib.sha256(registration.encode()).hexdigest()
-
-    # Limit the length to 8 characters
-    truncated_encrypted_registration = encrypted_registration[:8]
-
-    # Generate barcode
-    code = barcode.get('code128', registration, writer=ImageWriter())
-
-    # Create a BytesIO buffer to store the image data
-    buffer = BytesIO()
-
-    # Write the barcode to the buffer
-    code.write(buffer, options={'write_text': False})
-
-    # Reset the buffer position to the beginning
-    buffer.seek(0)
-
-    # Create a PIL Image from the barcode
-    pil_image = Image.open(buffer)
-
-    # Define the directory where you want to save the barcode image
-    barcode_image_directory = 'static/uploads/barcodes/'
-
-    # Create the directory if it does not exist
-    os.makedirs(barcode_image_directory, exist_ok=True)
-
-    # Define the path where you want to save the barcode image with the encrypted registration
-    barcode_image_path = os.path.join(barcode_image_directory, '{}.png'.format(truncated_encrypted_registration))
-
-    # Save the PIL Image to the specified path
-    pil_image.save(barcode_image_path, format='PNG')
-
-    # Close the BytesIO buffer
-    buffer.close()
-
-    # Return the relative path to the generated barcode image without the 'static' prefix
-    relative_path = os.path.relpath(barcode_image_path, 'static')
-    return relative_path
-
-
+# lab test part
 @api_view(['POST'])
 @transaction.atomic
 def store_lab_prescription_data(request, doctor_id, user_id):
@@ -175,7 +130,7 @@ def get_lab_prescription_by_id(request, prescription_id):
     barcode_image_path = generate_barcode(request, registration_data_to_encode)
 
     # Add barcode_image_path to serializer_data
-    serializer_data['barcode_image_path'] = barcode_image_path
+    serializer_data['barcode_image'] = barcode_image_path
 
     return Response(serializer_data)
 
@@ -196,3 +151,44 @@ def count_medicine_prescription(request, doctor_id):
 
     return Response(serialized_data)
 
+
+def generate_barcode(request, registration):
+    # Encrypt the registration string (you can use a stronger encryption method)
+    encrypted_registration = hashlib.sha256(registration.encode()).hexdigest()
+
+    # Limit the length to 8 characters
+    truncated_encrypted_registration = encrypted_registration[:8]
+
+    # Generate barcode
+    code = barcode.get('code128', registration, writer=ImageWriter())
+
+    # Create a BytesIO buffer to store the image data
+    buffer = BytesIO()
+
+    # Write the barcode to the buffer
+    code.write(buffer, options={'write_text': False})
+
+    # Reset the buffer position to the beginning
+    buffer.seek(0)
+
+    # Create a PIL Image from the barcode
+    pil_image = Image.open(buffer)
+
+    # Define the directory where you want to save the barcode image
+    barcode_image_directory = 'static/uploads/barcodes/'
+
+    # Create the directory if it does not exist
+    os.makedirs(barcode_image_directory, exist_ok=True)
+
+    # Define the path where you want to save the barcode image with the encrypted registration
+    barcode_image_path = os.path.join(barcode_image_directory, '{}.png'.format(truncated_encrypted_registration))
+
+    # Save the PIL Image to the specified path
+    pil_image.save(barcode_image_path, format='PNG')
+
+    # Close the BytesIO buffer
+    buffer.close()
+
+    # Return the relative path to the generated barcode image without the 'static' prefix
+    relative_path = os.path.relpath(barcode_image_path, 'static')
+    return relative_path

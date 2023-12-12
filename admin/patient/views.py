@@ -62,7 +62,7 @@ def get_patients_list(request):
     try:
         patients = PatientProfile.objects.filter(deleted_at=None).select_related(
             'gender', 'religion', 'blood_group', 'matrimony', 'user'
-        )
+        ).order_by('-id')
         serializer = PatientViewSerializer(patients, many=True)
         return Response(serializer.data)
     except PatientProfile.DoesNotExist:

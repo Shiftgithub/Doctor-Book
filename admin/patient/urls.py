@@ -12,7 +12,9 @@ urlpatterns = [
         include(
             [
                 path('form/', patient_form, name='add_patient_form'),
+                path('form-for-doctor/', patient_form_for_doctor, name='patient_form'),
                 path('store/', store_patient, name='store_patient'),
+                path('store-by-doctor/', store_patient_by_doctor, name='store_patient_by_doctor'),
                 path('list/', get_patient_data, name='patient_list'),
                 path('view/<int:patient_id>/', protected_view(view_patient), name='view_patient'),
                 path('update/<int:patient_id>/', protected_view(edit_patient_form), name='edit_patient_form'),

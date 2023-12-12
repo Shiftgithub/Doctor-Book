@@ -56,7 +56,6 @@ def prediction(request):
 
                 prediction_store_serializer = PredictionStoreSerializer(data=request.data)
                 if prediction_store_serializer.is_valid():
-                    print(prediction_store_serializer)
                     # Save the model with the department and department_speci
                     save = prediction_store_serializer.save(
                         organ=organ,

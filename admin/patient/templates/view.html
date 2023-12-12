@@ -64,27 +64,6 @@
                             {% endif %}
                         </div>
                     </div>
-                    <!-- Phone Number -->
-                    <div class="row mb-3">
-                        <label class="col-md-3 col-form-label">Phone Number : </label>
-                        <div class="col-md-9">
-                            {% if patient_all_data.phone_no %}
-                            <input class="form-control" value=" {{ patient_all_data.phone_no }}" readonly/>
-                            {% else %}
-                            <span class="badge badge-warning">Not Provided</span>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-md-3 col-form-label">Email : </label>
-                        <div class="col-md-9">
-                            {% if patient_all_data.phone_no %}
-                            <input class="form-control" value=" {{ patient_all_data.email }}" readonly/>
-                            {% else %}
-                            <span class="badge badge-warning">Not Provided</span>
-                            {% endif %}
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row mb-3">
@@ -99,6 +78,31 @@
 
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <legend class="text-info"><i class="far fa-address-card"></i> Contact Information</legend>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-2 col-form-label">Phone Number : </label>
+                <div class="col-md-10">
+                    {% if patient_all_data.phone_no %}
+                    <input class="form-control" value=" {{ patient_all_data.phone_no }}" readonly/>
+                    {% else %}
+                    <span class="badge badge-warning">Not Provided</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-2 col-form-label">Email : </label>
+                <div class="col-md-10">
+                    {% if patient_all_data.phone_no %}
+                    <input class="form-control" value=" {{ patient_all_data.email }}" readonly/>
+                    {% else %}
+                    <span class="badge badge-warning">Not Provided</span>
+                    {% endif %}
                 </div>
             </div>
             <div class="row mb-3">

@@ -112,7 +112,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_prescription_form' %}" class="nav-link">
+                        <a href="{% url 'add_medicine_prescription_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Medicine Prescription</p>
                         </a>
@@ -163,23 +163,23 @@
             <!-- Patient History -->
             <li class="nav-item mainItem">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-notes-medical"></i>
+                    <i class="nav-icon fas fa-user-injured"></i>
                     <p>
-                        Patient History
+                        Patient
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'medine_prescription_list' %}" class="nav-link">
+                        <a href="{% url 'patient_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Patient Prescriptions</p>
+                            <p>Add Patient</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a href="" class="nav-link">
+                        <a href="{% url 'patient_list' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Patient Appointments</p>
+                            <p>All Patient</p>
                         </a>
                     </li>
                 </ul>

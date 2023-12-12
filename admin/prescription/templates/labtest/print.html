@@ -1,17 +1,50 @@
-{% extends 'dashboard/templates/patient/dashboard.html' %}
 {% load static %}
-{% block styles %}
-<style>
-    .signature-container {
-        text-align: center;
-    }
-    #logo {
-        background: url("{% static 'adminlte_assets/img/icon.png' %}") center center no-repeat;
-         opacity: 0.5;
-    }
-</style>
-{% endblock %}
-{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="{% static 'adminlte_assets/img/icon.png' %}" rel="icon">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/fontawesome-free/css/fonts.googleapis.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/fontawesome-free/css/all.min.css' %}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/ionicons/css/ionicons.min.css' %}">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet"
+          href="{% static 'adminlte_assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/jqvmap/jqvmap.min.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/css/adminlte.min.css' %}">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet"
+          href="{% static 'adminlte_assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/daterangepicker/daterangepicker.css' %}">
+
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/sweetalert2/sweetalert2.css' %}">
+    <style>
+        .signature-container {
+            text-align: center;
+        }
+        #logo {
+            background: url("{% static 'adminlte_assets/img/icon.png' %}") center center no-repeat;
+            opacity: 0.5;
+        }
+        .darker-hr {
+            border-top: 2px solid #333; /* You can adjust the color as needed */
+        }
+    </style>
+</head>
+<body>
 <div class="container mt-4">
     <div class="card">
         <div class="card-body">
@@ -97,9 +130,8 @@
         </div>
     </div>
 </div>
-{% endblock %}
+</body>
 
-{% block scripts %}
 <script>
     // Find the "Print" link by its id
     const printButton = document.getElementById("print-button");
@@ -112,5 +144,4 @@
         window.print();
     });
 </script>
-{% endblock %}
-
+</html>

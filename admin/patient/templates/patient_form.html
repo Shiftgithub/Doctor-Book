@@ -3,58 +3,42 @@
 
 {% block content %}
 <div class="container mt-4">
-
-    <div class="card">
-        <div class="card-header bg-dark">
-            <h1 class="card-title">Patient Details</h1>
-            <h1 class="card-title float-right">
-                <a href="{% url 'view_patient' patient_all_data.id %}" class="nav-link btn btn-info float-right"
-                   type="submit">Back View</a>
-            </h1>
-        </div>
-        <div class="card-body">
-            <form action="{% url 'edit_patient' patient_id %}" enctype="multipart/form-data" id="PostForm"
-                  method="POST" class="needs-validation" novalidate>
-                {% csrf_token %}
+    <form action="{% url 'store_patient_by_doctor' %}" enctype="multipart/form-data" id="PostForm"
+          method="POST" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header bg-dark">
+                <h1 class="card-title">Add Patient</h1>
+            </div>
+            <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="NameID">Name :</label>
                             <div class="col-md-9">
-                                <input class="form-control" type="text" id="NameID"
-                                       value="{{ patient_all_data.full_name }}" name="full_name" required/>
+                                <input class="form-control" type="text" id="NameID" name="full_name" required/>
                                 <div class="invalid-feedback">Please enter your full name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="fatherNameID">Father Name :</label>
                             <div class="col-md-9">
-                                {% if patient_all_data.father_name %}
-                                <input class="form-control" type="text" id="fatherNameID"
-                                       value="{{ patient_all_data.father_name }}" name="father_name" required/>
-                                {% else %}
                                 <input class="form-control" type="text" id="fatherNameID" name="father_name" required/>
-                                {% endif %}
                                 <div class="invalid-feedback">Please enter your father name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="motherNameID">Mother Name : </label>
                             <div class="col-md-9">
-                                {% if patient_all_data.mother_name %}
-                                <input class="form-control" value=" {{ patient_all_data.mother_name }}"
-                                       id="motherNameID" type="text" name="mother_name" required/>
-                                {% else %}
-                                <input class="form-control" type="text" id="motherNameID" name="mother_name" required/>
-                                {% endif %}
+                                <input class="form-control" id="motherNameID" type="text" name="mother_name" required/>
                                 <div class="invalid-feedback">Please enter your mother name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="dateOfBirthID">Date of Birth : </label>
                             <div class="col-md-9">
-                                <input class="form-control" value="{{ patient_all_data.date_of_birth }}"
-                                       type="date" id="dateOfBirthID" name="date_of_birth" required/>
+                                <input class="form-control" type="date" id="dateOfBirthID" name="date_of_birth"
+                                       required/>
                                 <div class="invalid-feedback">Please choose you date of brith.</div>
                             </div>
                         </div>
@@ -62,9 +46,19 @@
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="phoneNoID">Phone Number : </label>
                             <div class="col-md-9">
-                                <input class="form-control" value=" {{ patient_all_data.phone_no }}" id="phoneNoID"
-                                       type="text" name="phone_no" required/>
+                                <input class="form-control" id="phoneNoID" type="text" name="phone_no" required/>
                                 <div class="invalid-feedback">Please enter your phone no.</div>
+                            </div>
+                        </div>
+                        <!-- Email Address -->
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="emailID">Email : </label>
+                            <div class="col-md-9">
+                                <input type="email" class="form-control" name="email" id="emailID"
+                                       placeholder="patient@gmail.com" required>
+                                <div id="emailError" class="invalid-feedback"></div>
+                                <div id="emailAvailability" class="invalid-feedback"></div>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
                             </div>
                         </div>
                     </div>
@@ -73,14 +67,9 @@
                             <div class="col-md-12">
                                 <input class="form-control mb-3" id="imageID" name="photo_name"
                                        onchange="previewImage(event)" type="file"/>
-                                {% if patient_all_data.images.0.photo_name %}
-                                <img alt="Patient Image" id="preview" src="{{ patient_all_data.images.0.photo_name }}"
-                                     style="width: 75%; height: 200px;">
-                                {% else %}
                                 <img alt="Patient Image" id="preview"
                                      src="{% static 'adminlte_assets/img/nobody.png' %}"
                                      style="width: 75%; height: 200px;">
-                                {% endif %}
                                 <div id="imageDescription" class="form-text">Choose an image file (JPEG, PNG, GIF) with
                                     a maximum size of 5MB.
                                 </div>
@@ -100,11 +89,7 @@
                         <select class="form-control select2" id="genderID" name="gender" required>
                             <option selected disabled value="">Select Gender</option>
                             {% for item in gender_data %}
-                            {% if item.name == patient_all_data.gender %}
-                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
-                            {% else %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
-                            {% endif %}
                             {% endfor %}
                         </select>
                         <div class="invalid-feedback">Please select your gender.</div>
@@ -114,11 +99,7 @@
                         <select class="form-control select2" id="religionID" name="religion" required>
                             <option selected disabled value="">Select Religion</option>
                             {% for item in religion_data %}
-                            {% if item.name == patient_all_data.religion %}
-                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
-                            {% else %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
-                            {% endif %}
                             {% endfor %}
                         </select>
                         <div class="invalid-feedback">Please select your religion.</div>
@@ -130,11 +111,7 @@
                         <select class="form-control select2" id="bloodGroupID" name="blood_group" required>
                             <option selected disabled value="">Select Blood Group</option>
                             {% for item in blood_group_data %}
-                            {% if item.name == patient_all_data.blood_group %}
-                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
-                            {% else %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
-                            {% endif %}
                             {% endfor %}
                         </select>
                         <div class="invalid-feedback">Please select your blood group.</div>
@@ -144,11 +121,7 @@
                         <select class="form-control select2" id="matrimonyID" name="matrimony" required>
                             <option selected disabled value="">Select Matrimony</option>
                             {% for item in matrimony_data %}
-                            {% if item.name == patient_all_data.matrimony %}
-                            <option value="{{ item.id }}" selected>{{ item.name }}</option>
-                            {% else %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
-                            {% endif %}
                             {% endfor %}
                         </select>
                         <div class="invalid-feedback">Please select your matrimony.</div>
@@ -157,38 +130,41 @@
                 <div class="row mb-3">
                     <label class="col-md-2 col-sm-12 form-label" for="nidID">NID No: </label>
                     <div class="col-md-4">
-                        {% if patient_all_data.mother_name %}
-                        <input class="form-control" type="number" value="{{ patient_all_data.nid_no }}"
-                               id="nidID" name="nid_no"/>
-                        {% else %}
                         <input class="form-control" type="number" id="nidID" name="nid_no" required/>
-                        {% endif %}
                         <div class="invalid-feedback">Please enter NID no.</div>
                     </div>
                     <label class="col-md-2 col-form-label" for="addressID">Address : </label>
                     <div class="col-md-4">
-                        {% if patient_all_data.mother_name %}
-                        <input class="form-control" value=" {{ patient_all_data.address }}" id="addressID"
-                               type="text" name="address" required/>
-                        {% else %}
-                        <input class="form-control" type="text" id="addressID" name="address" required/>
-                        {% endif %}
+                        <input class="form-control" id="addressID" type="text" name="address" required/>
                         <div class="invalid-feedback">Please enter your address.</div>
                     </div>
                 </div>
-                <div class="card-footer">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="far fa-user"></i> Personal Information</legend>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="usernameID">User Name : </label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" name="user_name" id="usernameID"
+                               placeholder="Username" required>
+                        <div id="usernameError" class="invalid-feedback"></div>
+                        <div id="usernameAvailability" class="invalid-feedback"></div>
+                        <div class="invalid-feedback">Please enter a username.</div>
+                        <input type="hidden" name="password" value="12345678">
+                    </div>
+                </div>
+                <div class="card-footer text-right">
                     <div class="row">
-                        <div class="col-md-6">
-                            <button class="btn btn-secondary" type="reset">Cancel</button>
-                        </div>
-                        <div class="col-md-6">
-                            <button class="btn btn-warning float-right" type="submit">Update</button>
+                        <div class="col-md-12">
+                            <button class="btn btn-success" type="submit">Submit</button>
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 {% endblock %}
 {% block scripts %}
@@ -206,10 +182,113 @@
                         event.preventDefault();
                         event.stopPropagation();
                     }
+
                     form.classList.add('was-validated');
                 }, false);
+            });
+
+        // check user-name is available
+        const usernameField = $('#usernameID');
+        const usernameAvailability = $('#usernameAvailability');
+        const usernameError = $('#usernameError');
+
+        // check user-email is available
+        const emailField = $('#emailID');
+        const emailAvailability = $('#emailAvailability');
+        const emailError = $('#emailError');
+        const form = $('#PostForm');
+
+        // Event listener for input on username field
+        usernameField.on('input', function () {
+            checkUsernameAvailability(usernameField.val());
         });
-     });
+
+        // Event listener for input on email field
+        emailField.on('input', function () {
+            const emailValue = emailField.val().trim();
+
+            // Clear existing error messages
+            emailError.text('');
+            emailField.removeClass('is-invalid');
+            emailAvailability.text('');
+
+            if (emailValue === '') {
+                emailError.text('Please enter a valid email address.');
+                emailField.addClass('is-invalid');
+            } else {
+                checkEmailAvailability(emailValue);
+            }
+        });
+
+        // Function to check username availability
+        const checkUsernameAvailability = function (username) {
+            const url = `/user-check-username-availability/${username}/`;
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.message === "Username already taken") {
+                        usernameError.text('Username already taken.Try another');
+                        usernameField.addClass('is-invalid');
+                        usernameAvailability.text('');
+                    } else {
+                        usernameError.text('');
+                        usernameField.removeClass('is-invalid');
+                        usernameAvailability.text('');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error checking username availability:', error);
+                }
+            });
+        };
+
+        // Function to check email availability
+        const checkEmailAvailability = function (email) {
+            const url = `/user-check-email-availability/${email}/`;
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.message === 'Email is empty') {
+                        emailError.text('Please enter a valid email address.');
+                        emailField.addClass('is-invalid');
+                        emailAvailability.text('');
+                    } else if (data.message === 'Email already taken') {
+                        emailError.text('This email is already used in our system. Please try another.');
+                        emailField.addClass('is-invalid');
+                        emailAvailability.text('');
+                    } else {
+                        emailError.text('');
+                        emailField.removeClass('is-invalid');
+                        emailAvailability.text('');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error checking email availability:', error);
+                }
+            });
+        };
+        form.on('submit', function (event) {
+            let hasErrors = false;
+
+            $('#emailError').text('');
+            $('#emailID').removeClass('is-invalid');
+            usernameError.text('');
+            emailAvailability.text('');
+
+            // (e.g., check for additional errors like "Username already taken" and "Email already taken")
+
+            if (hasErrors) {
+                console.log('Validation errors detected. Form submission prevented.');
+                event.preventDefault(); // Prevent form submission if there are errors
+            }
+        });
+    });
     function previewImage(event) {
     var input = event.target;
     var imgElement = document.getElementById("preview");
