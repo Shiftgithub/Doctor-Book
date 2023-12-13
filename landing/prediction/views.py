@@ -67,21 +67,22 @@ def prediction(request):
                     if save:
                         response_data = {
                             'status': 200,
+                            'prediction_id': save.id,
                             'body_part_name': body_part_serializer.data,
                             'organ_name': organ_serializer.data,
                             'doctors_data': doctor_serializer.data,
                             'problem_specs': problem_specs_data,
+                            'message': 'Here are all Doctor List',
                         }
                         return Response(response_data)
                     else:
                         response_data = {'status': 403,
-                                         'message': 'DepartmentSpecifications have different departments'}
+                                         'message': 'Error in prediction storing data.'}
                 else:
-                    response_data = {'status': 403,
-                                     'message': 'DepartmentSpecifications have different departments'}
+                    response_data = {'status': 400, 'message': 'Invalid request!'}
             else:
                 response_data = {'status': 403,
-                                 'message': 'DepartmentSpecifications have different departments'}
+                                 'message': 'Department have multiple departments'}
         else:
             response_data = {'status': 403,
                              'message': 'DepartmentSpecifications have different departments'}

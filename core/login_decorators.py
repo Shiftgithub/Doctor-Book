@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect
-from .constants import *
+from admin.constants.constants import *
 
 
 def protected_view(view_func):

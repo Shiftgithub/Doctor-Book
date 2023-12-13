@@ -36,26 +36,39 @@ def patient_form_for_doctor(request):
 
 def store_patient(request):
     operation_response = store_patient_data(request)
-    if operation_response.data.get("status") == 200:
+
+    message = operation_response.data.get('message')
+    if operation_response.data.get('status') == 200:
         email = operation_response.data.get("email")
         request.session["temp_verify_email"] = email
         messages.add_message(request, messages.INFO, "Please activate your account")
+        messages.add_message(request, messages.INFO, message)
         return redirect("otp_form")
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect("add_patient_form")
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect("add_patient_form")
     else:
-        messages.add_message(request, messages.ERROR, "Error in storing Patient data")
+        messages.add_message(request, messages.ERROR, message)
         return redirect("add_patient_form")
 
 
 def store_patient_by_doctor(request):
     operation_response = store_patient_data(request)
-    if operation_response.data.get("status") == 200:
+    message = operation_response.data.get('message')
+    if operation_response.data.get('status') == 200:
         # email = operation_response.data.get("email")
         # request.session["temp_verify_email"] = email
-        messages.add_message(request, messages.INFO, "Patient data store successfully.")
-        return redirect("patient_form")
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, "Error in storing Patient data")
-        return redirect("patient_form")
+        messages.add_message(request, messages.ERROR, message)
+    return redirect("patient_form")
 
 
 def get_patient_data(request):
@@ -86,7 +99,6 @@ def edit_patient_form(request, patient_id):
 
     response_patient = patient_data(request, patient_id)
     patient_all_data = response_patient.data
-    print(patient_all_data)
 
     data = {
         "gender_data": gender_data,
@@ -101,14 +113,16 @@ def edit_patient_form(request, patient_id):
 
 def edit_patient(request, patient_id):
     operation_response = edit_patient_data(request, patient_id)
-    if operation_response.data.get("status") == 200:
-        messages.add_message(
-            request, messages.INFO, "Patient data are edited successfully."
-        )
-        return redirect("edit_patient_form", patient_id=patient_id)
+    message = operation_response.data.get('message')
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, "Error in storing Patient data")
-        return redirect("edit_patient_form", patient_id=patient_id)
+        messages.add_message(request, messages.ERROR, message)
+    return redirect("edit_patient_form", patient_id=patient_id)
 
 
 def find_doctors(request):
@@ -159,11 +173,9 @@ def appointment(request, doctor_id):
     doctor_all_data = response_doctor.data
     days = generate_date(request, doctor_id)
     request.session['temp_doctor_id'] = doctor_id
-    # schedule_time = generate_schedule_time(request, doctor_id, date)
 
     data = {
         'date_list': days,
         'doctor_all_data': doctor_all_data,
-        # 'schedule_time': schedule_time,
     }
     return render(request, "patient/templates/appointment.html", data)

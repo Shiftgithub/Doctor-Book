@@ -44,10 +44,10 @@ def store_prescription_data(request, doctor_id, user_id):
                 created_by=user_instant,
             )
         if medicine_prescription:
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'Medicine Prescription data stored successfully'})
         else:
             transaction.set_rollback(True)
-            return Response({'status': 404})
+            return Response({'status': 403, 'message': 'Error in storing medicine prescription data'})
     else:
         transaction.set_rollback(True)
         return Response({'status': 400, 'message': 'Invalid data', 'id': doctor_id})
@@ -104,10 +104,10 @@ def store_lab_prescription_data(request, doctor_id, user_id):
                 created_by=user_instant,
             )
         if prescription_lab_test:
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'Lab Prescription data stored successfully'})
         else:
             transaction.set_rollback(True)
-            return Response({'status': 404})
+            return Response({'status': 403, 'message': 'Error in storing lab prescription data'})
     else:
         transaction.set_rollback(True)
         return Response({'status': 400, 'message': 'Invalid data', 'id': doctor_id})

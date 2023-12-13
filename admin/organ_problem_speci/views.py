@@ -19,10 +19,10 @@ def store_organ_problem_specification_data(request):
             problem_speci_obj = OrgansProblemSpecification(organ=organ_id, problem=problem,
                                                            problem_specification=problem_speci)
             problem_speci_obj.save()
-        return Response({'status': 200})
+        return Response({'status': 200, 'message': 'Organ Specification data stored successfully'})
     except Exception as e:
         # Handle other exceptions here if needed
-        return Response({'status': 500, 'error': str(e)})
+        return Response({'status': 500, 'message': 'Error in organ specification data storing!'})
 
 
 # all organproblem data
@@ -52,11 +52,11 @@ def edit_organ_problem_specification_data(request, organ_problem_specification_i
     serializer = OrganProblemSerializer(organ_problem_specification, data=request.data)
     if serializer.is_valid():
         if serializer.save(updated_at=timezone.now()):
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'Organ problem specification data updated successfully'})
         else:
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in updating organ problem specification data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 # delete organ problem data
@@ -72,8 +72,8 @@ def softdelete_organ_problem_specification_data(request, organ_problem_specifica
     else:
         if serializer.is_valid():
             if serializer.save(deleted_at=timezone.now()):
-                return Response({'status': 200})
+                return Response({'status': 200, 'message': 'Organ problem specification data deleted successfully'})
             else:
-                return Response({'status': 403})
+                return Response({'status': 403, 'message': 'Error in  deleting organ problem specification data'})
         else:
-            return Response({'status': 403})
+            return Response({'status': 400, 'message': 'Invalid request!'})

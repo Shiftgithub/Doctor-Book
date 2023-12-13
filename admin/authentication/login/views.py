@@ -1,6 +1,6 @@
 import hashlib
 from .serializers import *
-from core.constants import *
+from admin.constants.constants import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from admin.doctor.models import DoctorProfile

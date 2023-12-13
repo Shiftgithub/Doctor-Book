@@ -29,14 +29,15 @@ def store_medicine_prescription(request):
     doctor_id = request.session.get('id')
     user_id = request.session.get('user_id')
     operation_response = store_prescription_data(request, doctor_id, user_id)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(
-            request, messages.INFO, 'Prescription data stored successfully'
-        )
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(
-            request, messages.ERROR, 'Error in storing prescription data'
-        )
+        messages.add_message(request, messages.ERROR, message)
     return redirect('add_medicine_prescription_form')
 
 
@@ -110,14 +111,15 @@ def store_lab_prescription(request):
     doctor_id = request.session.get('id')
     user_id = request.session.get('user_id')
     operation_response = store_lab_prescription_data(request, doctor_id, user_id)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(
-            request, messages.INFO, 'Prescription data stored successfully'
-        )
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(
-            request, messages.ERROR, 'Error in storing prescription data'
-        )
+        messages.add_message(request, messages.ERROR, message)
     return redirect('lab_prescription_form')
 
 

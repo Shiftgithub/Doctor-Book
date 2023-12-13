@@ -37,3 +37,9 @@ class PredictionStoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prediction
         fields = '__all__'
+
+
+class PredictionUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prediction
+        fields = ['id', 'created_by']

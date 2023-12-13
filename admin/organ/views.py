@@ -23,10 +23,10 @@ def store_organ_data(request):
         for organ, description in zip(organs, descriptions):
             organ_obj = Organ(body_part=body_part, name=organ, description=description)
             organ_obj.save()
-        return Response({'status': 200})
+        return Response({'status': 200, 'message': 'Organ data stored successfully'})
     except Exception as e:
         # Handle other exceptions here if needed
-        return Response({'status': 500, 'error': str(e)})
+        return Response({'status': 500, 'message': 'Error in organ data storing'})
 
 
 # all organ list function
@@ -54,12 +54,12 @@ def edit_organ_data(request, organ_id):
     organ = Organ.objects.get(id=organ_id)
     serializer = OrganSerializer(organ, data=request.data)
     if serializer.is_valid():
-        if (serializer.save(updated_at=timezone.now())):
-            return Response({'status': 200})
+        if serializer.save(updated_at=timezone.now()):
+            return Response({'status': 200, 'message': 'Organ data updated successfully'})
         else:
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in updating organ data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 # delete organ data
@@ -70,12 +70,13 @@ def softdelete_organ_data(request, organ_id):
     serializer = OrganDeleteSerializer(organ, data=request.data)
     organ_problems = OrgansProblemSpecification.objects.filter(organ_id=organ_id)
     if organ_problems:
-        return Response({'status': 404})
+        response = {'status': 404, 'message': 'Organ cannot delete. because it is associated with Organ Problem table.'}
+        return Response(response)
     else:
         if serializer.is_valid():
             if serializer.save(deleted_at=timezone.now()):
-                return Response({'status': 200})
+                return Response({'status': 200, 'message': 'Organ data deleted successfully'})
             else:
-                return Response({'status': 403})
+                return Response({'status': 403, 'message': 'Error in  deleting organ data'})
         else:
-            return Response({'status': 403})
+            return Response({'status': 400, 'message': 'Invalid request!'})

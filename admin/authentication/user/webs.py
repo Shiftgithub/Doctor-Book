@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from admin.doctor.models import DoctorProfile
 from admin.patient.models import PatientProfile
 from django.contrib import messages
-from core.constants import *
+from admin.constants.constants import *
 from admin.personal_data.views import *
 from django.http import HttpResponse
 
@@ -32,13 +32,23 @@ def admin_form(request):
 
 def store_admin(request):
     operation_response = store_admin_data(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
         email = operation_response.data.get('email')
         request.session['temp_verify_email'] = email
-        messages.add_message(request, messages.INFO, 'Please activate your account')
+        messages.add_message(request, messages.INFO, message)
         return redirect('otp_form')
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('admin_form')
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('admin_form')
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('admin_form')
     else:
-        messages.add_message(request, messages.ERROR, 'Error in storing admin data')
+        messages.add_message(request, messages.ERROR, message)
         return redirect('admin_form')
 
 
@@ -77,20 +87,21 @@ def edit_admin_form(request, admin_id):
 
 def edit_admin(request, admin_id):
     operation_response = edit_admin_data(request, admin_id)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(
-            request, messages.INFO, 'Admin data are edited successfully.'
-        )
-        return redirect('edit_admin_form', admin_id=admin_id)
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error in storing Admin data')
-        return redirect('edit_admin_form', admin_id=admin_id)
+        messages.add_message(request, messages.ERROR, message)
+    return redirect('edit_admin_form', admin_id=admin_id)
 
 
 def get_user_details(request):
     if request.session.get('user_role') == ROLE_ADMIN:
         full_name = request.session.get('user_full_name')
-        print(full_name)
         user_id = request.session.get('user_id')
         admin_profile = AdminProfile.objects.filter(user_id=user_id).first()
         admin_id = admin_profile.id
@@ -102,7 +113,6 @@ def get_user_details(request):
         return redirect('view_doctor_data', doctor_id=doctor_id)
     elif request.session.get('user_role') == ROLE_PATIENT:
         user_id = request.session.get('user_id')
-        print(user_id)
         patient_profile = PatientProfile.objects.filter(user_id=user_id).first()
         patient_id = patient_profile.id
         return redirect('view_patient', patient_id=patient_id)

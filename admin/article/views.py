@@ -1,7 +1,7 @@
 from .serializers import *
 from django.utils import timezone
-from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 
 
@@ -12,11 +12,11 @@ def store_article_data(request, user_id):
     user_instant = User.objects.get(id=user_id)
     if article_serializer.is_valid():
         if article_serializer.save(created_by=user_instant):
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'Article data stored successfully'})
         else:
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in storing article data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 @api_view(['GET'])
@@ -28,12 +28,8 @@ def get_all_article_list(request):
 
 @api_view(['GET'])
 def article_dataview(request, article_id):
-    # Getting article data from Article model ...
     article = get_object_or_404(Article, id=article_id, deleted_at=None)
-
-    # Serializing article data ...
     serializer = ArticleSerializer(article)
-
     return Response(serializer.data)
 
 
@@ -51,10 +47,12 @@ def edit_article_data(request, article_id, user_id):
             # No new image selected, retain the existing image
             serializer.validated_data['image'] = article.image
 
-        serializer.save(updated_at=timezone.now(), modified_by=user_instant)
-        return Response({'status': 200})
+        if serializer.save(updated_at=timezone.now(), modified_by=user_instant):
+            return Response({'status': 200, 'message': 'Article data updated successfully'})
+        else:
+            return Response({'status': 403, 'message': 'Error in updating article data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 @api_view(['PUT', 'GET'])
@@ -62,10 +60,12 @@ def delete_article_data(request, article_id):
     article = get_object_or_404(Article.objects.filter(id=article_id, deleted_at=None).order_by('id'))
     serializer = ArticleDeleteSerializer(article, data=request.data)
     if serializer.is_valid():
-        serializer.save(deleted_at=timezone.now())
-        return Response({'status': 200})
+        if serializer.save(deleted_at=timezone.now()):
+            return Response({'status': 200, 'message': 'Article data deleted successfully'})
+        else:
+            return Response({'status': 403, 'message': 'Error in  deleting article data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 @api_view(['GET'])

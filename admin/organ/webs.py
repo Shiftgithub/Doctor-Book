@@ -13,12 +13,13 @@ def organ_form(request):
 
 def store_organ(request):
     operation_response = store_organ_data(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO,
-                             'Organ data stored successfully')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 500:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR,
-                             'Error in storing Organ data')
+        messages.add_message(request, messages.ERROR, message)
 
     return redirect('add_organ_form')
 
@@ -40,22 +41,29 @@ def edit_organ_form(request, organ_id):
 
 def edit_organ(request, organ_id):
     operation_response = edit_organ_data(request, organ_id)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Organ data edited successfully')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error editing organ data')
+        messages.add_message(request, messages.ERROR, message)
     return redirect('edit_organ_form', organ_id=organ_id)
 
 
 def delete_organ(request, organ_id):
     operation_response = softdelete_organ_data(request, organ_id)
 
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Organ data deleted successfully')
-    elif operation_response.data.get('status') == 404:
-        messages.add_message(request, messages.ERROR,
-                             'Organ cannot delete. because it is associated with Organ Problem table.')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error deleting Organ data')
+        messages.add_message(request, messages.ERROR, message)
 
     return redirect('organ_list')

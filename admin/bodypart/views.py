@@ -14,11 +14,9 @@ def store_body_part_data(request):
         if serializer.save():
             return Response({'status': 200, 'message': 'Body Part data stored Successfully'})
         else:
-            response = {'status': 403, 'message': 'Error in storing Body Part data'}
-            return Response(response)
+            return Response({'status': 403, 'message': 'Error in storing Body Part data'})
     else:
-        response = {'status': 400, 'message ': 'HTTP_400_BAD_REQUEST.', 'errors': serializer.errors}
-        return Response(response)
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 # all body_part list function
@@ -46,11 +44,9 @@ def edit_body_part_data(request, body_part_id):
         if serializer.save(updated_at=timezone.now()):
             return Response({'status': 200, 'message': 'Body Part data updated Successfully'})
         else:
-            response = {'status': 403, 'message': 'Error in updated Body Part data'}
-            return Response(response)
+            return Response({'status': 403, 'message': 'Error in updated Body Part data'})
     else:
-        response = {'status': 400, 'message ': 'HTTP_400_BAD_REQUEST.', 'errors': serializer.errors}
-        return Response(response)
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 # body_part delete function
@@ -65,14 +61,15 @@ def delete_body_part_data(request, body_part_id):
     organs = Organ.objects.filter(body_part_id=body_part_id)
 
     if organs.exists():
-        response = {'status': 403, 'message': 'Body Part cannot be deleted because it is associated with Organ table.'}
-        return Response(response)
+        return Response(
+            {'status': 403, 'message': 'Body Part cannot be deleted because it is associated with Organ table.'})
     else:
         serializer = BodyPartSerializer(body_part, data={'deleted_at': timezone.now()}, partial=True)
 
         if serializer.is_valid():
-            serializer.save()
-            return Response({'status': 200, 'message': 'Body Part data deleted successfully'})
+            if serializer.save():
+                return Response({'status': 200, 'message': 'Body Part data deleted successfully'})
+            else:
+                return Response({'status': 403, 'message': 'Error in body part deleting data'})
         else:
-            response = {'status': 400, 'message': 'Bad Request', 'errors': serializer.errors}
-            return Response(response)
+            return Response({'status': 400, 'message': 'Invalid Request'})

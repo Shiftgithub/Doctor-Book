@@ -11,29 +11,24 @@ def store_faq_data(request, user_id):
     faq_serializer = FAQSerializer(data=request.data)
     if faq_serializer.is_valid():
         if faq_serializer.save(created_by=user_instant):
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'FAQ data stored successfully'})
         else:
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in storing faq data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 @api_view(['GET'])
 def get_all_faq_list(request):
     faqs = FAQ.objects.filter(deleted_at=None).order_by('-id')
-
     serialized_data = FAQSerializer(faqs, many=True).data
     return Response(serialized_data)
 
 
 @api_view(['GET'])
 def faq_dataview(request, faq_id):
-    # getting bodypart data from faq model ...
     faq = FAQ.objects.get(id=faq_id)
-
-    # serializing faq data ...
     serializer = FAQSerializer(faq, many=False)
-
     return Response(serializer.data)
 
 
@@ -46,11 +41,11 @@ def edit_faq_data(request, faq_id, user_id):
     serializer = FAQSerializer(faq, data=request.data)
     if serializer.is_valid():
         if serializer.save(updated_at=timezone.now(), modified_by=user_instant):
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'FAQ data updated successfully'})
         else:
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in updating faq data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 # faq delete function
@@ -60,11 +55,11 @@ def softdelete_faq_data(request, faq_id):
     serializer = FAQDeleteSerializer(faq, data=request.data)
     if serializer.is_valid():
         if serializer.save(deleted_at=timezone.now()):
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'FAQ data deleted successfully'})
         else:
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in  deleting faq data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 # for doctor side

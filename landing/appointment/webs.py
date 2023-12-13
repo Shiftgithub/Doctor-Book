@@ -23,18 +23,19 @@ def date_time_form(request, doctor_id):
 def get_date_time(request):
     operation_response = date_time(request)
     doctor_id = request.session.get('temp_doctor_id')
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 308:
         appointment_date = operation_response.data.get('appointment_date')
         request.session['temp_appointment_date'] = appointment_date
-
         appointment_time = operation_response.data.get('appointment_time')
         request.session['temp_appointment_time'] = appointment_time
-
-        messages.add_message(request, messages.INFO,
-                             'Please Enter your registration ID or Create a new account for registration ID')
+        messages.add_message(request, messages.INFO, message)
         return redirect('appointment_schedule_form')
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('date_time_form', doctor_id=doctor_id)
     else:
-        messages.add_message(request, messages.ERROR, 'Error in Date time data')
+        messages.add_message(request, messages.ERROR, message)
         return redirect('date_time_form', doctor_id=doctor_id)
 
 
@@ -55,28 +56,45 @@ def appointment_schedule_form(request):
 
 def store_appointment_schedule(request):
     operation_response = store_appointment_data(request)
+
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO,
-                             'Appointment Request Send successfully')
+        messages.add_message(request, messages.INFO, message)
         return redirect('go_home')
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('appointment_schedule_form')
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('appointment_schedule_form')
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('appointment_schedule_form')
     else:
-        messages.add_message(request, messages.ERROR,
-                             'Error in Request Send')
+        messages.add_message(request, messages.ERROR, message)
         return redirect('appointment_schedule_form')
 
 
 def store_appointment_and_create_account(request):
     operation_response = create_patient_account_store_appointment(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
         email = operation_response.data.get("email")
         request.session["temp_verify_email"] = email
-        messages.add_message(request, messages.INFO,
-                             'Appointment Request Send successfully. We send otp on your email please active your account using otp')
-
+        messages.add_message(request, messages.INFO, message)
         return redirect('otp_form')
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('appointment_schedule_form')
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('appointment_schedule_form')
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('appointment_schedule_form')
+
     else:
-        messages.add_message(request, messages.ERROR,
-                             'Error in Request Send')
+        messages.add_message(request, messages.ERROR, message)
         return redirect('appointment_schedule_form')
 
 
@@ -84,9 +102,6 @@ def appointment_list_by_doctor(request):
     doctor_id = request.session.get('doctor_id')
     response = get_all_appointment_by_doctor(request, doctor_id)
     all_data = response.data
-    print('dddd')
-    print(all_data)
-
     return render(request, 'appointment/templates/list_all.html', {'all_data': all_data})
 
 
@@ -108,12 +123,18 @@ def appointment_list_by_date(request):
 
 def store_appointment(request):
     operation_response = get_store_appointment(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Appointment Request Send successfully')
-        return redirect('patient_predict_form')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error in Request Send')
-        return redirect('patient_predict_form')
+        messages.add_message(request, messages.ERROR, message)
+    return redirect('patient_predict_form')
 
 
 def view_appointment(request, appointment_id):

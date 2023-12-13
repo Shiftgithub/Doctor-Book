@@ -5,7 +5,6 @@ from django.db import transaction
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from django.shortcuts import get_object_or_404
 from admin.authentication.user.models import Images
 from admin.authentication.otp.verifyotp.models import *
 from admin.authentication.otp.function.send_email import *
@@ -23,7 +22,6 @@ from django.views.decorators.http import require_GET
 @transaction.atomic
 def store_admin_data(request):
     admin_serializer = AdminProfileSerializer(data=request.data)
-    print(admin_serializer)
     image_serializer = ImageSerializer(data=request.data)
     user_serializer = UserSerializer(data=request.data)
     if admin_serializer.is_valid() and image_serializer.is_valid() and user_serializer.is_valid(raise_exception=True):
@@ -50,13 +48,13 @@ def store_admin_data(request):
         otp_serializer.save()
         # send_mail = send_email(email, message)
         if otp_serializer:
-            data = {'email': email, 'status': 200}
+            data = {'email': email, 'status': 200, 'message': 'We send otp on your email. Please activate your account'}
             return Response(data)
         else:
             transaction.set_rollback(True)
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in storing admin data'})
     else:
-        return Response({'status': 400})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 @api_view(['GET'])
@@ -66,12 +64,12 @@ def admin_data(request, user_id):
             'gender', 'religion', 'blood_group', 'matrimony', 'user'
         ).first()
         if admin is None:
-            return Response({'error': 'Admin profile not found', 'status': '404'})
+            return Response({'error': 'Admin profile not found', 'status': 400})
         else:
             serializer = AdminViewSerializer(admin).data
             return Response(serializer)
     except AdminProfile.DoesNotExist:
-        return Response({'error': 'Admin profile not found', 'status': '404'})
+        return Response({'error': 'Admin profile not found', 'status': 400})
 
 
 @api_view(['PUT', 'POST'])
@@ -96,12 +94,12 @@ def edit_admin_data(request, admin_id):
             # session variable should be updated here
             set_user_info(request, admin, admin.user.id, admin.user.email)
 
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'Admin data are updated successfully.'})
         else:
             transaction.set_rollback(True)
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in updating admin data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 @require_GET

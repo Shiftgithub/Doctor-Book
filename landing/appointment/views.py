@@ -18,6 +18,9 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 
+from landing.prediction.serializers import PredictionUpdateSerializer
+from ..prediction.models import Prediction
+
 
 @api_view(['GET'])
 def get_off_day_list(request, doctor_id):
@@ -210,49 +213,59 @@ def date_time(request):
     if date_time_serializer.is_valid():
         appointment_date = date_time_serializer.validated_data['appointment_date']
         appointment_time = date_time_serializer.validated_data['appointment_time']
-        return Response({'status': 308, 'appointment_date': appointment_date, 'appointment_time': appointment_time})
+        response = {'status': 308, 'appointment_date': appointment_date, 'appointment_time': appointment_time,
+                    'message': 'Please Enter your registration ID or Create a new account for registration ID'}
+        return Response(response)
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 @api_view(['POST'])
+@transaction.atomic
 def store_appointment_data(request):
     appointment_date = request.session.get('temp_appointment_date')
     appointment_time = request.session.get('temp_appointment_time')
     doctor_id = request.session.get('temp_doctor_id')
+    prediction_id = request.session['prediction_id']
     if appointment_date and appointment_time and doctor_id:
         get_appointment = GetAppointment.objects.filter(doctor=doctor_id, appointment_date=appointment_date,
                                                         appointment_time=appointment_time, deleted_at=None)
         if get_appointment.exists():
-
-            return Response({'status': 403, 'message': 'this time already taken'})
+            return Response({'status': 404, 'message': 'this time already taken'})
         else:
             appointment_serializer = PatientAppointmentSerializer(data=request.data)
             if appointment_serializer.is_valid():
                 registration_id = request.data['registration_no']
-                # Retrieve the PatientProfile instance using the registration_no
                 try:
                     patient = PatientProfile.objects.get(registration_no=registration_id)
                 except PatientProfile.DoesNotExist:
                     return Response({'status': 404, 'message': 'Patient not found'})
-                # Retrieve the 'DoctorProfile' instance for the doctor using 'doctor_id'
                 try:
                     doctor = DoctorProfile.objects.get(id=doctor_id)
                 except DoctorProfile.DoesNotExist:
                     return Response({'status': 404, 'message': 'Doctor not found'})
-
+                prediction = get_object_or_404(Prediction, id=prediction_id, deleted_at=None)
+                prediction_serializer = PredictionUpdateSerializer(prediction, data={'created_by': patient.id},
+                                                                   partial=True)
+                if prediction_serializer.is_valid():
+                    prediction_obj = prediction_serializer.save()
                 # Set the 'doctor' field to the retrieved 'User' instance
-                appointment_serializer.save(
+                appointment = appointment_serializer.save(
                     appointment_date=appointment_date,
                     appointment_time=appointment_time,
                     doctor=doctor,
                     patient=patient
                 )
-                return Response({'status': 200})
+                prediction = prediction_serializer.save(created_by=patient)
+                if appointment and prediction:
+                    return Response({'status': 200, 'message': 'Appointment request send successfully'})
+                else:
+                    transaction.set_rollback(True)
+                    return Response({'status': 403, 'message': 'Error in request appointment schedule'})
             else:
-                return Response({'status': 403})
+                return Response({'status': 400, 'message': 'Invalid request!'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 403, 'message': 'Invalid doctor id or appointment date or appointment time!'})
 
 
 @api_view(['POST'])
@@ -261,15 +274,17 @@ def create_patient_account_store_appointment(request):
     appointment_date = request.session.get('temp_appointment_date')
     appointment_time = request.session.get('temp_appointment_time')
     doctor_id = request.session.get('temp_doctor_id')
+    prediction_id = request.session['prediction_id']
     if appointment_date and appointment_time and doctor_id:
         get_appointment = GetAppointment.objects.filter(doctor=doctor_id, appointment_date=appointment_date,
                                                         appointment_time=appointment_time, deleted_at=None)
         if get_appointment.exists():
-            return Response({'status': 403, 'message': 'this time already taken'})
+            return Response({'status': 404, 'message': 'this time already taken'})
         else:
-            appointment_serializer = PatientAppointmentSerializer(data=request.data)
             patient_serializer = PatientSerializer(data=request.data)
             user_serializer = UserSerializer(data=request.data)
+            appointment_serializer = PatientAppointmentSerializer(data=request.data)
+
             if user_serializer.is_valid(raise_exception=True) and patient_serializer.is_valid():
                 user_name = request.data.get('user_name')
                 email = request.data.get('email')
@@ -306,24 +321,37 @@ def create_patient_account_store_appointment(request):
                             return Response({'status': 404, 'message': 'Doctor not found'})
 
                         # Set the 'doctor' field to the retrieved 'User' instance
-                        appointment_serializer.save(
+                        appointment = appointment_serializer.save(
                             appointment_date=appointment_date,
                             appointment_time=appointment_time,
                             doctor=doctor,
                             patient=patient
                         )
-                        data = {'email': email, 'status': 200}
-                        return Response(data)
+                        prediction = get_object_or_404(Prediction, id=prediction_id, deleted_at=None)
+                        prediction_serializer = PredictionUpdateSerializer(prediction, data={'created_by': patient.id},
+                                                                           partial=True)
+                        if prediction_serializer.is_valid():
+                            prediction_obj = prediction_serializer.save()
+                            if appointment and prediction_obj:
+                                data = {'email': email, 'status': 200,
+                                        'message': 'Appointment request send successfully. We send otp on your email please active your account using otp'}
+                                return Response(data)
+                            else:
+                                transaction.set_rollback(True)
+                                return Response({'status': 403, 'message': 'Error in sending appointment request!'})
+                        else:
+                            transaction.set_rollback(True)
+                            return Response({'status': 404, 'message': 'Invalid request!'})
                     else:
                         transaction.set_rollback(True)
-                        return Response({'status': 403})
+                        return Response({'status': 404, 'message': 'Invalid request!'})
                 else:
                     transaction.set_rollback(True)
-                    return Response({'status': 403})
+                    return Response({'status': 404, 'message': 'Invalid Otp request!'})
             else:
-                return Response({'status': 403})
+                return Response({'status': 404, 'message': 'Invalid request!'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 403, 'message': 'Invalid doctor id or appointment date or appointment time!'})
 
 
 @api_view(['GET'])
@@ -395,7 +423,6 @@ def get_store_appointment(request):
             deleted_at=None
         )
         if get_appointment.exists():
-            # If the appointment exists, return an appropriate response
             return Response({'status': 403, 'message': 'This time is already taken'})
         else:
             if appointment_serializer.save(
@@ -404,20 +431,18 @@ def get_store_appointment(request):
                     doctor=doctor,
                     patient=patient
             ):
-                return Response({'status': 200})
+                return Response({'status': 200, 'message': 'Appointment data stored successfully'})
             else:
-                return Response({'status': 403, 'message': 'Invalid data'})
+                return Response({'status': 400, 'message': 'Invalid data'})
     else:
-        return Response({'status': 403, 'message': 'Missing data'})
+        return Response({'status': 400, 'message': 'Invalid data'})
 
 
 @api_view(['PUT', 'POST'])
 def edit_appointment_data(request, appointment_id):
     # Use get_object_or_404 for fetching the appointment
     appointment = get_object_or_404(GetAppointment, id=appointment_id, deleted_at=None)
-
     serializer = PatientAppointmentSerializer(appointment, data=request.data)
-    print(serializer)
     # Check if the appointment is found before proceeding
     if not appointment:
         return Response({'status': 404, 'message': 'Appointment not found'})
@@ -430,15 +455,12 @@ def edit_appointment_data(request, appointment_id):
         except DoctorProfile.DoesNotExist:
             return Response({'status': 404, 'message': 'Doctor not found'})
 
-        # Use save() directly without checking, as it returns the saved object
-        updated_appointment = serializer.save(doctor=doctor, updated_at=timezone.now())
-
-        if updated_appointment:
-            return Response({'status': 200})
+        if serializer.save(doctor=doctor, updated_at=timezone.now()):
+            return Response({'status': 200, 'message': 'Appointment data updated successfully'})
         else:
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in updating appointment data'})
     else:
-        return Response({'status': 403, 'errors': serializer.errors})
+        return Response({'status': 403, 'message': 'Invalid data!'})
 
 
 @api_view(['GET'])

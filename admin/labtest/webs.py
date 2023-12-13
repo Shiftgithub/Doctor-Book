@@ -51,7 +51,6 @@ def edit_lab_test(request, lab_test_id):
 def delete_lab_test(request, lab_test_id):
     operation_response = delete_lab_test_data(request, lab_test_id)
     message = operation_response.data.get('message')
-    print(message)
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, message)
     elif operation_response.data.get('status') == 400:

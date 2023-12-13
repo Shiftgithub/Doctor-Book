@@ -46,7 +46,7 @@ def store_doctor_data(request):
                 user_instance = User.objects.get(pk=user_instance)
                 doctor_user_id['user'] = user_instance
             except User.DoesNotExist:
-                return Response({'status': 400})
+                return Response({'status': 404, 'message': 'user id does not exist'})
             otp = 0
             is_verified = True
             save_otp = send_otp(user_instance, otp, is_verified)
@@ -64,15 +64,15 @@ def store_doctor_data(request):
                     message = 'Message From Doctor-Book [Personalized Doctor Predictor]:\n\n' \
                               'Your username: ' + user_name + '\n' + 'Your password: ' + password
                     # send_email(email, message)
-                    return Response({'status': 200})
+                    return Response({'status': 200, 'message': 'Doctor data stored successfully'})
                 else:
                     transaction.set_rollback(True)
-                    return Response({'status': 403})
+                    return Response({'status': 403, 'message': 'Error in storing doctor data'})
             else:
                 transaction.set_rollback(True)
-                return Response({'status': 403})
+                return Response({'status': 403, 'message': 'Error in otp sending!'})
         else:
-            return Response({'status': 400})
+            return Response({'status': 400, 'message': 'Invalid request!'})
 
     except socket.gaierror as e:
         error_message = 'Error: Unable to resolve the hostname or no internet connection.'
@@ -114,10 +114,10 @@ def work_details_store(request):
                 off_day_objs.append(off_day_obj)
 
             if all(off_day_objs) and all(schedule_time_objs):
-                return Response({'status': 200})
+                return Response({'status': 200, 'message': 'Doctor working data stored successfully'})
             else:
                 transaction.set_rollback(True)
-                return Response({'status': 404, 'message': 'Data not stored'})
+                return Response({'status': 403, 'message': 'Error in storing doctor data'})
         except DoctorProfile.DoesNotExist:
             transaction.set_rollback(True)
             return Response({'status': 404, 'message': 'DoctorProfile not found'})
@@ -160,7 +160,7 @@ def edu_store(request):
             )
             education_objs.append(education_obj)
 
-        return Response({'status': 200})
+        return Response({'status': 200, 'message': 'Doctor education data stored successfully'})
 
     except DoctorProfile.DoesNotExist:
         transaction.set_rollback(True)
@@ -175,10 +175,12 @@ def social_store(request):
     social_media_serializer = SocialMediaSerializer(data=request.data)
     if social_media_serializer.is_valid():
         doctor_profile_id = request.data.get('doctor_id')
-        social_media_serializer.save(doctor_profile_id=doctor_profile_id)
-        return Response({'status': 200, 'message': 'Social Media Data stored successfully'})
+        if social_media_serializer.save(doctor_profile_id=doctor_profile_id):
+            return Response({'status': 200, 'message': 'Social Media Data stored successfully'})
+        else:
+            return Response({'status': 403, 'message': 'Error in updating social media data'})
     else:
-        return Response({'status': 404, 'message': 'Social Media Data stored Failed'})
+        return Response({'status': 400, 'message': 'Social Media Data stored Failed'})
 
 
 @api_view(['POST'])
@@ -206,9 +208,9 @@ def award_store(request):
             awards_objs.append(awards_obj)
 
         if all(awards_objs):
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'Award Data stored successfully'})
         else:
-            return Response({'status': 400})
+            return Response({'status': 400, 'message': 'Error in updating social media data'})
 
     except DoctorProfile.DoesNotExist:
         transaction.set_rollback(True)
@@ -312,7 +314,7 @@ def edit_doctor_data(request, doctor_id):
     try:
         doctor = get_object_or_404(DoctorProfile, id=doctor_id, deleted_at=None)
         if not doctor.user:
-            return Response({'message': 'No associated user found', 'status': 200})
+            return Response({'message': 'No associated user found', 'status': 404})
 
         else:
             doctor_serializer = DoctorSerializer(doctor, data=request.data, partial=True)

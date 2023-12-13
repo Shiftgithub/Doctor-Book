@@ -1,12 +1,7 @@
 import hashlib
-from datetime import datetime
 from django.db import transaction
-from admin.patient.serializers import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from django.shortcuts import get_object_or_404
-from admin.authentication.user.models import Images
-from admin.authentication.otp.verifyotp.models import *
 from admin.authentication.otp.function.send_email import *
 from admin.authentication.user.serializers import *
 from .serializers import *
@@ -48,13 +43,13 @@ def store_patient_data(request):
         otp_serializer.save()
         # send_mail = send_email(email, message)
         if otp_serializer:
-            data = {'email': email, 'status': 200}
+            data = {'email': email, 'status': 200, 'message': 'Patient data deleted successfully'}
             return Response(data)
         else:
             transaction.set_rollback(True)
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in  deleting patient data'})
     else:
-        return Response({'status': 400})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 @api_view(['GET'])
@@ -103,8 +98,8 @@ def edit_patient_data(request, patient_id):
         if patient_serializer.save(updated_at=datetime.now()) and image_serializer.save(
                 updated_at=datetime.now()):
             set_user_info(request, patient, patient.user.id, patient.user.email)
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'Patient data updated successfully'})
         else:
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in updating patient data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})

@@ -36,13 +36,20 @@ def doctor_form(request):
 
 def store_doctor(request):
     operation_response = store_doctor_data(request)
-    if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Doctor data stored successfully')
-    elif operation_response.data.get('status') == 1000:
-        messages.add_message(request, messages.ERROR, 'Error: Internet are not available. Check Your internet.')
-    else:
-        messages.add_message(request, messages.ERROR, 'Error in storing Doctor data')
 
+    message = operation_response.data.get('message')
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 1000:
+        messages.add_message(request, messages.ERROR, message)
+    else:
+        messages.add_message(request, messages.ERROR, message)
     return redirect('doctor_form')
 
 
@@ -61,11 +68,17 @@ def work_form(request):
 
 def store_work_details(request):
     operation_response = work_details_store(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Doctor Work Details data stored successfully')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error in storing Doctor Work Details  data')
-
+        messages.add_message(request, messages.ERROR, message)
     return redirect('work_form')
 
 
@@ -82,10 +95,17 @@ def edu_form(request):
 
 def store_edu(request):
     operation_response = edu_store(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Doctor Education data stored Successfully')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 500:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error in storing Doctor Education details data')
+        messages.add_message(request, messages.ERROR, message)
     return redirect('edu_form')
 
 
@@ -98,10 +118,17 @@ def award_form(request):
 
 def store_award(request):
     operation_response = award_store(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Doctor Award data stored Successfully')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 500:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error in storing Award details data')
+        messages.add_message(request, messages.ERROR, message)
     return redirect('award_form')
 
 
@@ -114,10 +141,15 @@ def social_form(request):
 
 def store_social(request):
     operation_response = social_store(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Doctor Social data stored Successfully')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error in storing Social details data')
+        messages.add_message(request, messages.ERROR, message)
     return redirect('social_form')
 
 
@@ -234,10 +266,17 @@ def edit_doctor_form(request, doctor_id):
 def edit_doctor(request, doctor_id):
     operation_response = edit_doctor_data(request, doctor_id)
 
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Doctor data edited successfully')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 500:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error editing Doctor data')
+        messages.add_message(request, messages.ERROR, message)
 
     return redirect('edit_doctor_form', doctor_id=doctor_id)
 

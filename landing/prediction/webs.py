@@ -14,7 +14,10 @@ def predict_form(request):
 
 def predict(request):
     operation_response = prediction(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
+        prediction_id = operation_response.data.get('prediction_id')
+        request.session["prediction_id"] = prediction_id
         doctor_response = operation_response.data.get('doctors_data')
         problem_specs = operation_response.data.get('problem_specs')
         body_part_name = operation_response.data.get('body_part_name')
@@ -27,8 +30,17 @@ def predict(request):
             'problem_specs': problem_specs
         }
         return render(request, 'prediction/templates/predict_result.html', data)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('predict_form')
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('predict_form')
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('predict_form')
     else:
-        messages.add_message(request, messages.ERROR, 'Error')
+        messages.add_message(request, messages.ERROR, message)
         return redirect('predict_form')
 
 

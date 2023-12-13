@@ -11,9 +11,11 @@ def store_medicine_data(request):
     medicine_serializer = MedicineSerializer(data=request.data)
     if medicine_serializer.is_valid():
         if medicine_serializer.save():
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'Medicine data stored successfully'})
+        else:
+            return Response({'status': 403, 'message': 'Error in storing medicine data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 @api_view(['GET'])
@@ -39,11 +41,11 @@ def edit_medicine_data(request, medicine_id):
 
     if serializer.is_valid():
         if serializer.save(updated_at=timezone.now()):
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'Medicine data updated successfully'})
         else:
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in updating medicine data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 # medicine delete function
@@ -53,11 +55,11 @@ def softdelete_medicine_data(request, medicine_id):
     serializer = MedicineDeleteSerializer(medicine, data=request.data)
     if serializer.is_valid():
         if serializer.save(deleted_at=timezone.now()):
-            return Response({'status': 200})
+            return Response({'status': 200, 'message': 'Medicine data deleted successfully'})
         else:
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in  deleting medicine data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 @api_view(['GET'])
