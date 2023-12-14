@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$u@85i@94q!ptjtmlq_b=auap*tt(77@4fj_y&t*vm&brh5p-&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-from admin.constants.constants import *
+from core.config import *
 
 EMAIL_USE_TLS = EMAIL_USE_TLS
 EMAIL_HOST = EMAIL_HOST

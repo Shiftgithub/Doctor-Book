@@ -11,7 +11,6 @@ from admin.authentication.user.models import AdminProfile
 @api_view(['POST'])
 def checking_authorization(request):
     login_serializer = LoginSerializer(data=request.data)
-    print(login_serializer.is_valid())
     if login_serializer.is_valid():
         user_fields = [login_serializer.validated_data['user_name']]
         user_name = ' - '.join(user_fields)
