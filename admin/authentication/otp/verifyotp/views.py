@@ -34,6 +34,7 @@ def verify_otp(request):
                 user.status = STATUS_ACTIVE
                 update_user = user.save(update_fields=['status'])
 
+
                 # Send an activation email to the user (You should implement this function)
                 message = 'Your Doctor Book Account has been activated'
                 # send_email(user.email, message)
