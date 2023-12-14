@@ -6,7 +6,7 @@ from admin.doctor.models import DoctorProfile
 from admin.patient.models import PatientProfile
 from landing.landing.views import *
 from landing.appointment.views import *
-from admin.prescription.views import count_medicine_prescription
+from admin.prescription.views import *
 
 
 def get_time_of_day():
@@ -53,6 +53,9 @@ def doctor_dashboard(request):
     medicine_prescription_response = count_medicine_prescription(request, doctor_id)
     medicine_prescription_data = medicine_prescription_response.data
 
+    lab_prescription_response = count_lab_prescription(request, doctor_id)
+    lab_prescription_data = lab_prescription_response.data
+
     count_appointment_response = count_appointments(request, doctor_id)
     count_appointment_data = count_appointment_response.data
 
@@ -61,6 +64,7 @@ def doctor_dashboard(request):
     data = {
         'patient_data': patient_data,
         'medicine_prescription_data': medicine_prescription_data,
+        'lab_prescription_data': lab_prescription_data,
         'count_appointment_data': count_appointment_data
     }
     return render(request, 'dashboard/templates/doctor/dashboard.html', data)

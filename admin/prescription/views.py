@@ -152,6 +152,23 @@ def count_medicine_prescription(request, doctor_id):
     return Response(serialized_data)
 
 
+@api_view(['GET'])
+def count_lab_prescription(request, doctor_id):
+    # Get the PrescriptionForLabTest instances for the given doctor_id
+    prescriptions_for_lab = PrescriptionForLabTest.objects.filter(doctor_profile=doctor_id)
+
+    # Get the LabTestPrescription instances related to the prescriptions_for_lab
+    lab_prescriptions = LabTestPrescription.objects.filter(lab_prescription__in=prescriptions_for_lab)
+
+    # Get the count of lab_prescription_count
+    lab_prescription_count = lab_prescriptions.count()
+
+    # Serializing lab_prescription_count
+    serialized_data = {'lab_prescription_count': lab_prescription_count}
+
+    return Response(serialized_data)
+
+
 def generate_barcode(request, registration):
     # Encrypt the registration string (you can use a stronger encryption method)
     encrypted_registration = hashlib.sha256(registration.encode()).hexdigest()
