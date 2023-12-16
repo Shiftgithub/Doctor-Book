@@ -1,0 +1,82 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'adminlte_assets/data_tables/css/datatable.min.css' %}">
+<link rel="stylesheet" href="{% static 'adminlte_assets/data_tables/css/datatable_button.min.css' %}">
+<link rel="stylesheet" href="{% static 'adminlte_assets/data_tables/css/datatable_responsive.min.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Find Doctors</h1>
+        </div>
+        <div class="card-body">
+            <table id="bodyPartData" class="table table-sm table-bordered table-striped text-center">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Doctor Name</th>
+                    <th>Image</th>
+                    <th>Department</th>
+                    <th>Profile</th>
+                    <th>Appointment</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in doctor_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    {# Use 'forloop.counter' to get the loop counter #}
+                    <td>{{ data.full_name }}</td>
+                    <td><img alt="Doctor Image" src="{{ data.images.0.photo_name }}"
+                             style="width: 100%; height: 180px;"></td>
+                    <td>{{ data.department }}</td>
+                    <td>
+                        <a class="dropdown-item text-info"
+                           href="{% url 'check_doctor_profile' data.id %}">
+                            <i class="fas fa-eye"></i> Profile
+                        </a>
+                    </td>
+                    <td>
+                        <a class="dropdown-item text-success"
+                           href="{% url 'appointment' data.id %}">
+                            <i class=""></i> Appointment
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- DataTables & Plugins -->
+<script src="{% static 'adminlte_assets/data_tables/js/datatable.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/data_tables/js/datatable_button.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/data_tables/js/datatable_responsive.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $("#bodyPartData").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "order": false,
+            "buttons": ["copy", "csv", "excel", "print", "colvis"]
+        }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
+
+        $('#myModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var deleteURL = button.data('delete-url');
+            $('#deleteButtonID').click(function () {
+                console.log('deleteButtonID');
+                window.location.href = deleteURL;
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'landing_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<style xmlns="http://www.w3.org/1999/html">
+    #doctors {
+        background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- ======= Doctors Section ======= -->
+<section id="doctors" class="doctors">
+    <div class="container pt-4">
+        <div class="row">
+            <div class="member-info text-center">
+                <div class="row p-2">
+                    <label class="col-md-3 col-form-label">Body Part Name :</label>
+                    <div class="col-md-9">
+                        <input class="form-control" value="{{ bodypart_name.name }}" readonly/>
+                    </div>
+                </div>
+                <!-- Problem Specification -->
+                <div class="row p-2">
+                    <label class="col-md-3 col-form-label">Organ Name :</label>
+                    <div class="col-md-9">
+                        <input class="form-control" value="{{organ_name.name }}" readonly/>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <label class="col-md-3 col-form-label">Problem Specification:</label>
+                    <div class="col-md-9">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <tbody>
+                                {% for data in problem_specs %}
+                                <tr>
+                                    <td><strong>({{ data.problem }})</strong> . ({{ data.problem_specification }})</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if doctor_data %}
+            {% for data in doctor_data %}
+            <div class="col-6">
+                <div class="member d-flex align-items-start">
+                    <div>
+                        <img src="{{ data.images.0.photo_name }}" alt="Doctor Image" height="120px" width="100%"/>
+                    </div>
+                    <div class="member-info">
+                        <h4>{{ data.full_name }}</h4>
+                        <h6>{{data.department_name}}</h6>
+                        <p>{{ data.biography }}</p>
+                        <p>
+                            <a href="{% url 'date_time_form' data.id %}" class="btn btn-success btn-sm">Appointment</a>
+                            <a href="{% url 'doctor_profile' data.id %}" class="btn btn-info btn-sm">Profile</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="row alert alert-warning">
+                <h3>No Doctors Found</h3>
+                <br>
+                <a href="{% url 'predict_form' %}"><i class="fas fa-arrow-left"></i> Go Back</a>
+            </div>
+            {% endif %}
+            <div class="text-center">
+                <br>
+                <a href="{% url 'predict_form' %}"><i class="fas fa-arrow-left"></i> Go Back</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

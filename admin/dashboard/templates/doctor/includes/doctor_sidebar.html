@@ -1,0 +1,112 @@
+{% load static %}
+<div class="sidebar">
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+            <!-- Dashboard -->
+            <li class="nav-item mainItem">
+                <a href="{% url 'doctor_dashboard' %}" class="nav-link">
+                    <i class="nav-icon fas fa-align-justify"></i>
+                    <p>
+                        Dashboard
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-pills"></i>
+                    <p>
+                        Medicine
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'add_medicine_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Medicine</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'medicine_list'%}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Medicines</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-file-medical"></i>
+                    <p>
+                        Prescription
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'add_prescription_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Prescription</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'prescription_list'%}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Prescriptions</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- Article -->
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-newspaper"></i>
+                    <p>
+                        Article
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'add_article_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Article</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'article_all_list'%}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Articles</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- Frequently Asked Questions -->
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-question"></i>
+                    <p>
+                        FAQ
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'add_faq_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Question</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'faq_all_list'%}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Answers</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>

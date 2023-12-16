@@ -1,0 +1,35 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <form action="{% url 'store_new_email' %}" id="PostForm" method="POST">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label for="oldEmailID" class="col-md-2 col-form-label">Old Email : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="oldEmailID" name="email" type="email"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="newEmailID" class="col-md-2 col-form-label">New Email : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="newEmailID" name="new_email" type="email"/>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="passwordID" class="col-md-2 col-form-label">Password : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="passwordID" name="password" type="password"/>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success float-right">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
