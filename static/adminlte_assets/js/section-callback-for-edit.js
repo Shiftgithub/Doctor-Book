@@ -164,6 +164,7 @@ $(document).ready(function() {
             $('.award-section .remove-award-section').hide();
 
             let template = $('#templateID').html()
+            console.log(template)
 
             // Add schedule section
             $(document).on('click', '.add-award-section', function() {
