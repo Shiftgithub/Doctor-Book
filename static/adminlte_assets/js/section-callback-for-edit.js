@@ -164,10 +164,11 @@ $(document).ready(function() {
             $('.award-section .remove-award-section').hide();
 
             let template = $('#templateID').html()
-            console.log(template)
+            console.log(template);
 
             // Add schedule section
             $(document).on('click', '.add-award-section', function() {
+
 //                var section = $('.award-section:first').clone();
 //                console.log(section)
 //                section.find('input[type="text"]').val(''); // Clear input values in the cloned section
@@ -176,9 +177,9 @@ $(document).ready(function() {
                   $('.award-section').append(template);
 
                 // Show the "Remove" button when there is more than one lab test section
-                if (index > 1) {
-                    section.find('.remove-award-section').show();
-                }
+//                if (index > 1) {
+//                    section.find('.remove-award-section').show();
+//                }
             });
 
             // Remove appointment schedule section

@@ -380,8 +380,7 @@ def edit_social_data(request, doctor_id):
 def edit_award_data(request, doctor_id):
     try:
         doctor = get_object_or_404(DoctorProfile, id=doctor_id)
-        ids = request.data.getlist('ids[]')
-        print(ids)
+        ids = request.data.getlist('award_ids[]')
         awards = request.data.getlist('awards[]')
         honors = request.data.getlist('honors[]')
         publications = request.data.getlist('publications[]')
@@ -390,7 +389,6 @@ def edit_award_data(request, doctor_id):
         for id, award_name, honor, publication, research_interest in zip(
                 ids, awards, honors, publications, research_interests):
             existing_award = Awards.objects.filter(doctor_profile=doctor, id=id).first()
-            print(existing_award)
             if existing_award:
                 # If award with the same name exists, update it
                 award_serializer = AwardsSerializer(existing_award, data={
@@ -409,12 +407,31 @@ def edit_award_data(request, doctor_id):
                     'research_interests': research_interest,
                     'doctor_profile': doctor.id,
                 })
-
-            if award_serializer.is_valid():
-                award_serializer.save(updated_at=timezone.now())
-            else:
-                transaction.set_rollback(True)
-                return Response({'status': 400, 'message': 'Invalid data', 'errors': award_serializer.errors})
+        # doctor_profile_id = request.data.get('doctor_id')
+        # doctor_profile = DoctorProfile.objects.get(id=doctor_profile_id)
+        #
+        # awards = request.data.getlist('additional_awards[]')
+        # honors = request.data.getlist('additional_honors[]')
+        # publications = request.data.getlist('additional_publications[]')
+        # research_interests = request.data.getlist('additional_research_interests[]')
+        #
+        # awards_objs = []
+        #
+        # for award, honor, publication, research_interest in zip(awards, honors, publications,
+        #                                                         research_interests):
+        #     awards_obj = Awards.objects.create(
+        #         awards=award,
+        #         honors=honor,
+        #         publications=publication,
+        #         research_interests=research_interest,
+        #         doctor_profile=doctor_profile
+        #     )
+        #     awards_objs.append(awards_obj)
+        if award_serializer.is_valid():
+            award_serializer.save(updated_at=timezone.now())
+        else:
+            transaction.set_rollback(True)
+            return Response({'status': 400, 'message': 'Invalid data', 'errors': award_serializer.errors})
 
         return Response({'status': 200, 'message': 'Doctor Award Data updated successfully'})
 
