@@ -4,7 +4,6 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="#" class="needs-validation" novalidate>
                 <div class="row mb-3">
                     <label for="colorID" class="col-md-2 col-form-label">Theme Color : <span
                             class="text-danger">*</span></label>
@@ -15,7 +14,6 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success float-right" onclick="changeColor()">Submit</button>
-            </form>
         </div>
     </div>
 </div>
@@ -28,21 +26,5 @@
         sessionStorage.mycolor = color;
         window.location.reload();
     }
-    $(document).ready(function () {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation');
-
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-        });
-     });
 </script>
 {% endblock %}
