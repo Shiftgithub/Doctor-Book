@@ -319,6 +319,8 @@ def edit_doctor_award(request, doctor_id):
     message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
     elif operation_response.data.get('status') == 403:
         messages.add_message(request, messages.ERROR, message)
     elif operation_response.data.get('status') == 404:

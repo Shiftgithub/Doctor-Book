@@ -362,17 +362,28 @@ def edit_doctor_data(request, doctor_id):
 
 @api_view(['PUT', 'POST'])
 def edit_social_data(request, doctor_id):
-    social_data = SocialMedia.objects.get(id=doctor_id)
-    serializer = SocialMediaSerializer(social_data, data=request.data)
-    if serializer.is_valid():
-        if serializer.save(updated_at=timezone.now()):
-            return Response({'status': 200, 'message': 'Doctor Social Media data updated Successfully'})
+    id = request.data.get('social_id')
+    if id:
+        social_data = SocialMedia.objects.get(id=doctor_id)
+        serializer = SocialMediaSerializer(social_data, data=request.data)
+        if serializer.is_valid():
+            if serializer.save(updated_at=timezone.now()):
+                return Response({'status': 200, 'message': 'Doctor Social Media data updated Successfully'})
+            else:
+                response = {'status': 403, 'message': 'Doctor Social Media data updated Failed'}
+                return Response(response)
         else:
-            response = {'status': 403, 'message': 'Doctor Social Media data updated Failed'}
+            response = {'status': 404, 'message ': 'Invalid Data.', 'errors': serializer.errors}
             return Response(response)
     else:
-        response = {'status': 404, 'message ': 'Invalid Data.', 'errors': serializer.errors}
-        return Response(response)
+        social_media_serializer = SocialMediaSerializer(data=request.data)
+        if social_media_serializer.is_valid():
+            if social_media_serializer.save(doctor_profile_id=doctor_id):
+                return Response({'status': 200, 'message': 'Social Media Data stored successfully'})
+            else:
+                return Response({'status': 403, 'message': 'Error in updating social media data'})
+        else:
+            return Response({'status': 400, 'message': 'Social Media Data stored Failed'})
 
 
 @api_view(['PUT', 'POST'])
@@ -404,7 +415,6 @@ def edit_award_data(request, doctor_id):
     awards_objs = []
     # Create additional awards
     additional_awards = request.data.getlist('additional_awards[]')
-    print('additional_awards', additional_awards)
     additional_honors = request.data.getlist('additional_honors[]')
     additional_publications = request.data.getlist('additional_publications[]')
     additional_research_interests = request.data.getlist('additional_research_interests[]')
