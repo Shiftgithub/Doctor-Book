@@ -7,7 +7,7 @@
         <div class="card-header bg-dark">
             <h1 class="card-title">Doctor Information</h1>
             <h6 class="card-title float-right">
-                <a href="{% url 'edit_doctor_form' doctor_id %}"
+                <a href="{% url 'edit_edu_form' doctor_id %}"
                    class="nav-link btn btn-warning float-right"
                    type="submit">Edit Profile</a>
             </h6>
@@ -16,7 +16,6 @@
             {% for doctor_data in doctor_all_data %}
             <div class="row">
                 <div class="col-md-8">
-
                     <div class="row mb-3">
                         <label class="col-md-3 col-form-label">Doctor Name:</label>
                         <div class="col-md-9">

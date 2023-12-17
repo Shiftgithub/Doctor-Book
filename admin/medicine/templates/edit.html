@@ -15,7 +15,7 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <select class="form-control select2" id="brandNameID" name="brand" required>
-                            <option selected>Select Brand Name</option>
+                            <option selected disabled value="">Select Brand Name</option>
                             {% for item in brand_data %}
                             {% if item.name == medicine_data.brand_name %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>

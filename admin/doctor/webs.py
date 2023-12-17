@@ -193,7 +193,6 @@ def get_doctor_data_by_id(request, doctor_id):
 def get_doctor_working_data_by_id(request, doctor_id):
     response_doctor_data = doctor_working_data(request, doctor_id)
     doctor_all_data = response_doctor_data.data
-    print(doctor_all_data)
     data = {'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id}
     return render(request, 'doctor/templates/views/working_view.html', data)
 
@@ -208,7 +207,6 @@ def get_doctor_social_data_by_id(request, doctor_id):
 def get_doctor_award_data_by_id(request, doctor_id):
     response_doctor_data = doctor_award_data(request, doctor_id)
     doctor_all_data = response_doctor_data.data
-    print(doctor_all_data)
     data = {'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id}
     return render(request, 'doctor/templates/views/award_view.html', data)
 
@@ -216,7 +214,6 @@ def get_doctor_award_data_by_id(request, doctor_id):
 def get_doctor_edu_data_by_id(request, doctor_id):
     response_doctor_data = doctor_edu_data(request, doctor_id)
     doctor_all_data = response_doctor_data.data
-    print(doctor_all_data)
     data = {'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id}
     return render(request, 'doctor/templates/views/edu_view.html', data)
 
@@ -303,6 +300,36 @@ def edit_doctor_social(request, doctor_id):
         messages.add_message(request, messages.ERROR, message)
 
     return redirect('edit_social_form', doctor_id=doctor_id)
+
+
+def edit_edu_form(request, doctor_id):
+    response_doctor = doctor_edu_data(request, doctor_id)
+    doctor_all_data = response_doctor.data
+
+    response_board = board_list(request)
+    board_data = response_board.data
+
+    data = {
+        'doctor_all_data': doctor_all_data, 'board_data': board_data, 'doctor_id': doctor_id
+    }
+    return render(request, 'doctor/templates/edits/edu_edit.html', data)
+
+
+def edit_doctor_edu(request, doctor_id):
+    operation_response = edit_edu_data(request, doctor_id)
+    message = operation_response.data.get('message')
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+    else:
+        messages.add_message(request, messages.ERROR, message)
+
+    return redirect('edit_edu_form', doctor_id=doctor_id)
 
 
 def edit_award_form(request, doctor_id):

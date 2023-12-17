@@ -433,6 +433,62 @@ def edit_award_data(request, doctor_id):
     return Response({'status': 200, 'message': 'Doctor Award Data updated successfully'})
 
 
+@api_view(['PUT', 'POST'])
+@transaction.atomic
+def edit_edu_data(request, doctor_id):
+    doctor = get_object_or_404(DoctorProfile, id=doctor_id)
+    ids = request.data.getlist('edu_ids[]')
+    certificate_degrees = request.data.getlist('certificate_degrees[]')
+    institutions = request.data.getlist('institutions[]')
+    boards = request.data.getlist('boards[]')
+    results = request.data.getlist('results[]')
+    passing_years = request.data.getlist('passing_years[]')
+
+    for id, certificate_degree, institution, board_id, result, passing_year in zip(
+            ids, certificate_degrees, institutions, boards, results, passing_years):
+        existing_edu = Education.objects.filter(doctor_profile=doctor, id=id).first()
+        board_instance = Board.objects.filter(id=board_id).first()
+        edu_serializer = EducationEditSerializer(existing_edu, data={
+            'certificate_degree': certificate_degree,
+            'institution': institution,
+            'board': board_instance.id,  # Provide nested dictionary for board
+            'result': result,
+            'passing_year': passing_year,
+            'doctor_profile': doctor.id,
+        })
+
+        if edu_serializer.is_valid():
+            demo = edu_serializer.save(updated_at=timezone.now())
+        else:
+            transaction.set_rollback(True)
+            return Response({'status': 400, 'message': 'Invalid data'})
+
+    edu_objs = []
+
+    # Create additional awards
+    additional_certificate_degrees = request.data.getlist('additional_certificate_degrees[]')
+    additional_institutions = request.data.getlist('additional_institutions[]')
+    additional_boards = request.data.getlist('additional_boards[]')
+    additional_results = request.data.getlist('additional_results[]')
+    additional_passing_years = request.data.getlist('additional_passing_years[]')
+
+    for additional_certificate_degree, additional_institution, board_id, additional_result, additional_passing_year in zip(
+            additional_certificate_degrees, additional_institutions, additional_boards, additional_results,
+            additional_passing_years):
+        board_instance = Board.objects.get(id=board_id)
+        edu_obj = Education.objects.create(
+            certificate_degree=additional_certificate_degree,
+            institution=additional_institution,
+            result=additional_result,
+            passing_year=additional_passing_year,
+            doctor_profile=doctor,
+            board=board_instance,  # Provide nested dictionary for board
+        )
+        edu_objs.append(edu_obj)
+
+    return Response({'status': 200, 'message': 'Doctor Education Data updated successfully'})
+
+
 @api_view(['PUT', 'GET'])
 def softdelete_doctor_data(request, doctor_id):
     try:

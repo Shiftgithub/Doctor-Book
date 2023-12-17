@@ -195,6 +195,7 @@ class DoctorPrescriptionSerializer(serializers.ModelSerializer):
         model = DoctorProfile
         fields = '__all__'
 
+
 # class DoctorViewSerializer(serializers.ModelSerializer):
 #     awards = AwardsSerializer(many=True)
 #     appointment_schedules = AppointmentScheduleSerializer(many=True)
