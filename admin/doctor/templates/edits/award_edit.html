@@ -7,7 +7,7 @@
         <div class="card-header bg-dark">
             <h1 class="card-title">Doctor Information</h1>
             <h1 class="card-title float-right">
-                <a href="{% url 'view_doctor_data' doctor_id %}"
+                <a href="{% url 'award_view' doctor_id %}"
                    class="nav-link btn btn-info float-right"
                    type="submit">Back View</a>
             </h1>
@@ -75,8 +75,8 @@
                 {% csrf_token %}
                 <div id="award-sections">
                     {% if doctor_data.awards %}
+                    {% for award in doctor_data.awards %}
                     <div id="award">
-                        {% for award in doctor_data.awards %}
                         <input type="hidden" class="form-control" name="award_ids[]" value="{{ award.id }}"/>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Awards :</label>
@@ -130,26 +130,28 @@
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Awards :</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="awards[]" placeholder="Not Provide"/>
+                                <input type="text" class="form-control" name="additional_awards[]"
+                                       placeholder="Not Provide"/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Honors :</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="honors[]" placeholder="Not Provide"/>
+                                <input type="text" class="form-control" name="additional_honors[]"
+                                       placeholder="Not Provide"/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Publications :</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="publications[]"
+                                <input type="text" class="form-control" name="additional_publications[]"
                                        placeholder="Not Provide"/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">Research Interests :</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="research_interests[]"
+                                <input type="text" class="form-control" name="additional_research_interests[]"
                                        placeholder="Not Provide"/>
                             </div>
                         </div>
@@ -157,12 +159,12 @@
                     {% endif %}
                     <div class="award-section">
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <button type="button" class="btn btn-primary add-award-section float-right">Add More
-                        </button>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary add-award-section float-right">
+                                Add More
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -235,7 +237,6 @@
         imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
     }
 }
-
 </script>
 
 {% endblock %}

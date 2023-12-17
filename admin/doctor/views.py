@@ -378,66 +378,49 @@ def edit_social_data(request, doctor_id):
 @api_view(['PUT', 'POST'])
 @transaction.atomic
 def edit_award_data(request, doctor_id):
-    try:
-        doctor = get_object_or_404(DoctorProfile, id=doctor_id)
-        ids = request.data.getlist('award_ids[]')
-        awards = request.data.getlist('awards[]')
-        honors = request.data.getlist('honors[]')
-        publications = request.data.getlist('publications[]')
-        research_interests = request.data.getlist('research_interests[]')
+    doctor = get_object_or_404(DoctorProfile, id=doctor_id)
+    ids = request.data.getlist('award_ids[]')
+    awards = request.data.getlist('awards[]')
+    honors = request.data.getlist('honors[]')
+    publications = request.data.getlist('publications[]')
+    research_interests = request.data.getlist('research_interests[]')
 
-        for id, award_name, honor, publication, research_interest in zip(
-                ids, awards, honors, publications, research_interests):
-            existing_award = Awards.objects.filter(doctor_profile=doctor, id=id).first()
-            if existing_award:
-                # If award with the same name exists, update it
-                award_serializer = AwardsSerializer(existing_award, data={
-                    'awards': award_name,
-                    'honors': honor,
-                    'publications': publication,
-                    'research_interests': research_interest,
-                    'doctor_profile': doctor.id,
-                })
-            else:
-                # If award doesn't exist, create a new one
-                award_serializer = AwardsSerializer(data={
-                    'awards': award_name,
-                    'honors': honor,
-                    'publications': publication,
-                    'research_interests': research_interest,
-                    'doctor_profile': doctor.id,
-                })
-        # doctor_profile_id = request.data.get('doctor_id')
-        # doctor_profile = DoctorProfile.objects.get(id=doctor_profile_id)
-        #
-        # awards = request.data.getlist('additional_awards[]')
-        # honors = request.data.getlist('additional_honors[]')
-        # publications = request.data.getlist('additional_publications[]')
-        # research_interests = request.data.getlist('additional_research_interests[]')
-        #
-        # awards_objs = []
-        #
-        # for award, honor, publication, research_interest in zip(awards, honors, publications,
-        #                                                         research_interests):
-        #     awards_obj = Awards.objects.create(
-        #         awards=award,
-        #         honors=honor,
-        #         publications=publication,
-        #         research_interests=research_interest,
-        #         doctor_profile=doctor_profile
-        #     )
-        #     awards_objs.append(awards_obj)
+    for id, award_name, honor, publication, research_interest in zip(
+            ids, awards, honors, publications, research_interests):
+        existing_award = Awards.objects.filter(doctor_profile=doctor, id=id).first()
+        award_serializer = AwardsSerializer(existing_award, data={
+            'awards': award_name,
+            'honors': honor,
+            'publications': publication,
+            'research_interests': research_interest,
+            'doctor_profile': doctor.id,
+        })
         if award_serializer.is_valid():
             award_serializer.save(updated_at=timezone.now())
         else:
             transaction.set_rollback(True)
-            return Response({'status': 400, 'message': 'Invalid data', 'errors': award_serializer.errors})
+            return Response({'status': 400, 'message': 'Invalid data'})
 
-        return Response({'status': 200, 'message': 'Doctor Award Data updated successfully'})
+    awards_objs = []
+    # Create additional awards
+    additional_awards = request.data.getlist('additional_awards[]')
+    print('additional_awards', additional_awards)
+    additional_honors = request.data.getlist('additional_honors[]')
+    additional_publications = request.data.getlist('additional_publications[]')
+    additional_research_interests = request.data.getlist('additional_research_interests[]')
 
-    except DoctorProfile.DoesNotExist:
-        transaction.set_rollback(True)
-        return Response({'status': 404, 'message': 'DoctorProfile not found'})
+    for award, honor, publication, research_interest in zip(
+            additional_awards, additional_honors, additional_publications, additional_research_interests):
+        awards_obj = Awards.objects.create(
+            awards=award,
+            honors=honor,
+            publications=publication,
+            research_interests=research_interest,
+            doctor_profile=doctor,
+        )
+        awards_objs.append(awards_obj)
+
+    return Response({'status': 200, 'message': 'Doctor Award Data updated successfully'})
 
 
 @api_view(['PUT', 'GET'])

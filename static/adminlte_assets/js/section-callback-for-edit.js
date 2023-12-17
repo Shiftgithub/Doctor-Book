@@ -159,39 +159,36 @@ $(document).ready(function() {
             });
         });
 
+// for award section
 $(document).ready(function() {
-            // Hide the "Remove" button for the initial lab test section
-            $('.award-section .remove-award-section').hide();
+    // Hide the "Remove" button for the initial award section
+    $('.award-section .remove-award-section').hide();
 
-            let template = $('#templateID').html()
-            console.log(template);
+    // Get the HTML template for a new award section
+    let template = $('#templateID').html();
 
-            // Add schedule section
-            $(document).on('click', '.add-award-section', function() {
+    // Add award section
+    $(document).on('click', '.add-award-section', function() {
+        var index = $('.award-section').length + 1;
 
-//                var section = $('.award-section:first').clone();
-//                console.log(section)
-//                section.find('input[type="text"]').val(''); // Clear input values in the cloned section
-//                section.find('.remove-award-section').show(); // Show the remove button for the cloned section
-//                section.appendTo('#award-sections');
-                  $('.award-section').append(template);
+        $('.award-section:last').after('<div class="award-section">' + template + '</div>');
 
-                // Show the "Remove" button when there is more than one lab test section
-//                if (index > 1) {
-//                    section.find('.remove-award-section').show();
-//                }
-            });
+        // Show the "Remove" button when there is more than one award section
+        if (index > 1) {
+            $('.award-section:last').find('.remove-award-section').show();
+        }
+    });
 
-            // Remove appointment schedule section
-            $(document).on('click', '.remove-award-section', function() {
-                var scheduleSections = $('.award-section');
-                if (scheduleSections.length > 1) {
-                    $(this).closest('.award-section').remove();
+    // Remove award section
+    $(document).on('click', '.remove-award-section', function() {
+        var awardSections = $('.award-section');
+        if (awardSections.length > 1) {
+            $(this).closest('.award-section').remove();
 
-                    // Hide the "Remove" button when there is only one lab test section left
-                    if (scheduleSections.length === 1) {
-                        scheduleSections.find('.remove-award-section').hide();
-                    }
-                }
-            });
-        });
+            // Hide the "Remove" button when there is only one award section left
+            if (awardSections.length === 1) {
+                awardSections.find('.remove-award-section').hide();
+            }
+        }
+    });
+});
