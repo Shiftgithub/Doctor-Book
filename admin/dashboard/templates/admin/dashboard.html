@@ -1,4 +1,5 @@
 {% extends 'dashboard/templates/admin/admin_layout.html' %}
+
 {% block content %}
 <section class="content mt-3">
     <div class="container">
@@ -6,8 +7,14 @@
             <div class="col-md-12">
                 <div class="alert alert-default-info">
                     <div class="d-flex justify-content-between">
-                        <h4>Welcome Admin</h4>
-                        <h4>{{ today_date }}</h4>
+                        <h5>Welcome to our Doctor Book AdminPanel</h5>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <h5 id="current-time"></h5>
+                                <p id="current-date"></p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -57,4 +64,37 @@
         </div>
     </div>
 </section>
+
+{% block scripts %}
+<script>
+    // Function to update the current time and date
+    function updateCurrentTime() {
+        var currentTimeElement = document.getElementById('current-time');
+        var currentDateElement = document.getElementById('current-date');
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+
+        // Convert to 12-hour format
+        hours = hours % 12;
+        hours = hours ? hours : 12; // The hour '0' should be '12'
+
+        var formattedTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds + ' ' + ampm;
+
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        var formattedDate = currentTime.toLocaleDateString(undefined, options);
+
+        currentTimeElement.textContent = formattedTime;
+        currentDateElement.textContent = formattedDate;
+    }
+
+    // Update the time and date every second
+    setInterval(updateCurrentTime, 1000);
+
+    // Call the function once to display the initial time and date
+    updateCurrentTime();
+</script>
+{% endblock %}
 {% endblock %}
