@@ -35,15 +35,12 @@ def admin_dashboard(request):
     doctor_response = count_doctor(request)
     doctor_data = doctor_response.data
 
-    today_date = datetime.now().date()
-
     patient_response = count_patient(request)
     patient_data = patient_response.data
     data = {
         'department_data': department_data,
         'doctor_data': doctor_data,
         'patient_data': patient_data,
-        'today_date': today_date
     }
     return render(request, 'dashboard/templates/admin/dashboard.html', data)
 
