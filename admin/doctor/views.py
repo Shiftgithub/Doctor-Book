@@ -15,6 +15,7 @@ from admin.authentication.otp.function.send_otp import send_otp
 from admin.authentication.otp.function.send_email import send_email
 
 
+# doctor account create
 @api_view(['POST'])
 @transaction.atomic
 def store_doctor_data(request):
@@ -79,147 +80,6 @@ def store_doctor_data(request):
         return Response({'status': 1000, 'message': error_message})
 
 
-@api_view(['POST'])
-@transaction.atomic
-def work_details_store(request):
-    appointment_schedule_serializer = AppointmentScheduleSerializer(data=request.data)
-    if appointment_schedule_serializer.is_valid():
-        doctor_profile_id = request.data.get('doctor_id')
-        off_days = request.data.getlist('off_day[]')
-        start_times = request.data.getlist('start_time[]')
-        end_times = request.data.getlist('end_time[]')
-
-        try:
-            doctor_profile = DoctorProfile.objects.get(id=doctor_profile_id)
-            appointment_schedule_instance = appointment_schedule_serializer.save(doctor_profile=doctor_profile)
-
-            off_day_objs = []
-            schedule_time_objs = []
-
-            for start_time, end_time in zip(start_times, end_times):
-                schedule_time_obj = ScheduleTime.objects.create(
-                    start_time=start_time,
-                    end_time=end_time,
-                    appointment_schedule=appointment_schedule_instance,
-                    doctor_profile=doctor_profile
-                )
-                schedule_time_objs.append(schedule_time_obj)
-
-            for off_day_id in off_days:
-                day_instance = Day.objects.get(id=off_day_id)
-                off_day_obj = OffDay.objects.create(
-                    off_day=day_instance,
-                    doctor_profile=doctor_profile
-                )
-                off_day_objs.append(off_day_obj)
-
-            if all(off_day_objs) and all(schedule_time_objs):
-                return Response({'status': 200, 'message': 'Doctor working data stored successfully'})
-            else:
-                transaction.set_rollback(True)
-                return Response({'status': 403, 'message': 'Error in storing doctor data'})
-        except DoctorProfile.DoesNotExist:
-            transaction.set_rollback(True)
-            return Response({'status': 404, 'message': 'DoctorProfile not found'})
-    else:
-        transaction.set_rollback(True)
-        return Response({'status': 400, 'message': 'Bad Request'})
-
-
-@api_view(['POST'])
-@transaction.atomic
-def edu_store(request):
-    try:
-        doctor_profile_id = request.data.get('doctor_id')
-        doctor_profile = DoctorProfile.objects.get(id=doctor_profile_id)
-
-        certificate_degrees = request.data.getlist('certificate_degrees[]')
-        institutions = request.data.getlist('institutions[]')
-        boards = request.data.getlist('boards[]')
-        results = request.data.getlist('results[]')
-        passing_years = request.data.getlist('passing_years[]')
-
-        education_objs = []
-
-        for certificate_degree, institution, board_id, result, passing_year in zip(
-                certificate_degrees, institutions, boards, results, passing_years
-        ):
-            try:
-                board_instance = Board.objects.get(id=board_id)
-            except Board.DoesNotExist:
-                transaction.set_rollback(True)
-                return Response({'status': 404, 'message': 'Board not found'})
-
-            education_obj = Education.objects.create(
-                certificate_degree=certificate_degree,
-                institution=institution,
-                result=result,
-                passing_year=passing_year,
-                doctor_profile=doctor_profile,
-                board=board_instance,
-            )
-            education_objs.append(education_obj)
-
-        return Response({'status': 200, 'message': 'Doctor education data stored successfully'})
-
-    except DoctorProfile.DoesNotExist:
-        transaction.set_rollback(True)
-        return Response({'status': 404, 'message': 'DoctorProfile not found'})
-    except Exception as e:
-        transaction.set_rollback(True)
-        return Response({'status': 500, 'message': str(e)})
-
-
-@api_view(['POST'])
-def social_store(request):
-    social_media_serializer = SocialMediaSerializer(data=request.data)
-    if social_media_serializer.is_valid():
-        doctor_profile_id = request.data.get('doctor_id')
-        if social_media_serializer.save(doctor_profile_id=doctor_profile_id):
-            return Response({'status': 200, 'message': 'Social Media Data stored successfully'})
-        else:
-            return Response({'status': 403, 'message': 'Error in updating social media data'})
-    else:
-        return Response({'status': 400, 'message': 'Social Media Data stored Failed'})
-
-
-@api_view(['POST'])
-@transaction.atomic
-def award_store(request):
-    try:
-        doctor_profile_id = request.data.get('doctor_id')
-        doctor_profile = DoctorProfile.objects.get(id=doctor_profile_id)
-
-        awards = request.data.getlist('awards[]')
-        honors = request.data.getlist('honors[]')
-        publications = request.data.getlist('publications[]')
-        research_interests = request.data.getlist('research_interests[]')
-
-        awards_objs = []
-
-        for award, honor, publication, research_interest in zip(awards, honors, publications, research_interests):
-            awards_obj = Awards.objects.create(
-                awards=award,
-                honors=honor,
-                publications=publication,
-                research_interests=research_interest,
-                doctor_profile=doctor_profile
-            )
-            awards_objs.append(awards_obj)
-
-        if all(awards_objs):
-            return Response({'status': 200, 'message': 'Award Data stored successfully'})
-        else:
-            return Response({'status': 400, 'message': 'Error in updating social media data'})
-
-    except DoctorProfile.DoesNotExist:
-        transaction.set_rollback(True)
-        return Response({'status': 404, 'message': 'DoctorProfile not found'})
-    except Exception as e:
-        transaction.set_rollback(True)
-        return Response({'status': 500, 'message': str(e)})
-
-
 @api_view(['GET'])
 def get_all_doctors_list(request):
     # Fetch all doctor profiles along with related fields
@@ -233,30 +93,6 @@ def get_all_doctors_list(request):
     return Response(serializer.data)
 
 
-@api_view(['GET'])
-def get_all_doctors_list_for_landing(request):
-    # Fetch all doctor profiles along with related fields
-    doctors = DoctorProfile.objects.filter(deleted_at=None).select_related(
-        'user', 'gender', 'religion', 'blood_group', 'matrimony', 'department'
-    ).prefetch_related(
-        'awards', 'appointment_schedules', 'education', 'social_media',
-        'user__images', 'user__present_address', 'user__permanent_address',
-
-    )
-    # Serialize the data using the combined serializer
-    serializer = DoctorViewForLandingSerializer(doctors, many=True)
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
-def get_doctors_name_department_data(request):
-    # Fetch all doctor profiles along with related fields
-    doctors = DoctorProfile.objects.filter(deleted_at=None).select_related().prefetch_related('education')
-    # Serialize the data using the combined serializer
-    serializer = DoctorNameDepartmentSerializer(doctors, many=True)
-    return Response(serializer.data)
-
-
 # Getting doctor's full details by doctor id
 @api_view(['GET'])
 def doctor_data(request, doctor_id):
@@ -267,44 +103,6 @@ def doctor_data(request, doctor_id):
         'user__images', 'user__present_address', 'user__permanent_address',
     )
     serializer = DoctorViewSerializer(doctors, many=True)
-    return Response(serializer.data)
-
-
-#############################
-
-@api_view(['GET'])
-def doctor_working_data(request, doctor_id):
-    # Fetch all doctor profiles along with user data and related fields
-    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
-        'user').prefetch_related('appointment_schedules', 'user__images')
-    serializer = DoctorWorkingSerializer(doctors, many=True)
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
-def doctor_edu_data(request, doctor_id):
-    # Fetch all doctor profiles along with user data and related fields
-    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
-        'user').prefetch_related('education', 'user__images')
-    serializer = DoctorEduSerializer(doctors, many=True)
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
-def doctor_social_data(request, doctor_id):
-    # Fetch all doctor profiles along with user data and related fields
-    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
-        'user').prefetch_related('awards', 'user__images')
-    serializer = DoctorSocialSerializer(doctors, many=True)
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
-def doctor_award_data(request, doctor_id):
-    # Fetch all doctor profiles along with user data and related fields
-    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
-        'user').prefetch_related('social_media', 'user__images')
-    serializer = DoctorAwardSerializer(doctors, many=True)
     return Response(serializer.data)
 
 
@@ -360,77 +158,116 @@ def edit_doctor_data(request, doctor_id):
         return Response({'status': 500, 'message': str(e)})
 
 
-@api_view(['PUT', 'POST'])
-def edit_social_data(request, doctor_id):
-    id = request.data.get('social_id')
-    if id:
-        social_data = SocialMedia.objects.get(id=doctor_id)
-        serializer = SocialMediaSerializer(social_data, data=request.data)
-        if serializer.is_valid():
-            if serializer.save(updated_at=timezone.now()):
-                return Response({'status': 200, 'message': 'Doctor Social Media data updated Successfully'})
-            else:
-                response = {'status': 403, 'message': 'Doctor Social Media data updated Failed'}
-                return Response(response)
-        else:
-            response = {'status': 404, 'message ': 'Invalid Data.', 'errors': serializer.errors}
-            return Response(response)
-    else:
-        social_media_serializer = SocialMediaSerializer(data=request.data)
-        if social_media_serializer.is_valid():
-            if social_media_serializer.save(doctor_profile_id=doctor_id):
-                return Response({'status': 200, 'message': 'Social Media Data stored successfully'})
-            else:
-                return Response({'status': 403, 'message': 'Error in updating social media data'})
-        else:
-            return Response({'status': 400, 'message': 'Social Media Data stored Failed'})
-
-
-@api_view(['PUT', 'POST'])
+# doctor working data
+@api_view(['POST'])
 @transaction.atomic
-def edit_award_data(request, doctor_id):
-    doctor = get_object_or_404(DoctorProfile, id=doctor_id)
-    ids = request.data.getlist('award_ids[]')
-    awards = request.data.getlist('awards[]')
-    honors = request.data.getlist('honors[]')
-    publications = request.data.getlist('publications[]')
-    research_interests = request.data.getlist('research_interests[]')
+def work_details_store(request):
+    appointment_schedule_serializer = AppointmentScheduleSerializer(data=request.data)
+    if appointment_schedule_serializer.is_valid():
+        doctor_profile_id = request.data.get('doctor_id')
+        off_days = request.data.getlist('off_day[]')
+        start_times = request.data.getlist('start_time[]')
+        end_times = request.data.getlist('end_time[]')
 
-    for id, award_name, honor, publication, research_interest in zip(
-            ids, awards, honors, publications, research_interests):
-        existing_award = Awards.objects.filter(doctor_profile=doctor, id=id).first()
-        award_serializer = AwardsSerializer(existing_award, data={
-            'awards': award_name,
-            'honors': honor,
-            'publications': publication,
-            'research_interests': research_interest,
-            'doctor_profile': doctor.id,
-        })
-        if award_serializer.is_valid():
-            award_serializer.save(updated_at=timezone.now())
-        else:
+        try:
+            doctor_profile = DoctorProfile.objects.get(id=doctor_profile_id)
+            appointment_schedule_instance = appointment_schedule_serializer.save(doctor_profile=doctor_profile)
+
+            off_day_objs = []
+            schedule_time_objs = []
+
+            for start_time, end_time in zip(start_times, end_times):
+                schedule_time_obj = ScheduleTime.objects.create(
+                    start_time=start_time,
+                    end_time=end_time,
+                    appointment_schedule=appointment_schedule_instance,
+                    doctor_profile=doctor_profile
+                )
+                schedule_time_objs.append(schedule_time_obj)
+
+            for off_day_id in off_days:
+                day_instance = Day.objects.get(id=off_day_id)
+                off_day_obj = OffDay.objects.create(
+                    off_day=day_instance,
+                    doctor_profile=doctor_profile
+                )
+                off_day_objs.append(off_day_obj)
+
+            if all(off_day_objs) and all(schedule_time_objs):
+                return Response({'status': 200, 'message': 'Doctor working data stored successfully'})
+            else:
+                transaction.set_rollback(True)
+                return Response({'status': 403, 'message': 'Error in storing doctor data'})
+        except DoctorProfile.DoesNotExist:
             transaction.set_rollback(True)
-            return Response({'status': 400, 'message': 'Invalid data'})
+            return Response({'status': 404, 'message': 'DoctorProfile not found'})
+    else:
+        transaction.set_rollback(True)
+        return Response({'status': 400, 'message': 'Bad Request'})
 
-    awards_objs = []
-    # Create additional awards
-    additional_awards = request.data.getlist('additional_awards[]')
-    additional_honors = request.data.getlist('additional_honors[]')
-    additional_publications = request.data.getlist('additional_publications[]')
-    additional_research_interests = request.data.getlist('additional_research_interests[]')
 
-    for award, honor, publication, research_interest in zip(
-            additional_awards, additional_honors, additional_publications, additional_research_interests):
-        awards_obj = Awards.objects.create(
-            awards=award,
-            honors=honor,
-            publications=publication,
-            research_interests=research_interest,
-            doctor_profile=doctor,
-        )
-        awards_objs.append(awards_obj)
+@api_view(['GET'])
+def doctor_working_data(request, doctor_id):
+    # Fetch all doctor profiles along with user data and related fields
+    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+        'user').prefetch_related('appointment_schedules', 'user__images')
+    serializer = DoctorWorkingSerializer(doctors, many=True)
+    return Response(serializer.data)
 
-    return Response({'status': 200, 'message': 'Doctor Award Data updated successfully'})
+
+# doctor education data
+
+@api_view(['POST'])
+@transaction.atomic
+def edu_store(request):
+    try:
+        doctor_profile_id = request.data.get('doctor_id')
+        doctor_profile = DoctorProfile.objects.get(id=doctor_profile_id)
+
+        certificate_degrees = request.data.getlist('certificate_degrees[]')
+        institutions = request.data.getlist('institutions[]')
+        boards = request.data.getlist('boards[]')
+        results = request.data.getlist('results[]')
+        passing_years = request.data.getlist('passing_years[]')
+
+        education_objs = []
+
+        for certificate_degree, institution, board_id, result, passing_year in zip(
+                certificate_degrees, institutions, boards, results, passing_years
+        ):
+            try:
+                board_instance = Board.objects.get(id=board_id)
+            except Board.DoesNotExist:
+                transaction.set_rollback(True)
+                return Response({'status': 404, 'message': 'Board not found'})
+
+            education_obj = Education.objects.create(
+                certificate_degree=certificate_degree,
+                institution=institution,
+                result=result,
+                passing_year=passing_year,
+                doctor_profile=doctor_profile,
+                board=board_instance,
+            )
+            education_objs.append(education_obj)
+
+        return Response({'status': 200, 'message': 'Doctor education data stored successfully'})
+
+    except DoctorProfile.DoesNotExist:
+        transaction.set_rollback(True)
+        return Response({'status': 404, 'message': 'DoctorProfile not found'})
+    except Exception as e:
+        transaction.set_rollback(True)
+        return Response({'status': 500, 'message': str(e)})
+
+
+@api_view(['GET'])
+def doctor_edu_data(request, doctor_id):
+    # Fetch all doctor profiles along with user data and related fields
+    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+        'user').prefetch_related('education', 'user__images')
+    serializer = DoctorEduSerializer(doctors, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['PUT', 'POST'])
@@ -489,6 +326,151 @@ def edit_edu_data(request, doctor_id):
     return Response({'status': 200, 'message': 'Doctor Education Data updated successfully'})
 
 
+# doctor social data
+
+@api_view(['POST'])
+def social_store(request):
+    social_media_serializer = SocialMediaSerializer(data=request.data)
+    if social_media_serializer.is_valid():
+        doctor_profile_id = request.data.get('doctor_id')
+        if social_media_serializer.save(doctor_profile_id=doctor_profile_id):
+            return Response({'status': 200, 'message': 'Social Media Data stored successfully'})
+        else:
+            return Response({'status': 403, 'message': 'Error in updating social media data'})
+    else:
+        return Response({'status': 400, 'message': 'Social Media Data stored Failed'})
+
+
+@api_view(['GET'])
+def doctor_social_data(request, doctor_id):
+    # Fetch all doctor profiles along with user data and related fields
+    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+        'user').prefetch_related('awards', 'user__images')
+    serializer = DoctorSocialSerializer(doctors, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['PUT', 'POST'])
+def edit_social_data(request, doctor_id):
+    id = request.data.get('social_id')
+    if id:
+        social_data = SocialMedia.objects.get(id=doctor_id)
+        serializer = SocialMediaSerializer(social_data, data=request.data)
+        if serializer.is_valid():
+            if serializer.save(updated_at=timezone.now()):
+                return Response({'status': 200, 'message': 'Doctor Social Media data updated Successfully'})
+            else:
+                response = {'status': 403, 'message': 'Doctor Social Media data updated Failed'}
+                return Response(response)
+        else:
+            response = {'status': 404, 'message ': 'Invalid Data.', 'errors': serializer.errors}
+            return Response(response)
+    else:
+        social_media_serializer = SocialMediaSerializer(data=request.data)
+        if social_media_serializer.is_valid():
+            if social_media_serializer.save(doctor_profile_id=doctor_id):
+                return Response({'status': 200, 'message': 'Social Media Data stored successfully'})
+            else:
+                return Response({'status': 403, 'message': 'Error in updating social media data'})
+        else:
+            return Response({'status': 400, 'message': 'Social Media Data stored Failed'})
+
+
+# doctor award data
+
+@api_view(['POST'])
+@transaction.atomic
+def award_store(request):
+    try:
+        doctor_profile_id = request.data.get('doctor_id')
+        doctor_profile = DoctorProfile.objects.get(id=doctor_profile_id)
+
+        awards = request.data.getlist('awards[]')
+        honors = request.data.getlist('honors[]')
+        publications = request.data.getlist('publications[]')
+        research_interests = request.data.getlist('research_interests[]')
+
+        awards_objs = []
+
+        for award, honor, publication, research_interest in zip(awards, honors, publications, research_interests):
+            awards_obj = Awards.objects.create(
+                awards=award,
+                honors=honor,
+                publications=publication,
+                research_interests=research_interest,
+                doctor_profile=doctor_profile
+            )
+            awards_objs.append(awards_obj)
+
+        if all(awards_objs):
+            return Response({'status': 200, 'message': 'Award Data stored successfully'})
+        else:
+            return Response({'status': 400, 'message': 'Error in updating social media data'})
+
+    except DoctorProfile.DoesNotExist:
+        transaction.set_rollback(True)
+        return Response({'status': 404, 'message': 'DoctorProfile not found'})
+    except Exception as e:
+        transaction.set_rollback(True)
+        return Response({'status': 500, 'message': str(e)})
+
+
+@api_view(['GET'])
+def doctor_award_data(request, doctor_id):
+    # Fetch all doctor profiles along with user data and related fields
+    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+        'user').prefetch_related('social_media', 'user__images')
+    serializer = DoctorAwardSerializer(doctors, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['PUT', 'POST'])
+@transaction.atomic
+def edit_award_data(request, doctor_id):
+    doctor = get_object_or_404(DoctorProfile, id=doctor_id)
+    ids = request.data.getlist('award_ids[]')
+    awards = request.data.getlist('awards[]')
+    honors = request.data.getlist('honors[]')
+    publications = request.data.getlist('publications[]')
+    research_interests = request.data.getlist('research_interests[]')
+
+    for id, award_name, honor, publication, research_interest in zip(
+            ids, awards, honors, publications, research_interests):
+        existing_award = Awards.objects.filter(doctor_profile=doctor, id=id).first()
+        award_serializer = AwardsSerializer(existing_award, data={
+            'awards': award_name,
+            'honors': honor,
+            'publications': publication,
+            'research_interests': research_interest,
+            'doctor_profile': doctor.id,
+        })
+        if award_serializer.is_valid():
+            award_serializer.save(updated_at=timezone.now())
+        else:
+            transaction.set_rollback(True)
+            return Response({'status': 400, 'message': 'Invalid data'})
+
+    awards_objs = []
+    # Create additional awards
+    additional_awards = request.data.getlist('additional_awards[]')
+    additional_honors = request.data.getlist('additional_honors[]')
+    additional_publications = request.data.getlist('additional_publications[]')
+    additional_research_interests = request.data.getlist('additional_research_interests[]')
+
+    for award, honor, publication, research_interest in zip(
+            additional_awards, additional_honors, additional_publications, additional_research_interests):
+        awards_obj = Awards.objects.create(
+            awards=award,
+            honors=honor,
+            publications=publication,
+            research_interests=research_interest,
+            doctor_profile=doctor,
+        )
+        awards_objs.append(awards_obj)
+
+    return Response({'status': 200, 'message': 'Doctor Award Data updated successfully'})
+
+
 @api_view(['PUT', 'GET'])
 def softdelete_doctor_data(request, doctor_id):
     try:
@@ -507,3 +489,27 @@ def softdelete_doctor_data(request, doctor_id):
             return Response(doctor_serializer.errors, status=400)
     except DoctorProfile.DoesNotExist:
         return Response({'status': 404})
+
+
+@api_view(['GET'])
+def get_doctors_name_department_data(request):
+    # Fetch all doctor profiles along with related fields
+    doctors = DoctorProfile.objects.filter(deleted_at=None).select_related().prefetch_related('education')
+    # Serialize the data using the combined serializer
+    serializer = DoctorNameDepartmentSerializer(doctors, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_all_doctors_list_for_landing(request):
+    # Fetch all doctor profiles along with related fields
+    doctors = DoctorProfile.objects.filter(deleted_at=None).select_related(
+        'user', 'gender', 'religion', 'blood_group', 'matrimony', 'department'
+    ).prefetch_related(
+        'awards', 'appointment_schedules', 'education', 'social_media',
+        'user__images', 'user__present_address', 'user__permanent_address',
+
+    )
+    # Serialize the data using the combined serializer
+    serializer = DoctorViewForLandingSerializer(doctors, many=True)
+    return Response(serializer.data)
