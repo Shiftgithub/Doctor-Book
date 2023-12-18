@@ -81,16 +81,6 @@
                 <div id="labtest-sections">
                     <div class="labtest-section">
                         <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label class="col-form-label section-index">Lab Test No 1</label>
-                            </div>
-                            <div class="col-md-8">
-                                <button type="button" class="btn btn-danger remove-labtest-section float-right">
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
                             <label for="labTestID" class="col-md-3 col-form-label">Lab Test</label>
                             <div class="col-md-9">
                                 <select class="form-control select2 labTestSelect" id="labTestID" name="lab_test[]"
@@ -108,11 +98,34 @@
                 <div class="row mb-3">
                     <div class="col-md-2"></div>
                     <div class="col-md-10">
-                        <button type="button" class="btn btn-primary add-labtest-section float-right">Add More</button>
+                        <button type="button" class="btn btn-sm btn-primary add-labtest-section float-right">Add More
+                        </button>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success float-right">Submit</button>
             </form>
+        </div>
+    </div>
+</div>
+<div class="d-none" id="templateID">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-danger remove-labtest-section float-right">
+                Remove
+            </button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="labTestID" class="col-md-3 col-form-label">Lab Test</label>
+        <div class="col-md-9">
+            <select class="form-control select2 labTestSelect" id="labTestID" name="lab_test[]"
+                    required>
+                <option selected disabled value="">Select Lab Test Name</option>
+                {% for item in labtest_data %}
+                <option value="{{ item.id }}">{{ item.id }} . {{ item.name }}</option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">Please select lab test name.</div>
         </div>
     </div>
 </div>

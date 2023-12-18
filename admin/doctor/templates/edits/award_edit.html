@@ -131,7 +131,7 @@
                             <label class="col-md-2 col-form-label">Awards :</label>
                             <div class="col-md-10">
                                 <input type="text" class="form-control" name="additional_awards[]"
-                                       placeholder="Not Provide"/>
+                                       placeholder="Not Provide" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -161,7 +161,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary add-award-section float-right">
+                            <button type="button" class="btn btn-sm btn-primary add-award-section float-right">
                                 Add More
                             </button>
                         </div>
@@ -185,7 +185,7 @@
 <div class="d-none" id="templateID">
     <div class="row mb-3">
         <div class="col-md-12">
-            <button type="button" class="btn btn-danger remove-award-section float-right">
+            <button type="button" class="btn btn-sm btn-danger remove-award-section float-right">
                 Remove
             </button>
         </div>
@@ -219,7 +219,7 @@
 </div>
 {% endblock %}
 {% block scripts %}
-<script src="{% static 'adminlte_assets/js/section-callback-for-edit.js' %}"></script>
+<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
 <script>
     function previewImage(event) {
     var input = event.target;

@@ -80,16 +80,6 @@
                 <hr>
                 <div id="medicine-sections">
                     <div class="medicine-section">
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label class="col-form-label section-index">Medicine No 1</label>
-                            </div>
-                            <div class="col-md-8">
-                                <button type="button" class="btn btn-danger remove-medicine-section float-right">
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
                         {% if not medicine_data %}
                         <div class="alert alert-default-warning">
                             <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_medicine_form' %}">
@@ -146,11 +136,72 @@
                 <div class="row mb-3">
                     <div class="col-md-2"></div>
                     <div class="col-md-10">
-                        <button type="button" class="btn btn-primary add-medicine-section float-right">Add More</button>
+                        <button type="button" class="btn btn-sm btn-primary add-medicine-section float-right">Add More
+                        </button>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success float-right">Submit</button>
             </form>
+        </div>
+    </div>
+</div>
+<div class="d-none" id="templateID">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-danger remove-medicine-section float-right">
+                Remove
+            </button>
+        </div>
+    </div>
+    {% if not medicine_data %}
+    <div class="alert alert-default-warning">
+        <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_medicine_form' %}">
+        Add Medicine </a> first.
+    </div>
+    {% else %}
+    <div class="row mb-3">
+        <label for="medicineID" class="col-md-3 col-form-label">Medicine :<span class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <select class="form-control select2" id="medicineID" name="medicine[]" required>
+                <option selected disabled value="">Select Medicine Name</option>
+                {% for item in medicine_data %}
+                <option value="{{ item.id }}">{{ item.id }} . {{ item.name }} {{ item.strength }}
+                </option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">Please select medicine name.</div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row mb-3">
+        <label for="medicineScheduleID" class="col-md-3 col-form-label">Medicine Schedule :<span
+                class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <select class="form-control select2" id="medicineScheduleID" name="medicine_schedule[]"
+                    required>
+                <option selected disabled value="">Select Medicine Schedule</option>
+                {% for item in medicine_schedule_data %}
+                <option value="{{ item.id }}">{{ item.id }} . {{ item.schedule }}</option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">Please select medicine schedule time name.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="frequencyID" class="col-md-3 col-form-label">Frequency :<span
+                class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <input class="form-control select2" id="frequencyID" name="frequency[]" type="text"
+                   required>
+            <div class="invalid-feedback">Please enter medicine frequency.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="durationID" class="col-md-3 col-form-label">Duration :<span class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <input class="form-control select2" id="durationID" name="duration[]" type="text"
+                   required>
+            <div class="invalid-feedback">Please enter medicine duration.</div>
         </div>
     </div>
 </div>

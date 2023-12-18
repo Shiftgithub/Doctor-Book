@@ -40,17 +40,10 @@
                 <div id="award-sections">
                     <div class="award-section">
                         <div class="row mb-3">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-danger remove-award-section float-right">
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
                             <label class="col-md-2 col-form-label" for="awardsAndHonorsID">Awards :</label>
                             <div class="col-md-10">
                                 <input class="form-control" id="awardsAndHonorsID" name="awards[]" type="text"
-                                       placeholder="If you have"/>
+                                       placeholder="If you have" required/>
                                 <div class="invalid-feedback">Please enter award name.</div>
                             </div>
                         </div>
@@ -84,7 +77,7 @@
                 <div class="row mb-3">
                     <div class="col-md-2"></div>
                     <div class="col-md-10">
-                        <button type="button" class="btn btn-primary add-award-section float-right">Add More
+                        <button type="button" class="btn btn-sm btn-primary add-award-section float-right">Add More
                         </button>
                     </div>
                 </div>
@@ -101,6 +94,48 @@
             </div>
         </div>
     </form>
+</div>
+<div class="d-none" id="templateID">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-danger remove-award-section float-right">
+                Remove
+            </button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="awardsAndHonorsID">Awards :</label>
+        <div class="col-md-10">
+            <input class="form-control" id="awardsAndHonorsID" name="awards[]" type="text"
+                   placeholder="If you have" required/>
+            <div class="invalid-feedback">Please enter award name.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="honorID">Honors :</label>
+        <div class="col-md-10">
+            <input class="form-control" id="honorID" name="honors[]" type="text"
+                   placeholder="If you have"/>
+            <div class="invalid-feedback">Please enter honors name.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="publicationsID">Publications :</label>
+        <div class="col-md-10">
+            <input class="form-control" id="publicationsID" name="publications[]" type="text"
+                   placeholder="If you have"/>
+            <div class="invalid-feedback">Please enter publications name.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="researchInterestsID">Research Interests
+            :</label>
+        <div class="col-md-10">
+            <input class="form-control" id="researchInterestsID" name="research_interests[]"
+                   type="text" placeholder="If you have"/>
+            <div class="invalid-feedback">Please enter research interest name.</div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 {% block scripts %}

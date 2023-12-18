@@ -30,18 +30,8 @@
                     </div>
                 </div>
                 <hr>
-                <div id="section-callbacks">
-                    <div class="section-callback">
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label class="col-form-label section-index">No 1</label>
-                            </div>
-                            <div class="col-md-8">
-                                <button type="button" class="btn btn-danger remove-section-callback float-right">
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
+                <div id="organ-sections">
+                    <div class="organ-section">
                         <div class="row mb-3">
                             <label class="col-sm-12 col-md-2 col-form-label font-weight-bold">Organ : <span
                                     class="text-danger">*</span></label>
@@ -62,19 +52,41 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <button type="button" class="btn btn-primary add-section-callback float-right">Add More</button>
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-sm btn-primary add-organ-section float-right">Add More
+                        </button>
                     </div>
                 </div>
-                <!-- Section Container -->
-                <div id="sections-container">
-                </div>
-                <br>
                 <!-- Submit Button -->
                 <button type="submit" class="btn btn-success float-right">Submit</button>
                 {% endif %}
             </form>
+        </div>
+    </div>
+</div>
+<div class="d-none" id="templateID">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-danger remove-organ-section float-right">
+                Remove
+            </button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-12 col-md-2 col-form-label font-weight-bold">Organ : <span
+                class="text-danger">*</span></label>
+        <div class="col-sm-12 col-md-10">
+            <input type="text" class="form-control " minlength="1" maxlength="255" size="255"
+                   name="names[]" required/>
+            <div class="invalid-feedback">Please enter organ name.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="descriptionID" class="col-sm-12 col-md-2 form-label">Description</label>
+        <div class="col-md-10">
+                        <textarea class="form-control" id="descriptionID"
+                                  required name="descriptions[]">{{ data.description|default:"N/A" }}</textarea>
+            <div class="invalid-feedback">Please enter description or type N/A.</div>
         </div>
     </div>
 </div>

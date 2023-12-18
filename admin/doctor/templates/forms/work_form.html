@@ -40,14 +40,6 @@
                 <div id="schedule-sections">
                     <div class="schedule-section">
                         <div class="row mb-3">
-                            <div class="col-md-12">
-                                <button type="button"
-                                        class="btn btn-danger remove-schedule-section float-right">
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
                             <label class="col-md-2 col-form-label" for="startTimeID">Start Time :<span
                                     class="text-danger">*</span></label>
                             <div class="col-md-4">
@@ -66,22 +58,13 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <button type="button" class="btn btn-primary add-schedule-section float-right">Add More
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-sm btn-primary add-schedule-section float-right">Add More
                         </button>
                     </div>
                 </div>
                 <div id="off-day-sections">
                     <div class="off-day-section">
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <button type="button"
-                                        class="btn btn-danger remove-off-day-section float-right">
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label" for="offDayID">Off Day : <span
                                     class="text-danger">*</span></label>
@@ -98,9 +81,8 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <button type="button" class="btn btn-primary add-off-day-section float-right">Add More
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-sm btn-primary add-off-day-section float-right">Add More
                         </button>
                     </div>
                 </div>
@@ -133,6 +115,53 @@
             </div>
         </div>
     </form>
+</div>
+<div class="d-none" id="templateID">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-danger remove-off-day-section float-right">
+                Remove
+            </button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="offDayID">Off Day : <span
+                class="text-danger">*</span></label>
+        <div class="col-md-10">
+            <select class="form-control select2" id="offDayID" name="off_day[]" required>
+                <option selected disabled value="">Select Off Day</option>
+                {% for item in day_data %}
+                <option value="{{ item.id }}">{{ item.id }} . {{ item.name }}</option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">Please select off day name.</div>
+        </div>
+    </div>
+</div>
+<div class="d-none" id="offDayTemplateID">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-danger remove-off-day-section float-right">
+                Remove
+            </button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="startTimeID">Start Time :<span
+                class="text-danger">*</span></label>
+        <div class="col-md-4">
+            <input class="form-control" id="startTimeID" name="start_time[]"
+                   type="time" required/>
+            <div class="invalid-feedback">Please enter start time.</div>
+        </div>
+        <label class="col-md-2 col-form-label" for="endTimeID">End Time :<span
+                class="text-danger">*</span></label>
+        <div class="col-md-4">
+            <input class="form-control" id="endTimeID" name="end_time[]"
+                   type="time" required/>
+            <div class="invalid-feedback">Please enter end time.</div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 

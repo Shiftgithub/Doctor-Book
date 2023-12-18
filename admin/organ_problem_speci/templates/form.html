@@ -43,18 +43,8 @@
                 </div>
                 <hr>
                 <!-- Add form fields here -->
-                <div id="section-callbacks">
-                    <div class="section-callback">
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label class="col-form-label section-index">No 1</label>
-                            </div>
-                            <div class="col-md-8">
-                                <button type="button" class="btn btn-danger remove-section-callback float-right">
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
+                <div id="specification-sections">
+                    <div class="specification-section">
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label font-weight-bold">Problem : <span
                                     class="text-danger">*</span></label>
@@ -79,22 +69,50 @@
                 <div class="row mb-3">
                     <div class="col-md-2"></div>
                     <div class="col-md-10">
-                        <button type="button" class="btn btn-primary add-section-callback float-right">Add More</button>
+                        <button type="button"
+                                class="btn btn-sm btn-primary add-specification-section float-right">Add
+                            More
+                        </button>
                     </div>
                 </div>
-                <!-- Section Container -->
-                <div id="sections-container">
-                </div>
-                <br>
                 <!-- Submit Button -->
                 <button type="submit" class="btn btn-success float-right">Submit</button>
             </form>
         </div>
     </div>
 </div>
+<div class="d-none" id="templateID">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-danger remove-specification-section float-right">
+                Remove
+            </button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label font-weight-bold">Problem : <span
+                class="text-danger">*</span></label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" minlength="3" maxlength="255" size="255"
+                   name="problems[]" required/>
+            <div class="invalid-feedback">Please enter an organ problem name.</div>
+        </div>
+    </div>
+    <!-- Description -->
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label font-weight-bold">Problem Speci : <span
+                class="text-danger">*</span></label>
+        <div class="col-md-10">
+                                    <textarea class="form-control" cols="30" rows="2" minlength="3" maxlength="1000"
+                                              name="problem_specifications[]" required>{{ data.description|default:"N/A" }}</textarea>
+            <div class="invalid-feedback">Please enter an organ problem specification.</div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
+<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
 <script>
     $('#bodyPartID').on('change', function () {
         let body_part_id = $(this).val();
@@ -133,5 +151,4 @@
         });
      });
 </script>
-<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
 {% endblock %}
