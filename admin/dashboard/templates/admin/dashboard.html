@@ -3,65 +3,63 @@
 {% block content %}
 <section class="content mt-3">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-default-info">
-                    <div class="d-flex justify-content-between">
-                        <h5>Welcome to our Doctor Book AdminPanel</h5>
-                        <div class="row">
-                            <div class="col-md-12 text-right">
-                                <h5 id="current-time"></h5>
-                                <p id="current-date"></p>
-                            </div>
-                        </div>
-
-                    </div>
+        <div class="alert alert-default-info">
+            <!--            <div class="d-flex justify-content-between">-->
+            <div class="row">
+                <div class="col-6">
+                    <h6>Welcome to our Doctor Book AdminPanel</h6>
                 </div>
+                <div class="col-6 text-right">
+                    <h5 id="current-time"></h5>
+                    <p id="current-date"></p>
+                </div>
+                <!--                </div>-->
             </div>
         </div>
-        <!-- Small boxes (Stat box) -->
-        <div class="row text-center">
-            <div class="col-sm-4 col-md-4">
-                <div class="small-box text-white" style="background-color:#5C8374">
-                    <div class="inner">
-                        <h6>Total Department</h6>
-                        <p>{{department_data.department_count}}</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-hotel"></i>
-                    </div>
-                    <a href="{% url 'department_list' %}" class="small-box-footer">See More <i
-                            class="fas fa-arrow-circle-right"></i></a>
+    </div>
+    <!-- Small boxes (Stat box) -->
+    <div class="row text-center">
+        <div class="col-sm-4 col-md-4">
+            <div class="small-box text-white" style="background-color:#5C8374">
+                <div class="inner">
+                    <h6>Total Department</h6>
+                    <p>{{department_data.department_count}}</p>
                 </div>
-            </div>
-            <div class="col-sm-4 col-md-4">
-                <div class="small-box text-white" style="background-color:#5C8374">
-                    <div class="inner">
-                        <h6>Total Doctor</h6>
-                        <p>{{doctor_data.doctor_count}}</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-user-md"></i>
-                        <!--                        <i class="fas fa-users"></i>-->
-                    </div>
-                    <a href="{% url 'doctor_list' %}" class="small-box-footer">See More <i
-                            class="fas fa-arrow-circle-right"></i></a>
+                <div class="icon">
+                    <i class="fas fa-hotel"></i>
                 </div>
-            </div>
-            <div class="col-sm-4 col-md-4">
-                <div class="small-box text-dark" style="background-color:#9EC8B9">
-                    <div class="inner">
-                        <h6 class="text-center">Total Patient</h6>
-                        <p class="text-center">{{patient_data.patient_count}}</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-user-injured"></i>
-                    </div>
-                    <a href="{% url 'patient_list' %}" class="small-box-footer text-dark">See More <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
+                <a href="{% url 'department_list' %}" class="small-box-footer">See More <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        <div class="col-sm-4 col-md-4">
+            <div class="small-box text-white" style="background-color:#5C8374">
+                <div class="inner">
+                    <h6>Total Doctor</h6>
+                    <p>{{doctor_data.doctor_count}}</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-user-md"></i>
+                    <!--                        <i class="fas fa-users"></i>-->
+                </div>
+                <a href="{% url 'doctor_list' %}" class="small-box-footer">See More <i
+                        class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+            <div class="small-box text-dark" style="background-color:#9EC8B9">
+                <div class="inner">
+                    <h6 class="text-center">Total Patient</h6>
+                    <p class="text-center">{{patient_data.patient_count}}</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-user-injured"></i>
+                </div>
+                <a href="{% url 'patient_list' %}" class="small-box-footer text-dark">See More <i
+                        class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
     </div>
 </section>
 
