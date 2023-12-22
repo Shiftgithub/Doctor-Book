@@ -29,19 +29,19 @@
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a href="{% url 'working_list' %}" class="nav-link">
+                        <a href="{% url 'working_view' request.session.doctor_id %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Working Details</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a href="{% url 'edu_list' %}" class="nav-link">
+                        <a class="nav-link" href="{% url 'edu_view' request.session.doctor_id %}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Education Details</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a class="nav-link" href="{% url 'social_list' %}">
+                        <a class="nav-link" href="{% url 'social_view' request.session.doctor_id %}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Social Media Details</p>
                         </a>

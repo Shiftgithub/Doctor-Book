@@ -79,12 +79,14 @@
 </script>
 {% endfor %}
 {% endif %}
+<!--chat-icon="{% static 'landing_assets/img/chaticon2.png' %}"-->
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 <df-messenger
-        chat-icon="{% static 'landing_assets/img/chaticon2.png' %}"
-        chat-title="chatbot"
-        agent-id="98432111-10fe-4750-9463-a6c8594429be"
-        language-code="en"
+  intent="WELCOME"
+  chat-icon="{% static 'landing_assets/img/chaticon2.png' %}"
+  chat-title="Doctor-Book-ChatBot"
+  agent-id="1953a56b-c288-4062-9ac8-bf041dc376db"
+  language-code="en"
 ></df-messenger>
 
 

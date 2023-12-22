@@ -140,14 +140,9 @@ def count_medicine_prescription(request, doctor_id):
     # Get the PrescriptionForMedicine instances for the given doctor_id
     prescriptions_for_medicine = PrescriptionForMedicine.objects.filter(doctor_profile=doctor_id)
 
-    # Get the MedicinePrescription instances related to the prescriptions_for_medicine
-    medicine_prescriptions = MedicinePrescription.objects.filter(prescription__in=prescriptions_for_medicine)
-
-    # Get the count of medicine_prescription_count
-    medicine_prescription_count = medicine_prescriptions.count()
-
-    # Serializing medicine_prescription_count
-    serialized_data = {'medicine_prescription_count': medicine_prescription_count}
+    # Get the count of prescriptions_for_medicine
+    prescriptions_for_medicine_count = prescriptions_for_medicine.count()
+    serialized_data = {'prescriptions_for_medicine_count': prescriptions_for_medicine_count}
 
     return Response(serialized_data)
 
@@ -157,14 +152,11 @@ def count_lab_prescription(request, doctor_id):
     # Get the PrescriptionForLabTest instances for the given doctor_id
     prescriptions_for_lab = PrescriptionForLabTest.objects.filter(doctor_profile=doctor_id)
 
-    # Get the LabTestPrescription instances related to the prescriptions_for_lab
-    lab_prescriptions = LabTestPrescription.objects.filter(lab_prescription__in=prescriptions_for_lab)
-
-    # Get the count of lab_prescription_count
-    lab_prescription_count = lab_prescriptions.count()
+    # Get the count of lab_prescription
+    prescriptions_for_lab_count = prescriptions_for_lab.count()
 
     # Serializing lab_prescription_count
-    serialized_data = {'lab_prescription_count': lab_prescription_count}
+    serialized_data = {'prescriptions_for_lab_count': prescriptions_for_lab_count}
 
     return Response(serialized_data)
 
