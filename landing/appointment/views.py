@@ -470,3 +470,11 @@ def appointment_data_view(request, appointment_id):
     serializer = PatientAppointmentViewSerializer(appointment, many=False)
 
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_all_appointment_by_patient(request, patient_id):
+    appointments = GetAppointment.objects.filter(patient=patient_id, deleted_at=None).order_by('-appointment_date',
+                                                                                               '-appointment_time')
+    serialized_data = PatientAppointmentViewSerializer(appointments, many=True).data
+    return Response(serialized_data)

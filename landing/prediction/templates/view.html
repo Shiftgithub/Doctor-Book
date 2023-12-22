@@ -1,0 +1,56 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Prediction Details</h1>
+        </div>
+        <div class="card-body">
+
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Body Part Name:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ prediction_data.0.body_part }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Organ Name:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ prediction_data.0.organ }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Department:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ prediction_data.0.department }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Department Speci Description:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ prediction_data.0.department_speci }}" readonly/>
+                </div>
+            </div>
+            <hr>
+            {% for spec_data in specification_data %}
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Problem Name:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ spec_data.problem }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Problem Specification:</label>
+                <div class="col-md-9">
+                    <textarea class="form-control" readonly rows="5"
+                              cols="30">{{ spec_data.problem_specification }}</textarea>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -34,7 +34,8 @@ def landing_doctors(request):
     doctor_data = response_doctor.data
     return render(request, 'landing/templates/pages/doctors.html', {'doctor_data': doctor_data})
 
-    # Renders Landing FAQ page
+
+# Renders Landing FAQ page
 
 
 def landing_faq(request):

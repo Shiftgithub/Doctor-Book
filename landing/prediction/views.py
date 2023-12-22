@@ -20,12 +20,10 @@ def prediction(request):
         bodypart_id = predict_serializer.validated_data.get('bodypart')
         organ_id = predict_serializer.validated_data.get('organ')
         problem_specs = request.POST.getlist('problem_specs[]')
-        print(problem_specs)
 
         department_specifications = DepartmentSpecification.objects.filter(
             organ_problem_specification__in=problem_specs
         )
-
         if department_specifications.exists():
             department_ids = department_specifications.values_list('department', flat=True)
 
@@ -55,19 +53,33 @@ def prediction(request):
                 department_speci_instance = department_specifications.first()
 
                 prediction_store_serializer = PredictionStoreSerializer(data=request.data)
-                if prediction_store_serializer.is_valid():
+                specification_serializer = SpecificationSerializer(data=request.data)
+                if prediction_store_serializer.is_valid() and specification_serializer.is_valid():
                     # Save the model with the department and department_speci
-                    save = prediction_store_serializer.save(
+                    prediction_save = prediction_store_serializer.save(
                         organ=organ,
-                        body_part=body_part,  # Change 'bodypart' to 'body_part'
+                        body_part=body_part,
                         department=department_instance,
                         department_speci=department_speci_instance
                     )
 
-                    if save:
+                    spec_objs = []
+                    for problem_spec_id in problem_specs:
+                        try:
+                            problem_spec = OrgansProblemSpecification.objects.get(id=problem_spec_id)
+                            spec_obj = Specification.objects.create(
+                                prediction=prediction_save,
+                                problem_specification=problem_spec,
+                            )
+                            spec_objs.append(spec_obj)
+                        except OrgansProblemSpecification.DoesNotExist:
+                            data = {'status': 403, 'message': 'Organ Problem not exist'}
+                            return Response(data)
+
+                    if prediction_save and spec_objs:
                         response_data = {
                             'status': 200,
-                            'prediction_id': save.id,
+                            'prediction_id': prediction_save.id,
                             'body_part_name': body_part_serializer.data,
                             'organ_name': organ_serializer.data,
                             'doctors_data': doctor_serializer.data,
@@ -76,8 +88,7 @@ def prediction(request):
                         }
                         return Response(response_data)
                     else:
-                        response_data = {'status': 403,
-                                         'message': 'Error in prediction storing data.'}
+                        response_data = {'status': 403, 'message': 'Error in prediction storing data.'}
                 else:
                     response_data = {'status': 400, 'message': 'Invalid request!'}
             else:
@@ -90,3 +101,31 @@ def prediction(request):
         response_data = {'status': 400, 'message': 'Invalid data'}
 
     return Response(response_data)
+
+
+@api_view(['GET'])
+def get_all_prediction_list_by_patient(request):
+    patient_id = request.session["patient_id"]
+
+    predictions = Prediction.objects.filter(created_by=patient_id, deleted_at=None).order_by('-id')
+    serialized_data = PredictionViewSerializer(predictions, many=True).data
+
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def prediction_data_view(request, prediction_id):
+    patient_id = request.session["patient_id"]
+
+    predictions = Prediction.objects.filter(id=prediction_id, created_by_id=patient_id, deleted_at=None).order_by('-id')
+    serialized_data = PredictionViewSerializer(predictions, many=True).data
+
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def specification_data_view(request, prediction_id):
+    specifications = Specification.objects.filter(prediction=prediction_id).order_by('-id')
+    serialized_data = SpecificationViewSerializer(specifications, many=True).data
+
+    return Response(serialized_data)

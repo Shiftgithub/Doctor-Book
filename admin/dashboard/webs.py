@@ -71,6 +71,8 @@ def doctor_dashboard(request):
 
 
 def patient_dashboard(request):
+    patient_id = request.session['patient_id']
+    print('patient_id:',patient_id)
     notification(request)
     return render(request, 'dashboard/templates/patient/dashboard.html')
 

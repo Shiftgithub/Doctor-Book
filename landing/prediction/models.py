@@ -11,15 +11,20 @@ from admin.organ_problem_speci.models import OrgansProblemSpecification
 class Prediction(BaseModel):
     body_part = models.ForeignKey(BodyPart, on_delete=models.CASCADE, related_name='prediction', null=True)
     organ = models.ForeignKey(Organ, on_delete=models.CASCADE, related_name='prediction', null=True)
-    organ_problem_speci = models.ForeignKey(OrgansProblemSpecification, on_delete=models.CASCADE,
-                                            related_name='prediction', null=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='prediction', null=True)
     department_speci = models.ForeignKey(DepartmentSpecification, on_delete=models.CASCADE, related_name='prediction',
                                          null=True)
     created_by = models.ForeignKey(PatientProfile, on_delete=models.CASCADE, related_name='prediction', null=True)
 
-    def __str__(self):
-        return self.body_part
-
     class Meta:
         db_table = "prediction"
+
+
+class Specification(models.Model):
+    prediction = models.ForeignKey(Prediction, on_delete=models.CASCADE, related_name='specification', null=True)
+
+    problem_specification = models.ForeignKey(OrgansProblemSpecification, on_delete=models.CASCADE,
+                                              related_name='predictions', null=True)
+
+    class Meta:
+        db_table = "specification"

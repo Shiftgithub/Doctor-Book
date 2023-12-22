@@ -3,14 +3,14 @@
 
 {% block content %}
 <div class="container mt-4">
-    <form action="{% url 'store_patient_by_doctor' %}" enctype="multipart/form-data" id="PostForm"
-          method="POST" class="needs-validation" novalidate>
-        {% csrf_token %}
-        <div class="card">
-            <div class="card-header bg-dark">
-                <h1 class="card-title">Add Patient</h1>
-            </div>
-            <div class="card-body">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Add Patient</h1>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'store_patient_by_doctor' %}" enctype="multipart/form-data" id="PostForm"
+                  method="POST" class="needs-validation" novalidate>
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-md-8">
                         <div class="row mb-3">
@@ -162,9 +162,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 {% endblock %}
 {% block scripts %}

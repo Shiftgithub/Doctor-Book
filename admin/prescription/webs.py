@@ -48,6 +48,13 @@ def medicine_prescription_data_view(request):
     return render(request, 'prescription/templates/medicine/list_all.html', data)
 
 
+def medicine_prescription_data_view_by_patient(request):
+    response = get_all_medicine_prescriptions_list_by_patient(request)
+    all_prescription_data = response.data
+    data = {'all_prescription_data': all_prescription_data}
+    return render(request, 'prescription/templates/medicine/list_all_by_patient.html', data)
+
+
 def view_medicine_prescription(request, prescription_id):
     response = get_medicine_prescription_by_id(request, prescription_id)
     prescription_data = response.data
@@ -125,6 +132,13 @@ def store_lab_prescription(request):
 
 def lab_prescription_data_view(request):
     response = get_all_lab_test_prescriptions_list(request)
+    all_prescription_data = response.data
+    data = {'all_prescription_data': all_prescription_data}
+    return render(request, 'prescription/templates/labtest/list_all_by_patient.html', data)
+
+
+def lab_prescription_data_view_by_patient(request):
+    response = get_all_lab_test_prescriptions_list_by_patient(request)
     all_prescription_data = response.data
     data = {'all_prescription_data': all_prescription_data}
     return render(request, 'prescription/templates/labtest/list_all.html', data)

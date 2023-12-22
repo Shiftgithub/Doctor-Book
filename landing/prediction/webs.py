@@ -9,7 +9,7 @@ def predict_form(request):
     response_body_part = get_all_body_part_list(request)
     body_part_data = response_body_part.data
     data = {'bodypart_data': body_part_data}
-    return render(request, 'prediction/templates/predict.html', data)
+    return render(request, 'prediction/templates/form.html', data)
 
 
 def predict(request):
@@ -22,7 +22,7 @@ def predict(request):
         problem_specs = operation_response.data.get('problem_specs')
         body_part_name = operation_response.data.get('body_part_name')
         organ_name = operation_response.data.get('organ_name')
-        messages.add_message(request, messages.INFO, 'Here are all Doctor List ')
+        messages.add_message(request, messages.INFO, message)
         data = {
             'doctor_data': doctor_response,
             'bodypart_name': body_part_name,
@@ -42,6 +42,23 @@ def predict(request):
     else:
         messages.add_message(request, messages.ERROR, message)
         return redirect('predict_form')
+
+
+def prediction_list(request):
+    response_prediction = get_all_prediction_list_by_patient(request)
+    prediction_data = response_prediction.data
+    return render(request, 'prediction/templates/list_all.html', {'prediction_data': prediction_data})
+
+
+def view_prediction_data(request, prediction_id):
+    response_prediction = prediction_data_view(request, prediction_id)
+    prediction_data = response_prediction.data
+    response_specification = specification_data_view(request, prediction_id)
+    specification_data = response_specification.data
+    print('specification_data:', specification_data)
+
+    data = {'prediction_data': prediction_data, 'specification_data': specification_data}
+    return render(request, 'prediction/templates/view.html', data)
 
 
 def doctor_profile(request, doctor_id):

@@ -12,6 +12,7 @@ urlpatterns = [
     path('appointment-schedule/', store_appointment_schedule, name='appointment_schedule'),
     path('appointment-schedule-method/', store_appointment_and_create_account, name='appointment_schedule_method'),
     path('appointment-list/', appointment_list_by_doctor, name='appointment_list_by_doctor'),
+    path('patient-appointment-list/', appointment_list_by_patient, name='appointment_list_by_patient'),
     path('today-appointment-schedule-list/', appointment_list_by_date, name='appointment_list_by_date'),
 
     path('view-appointment/<int:appointment_id>/', view_appointment, name='view_appointment'),

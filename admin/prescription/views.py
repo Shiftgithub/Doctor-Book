@@ -67,6 +67,19 @@ def get_all_medicine_prescriptions_list(request):
 
 
 @api_view(['GET'])
+def get_all_medicine_prescriptions_list_by_patient(request):
+    user_id = request.session.get('user_id')
+    patient_profile = PatientProfile.objects.filter(user_id=user_id).first()
+    patient_id = patient_profile.id
+    medicines = PrescriptionForMedicine.objects.filter(deleted_at=None, patient_profile=patient_id).prefetch_related(
+        'medicine_prescription').order_by('-id')
+    serializer = PrescriptionForMedicineViewSerializer(instance=medicines, many=True)
+    serializer_data = serializer.data
+
+    return Response(serializer_data)
+
+
+@api_view(['GET'])
 def get_medicine_prescription_by_id(request, prescription_id):
     medicine = PrescriptionForMedicine.objects.filter(id=prescription_id, deleted_at=None).prefetch_related(
         'medicine_prescription').get()
@@ -115,7 +128,23 @@ def store_lab_prescription_data(request, doctor_id, user_id):
 
 @api_view(['GET'])
 def get_all_lab_test_prescriptions_list(request):
-    lab_tests = PrescriptionForLabTest.objects.filter(deleted_at=None).prefetch_related(
+    user_id = request.session.get('user_id')
+    doctor_profile = DoctorProfile.objects.filter(user_id=user_id).first()
+    doctor_id = doctor_profile.id
+
+    lab_tests = PrescriptionForLabTest.objects.filter(deleted_at=None, doctor_profile=doctor_id).prefetch_related(
+        'prescription_lab').order_by('-id')
+    serializer_data = PrescriptionForLabTestViewSerializer(instance=lab_tests, many=True).data
+    return Response(serializer_data)
+
+
+@api_view(['GET'])
+def get_all_lab_test_prescriptions_list_by_patient(request):
+    user_id = request.session.get('user_id')
+    patient_profile = PatientProfile.objects.filter(user_id=user_id).first()
+    patient_id = patient_profile.id
+
+    lab_tests = PrescriptionForLabTest.objects.filter(deleted_at=None, patient_profile=patient_id).prefetch_related(
         'prescription_lab').order_by('-id')
     serializer_data = PrescriptionForLabTestViewSerializer(instance=lab_tests, many=True).data
     return Response(serializer_data)
