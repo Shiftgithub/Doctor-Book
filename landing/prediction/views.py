@@ -4,20 +4,23 @@ from admin.organ.models import Organ
 from admin.bodypart.models import BodyPart
 from rest_framework.response import Response
 from admin.department.models import Department
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
-from admin.patient.models import PatientProfile
 from admin.bodypart.serializers import BodyPartSerializer
 from admin.organ.serializers import OrganBodyPartSerializer
 from admin.department_speci.models import DepartmentSpecification
 from admin.organ_problem_speci.models import OrgansProblemSpecification
 from admin.organ_problem_speci.serializers import OrganProblemSerializer
 
+from django.db import connection
+from collections import namedtuple
+
 
 @api_view(['POST'])
 def prediction(request):
     predict_serializer = PredictionSerializer(data=request.data)
     if predict_serializer.is_valid():
-        bodypart_id = predict_serializer.validated_data.get('bodypart')
+        body_part_id = predict_serializer.validated_data.get('bodypart')
         organ_id = predict_serializer.validated_data.get('organ')
         problem_specs = request.POST.getlist('problem_specs[]')
 
@@ -33,7 +36,7 @@ def prediction(request):
                 )
                 doctor_serializer = PredictionDoctorSerializer(doctor_data, many=True)
 
-                body_part = BodyPart.objects.get(id=bodypart_id)
+                body_part = BodyPart.objects.get(id=body_part_id)
                 body_part_serializer = BodyPartSerializer(body_part, many=False)
 
                 organ = Organ.objects.get(id=organ_id)
@@ -93,10 +96,10 @@ def prediction(request):
                     response_data = {'status': 400, 'message': 'Invalid request!'}
             else:
                 response_data = {'status': 403,
-                                 'message': 'Department have multiple departments'}
+                                 'message': 'Department Specifications have multiple departments'}
         else:
             response_data = {'status': 403,
-                             'message': 'DepartmentSpecifications have different departments'}
+                             'message': 'DepartmentSpecifications dose not exits departments'}
     else:
         response_data = {'status': 400, 'message': 'Invalid data'}
 
@@ -105,10 +108,40 @@ def prediction(request):
 
 @api_view(['GET'])
 def get_all_prediction_list_by_patient(request):
-    patient_id = request.session["patient_id"]
+    patient_id = request.session.get("patient_id")
 
-    predictions = Prediction.objects.filter(created_by=patient_id, deleted_at=None).order_by('-id')
-    serialized_data = PredictionViewSerializer(predictions, many=True).data
+    # Fetch all predictions for the patient using Django ORM
+    predictions = Prediction.objects.filter(created_by_id=patient_id, deleted_at=None).order_by('-id')
+
+    # Prepare a list of dictionaries representing predictions
+    predictions_data = [
+        {
+            'prediction_id': prediction.id,
+            'specifications': [
+                {
+                    'specification_id': spec.id,
+                    'body_part_id': prediction.body_part_id,
+                    'body_part': prediction.body_part.name,
+                    'organ_id': prediction.organ_id,
+                    'organ': prediction.organ.name,
+                    'problem_id': spec.problem_specification.id,
+                    'problem': spec.problem_specification.problem,
+                    'problem_specification': spec.problem_specification.problem_specification,
+                    'department': prediction.department.name,
+                    'department_speci': prediction.department_speci.description,
+                }
+                for spec in prediction.specification.all()
+            ]
+        }
+        for prediction in predictions
+    ]
+
+    # Assuming you have a serializer for this specific query
+    serializer = PredictionViewSerializer(data=predictions_data, many=True)
+    serializer.is_valid()
+
+    # Access the serialized data after validation
+    serialized_data = serializer.data
 
     return Response(serialized_data)
 
@@ -117,15 +150,89 @@ def get_all_prediction_list_by_patient(request):
 def prediction_data_view(request, prediction_id):
     patient_id = request.session["patient_id"]
 
-    predictions = Prediction.objects.filter(id=prediction_id, created_by_id=patient_id, deleted_at=None).order_by('-id')
-    serialized_data = PredictionViewSerializer(predictions, many=True).data
+    # Fetch data using Django ORM
+    prediction = get_object_or_404(Prediction, created_by_id=patient_id, id=prediction_id, deleted_at=None)
+
+    # Get the related specifications using the manager
+    specifications = prediction.specification.all()
+
+    # Create a dictionary with the necessary fields
+    data = {
+        'prediction_id': prediction.id,
+        'specifications': [{
+            'specification_id': spec.id,
+            'body_part_id': prediction.body_part.id,
+            'body_part': prediction.body_part.name,
+            'organ_id': prediction.organ.id,
+            'organ': prediction.organ.name,
+            'problem_id': spec.problem_specification.id,
+            'problem': spec.problem_specification.problem,
+            'problem_specification': spec.problem_specification.problem_specification,
+            'department': prediction.department.name,
+            'department_speci': prediction.department_speci.description
+        } for spec in specifications]
+    }
+
+    # Handle the nested structure for body_part
+    for spec_data in data['specifications']:
+        spec_data['body_part'] = {'name': spec_data['body_part']}
+
+    # Assuming you have a serializer for this specific query
+    serializer = PredictionViewSerializer(data=data)
+    serializer.is_valid()
+
+    # Access the serialized data after validation
+    serialized_data = serializer.data
 
     return Response(serialized_data)
 
-
-@api_view(['GET'])
-def specification_data_view(request, prediction_id):
-    specifications = Specification.objects.filter(prediction=prediction_id).order_by('-id')
-    serialized_data = SpecificationViewSerializer(specifications, many=True).data
-
-    return Response(serialized_data)
+# @api_view(['GET'])
+# def prediction_data_view(request, prediction_id):
+#     patient_id = request.session["patient_id"]
+#
+#     with connection.cursor() as cursor:
+#         cursor.execute("""
+#             SELECT
+#                 prediction.id AS prediction_id,
+#                 specification.id AS specification_id,
+#                 body_part.id as body_part_id,
+#                 body_part.name,
+#                 organ.id as organ_id,
+#                 organ.name,
+#                 specification.problem_specification_id as problem_id,
+#                 organ_problem_speci.problem,
+#                 organ_problem_speci.problem_specification,
+#                 department.name,
+#                 department_speci.description
+#             FROM
+#                 specification
+#             INNER JOIN prediction ON specification.prediction_id = prediction.id
+#             INNER JOIN body_part ON prediction.body_part_id = body_part.id
+#             INNER JOIN organ ON prediction.organ_id = organ.id
+#             INNER JOIN organ_problem_speci ON specification.problem_specification_id = organ_problem_speci.id
+#             INNER JOIN department ON prediction.department_id = department.id
+#             INNER JOIN department_speci ON prediction.department_speci_id = department_speci.id
+#             WHERE
+#                 prediction.created_by_id = %s AND prediction.id = %s
+#         """, [patient_id, prediction_id])
+#
+#         # Fetch all rows from the result set
+#         rows = cursor.fetchall()
+#
+#     # Convert each tuple into a dictionary
+#     fields = ['prediction_id', 'specification_id', 'body_part_id', 'body_part', 'organ_id', 'organ', 'problem_id',
+#               'problem', 'problem_specification', 'department', 'department_speci']
+#     Row = namedtuple('Row', fields)
+#     rows_as_dicts = [Row(*row)._asdict() for row in rows]
+#
+#     # Handle the nested structure for body_part
+#     for data in rows_as_dicts:
+#         data['body_part'] = {'name': data['body_part']}
+#
+#     # Assuming you have a serializer for this specific query
+#     serializer = PredictionViewSerializer(data=rows_as_dicts, many=True)
+#
+#     # Validate the serializer
+#     serializer.is_valid()
+#
+#     return Response(serializer.data)

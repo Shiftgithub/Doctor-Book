@@ -47,21 +47,38 @@ class SpecificationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PredictionViewSerializer(serializers.ModelSerializer):
-    body_part = serializers.CharField(source='body_part.name')
-    organ = serializers.CharField(source='organ.name')
-    department = serializers.CharField(source='department.name')
-    department_speci = serializers.CharField(source='department_speci.description')
+class SpecificationViewSerializer(serializers.Serializer):
+    specification_id = serializers.IntegerField()
+    body_part_id = serializers.IntegerField()
+    body_part = serializers.CharField()
+    organ_id = serializers.IntegerField()
+    organ = serializers.CharField()
+    problem_id = serializers.IntegerField()
+    problem = serializers.CharField()
+    problem_specification = serializers.CharField()
+    department = serializers.CharField()
+    department_speci = serializers.CharField()
+
+
+class PredictionViewSerializer(serializers.Serializer):
+    prediction_id = serializers.IntegerField()
+    specifications = SpecificationViewSerializer(many=True)
 
     class Meta:
-        model = Prediction
         fields = '__all__'
 
-
-class SpecificationViewSerializer(serializers.ModelSerializer):
-    problem = serializers.CharField(source='problem_specification.problem')
-    problem_specification = serializers.CharField(source='problem_specification.problem_specification')
-
-    class Meta:
-        model = Specification
-        fields = '__all__'
+# class PredictionViewSerializer(serializers.Serializer):
+#     prediction_id = serializers.IntegerField()
+#     specification_id = serializers.IntegerField()
+#     body_part_id = serializers.IntegerField()
+#     body_part = serializers.CharField()
+#     organ_id = serializers.IntegerField()
+#     organ = serializers.CharField()
+#     problem_id = serializers.IntegerField()
+#     problem = serializers.CharField()
+#     problem_specification = serializers.CharField()
+#     department = serializers.CharField()
+#     department_speci = serializers.CharField()
+#
+#     class Meta:
+#         fields = '__all__'

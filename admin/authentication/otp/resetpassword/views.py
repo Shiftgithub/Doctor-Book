@@ -26,11 +26,16 @@ def forget_password(request):
             if otp_serializer.is_valid():
                 otp_serializer.save()
                 message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP Number is: {token_str}'
-                # send_email(email, message)
-                response = {'status': 200, 'email': email,
-                            'message': 'We send  mail on your email. Please check your email.'
-                            }
-                return Response(response)
+                sent_email = send_email(email, message)
+                if sent_email:
+                    response = {'status': 200, 'email': email,
+                                'message': 'We send  mail on your email. Please check your email.'
+                                }
+                    return Response(response)
+                else:
+                    transaction.set_rollback(True)
+                    response = {'status': 401, 'message': 'Check your internet connection.', 'email': email}
+                    return Response(response)
             else:
                 response = {'status': 403, 'message': 'otp send failed. try again!'}
                 return Response(response)

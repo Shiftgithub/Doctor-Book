@@ -1,21 +1,14 @@
-from django.shortcuts import render
 import hashlib
-from datetime import datetime
-from django.db import transaction
 from .serializers import *
+from django.db import transaction
+from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from admin.authentication.user.models import Images
-from admin.authentication.otp.verifyotp.models import *
+from django.views.decorators.http import require_GET
 from admin.authentication.otp.function.send_email import *
-from admin.authentication.user.serializers import *
-from .serializers import *
 from admin.authentication.otp.verifyotp.models import VerifyOtp
 from admin.authentication.user.serializers import UserSerializer, ImageSerializer
 from admin.authentication.login.views import set_user_info
-
-from django.http import JsonResponse
-from django.views.decorators.http import require_GET
 
 
 @api_view(['POST'])
@@ -46,8 +39,8 @@ def store_admin_data(request):
         message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
         otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
         otp_serializer.save()
-        # send_mail = send_email(email, message)
-        if otp_serializer:
+        sent_email = send_email(email, message)
+        if otp_serializer and sent_email:
             data = {'email': email, 'status': 200, 'message': 'We send otp on your email. Please activate your account'}
             return Response(data)
         else:

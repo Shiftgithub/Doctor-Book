@@ -24,7 +24,7 @@ class Specification(models.Model):
     prediction = models.ForeignKey(Prediction, on_delete=models.CASCADE, related_name='specification', null=True)
 
     problem_specification = models.ForeignKey(OrgansProblemSpecification, on_delete=models.CASCADE,
-                                              related_name='predictions', null=True)
+                                              related_name='specification', null=True)
 
     class Meta:
         db_table = "specification"

@@ -12,7 +12,7 @@ from rest_framework.decorators import api_view
 from admin.authentication.user.serializers import *
 from admin.authentication.login.views import set_user_info
 from admin.authentication.otp.function.send_otp import send_otp
-from admin.authentication.otp.function.send_email import send_email
+from admin.authentication.otp.function.send_email import *
 
 
 # doctor account create
@@ -64,8 +64,12 @@ def store_doctor_data(request):
                     email = ' - '.join(email_fields)
                     message = 'Message From Doctor-Book [Personalized Doctor Predictor]:\n\n' \
                               'Your username: ' + user_name + '\n' + 'Your password: ' + password
-                    # send_email(email, message)
-                    return Response({'status': 200, 'message': 'Doctor data stored successfully'})
+                    sent_email = send_email(email, message)
+                    if sent_email:
+                        return Response({'status': 200, 'message': 'Doctor data stored successfully'})
+                    else:
+                        transaction.set_rollback(True)
+                        return Response({'status': 403, 'message': 'Error in sending mail. try again.'})
                 else:
                     transaction.set_rollback(True)
                     return Response({'status': 403, 'message': 'Error in storing doctor data'})

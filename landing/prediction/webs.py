@@ -47,17 +47,15 @@ def predict(request):
 def prediction_list(request):
     response_prediction = get_all_prediction_list_by_patient(request)
     prediction_data = response_prediction.data
+
     return render(request, 'prediction/templates/list_all.html', {'prediction_data': prediction_data})
 
 
 def view_prediction_data(request, prediction_id):
     response_prediction = prediction_data_view(request, prediction_id)
     prediction_data = response_prediction.data
-    response_specification = specification_data_view(request, prediction_id)
-    specification_data = response_specification.data
-    print('specification_data:', specification_data)
 
-    data = {'prediction_data': prediction_data, 'specification_data': specification_data}
+    data = {'prediction_data': prediction_data}
     return render(request, 'prediction/templates/view.html', data)
 
 

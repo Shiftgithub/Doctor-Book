@@ -2,6 +2,7 @@ from datetime import datetime
 from .models import VerifyOtp
 from django.db import transaction
 from admin.constants.constants import *
+from ..function.send_email import send_email
 from rest_framework.response import Response
 from .serializers import VerifyOtpSerializer
 from rest_framework.decorators import api_view
@@ -34,12 +35,16 @@ def verify_otp(request):
             user.status = STATUS_ACTIVE
             update_user = user.save(update_fields=['status'])
 
-            # Send an activation email to the user (You should implement this function)
             message = 'Your Doctor Book Account has been activated'
-            # send_email(user.email, message)
-            response = {'id': user.id, 'email': user.email, 'status': 200,
-                        'message': 'Account Activated Successfully'}
-            return Response(response)
+            sent_email = send_email(email, message)
+            if sent_email:
+                response = {'id': user.id, 'email': user.email, 'status': 200,
+                            'message': 'Account Activated Successfully'}
+                return Response(response)
+            else:
+                transaction.set_rollback(True)
+                response = {'status': 401, 'message': 'Check your internet connection.', 'email': email}
+                return Response(response)
         else:
             transaction.set_rollback(True)
             response = {'status': 401, 'message': 'OTP are not match!', 'email': email}

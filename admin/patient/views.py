@@ -41,13 +41,13 @@ def store_patient_data(request):
         message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
         otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
         otp_serializer.save()
-        # send_mail = send_email(email, message)
-        if otp_serializer:
+        sent_email = send_email(email, message)
+        if otp_serializer and sent_email:
             data = {'email': email, 'status': 200, 'message': 'Patient data deleted successfully'}
             return Response(data)
         else:
             transaction.set_rollback(True)
-            return Response({'status': 403, 'message': 'Error in  deleting patient data'})
+            return Response({'status': 403, 'message': 'Error in  storing patient data'})
     else:
         return Response({'status': 400, 'message': 'Invalid request!'})
 

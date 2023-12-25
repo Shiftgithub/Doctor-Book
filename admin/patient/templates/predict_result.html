@@ -56,13 +56,13 @@
             </div>
             {% endfor %}
             {% else %}
-            <div class="row alert alert-warning">
-                <h3>No Doctors Found</h3>
-                <br>
-                <a href="{% url 'landing_dashboard' %}"><i class="fas fa-arrow-left"></i> Go Back</a>
-            </div>
-            {% endif %}
         </div>
+        <div class="alert alert-default-warning text-center">
+            <h3>No Doctors Found</h3>
+            <a href="{% url 'patient_predict_form' %}" class="text-dark"><i class="fas fa-arrow-left"></i> Go Back</a>
+        </div>
+        {% endif %}
+    </div>
     </div>
 </section>
 {% endblock %}
