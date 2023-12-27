@@ -69,7 +69,6 @@ def prediction(request):
             knn_model = train_knn_model(prediction_list)
 
             knn_model = knn_model
-
             # Extract features from the input data
             for problem_spec_id in problem_specs:
                 features = [
