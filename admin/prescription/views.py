@@ -213,20 +213,20 @@ def generate_barcode(request, registration):
     pil_image = Image.open(buffer)
 
     # Define the directory where you want to save the barcode image
-    barcode_image_directory = 'uploads/barcodes/'
+    barcode_image_directory = 'media/uploads/barcodes/'
 
     # Create the directory if it does not exist
     os.makedirs(barcode_image_directory, exist_ok=True)
 
     # Define the path where you want to save the barcode image with the encrypted registration
-    barcode_image_path = os.path.join(barcode_image_directory, '{}.png'.format(truncated_encrypted_registration))
-
+    save_barcode_image = os.path.join(barcode_image_directory, '{}.png'.format(truncated_encrypted_registration))
+    barcode_image_path = os.path.join('/', save_barcode_image)
     # Save the PIL Image to the specified path
-    pil_image.save(barcode_image_path, format='PNG')
+    pil_image.save(save_barcode_image, format='PNG')
 
     # Close the BytesIO buffer
     buffer.close()
 
-    # Return the relative path to the generated barcode image without the 'media' prefix
+    # Return the relative path to the generated barcode image without the 'static' prefix
     relative_path = os.path.relpath(barcode_image_path)
     return relative_path

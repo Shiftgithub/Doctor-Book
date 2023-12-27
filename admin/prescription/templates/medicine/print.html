@@ -68,7 +68,7 @@
             <hr class="darker-hr">
             <div class="row">
                 <div class="col-12">
-                    <img src="{% static prescription_data.barcode_image %}" alt="Barcode Image" width="140px"
+                    <img src="{{ prescription_data.barcode_image }}" alt="Barcode Image" width="140px"
                          height="30px"><br>
                 </div>
 
@@ -77,7 +77,7 @@
                 <div class="col-6 pl-3">
                     <h5>Reg : {{ prescription_data.registration_no }}</h5>
                     <h5>Patient Name : {{ prescription_data.patient_name }}</h5>
-                    <h5>Address : {{ prescription_data.patient_name }}</h5>
+                    <h5>Address : {{ prescription_data.address }}</h5>
                 </div>
                 <div class=" col-6 text-right">
                     <h5>Date: {{ prescription_data.created_at }}</h5>
