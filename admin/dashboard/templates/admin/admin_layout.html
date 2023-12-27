@@ -32,6 +32,9 @@
 
     <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/sweetalert2/sweetalert2.css' %}">
 
+    <!-- Add this to the head section of your HTML -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/select2/css/select2.min.css' %}">
+
     <!-- Custom CSS -->
     {% block styles %}
     {% endblock %}
@@ -104,6 +107,9 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="{% static 'adminlte_assets/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+<script src="{% static 'adminlte_assets/plugins/select2/js/select2.min.js' %}"></script>
+
 <script>
     $.widget.bridge('uibutton', $.ui.button)
 

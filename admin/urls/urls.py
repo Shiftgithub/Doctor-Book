@@ -6,7 +6,7 @@ urlpatterns = [
         path('ajax/', include('admin.ajax.urls')),
         path('article-', include('admin.article.urls')),
         path('body-part/', include('admin.bodypart.urls')),
-        path('dashboard/', include('admin.dashboard.urls')),
+        path('dashboard-', include('admin.dashboard.urls')),
         path('department-', include('admin.department.urls')),
         path('department-specification-', include('admin.department_speci.urls')),
         path('doctor-', include('admin.doctor.urls')),
