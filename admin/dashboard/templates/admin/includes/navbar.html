@@ -15,6 +15,7 @@
       display: block;
       margin: 0 auto; /* Center the image horizontally */
     }
+
     .small-text {
     font-size: 16px; /* Adjust the size as needed */
     margin: 0; /* Remove margin between elements */
@@ -40,12 +41,12 @@
         <li>
             <!-- Default dropright button -->
             <div class="btn-group dropright">
-                <a class="btn btn-dark" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    {% if request.session.user_image_url == None%}
-                    <img src="{% static 'adminlte_assets/img/nobody.png' %}" alt="profile picture" class="profile-logo">
+                <a id="profileID" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% if request.session.user_image_url == None %}
+                    <img src="{% static 'adminlte_assets/img/nobody.png' %}" alt="profile picture"
+                         class="profile-logo circular">
                     {% else %}
-                    <img src="{{ request.session.user_image_url }}" alt="profile picture" class="profile-logo">
+                    <img src="{{ request.session.user_image_url }}" alt="profile picture" class="profile-logo circular">
                     {% endif %}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -64,7 +65,7 @@
                         <i class="fas fa-lock"></i> Change Password</a>
                     <a href="{% url 'change_email_form' %}" class="dropdown-item">
                         <i class="fas fa-envelope"></i> Change Email</a>
-                    <a href="#" class="dropdown-item">
+                    <a href="{% url 'change_theme' %}" class="dropdown-item">
                         <i class="fab fa-themeco"></i> Change Theme</a>
                     <a href="{% url 'logout' %}" class="dropdown-item">
                         <i class="nav-icon fas fa-sign-out-alt"> Logout</i>
@@ -72,10 +73,5 @@
                 </div>
             </div>
         </li>
-        <!--        <li class="nav-item">-->
-        <!--            <a class="nav-link" href="{% url 'logout' %}">-->
-        <!--                <i class="nav-icon fas fa-sign-out-alt"></i>-->
-        <!--            </a>-->
-        <!--        </li>-->
     </ul>
 </nav>

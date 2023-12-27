@@ -13,11 +13,10 @@ from .serializers import *
 @api_view(['POST'])
 def prediction(request):
     predict_serializer = PredictionSerializer(data=request.data)
-
-    problem_specs = request.POST.getlist('problem_specs[]')
     if predict_serializer.is_valid():
         bodypart_id = predict_serializer.validated_data.get('bodypart')
         organ_id = predict_serializer.validated_data.get('organ')
+        problem_specs = request.POST.getlist('problem_specs[]')
 
         department_specifications = DepartmentSpecification.objects.filter(
             organ_problem_specification__in=problem_specs
@@ -57,3 +56,5 @@ def prediction(request):
                 return Response({'status': 403, 'message': 'DepartmentSpecifications have different departments'})
         else:
             return Response({'status': 403, 'message': 'DepartmentSpecification does not exist'})
+    else:
+        return Response({'status': 403, 'message': 'Invalid request'})

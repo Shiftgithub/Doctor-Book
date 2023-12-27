@@ -59,3 +59,13 @@ class Medicine(BaseModel):
 
     class Meta:
         db_table = 'medicine'
+
+
+class MedicineSchedule(models.Model):
+    schedule = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.schedule
+
+    class Meta:
+        db_table = 'medicine_schedule'

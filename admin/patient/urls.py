@@ -1,25 +1,29 @@
 from .webs import *
 from django.urls import path, include
 # To protect admin panel paths from unauthenticated users
-from backend.login_decorators import protected_view
+from core.login_decorators import protected_view
+
+# from admin.authentication.user.views import check_username_availability, check_email_availability
 
 urlpatterns = [
-    # patient adminpanel path
+    # patient admin path
     path(
         '',
         include(
             [
-                path('add/', patient_form, name='add_patient_form'),
+                path('form/', patient_form, name='add_patient_form'),
+                path('form-for-doctor/', patient_form_for_doctor, name='patient_form'),
                 path('store/', store_patient, name='store_patient'),
+                path('store-by-doctor/', store_patient_by_doctor, name='store_patient_by_doctor'),
+                path('list/', get_patient_data, name='patient_list'),
                 path('view/<int:patient_id>/', protected_view(view_patient), name='view_patient'),
                 path('update/<int:patient_id>/', protected_view(edit_patient_form), name='edit_patient_form'),
                 path('edit/<int:patient_id>/', protected_view(edit_patient), name='edit_patient'),
                 path("doctors/list/", protected_view(find_doctors), name="find_doctors"),
                 path('doctor-profile/<int:doctor_id>/', protected_view(doctor_profile), name='check_doctor_profile', ),
-                path('prediction/form/', patient_predict_form, name='patient_predict_form'),
+                path('prediction-form/', patient_predict_form, name='patient_predict_form'),
                 path('', predict_result, name='patient_prediction'),
                 path('appointment/<int:doctor_id>/', appointment, name='appointment'),
-
             ]
         ),
     ),

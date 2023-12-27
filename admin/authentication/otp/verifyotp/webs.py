@@ -9,20 +9,26 @@ def otp_form(request):
 
 def verify_otp_method(request):
     operation_response = verify_otp(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
         user_id = operation_response.data.get('id')
         request.session['temp_verify_id'] = user_id
         email = operation_response.data.get('email')
         request.session['temp_verify_email'] = email
-        messages.add_message(request, messages.INFO, 'Verify otp your account successfully')
+        messages.add_message(request, messages.INFO, message)
         return redirect('change_password_form')
-    elif operation_response.data.get('status') == 404:
+    elif operation_response.data.get('status') == 400:
         email = operation_response.data.get('email')
         request.session['temp_verify_email'] = email
-        messages.add_message(request, messages.ERROR, 'OTP are not match!')
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('otp_form')
+    elif operation_response.data.get('status') == 401:
+        email = operation_response.data.get('email')
+        request.session['temp_verify_email'] = email
+        messages.add_message(request, messages.ERROR, message)
         return redirect('otp_form')
     else:
         email = operation_response.data.get('email')
         request.session['temp_verify_email'] = email
-        messages.add_message(request, messages.ERROR, 'OTP are incorrect!')
+        messages.add_message(request, messages.ERROR, message)
         return redirect('otp_form')

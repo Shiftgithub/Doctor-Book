@@ -3,7 +3,6 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-header">{{ request.session.user_role }} Panel</li>
             <!-- Dashboard -->
             <li class="nav-item mainItem">
                 <a href="{% url 'patient_dashboard' %}" class="nav-link">
@@ -13,14 +12,58 @@
                     </p>
                 </a>
             </li>
-            <!-- My Profile -->
-
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-file-medical"></i>
+                    <p>
+                        Patient Report
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'medicine_prescription_data_view_by_patient'%}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Medicine Prescriptions</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'get_all_lab_test_prescriptions_list_by_patient'%}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Lab Test Prescription</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <!-- Prediction History -->
             <li class="nav-item mainItem">
-                <a href="{% url 'patient_predict_form' %}" class="nav-link">
+                <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-history"></i>
                     <p>
                         Prediction
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'patient_predict_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Prediction</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'prediction_list'%}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Predictions</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item mainItem">
+                <a href="{% url 'appointment_list_by_patient'%}" class="nav-link">
+                    <i class="nav-icon fas fa-calendar-check"></i>
+                    <p>
+                        Appointments
                     </p>
                 </a>
             </li>

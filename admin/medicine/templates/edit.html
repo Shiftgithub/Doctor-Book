@@ -1,12 +1,5 @@
 {% extends 'dashboard/templates/admin/admin_layout.html' %}
 {% load static %}
-{% block styles %}
-<style>
-    .error-message {
-        color: #dc3545; /* Red color for danger state */
-    }
-</style>
-{% endblock %}
 {% block content %}
 <div class="container mt-4">
     <div class="card">
@@ -14,14 +7,15 @@
             <h1 class="card-title">Edit Medicine Information</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'edit_medicine' medicine_id %}" method="POST">
+            <form id="PostForm" action="{% url 'edit_medicine' medicine_id %}" method="POST"
+                  class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label" for="brandNameID">Brand Name : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="brandNameID" name="brand">
-                            <option selected>Select Brand Name</option>
+                        <select class="form-control select2" id="brandNameID" name="brand" required>
+                            <option selected disabled value="">Select Brand Name</option>
                             {% for item in brand_data %}
                             {% if item.name == medicine_data.brand_name %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>
@@ -30,13 +24,14 @@
                             {% endif %}
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select brand name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label" for="genericNameID">Generic Name : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="genericNameID" name="generic">
+                        <select class="form-control select2" id="genericNameID" name="generic" required>
                             <option selected>Select Generic Name</option>
                             {% for item in generic_data %}
                             {% if item.name == medicine_data.generic_name %}
@@ -46,13 +41,22 @@
                             {% endif %}
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select generic name.</div>
+                    </div>
+                </div>
+                                <div class="row mb-3">
+                    <label for="medicineNameID" class="col-md-2 col-form-label">Medicine Name</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="medicineNameID" name="name"
+                               value="{{medicine_data.name}}" required/>
+                        <div class="invalid-feedback">Please enter a medicine name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label" for="medicineTypeID">Medicine Type : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="medicineTypeID" name="medicine_type">
+                        <select class="form-control select2" id="medicineTypeID" name="medicine_type" required>
                             <option selected>Select Medicine Type</option>
                             {% for item in medicine_type_data %}
                             {% if item.name == medicine_data.medicine_type %}
@@ -62,21 +66,14 @@
                             {% endif %}
                             {% endfor %}
                         </select>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="medicineNameID" class="col-md-2 col-form-label">Medicine Name</label>
-                    <div class="col-md-10">
-                        <input type="text" class="form-control" id="medicineNameID" name="name"
-                               value="{{medicine_data.name}}"/>
-                        <div id="nameError" class="error-message"></div><!-- Error message container -->
+                        <div class="invalid-feedback">Please select medicine type name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label" for="strengthID">Strength : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="strengthID" name="strength">
+                        <select class="form-control select2" id="strengthID" name="strength" required>
                             <option selected>Select Strength</option>
                             {% for item in strength_data %}
                             {% if item.name == medicine_data.strength %}
@@ -86,14 +83,15 @@
                             {% endif %}
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select strength name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="descriptionID" class="col-md-2 col-form-label">Description</label>
                     <div class="col-md-10">
-                        <textarea name="description" id="descriptionID" type="text" class="form-control" cols="30"
-                                  rows="2">{{medicine_data.description}}</textarea>
-                        <div id="descriptionError" class="error-message"></div> <!-- Error message container -->
+                        <textarea name="description" id="descriptionID" class="form-control" cols="30"
+                                  rows="2" required>{{medicine_data.description}}</textarea>
+                        <div class="invalid-feedback">Please enter a medicine description or type N/A.</div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-warning float-right">Update</button>
@@ -101,5 +99,25 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+</script>
 {% endblock %}
 

@@ -8,69 +8,85 @@
             <h1 class="card-title">Add Organ</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'store_organ' %}" method="POST" enctype="multipart/form-data">
+            <form id="PostForm" action="{% url 'store_organ' %}" method="POST" class="needs-validation" novalidate>
                 {% csrf_token %}
                 {% if not bodypart_data %}
                 <div class="alert alert-default-warning">
-                    <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_bodypart_form' %}"> Add
-                    Bodypart </a> first.
+                    <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_bodypart_form' %}"> Add Body
+                    part </a> first.
                 </div>
                 {% else %}
                 <div class="row mb-3">
-                    <label for="specialtySelect" class="col-md-2 col-form-label">Body Part Name : <span
+                    <label for="bodyPartID" class="col-sm-12 col-md-2 form-label">Body Part Name : <span
                             class="text-danger">*</span></label>
-                    <div class="col-md-10">
-                        <select class="form-control select2" id="specialtySelect" name="body_part">
-                            <option value="" selected>Select Body Part Name</option>
+                    <div class="col-sm-12 col-md-10">
+                        <select class="form-control select2" id="bodyPartID" name="body_part" required>
+                            <option selected disabled value="">Select Body Part Name</option>
                             {% for item in bodypart_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select a body part name.</div>
                     </div>
                 </div>
-                {% endif %}
                 <hr>
-                <div id="section-callbacks">
-                    <div class="section-callback">
+                <div id="organ-sections">
+                    <div class="organ-section">
                         <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label class="col-form-label section-index">No 1</label>
-                            </div>
-                            <div class="col-md-8">
-                                <button type="button" class="btn btn-danger remove-section-callback float-right">
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-2 col-form-label font-weight-bold">Organ : <span
+                            <label class="col-sm-12 col-md-2 col-form-label font-weight-bold">Organ : <span
                                     class="text-danger">*</span></label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" minlength="3" maxlength="255" size="255"
-                                       name="names[]"/>
+                            <div class="col-sm-12 col-md-10">
+                                <input type="text" class="form-control " minlength="1" maxlength="255" size="255"
+                                       name="names[]" required/>
+                                <div class="invalid-feedback">Please enter organ name.</div>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-md-2 col-form-label font-weight-bold">Description :</label>
-                            <div class="col-md-10"><textarea class="form-control" cols="30" rows="2" minlength="3"
-                                                             maxlength="1000" name="descriptions[]">{{ data.description|default:"N/A" }}</textarea>
+                            <label for="descriptionID" class="col-sm-12 col-md-2 form-label">Description</label>
+                            <div class="col-md-10">
+                        <textarea class="form-control" id="descriptionID"
+                                  required name="descriptions[]">{{ data.description|default:"N/A" }}</textarea>
+                                <div class="invalid-feedback">Please enter description or type N/A.</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <button type="button" class="btn btn-primary add-section-callback float-right">Add More</button>
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-sm btn-primary add-organ-section float-right">Add More
+                        </button>
                     </div>
                 </div>
-                <!-- Section Container -->
-                <div id="sections-container">
-                </div>
-                <br>
                 <!-- Submit Button -->
                 <button type="submit" class="btn btn-success float-right">Submit</button>
+                {% endif %}
             </form>
+        </div>
+    </div>
+</div>
+<div class="d-none" id="templateID">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-danger remove-organ-section float-right">
+                Remove
+            </button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-12 col-md-2 col-form-label font-weight-bold">Organ : <span
+                class="text-danger">*</span></label>
+        <div class="col-sm-12 col-md-10">
+            <input type="text" class="form-control " minlength="1" maxlength="255" size="255"
+                   name="names[]" required/>
+            <div class="invalid-feedback">Please enter organ name.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="descriptionID" class="col-sm-12 col-md-2 form-label">Description</label>
+        <div class="col-md-10">
+                        <textarea class="form-control" id="descriptionID"
+                                  required name="descriptions[]">{{ data.description|default:"N/A" }}</textarea>
+            <div class="invalid-feedback">Please enter description or type N/A.</div>
         </div>
     </div>
 </div>
@@ -78,4 +94,22 @@
 
 {% block scripts %}
 <script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+</script>
 {% endblock %}

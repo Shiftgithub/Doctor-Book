@@ -8,22 +8,16 @@ from admin.personal_data.serializers import *
 class CountDepartmentsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Department
-        fields = [
-            'id'
-        ]
+        fields = ['id']
 
 
 class CountDoctorsSerializers(serializers.ModelSerializer):
     class Meta:
         model = DoctorProfile
-        fields = [
-            'id'
-        ]
+        fields = ['id']
 
 
 class CountPatientsSerializers(serializers.ModelSerializer):
     class Meta:
         model = PatientProfile
-        fields = [
-            'id'
-        ]
+        fields = ['id']

@@ -1,0 +1,230 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Add Prescription</h1>
+        </div>
+        <div class="card-body">
+            <form id="PostForm" action="{% url 'store_medicine_prescription' %}" method="POST"
+                  class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label for="specialtySelect" class="col-md-3 col-form-label">Patient Name :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-9">
+                        <select class="form-control select2" id="specialtySelect" name="patient_profile" required>
+                            <option selected disabled value="">Select Patient Name</option>
+                            {% for item in patient_data %}
+                            <option value="{{ item.id }}">{{ item.id }} . {{ item.full_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="invalid-feedback">Please select patient name.</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="chiefComplainID" class="col-md-3 col-form-label">Chief Complain :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-9">
+                        <textarea name="cc" id="chiefComplainID" class="form-control" cols="30"
+                                  rows="2" required>{{ data.cc|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter chief complain or type n/a.</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="onExaminationID" class="col-md-3 col-form-label">On Examination :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-9">
+                        <textarea name="oe" id="onExaminationID" class="form-control" cols="30"
+                                  rows="2" required>{{ data.oe|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter chief complain or type n/a.</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="onExaminationID" class="col-md-3 col-form-label">Differential Diagnosis</label>
+                    <div class="col-md-9">
+                        <textarea name="dd" id="differentialDiagnosisID" class="form-control" cols="30"
+                                  rows="2" required>{{ data.dd|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter chief complain or type n/a.</div>
+                        <!-- Error message container -->
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="adviceID" class="col-md-3 col-form-label">Differential Diagnosis</label>
+                    <div class="col-md-9">
+                        <textarea name="ad" id="adviceID" class="form-control" cols="30"
+                                  rows="2" required>{{ data.dd|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter differential diagnosis or type n/a.</div>
+                        <!-- Error message container -->
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="treatmentListID" class="col-md-3 col-form-label">Treatment List</label>
+                    <div class="col-md-9">
+                        <textarea name="tl" id="treatmentListID" class="form-control" cols="30"
+                                  rows="2" required>{{ data.dd|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter treatment list or type n/a.</div>
+                        <!-- Error message container -->
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="pastMedicalHistoryID" class="col-md-3 col-form-label">Past Medical History</label>
+                    <div class="col-md-9">
+                        <textarea name="pmh" id="pastMedicalHistoryID" class="form-control" cols="30"
+                                  rows="2" required>{{ data.dd|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter past medical history or type n/a.</div>
+                        <!-- Error message container -->
+                    </div>
+                </div>
+                <hr>
+                <div id="medicine-sections">
+                    <div class="medicine-section">
+                        {% if not medicine_data %}
+                        <div class="alert alert-default-warning">
+                            <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_medicine_form' %}">
+                            Add Medicine </a> first.
+                        </div>
+                        {% else %}
+                        <div class="row mb-3">
+                            <label for="medicineID" class="col-md-3 col-form-label">Medicine :<span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <select class="form-control select2" id="medicineID" name="medicine[]" required>
+                                    <option selected disabled value="">Select Medicine Name</option>
+                                    {% for item in medicine_data %}
+                                    <option value="{{ item.id }}">{{ item.id }} . {{ item.name }} {{ item.strength }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">Please select medicine name.</div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="row mb-3">
+                            <label for="medicineScheduleID" class="col-md-3 col-form-label">Medicine Schedule :<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <select class="form-control select2" id="medicineScheduleID" name="medicine_schedule[]"
+                                        required>
+                                    <option selected disabled value="">Select Medicine Schedule</option>
+                                    {% for item in medicine_schedule_data %}
+                                    <option value="{{ item.id }}">{{ item.id }} . {{ item.schedule }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">Please select medicine schedule time name.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="frequencyID" class="col-md-3 col-form-label">Frequency :<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control select2" id="frequencyID" name="frequency[]" type="text"
+                                       required>
+                                <div class="invalid-feedback">Please enter medicine frequency.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="durationID" class="col-md-3 col-form-label">Duration :<span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control select2" id="durationID" name="duration[]" type="text"
+                                       required>
+                                <div class="invalid-feedback">Please enter medicine duration.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" class="btn btn-sm btn-primary add-medicine-section float-right">Add More
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success float-right">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="d-none" id="templateID">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-danger remove-medicine-section float-right">
+                Remove
+            </button>
+        </div>
+    </div>
+    {% if not medicine_data %}
+    <div class="alert alert-default-warning">
+        <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_medicine_form' %}">
+        Add Medicine </a> first.
+    </div>
+    {% else %}
+    <div class="row mb-3">
+        <label for="medicineID" class="col-md-3 col-form-label">Medicine :<span class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <select class="form-control select2" id="medicineID" name="medicine[]" required>
+                <option selected disabled value="">Select Medicine Name</option>
+                {% for item in medicine_data %}
+                <option value="{{ item.id }}">{{ item.id }} . {{ item.name }} {{ item.strength }}
+                </option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">Please select medicine name.</div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row mb-3">
+        <label for="medicineScheduleID" class="col-md-3 col-form-label">Medicine Schedule :<span
+                class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <select class="form-control select2" id="medicineScheduleID" name="medicine_schedule[]"
+                    required>
+                <option selected disabled value="">Select Medicine Schedule</option>
+                {% for item in medicine_schedule_data %}
+                <option value="{{ item.id }}">{{ item.id }} . {{ item.schedule }}</option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">Please select medicine schedule time name.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="frequencyID" class="col-md-3 col-form-label">Frequency :<span
+                class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <input class="form-control select2" id="frequencyID" name="frequency[]" type="text"
+                   required>
+            <div class="invalid-feedback">Please enter medicine frequency.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="durationID" class="col-md-3 col-form-label">Duration :<span class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <input class="form-control select2" id="durationID" name="duration[]" type="text"
+                   required>
+            <div class="invalid-feedback">Please enter medicine duration.</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'adminlte_assets/js/prescription-callback.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+</script>
+{% endblock %}
+

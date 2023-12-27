@@ -43,3 +43,4 @@ def count_patient(request):
     serialized_patient_count = {'patient_count': patient_count}
 
     return Response(serialized_patient_count)
+

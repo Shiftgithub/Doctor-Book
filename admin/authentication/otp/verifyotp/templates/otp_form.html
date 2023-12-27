@@ -25,11 +25,14 @@
                         <h4 class="card-title text-center">Enter your OTP</h4>
                     </div>
                     <div class="card-body">
-                        <form id="PostForm" action="{% url 'otp_verify' %}" method="POST">
+                        <form id="PostForm" action="{% url 'otp_verify' %}" method="POST"
+                              class="needs-validation" novalidate>
                             {% csrf_token %}
                             <div class="form-group mb-3">
-                                <input type="text" class="form-control" name="otp" id="otpID"
+                                <input type="number" maxlength="6" class="form-control" name="otp" id="otpID"
                                        placeholder="Enter your OTP" required>
+                                <div class="error-message invalid-feedback"></div>
+                                <div class="invalid-feedback">Please enter otp.</div>
                             </div>
                             <div class="form-group mb-3">
                                 <a href="{% url 'resend_otp' %}">Resend OTP</a>
@@ -46,3 +49,56 @@
 </section>
 <!-- End Login Section -->
 {% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const otpField = document.getElementById('otpID');
+        const form = document.getElementById('PostForm');
+        const errorMessage = document.querySelector('.error-message');
+
+        // Function to clear error messages for email
+        const clearErrorMessage = function() {
+            errorMessage.textContent = '';
+        };
+
+        // Event listener for input on email field
+        otpField.addEventListener('input', function() {
+            clearErrorMessage();
+        });
+
+        form.addEventListener('submit', function(event) {
+            let hasErrors = false;
+
+            errorMessage.textContent = '';
+
+            // Email validation
+            if (otpField.value.trim() === '') {
+                errorMessage.textContent = 'OTP cannot be empty';
+                hasErrors = true;
+            }
+
+            if (hasErrors) {
+                event.preventDefault(); // Prevent form submission if there are errors
+            }
+        });
+    });
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+</script>
+{% endblock %}
+

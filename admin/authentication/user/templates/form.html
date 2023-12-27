@@ -1,190 +1,292 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Doctor Book | Admin Register</title>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Doctor Book</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{% static 'adminlte_assets/img/icon.png' %}" rel="icon" />
+    <link href="{% static 'adminlte_assets/img/icon.png' %}" rel="icon">
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/fontawesome-free/css/fonts.googleapis.css' %}" />
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/fontawesome-free/css/all.min.css' %}" />
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/ionicons/css/ionicons.min.css' %}" />
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}" />
-    <!-- iCheck -->
-    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}" />
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/jqvmap/jqvmap.min.css' %}" />
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{% static 'adminlte_assets/css/adminlte.min.css' %}" />
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}" />
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/daterangepicker/daterangepicker.css' %}" />
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/fontawesome-free/css/fonts.googleapis.css' %}">
 
-    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/sweetalert2/sweetalert2.css' %}" />
-  </head>
-  <body>
-    <div class="container mt-4">
-      <form action="{% url 'store_admin' %}" enctype="multipart/form-data" id="PostForm" method="POST">
-        {% csrf_token %}
-        <div class="card">
-          <div class="card-header bg-dark">
-            <h1 class="card-title">Admin Form</h1>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-8">
-                <div class="row mb-3">
-                  <label class="col-md-3 col-form-label" for="NameID">Name :<span class="text-danger">*</span></label>
-                  <div class="col-md-9">
-                    <input class="form-control" type="text" id="NameID" name="full_name" required />
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label class="col-md-3 col-form-label" for="fatherNameID">Father Name :<span class="text-danger">*</span></label>
-                  <div class="col-md-9">
-                    <input class="form-control" type="text" id="fatherNameID" name="father_name" required/>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label class="col-md-3 col-form-label" for="motherNameID">Mother Name :<span class="text-danger">*</span></label>
-                  <div class="col-md-9">
-                    <input class="form-control" id="motherNameID" type="text" name="mother_name" required/>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label class="col-md-3 col-form-label" for="dateOfBirthID">Date of Birth :<span class="text-danger">*</span></label>
-                  <div class="col-md-9">
-                    <input class="form-control" type="date" id="dateOfBirthID" name="date_of_birth" required/>
-                  </div>
-                </div>
-                <!-- Phone Number -->
-                <div class="row mb-3">
-                  <label class="col-md-3 col-form-label" for="emailID">Email :<span class="text-danger">*</span></label>
-                  <div class="col-md-9">
-                    <input class="form-control" id="emailID" type="text" name="email" required/>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label class="col-md-3 col-form-label" for="phoneNoID">Phone Number :<span class="text-danger">*</span></label>
-                  <div class="col-md-9">
-                    <input class="form-control" id="phoneNoID" type="text" name="phone_no" required/>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="row mb-3">
-                  <div class="col-md-12">
-                    <input class="form-control mb-3" id="imageID" name="photo_name" onchange="previewImage(event)" type="file"/>
-                    <img alt="Patient Image" id="preview" src="{% static 'adminlte_assets/img/nobody.png' %}" style="width: 100%; height: 280px;" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <legend class="text-info">
-                  <i class="far fa-address-card"></i> Personal Information
-                </legend>
-              </div>
-            </div>
-            <hr />
-            <div class="row mb-3">
-              <label class="col-md-2 col-form-label">Gender :<span class="text-danger">*</span></label>
-              <div class="col-md-4">
-                <select class="form-control select2" id="genderID" name="gender" required>
-                  <option selected>Select Gender</option>
-                  {% for item in gender_data %}
-                    <option value="{{ item.id }}">{{ item.name }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-              <label class="col-md-2 col-form-label">Religion :<span class="text-danger">*</span></label>
-              <div class="col-md-4">
-                <select class="form-control select2" id="religionID" name="religion" required>
-                  <option selected>Select Religion</option>
-                  {% for item in religion_data %}
-                    <option value="{{ item.id }}">{{ item.name }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label class="col-md-2 col-form-label">Blood Group :<span class="text-danger">*</span></label>
-              <div class="col-md-4">
-                <select class="form-control select2" id="bloodGroupID" name="blood_group" required>
-                  <option selected>Select Blood Group</option>
-                  {% for item in blood_group_data %}
-                    <option value="{{ item.id }}">{{ item.name }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-              <label class="col-md-2 col-form-label">Matrimony Status :<span class="text-danger">*</span></label>
-              <div class="col-md-4">
-                <select class="form-control select2" id="matrimonyID" name="matrimony" required>
-                  <option selected>Select Matrimony</option>
-                  {% for item in matrimony_data %}
-                    <option value="{{ item.id }}">{{ item.name }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label class="col-md-2 col-form-label">NID No:<span class="text-danger">*</span></label>
-              <div class="col-md-4">
-                <input class="form-control" type="number" id="nidNOID" name="nid_no" required/>
-              </div>
-              <label class="col-md-2 col-form-label" for="addressID">Address :<span class="text-danger">*</span></label>
-              <div class="col-md-4">
-                <input class="form-control" id="addressID" type="text" name="address" required/>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <legend class="text-info">
-                  <i class="far fa-address-card"></i> Login Details
-                </legend>
-              </div>
-            </div>
-            <hr />
-            <!-- For Login -->
-            <div class="row mb-3">
-              <label class="col-md-2 col-form-label" for="userNameID">User Name : <span class="text-danger">*</span></label>
-              <div class="col-md-10">
-                <input class="form-control" id="userNameID" name="user_name" type="text" required />
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label class="col-md-2 col-form-label" id="passwordID">Password :<span class="text-danger">*</span></label>
-              <div class="col-md-4">
-                <input class="form-control" id="passwordID" name="password" type="password" required />
-              </div>
-              <label class="col-md-2 col-form-label" id="conpassID">Confirm Password :<span class="text-danger">*</span></label>
-              <div class="col-md-4">
-                <input class="form-control" id="conpassID" name="con_pass" type="password" required />
-              </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-12">
-                  <button class="btn btn-success float-right" type="submit">Submit</button>
-                </div>
-            </div>
-            <div class="text-center"><a href="/">Go To Dashboard</a></div>
-          </div>
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'landing_assets/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'landing_assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'landing_assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'landing_assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'landing_assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'landing_assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'landing_assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'landing_assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/sweetalert2/sweetalert2.css' %}">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'landing_assets/css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h6 class="card-title text-white">Admin Registration Form</h6>
         </div>
-      </form>
+        <div class="card-body">
+            <form action="{% url 'store_admin' %}" enctype="multipart/form-data" id="PostForm" method="POST"
+                  class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="NameID">Name :<span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" id="NameID" name="full_name" required/>
+                                <div class="invalid-feedback">Please enter your full name.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="fatherNameID">Father Name :<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" id="fatherNameID" name="father_name" required/>
+                                <div class="invalid-feedback">Please enter your father name.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="motherNameID">Mother Name :<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="motherNameID" type="text" name="mother_name" required/>
+                                <div class="invalid-feedback">Please enter your mother name.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="dateOfBirthID">Date of Birth :<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="date" id="dateOfBirthID" name="date_of_birth"
+                                       required/>
+                                <div class="invalid-feedback">Please choose your date of birth.</div>
+                            </div>
+                        </div>
+                        <!-- email address -->
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="emailID">Email :<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input type="email" class="form-control" name="email" id="emailID" required>
+                                <div id="emailError" class="invalid-feedback"></div>
+                                <div id="emailAvailability" class="invalid-feedback"></div>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+                        </div>
+                        <!-- Phone Number -->
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label" for="phoneNoID">Phone Number :<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="phoneNoID" type="text" name="phone_no" required/>
+                                <div class="invalid-feedback">Please enter your phone no.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <input class="form-control mb-3" id="imageID" name="photo_name"
+                                       onchange="previewImage(event)" type="file"/>
+                                <img alt="Patient Image" id="preview"
+                                     src="{% static 'adminlte_assets/img/nobody.png' %}"
+                                     style="width: 100%; height: 280px;">
+                                <div id="imageDescription" class="form-text">Choose an image file (JPEG, PNG, GIF) with
+                                    a maximum size of 5MB.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info">
+                            <i class="far fa-address-card"></i> Personal Information
+                        </legend>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="genderID">Gender :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="genderID" name="gender" required>
+                            <option selected disabled value="">Select Gender</option>
+                            {% for item in gender_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="invalid-feedback">Please select your gender.</div>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="religionID">Religion :<span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select" id="religionID" name="religion" required>
+                            <option selected disabled value="">Select Religion</option>
+                            {% for item in religion_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="invalid-feedback">Please select your religion.</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="bloodGroupID">Blood Group :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="bloodGroupID" name="blood_group" required>
+                            <option selected disabled value="">Select Blood Group</option>
+                            {% for item in blood_group_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="invalid-feedback">Please select your blood group.</div>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="matrimonyID">Matrimony Status :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <select class="form-control select2" id="matrimonyID" name="matrimony" required>
+                            <option selected disabled value="">Select Matrimony</option>
+                            {% for item in matrimony_data %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="invalid-feedback">Please select your matrimony.</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="nidID">NID No:<span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" type="number" id="nidID" name="nid_no" required/>
+                        <div class="invalid-feedback">Please enter NID no.</div>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="addressID">Address :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                        <input class="form-control" id="addressID" type="text" name="address" required/>
+                        <div class="invalid-feedback">Please enter your address.</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info">
+                            <i class="far fa-address-card"></i> Login Details
+                        </legend>
+                    </div>
+                </div>
+                <hr/>
+                <!-- For Login -->
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="usernameID">User Name : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" name="user_name" id="usernameID" required>
+                        <div id="usernameError" class="invalid-feedback"></div>
+                        <div id="usernameAvailability" class="invalid-feedback"></div>
+                        <div class="invalid-feedback">Please enter a username.</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label class="col-form-label" for="passwordID">Password : <span
+                                class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <div class="input-group">
+                                <input class="form-control password-field" id="passwordID" name="password"
+                                       type="password" placeholder="Password" required>
+                                <span class="input-group-text toggle-password bg-transparent"
+                                      data-target="passwordID"><i class="fas fa-eye-slash"></i></span>
+                                <div class="invalid-feedback">Please enter a password.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-form-label" for="conPasswordID">Confirm Password : <span
+                                class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <div class="input-group">
+                                <input class="form-control password-field" id="conPasswordID"
+                                       name="con_password" type="password" required>
+                                <span class="input-group-text toggle-password bg-transparent"
+                                      data-target="conPasswordID"><i class="fas fa-eye-slash"></i></span>
+                                <div id="conPasswordError" class="invalid-feedback"></div>
+                                <div class="invalid-feedback">Please confirm your password.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <button id="registerBtn" type="submit" class="btn btn-success">Register</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <div class="text-center text-white"><a href="/">Go To Dashboard</a></div>
+        </div>
     </div>
-  </body>
-  <script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
-  <script>
+</div>
+</body>
+<!-- jQuery -->
+<script src="{% static 'adminlte_assets/plugins/jquery/jquery.min.js' %}"></script>
+<!-- Vendor JS Files -->
+<script src="{% static 'landing_assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+<script src="{% static 'landing_assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'landing_assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script src="{% static 'landing_assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'landing_assets/vendor/php-email-form/validate.js' %}"></script>
+<script src="{% static 'landing_assets/js/boostrapv5.0.2.min.js' %}"></script>
+
+<!-- sweetalert2 -->
+<script src="{% static 'adminlte_assets/plugins/sweetalert2/sweetalert2.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'landing_assets/js/main.js' %}"></script>
+
+<!-- Render Message -->
+<!-- Operation Message Section -->
+{% if messages %}
+{% for message in messages %}
+<script>
+    Swal.fire({
+        icon: '{{ message.tags }}',
+        title: '{{ message.tags }}',
+        text: '{{ message }}',
+        timer: 3000 // 3secs
+    })
+
+</script>
+{% endfor %}
+{% endif %}
+
+<!-- Custom JS -->
+{% block scripts %}
+
+{% endblock %}
+</body>
+
+</html>
+
+<script>
     function previewImage(event) {
       var input = event.target
       var imgElement = document.getElementById('preview')
@@ -200,5 +302,218 @@
         imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}"
       }
     }
-  </script>
+    $(document).ready(function () {
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    form.classList.add('was-validated');
+                }, false);
+            });
+
+        // check user-name is available
+        const usernameField = $('#usernameID');
+        const usernameAvailability = $('#usernameAvailability');
+        const usernameError = $('#usernameError');
+
+        // check user-email is available
+        const emailField = $('#emailID');
+        const emailAvailability = $('#emailAvailability');
+        const emailError = $('#emailError');
+
+        const togglePasswordIcons = $('.toggle-password');
+        const passwordField = $('#passwordID');
+        const conPasswordField = $('#conPasswordID');
+        const form = $('#PostForm');
+
+        // Event listener for input on username field
+        usernameField.on('input', function () {
+            checkUsernameAvailability(usernameField.val());
+        });
+
+        // Event listener for input on email field
+        emailField.on('input', function () {
+            const emailValue = emailField.val().trim();
+
+            // Clear existing error messages
+            emailError.text('');
+            emailField.removeClass('is-invalid');
+            emailAvailability.text('');
+
+            if (emailValue === '') {
+                emailError.text('Please enter a valid email address.');
+                emailField.addClass('is-invalid');
+            } else {
+                checkEmailAvailability(emailValue);
+            }
+        });
+
+        // Function to check username availability
+        const checkUsernameAvailability = function (username) {
+            const url = `/user-check-username-availability/${username}/`;
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.message === "Username already taken") {
+                        usernameError.text('Username already taken.Try another');
+                        usernameField.addClass('is-invalid');
+                        usernameAvailability.text('');
+                    } else {
+                        usernameError.text('');
+                        usernameField.removeClass('is-invalid');
+                        usernameAvailability.text('');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error checking username availability:', error);
+                }
+            });
+        };
+
+        // Function to check email availability
+        const checkEmailAvailability = function (email) {
+            const url = `/user-check-email-availability/${email}/`;
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.message === 'Email is empty') {
+                        emailError.text('Please enter a valid email address.');
+                        emailField.addClass('is-invalid');
+                        emailAvailability.text('');
+                    } else if (data.message === 'Email already taken') {
+                        emailError.text('This email is already used in our system. Please try another.');
+                        emailField.addClass('is-invalid');
+                        emailAvailability.text('');
+                    } else {
+                        emailError.text('');
+                        emailField.removeClass('is-invalid');
+                        emailAvailability.text('');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error checking email availability:', error);
+                }
+            });
+        };
+
+        togglePasswordIcons.on('click', function () {
+            const targetId = $(this).data('target');
+            const field = $('#' + targetId);
+
+            const type = field.attr('type') === 'password' ? 'text' : 'password';
+            field.attr('type', type);
+
+            // Toggle eye icon
+            $(this).html(type === 'password' ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>');
+        });
+
+        // Function to clear error messages for password
+        const clearPasswordError = function () {
+            $('#passwordID').removeClass('is-invalid');
+        };
+
+        // Function to clear error messages for confirm password
+        const clearConfirmPasswordError = function () {
+            $('#conPasswordError').text('');
+            $('#conPasswordID').removeClass('is-invalid');
+        };
+
+        // Function to validate if password and confirm password match
+        const validatePasswordMatch = function () {
+            const passwordValue = passwordField.val().trim();
+            const confirmPasswordValue = conPasswordField.val().trim();
+
+            if (passwordValue !== confirmPasswordValue) {
+                $('#conPasswordError').text('Passwords do not match!');
+                $('#conPasswordID').addClass('is-invalid');
+            } else {
+                clearConfirmPasswordError();
+            }
+        };
+
+        // Event listener for input on password field
+        passwordField.on('input', function () {
+            clearPasswordError();
+            validatePasswordMatch();
+        });
+
+        // Event listener for input on confirm password field
+        conPasswordField.on('input', function () {
+            clearConfirmPasswordError();
+            validatePasswordMatch();
+        });
+
+        form.on('submit', function (event) {
+            let hasErrors = false;
+
+            // Reset error messages
+            clearPasswordError();
+            $('#emailError').text('');
+            $('#emailID').removeClass('is-invalid');
+            clearConfirmPasswordError();
+            usernameError.text('');
+            emailAvailability.text('');
+
+            // Password validation
+            const passwordValue = passwordField.val().trim();
+            const confirmPasswordValue = conPasswordField.val().trim();
+
+            if (passwordValue === '') {
+                $('#passwordID').addClass('is-invalid');
+                hasErrors = true;
+            }
+
+            // Confirm Password validation
+            if (confirmPasswordValue === '') {
+                $('#conPasswordID').addClass('is-invalid');
+                hasErrors = true;
+            } else if (passwordValue !== confirmPasswordValue) {
+                $('#conPasswordError').text('Passwords do not match!');
+                $('#conPasswordID').addClass('is-invalid');
+                hasErrors = true;
+            }
+
+            // Check for other form validations and set hasErrors accordingly
+            // (e.g., check for additional errors like "Username already taken" and "Email already taken")
+
+            if (hasErrors) {
+                console.log('Validation errors detected. Form submission prevented.');
+                event.preventDefault(); // Prevent form submission if there are errors
+            }
+
+            // Enable/disable the register button based on the hasErrors flag
+            $('#registerBtn').prop('disabled', hasErrors);
+        });
+
+        // Enable/disable the register button on input change
+        $('input').on('input', function () {
+            // Check for validation on input change and set the button state accordingly
+            let hasErrors = false;
+
+            // Validate each input field and set hasErrors accordingly
+            // (similar to the validation logic inside the form submission)
+
+            // Enable/disable the register button based on the hasErrors flag
+            $('#registerBtn').prop('disabled', hasErrors);
+        });
+    });
+</script>
 </html>

@@ -10,14 +10,14 @@
         <div class="card-body">
             <form id="PostForm"
                   action="{% url 'edit_organ_problem_specification' organ_problem_specification_data.id %}"
-                  method="POST">
+                  method="POST" class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="row mb-3">
                     <label for="specialtySelect" class="col-md-2 col-form-label">Organ Name : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="specialtySelect" name="organ">
-                            <option selected>Select Body Part Name</option>
+                        <select class="form-control select2" id="specialtySelect" name="organ" required>
+                            <option selected>Select Organ Name</option>
                             {% for item in organ_data %}
                             {% if item.name == organ_problem_specification_data.organ %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>
@@ -26,6 +26,7 @@
                             {% endif %}
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select a body part name.</div>
                     </div>
                 </div>
                 <hr>
@@ -35,8 +36,8 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <input type="text" value="{{ organ_problem_specification_data.problem}}" class="form-control"
-                               id="problemID"
-                               name="problem"/>
+                               id="problemID" name="problem" required/>
+                        <div class="invalid-feedback">Please enter an organ problem name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -44,8 +45,9 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <textarea name="problem_specification" id="problemSpecificationID" class="form-control"
-                                  cols="30" rows="10">{{ organ_problem_specification_data.problem_specification }}
+                                  cols="30" rows="10" required>{{ organ_problem_specification_data.problem_specification }}
                         </textarea>
+                        <div class="invalid-feedback">Please enter an organ problem specification.</div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-warning float-right">Update</button>
@@ -53,4 +55,25 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+</script>
+<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
 {% endblock %}

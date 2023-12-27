@@ -7,21 +7,25 @@
             <h1 class="card-title">Add Body Part</h1>
         </div>
         <div class="card-body">
-            <form action="{% url 'store_bodypart' %}" id="PostForm" method="POST">
+            <form id="PostForm" action="{% url 'store_body_part' %}" method="POST" class="needs-validation"
+                  novalidate>
                 {% csrf_token %}
+
                 <div class="row mb-3">
-                    <label for="bodyPartNameID" class="col-md-2 col-form-label">Body Part Name : <span class="text-danger">*</span></label>
+                    <label for="bodyPartNameID" class="col-sm-12 col-md-2 form-label">Body Part Name <span
+                            class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <input class="form-control" id="bodyPartNameID" name="name" type="text"/>
-                        <div class="error-message" id="nameError"></div><!-- Error message container -->
+                        <input type="text" class="form-control" id="bodyPartNameID" name="name" required>
+                        <div class="invalid-feedback">Please enter body part name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="descriptionID" class="col-md-2 col-form-label">Description :</label>
+                    <label for="descriptionID" class="col-sm-12 col-md-2 form-label">Description</label>
                     <div class="col-md-10">
-                        <textarea class="form-control" cols="30" id="descriptionID" name="description"
-                                  rows="2">{{ data.description|default:"N/A" }}</textarea>
-                        <div class="error-message" id="descriptionError"></div> <!-- Error message container -->
+                        <textarea class="form-control" id="descriptionID"
+                                  required rows="10" cols="30"
+                                  name="description">{{ data.description|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter description or type N/A.</div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success float-right">Submit</button>
@@ -31,57 +35,25 @@
 </div>
 {% endblock %}
 
-{% block styles %}
-<style>
-.error-message {
-    color: #dc3545; /* Red color for danger state */
-}
-</style>
-{% endblock %}
-
 {% block scripts %}
 <script>
-$(document).ready(function() {
-    $("#PostForm").submit(function(event) {
-        event.preventDefault(); // Prevent the form from submitting
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
 
-        // Clear previous error messages
-        clearErrorMessages();
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
 
-        // Get the values entered by the user
-        var name = $("#bodyPartNameID").val();
-        var description = $("#descriptionID").val();
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
 
-        // Track if any validation errors occur
-        var hasErrors = false;
-
-        // Perform validation checks
-        if (name.trim() === "") {
-            displayErrorMessage("nameError", "Please enter a body part name.");
-            hasErrors = true;
-        }
-
-        if (description.trim() === "") {
-            displayErrorMessage("descriptionError", "Please enter a description.");
-            hasErrors = true;
-        }
-
-        // Prevent form submission if errors occurred
-        if (hasErrors) {
-            return;
-        }
-
-        // All validation checks passed, submit the form
-        $(this).unbind("submit").submit();
-    });
-
-    function displayErrorMessage(elementId, message) {
-        $("#" + elementId).html(message);
-    }
-
-    function clearErrorMessages() {
-        $(".error-message").html("");
-    }
-});
 </script>
 {% endblock %}

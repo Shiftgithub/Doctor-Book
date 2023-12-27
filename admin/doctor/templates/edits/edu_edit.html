@@ -1,0 +1,296 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Doctor Information</h1>
+            <h1 class="card-title float-right">
+                <a href="{% url 'edu_view' doctor_id %}"
+                   class="nav-link btn btn-info float-right"
+                   type="submit">Back View</a>
+            </h1>
+        </div>
+        <div class="card-body">
+            {% for doctor_data in doctor_all_data %}
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Doctor Name:</label>
+                        <div class="col-md-9">
+                            <input class="form-control" value="{{ doctor_data.full_name }}" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Father Name : </label>
+                        <div class="col-md-9">
+                            <input class="form-control" value="{{ doctor_data.father_name }}" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Mother Name : </label>
+                        <div class="col-md-9">
+                            <input class="form-control" value="{{ doctor_data.mother_name }}" readonly/>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- Email -->
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Email : </label>
+                        <div class="col-md-9">
+                            <input class="form-control" value="{{ doctor_data.email }}" readonly/>
+                        </div>
+                    </div>
+                    <!-- Phone Number -->
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Phone Number : </label>
+                        <div class="col-md-9">
+                            <input class="form-control" value="{{ doctor_data.phone_no }}" readonly/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {% if doctor_data.images.0.photo_name %}
+                            <img alt="Doctor Image" src="{{ doctor_data.images.0.photo_name }}"
+                                 style="width: 100%; height: 280px;">
+                            {% else %}
+                            <img alt="Doctor Image" src="{% static 'adminlte_assets/img/nobody.png' %}"
+                                 style="width: 100%; height: 280px;">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <legend class="text-info">
+                        <i class="fas fa-user-graduate"></i> Education
+                    </legend>
+                </div>
+            </div>
+            <hr>
+            <form action="{% url 'edit_edu' doctor_id %}" enctype="multipart/form-data" id="PostForm" method="POST">
+                {% csrf_token %}
+                <div id="education-sections">
+                    {% if doctor_data.education %}
+                    {% for education_obj in doctor_data.education %}
+                    <div class="education">
+                        <input type="hidden" class="form-control" name="edu_ids[]" value="{{ education_obj.id }}"/>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="certificateDegreeID">Degree
+                                Name: <span class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" name="certificate_degrees[]"
+                                       value="{{ education_obj.certificate_degree }}"/>
+                                <div class="invalid-feedback">Please enter certificate / degree name.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="institutionID">Institution : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="institutionID" name="institutions[]"
+                                       value="{{ education_obj.institution }}" required/>
+                                <div class="invalid-feedback">Please enter institution name.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="boardID">Board Name : <span class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" id="boardID" name="boards[]" required>
+                                    <option selected disabled value="">Select Board Name</option>
+                                    {% for item in board_data %}
+                                    {% if item.name == education_obj.board %}
+                                    <option value="{{ item.id }}" selected>{{ item.name }}</option>
+                                    {% else %}
+                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">Please select board name.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="resultID">Result :<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <input type="number" class="form-control" id="resultID" name="results[]"
+                                       value="{{ education_obj.result }}" required/>
+                                <div class="invalid-feedback">Please enter result.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="passingYearID">Passing Year : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <input type="date" class="form-control" id="passingYearID" name="passing_years[]"
+                                       value="{{ education_obj.passing_year }}" required/>
+                                <div class="invalid-feedback">Please enter passing year.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                    {% else %}
+                    <div class="education-section">
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="certificateDegreeID">Degree
+                                Name: <span class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="certificateDegreeID"
+                                       name="additional_certificate_degrees[]" type="text" required/>
+                                <div class="invalid-feedback">Please enter certificate / degree name.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="institutionID">Institution : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="institutionID" name="additional_institutions[]"
+                                       type="text" required/>
+                                <div class="invalid-feedback">Please enter institution name.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="boardID">Board Name : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <select class="form-control select2" id="boardID" name="additional_boards[]" required>
+                                    <option selected disabled value="">Select Board Name</option>
+                                    {% for item in board_data %}
+                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">Please select board name.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="resultID">Result :<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="resultID" name="additional_results[]" type="number"
+                                       required/>
+                                <div class="invalid-feedback">Please enter result.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="passingYearID">Passing Year : <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="passingYearID" name="additional_passing_years[]"
+                                       type="date"
+                                       required/>
+                                <div class="invalid-feedback">Please enter passing year.</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="education-section">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary add-education-section float-right">Add More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="reset" class="btn btn-secondary">Cancel</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-warning float-right">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="d-none" id="templateID">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-danger remove-education-section float-right">
+                Remove
+            </button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="certificateDegreeID">Degree
+            Name: <span class="text-danger">*</span></label>
+        <div class="col-md-10">
+            <input class="form-control" id="certificateDegreeID"
+                   name="additional_certificate_degrees[]" type="text" required/>
+            <div class="invalid-feedback">Please enter certificate / degree name.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="institutionID">Institution : <span
+                class="text-danger">*</span></label>
+        <div class="col-md-10">
+            <input class="form-control" id="institutionID" name="additional_institutions[]"
+                   type="text" required/>
+            <div class="invalid-feedback">Please enter institution name.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="boardID">Board Name : <span
+                class="text-danger">*</span></label>
+        <div class="col-md-10">
+            <select class="form-control select2" id="boardID" name="additional_boards[]" required>
+                <option selected disabled value="">Select Board Name</option>
+                {% for item in board_data %}
+                <option value="{{ item.id }}">{{ item.name }}</option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">Please select board name.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="resultID">Result :<span
+                class="text-danger">*</span></label>
+        <div class="col-md-10">
+            <input class="form-control" id="resultID" name="additional_results[]" type="number"
+                   required/>
+            <div class="invalid-feedback">Please enter result.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="passingYearID">Passing Year : <span
+                class="text-danger">*</span></label>
+        <div class="col-md-10">
+            <input class="form-control" id="passingYearID" name="additional_passing_years[]" type="date"
+                   required/>
+            <div class="invalid-feedback">Please enter passing year.</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
+<script>
+    function previewImage(event) {
+    var input = event.target;
+    var imgElement = document.getElementById("preview");
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            imgElement.src = e.target.result;
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
+    }
+}
+</script>
+
+{% endblock %}

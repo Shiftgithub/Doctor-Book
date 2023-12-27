@@ -8,22 +8,23 @@
             <h1 class="card-title">Add Frequently Asked Questions</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'store_faq' %}" method="POST">
+            <form id="PostForm" action="{% url 'store_faq' %}" method="POST" class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="row mb-3">
                     <label for="questionID" class="col-md-2 col-form-label">Question : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" id="questionID" name="question"/>
-                        <div id="questionError" class="error-message"></div><!-- Error message container -->
+                        <input type="text" class="form-control" id="questionID" name="question" required/>
+                        <div class="invalid-feedback">Please enter question.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="answerID" class="col-md-2 col-form-label">Answer : <span class="text-danger">*</span></label>
+                    <label for="answerID" class="col-md-2 col-form-label">Answer : <span
+                            class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <textarea name="answer" id="answerID" class="form-control" cols="30"
-                                  rows="10"></textarea>
-                        <div id="answerError" class="error-message"></div><!-- Error message container -->
+                                  rows="10" required></textarea>
+                        <div class="invalid-feedback">Please enter answer.</div>
                     </div>
                 </div>
                 <input type="hidden" value="{{request.session.user_id}}" name="created_by">
@@ -33,61 +34,23 @@
     </div>
 </div>
 {% endblock %}
-
-{% block styles %}
-<style>
-    .error-message {
-        color: #dc3545; /* Red color for danger state */
-    }
-
-
-</style>
-{% endblock %}
 {% block scripts %}
 <script>
-    $(document).ready(function() {
-        $("#PostForm").submit(function(event) {
-            event.preventDefault(); // Prevent the form from submitting
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
 
-            // Clear previous error messages
-            clearErrorMessages();
-
-            // Get the values entered by the user
-            var question = $("#questionID").val();
-            var answer = $("#answerID").val();
-
-            // Track if any validation errors occur
-            var hasErrors = false;
-
-            // Perform validation checks
-            if (question.trim() === "") {
-                displayErrorMessage("questionError", "Please enter a Question.");
-                hasErrors = true;
-            }
-
-            if (answer.trim() === "") {
-                displayErrorMessage("answerError", "Please enter a Answer.");
-                hasErrors = true;
-            }
-
-            // Prevent form submission if errors occurred
-            if (hasErrors) {
-                return;
-            }
-
-            // All validation checks passed, submit the form
-            $(this).unbind("submit").submit();
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
         });
-
-        function displayErrorMessage(elementId, message) {
-            $("#" + elementId).html(message);
-        }
-
-        function clearErrorMessages() {
-            $(".error-message").html("");
-        }
-    });
-
-
+     });
 </script>
 {% endblock %}

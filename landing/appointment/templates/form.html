@@ -1,0 +1,208 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+{% block styles %}
+<style>
+    #doctors {background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;}
+    /* Style for the circular radio buttons */
+    .circular-radio {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .circular-radio input[type='radio'] {
+      width: 15px;
+      height: 15px;
+      margin-right: 10px;
+      transform: scale(1.5);
+      background-color: blue;
+      border: 2px solid blue;
+      border-radius: 50%;
+    }
+
+    /* Style for the text */
+    .circular-radio label {
+      font-size: 18px;
+    }
+
+    /* Style for the right-side div (initially hidden) */
+    .right-side-div {
+      float: right;
+      width: 50%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Add Patient Appointment</h1>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'store_appointment_by_doctor' %}" method="POST" id="formID">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="patientID">Patient Name : </label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="patientID" name="patient" required>
+                            <option selected disabled value="">Select Patient Name</option>
+                            {% for item in all_patient_data %}
+                            <option value="{{ item.id }}">{{ item.id }} . {{ item.full_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="doctorID">Doctor Name : </label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="doctorID" name="doctor" required>
+                            <option selected disabled value="">Select Doctor Name</option>
+                            {% for item in all_doctor_data %}
+                            {% if item.id == doctor_id %}
+                            <option value="{{ item.id }}" selected>{{ item.full_name }} ({{ item.department }})</option>
+                            {% else %}
+                            <option value="{{ item.id }}">{{ item.full_name }} ({{ item.department }})</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-sm-12 col-md-3">
+                        <h5 class="text-primary">Choose Appointment Date</h5>
+                        <hr/>
+                        {% for date in date_list %}
+                        <div class="circular-radio">
+                            <input type="radio" onclick="getDate(this); showTime(); "
+                                   id="date-{{ forloop.counter }}"
+                                   name="selected_date" data-date="{{ date }}"/>
+                            <label for="date-{{ forloop.counter }}">{{ date }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-12 col-md-9">
+                        <div id="timeSelection">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <input type="hidden" id="selectedDateID" name="appointment_date"/>
+                    <input type="hidden" id="selectedTimeID" name="appointment_time"/>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <button id="nextButton" class="btn btn-success text-white btn" disabled>Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+    function showTime() {
+    let selectedDate = $('#selectedDateID').val();
+    let doctorId = $('#doctorID').val();
+
+    $.ajax({
+    url: `/ajax-time/${doctorId}/${selectedDate}/`,
+    type: 'GET',
+    success: function (response) {
+        console.log('Success:', response);
+
+        let options = '<h5 class="text-primary text-center">Choose Appointment Time</h5><hr/>';
+
+        if (response.appointment_times.length > 0) {
+            // Time slots are available
+            for (let i = 0; i < response.appointment_times.length; i += 3) {
+                options += '<div class="row">';
+                for (let j = i; j < i + 3 && j < response.appointment_times.length; j++) {
+                    options += `
+                        <div class="circular-radio col-sm-12 col-md-4">
+                            <input class="time-class" onclick="getTime(this)" type="radio"
+                                id="time-${j}" name="selected_time" data-time="${response.appointment_times[j]}"/>
+                            <label for="time-${j}">${response.appointment_times[j]}</label>
+                        </div>`;
+                }
+                options += '</div>';
+            }
+        } else {
+            // No time slots found
+            options += `
+                <div class="alert alert-light">
+                    <h4 class="alert-heading">No Time Slots Found</h4>
+                    <p>There are no time slots available at the moment. Please check back later. or try another doctor.</p>
+                </div>`;
+        }
+
+        $('#timeSelection').html(options);
+    },
+    error: function (error) {
+        console.error('Error:', error);
+    }
+    });
+}
+
+     function getDate(dom) {
+         let selectedDate = $(dom).attr('data-date');
+         $('#selectedDateID').val(selectedDate);
+         console.log($(dom).attr('data-date'));
+         enableDisableNextButton(); // Call the function to enable/disable the "Next" button
+     }
+
+     function getTime(dom) {
+       let selectedTime = $(dom).attr('data-time');
+       $('#selectedTimeID').val(selectedTime);
+       console.log($(dom).attr('data-time'));
+       enableDisableNextButton(); // Call the function to enable/disable the "Next" button
+     }
+
+     function enableDisableNextButton() {
+        // Check if both date and time have been selected
+        let selectedDate = $('#selectedDateID').val();
+        let selectedTime = $('#selectedTimeID').val();
+
+        if (selectedDate && selectedTime) {
+            // Enable the "Next" button
+            $('#nextButton').prop('disabled', false);
+        } else {
+            // Disable the "Next" button
+            $('#nextButton').prop('disabled', true);
+        }
+    }
+
+     $(document).ready(function () {
+       // Add a click event handler for radio buttons with the name "selected_date"
+       $('input[name="selected_date"]').on('click', function () {
+         // Check if the radio button is checked
+         if ($(this).is(':checked')) {
+           // Show the time selection div
+           $('#timeSelection').removeClass('d-none');
+           // Clear the form fields when changing the date
+           $('.time-class').prop('checked', false);
+         } else {
+           // Hide the time selection div and clear the right-side div
+           $('#timeSelection').addClass('d-none');
+           $('#selectedDateID').val('');
+           $('#selectedTimeID').val('');
+         }
+          enableDisableNextButton();
+       });
+
+       // Add a click event handler for radio buttons with the name "selected_time"
+       $('input[name="selected_time"]').on('click', function () {
+         // Check if a date has been selected
+         if ($('#selectedDateID').val()) {
+           // Get the selected time from the data attribute
+           let selectedTime = $(this).attr('data-time');
+           $('#selectedTimeID').val(selectedTime);
+         }
+          enableDisableNextButton(); // Call the function to enable/disable the "Next" button
+       });
+    });
+</script>
+{% endblock %}

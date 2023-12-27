@@ -1,52 +1,55 @@
 import hashlib
-from datetime import datetime
 from django.db import transaction
-from admin.patient.serializers import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from django.shortcuts import get_object_or_404
-from admin.authentication.user.models import Images
-from admin.authentication.otp.verifyotp.models import *
 from admin.authentication.otp.function.send_email import *
 from admin.authentication.user.serializers import *
 from .serializers import *
 from ..authentication.otp.verifyotp.models import VerifyOtp
 from ..authentication.user.serializers import UserSerializer, ImageSerializer
+from ..authentication.login.views import set_user_info
 
 
 @api_view(['POST'])
+@transaction.atomic
 def store_patient_data(request):
     patient_serializer = PatientSerializer(data=request.data)
     user_serializer = UserSerializer(data=request.data)
     if user_serializer.is_valid(raise_exception=True) and patient_serializer.is_valid():
-        password = request.data.get('password')
-        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+        user_name = request.data.get('user_name')
+        email = request.data.get('email')
 
-        with transaction.atomic():
-            user_serializer.save(hash=hashed_password, role='patient', status='inactive')
+        if User.objects.filter(user_name=user_name).exists():
+            return Response({'message': 'This User name already taken. Please try another.', 'status': 404})
 
-            user_profile_instance = user_serializer.instance
-            registration_no = generate_unique(18)
-            patient_serializer.save(user_id=user_profile_instance, registration_no=registration_no)
+        if User.objects.filter(email=email, ).exists():
+            return Response({'message': 'This email already used. Please try another.', 'status': 404})
 
-            image_serializer = Images(user_id=user_profile_instance)
-            image_serializer.save()
+        hashed_password = hashlib.sha256(request.data.get('password').encode()).hexdigest()
 
-            token_str = generate_token(6)
-            email_fields = [user_serializer.validated_data['email']]
-            email = ' - '.join(email_fields)
-            message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
-            otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
-            otp_serializer.save()
-            # send_mail = send_email(email, message)
-            if otp_serializer:
-                data = {'email': email, 'status': 200}
-                return Response(data)
-            else:
-                transaction.set_rollback(True)
-                return Response({'status': 403})
+        user_serializer.save(hash=hashed_password, role='patient', status='inactive')
+
+        user_profile_instance = user_serializer.instance
+        registration_no = generate_unique(18)
+        patient_serializer.save(user_id=user_profile_instance, registration_no=registration_no)
+
+        image_serializer = Images(user_id=user_profile_instance)
+        image_serializer.save()
+
+        token_str = generate_token(6)
+
+        message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
+        otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
+        otp_serializer.save()
+        sent_email = send_email(email, message)
+        if otp_serializer and sent_email:
+            data = {'email': email, 'status': 200, 'message': 'Patient data stored successfully'}
+            return Response(data)
+        else:
+            transaction.set_rollback(True)
+            return Response({'status': 403, 'message': 'Error in  storing patient data'})
     else:
-        return Response({'status': 400})
+        return Response({'status': 400, 'message': 'Invalid request!'})
 
 
 @api_view(['GET'])
@@ -54,7 +57,7 @@ def get_patients_list(request):
     try:
         patients = PatientProfile.objects.filter(deleted_at=None).select_related(
             'gender', 'religion', 'blood_group', 'matrimony', 'user'
-        )
+        ).order_by('-id')
         serializer = PatientViewSerializer(patients, many=True)
         return Response(serializer.data)
     except PatientProfile.DoesNotExist:
@@ -94,8 +97,9 @@ def edit_patient_data(request, patient_id):
             image_serializer.validated_data['photo_name'] = patient.user.images.first().photo_name
         if patient_serializer.save(updated_at=datetime.now()) and image_serializer.save(
                 updated_at=datetime.now()):
-            return Response({'status': 200})
+            set_user_info(request, patient, patient.user.id, patient.user.email)
+            return Response({'status': 200, 'message': 'Patient data updated successfully'})
         else:
-            return Response({'status': 403})
+            return Response({'status': 403, 'message': 'Error in updating patient data'})
     else:
-        return Response({'status': 403})
+        return Response({'status': 400, 'message': 'Invalid request!'})

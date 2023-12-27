@@ -36,8 +36,6 @@
 
 </head>
 
-<body>
-
 {% include 'includes/navbar.html' %}
 
 {% block hero %}
@@ -58,6 +56,7 @@
 <script src="{% static 'landing_assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
 <script src="{% static 'landing_assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
 <script src="{% static 'landing_assets/vendor/php-email-form/validate.js' %}"></script>
+<script src="{% static 'landing_assets/js/boostrapv5.0.2.min.js' %}"></script>
 
 <!-- sweetalert2 -->
 <script src="{% static 'adminlte_assets/plugins/sweetalert2/sweetalert2.js' %}"></script>
@@ -80,6 +79,16 @@
 </script>
 {% endfor %}
 {% endif %}
+<!--chat-icon="{% static 'landing_assets/img/chaticon2.png' %}"-->
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-icon="{% static 'landing_assets/img/chaticon2.png' %}"
+  chat-title="Doctor-Book-ChatBot"
+  agent-id="1953a56b-c288-4062-9ac8-bf041dc376db"
+  language-code="en"
+></df-messenger>
+
 
 <!-- Custom JS -->
 {% block scripts %}

@@ -3,9 +3,6 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-            <li class="nav-header">{{ request.session.user_role }} Panel</li>
-
             <!-- Dashboard -->
             <li class="nav-item mainItem">
                 <a href="{% url 'admin_dashboard' %}" class="nav-link">
@@ -26,13 +23,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_bodypart_form' %}" class="nav-link">
+                        <a href="{% url 'body_part_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Body Part</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a href="{% url 'bodypart_list' %}" class="nav-link">
+                        <a href="{% url 'body_part_list' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>All Body Parts</p>
                         </a>
@@ -149,21 +146,75 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_doctor_form' %}" class="nav-link">
+                        <a href="{% url 'doctor_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Doctor</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a class="nav-link" href="{% url 'add_doctor_work_details_form' %}">
+                        <a class="nav-link" href="{% url 'work_form' %}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Add work Details</p>
+                            <p>Add Working Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'edu_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Education Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'social_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Social Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'award_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Award Details </p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
                         <a href="{% url 'doctor_list' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>All Doctors</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- Doctor data modification-->
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user-md"></i>
+                    <p>
+                        Doctor Modification
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'working_list' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Doctors Working Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'edu_list' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Doctors Education Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a class="nav-link" href="{% url 'social_list' %}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Doctors Social Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'award_list' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Doctors Awards Details</p>
                         </a>
                     </li>
                 </ul>
@@ -192,6 +243,54 @@
                     </li>
                 </ul>
             </li>
+            <!-- Lab test -->
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-vial"></i>
+                    <p>
+                        Lab Test
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'lab_test_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Lab Test</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'lab_test_list'%}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Lab Test</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- Article -->
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-newspaper"></i>
+                    <p>
+                        Article
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'article_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Article</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'article_list' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Articles</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <!-- Frequently Asked Questions -->
             <li class="nav-item mainItem">
                 <a href="#" class="nav-link">
@@ -216,31 +315,6 @@
                     </li>
                 </ul>
             </li>
-            <!-- Article -->
-            <li class="nav-item mainItem">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-newspaper"></i>
-                    <p>
-                        Article
-                        <i class="right fas fa-angle-left"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item nav-child">
-                        <a href="{% url 'add_article_form' %}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Add Article</p>
-                        </a>
-                    </li>
-                    <li class="nav-item nav-child">
-                        <a href="{% url 'article_list' %}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>All Articles</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
         </ul>
     </nav>
     <!-- /.sidebar-menu -->

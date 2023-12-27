@@ -8,15 +8,17 @@
             <h1 class="card-title">Edit Body Part Information</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'edit_department' department_data.id %}" method="POST">
+            <form id="PostForm" enctype="multipart/form-data" action="{% url 'edit_department' department_data.id %}"
+                  method="POST"
+                  class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="row mb-3">
                     <label for="departmentNameID" class="col-md-2 col-form-label">Department Name : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
                         <input type="text" value="{{ department_data.name }}" class="form-control" id="departmentNameID"
-                               name="name"/>
-                        <div id="nameError" class="error-message"></div><!-- Error message container -->
+                               name="name" required/>
+                        <div class="invalid-feedback">Please enter a department name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -24,16 +26,19 @@
                     <div class="col-md-10">
                         <input class="form-control" id="imageId" name="image" onchange="previewImage(event)"
                                type="file"/>
-                        <img id="preview" src="{% static 'adminlte_assets/img/nobody.png' %}"
+                        <img id="preview" src="{{ department_data.image }}"
                              style="width: 100%; height: 500px;">
-                        <div class="error-message" id="imageError"></div><!-- Error message container -->
+                        <div id="imageDescription" class="form-text">Choose an image file (JPEG, PNG, GIF) with a
+                            maximum size of 5MB.
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="descriptionID" class="col-md-2 col-form-label">Description :</label>
                     <div class="col-md-10">
-                        <textarea name="description" id="descriptionID" class="form-control" cols="30" rows="10">{{ department_data.description }}</textarea>
-                        <div id="descriptionError" class="error-message"></div> <!-- Error message container -->
+                        <textarea name="description" id="descriptionID" class="form-control" cols="30" rows="3"
+                                  required>{{ department_data.description }}</textarea>
+                        <div class="invalid-feedback">Please enter description or type N/A.</div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-warning float-right">Update</button>
@@ -42,73 +47,39 @@
     </div>
 </div>
 {% endblock %}
-{% block styles %}
-<style>
-    .error-message {
-        color: #dc3545; /* Red color for danger state */
-    }
-
-</style>
-{% endblock %}
 {% block scripts %}
 <script>
-    $(document).ready(function() {
-        $("#PostForm").submit(function(event) {
-            event.preventDefault(); // Prevent the form from submitting
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
 
-            // Clear previous error messages
-            clearErrorMessages();
-
-            // Get the values entered by the user
-            var name = $("#departmentNameID").val();
-            var description = $("#descriptionID").val();
-
-            // Track if any validation errors occur
-            var hasErrors = false;
-
-            // Perform validation checks
-            if (name.trim() === "") {
-                displayErrorMessage("nameError", "Please enter a department name.");
-                hasErrors = true;
-            }
-
-            if (description.trim() === "") {
-                displayErrorMessage("descriptionError", "Please enter a description.");
-                hasErrors = true;
-            }
-
-            // Prevent form submission if errors occurred
-            if (hasErrors) {
-                return;
-            }
-
-            // All validation checks passed, submit the form
-            $(this).unbind("submit").submit();
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
         });
+     });
+    function previewImage(event) {
+        var input = event.target;
+        var imgElement = document.getElementById("preview");
 
-        function displayErrorMessage(elementId, message) {
-            $("#" + elementId).html(message);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                imgElement.src = e.target.result;
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
         }
-
-        function clearErrorMessages() {
-            $(".error-message").html("");
-        }
-    });
-function previewImage(event) {
-    var input = event.target;
-    var imgElement = document.getElementById("preview");
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-            imgElement.src = e.target.result;
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
     }
-}
 </script>
 {% endblock %}

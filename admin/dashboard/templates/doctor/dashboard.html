@@ -1,1 +1,108 @@
 {% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% block content %}
+<div class="content mt-3">
+    <div class="container">
+        <div class="alert alert-default-info">
+            <div class="row">
+                <div class="col-6">
+                    <h6>Welcome to our Doctor Book DoctorPanel</h6>
+                </div>
+                <div class="col-6 text-right">
+                    <h5 id="current-time"></h5>
+                    <p id="current-date"></p>
+                </div>
+            </div>
+        </div>
+        <!-- Small boxes (Stat box) -->
+        <div class="row text-center">
+            <div class="col-sm-4 col-md-4">
+                <div class="small-box text-white" style="background-color:#5C8374">
+                    <div class="inner">
+                        <h6 class="text-center">Today's Appointment</h6>
+                        <p class="text-center">{{count_appointment_data.appointments_count}}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <a href="{% url 'appointment_list_by_date' %}" class="small-box-footer">See More <i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <div class="small-box text-white" style="background-color:#65B741">
+                    <div class="inner">
+                        <h6 class="text-center">Total Patient</h6>
+                        <p class="text-center">{{patient_data.patient_count}}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-injured"></i>
+                    </div>
+                    <a href="{% url 'patient_list' %}" class="small-box-footer">See More <i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <div class="small-box text-white" style="background-color:#557B83">
+                    <div class="inner">
+                        <h6 class="text-center">Total Medicine Prescription</h6>
+                        <p class="text-center">{{medicine_prescription_data.prescriptions_for_medicine_count}}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <a href="{% url 'medine_prescription_list' %}" class="small-box-footer">See More <i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <div class="small-box text-white" style="background-color:#557B83">
+                    <div class="inner">
+                        <h6 class="text-center">Total Lab Prescription</h6>
+                        <p class="text-center">{{lab_prescription_data.prescriptions_for_lab_count}}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <a href="{% url 'lab_prescription_list' %}" class="small-box-footer">See More <i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Function to update the current time and date
+    function updateCurrentTime() {
+        var currentTimeElement = document.getElementById('current-time');
+        var currentDateElement = document.getElementById('current-date');
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+
+        // Convert to 12-hour format
+        hours = hours % 12;
+        hours = hours ? hours : 12; // The hour '0' should be '12'
+
+        var formattedTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds + ' ' + ampm;
+
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        var formattedDate = currentTime.toLocaleDateString(undefined, options);
+
+        currentTimeElement.textContent = formattedTime;
+        currentDateElement.textContent = formattedDate;
+    }
+
+    // Update the time and date every second
+    setInterval(updateCurrentTime, 1000);
+
+    // Call the function once to display the initial time and date
+    updateCurrentTime();
+</script>
+{% endblock %}

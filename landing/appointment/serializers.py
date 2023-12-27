@@ -3,11 +3,9 @@ from admin.department_speci.models import *
 from admin.doctor.models import DoctorProfile, ScheduleTime
 from admin.authentication.user.serializers import *
 from admin.bodypart.models import *
-
 from admin.organ.models import *
 from admin.doctor.models import OffDay
 from admin.personal_data.serializers import *
-
 from .models import *
 
 
@@ -36,6 +34,16 @@ class ScheduleTimeInfoSerializer(serializers.ModelSerializer):
 
 
 class PatientAppointmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GetAppointment
+        fields = '__all__'
+
+
+class PatientAppointmentViewSerializer(serializers.ModelSerializer):
+    patient_name = serializers.CharField(source='patient.full_name', allow_null=True)
+    patient_email = serializers.CharField(source='patient.user.email', allow_null=True)
+    patient_phone_no = serializers.CharField(source='patient.phone_no', allow_null=True)
+
     class Meta:
         model = GetAppointment
         fields = '__all__'

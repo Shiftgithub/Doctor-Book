@@ -41,31 +41,28 @@
             </div>
             {% if doctor_data %}
             {% for data in doctor_data %}
-            <div class="col-6">
+            <div class="col-6 mt-4">
                 <div class="member d-flex align-items-start">
-                    <div>
-                        <img src="{{ data.images.0.photo_name }}" alt="Doctor Image" height="120px" width="100%"/>
+                    <div class="col-5">
+                        <img src="{{ data.images.0.photo_name }}" alt="Doctor Image" height="150px" width="100%"/>
                     </div>
-                    <div class="member-info">
+                    <div class="col-7">
                         <h4>{{ data.full_name }}</h4>
                         <h6>{{data.department_name}}</h6>
-                        <p>{{ data.biography }}</p>
-                        <p>
-                            <a href="{% url 'appointment' data.id %}" class="btn btn-success btn-sm">Appointment</a>
-                            <a href="{% url 'doctor_profile' data.id %}" class="btn btn-info btn-sm">Profile</a>
-                        </p>
+                        <a href="{% url 'appointment' data.id %}" class="btn btn-success btn-sm">Appointment</a>
+                        <a href="{% url 'check_doctor_profile' data.id %}" class="btn btn-info btn-sm">Profile</a>
                     </div>
                 </div>
             </div>
             {% endfor %}
             {% else %}
-            <div class="row alert alert-warning">
-                <h3>No Doctors Found</h3>
-                <br>
-                <a href="{% url 'landing_dashboard' %}"><i class="fas fa-arrow-left"></i> Go Back</a>
-            </div>
-            {% endif %}
         </div>
+        <div class="alert alert-default-warning text-center">
+            <h3>No Doctors Found</h3>
+            <a href="{% url 'patient_predict_form' %}" class="text-dark"><i class="fas fa-arrow-left"></i> Go Back</a>
+        </div>
+        {% endif %}
+    </div>
     </div>
 </section>
 {% endblock %}

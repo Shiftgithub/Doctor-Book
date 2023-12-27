@@ -9,7 +9,7 @@ from admin.basemodel.models import BaseModel
 class User(BaseModel):
     user_name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
-    password = models.CharField(max_length=255, null=True)
+    password = models.CharField(max_length=255)
     hash = models.CharField(max_length=64, null=True)  # Assuming SHA-256 hash is 64 characters long
     role = models.CharField(max_length=20, null=True)  # Choices: admin, doctor, patient
     status = models.CharField(max_length=20, null=True)  # Choices: active, inactive, pending
@@ -71,7 +71,7 @@ def image_filepath(instance, filename):
     new_filename = f'{time_now}_{unique_id}{file_extension}'
 
     # Return the relative path to the folder where you want to save the image
-    return os.path.join('static', 'uploads', 'images', new_filename)
+    return os.path.join('uploads', 'images', new_filename)
 
 
 class Images(BaseModel):

@@ -1,63 +1,51 @@
 {% extends 'dashboard/templates/admin/admin_layout.html' %}
 {% load static %}
 {% block content %}
-<section class="content mt-5">
+<div class="content mt-3">
     <div class="container">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-            <div class="col-lg-6 col-md-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3>Try Another Prediction</h3>
-                        <p></p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">Predict More..<i class="fas fa-arrow-circle-right"></i></a>
+        <div class="alert alert-default-info">
+            <div class="row">
+                <div class="col-6">
+                    <h6>Welcome to our Doctor Book PatientPanel</h6>
                 </div>
-            </div>
-
-            <div class="col-lg-6 col-md-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3>My Profile</h3>
-                        <p></p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">See More..<i class="fas fa-arrow-circle-right"></i></a>
+                <div class="col-6 text-right">
+                    <h5 id="current-time"></h5>
+                    <p id="current-date"></p>
                 </div>
             </div>
         </div>
     </div>
-</section>
-<section class="content container">
-    <h4>Recent Articles</h4>
-    <!-- Latest 5 Articles table-->
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Article Title</th>
-            <th scope="col">Article Description</th>
-            <th scope="col">Article Image</th>
-            <th scope="col">Article Link</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for article in articles %}
-        <tr>
-            <td>{{ article.title }}</td>
-            <td>{{ article.description }}</td>
-            <td><img src="{{ article.image.url }}" alt="{{ article.title }}" width="100px" height="100px"></td>
-            <td><a href="{{ article.link }}" target="_blank">{{ article.link }}</a></td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</section>
-<!-- ./col -->
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+    // Function to update the current time and date
+    function updateCurrentTime() {
+        var currentTimeElement = document.getElementById('current-time');
+        var currentDateElement = document.getElementById('current-date');
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+
+        // Convert to 12-hour format
+        hours = hours % 12;
+        hours = hours ? hours : 12; // The hour '0' should be '12'
+
+        var formattedTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds + ' ' + ampm;
+
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        var formattedDate = currentTime.toLocaleDateString(undefined, options);
+
+        currentTimeElement.textContent = formattedTime;
+        currentDateElement.textContent = formattedDate;
+    }
+
+    // Update the time and date every second
+    setInterval(updateCurrentTime, 1000);
+
+    // Call the function once to display the initial time and date
+    updateCurrentTime();
+</script>
 {% endblock %}

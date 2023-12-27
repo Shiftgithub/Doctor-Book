@@ -1,201 +1,201 @@
-// For organ and organ problem specification fields call back
+// For organ fields call back
 $(document).ready(function() {
-        // Hide the remove button for the initial section
-        $('.section-callback').first().find('.remove-section-callback').hide();
+    // Hide the remove button for the initial organ section
+    $('.organ-section .remove-organ-section').hide();
 
-        // Add section
-        $(document).on('click', '.add-section-callback', function() {
-            var section = $('.section-callback').first().clone();
-            section.find('input[name="names[]"]').val(''); // Clear input values in the cloned section
-            section.find('textarea[name="descriptions[]"]').val('N/A');; // Clear textarea value in the cloned section
-            section.find('input[name="problems[]"]').val(''); // Clear input values in the cloned section
-            section.find('textarea[name="problem_specifications[]"]').val('N/A'); // Clear textarea value in the cloned section
-            section.find('.section-index').text('No ' + ($('.section-callback').length + 1)); // Update section index
-            section.find('.remove-section-callback').show(); // Show the remove button for the cloned section
+    // Get the HTML template for a new organ section
+    let template = $('#templateID').html();
 
-            section.appendTo('#section-callbacks');
+    // Add organ section
+    $(document).on('click', '.add-organ-section', function() {
+        var index = $('.organ-section').length + 1;
 
-            // Show the remove button when there is more than one section
-            $('.section-callback').find('.remove-section-callback').show();
-        });
+        $('.organ-section:last').after('<div class="organ-section">' + template + '</div>');
 
-        // Remove section
-        $(document).on('click', '.remove-section-callback', function() {
-                if ($('.section-callback').length > 1) {
-                    $(this).closest('.section-callback').remove();
-
-                    // Update section indexes
-                    $('.section-callback').each(function(index) {
-                        $(this).find('.section-index').text('No ' + (index + 1));
-                    });
-
-                    if ($('.section-callback').length === 1) {
-                    $('.section-callback .remove-section-callback').hide();
-                }
-            }
-        });
+        // Show the "Remove" button when there is more than one organ section
+        if (index > 1) {
+            $('.organ-section:last').find('.remove-organ-section').show();
+        }
     });
+     // Remove organ section
+    $(document).on('click', '.remove-organ-section', function() {
+        var organSections = $('.organ-section');
+        if (organSections.length > 1) {
+            $(this).closest('.organ-section').remove();
+
+            // Hide the "Remove" button when there is only one organ section left
+            if (organSections.length === 1) {
+                organSections.find('.remove-organ-section').hide();
+            }
+        }
+    });
+});
+
+// For specification fields call back
+$(document).ready(function() {
+    // Hide the remove button for the initial specification section
+    $('.specification-section .remove-specification-section').hide();
+
+    // Get the HTML template for a new specification section
+    let template = $('#templateID').html();
+
+    // Add specification section
+    $(document).on('click', '.add-specification-section', function() {
+        var index = $('.specification-section').length + 1;
+
+        $('.specification-section:last').after('<div class="specification-section">' + template + '</div>');
+
+        // Show the "Remove" button when there is more than one specification section
+        if (index > 1) {
+            $('.specification-section:last').find('.remove-specification-section').show();
+        }
+    });
+     // Remove specification section
+    $(document).on('click', '.remove-specification-section', function() {
+        var specificationSections = $('.specification-section');
+        if (specificationSections.length > 1) {
+            $(this).closest('.specification-section').remove();
+
+            // Hide the "Remove" button when there is only one specification section left
+            if (specificationSections.length === 1) {
+                specificationSections.find('.remove-specification-section').hide();
+            }
+        }
+    });
+});
+
+
+// For schedule fields call back
+$(document).ready(function() {
+    // Hide the remove button for the initial schedule section
+    $('.schedule-section .remove-schedule-section').hide();
+
+    // Get the HTML template for a new schedule section
+    let template = $('#templateID').html();
+
+    // Add schedule section
+    $(document).on('click', '.add-schedule-section', function() {
+        var index = $('.schedule-section').length + 1;
+
+        $('.schedule-section:last').after('<div class="schedule-section">' + template + '</div>');
+
+        // Show the "Remove" button when there is more than one schedule section
+        if (index > 1) {
+            $('.schedule-section:last').find('.remove-schedule-section').show();
+        }
+    });
+     // Remove schedule section
+    $(document).on('click', '.remove-schedule-section', function() {
+        var scheduleSections = $('.schedule-section');
+        if (scheduleSections.length > 1) {
+            $(this).closest('.schedule-section').remove();
+
+            // Hide the "Remove" button when there is only one schedule section left
+            if (scheduleSections.length === 1) {
+                scheduleSections.find('.remove-schedule-section').hide();
+            }
+        }
+    });
+});
+
+
+
+// For off-day fields call back
+$(document).ready(function() {
+    // Hide the remove button for the initial off-day section
+    $('.off-day-section .remove-off-day-section').hide();
+
+    // Get the HTML template for a new off-day section
+    let template = $('#templateID').html();
+
+    // Add off-day section
+    $(document).on('click', '.add-off-day-section', function() {
+        var index = $('.off-day-section').length + 1;
+
+        $('.off-day-section:last').after('<div class="off-day-section">' + template + '</div>');
+
+        // Show the "Remove" button when there is more than one off-day section
+        if (index > 1) {
+            $('.off-day-section:last').find('.remove-off-day-section').show();
+        }
+    });
+     // Remove off-day section
+    $(document).on('click', '.remove-off-day-section', function() {
+        var offDaySections = $('.off-day-section');
+        if (offDaySections.length > 1) {
+            $(this).closest('.off-day-section').remove();
+
+            // Hide the "Remove" button when there is only one off-day section left
+            if (offDaySections.length === 1) {
+                offDaySections.find('.remove-off-day-section').hide();
+            }
+        }
+    });
+});
+
+// for award section
+$(document).ready(function() {
+    // Hide the "Remove" button for the initial award section
+    $('.award-section .remove-award-section').hide();
+
+    // Get the HTML template for a new award section
+    let template = $('#templateID').html();
+
+    // Add award section
+    $(document).on('click', '.add-award-section', function() {
+        var index = $('.award-section').length + 1;
+
+        $('.award-section:last').after('<div class="award-section">' + template + '</div>');
+
+        // Show the "Remove" button when there is more than one award section
+        if (index > 1) {
+            $('.award-section:last').find('.remove-award-section').show();
+        }
+    });
+
+    // Remove award section
+    $(document).on('click', '.remove-award-section', function() {
+        var awardSections = $('.award-section');
+        if (awardSections.length > 1) {
+            $(this).closest('.award-section').remove();
+
+            // Hide the "Remove" button when there is only one award section left
+            if (awardSections.length === 1) {
+                awardSections.find('.remove-award-section').hide();
+            }
+        }
+    });
+});
 
 // For education fields call back
 $(document).ready(function() {
     // Hide the remove button for the initial education section
     $('.education-section .remove-education-section').hide();
 
+    // Get the HTML template for a new education section
+    let template = $('#templateID').html();
+
     // Add education section
-    $('.add-education-section').click(function() {
-        var section = $('.education-section').first().clone();
-        section.find('input').val(''); // Clear input values in the cloned section
-        section.find('.remove-education-section').show(); // Show the remove button for the cloned section
+    $(document).on('click', '.add-education-section', function() {
+        var index = $('.education-section').length + 1;
 
-        // Update index number
-        var index = $('.education-section').length;
-        section.find('.section-index').text('Certificate Or Degree No ' + (index + 1));
+        $('.education-section:last').after('<div class="education-section">' + template + '</div>');
 
-        section.appendTo('#education-sections');
-
-        // Show the remove button when there is more than one education section
-        if (index > 0) {
-            $('.education-section .remove-education-section').show();
+        // Show the "Remove" button when there is more than one education section
+        if (index > 1) {
+            $('.education-section:last').find('.remove-education-section').show();
         }
     });
-
-    // Remove education section
+     // Remove education section
     $(document).on('click', '.remove-education-section', function() {
-        if ($('.education-section').length > 1) {
+        var educationSections = $('.education-section');
+        if (educationSections.length > 1) {
             $(this).closest('.education-section').remove();
 
-            // Update index numbers
-            $('.education-section').each(function(index) {
-                $(this).find('.section-index').text('Certificate Or Degree No : ' + (index + 1));
-            });
-
-            // Hide the remove button when there is only one education section left
-            if ($('.education-section').length === 1) {
-                $('.education-section .remove-education-section').hide();
+            // Hide the "Remove" button when there is only one education section left
+            if (educationSections.length === 1) {
+                educationSections.find('.remove-education-section').hide();
             }
         }
     });
 });
-$(document).ready(function() {
-            // Hide the "Remove" button for the initial lab test section
-            $('.schedule-section .remove-schedule-section').hide();
-
-            // Add schedule section
-            $(document).on('click', '.add-schedule-section', function() {
-                var section = $('.schedule-section:first').clone();
-                section.find('input[type="time"]').val(''); // Clear input values in the cloned section
-                section.find('input[type="time"]').val(''); // Clear input values in the cloned section
-                section.find('.remove-schedule-section').show(); // Show the remove button for the cloned section
-
-                // Update index number
-                var index = $('.schedule-section').length + 1;
-                section.find('.section-index').text('Working Time ' + index);
-
-                section.appendTo('#schedule-sections');
-
-                // Show the "Remove" button when there is more than one lab test section
-                if (index > 1) {
-                    section.find('.remove-schedule-section').show();
-                }
-            });
-
-            // Remove appointment schedule section
-            $(document).on('click', '.remove-schedule-section', function() {
-                var scheduleSections = $('.schedule-section');
-                if (scheduleSections.length > 1) {
-                    $(this).closest('.schedule-section').remove();
-
-                    // Update index numbers
-                    scheduleSections.each(function(index) {
-                        $(this).find('.section-index').text('Working Time No ' + (index + 1));
-                    });
-
-                    // Hide the "Remove" button when there is only one lab test section left
-                    if (scheduleSections.length === 1) {
-                        scheduleSections.find('.remove-schedule-section').hide();
-                    }
-                }
-            });
-        });
-
-$(document).ready(function() {
-            // Hide the "Remove" button for the initial lab test section
-            $('.off-day-section .remove-off-day-section').hide();
-
-            // Add schedule section
-            $(document).on('click', '.add-off-day-section', function() {
-                var section = $('.off-day-section:first').clone();
-                section.find('input[type="text"]').val(''); // Clear input values in the cloned section
-                section.find('.remove-off-day-section').show(); // Show the remove button for the cloned section
-
-                // Update index number
-                var index = $('.off-day-section').length + 1;
-                section.find('.section-index').text('Working Time ' + index);
-
-                section.appendTo('#off-day-sections');
-
-                // Show the "Remove" button when there is more than one lab test section
-                if (index > 1) {
-                    section.find('.remove-off-day-section').show();
-                }
-            });
-
-            // Remove appointment schedule section
-            $(document).on('click', '.remove-off-day-section', function() {
-                var scheduleSections = $('.off-day-section');
-                if (scheduleSections.length > 1) {
-                    $(this).closest('.off-day-section').remove();
-
-                    // Update index numbers
-                    scheduleSections.each(function(index) {
-                        $(this).find('.section-index').text('Working Time No ' + (index + 1));
-                    });
-
-                    // Hide the "Remove" button when there is only one lab test section left
-                    if (scheduleSections.length === 1) {
-                        scheduleSections.find('.remove-off-day-section').hide();
-                    }
-                }
-            });
-        });
-
-$(document).ready(function() {
-            // Hide the "Remove" button for the initial lab test section
-            $('.award-section .remove-award-section').hide();
-
-            // Add schedule section
-            $(document).on('click', '.add-award-section', function() {
-                var section = $('.award-section:first').clone();
-                section.find('input[type="text"]').val(''); // Clear input values in the cloned section
-                section.find('.remove-award-section').show(); // Show the remove button for the cloned section
-
-                // Update index number
-                var index = $('.award-section').length + 1;
-                section.find('.section-index').text('Working Time ' + index);
-
-                section.appendTo('#award-sections');
-
-                // Show the "Remove" button when there is more than one lab test section
-                if (index > 1) {
-                    section.find('.remove-award-section').show();
-                }
-            });
-
-            // Remove appointment schedule section
-            $(document).on('click', '.remove-award-section', function() {
-                var scheduleSections = $('.award-section');
-                if (scheduleSections.length > 1) {
-                    $(this).closest('.award-section').remove();
-
-                    // Update index numbers
-                    scheduleSections.each(function(index) {
-                        $(this).find('.section-index').text('Working Time No ' + (index + 1));
-                    });
-
-                    // Hide the "Remove" button when there is only one lab test section left
-                    if (scheduleSections.length === 1) {
-                        scheduleSections.find('.remove-award-section').hide();
-                    }
-                }
-            });
-        });
