@@ -71,7 +71,7 @@ def image_filepath(instance, filename):
     new_filename = f'{time_now}_{unique_id}{file_extension}'
 
     # Return the relative path to the folder where you want to save the image
-    return os.path.join('static', 'uploads', 'images', new_filename)
+    return os.path.join('uploads', 'images', new_filename)
 
 
 class Images(BaseModel):

@@ -8,7 +8,8 @@
             <h1 class="card-title">Add Department</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'store_department' %}" method="POST" class="needs-validation" novalidate>
+            <form id="PostForm" action="{% url 'store_department' %}" enctype="multipart/form-data" method="POST"
+                  class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="row mb-3">
                     <label for="departmentNameID" class="col-md-2 col-form-label">Department Name: <span

@@ -17,6 +17,7 @@ def store_admin_data(request):
     admin_serializer = AdminProfileSerializer(data=request.data)
     image_serializer = ImageSerializer(data=request.data)
     user_serializer = UserSerializer(data=request.data)
+    print(user_serializer)
     if admin_serializer.is_valid() and image_serializer.is_valid() and user_serializer.is_valid(raise_exception=True):
         user_name = request.data.get('user_name')
         email = request.data.get('email')

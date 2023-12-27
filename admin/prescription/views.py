@@ -213,7 +213,7 @@ def generate_barcode(request, registration):
     pil_image = Image.open(buffer)
 
     # Define the directory where you want to save the barcode image
-    barcode_image_directory = 'static/uploads/barcodes/'
+    barcode_image_directory = 'uploads/barcodes/'
 
     # Create the directory if it does not exist
     os.makedirs(barcode_image_directory, exist_ok=True)
@@ -227,6 +227,6 @@ def generate_barcode(request, registration):
     # Close the BytesIO buffer
     buffer.close()
 
-    # Return the relative path to the generated barcode image without the 'static' prefix
-    relative_path = os.path.relpath(barcode_image_path, 'static')
+    # Return the relative path to the generated barcode image without the 'media' prefix
+    relative_path = os.path.relpath(barcode_image_path)
     return relative_path

@@ -15,7 +15,7 @@ def department_filepath(instance, filename):
     filename = "%s_%s" % (time_now, old_filename)
 
     # Return the relative path to the folder where you want to save the image
-    return os.path.join('static', 'uploads', 'department_images', filename)
+    return os.path.join('uploads', 'department_images', filename)
 
 
 class Department(BaseModel):

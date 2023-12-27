@@ -43,7 +43,7 @@ def store_patient_data(request):
         otp_serializer.save()
         sent_email = send_email(email, message)
         if otp_serializer and sent_email:
-            data = {'email': email, 'status': 200, 'message': 'Patient data deleted successfully'}
+            data = {'email': email, 'status': 200, 'message': 'Patient data stored successfully'}
             return Response(data)
         else:
             transaction.set_rollback(True)

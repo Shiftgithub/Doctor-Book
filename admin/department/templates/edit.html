@@ -8,7 +8,8 @@
             <h1 class="card-title">Edit Body Part Information</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'edit_department' department_data.id %}" method="POST"
+            <form id="PostForm" enctype="multipart/form-data" action="{% url 'edit_department' department_data.id %}"
+                  method="POST"
                   class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="row mb-3">
@@ -25,7 +26,7 @@
                     <div class="col-md-10">
                         <input class="form-control" id="imageId" name="image" onchange="previewImage(event)"
                                type="file"/>
-                        <img id="preview" src="{% static 'adminlte_assets/img/nobody.png' %}"
+                        <img id="preview" src="{{ department_data.image }}"
                              style="width: 100%; height: 500px;">
                         <div id="imageDescription" class="form-text">Choose an image file (JPEG, PNG, GIF) with a
                             maximum size of 5MB.

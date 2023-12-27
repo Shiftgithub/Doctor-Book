@@ -16,7 +16,7 @@ def article_filepath(instance, filename):
     filename = "%s_%s" % (time_now, old_filename)
 
     # Return the relative path to the folder where you want to save the image
-    return os.path.join('static', 'uploads', 'article_images', filename)
+    return os.path.join('uploads', 'article_images', filename)
 
 
 class Article(BaseModel):
