@@ -359,7 +359,7 @@ def prediction_data_view(request, prediction_id):
     return Response(serialized_data)
 
 
-def save_prediction_to_csv(data):
+def save_prediction_to_csv(dataset):
     # Define the file path where you want to save the CSV file
     file_path = os.path.join(settings.MEDIA_ROOT, 'prediction_data.csv')
 
@@ -371,14 +371,14 @@ def save_prediction_to_csv(data):
              'Department Specification Id'])
 
         # Write data to the CSV file
-        for prediction in data:
-            for spec in prediction['training_data']:
+        for objs in dataset:
+            for obj in objs['training_data']:
                 csv_writer.writerow([
-                    spec['body_part_id'],
-                    spec['organ_id'],
-                    spec['problem_id'],
-                    spec['department_speci_id'],
-                    spec['department_id'],
+                    obj['body_part_id'],
+                    obj['organ_id'],
+                    obj['problem_id'],
+                    obj['department_speci_id'],
+                    obj['department_id'],
                 ])
 
     # Return the file path (optional)
