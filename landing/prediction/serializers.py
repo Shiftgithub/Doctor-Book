@@ -8,13 +8,13 @@ from admin.personal_data.serializers import *
 
 
 class PredictionSerializer(serializers.ModelSerializer):
-    bodypart = serializers.CharField()
+    body_part = serializers.CharField()
     organ = serializers.CharField()
 
     class Meta:
         model = DepartmentSpecification
         fields = [
-            'bodypart', 'organ'
+            'body_part', 'organ'
         ]
 
 
@@ -67,18 +67,17 @@ class PredictionViewSerializer(serializers.Serializer):
     class Meta:
         fields = '__all__'
 
-# class PredictionViewSerializer(serializers.Serializer):
-#     prediction_id = serializers.IntegerField()
-#     specification_id = serializers.IntegerField()
-#     body_part_id = serializers.IntegerField()
-#     body_part = serializers.CharField()
-#     organ_id = serializers.IntegerField()
-#     organ = serializers.CharField()
-#     problem_id = serializers.IntegerField()
-#     problem = serializers.CharField()
-#     problem_specification = serializers.CharField()
-#     department = serializers.CharField()
-#     department_speci = serializers.CharField()
-#
-#     class Meta:
-#         fields = '__all__'
+
+class PredictionDataSerializer(serializers.Serializer):
+    body_part_id = serializers.IntegerField()
+    organ_id = serializers.IntegerField()
+    problem_id = serializers.IntegerField()
+    department_speci_id = serializers.IntegerField()
+    department_id = serializers.IntegerField()
+
+
+class PredictionDataViewSerializer(serializers.Serializer):
+    training_data = PredictionDataSerializer(many=True)
+
+    class Meta:
+        fields = '__all__'

@@ -1,3 +1,7 @@
+import os
+import csv
+from django.conf import settings
+
 from .serializers import *
 from .models import Prediction
 from admin.organ.models import Organ
@@ -12,15 +16,38 @@ from admin.department_speci.models import DepartmentSpecification
 from admin.organ_problem_speci.models import OrgansProblemSpecification
 from admin.organ_problem_speci.serializers import OrganProblemSerializer
 
-from django.db import connection
-from collections import namedtuple
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
+
+
+def train_knn_model(dataset):
+    # Extract features and labels from the training data
+    features = []
+    labels = []
+
+    for training_data in dataset:
+        for obj in training_data['training_data']:
+            features.append([
+                obj['body_part_id'],
+                obj['organ_id'],
+                obj['problem_id'],
+                obj['department_speci_id'],
+            ])
+            labels.append(obj['department_id'])
+
+    # Create and train the KNN model
+    knn_model = make_pipeline(StandardScaler(), KNeighborsClassifier(n_neighbors=3))
+    knn_model.fit(features, labels)
+
+    return knn_model
 
 
 @api_view(['POST'])
 def prediction(request):
     predict_serializer = PredictionSerializer(data=request.data)
     if predict_serializer.is_valid():
-        body_part_id = predict_serializer.validated_data.get('bodypart')
+        body_part_id = predict_serializer.validated_data.get('body_part')
         organ_id = predict_serializer.validated_data.get('organ')
         problem_specs = request.POST.getlist('problem_specs[]')
 
@@ -106,6 +133,151 @@ def prediction(request):
     return Response(response_data)
 
 
+# @api_view(['POST'])
+# def prediction(request):
+#     predict_serializer = PredictionSerializer(data=request.data)
+#     if predict_serializer.is_valid():
+#         body_part_id = predict_serializer.validated_data.get('body_part')
+#         organ_id = predict_serializer.validated_data.get('organ')
+#         problem_specs = request.POST.getlist('problem_specs[]')
+#         department_specifications = DepartmentSpecification.objects.filter(
+#             organ_problem_specification__in=problem_specs
+#         )
+#
+#         prediction_list = get_all_prediction_list(request)
+#         save_prediction_to_csv(prediction_list)
+#
+#         if department_specifications.exists():
+#             department_ids = department_specifications.values_list('department', flat=True)
+#
+#             doctor_department_id = department_ids[0]
+#             department_specification_id = department_specifications.first().id
+#
+#             ###################################################################################
+#
+#             # Train the KNN model using the training data
+#             knn_model = train_knn_model(prediction_list)
+#
+#             knn_model = knn_model
+#             # Extract features from the input data
+#             for problem_spec_id in problem_specs:
+#                 features = [
+#                     body_part_id,
+#                     organ_id,
+#                     problem_spec_id,  # You may need to process problem_specs based on your model requirements
+#                     department_specification_id,
+#                 ]
+#                 # Make a prediction using the trained KNN model
+#                 predicted_department_id = knn_model.predict([features])[0]
+#
+#             ############################################################################
+#
+#             if predicted_department_id:
+#                 doctor_data = DoctorProfile.objects.filter(
+#                     department__in=department_ids
+#                 )
+#                 doctor_serializer = PredictionDoctorSerializer(doctor_data, many=True)
+#
+#                 body_part = BodyPart.objects.get(id=body_part_id)
+#                 body_part_serializer = BodyPartSerializer(body_part, many=False)
+#
+#                 organ = Organ.objects.get(id=organ_id)
+#                 organ_serializer = OrganBodyPartSerializer(organ, many=False)
+#
+#                 problem_specs_data = []
+#                 for problem_spec_id in problem_specs:
+#                     try:
+#                         problem_spec = OrgansProblemSpecification.objects.get(id=problem_spec_id)
+#                         problem_specs_data.append(OrganProblemSerializer(problem_spec).data)
+#                     except OrgansProblemSpecification.DoesNotExist:
+#                         data = {'status': 403, 'message': 'Organ Problem not exist'}
+#                         return Response(data)
+#
+#                 # Assuming Prediction model has fields 'department' and 'department_speci'
+#                 department_instance = Department.objects.get(id=department_ids[0])
+#                 department_speci_instance = department_specifications.first()
+#
+#                 prediction_store_serializer = PredictionStoreSerializer(data=request.data)
+#                 specification_serializer = SpecificationSerializer(data=request.data)
+#                 if prediction_store_serializer.is_valid() and specification_serializer.is_valid():
+#                     # Save the model with the department and department_speci
+#                     prediction_save = prediction_store_serializer.save(
+#                         organ=organ,
+#                         body_part=body_part,
+#                         department=department_instance,
+#                         department_speci=department_speci_instance
+#                     )
+#
+#                     spec_objs = []
+#                     for problem_spec_id in problem_specs:
+#                         try:
+#                             problem_spec = OrgansProblemSpecification.objects.get(id=problem_spec_id)
+#                             spec_obj = Specification.objects.create(
+#                                 prediction=prediction_save,
+#                                 problem_specification=problem_spec,
+#                             )
+#                             spec_objs.append(spec_obj)
+#                         except OrgansProblemSpecification.DoesNotExist:
+#                             data = {'status': 403, 'message': 'Organ Problem not exist'}
+#                             return Response(data)
+#
+#                     if prediction_save and spec_objs:
+#                         response_data = {
+#                             'status': 200,
+#                             'prediction_id': prediction_save.id,
+#                             'body_part_name': body_part_serializer.data,
+#                             'organ_name': organ_serializer.data,
+#                             'doctors_data': doctor_serializer.data,
+#                             'problem_specs': problem_specs_data,
+#                             'message': 'Here are all Doctor List',
+#                         }
+#                         return Response(response_data)
+#                     else:
+#                         response_data = {'status': 403, 'message': 'Error in prediction storing data.'}
+#                 else:
+#                     response_data = {'status': 400, 'message': 'Invalid request!'}
+#             else:
+#                 response_data = {'status': 403,
+#                                  'message': 'Department Specifications have multiple departments'}
+#         else:
+#             response_data = {'status': 403,
+#                              'message': 'DepartmentSpecifications dose not exits departments'}
+#     else:
+#         response_data = {'status': 400, 'message': 'Invalid data'}
+#
+#     return Response(response_data)
+
+
+def get_all_prediction_list(request):
+    predictions = Prediction.objects.filter(deleted_at=None).order_by('-id')
+
+    # Prepare a list of dictionaries representing predictions
+    predictions_data = [
+        {
+            'training_data': [
+                {
+                    'body_part_id': prediction.body_part_id,
+                    'organ_id': prediction.organ_id,
+                    'problem_id': spec.problem_specification.id,
+                    'department_speci_id': prediction.department_speci.id,
+                    'department_id': prediction.department.id,
+                }
+                for spec in prediction.specification.all()
+            ]
+        }
+        for prediction in predictions
+    ]
+
+    # Assuming you have a serializer for this specific query
+    serializer = PredictionDataViewSerializer(data=predictions_data, many=True)
+    serializer.is_valid()
+
+    # Access the serialized data after validation
+    serialized_data = serializer.data
+
+    return serialized_data
+
+
 @api_view(['GET'])
 def get_all_prediction_list_by_patient(request):
     patient_id = request.session.get("patient_id")
@@ -186,53 +358,28 @@ def prediction_data_view(request, prediction_id):
 
     return Response(serialized_data)
 
-# @api_view(['GET'])
-# def prediction_data_view(request, prediction_id):
-#     patient_id = request.session["patient_id"]
-#
-#     with connection.cursor() as cursor:
-#         cursor.execute("""
-#             SELECT
-#                 prediction.id AS prediction_id,
-#                 specification.id AS specification_id,
-#                 body_part.id as body_part_id,
-#                 body_part.name,
-#                 organ.id as organ_id,
-#                 organ.name,
-#                 specification.problem_specification_id as problem_id,
-#                 organ_problem_speci.problem,
-#                 organ_problem_speci.problem_specification,
-#                 department.name,
-#                 department_speci.description
-#             FROM
-#                 specification
-#             INNER JOIN prediction ON specification.prediction_id = prediction.id
-#             INNER JOIN body_part ON prediction.body_part_id = body_part.id
-#             INNER JOIN organ ON prediction.organ_id = organ.id
-#             INNER JOIN organ_problem_speci ON specification.problem_specification_id = organ_problem_speci.id
-#             INNER JOIN department ON prediction.department_id = department.id
-#             INNER JOIN department_speci ON prediction.department_speci_id = department_speci.id
-#             WHERE
-#                 prediction.created_by_id = %s AND prediction.id = %s
-#         """, [patient_id, prediction_id])
-#
-#         # Fetch all rows from the result set
-#         rows = cursor.fetchall()
-#
-#     # Convert each tuple into a dictionary
-#     fields = ['prediction_id', 'specification_id', 'body_part_id', 'body_part', 'organ_id', 'organ', 'problem_id',
-#               'problem', 'problem_specification', 'department', 'department_speci']
-#     Row = namedtuple('Row', fields)
-#     rows_as_dicts = [Row(*row)._asdict() for row in rows]
-#
-#     # Handle the nested structure for body_part
-#     for data in rows_as_dicts:
-#         data['body_part'] = {'name': data['body_part']}
-#
-#     # Assuming you have a serializer for this specific query
-#     serializer = PredictionViewSerializer(data=rows_as_dicts, many=True)
-#
-#     # Validate the serializer
-#     serializer.is_valid()
-#
-#     return Response(serializer.data)
+
+def save_prediction_to_csv(data):
+    # Define the file path where you want to save the CSV file
+    file_path = os.path.join(settings.MEDIA_ROOT, 'prediction_data.csv')
+
+    # Create a CSV writer and write the header
+    with open(file_path, 'w', newline='', encoding='utf-8') as csv_file:
+        csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(
+            ['Body Part ID', 'Organ ID', 'Problem ID', 'Department Id',
+             'Department Specification Id'])
+
+        # Write data to the CSV file
+        for prediction in data:
+            for spec in prediction['training_data']:
+                csv_writer.writerow([
+                    spec['body_part_id'],
+                    spec['organ_id'],
+                    spec['problem_id'],
+                    spec['department_speci_id'],
+                    spec['department_id'],
+                ])
+
+    # Return the file path (optional)
+    return file_path
