@@ -1,14 +1,13 @@
 import os
 import csv
-from django.conf import settings
 
-from .serializers import *
-from .models import Prediction
+from landing.prediction.models import *
+from django.conf import settings
 from admin.organ.models import Organ
 from admin.bodypart.models import BodyPart
 from rest_framework.response import Response
+from admin.doctor.models import DoctorProfile
 from admin.department.models import Department
-from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from admin.bodypart.serializers import BodyPartSerializer
 from admin.organ.serializers import OrganBodyPartSerializer
@@ -20,21 +19,23 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 
+from landing.prediction.serializers import *
 
-def train_knn_model(data):
+
+def train_knn_model(dataset):
     # Extract features and labels from the training data
     features = []
     labels = []
 
-    for prediction in data:
-        for spec in prediction['training_data']:
+    for training_data in dataset:
+        for obj in training_data['training_data']:
             features.append([
-                spec['body_part_id'],
-                spec['organ_id'],
-                spec['problem_id'],
-                spec['department_speci_id'],
+                obj['body_part_id'],
+                obj['organ_id'],
+                obj['problem_id'],
+                obj['department_speci_id'],
             ])
-            labels.append(spec['department_id'])
+            labels.append(obj['department_id'])
 
     # Create and train the KNN model
     knn_model = make_pipeline(StandardScaler(), KNeighborsClassifier(n_neighbors=3))
@@ -187,87 +188,6 @@ def get_all_prediction_list(request):
     serialized_data = serializer.data
 
     return serialized_data
-
-
-@api_view(['GET'])
-def get_all_prediction_list_by_patient(request):
-    patient_id = request.session.get("patient_id")
-
-    # Fetch all predictions for the patient using Django ORM
-    predictions = Prediction.objects.filter(created_by_id=patient_id, deleted_at=None).order_by('-id')
-
-    # Prepare a list of dictionaries representing predictions
-    predictions_data = [
-        {
-            'prediction_id': prediction.id,
-            'specifications': [
-                {
-                    'specification_id': spec.id,
-                    'body_part_id': prediction.body_part_id,
-                    'body_part': prediction.body_part.name,
-                    'organ_id': prediction.organ_id,
-                    'organ': prediction.organ.name,
-                    'problem_id': spec.problem_specification.id,
-                    'problem': spec.problem_specification.problem,
-                    'problem_specification': spec.problem_specification.problem_specification,
-                    'department': prediction.department.name,
-                    'department_speci': prediction.department_speci.description,
-                }
-                for spec in prediction.specification.all()
-            ]
-        }
-        for prediction in predictions
-    ]
-
-    # Assuming you have a serializer for this specific query
-    serializer = PredictionViewSerializer(data=predictions_data, many=True)
-    serializer.is_valid()
-
-    # Access the serialized data after validation
-    serialized_data = serializer.data
-
-    return Response(serialized_data)
-
-
-@api_view(['GET'])
-def prediction_data_view(request, prediction_id):
-    patient_id = request.session["patient_id"]
-
-    # Fetch data using Django ORM
-    prediction = get_object_or_404(Prediction, created_by_id=patient_id, id=prediction_id, deleted_at=None)
-
-    # Get the related specifications using the manager
-    specifications = prediction.specification.all()
-
-    # Create a dictionary with the necessary fields
-    data = {
-        'prediction_id': prediction.id,
-        'specifications': [{
-            'specification_id': spec.id,
-            'body_part_id': prediction.body_part.id,
-            'body_part': prediction.body_part.name,
-            'organ_id': prediction.organ.id,
-            'organ': prediction.organ.name,
-            'problem_id': spec.problem_specification.id,
-            'problem': spec.problem_specification.problem,
-            'problem_specification': spec.problem_specification.problem_specification,
-            'department': prediction.department.name,
-            'department_speci': prediction.department_speci.description
-        } for spec in specifications]
-    }
-
-    # Handle the nested structure for body_part
-    for spec_data in data['specifications']:
-        spec_data['body_part'] = {'name': spec_data['body_part']}
-
-    # Assuming you have a serializer for this specific query
-    serializer = PredictionViewSerializer(data=data)
-    serializer.is_valid()
-
-    # Access the serialized data after validation
-    serialized_data = serializer.data
-
-    return Response(serialized_data)
 
 
 def save_prediction_to_csv(data):

@@ -21,20 +21,20 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 
 
-def train_knn_model(data):
+def train_knn_model(dataset):
     # Extract features and labels from the training data
     features = []
     labels = []
 
-    for prediction in data:
-        for spec in prediction['training_data']:
+    for training_data in dataset:
+        for obj in training_data['training_data']:
             features.append([
-                spec['body_part_id'],
-                spec['organ_id'],
-                spec['problem_id'],
-                spec['department_speci_id'],
+                obj['body_part_id'],
+                obj['organ_id'],
+                obj['problem_id'],
+                obj['department_speci_id'],
             ])
-            labels.append(spec['department_id'])
+            labels.append(obj['department_id'])
 
     # Create and train the KNN model
     knn_model = make_pipeline(StandardScaler(), KNeighborsClassifier(n_neighbors=3))
@@ -50,39 +50,14 @@ def prediction(request):
         body_part_id = predict_serializer.validated_data.get('body_part')
         organ_id = predict_serializer.validated_data.get('organ')
         problem_specs = request.POST.getlist('problem_specs[]')
+
         department_specifications = DepartmentSpecification.objects.filter(
             organ_problem_specification__in=problem_specs
         )
-
-        prediction_list = get_all_prediction_list(request)
-        save_prediction_to_csv(prediction_list)
-
         if department_specifications.exists():
             department_ids = department_specifications.values_list('department', flat=True)
 
-            doctor_department_id = department_ids[0]
-            department_specification_id = department_specifications.first().id
-
-            ###################################################################################
-
-            # Train the KNN model using the training data
-            knn_model = train_knn_model(prediction_list)
-
-            knn_model = knn_model
-            # Extract features from the input data
-            for problem_spec_id in problem_specs:
-                features = [
-                    body_part_id,
-                    organ_id,
-                    problem_spec_id,  # You may need to process problem_specs based on your model requirements
-                    department_specification_id,
-                ]
-                # Make a prediction using the trained KNN model
-                predicted_department_id = knn_model.predict([features])[0]
-
-            ############################################################################
-
-            if predicted_department_id:
+            if len(set(department_ids)) == 1:
                 doctor_data = DoctorProfile.objects.filter(
                     department__in=department_ids
                 )
@@ -156,6 +131,121 @@ def prediction(request):
         response_data = {'status': 400, 'message': 'Invalid data'}
 
     return Response(response_data)
+
+
+# @api_view(['POST'])
+# def prediction(request):
+#     predict_serializer = PredictionSerializer(data=request.data)
+#     if predict_serializer.is_valid():
+#         body_part_id = predict_serializer.validated_data.get('body_part')
+#         organ_id = predict_serializer.validated_data.get('organ')
+#         problem_specs = request.POST.getlist('problem_specs[]')
+#         department_specifications = DepartmentSpecification.objects.filter(
+#             organ_problem_specification__in=problem_specs
+#         )
+#
+#         prediction_list = get_all_prediction_list(request)
+#         save_prediction_to_csv(prediction_list)
+#
+#         if department_specifications.exists():
+#             department_ids = department_specifications.values_list('department', flat=True)
+#
+#             doctor_department_id = department_ids[0]
+#             department_specification_id = department_specifications.first().id
+#
+#             ###################################################################################
+#
+#             # Train the KNN model using the training data
+#             knn_model = train_knn_model(prediction_list)
+#
+#             knn_model = knn_model
+#             # Extract features from the input data
+#             for problem_spec_id in problem_specs:
+#                 features = [
+#                     body_part_id,
+#                     organ_id,
+#                     problem_spec_id,  # You may need to process problem_specs based on your model requirements
+#                     department_specification_id,
+#                 ]
+#                 # Make a prediction using the trained KNN model
+#                 predicted_department_id = knn_model.predict([features])[0]
+#
+#             ############################################################################
+#
+#             if predicted_department_id:
+#                 doctor_data = DoctorProfile.objects.filter(
+#                     department__in=department_ids
+#                 )
+#                 doctor_serializer = PredictionDoctorSerializer(doctor_data, many=True)
+#
+#                 body_part = BodyPart.objects.get(id=body_part_id)
+#                 body_part_serializer = BodyPartSerializer(body_part, many=False)
+#
+#                 organ = Organ.objects.get(id=organ_id)
+#                 organ_serializer = OrganBodyPartSerializer(organ, many=False)
+#
+#                 problem_specs_data = []
+#                 for problem_spec_id in problem_specs:
+#                     try:
+#                         problem_spec = OrgansProblemSpecification.objects.get(id=problem_spec_id)
+#                         problem_specs_data.append(OrganProblemSerializer(problem_spec).data)
+#                     except OrgansProblemSpecification.DoesNotExist:
+#                         data = {'status': 403, 'message': 'Organ Problem not exist'}
+#                         return Response(data)
+#
+#                 # Assuming Prediction model has fields 'department' and 'department_speci'
+#                 department_instance = Department.objects.get(id=department_ids[0])
+#                 department_speci_instance = department_specifications.first()
+#
+#                 prediction_store_serializer = PredictionStoreSerializer(data=request.data)
+#                 specification_serializer = SpecificationSerializer(data=request.data)
+#                 if prediction_store_serializer.is_valid() and specification_serializer.is_valid():
+#                     # Save the model with the department and department_speci
+#                     prediction_save = prediction_store_serializer.save(
+#                         organ=organ,
+#                         body_part=body_part,
+#                         department=department_instance,
+#                         department_speci=department_speci_instance
+#                     )
+#
+#                     spec_objs = []
+#                     for problem_spec_id in problem_specs:
+#                         try:
+#                             problem_spec = OrgansProblemSpecification.objects.get(id=problem_spec_id)
+#                             spec_obj = Specification.objects.create(
+#                                 prediction=prediction_save,
+#                                 problem_specification=problem_spec,
+#                             )
+#                             spec_objs.append(spec_obj)
+#                         except OrgansProblemSpecification.DoesNotExist:
+#                             data = {'status': 403, 'message': 'Organ Problem not exist'}
+#                             return Response(data)
+#
+#                     if prediction_save and spec_objs:
+#                         response_data = {
+#                             'status': 200,
+#                             'prediction_id': prediction_save.id,
+#                             'body_part_name': body_part_serializer.data,
+#                             'organ_name': organ_serializer.data,
+#                             'doctors_data': doctor_serializer.data,
+#                             'problem_specs': problem_specs_data,
+#                             'message': 'Here are all Doctor List',
+#                         }
+#                         return Response(response_data)
+#                     else:
+#                         response_data = {'status': 403, 'message': 'Error in prediction storing data.'}
+#                 else:
+#                     response_data = {'status': 400, 'message': 'Invalid request!'}
+#             else:
+#                 response_data = {'status': 403,
+#                                  'message': 'Department Specifications have multiple departments'}
+#         else:
+#             response_data = {'status': 403,
+#                              'message': 'DepartmentSpecifications dose not exits departments'}
+#     else:
+#         response_data = {'status': 400, 'message': 'Invalid data'}
+#
+#     return Response(response_data)
 
 
 def get_all_prediction_list(request):
