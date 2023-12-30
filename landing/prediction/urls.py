@@ -1,5 +1,6 @@
 from .webs import *
 from django.urls import path, include
+from core.login_decorators import protected_view
 
 urlpatterns = [
     path('doctor-profile/<int:doctor_id>/', doctor_profile, name='doctor_profile'),
@@ -9,8 +10,9 @@ urlpatterns = [
             [
                 path('form/', predict_form, name='predict_form'),
                 path('', predict, name='prediction'),
-                path('list/', prediction_list, name='prediction_list'),
-                path('prediction-view/<int:prediction_id>/', view_prediction_data, name='prediction_view'),
+                path('list/', protected_view(prediction_list), name='prediction_list'),
+                path('prediction-view/<int:prediction_id>/', protected_view(view_prediction_data),
+                     name='prediction_view'),
             ]
         ),
     ),

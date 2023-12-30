@@ -29,7 +29,7 @@ def store_department_specification(request):
     else:
         messages.add_message(request, messages.ERROR, message)
 
-    return redirect('add_department_specification_form')
+    return redirect('department_specification_form')
 
 
 def department_specification_data_view(request):

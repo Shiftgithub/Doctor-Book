@@ -7,4 +7,3 @@ ROLE_PATIENT = 'patient'
 STATUS_ACTIVE = 'active'
 STATUS_INACTIVE = 'inactive'
 STATUS_PENDING = 'pending'
-

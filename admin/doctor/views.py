@@ -1,12 +1,9 @@
 import socket
 import hashlib
-from .models import *
-from .serializers import *
 from django.db import transaction
 from django.utils import timezone
 from admin.doctor.serializers import *
 from rest_framework.response import Response
-from rest_framework import status, serializers
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from admin.authentication.user.serializers import *
@@ -117,7 +114,6 @@ def edit_doctor_data(request, doctor_id):
         doctor = get_object_or_404(DoctorProfile, id=doctor_id, deleted_at=None)
         if not doctor.user:
             return Response({'message': 'No associated user found', 'status': 404})
-
         else:
             doctor_serializer = DoctorSerializer(doctor, data=request.data, partial=True)
             image_instance = doctor.user.images.first()

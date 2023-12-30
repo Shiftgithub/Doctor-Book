@@ -22,7 +22,7 @@ def store_faq(request):
     else:
         messages.add_message(request, messages.ERROR, message)
 
-    return redirect('add_faq_form')
+    return redirect('faq_form')
 
 
 def faq_data_view(request):

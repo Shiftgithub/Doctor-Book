@@ -10,7 +10,7 @@ from django.db import transaction
 from admin.doctor.models import DoctorProfile
 from admin.authentication.user.serializers import UserSerializer
 from admin.patient.serializers import PatientSerializer
-from admin.authentication.otp.function.send_email import generate_unique
+from admin.authentication.otp.function.send_email import generate_unique, send_email
 from admin.authentication.user.models import Images
 from admin.authentication.otp.function.send_email import generate_token
 from admin.authentication.otp.verifyotp.models import VerifyOtp
@@ -311,8 +311,8 @@ def create_patient_account_store_appointment(request):
                 message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
                 otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
                 otp_serializer.save()
-                # send_mail = send_email(email, message)
-                if otp_serializer:
+                sent_email = send_email(email, message)
+                if otp_serializer and sent_email:
                     if appointment_serializer.is_valid():
                         # Retrieve the 'DoctorProfile' instance for the doctor using 'doctor_id'
                         try:

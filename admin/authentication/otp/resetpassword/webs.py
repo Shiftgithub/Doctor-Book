@@ -38,7 +38,6 @@ def change_password_form(request):
 
 
 def change_password_method(request):
-    # email = request.session['temp_verify_email']
     operation_response = change_password(request)
     email = operation_response.data.get('email')
     request.session['temp_verify_email'] = email
