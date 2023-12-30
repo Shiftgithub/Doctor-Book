@@ -25,7 +25,7 @@ def store_organ_problem_specification(request):
         messages.add_message(request, messages.ERROR, message)
     else:
         messages.add_message(request, messages.ERROR, message)
-    return redirect('add_organ_problem_specification_form')
+    return redirect('organ_problem_specification_form')
 
 
 def organ_problem_specification_data_view(request):

@@ -38,7 +38,7 @@ def store_medicine_prescription(request):
         messages.add_message(request, messages.ERROR, message)
     else:
         messages.add_message(request, messages.ERROR, message)
-    return redirect('add_medicine_prescription_form')
+    return redirect('medicine_prescription_form')
 
 
 def medicine_prescription_data_view(request):

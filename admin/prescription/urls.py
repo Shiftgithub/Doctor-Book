@@ -11,7 +11,7 @@ urlpatterns = [
             [
                 # medicine prescription path
                 path('medicine-prescription-form/', protected_view(medicine_prescription_form),
-                     name='add_medicine_prescription_form'),
+                     name='medicine_prescription_form'),
                 path('store-medicine-prescription/', protected_view(store_medicine_prescription),
                      name='store_medicine_prescription'),
                 path('medicine-prescription-list/', protected_view(medicine_prescription_data_view),
@@ -31,7 +31,7 @@ urlpatterns = [
                 path('labtest-prescription-list/', protected_view(lab_prescription_data_view),
                      name='lab_prescription_list'),
                 path('labtest-prescription-list-by-patient/', protected_view(lab_prescription_data_view_by_patient),
-                     name='get_all_lab_test_prescriptions_list_by_patient'),
+                     name='lab_test_prescription_data_view_by_patient'),
                 path('view-labtest-prescription/<int:prescription_id>/', protected_view(view_lab_prescription),
                      name='lab_prescription_view'),
                 path('print-labtest-prescription/<int:prescription_id>/', protected_view(print_labtest_prescription),
