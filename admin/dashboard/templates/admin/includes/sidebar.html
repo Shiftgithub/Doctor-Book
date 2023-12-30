@@ -6,7 +6,9 @@
             <!-- Dashboard -->
             <li class="nav-item mainItem">
                 <a href="{% url 'admin_dashboard' %}" class="nav-link">
-                    <i class="nav-icon fas fa-align-justify"></i>
+<!--                    <i class="nav-icon fas fa-clinic-medical"></i>-->
+                    <i class="nav-icon fas fa-home"></i>
+<!--                    <i class="nav-icon fas fa-align-justify"></i>-->
                     <p>
                         Dashboard
                     </p>
@@ -48,7 +50,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_organ_form' %}" class="nav-link">
+                        <a href="{% url 'organ_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Organ</p>
                         </a>
@@ -73,7 +75,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_organ_problem_specification_form' %}" class="nav-link">
+                        <a href="{% url 'organ_problem_specification_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Problem Spec.</p>
                         </a>
@@ -97,7 +99,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_department_form' %}" class="nav-link">
+                        <a href="{% url 'department_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Department</p>
                         </a>
@@ -122,7 +124,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_department_specification_form' %}" class="nav-link">
+                        <a href="{% url 'department_specification_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Dept. Specification</p>
                         </a>
@@ -230,7 +232,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_medicine_form' %}" class="nav-link">
+                        <a href="{% url 'medicine_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Medicine</p>
                         </a>
@@ -302,7 +304,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_faq_form' %}" class="nav-link">
+                        <a href="{% url 'faq_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Question</p>
                         </a>

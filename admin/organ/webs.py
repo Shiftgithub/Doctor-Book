@@ -21,7 +21,7 @@ def store_organ(request):
     else:
         messages.add_message(request, messages.ERROR, message)
 
-    return redirect('add_organ_form')
+    return redirect('organ_form')
 
 
 def organ_data_view(request):

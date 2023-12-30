@@ -19,7 +19,7 @@ def store_department(request):
         messages.add_message(request, messages.ERROR, message)
     else:
         messages.add_message(request, messages.ERROR, message)
-    return redirect('add_department_form')
+    return redirect('department_form')
 
 
 def department_data_view(request):

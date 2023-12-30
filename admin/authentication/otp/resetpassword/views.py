@@ -59,7 +59,7 @@ def change_password(request):
             if user_serializer.is_valid():
                 user_serializer.save()
                 message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour password changed successfully'
-                # send_email(email, message)
+                send_email(email, message)
                 response = {'status': 200, 'email': email,
                             'message': 'Your Account Password Changed Successfully.'
                             }
@@ -100,7 +100,7 @@ def reset_password(request, email):
             if user_serializer.is_valid():
                 user_serializer.save()
                 message = 'Your password has been changed successfully'
-                # send_email(email, message)  # Uncomment and implement this function
+                send_email(email, message)
                 return Response({'status': 200, 'message': message})
             else:
                 return Response({'status': 403, 'message': 'Password are incorrect', 'email': email})
@@ -130,7 +130,7 @@ def change_email(request, user_id):
                 user_instance.email = new_email
                 user_instance.save()
                 message = 'Your email has been changed successfully'
-                # send_email(new_email, message)  # Uncomment and implement this function
+                send_email(new_email, message)  # Uncomment and implement this function
                 return Response({'status': 200})
         else:
             return Response({'status': 404, 'message': 'Invalid request', 'user_id': user_id})
