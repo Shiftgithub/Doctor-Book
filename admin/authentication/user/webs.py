@@ -99,22 +99,4 @@ def edit_admin(request, admin_id):
     return redirect('edit_admin_form', admin_id=admin_id)
 
 
-def get_user_details(request):
-    if request.session.get('user_role') == ROLE_ADMIN:
-        full_name = request.session.get('user_full_name')
-        user_id = request.session.get('user_id')
-        admin_profile = AdminProfile.objects.filter(user_id=user_id).first()
-        admin_id = admin_profile.id
-        return redirect('view_admin', admin_id=admin_id)
-    elif request.session.get('user_role') == ROLE_DOCTOR:
-        user_id = request.session.get('user_id')
-        doctor_profile = DoctorProfile.objects.filter(user_id=user_id).first()
-        doctor_id = doctor_profile.id
-        return redirect('view_doctor_data', doctor_id=doctor_id)
-    elif request.session.get('user_role') == ROLE_PATIENT:
-        user_id = request.session.get('user_id')
-        patient_profile = PatientProfile.objects.filter(user_id=user_id).first()
-        patient_id = patient_profile.id
-        return redirect('view_patient', patient_id=patient_id)
-    else:
-        return HttpResponse('Please Enter Valid Information')
+

@@ -8,7 +8,7 @@ urlpatterns = [
         include(
             [
                 path(
-                    'forge-pass/',
+                    'forge-pass-',
                     include(
                         [
                             path('', forget_password_method, name='forget_password'),
@@ -17,7 +17,7 @@ urlpatterns = [
                     ),
                 ),
                 path(
-                    'change-password/',
+                    'change-password-',
                     include(
                         [
                             path('', change_password_method, name='change_password'),
@@ -26,7 +26,7 @@ urlpatterns = [
                     ),
                 ),
                 path(
-                    'reset-password/',
+                    'reset-password-',
                     include(
                         [
                             path('', protected_view(reset_password_method), name='store_new_password'),
@@ -35,7 +35,7 @@ urlpatterns = [
                     ),
                 ),
                 path(
-                    'change-email/',
+                    'change-email-',
                     include(
                         [
                             path('', protected_view(change_email_method), name='store_new_email'),

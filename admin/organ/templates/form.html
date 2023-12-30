@@ -12,7 +12,7 @@
                 {% csrf_token %}
                 {% if not bodypart_data %}
                 <div class="alert alert-default-warning">
-                    <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_bodypart_form' %}"> Add Body
+                    <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'body_part_form' %}"> Add Body
                     part </a> first.
                 </div>
                 {% else %}

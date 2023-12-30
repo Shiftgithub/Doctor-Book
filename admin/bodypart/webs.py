@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect
 
 
 # Body part
-
 def body_part_form(request):
     return render(request, 'bodypart/templates/form.html')
 

@@ -11,18 +11,15 @@ urlpatterns = [
         include(
             [
                 path(
-                    'add/',
-                    protected_view(organ_problem_specification_form),
-                    name='add_organ_problem_specification_form',
+                    'form/',protected_view(organ_problem_specification_form),
+                    name='organ_problem_specification_form',
                 ),
                 path(
-                    'store/',
-                    protected_view(store_organ_problem_specification),
+                    'store/', protected_view(store_organ_problem_specification),
                     name='store_organ_problem_specification',
                 ),
                 path(
-                    'list/',
-                    protected_view(organ_problem_specification_data_view),
+                    'list/',protected_view(organ_problem_specification_data_view),
                     name='organ_problem_specification_list',
                 ),
                 path(
