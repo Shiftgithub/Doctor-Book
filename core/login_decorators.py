@@ -226,6 +226,7 @@ def protected_view(view_func):
                     # for appointment
                     'appointment_form',
                     # 'appointment',
+                    'store_appointment_by_doctor',
                     'view_appointment',
                     'edit_appointment_form',
                     'edit_appointment',
