@@ -1,9 +1,11 @@
 import os
 import csv
-from django.conf import settings
+import numpy as np
+import matplotlib.pyplot as plt
 
 from .serializers import *
 from .models import Prediction
+from django.conf import settings
 from admin.organ.models import Organ
 from admin.bodypart.models import BodyPart
 from rest_framework.response import Response
@@ -40,97 +42,7 @@ def train_knn_model(dataset):
     knn_model = make_pipeline(StandardScaler(), KNeighborsClassifier(n_neighbors=3))
     knn_model.fit(features, labels)
 
-    return knn_model
-
-
-# @api_view(['POST'])
-# def prediction(request):
-#     predict_serializer = PredictionSerializer(data=request.data)
-#     if predict_serializer.is_valid():
-#         body_part_id = predict_serializer.validated_data.get('body_part')
-#         organ_id = predict_serializer.validated_data.get('organ')
-#         problem_specs = request.POST.getlist('problem_specs[]')
-#
-#         department_specifications = DepartmentSpecification.objects.filter(
-#             organ_problem_specification__in=problem_specs
-#         )
-#         if department_specifications.exists():
-#             department_ids = department_specifications.values_list('department', flat=True)
-#
-#             if len(set(department_ids)) == 1:
-#                 doctor_data = DoctorProfile.objects.filter(
-#                     department__in=department_ids
-#                 )
-#                 doctor_serializer = PredictionDoctorSerializer(doctor_data, many=True)
-#
-#                 body_part = BodyPart.objects.get(id=body_part_id)
-#                 body_part_serializer = BodyPartSerializer(body_part, many=False)
-#
-#                 organ = Organ.objects.get(id=organ_id)
-#                 organ_serializer = OrganBodyPartSerializer(organ, many=False)
-#
-#                 problem_specs_data = []
-#                 for problem_spec_id in problem_specs:
-#                     try:
-#                         problem_spec = OrgansProblemSpecification.objects.get(id=problem_spec_id)
-#                         problem_specs_data.append(OrganProblemSerializer(problem_spec).data)
-#                     except OrgansProblemSpecification.DoesNotExist:
-#                         data = {'status': 403, 'message': 'Organ Problem not exist'}
-#                         return Response(data)
-#
-#                 # Assuming Prediction model has fields 'department' and 'department_speci'
-#                 department_instance = Department.objects.get(id=department_ids[0])
-#                 department_speci_instance = department_specifications.first()
-#
-#                 prediction_store_serializer = PredictionStoreSerializer(data=request.data)
-#                 specification_serializer = SpecificationSerializer(data=request.data)
-#                 if prediction_store_serializer.is_valid() and specification_serializer.is_valid():
-#                     # Save the model with the department and department_speci
-#                     prediction_save = prediction_store_serializer.save(
-#                         organ=organ,
-#                         body_part=body_part,
-#                         department=department_instance,
-#                         department_speci=department_speci_instance
-#                     )
-#
-#                     spec_objs = []
-#                     for problem_spec_id in problem_specs:
-#                         try:
-#                             problem_spec = OrgansProblemSpecification.objects.get(id=problem_spec_id)
-#                             spec_obj = Specification.objects.create(
-#                                 prediction=prediction_save,
-#                                 problem_specification=problem_spec,
-#                             )
-#                             spec_objs.append(spec_obj)
-#                         except OrgansProblemSpecification.DoesNotExist:
-#                             data = {'status': 403, 'message': 'Organ Problem not exist'}
-#                             return Response(data)
-#
-#                     if prediction_save and spec_objs:
-#                         response_data = {
-#                             'status': 200,
-#                             'prediction_id': prediction_save.id,
-#                             'body_part_name': body_part_serializer.data,
-#                             'organ_name': organ_serializer.data,
-#                             'doctors_data': doctor_serializer.data,
-#                             'problem_specs': problem_specs_data,
-#                             'message': 'Here are all Doctor List',
-#                         }
-#                         return Response(response_data)
-#                     else:
-#                         response_data = {'status': 403, 'message': 'Error in prediction storing data.'}
-#                 else:
-#                     response_data = {'status': 400, 'message': 'Invalid request!'}
-#             else:
-#                 response_data = {'status': 403,
-#                                  'message': 'Department Specifications have multiple departments'}
-#         else:
-#             response_data = {'status': 403,
-#                              'message': 'DepartmentSpecifications dose not exits departments'}
-#     else:
-#         response_data = {'status': 400, 'message': 'Invalid data'}
-#
-#     return Response(response_data)
+    return knn_model, labels
 
 
 @api_view(['POST'])
@@ -153,10 +65,8 @@ def prediction(request):
             doctor_department_id = department_ids[0]
             department_specification_id = department_specifications.first().id
 
-            ###################################################################################
-
             # Train the KNN model using the training data
-            knn_model = train_knn_model(prediction_list)
+            knn_model, labels = train_knn_model(prediction_list)
 
             knn_model = knn_model
             # Extract features from the input data
@@ -164,14 +74,20 @@ def prediction(request):
                 features = [
                     body_part_id,
                     organ_id,
-                    problem_spec_id,  # You may need to process problem_specs based on your model requirements
+                    problem_spec_id,
                     department_specification_id,
                 ]
+                # Convert the features to a 2D array
+                features_2d = np.array(features).reshape(1, -1)
+
                 # Make a prediction using the trained KNN model
-                predicted_department_id = knn_model.predict([features])[0]
+                predicted_department_id = knn_model.predict(features_2d)[0]
 
-            ############################################################################
-
+                # Check accuracy and save matplotlib image
+                accuracy = knn_model.score(features_2d, [labels[0]])
+                print(f'Department id is : {predicted_department_id}')
+                print(f'Accuracy is :  {accuracy}')
+                # Save the matplotlib image with relevant data
             if predicted_department_id:
                 doctor_data = DoctorProfile.objects.filter(
                     department__in=department_ids
@@ -200,14 +116,13 @@ def prediction(request):
                 prediction_store_serializer = PredictionStoreSerializer(data=request.data)
                 specification_serializer = SpecificationSerializer(data=request.data)
                 if prediction_store_serializer.is_valid() and specification_serializer.is_valid():
-                    # Save the model with the department and department_speci
+                    # Save the model with the department and department_specification
                     prediction_save = prediction_store_serializer.save(
                         organ=organ,
                         body_part=body_part,
                         department=department_instance,
-                        department_speci=department_speci_instance
+                        department_speci=department_speci_instance,
                     )
-
                     spec_objs = []
                     for problem_spec_id in problem_specs:
                         try:
@@ -215,7 +130,10 @@ def prediction(request):
                             spec_obj = Specification.objects.create(
                                 prediction=prediction_save,
                                 problem_specification=problem_spec,
+                                accuracy=accuracy,
                             )
+                            save_matplotlib_image(features, labels,spec_obj, predicted_department_id, accuracy)
+
                             spec_objs.append(spec_obj)
                         except OrgansProblemSpecification.DoesNotExist:
                             data = {'status': 403, 'message': 'Organ Problem not exist'}
@@ -383,3 +301,39 @@ def save_prediction_to_csv(dataset):
 
     # Return the file path (optional)
     return file_path
+
+
+def save_matplotlib_image(features, labels,spec_obj, predicted_department_id, accuracy):
+    # Convert numerical values to strings
+    feature_values = [str(value) for value in features]
+
+    # Create a bar plot
+    fig, ax = plt.subplots()
+
+    # Assuming features contains relevant data for plotting
+    feature_names = ['Body Part ID', 'Organ ID', 'Problem ID', 'Dept. Specification ID']
+
+    # Generate random colors for each bar
+    colors = np.random.rand(len(feature_names), 3)
+
+    # Use the 'color' parameter to set different colors for each bar
+    bars = ax.bar(feature_names, [int(value) for value in feature_values], label='Features', color=colors)
+
+    # Add labels and title
+    ax.set_ylabel('Feature Values')
+    ax.set_title(f'Predicted Department: {predicted_department_id}, Accuracy: {accuracy}')
+
+    # Add annotations for each bar
+    for bar, value in zip(bars, feature_values):
+        height = bar.get_height()
+        ax.annotate(f'{value}',
+                    xy=(bar.get_x() + bar.get_width() / 2, height),
+                    xytext=(0, 3),  # 3 points vertical offset
+                    textcoords="offset points",
+                    ha='center', va='bottom')
+    path = 'media/uploads/prediction_graph/'
+    # Save the figure to the media folder
+    image_path = os.path.join(path, '{}.png'.format(spec_obj))
+    plt.savefig(image_path)
+
+    return image_path
