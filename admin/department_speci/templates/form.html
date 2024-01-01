@@ -18,10 +18,10 @@
                 </div>
                 {% else %}
                 <div class="row mb-3">
-                    <label for="specialtySelect" class="col-md-3 col-form-label">Department Name : <span
+                    <label for="departmentID" class="col-md-2 col-form-label">Department Name : <span
                             class="text-danger">*</span></label>
-                    <div class="col-md-9">
-                        <select class="form-control select2" id="specialtySelect" name="department" required>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="departmentID" name="department" required>
                             <option selected disabled value="">Select Department Name</option>
                             {% for item in department_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
@@ -39,10 +39,10 @@
                 </div>
                 {% else %}
                 <div class="row mb-3">
-                    <label for="problemSpecialtySelect" class="col-md-3 col-form-label">Problem : <span
+                    <label for="problemSpecialtySelectID" class="col-md-2 col-form-label">Problem : <span
                             class="text-danger">*</span></label>
-                    <div class="col-md-9">
-                        <select class="form-control select2" id="problemSpecialtySelect"
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="problemSpecialtySelectID"
                                 name="organ_problem_specification" required>
                             <option selected disabled value="">Select Problem Name</option>
                             {% for item in problem_data %}
@@ -56,8 +56,8 @@
                 <hr>
                 <!-- Add form fields here -->
                 <div class="row mb-3">
-                    <label for="descriptionId" class="col-md-3 col-form-label">Description : </label>
-                    <div class="col-md-9">
+                    <label for="descriptionId" class="col-md-2 col-form-label">Description : </label>
+                    <div class="col-md-10">
                         <textarea name="description" id="descriptionId" class="form-control" cols="30"
                                   rows="2" required>{{ data.description|default:"N/A" }}</textarea>
                         <div class="invalid-feedback">Please enter a description name.</div>
@@ -89,7 +89,8 @@
             });
 
         // Initialize select2 with search box for department dropdown
-        $('#specialtySelect').select2({
+        $('#departmentID').select2({
+            theme: "classic",  // Add the theme option here
             escapeMarkup: function (markup) {
                 return markup;
             },
@@ -104,7 +105,8 @@
         });
 
         // Initialize select2 with search box for problem dropdown
-        $('#problemSpecialtySelect').select2({
+        $('#problemSpecialtySelectID').select2({
+            theme: "classic",  // Add the theme option here
             escapeMarkup: function (markup) {
                 return markup;
             },

@@ -54,10 +54,7 @@ def store_prescription_data(request, doctor_id, user_id):
 
 
 @api_view(['GET'])
-def get_all_medicine_prescriptions_list(request):
-    user_id = request.session.get('user_id')
-    doctor_profile = DoctorProfile.objects.filter(user_id=user_id).first()
-    doctor_id = doctor_profile.id
+def get_all_medicine_prescriptions_list(request, doctor_id):
     medicines = PrescriptionForMedicine.objects.filter(deleted_at=None, doctor_profile=doctor_id).prefetch_related(
         'medicine_prescription').order_by('-id')
     serializer = PrescriptionForMedicineViewSerializer(instance=medicines, many=True)
@@ -67,10 +64,7 @@ def get_all_medicine_prescriptions_list(request):
 
 
 @api_view(['GET'])
-def get_all_medicine_prescriptions_list_by_patient(request):
-    user_id = request.session.get('user_id')
-    patient_profile = PatientProfile.objects.filter(user_id=user_id).first()
-    patient_id = patient_profile.id
+def get_all_medicine_prescriptions_list_by_patient(request, patient_id):
     medicines = PrescriptionForMedicine.objects.filter(deleted_at=None, patient_profile=patient_id).prefetch_related(
         'medicine_prescription').order_by('-id')
     serializer = PrescriptionForMedicineViewSerializer(instance=medicines, many=True)
@@ -127,11 +121,7 @@ def store_lab_prescription_data(request, doctor_id, user_id):
 
 
 @api_view(['GET'])
-def get_all_lab_test_prescriptions_list(request):
-    user_id = request.session.get('user_id')
-    doctor_profile = DoctorProfile.objects.filter(user_id=user_id).first()
-    doctor_id = doctor_profile.id
-
+def get_all_lab_test_prescriptions_list(request, doctor_id):
     lab_tests = PrescriptionForLabTest.objects.filter(deleted_at=None, doctor_profile=doctor_id).prefetch_related(
         'prescription_lab').order_by('-id')
     serializer_data = PrescriptionForLabTestViewSerializer(instance=lab_tests, many=True).data
@@ -139,11 +129,7 @@ def get_all_lab_test_prescriptions_list(request):
 
 
 @api_view(['GET'])
-def get_all_lab_test_prescriptions_list_by_patient(request):
-    user_id = request.session.get('user_id')
-    patient_profile = PatientProfile.objects.filter(user_id=user_id).first()
-    patient_id = patient_profile.id
-
+def get_all_lab_test_prescriptions_list_by_patient(request, patient_id):
     lab_tests = PrescriptionForLabTest.objects.filter(deleted_at=None, patient_profile=patient_id).prefetch_related(
         'prescription_lab').order_by('-id')
     serializer_data = PrescriptionForLabTestViewSerializer(instance=lab_tests, many=True).data
