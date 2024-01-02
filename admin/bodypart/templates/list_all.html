@@ -18,7 +18,7 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Body Part</th>
+                    <th>Body Part Name</th>
                     <th>Description</th>
                     <th>Action</th>
                 </tr>
@@ -32,18 +32,18 @@
                     <td>{{ data.description }}</td>
                     <td>
                         <div class="btn-group dropleft">
-                                <span type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                       aria-expanded="false">
                                     <i class="fas fa-bars"></i>
                                     <!-- <i class="fas fa-ellipsis-v"></i> -->
                                 </span>
                             <div class="dropdown-menu">
-                                <a href="{% url 'edit_bodypart_form' data.id %}" class="dropdown-item text-primary">
+                                <a href="{% url 'edit_body_part_form' data.id %}" class="dropdown-item text-primary">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
                                 <!-- Button trigger modal -->
                                 <a data-toggle="modal" data-target="#myModal"
-                                   data-delete-url="{% url 'delete_bodypart' data.id %}"
+                                   data-delete-url="{% url 'delete_body_part' data.id %}"
                                    class="dropdown-item text-danger">
                                     <i class="fas fa-trash"></i> Delete
                                 </a>
@@ -104,6 +104,5 @@
             });
         });
     });
-
 </script>
 {% endblock %}

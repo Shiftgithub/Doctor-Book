@@ -1,0 +1,30 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+                <div class="row mb-3">
+                    <label for="colorID" class="col-md-2 col-form-label">Theme Color : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="colorID" name="color" type="text" placeholder="Hexa-Decimal"
+                               required/>
+                        <div class="invalid-feedback">Please enter color hexa decimal code.</div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success float-right" onclick="changeColor()">Submit</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function changeColor(){
+        let color = $('#colorID').val();
+        sessionStorage.mycolor = color;
+        window.location.reload();
+    }
+</script>
+{% endblock %}

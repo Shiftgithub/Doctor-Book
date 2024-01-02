@@ -3,10 +3,11 @@ import datetime
 from django.db import models
 from admin.department.models import *
 from admin.personal_data.models import *
+from admin.basemodel.models import BaseModel
 from admin.authentication.user.models import User
 
 
-class Doctor_Profile(models.Model):
+class DoctorProfile(BaseModel):
     full_name = models.CharField(max_length=255)
     father_name = models.CharField(max_length=255)
     mother_name = models.CharField(max_length=255)
@@ -25,16 +26,12 @@ class Doctor_Profile(models.Model):
     passport_no = models.CharField(max_length=255, null=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='doctors', null=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-
     class Meta:
         db_table = 'doctor_profile'
 
 
-class AppointmentSchedule(models.Model):
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE,
+class AppointmentSchedule(BaseModel):
+    doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE,
                                        related_name='appointment_schedules', null=True)
 
     per_patient_time = models.IntegerField(null=True)
@@ -43,34 +40,26 @@ class AppointmentSchedule(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_appointment', null=True)
     modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_appointment', null=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-
     class Meta:
         db_table = 'doctor_appointment_schedule'
 
 
-class Awards(models.Model):
+class Awards(BaseModel):
     awards = models.CharField(max_length=255, null=True)
     honors = models.CharField(max_length=255, null=True)
     publications = models.CharField(max_length=255, null=True)
     research_interests = models.CharField(max_length=255, null=True)
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='awards', null=True)
+    doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='awards', null=True)
 
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_awards', null=True)
     modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_awards', null=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     class Meta:
         db_table = 'doctor_awards'
 
 
-class Education(models.Model):
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='education')
+class Education(BaseModel):
+    doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='education')
     certificate_degree = models.CharField(max_length=255)
     institution = models.CharField(max_length=255)
     board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='educationID', null=True)
@@ -84,43 +73,34 @@ class Education(models.Model):
         db_table = 'doctor_educations'
 
 
-class OffDay(models.Model):
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='off_days')
-
+class OffDay(BaseModel):
+    doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='off_days')
     off_day = models.ForeignKey(Day, on_delete=models.CASCADE, related_name='off_day_name', null=True)
 
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_off_day', null=True)
     modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_off_day', null=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-
     class Meta:
-        db_table = 'off_day'
+        db_table = 'doctor_off_day'
 
 
-class ScheduleTime(models.Model):
+class ScheduleTime(BaseModel):
     appointment_schedule = models.ForeignKey(AppointmentSchedule,
                                              on_delete=models.CASCADE, related_name='schedule_time', null=True)
-
+    doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='schedule_time')
     start_time = models.TimeField(null=True)
     end_time = models.TimeField(null=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     class Meta:
         db_table = 'doctor_schedule_times'
 
 
-class SocialMedia(models.Model):
+class SocialMedia(BaseModel):
     website = models.URLField(null=True)
     facebook = models.URLField(null=True)
     instagram = models.URLField(null=True)
     linkedin = models.URLField(null=True)
-    doctor_profile = models.ForeignKey(Doctor_Profile, on_delete=models.CASCADE, related_name='social_media', null=True)
+    doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='social_media', null=True)
 
     class Meta:
         db_table = 'doctor_social_media'

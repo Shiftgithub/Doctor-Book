@@ -48,24 +48,38 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
+
+
+        <!-- Sidebar -->
+        {% if request.session.user_role == 'admin' %}
         <a href="{% url 'admin_dashboard' %}" class="brand-link">
             <img src="{% static 'adminlte_assets/img/icon.png' %}" alt="Doctor-Book Logo"
                  class="brand-image img-square elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">Doctor Book</span>
         </a>
-
-        <!-- Sidebar -->
-        {% if request.session.user_role == 'doctor' %}
-        {% include 'dashboard/templates/doctor/includes/doctor_sidebar.html' %}
-
-        {% elif request.session.user_role == 'patient' %}
-        {% include 'dashboard/templates/patient/includes/patient_sidebar.html' %}
-
-        {% else %}
         {% include 'dashboard/templates/admin/includes/sidebar.html' %}
+
+        {% elif request.session.user_role == 'doctor' %}
+        <a href="{% url 'doctor_dashboard' %}" class="brand-link">
+            <img src="{% static 'adminlte_assets/img/icon.png' %}" alt="Doctor-Book Logo"
+                 class="brand-image img-square elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Doctor Book</span>
+        </a>
+        {% include 'dashboard/templates/doctor/includes/doctor_sidebar.html' %}
+        {% elif request.session.user_role == 'patient' %}
+        <a href="{% url 'patient_dashboard' %}" class="brand-link">
+            <img src="{% static 'adminlte_assets/img/icon.png' %}" alt="Doctor-Book Logo"
+                 class="brand-image img-square elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Doctor Book</span>
+        </a>
+        {% include 'dashboard/templates/patient/includes/patient_sidebar.html' %}
+        {% else %}
+        <a href="{% url 'patient_dashboard' %}" class="brand-link">
+            <img src="{% static 'adminlte_assets/img/icon.png' %}" alt="Doctor-Book Logo"
+                 class="brand-image img-square elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Doctor Book</span>
+        </a>
         {% endif %}
-
-
         <!-- /.sidebar -->
     </aside>
 
@@ -92,7 +106,6 @@
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button)
-
 
 
 </script>
@@ -126,12 +139,22 @@
         timer: 3000 // 3secs
     })
 
-
-
 </script>
 {% endfor %}
 {% endif %}
+<script>
+    $( document ).ready(function() {
+    let navbar = $('.navbar-dark');
+    navbar.css('background-color',sessionStorage.mycolor+' !important');
 
+    let sideBar = $('.sidebar-dark-primary') ;
+    sideBar.css('background-color',sessionStorage.mycolor+' !important');
+
+    let cardHeader = $('.card-header.bg-dark');
+    cardHeader.css('background-color', sessionStorage.mycolor + ' !important');
+
+    });
+</script>
 <!-- Custom JS -->
 {% block scripts %}
 

@@ -6,13 +6,57 @@ from rest_framework.decorators import api_view
 
 @api_view(['GET'])
 def get_all_doctors_name(request):
-    doctors = Doctor_Profile.objects.filter(deleted_at=None)
+    doctors = DoctorProfile.objects.filter(deleted_at=None)
     serialized_data = []
 
     for doctor in doctors:
         appointment_schedule = AppointmentSchedule.objects.filter(doctor_profile_id=doctor.id).exists()
-        
+
         if not appointment_schedule:
+            serializer = DoctorSerializer(doctor)
+            serialized_data.append(serializer.data)
+
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def get_all_doctors_name_by_edu(request):
+    doctors = DoctorProfile.objects.filter(deleted_at=None)
+    serialized_data = []
+
+    for doctor in doctors:
+        edu = Education.objects.filter(doctor_profile_id=doctor.id).exists()
+        if not edu:
+            serializer = DoctorSerializer(doctor)
+            serialized_data.append(serializer.data)
+
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def get_all_doctors_name_by_social(request):
+    doctors = DoctorProfile.objects.filter(deleted_at=None)
+    serialized_data = []
+
+    for doctor in doctors:
+        social_media = SocialMedia.objects.filter(doctor_profile_id=doctor.id).exists()
+
+        if not social_media:
+            serializer = DoctorSerializer(doctor)
+            serialized_data.append(serializer.data)
+
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def get_all_doctors_name_by_award(request):
+    doctors = DoctorProfile.objects.filter(deleted_at=None)
+    serialized_data = []
+
+    for doctor in doctors:
+        award = Awards.objects.filter(doctor_profile_id=doctor.id).exists()
+
+        if not award:
             serializer = DoctorSerializer(doctor)
             serialized_data.append(serializer.data)
 

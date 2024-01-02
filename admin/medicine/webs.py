@@ -25,21 +25,23 @@ def medicine_form(request):
 
 def store_medicine(request):
     operation_response = store_medicine_data(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(
-            request, messages.INFO, 'Medicine data stored successfully'
-        )
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(
-            request, messages.ERROR, 'Error in storing medicine data'
-        )
+        messages.add_message(request, messages.ERROR, message)
     return redirect('add_medicine_form')
 
 
 def medicine_data_view(request):
     response = get_all_medicines_list(request)
     all_data = response.data
-    return render(request, 'medicine/templates/list_all.html', {'all_data': all_data})
+    data = {'all_data': all_data}
+    return render(request, 'medicine/templates/list_all.html', data)
 
 
 def view_medicine(request, medicine_id):
@@ -74,12 +76,15 @@ def edit_medicine_form(request, medicine_id):
 def edit_medicine(request, medicine_id):
     operation_response = edit_medicine_data(request, medicine_id)
 
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(
-            request, messages.INFO, 'Medicine data edited successfully'
-        )
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error editing medicine data')
+        messages.add_message(request, messages.ERROR, message)
 
     return redirect('edit_medicine_form', medicine_id=medicine_id)
 
@@ -87,18 +92,14 @@ def edit_medicine(request, medicine_id):
 def delete_medicine(request, medicine_id):
     operation_response = softdelete_medicine_data(request, medicine_id)
 
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(
-            request, messages.INFO, 'Medicine data deleted successfully'
-        )
-    elif operation_response.data.get('status') == 404:
-        messages.add_message(
-            request,
-            messages.ERROR,
-            'medicine cannot delete.'
-            'because it is associated with medicine Table Or medicine Specification Table.',
-        )
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error deleting medicine data')
+        messages.add_message(request, messages.ERROR, message)
 
     return redirect('medicine_list')

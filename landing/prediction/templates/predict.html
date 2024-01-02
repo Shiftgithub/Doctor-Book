@@ -22,9 +22,9 @@
             {% csrf_token %}
             <!-- Body Part Name -->
             <div class="row p-2">
-                <label for="bodyPartID" class="col-md-3 col-form-label">Body Part :<span
+                <label for="bodyPartID" class="col-sm-12 col-md-3 col-form-label">Body Part :<span
                         class="text-danger">*</span></label>
-                <div class="col-md-9">
+                <div class="col-sm-12 col-md-9">
                     <select class="form-control select2" id="bodyPartID" name="bodypart">
                         <option value="" selected>Select Body Part Name</option>
                         {% for item in bodypart_data %}
@@ -37,7 +37,7 @@
             <!-- Organ Name -->
             <div class="row p-2">
                 <label for="organID" class="col-md-3 col-form-label">Organ :<span class="text-danger">*</span></label>
-                <div class="col-md-9">
+                <div class="col-sm-12 col-md-9">
                     <select class="form-control select2" id="organID" name="organ">
                         <option value="" selected>Select Organ Name</option>
                     </select>
@@ -48,15 +48,15 @@
             <div class="row p-2">
                 <label for="problemSpecificationID" class="col-md-3 col-form-label">Problem Specification :<span
                         class="text-danger">*</span></label>
-                <div class="col-md-9">
+                <div class="col-sm-12 col-md-9">
                     <div id="problemSpecificationID"></div>
                 </div>
             </div>
 
             <!-- Submit Button -->
             <div class="row p-2">
-                <div class="col-md-3"></div>
-                <div class="col-md-9">
+                <div class="col-sm-12 col-md-3"></div>
+                <div class="col-sm-12 col-md-9">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>

@@ -8,17 +8,24 @@
             <h1 class="card-title">Organ Problem Details</h1>
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-3"><strong>Organ Name:</strong></div>
-                <div class="col-md-9">{{ organ_problem_specification_data.organ }}</div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Organ Name:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ organ_problem_specification_data.organ }}" readonly/>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-3"><strong>Problem :</strong></div>
-                <div class="col-md-9">{{ organ_problem_specification_data.problem }}</div>
+            <hr>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Problem Name:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ organ_problem_specification_data.problem }}" readonly/>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-3"><strong>Problem Specification :</strong></div>
-                <div class="col-md-9">{{ organ_problem_specification_data.problem_specification }}</div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Problem Specification:</label>
+                <div class="col-md-9">
+                    <textarea class="form-control" readonly rows="10" cols="30">{{ organ_problem_specification_data.problem_specification }}</textarea>
+                </div>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 from .webs import *
 from django.urls import path, include
-from backend.login_decorators import protected_view
+from core.login_decorators import protected_view
 
 urlpatterns = [
     # medicine adminpanel path
@@ -8,7 +8,7 @@ urlpatterns = [
         '',
         include(
             [
-                path('add/', protected_view(medicine_form), name='add_medicine_form'),
+                path('form/', protected_view(medicine_form), name='add_medicine_form'),
                 path('store/', protected_view(store_medicine), name='store_medicine'),
                 path('list/', protected_view(medicine_data_view), name='medicine_list'),
                 path('view/<int:medicine_id>/', protected_view(view_medicine), name='view_medicine_data'),

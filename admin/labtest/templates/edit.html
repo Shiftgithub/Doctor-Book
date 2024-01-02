@@ -1,0 +1,59 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Edit Lab Test</h1>
+        </div>
+        <div class="card-body">
+            <form id="PostForm" action="{% url 'edit_lab_test' lab_test_data.id  %}" method="POST"
+                  class="needs-validation" novalidate>
+                {% csrf_token %}
+
+                <div class="row mb-3">
+                    <label for="bodyPartNameID" class="col-sm-12 col-md-2 form-label">Lab Test Name <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="bodyPartNameID" name="name"
+                               value="{{ lab_test_data.name }}" required>
+                        <div class=" invalid-feedback">Please enter Lab Test name.
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="descriptionID" class="col-sm-12 col-md-2 form-label">Description</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" id="descriptionID"
+                                  required rows="10" cols="30" name="description">{{ lab_test_data.description }}</textarea>
+                        <div class="invalid-feedback">Please enter description or type N/A.</div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success float-right">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+</script>
+{% endblock %}

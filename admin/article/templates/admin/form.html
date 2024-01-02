@@ -1,6 +1,5 @@
 {% extends 'dashboard/templates/admin/admin_layout.html' %}
 {% load static %}
-
 {% block content %}
 <div class="container mt-4">
     <div class="card">
@@ -9,38 +8,41 @@
         </div>
         <div class="card-body">
             <form action="{% url 'store_article' %}" enctype="multipart/form-data" id="PostForm" method="POST"
-                  onsubmit="return validateForm()">
+                  class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="articleHeadingId" class="col-md-2 col-form-label">Article Heading</label>
+                    <label for="articleHeadingId" class="col-md-2 col-form-label">Article Heading : <span
+                            class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <input class="form-control" id="articleHeadingId" name="heading" type="text"/>
-                        <div class="error-message" id="headingError"></div><!-- Error message container -->
+                        <input class="form-control" id="articleHeadingId" name="heading" type="text" required/>
+                        <div class="invalid-feedback">Please enter an article heading.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="tagId" class="col-md-2 col-form-label">Tag</label>
+                    <label for="tagId" class="col-md-2 col-form-label">Tag : <span class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <input class="form-control" id="tagId" name="tag" type="text"/>
-                        <div class="error-message" id="tagError"></div><!-- Error message container -->
+                        <input class="form-control" id="tagId" name="tag" type="text" required/>
+                        <div class="invalid-feedback">Please enter tag name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="imageId" class="col-md-2 col-form-label">Image</label>
+                    <label for="imageId" class="col-md-2 col-form-label">Image :</label>
                     <div class="col-md-10">
                         <input class="form-control" id="imageId" name="image" onchange="previewImage(event)"
                                type="file"/>
                         <img id="preview" src="{% static 'adminlte_assets/img/nobody.png' %}"
                              style="width: 100%; height: 500px;">
-                        <div class="error-message" id="imageError"></div><!-- Error message container -->
+                        <div id="imageDescription" class="form-text">Choose an image file (JPEG, PNG, GIF) with a
+                            maximum size of 5MB.
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="descriptionId" class="col-md-2 col-form-label">Description</label>
+                    <label for="descriptionId" class="col-md-2 col-form-label">Description :</label>
                     <div class="col-md-10">
-                        <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
-                                  rows="2">{{ data.description|default:"N/A" }}</textarea>
-                        <div class="error-message" id="descriptionError"></div><!-- Error message container -->
+                        <textarea name="description" id="descriptionId" class="form-control" cols="30"
+                                  rows="2" required>{{ data.description|default:"N/A" }}</textarea>
+                        <div class="invalid-feedback">Please enter description or type N/A.</div>
                     </div>
                 </div>
                 <input type="hidden" value="{{request.session.user_id}}" name="created_by">
@@ -51,88 +53,42 @@
 </div>
 {% endblock %}
 
-{% block styles %}
-<style>
-.error-message {
-    color: #dc3545; /* Red color for danger state */
-}
-
-</style>
-{% endblock %}
 
 {% block scripts %}
 <script>
-function validateForm() {
-    // Clear previous error messages
-    clearErrorMessages();
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
 
-    // Get the values entered by the user
-    var heading = document.getElementById("articleHeadingId").value;
-    var tag = document.getElementById("tagId").value;
-    var image = document.getElementById("imageId").value;
-    var description = document.getElementById("descriptionId").value;
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
 
-    // Track if any validation errors occur
-    var hasErrors = false;
+    function previewImage(event) {
+        var input = event.target;
+        var imgElement = document.getElementById("preview");
 
-    // Perform validation checks
-    if (heading.trim() === "") {
-        displayErrorMessage("headingError", "Please enter an article heading.");
-        hasErrors = true;
-    }
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-    if (tag.trim() === "") {
-        displayErrorMessage("tagError", "Please enter a tag.");
-        hasErrors = true;
-    }
+            reader.onload = function(e) {
+                imgElement.src = e.target.result;
+            }
 
-    if (image.trim() === "") {
-        displayErrorMessage("imageError", "Please select an image.");
-        hasErrors = true;
-    }
-
-    if (description.trim() === "") {
-        displayErrorMessage("descriptionError", "Please enter a description.");
-        hasErrors = true;
-    }
-
-    // Prevent form submission if errors occurred
-    if (hasErrors) {
-        return false;
-    }
-
-    // All validation checks passed
-    return true;
-}
-
-function displayErrorMessage(elementId, message) {
-    var errorElement = document.getElementById(elementId);
-    errorElement.innerHTML = message;
-}
-
-function clearErrorMessages() {
-    var errorElements = document.getElementsByClassName("error-message");
-    for (var i = 0; i < errorElements.length; i++) {
-        errorElements[i].innerHTML = "";
-    }
-}
-
-function previewImage(event) {
-    var input = event.target;
-    var imgElement = document.getElementById("preview");
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-            imgElement.src = e.target.result;
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
         }
-
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
     }
-}
 
 </script>
 {% endblock %}

@@ -16,46 +16,47 @@
         <div class="card-body">
             <table id="bodyPartData" class="table table-sm table-bordered table-striped text-center">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Medicine Brand</th>
-                        <th>Medicine</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                    </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Medicine Brand</th>
+                    <th>Medicine</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {% for data in all_data %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        {# Use 'forloop.counter' to get the loop counter #}
-                        <td>{{ data.brand_name }}</td>
-                        <td>{{ data.name }}</td>
-                        <td>{{ data.description }}</td>
-                        <td>
-                            <div class="btn-group dropleft">
-                                <span type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
+                {% for data in all_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    {# Use 'forloop.counter' to get the loop counter #}
+                    <td>{{ data.brand_name }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.description }}</td>
+                    <td>
+                        <div class="btn-group dropleft">
+                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                      aria-expanded="false">
                                     <i class="fas fa-bars"></i>
                                     <!-- <i class="fas fa-ellipsis-v"></i> -->
                                 </span>
-                                <div class="dropdown-menu">
-                                    <a href="{% url 'view_medicine_data' data.id %}" class="dropdown-item text-primary">
-                                        <i class="fas fa-eye"></i> view
-                                    </a>
-                                    <a href="{% url 'edit_medicine_form' data.id %}" class="dropdown-item text-primary">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </a>
-                                    <!-- Button trigger modal -->
-                                    <a data-toggle="modal" data-target="#myModal" data-delete-url="{% url 'delete_medicine' data.id %}"
-                                        class="dropdown-item text-danger">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </a>
-                                </div>
+                            <div class="dropdown-menu">
+                                <a href="{% url 'view_medicine_data' data.id %}" class="dropdown-item text-primary">
+                                    <i class="fas fa-eye"></i> view
+                                </a>
+                                <a href="{% url 'edit_medicine_form' data.id %}" class="dropdown-item text-primary">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <!-- Button trigger modal -->
+                                <a data-toggle="modal" data-target="#myModal"
+                                   data-delete-url="{% url 'delete_medicine' data.id %}"
+                                   class="dropdown-item text-danger">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
                             </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>

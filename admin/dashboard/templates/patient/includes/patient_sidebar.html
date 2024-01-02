@@ -3,22 +3,12 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-header">{{ request.session.user_role }} Panel</li>
             <!-- Dashboard -->
             <li class="nav-item mainItem">
                 <a href="{% url 'patient_dashboard' %}" class="nav-link">
                     <i class="nav-icon fas fa-align-justify"></i>
                     <p>
                         Dashboard
-                    </p>
-                </a>
-            </li>
-            <!-- My Profile -->
-            <li class="nav-item mainItem">
-                <a href="{% url 'user_details' %}" class="nav-link">
-                    <i class="nav-icon fas fa-user"></i>
-                    <p>
-                        My Profile
                     </p>
                 </a>
             </li>

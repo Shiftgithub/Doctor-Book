@@ -3,7 +3,6 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
             <!-- Dashboard -->
             <li class="nav-item mainItem">
                 <a href="{% url 'doctor_dashboard' %}" class="nav-link">
@@ -13,41 +12,52 @@
                     </p>
                 </a>
             </li>
-
-            <li class="nav-item mainItem">
-                <a href="{% url 'user_details' %}" class="nav-link">
-                    <i class="nav-icon fas fa-user-md"></i>
-                    <p>
-                        My Profile
-                    </p>
-                </a>
-            </li>
+            <!-- Doctor data modification-->
             <li class="nav-item mainItem">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-newspaper"></i>
+                    <i class="nav-icon fas fa-user-md"></i>
                     <p>
-                        Working Schedule
+                        Doctor Modification
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_prescription_form' %}" class="nav-link">
+                        <a href="{% url 'view_doctor_data' request.session.doctor_id %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Add Working Schedule</p>
+                            <p>Profile</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a href="{% url 'prescription_list'%}" class="nav-link">
+                        <a href="{% url 'working_list' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>All Working Schedule</p>
+                            <p>Working Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'edu_list' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Education Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a class="nav-link" href="{% url 'social_list' %}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Social Media Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'award_view' request.session.doctor_id %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Awards Details</p>
                         </a>
                     </li>
                 </ul>
             </li>
+            <!-- Medicine -->
             <li class="nav-item mainItem">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-newspaper"></i>
+                    <i class="nav-icon fas fa-pills"></i>
                     <p>
                         Medicine
                         <i class="right fas fa-angle-left"></i>
@@ -68,9 +78,33 @@
                     </li>
                 </ul>
             </li>
+            <!-- Lab test -->
             <li class="nav-item mainItem">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-newspaper"></i>
+                    <i class="nav-icon fas fa-vial"></i>
+                    <p>
+                        Lab Test
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'lab_test_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Lab Test</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'lab_test_list'%}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Lab Test</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-file-medical"></i>
                     <p>
                         Prescription
                         <i class="right fas fa-angle-left"></i>
@@ -78,15 +112,74 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_prescription_form' %}" class="nav-link">
+                        <a href="{% url 'add_medicine_prescription_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Add Prescription</p>
+                            <p>Add Medicine Prescription</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a href="{% url 'prescription_list'%}" class="nav-link">
+                        <a href="{% url 'medine_prescription_list'%}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>All Prescriptions</p>
+                            <p>All Medicine Prescriptions</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'lab_prescription_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Lab Test Prescription</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'lab_prescription_list'%}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Lab Test Prescription</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-calendar-check"></i>
+                    <p>
+                        Appointment
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'appointment_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Appointment</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'appointment_list_by_doctor'%}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Appointments</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- Patient History -->
+            <li class="nav-item mainItem">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user-injured"></i>
+                    <p>
+                        Patient
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'patient_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Patient</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'patient_list' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>All Patient</p>
                         </a>
                     </li>
                 </ul>
@@ -102,13 +195,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item nav-child">
-                        <a href="{% url 'add_article_form' %}" class="nav-link">
+                        <a href="{% url 'article_form' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add Article</p>
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a href="{% url 'article_all_list' request.session.user_id%}" class="nav-link">
+                        <a href="{% url 'article_all_list'%}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>All Articles</p>
                         </a>
@@ -132,7 +225,7 @@
                         </a>
                     </li>
                     <li class="nav-item nav-child">
-                        <a href="{% url 'faq_all_list' request.session.user_id%}" class="nav-link">
+                        <a href="{% url 'faq_all_list'%}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>All Answers</p>
                         </a>

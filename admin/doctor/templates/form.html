@@ -17,35 +17,37 @@
                             <label class="col-md-3 col-form-label" for="fullNameId">Full Name : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
-                                <input class="form-control" id="fullNameId" name="full_name" type="text"/>
+                                <input class="form-control" id="fullNameId" name="full_name" type="text" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="fatherNameId">Father Name : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
-                                <input class="form-control" id="fatherNameId" name="father_name" type="text"/>
+                                <input class="form-control" id="fatherNameId" name="father_name" type="text" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="motherNameId">Mother Name : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
-                                <input class="form-control" id="motherNameId" name="mother_name" type="text"/>
+                                <input class="form-control" id="motherNameId" name="mother_name" type="text" required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="dateOfBirthID">Date of Birth : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
-                                <input class="form-control" id="dateOfBirthID" name="date_of_birth" type="date"/>
+                                <input class="form-control" id="dateOfBirthID" name="date_of_birth" type="date"
+                                       required/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="birthCertificateID">B. Certificate No: <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
-                                <input class="form-control" id="birthCertificateID" name="birth_registration_no" type="number"/>
+                                <input class="form-control" id="birthCertificateID" name="birth_registration_no"
+                                       type="number" required/>
                             </div>
                         </div>
                         <!-- Email -->
@@ -53,7 +55,7 @@
                             <label class="col-md-3 col-form-label" for="emailID">Email : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
-                                <input class="form-control" id="emailID" name="email" type="text"/>
+                                <input class="form-control" id="emailID" name="email" type="text" required/>
                             </div>
                         </div>
 
@@ -62,7 +64,7 @@
                             <label class="col-md-3 col-form-label" for="phoneID">Phone Number : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-9">
-                                <input class="form-control" id="phoneID" name="phone_no" type="text"/>
+                                <input class="form-control" id="phoneID" name="phone_no" type="text" required/>
                             </div>
                         </div>
 
@@ -71,8 +73,7 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <input class="form-control mb-3" id="imageID" name="photo_name"
-                                       onchange="previewImage(event)"
-                                       type="file"/>
+                                       onchange="previewImage(event)" type="file"/>
                                 <img id="preview" src="{% static 'adminlte_assets/img/nobody.png' %}"
                                      style="width: 100%; height: 280px;">
                             </div>
@@ -88,7 +89,7 @@
                             <label class="col-md-6 col-form-label" for="genderID">Gender : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-6">
-                                <select class="form-control select2" id="genderID" name="gender">
+                                <select class="form-control select2" id="genderID" name="gender" required>
                                     <option selected>Select Gender</option>
                                     {% for item in gender_data %}
                                     <option value="{{ item.id }}">{{ item.name }}</option>
@@ -102,7 +103,7 @@
                             <label class="col-md-6 col-form-label" for="religionID">Religion : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-6">
-                                <select class="form-control select2" id="religionID" name="religion">
+                                <select class="form-control select2" id="religionID" name="religion" required>
                                     <option selected>Select Religion</option>
                                     {% for item in religion_data %}
                                     <option value="{{ item.id }}">{{ item.name }}</option>
@@ -116,7 +117,7 @@
                             <label class="col-md-6 col-form-label" for="bloodGroupID">Blood Group : <span
                                     class="text-danger">*</span></label>
                             <div class="col-md-6">
-                                <select class="form-control select2" id="bloodGroupID" name="blood_group">
+                                <select class="form-control select2" id="bloodGroupID" name="blood_group" required>
                                     <option selected>Select Blood Group</option>
                                     {% for item in blood_group_data %}
                                     <option value="{{ item.id }}">{{ item.name }}</option>
@@ -130,7 +131,7 @@
                     <label class="col-md-2 col-form-label" for="matrimonyID">Matrimony : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="matrimonyID" name="matrimony">
+                        <select class="form-control select2" id="matrimonyID" name="matrimony" required>
                             <option selected>Select Matrimony</option>
                             {% for item in matrimony_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
@@ -142,7 +143,7 @@
                     <label class="col-md-2 col-form-label" for="nidNoID">NID No : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <input class="form-control" id="nidNoID" name="nid_no" type="number"/>
+                        <input class="form-control" id="nidNoID" name="nid_no" type="number" required/>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -168,7 +169,8 @@
                     <label class="col-md-2 col-form-label" for="permanentDivisionID">Division : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="permanentDivisionID" name="permanent_division">
+                        <select class="form-control select2" id="permanentDivisionID" name="permanent_division"
+                                required>
                             <option selected>Select Permanent Division</option>
                             {% for item in division_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
@@ -178,7 +180,7 @@
                     <label class="col-md-2 col-form-label" for="presentDivisionID">Division : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="presentDivisionID" name="present_division">
+                        <select class="form-control select2" id="presentDivisionID" name="present_division" required>
                             <option selected>Select Present Division</option>
                             {% for item in division_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
@@ -190,14 +192,15 @@
                     <label class="col-md-2 col-form-label" for="permanentDistrictID">District : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="permanentDistrictID" name="permanent_district">
+                        <select class="form-control select2" id="permanentDistrictID" name="permanent_district"
+                                required>
                             <option selected>Select Permanent District</option>
                         </select>
                     </div>
                     <label class="col-md-2 col-form-label" for="presentDistrictID">District : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="presentDistrictID" name="present_district">
+                        <select class="form-control select2" id="presentDistrictID" name="present_district" required>
                             <option selected>Select Present District</option>
                         </select>
                     </div>
@@ -206,7 +209,7 @@
                     <label class="col-md-2 col-form-label" for="permanentUpazilaID">Upazila : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="permanentUpazilaID" name="permanent_upazila ">
+                        <select class="form-control select2" id="permanentUpazilaID" name="permanent_upazila" required>
                             <option selected>Select Permanent Upazila</option>
 
                         </select>
@@ -214,7 +217,7 @@
                     <label class="col-md-2 col-form-label" for="presentUpazilaID">Upazila : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <select class="form-control select2" id="presentUpazilaID" name="present_upazila ">
+                        <select class="form-control select2" id="presentUpazilaID" name="present_upazila" required>
                             <option selected>Select Present Upazila</option>
                         </select>
                     </div>
@@ -223,12 +226,14 @@
                     <label class="col-md-2 col-form-label" for="permanentAddressID">Village / State : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <input class="form-control" id="permanentAddressID" name="permanent_village_state" type="text"/>
+                        <input class="form-control" id="permanentAddressID" name="permanent_village_state" type="text"
+                               required/>
                     </div>
                     <label class="col-md-2 col-form-label" for="presentAddressID">Village / State : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <input class="form-control" id="presentAddressID" name="present_village_state" type="text"/>
+                        <input class="form-control" id="presentAddressID" name="present_village_state" type="text"
+                               required/>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -236,12 +241,13 @@
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
                         <input class="form-control" id="permanentPostCodeID" name="permanent_postal_code"
-                               type="number"/>
+                               type="number" required/>
                     </div>
                     <label class="col-md-2 col-form-label" for="presentPostCodeID">Postal Code : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-4">
-                        <input class="form-control" id="presentPostCodeID" name="present_postal_code" type="number"/>
+                        <input class="form-control" id="presentPostCodeID" name="present_postal_code" type="number"
+                               required/>
                     </div>
                 </div>
                 <legend class="text-info"><i class="far fa-edit"></i> Personal Skills</legend>
@@ -250,7 +256,7 @@
                     <label class="col-md-2 col-form-label" for="specialtyID">Dept. / Specialty : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="specialtyID" name="department">
+                        <select class="form-control select2" id="specialtyID" name="department" required>
                             <option selected>Select Department / Specialty</option>
                             {% for item in department_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
@@ -259,22 +265,19 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="experienceID">Experience : <span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="experienceID">Experience : </label>
                     <div class="col-md-10">
                         <input class="form-control" id="experienceID" name="experience" type="text"/>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="languagesSpokenID">Languages Spoken :<span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="languagesSpokenID">Languages Spoken : </label>
                     <div class="col-md-10">
                         <input class="form-control" id="languagesSpokenID" name="languages_spoken" type="text"/>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label" for="biographyID">Biography : <span
-                            class="text-danger">*</span></label>
+                    <label class="col-md-2 col-form-label" for="biographyID">Biography : </label>
                     <div class="col-md-10">
                         <textarea class="form-control" cols="30" id="biographyID" name="biography" rows="2">{{ data.description|default:"Not Applicable" }}</textarea>
                     </div>
@@ -286,7 +289,7 @@
                     <label class="col-md-2 col-form-label" for="userNameID">User Name : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <input class="form-control" id="userNameID" name="user_name" type="text"/>
+                        <input class="form-control" id="userNameID" name="user_name" type="text" required/>
                     </div>
                 </div>
             </div>

@@ -1,23 +1,39 @@
 from .webs import *
 from django.urls import path, include
 # To protect admin panel paths from unauthenticated users
-from backend.login_decorators import protected_view
+from core.login_decorators import protected_view
 
 urlpatterns = [
-    # prescription adminpanel path
+    # prescription path
     path(
         '',
         include(
             [
-                path('add/', protected_view(prescription_form), name='add_prescription_form'),
-                path('store/', protected_view(store_prescription), name='store_prescription'),
-                path('list/', protected_view(prescription_data_view), name='prescription_list'),
-                path('update/<int:prescription_id>/', protected_view(edit_prescription_form),
-                     name='edit_prescription_form'),
-                path('edit/<int:prescription_id>/', protected_view(edit_prescription), name='edit_prescription'),
-                path('delete/<int:prescription_id>/', protected_view(delete_prescription),
-                     name='delete_prescription'),
-                # path('view/<int:prescription_id>/', protected_view(view_prescription), name='view_prescription'),
+                # medicine prescription path
+                path('medicine-prescription-form/', protected_view(medicine_prescription_form),
+                     name='add_medicine_prescription_form'),
+                path('store-medicine-prescription/', protected_view(store_medicine_prescription),
+                     name='store_medicine_prescription'),
+                path('medicine-prescription-list/', protected_view(medicine_prescription_data_view),
+                     name='medine_prescription_list'),
+                path('view-medicine-prescription/<int:prescription_id>/', protected_view(view_medicine_prescription),
+                     name='medicine_prescription_view'),
+                path('print-medicine-prescription/<int:prescription_id>/', protected_view(print_medicine_prescription),
+                     name='print_medicine_prescription'),
+
+                # lab test prescription path
+                path('labtest-prescription-form/', protected_view(lab_prescription_form), name='lab_prescription_form'),
+                path('store-labtest-prescription/', protected_view(store_lab_prescription),
+                     name='store_lab_prescription'),
+                path('labtest-prescription-list/', protected_view(lab_prescription_data_view),
+                     name='lab_prescription_list'),
+                path('view-labtest-prescription/<int:prescription_id>/', protected_view(view_lab_prescription),
+                     name='lab_prescription_view'),
+                path('print-labtest-prescription/<int:prescription_id>/', protected_view(print_labtest_prescription),
+                     name='print_labtest_prescription'),
+
+                # for generate barcode
+                path('barcode/', generate_barcode, name='generate_barcode'),
             ]
         ),
     ),

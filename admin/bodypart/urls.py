@@ -1,45 +1,20 @@
 from .webs import *
 from django.urls import path, include
-
 # To protect admin panel paths from unauthenticated users
-from backend.login_decorators import protected_view
+from core.login_decorators import protected_view
 
 urlpatterns = [
-    # bodypart adminpanel path
+    # body-part path
     path(
         '',
         include(
             [
-                path(
-                    'add/',
-                    protected_view(bodypart_form),
-                    name='add_bodypart_form',
-                ),
-                path(
-                    'store/',
-                    protected_view(store_bodypart),
-                    name='store_bodypart',
-                ),
-                path(
-                    'list/',
-                    protected_view(bodypart_data_view),
-                    name='bodypart_list',
-                ),
-                path(
-                    'update/<int:bodypart_id>/',
-                    protected_view(edit_bodypart_form),
-                    name='edit_bodypart_form',
-                ),
-                path(
-                    'edit/<int:bodypart_id>/',
-                    protected_view(edit_bodypart),
-                    name='edit_bodypart',
-                ),
-                path(
-                    'delete/<int:bodypart_id>/',
-                    protected_view(delete_bodypart),
-                    name='delete_bodypart',
-                ),
+                path('form/', protected_view(body_part_form), name='body_part_form'),
+                path('store/', protected_view(store_body_part), name='store_body_part'),
+                path('list/', protected_view(body_part_data_view), name='body_part_list'),
+                path('edit-form/<int:body_part_id>/', protected_view(edit_body_part_form), name='edit_body_part_form'),
+                path('edit/<int:body_part_id>/', protected_view(edit_body_part), name='edit_body_part'),
+                path('delete/<int:body_part_id>/', protected_view(delete_body_part), name='delete_body_part'),
             ]
         ),
     ),

@@ -32,7 +32,7 @@
                     <td>{{ data.tag }}</td>
                     <td>
                         <div class="btn-group dropleft">
-                                <span type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                       aria-expanded="false">
                                     <i class="fas fa-bars"></i>
                                     <!-- <i class="fas fa-ellipsis-v"></i> -->
@@ -45,12 +45,13 @@
                                 <a href="{% url 'edit_article_form' data.id %}"
                                    class="dropdown-item text-primary">
                                     <i class="fas fa-edit"></i> Edit
-                                    <!-- Button trigger modal -->
-                                    <a data-toggle="modal" data-target="#myModal"
-                                       data-delete-url="{% url 'delete_article' data.id %}"
-                                       class="dropdown-item text-danger">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </a>
+                                </a>
+                                <!-- Button trigger modal -->
+                                <a data-toggle="modal" data-target="#myModal"
+                                   data-delete-url="{% url 'delete_article' data.id %}"
+                                   class="dropdown-item text-danger">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
                             </div>
                         </div>
                     </td>
@@ -110,6 +111,5 @@
 <script src="{% static 'adminlte_assets/data_tables/js/datatable.min.js' %}"></script>
 <script src="{% static 'adminlte_assets/data_tables/js/datatable_button.min.js' %}"></script>
 <script src="{% static 'adminlte_assets/data_tables/js/datatable_responsive.min.js' %}"></script>
-
 <script src="{% static 'adminlte_assets/js/data_table_settings.js' %}"></script>
 {% endblock %}

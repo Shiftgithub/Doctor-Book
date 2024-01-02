@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from admin.department.models import Department
-from admin.doctor.models import Doctor_Profile
+from admin.doctor.models import DoctorProfile
 from admin.patient.models import *
 from admin.personal_data.serializers import *
 
@@ -8,22 +8,16 @@ from admin.personal_data.serializers import *
 class CountDepartmentsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Department
-        fields = [
-            'id'
-        ]
+        fields = ['id']
 
 
 class CountDoctorsSerializers(serializers.ModelSerializer):
     class Meta:
-        model = Doctor_Profile
-        fields = [
-            'id'
-        ]
+        model = DoctorProfile
+        fields = ['id']
 
 
 class CountPatientsSerializers(serializers.ModelSerializer):
     class Meta:
-        model = Patient_Profile
-        fields = [
-            'id'
-        ]
+        model = PatientProfile
+        fields = ['id']

@@ -1,6 +1,8 @@
 import os
 import datetime
 from django.db import models
+from admin.basemodel.models import BaseModel
+
 
 def department_filepath(instance, filename):
     # Get the original filename
@@ -16,13 +18,10 @@ def department_filepath(instance, filename):
     return os.path.join('static', 'uploads', 'department_images', filename)
 
 
-class Department(models.Model):
+class Department(BaseModel):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=1000)
     image = models.ImageField(upload_to=department_filepath, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
         return self.name

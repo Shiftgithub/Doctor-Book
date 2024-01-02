@@ -1,15 +1,15 @@
 from django.db import models
 from admin.personal_data.models import *
+from admin.basemodel.models import BaseModel
 from admin.authentication.user.models import User
 
 
-class Patient_Profile(models.Model):
+class PatientProfile(BaseModel):
     full_name = models.CharField(max_length=255, null=True)
-
     father_name = models.CharField(max_length=255, null=True)
     mother_name = models.CharField(max_length=255, null=True)
     phone_no = models.CharField(max_length=110, null=True)
-    unique_id = models.CharField(unique=True, max_length=255, null=True)
+    registration_no = models.CharField(unique=True, max_length=18, null=True)
 
     date_of_birth = models.DateField(auto_now_add=False, null=True)
     nid_no = models.IntegerField(null=True)
@@ -20,24 +20,8 @@ class Patient_Profile(models.Model):
     blood_group = models.ForeignKey(Blood_Group, on_delete=models.CASCADE, related_name='patients', null=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='patients', null=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-
     def __str__(self):
         return self.full_name
 
     class Meta:
-        db_table = 'patient'
-
-
-class Appointment_fixed(models.Model):
-    patient = models.ForeignKey(Patient_Profile, on_delete=models.CASCADE, related_name='appointments')
-    doctor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='doctor_appointments')
-    appointment_date = models.DateField(auto_now_add=False)
-    appointment_time = models.TimeField(auto_now_add=False)
-    reason_for_visit = models.TextField(null=True)
-    is_confirmed = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f'Appointment with {self.doctor} on {self.appointment_datetime}'
+        db_table = 'patient_profile'

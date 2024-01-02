@@ -1,4 +1,33 @@
 {% load static %}
+{% block styes %}
+<style>
+    .profile-picture {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%; /* Make it a circle */
+      display: block;
+      margin: 0 auto; /* Center the image horizontally */
+    }
+    .profile-logo {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%; /* Make it a circle */
+      display: block;
+      margin: 0 auto; /* Center the image horizontally */
+    }
+
+    .small-text {
+    font-size: 16px; /* Adjust the size as needed */
+    margin: 0; /* Remove margin between elements */
+    }
+    .small-text-2 {
+    font-size: 12px; /* Adjust the size as needed */
+    margin: 1; /* Remove margin between elements */
+    }
+</style>
+
+{% endblock %}
+
 <nav class="main-header navbar navbar-expand navbar-dark">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -9,15 +38,40 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-user"></i> {{ request.session.user_name }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">
-                <i class="nav-icon fas fa-sign-out-alt"></i>
-            </a>
+        <li>
+            <!-- Default dropright button -->
+            <div class="btn-group dropright">
+                <a id="profileID" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% if request.session.user_image_url == None %}
+                    <img src="{% static 'adminlte_assets/img/nobody.png' %}" alt="profile picture"
+                         class="profile-logo circular">
+                    {% else %}
+                    <img src="{{ request.session.user_image_url }}" alt="profile picture" class="profile-logo circular">
+                    {% endif %}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    {% if request.session.user_image_url == None%}
+                    <img src="{% static 'adminlte_assets/img/nobody.png' %}" alt="profile picture"
+                         class="profile-picture">
+                    {% else %}
+                    <img src="{{ request.session.user_image_url }}" alt="profile picture" class="profile-picture">
+                    {% endif %}
+                    <p class="text-center small-text"><b>{{ request.session.user_full_name }}</b></p>
+                    <p class="text-center small-text-2"><b>{{ request.session.user_email }}</b></p>
+                    <hr>
+                    <a href="{% url 'user_details' %}" class="dropdown-item">
+                        <i class="fas fa-user"></i> My Profile</a>
+                    <a href="{% url 'reset_password_form' %}" class="dropdown-item">
+                        <i class="fas fa-lock"></i> Change Password</a>
+                    <a href="{% url 'change_email_form' %}" class="dropdown-item">
+                        <i class="fas fa-envelope"></i> Change Email</a>
+                    <a href="{% url 'change_theme' %}" class="dropdown-item">
+                        <i class="fab fa-themeco"></i> Change Theme</a>
+                    <a href="{% url 'logout' %}" class="dropdown-item">
+                        <i class="nav-icon fas fa-sign-out-alt"> Logout</i>
+                    </a>
+                </div>
+            </div>
         </li>
     </ul>
 </nav>

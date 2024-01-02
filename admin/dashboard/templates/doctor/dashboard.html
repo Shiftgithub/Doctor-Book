@@ -1,1 +1,64 @@
 {% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% block content %}
+<section class="content mt-5">
+    <div class="container">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <div class="small-box bg-blue">
+                    <div class="inner">
+                        <h6 class="text-center">Today's Appointment</h6>
+                        <p class="text-center">{{count_appointment_data.appointments_count}}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <a href="{% url 'appointment_list_by_date' %}" class="small-box-footer">see More..<i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h6 class="text-center">Total Patient</h6>
+                        <p class="text-center">{{patient_data.patient_count}}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-injured"></i>
+                    </div>
+                    <a href="{% url 'patient_list' %}" class="small-box-footer">see More..<i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <div class="small-box bg-blue">
+                    <div class="inner">
+                        <h6 class="text-center">Total Medicine Prescription</h6>
+                        <p class="text-center">{{medicine_prescription_data.medicine_prescription_count}}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <a href="{% url 'medine_prescription_list' %}" class="small-box-footer">see More..<i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h6 class="text-center">Total Lab Prescription</h6>
+                        <p class="text-center">{{lab_prescription_data.lab_prescription_count}}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <a href="{% url 'lab_prescription_list' %}" class="small-box-footer">see More..<i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

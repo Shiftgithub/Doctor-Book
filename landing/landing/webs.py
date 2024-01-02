@@ -2,7 +2,7 @@ from .views import *
 from admin.faq.views import *
 from admin.article.views import *
 from admin.department.views import get_all_departments_list
-from admin.doctor.views import get_all_doctors_list
+from admin.doctor.views import get_all_doctors_list_for_landing
 from django.shortcuts import render
 
 
@@ -19,13 +19,18 @@ def landing_dashboard(request):
     patient_response = count_patient(request)
     patient_data = patient_response.data
 
-    return render(request, 'landing/templates/pages/home.html',
-                  {'all_data': all_data, 'department_data': department_data, 'doctor_data': doctor_data,
-                   'patient_data': patient_data})
+    data = {
+        'all_data': all_data,
+        'department_data': department_data,
+        'doctor_data': doctor_data,
+        'patient_data': patient_data
+    }
+
+    return render(request, 'landing/templates/pages/home.html', data)
 
 
 def landing_doctors(request):
-    response_doctor = get_all_doctors_list(request)
+    response_doctor = get_all_doctors_list_for_landing(request)
     doctor_data = response_doctor.data
     return render(request, 'landing/templates/pages/doctors.html', {'doctor_data': doctor_data})
 

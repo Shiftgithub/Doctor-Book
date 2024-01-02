@@ -1,0 +1,162 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <form action="{% url 'store_award' %}" enctype="multipart/form-data" id="PostForm" method="POST"
+          class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header bg-dark">
+                <h1 class="card-title">Add Doctor Award Details</h1>
+            </div>
+            <div class="card-body">
+                {% if not doctor_data %}
+                <div class="alert alert-default-warning">
+                    <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'doctor_form' %}"> Add
+                    Doctor </a> first.
+                </div>
+                {% else %}
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="doctorNameID">Doctor Name : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="doctorNameID" name="doctor_id" required>
+                            <option selected disabled value="">Select Doctor Name</option>
+                            {% for item in doctor_data %}
+                            <option value="{{ item.id }}">{{ item.id }} . {{ item.full_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="invalid-feedback">Please select doctor name.</div>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <legend class="text-info"><i class="fas fa-award"></i> Awards</legend>
+                    </div>
+                </div>
+                <hr>
+                <div id="award-sections">
+                    <div class="award-section">
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="awardsAndHonorsID">Awards :</label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="awardsAndHonorsID" name="awards[]" type="text"
+                                       placeholder="If you have" required/>
+                                <div class="invalid-feedback">Please enter award name.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="honorID">Honors :</label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="honorID" name="honors[]" type="text"
+                                       placeholder="If you have"/>
+                                <div class="invalid-feedback">Please enter honors name.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="publicationsID">Publications :</label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="publicationsID" name="publications[]" type="text"
+                                       placeholder="If you have"/>
+                                <div class="invalid-feedback">Please enter publications name.</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label" for="researchInterestsID">Research Interests
+                                :</label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="researchInterestsID" name="research_interests[]"
+                                       type="text" placeholder="If you have"/>
+                                <div class="invalid-feedback">Please enter research interest name.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" class="btn btn-sm btn-primary add-award-section float-right">Add More
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-secondary" type="reset">Cancel</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success float-right" type="submit">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="d-none" id="templateID">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-danger remove-award-section float-right">
+                Remove
+            </button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="awardsAndHonorsID">Awards :</label>
+        <div class="col-md-10">
+            <input class="form-control" id="awardsAndHonorsID" name="awards[]" type="text"
+                   placeholder="If you have" required/>
+            <div class="invalid-feedback">Please enter award name.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="honorID">Honors :</label>
+        <div class="col-md-10">
+            <input class="form-control" id="honorID" name="honors[]" type="text"
+                   placeholder="If you have"/>
+            <div class="invalid-feedback">Please enter honors name.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="publicationsID">Publications :</label>
+        <div class="col-md-10">
+            <input class="form-control" id="publicationsID" name="publications[]" type="text"
+                   placeholder="If you have"/>
+            <div class="invalid-feedback">Please enter publications name.</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="researchInterestsID">Research Interests
+            :</label>
+        <div class="col-md-10">
+            <input class="form-control" id="researchInterestsID" name="research_interests[]"
+                   type="text" placeholder="If you have"/>
+            <div class="invalid-feedback">Please enter research interest name.</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+</script>
+{% endblock %}
+

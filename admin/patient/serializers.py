@@ -3,10 +3,12 @@ from rest_framework import serializers
 from admin.personal_data.serializers import *
 from admin.authentication.user.serializers import ImageSerializer
 
+from landing.appointment.models import GetAppointment
+
 
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Patient_Profile
+        model = PatientProfile
         fields = '__all__'
 
 
@@ -19,5 +21,5 @@ class PatientViewSerializer(serializers.ModelSerializer):
     images = ImageSerializer(source='user.images', many=True)
 
     class Meta:
-        model = Patient_Profile
+        model = PatientProfile
         fields = '__all__'

@@ -5,7 +5,6 @@ from django.urls import path, include
 from backend.login_decorators import protected_view
 
 urlpatterns = [
-    # patient adminpanel path
     path(
         'adminpanel/patient/',
         include(

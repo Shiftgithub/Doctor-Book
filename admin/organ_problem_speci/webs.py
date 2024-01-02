@@ -7,22 +7,24 @@ from django.shortcuts import render, redirect
 
 # Organ Problem
 def organ_problem_specification_form(request):
-    response_bodypart = get_all_bodypart_list(request)
+    response_bodypart = get_all_body_part_list(request)
     bodypart_data = response_bodypart.data
 
     response_organ = get_all_organs_list(request)
     organ_data = response_organ.data
-    return render(request, 'organ_problem_speci/templates/form.html', {'bodypart_data': bodypart_data})
+    data = {'bodypart_data': bodypart_data, 'organ_data': organ_data}
+    return render(request, 'organ_problem_speci/templates/form.html', data)
 
 
 def store_organ_problem_specification(request):
     operation_response = store_organ_problem_specification_data(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO,
-                             'Organ Problem data stored successfully')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 500:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR,
-                             'Error in storing Organ Problem data')
+        messages.add_message(request, messages.ERROR, message)
     return redirect('add_organ_problem_specification_form')
 
 
@@ -38,17 +40,22 @@ def edit_organ_problem_specification_form(request, organ_problem_specification_i
 
     response_organ_problem_specification = organ_problem_specification_dataview(request, organ_problem_specification_id)
     organ_problem_specification_data = response_organ_problem_specification.data
-    return render(request, 'organ_problem_speci/templates/edit.html',
-                  {'organ_data': organ_data, 'organ_problem_specification_data': organ_problem_specification_data})
+    data = {'organ_data': organ_data, 'organ_problem_specification_data': organ_problem_specification_data}
+    return render(request, 'organ_problem_speci/templates/edit.html', data)
 
 
 def edit_organ_problem_specification(request, organ_problem_specification_id):
     operation_response = edit_organ_problem_specification_data(request, organ_problem_specification_id)
 
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Organ Problem data edited successfully')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error editing organ problem data')
+        messages.add_message(request, messages.ERROR, message)
 
     return redirect('edit_organ_problem_specification_form',
                     organ_problem_specification_id=organ_problem_specification_id)
@@ -57,19 +64,21 @@ def edit_organ_problem_specification(request, organ_problem_specification_id):
 def view_organ_problem_specification(request, organ_problem_specification_id):
     response_organ = organ_problem_specification_dataview(request, organ_problem_specification_id)
     organ_problem_specification_data = response_organ.data
-    return render(request, 'organ_problem_speci/templates/view.html',
-                  {'organ_problem_specification_data': organ_problem_specification_data})
+    data = {'organ_problem_specification_data': organ_problem_specification_data}
+    return render(request, 'organ_problem_speci/templates/view.html', data)
 
 
 def delete_organ_problem_specification(request, organ_problem_specification_id):
     operation_response = softdelete_organ_problem_specification_data(request, organ_problem_specification_id)
 
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Organ Problem data deleted successfully')
-    elif operation_response.data.get('status') == 404:
-        messages.add_message(request, messages.ERROR,
-                             'Organ Problem cannot delete. because it is associated with Problem Specification table.')
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error deleting Organ Problem data')
+        messages.add_message(request, messages.ERROR, message)
 
     return redirect('organ_problem_specification_list')

@@ -8,13 +8,15 @@
             <h1 class="card-title">Edit Organ Information</h1>
         </div>
         <div class="card-body">
-            <form id="PostForm" action="{% url 'edit_organ' organ_data.id %}" method="POST">
+            <form id="PostForm" action="{% url 'edit_organ' organ_data.id %}" method="POST" class="needs-validation"
+                  novalidate>
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="specialtySelect" class="col-md-2 col-form-label">Body Part Name</label>
+                    <label for="specialtySelect" class="col-md-2 col-form-label">Body Part Name : <span
+                            class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="specialtySelect" name="body_part">
-                            <option selected>Select Body Part Name</option>
+                        <select class="form-control select2" id="specialtySelect" name="body_part" required>
+                            <option selected disabled value="">Select Body Part Name</option>
                             {% for item in bodypart_data %}
                             {% if item.name == organ_data.bodypart %}
                             <option value="{{ item.id }}" selected>{{ item.name }}</option>
@@ -23,22 +25,27 @@
                             {% endif %}
                             {% endfor %}
                         </select>
+                        <div class="invalid-feedback">Please select a body part.</div>
                     </div>
                 </div>
                 <hr>
                 <!-- Add form fields here -->
                 <div class="row mb-3">
-                    <label for="organNameId" class="col-md-2 col-form-label">Organ Name</label>
-                    <div class="col-md-10">
-                        <input type="text" value="{{ organ_data.name}}" class="form-control"
-                               id="organNameId" name="name"/>
+                    <label class="col-sm-12 col-md-2 col-form-label font-weight-bold">Organ : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-12 col-md-10">
+                        <input type="text" class="form-control" minlength="1" maxlength="255" size="255"
+                               name="name" value="{{organ_data.name}}" required/>
+                        <div class="invalid-feedback">Please enter organ name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="descriptionId" class="col-md-2 col-form-label">Description</label>
+                    <label for="descriptionID" class="col-sm-12 col-md-2 form-label">Description</label>
                     <div class="col-md-10">
-                        <textarea name="description" id="descriptionId" type="text" class="form-control" cols="30"
+                        <textarea class="form-control" id="descriptionID"
+                                  required name="description" cols="30"
                                   rows="10">{{ organ_data.description }}</textarea>
+                        <div class="invalid-feedback">Please enter description or type N/A.</div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-warning float-right">Update</button>
@@ -46,4 +53,26 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+</script>
 {% endblock %}

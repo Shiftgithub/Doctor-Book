@@ -8,23 +8,31 @@
             <h1 class="card-title">Article View</h1>
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-3"><strong>Heading:</strong></div>
-                <div class="col-md-9">{{ article_data.heading }}</div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Heading :</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ article_data.heading }}" readonly/>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-3"><strong>Tag:</strong></div>
-                <div class="col-md-9">{{ article_data.tag }}</div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Tag :</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ article_data.tag }}" readonly/>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-3"><strong>Image :</strong></div>
-                <div class="col-md-9"><img src="{{ article_data.image }}" alt="Article Image" width="250" height="250"></div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Image :</label>
+                <div class="col-md-9">
+                    <img src="{{ article_data.image }}" alt="Article Image" class="img-thumbnail" width="100%"
+                         height="500px">
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-3"><strong>Description :</strong></div>
-                <div class="col-md-9">{{ article_data.description }}</div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Description :</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ article_data.description }}" readonly/>
+                </div>
             </div>
-            <!-- Add more rows for additional fields -->
         </div>
     </div>
 </div>

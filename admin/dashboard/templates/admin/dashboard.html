@@ -1,0 +1,98 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+
+{% block content %}
+<section class="content mt-3">
+    <div class="container">
+        <div class="alert alert-default-info">
+            <!--            <div class="d-flex justify-content-between">-->
+            <div class="row">
+                <div class="col-6">
+                    <h6>Welcome to our Doctor Book AdminPanel</h6>
+                </div>
+                <div class="col-6 text-right">
+                    <h5 id="current-time"></h5>
+                    <p id="current-date"></p>
+                </div>
+                <!--                </div>-->
+            </div>
+        </div>
+    </div>
+    <!-- Small boxes (Stat box) -->
+    <div class="row text-center">
+        <div class="col-sm-4 col-md-4">
+            <div class="small-box text-white" style="background-color:#5C8374">
+                <div class="inner">
+                    <h6>Total Department</h6>
+                    <p>{{department_data.department_count}}</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-hotel"></i>
+                </div>
+                <a href="{% url 'department_list' %}" class="small-box-footer">See More <i
+                        class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+            <div class="small-box text-white" style="background-color:#5C8374">
+                <div class="inner">
+                    <h6>Total Doctor</h6>
+                    <p>{{doctor_data.doctor_count}}</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-user-md"></i>
+                    <!--                        <i class="fas fa-users"></i>-->
+                </div>
+                <a href="{% url 'doctor_list' %}" class="small-box-footer">See More <i
+                        class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+            <div class="small-box text-dark" style="background-color:#9EC8B9">
+                <div class="inner">
+                    <h6 class="text-center">Total Patient</h6>
+                    <p class="text-center">{{patient_data.patient_count}}</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-user-injured"></i>
+                </div>
+                <a href="{% url 'patient_list' %}" class="small-box-footer text-dark">See More <i
+                        class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+{% block scripts %}
+<script>
+    // Function to update the current time and date
+    function updateCurrentTime() {
+        var currentTimeElement = document.getElementById('current-time');
+        var currentDateElement = document.getElementById('current-date');
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+
+        // Convert to 12-hour format
+        hours = hours % 12;
+        hours = hours ? hours : 12; // The hour '0' should be '12'
+
+        var formattedTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds + ' ' + ampm;
+
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        var formattedDate = currentTime.toLocaleDateString(undefined, options);
+
+        currentTimeElement.textContent = formattedTime;
+        currentDateElement.textContent = formattedDate;
+    }
+
+    // Update the time and date every second
+    setInterval(updateCurrentTime, 1000);
+
+    // Call the function once to display the initial time and date
+    updateCurrentTime();
+</script>
+{% endblock %}
+{% endblock %}

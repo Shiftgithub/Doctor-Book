@@ -1,0 +1,388 @@
+{% extends 'landing_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    #doctors {background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;}
+    /* Style for the circular radio buttons */
+    .circular-radio {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .circular-radio input[type='radio'] {
+      width: 15px;
+      height: 15px;
+      margin-right: 10px;
+      transform: scale(1.5);
+      background-color: blue;
+      border: 2px solid blue;
+      border-radius: 50%;
+    }
+
+    /* Style for the text */
+    .circular-radio label {
+      font-size: 18px;
+    }
+
+    /* Style for the right-side div (initially hidden) */
+    .right-side-div {
+      float: right;
+      width: 50%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- ======= Doctors Section ======= -->
+<section id="doctors" class="doctors">
+    <div class="container pt-4">
+        <div class="text-center">
+            <h4><b>Appointment Schedule</b></h4>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    {% for doctor_data in doctor_all_data %}
+                    <p class="form-control"><b>Doctor Name : {{ doctor_data.full_name }}</b></p>
+                    <p class="form-control"><b>Department Name : {{ doctor_data.department }}</b></p>
+                    <p class="form-control"><b>Appointment Date : {{appointment_date}}</b></p>
+                    <p class="form-control"><b>Appointment Time : {{appointment_time}}</b></p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="registrationNo" id="registrationNo">
+                        <form id="PostFormWithID" action="{% url 'appointment_schedule' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="d-flex justify-content-between">
+                                <input type="text" class="form-control m-2" name="registration_no"
+                                       placeholder="Registration No"/>
+                                <button class="btn btn-success btn-sm m-2">Submit</button>
+                            </div>
+                        </form>
+                        <div class="p-2">
+                            <label>If you don't have Registration ID</label>
+                            <a href="#" id="showRegisterDivLink">Click Here</a>
+                        </div>
+                    </div>
+                    <div class="registrationForm card-body d-none" id="registrationForm">
+                        <form id="PostForm" action="{% url 'appointment_schedule_method' %}" method="POST"
+                              class="needs-validation"
+                              novalidate>
+                            {% csrf_token %}
+                            <!-- Full Name -->
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" name="full_name" id="fullNameID"
+                                       placeholder="Full Name" required>
+                                <div class="invalid-feedback">Please enter your full name.</div>
+                            </div>
+                            <!-- Phone Number -->
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" id="phoneNoID" name="phone_no"
+                                       placeholder="Phone No" required/>
+                                <div class="invalid-feedback">Please enter your phone no.</div>
+                            </div>
+                            <!-- Email -->
+                            <div class="form-group mb-3">
+                                <input type="email" class="form-control" name="email" id="emailID" placeholder="Email"
+                                       required>
+                                <div id="emailError" class="invalid-feedback"></div>
+                                <div id="emailAvailability" class="invalid-feedback"></div>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+
+                            <!-- Username -->
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" name="user_name" id="usernameID"
+                                       placeholder="Username" required>
+                                <div id="usernameError" class="invalid-feedback"></div>
+                                <div id="usernameAvailability" class="invalid-feedback"></div>
+                                <div class="invalid-feedback">Please enter a username.</div>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <input class="form-control password-field" id="passwordID" name="password"
+                                               type="password" placeholder="Password" required>
+                                        <span class="input-group-text toggle-password bg-transparent"
+                                              data-target="passwordID"><i class="fas fa-eye-slash"></i></span>
+                                        <div class="invalid-feedback">Please enter a password.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <input class="form-control password-field" id="conPasswordID"
+                                               name="con_password" type="password" placeholder="Confirm Password"
+                                               required>
+                                        <span class="input-group-text toggle-password bg-transparent"
+                                              data-target="conPasswordID"><i class="fas fa-eye-slash"></i></span>
+                                        <div id="conPasswordError" class="invalid-feedback"></div>
+                                        <div class="invalid-feedback">Please confirm your password.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="text-center mb-3">
+                                <button id="registerBtn" type="submit" class="btn btn-success">Register</button>
+                            </div>
+                        </form>
+                        <div class="m-2">
+                            <label>If you have Registration ID</label>
+                            <a href="#" id="returnToRegistrationNo">Click Here</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+      let registrationFrom = null
+      let registrationNo = null
+      // Add a click event handler for the "Click Here" link
+      $('#showRegisterDivLink').on('click', function (e) {
+        e.preventDefault()
+        toggleRegistrationFormsVisibility()
+      })
+
+      // Add a click event handler for the "Return to Registration No" link
+      $('#returnToRegistrationNo').on('click', function (e) {
+        e.preventDefault()
+        toggleRegistrationFormsVisibility();
+      })
+
+      function toggleRegistrationFormsVisibility() {
+        // Toggle the visibility of registrationNo and registrationForm
+        $('#registrationNo').toggleClass('d-none');
+        $('#registrationForm').toggleClass('d-none');
+      }
+    });
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    form.classList.add('was-validated');
+                }, false);
+            });
+
+        // check user-name is available
+        const usernameField = $('#usernameID');
+        const usernameAvailability = $('#usernameAvailability');
+        const usernameError = $('#usernameError');
+
+        // check user-email is available
+        const emailField = $('#emailID');
+        const emailAvailability = $('#emailAvailability');
+        const emailError = $('#emailError');
+
+        const togglePasswordIcons = $('.toggle-password');
+        const passwordField = $('#passwordID');
+        const conPasswordField = $('#conPasswordID');
+        const form = $('#PostForm');
+
+        // Event listener for input on username field
+        usernameField.on('input', function () {
+            checkUsernameAvailability(usernameField.val());
+        });
+
+        // Event listener for input on email field
+        emailField.on('input', function () {
+            const emailValue = emailField.val().trim();
+
+            // Clear existing error messages
+            emailError.text('');
+            emailField.removeClass('is-invalid');
+            emailAvailability.text('');
+
+            if (emailValue === '') {
+                emailError.text('Please enter a valid email address.');
+                emailField.addClass('is-invalid');
+            } else {
+                checkEmailAvailability(emailValue);
+            }
+        });
+
+        // Function to check username availability
+        const checkUsernameAvailability = function (username) {
+            const url = `/user-check-username-availability/${username}/`;
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.message === "Username already taken") {
+                        usernameError.text('Username already taken.Try another');
+                        usernameField.addClass('is-invalid');
+                        usernameAvailability.text('');
+                    } else {
+                        usernameError.text('');
+                        usernameField.removeClass('is-invalid');
+                        usernameAvailability.text('');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error checking username availability:', error);
+                }
+            });
+        };
+
+        // Function to check email availability
+        const checkEmailAvailability = function (email) {
+            const url = `/user-check-email-availability/${email}/`;
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.message === 'Email is empty') {
+                        emailError.text('Please enter a valid email address.');
+                        emailField.addClass('is-invalid');
+                        emailAvailability.text('');
+                    } else if (data.message === 'Email already taken') {
+                        emailError.text('This email is already used in our system. Please try another.');
+                        emailField.addClass('is-invalid');
+                        emailAvailability.text('');
+                    } else {
+                        emailError.text('');
+                        emailField.removeClass('is-invalid');
+                        emailAvailability.text('');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error checking email availability:', error);
+                }
+            });
+        };
+
+        togglePasswordIcons.on('click', function () {
+            const targetId = $(this).data('target');
+            const field = $('#' + targetId);
+
+            const type = field.attr('type') === 'password' ? 'text' : 'password';
+            field.attr('type', type);
+
+            // Toggle eye icon
+            $(this).html(type === 'password' ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>');
+        });
+
+        // Function to clear error messages for password
+        const clearPasswordError = function () {
+            $('#passwordID').removeClass('is-invalid');
+        };
+
+        // Function to clear error messages for confirm password
+        const clearConfirmPasswordError = function () {
+            $('#conPasswordError').text('');
+            $('#conPasswordID').removeClass('is-invalid');
+        };
+
+        // Function to validate if password and confirm password match
+        const validatePasswordMatch = function () {
+            const passwordValue = passwordField.val().trim();
+            const confirmPasswordValue = conPasswordField.val().trim();
+
+            if (passwordValue !== confirmPasswordValue || confirmPasswordValue !== passwordValue) {
+                $('#conPasswordError').text('Passwords do not match!');
+                $('#conPasswordID').addClass('is-invalid');
+            } else {
+                clearConfirmPasswordError();
+            }
+        };
+
+        // Event listener for input on password field
+        passwordField.on('input', function () {
+            clearPasswordError();
+            validatePasswordMatch();
+        });
+
+        // Event listener for input on confirm password field
+        conPasswordField.on('input', function () {
+            clearConfirmPasswordError();
+            validatePasswordMatch();
+        });
+
+        form.on('submit', function (event) {
+            let hasErrors = false;
+
+            // Reset error messages
+            clearPasswordError();
+            $('#emailError').text('');
+            $('#emailID').removeClass('is-invalid');
+            clearConfirmPasswordError();
+            usernameError.text('');
+            emailAvailability.text('');
+
+            // Password validation
+            const passwordValue = passwordField.val().trim();
+            const confirmPasswordValue = conPasswordField.val().trim();
+
+            if (passwordValue === '') {
+                $('#passwordID').addClass('is-invalid');
+                hasErrors = true;
+            }
+
+            // Confirm Password validation
+            if (confirmPasswordValue === '') {
+                $('#conPasswordID').addClass('is-invalid');
+                hasErrors = true;
+            } else if (passwordValue !== confirmPasswordValue) {
+                $('#conPasswordError').text('Passwords do not match!');
+                $('#conPasswordID').addClass('is-invalid');
+                hasErrors = true;
+            }
+
+            // Check for other form validations and set hasErrors accordingly
+            // (e.g., check for additional errors like "Username already taken" and "Email already taken")
+
+            if (hasErrors) {
+                console.log('Validation errors detected. Form submission prevented.');
+                event.preventDefault(); // Prevent form submission if there are errors
+            }
+
+            // Enable/disable the register button based on the hasErrors flag
+            $('#registerBtn').prop('disabled', hasErrors);
+        });
+
+        // Enable/disable the register button on input change
+        $('input').on('input', function () {
+            // Check for validation on input change and set the button state accordingly
+            let hasErrors = false;
+
+            // Validate each input field and set hasErrors accordingly
+            // (similar to the validation logic inside the form submission)
+
+            // Enable/disable the register button based on the hasErrors flag
+            $('#registerBtn').prop('disabled', hasErrors);
+        });
+    });
+</script>
+{% endblock %}
+

@@ -1,9 +1,13 @@
+from .models import Prediction
 from rest_framework import serializers
 from admin.department_speci.models import *
-from admin.doctor.models import Doctor_Profile
+from admin.doctor.models import DoctorProfile, ScheduleTime
 from admin.authentication.user.serializers import *
 from admin.bodypart.models import *
+from admin.doctor.serializers import AppointmentScheduleSerializer
 from admin.organ.models import *
+from admin.doctor.models import OffDay
+from admin.personal_data.serializers import *
 
 
 class PredictionSerializer(serializers.ModelSerializer):
@@ -23,7 +27,19 @@ class PredictionDoctorSerializer(serializers.ModelSerializer):
     department_name = serializers.CharField(source='department.name', required=False)
 
     class Meta:
-        model = Doctor_Profile
+        model = DoctorProfile
         fields = [
             'id', 'full_name', 'biography', 'department_name', 'images'
         ]
+
+
+class PredictionStoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prediction
+        fields = '__all__'
+
+
+class PredictionUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prediction
+        fields = ['id', 'created_by']

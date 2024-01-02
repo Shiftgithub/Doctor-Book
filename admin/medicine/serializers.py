@@ -26,6 +26,12 @@ class StrengthSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class MedicineScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MedicineSchedule
+        fields = '__all__'
+
+
 class MedicineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medicine

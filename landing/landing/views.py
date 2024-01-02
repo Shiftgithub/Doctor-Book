@@ -20,7 +20,7 @@ def count_department(request):
 @api_view(['GET'])
 def count_doctor(request):
     # Getting all doctor data from Doctor_Profile model ...
-    doctors = Doctor_Profile.objects.filter(deleted_at=None).order_by('id')
+    doctors = DoctorProfile.objects.filter(deleted_at=None).order_by('id')
 
     # Get the count of doctors
     doctor_count = doctors.count()
@@ -34,7 +34,7 @@ def count_doctor(request):
 @api_view(['GET'])
 def count_patient(request):
     # Getting all doctor data from Patient_Profile model ...
-    patients = Patient_Profile.objects.filter(deleted_at=None).order_by('id')
+    patients = PatientProfile.objects.filter(deleted_at=None).order_by('id')
 
     # Get the count of patients
     patient_count = patients.count()
@@ -43,3 +43,4 @@ def count_patient(request):
     serialized_patient_count = {'patient_count': patient_count}
 
     return Response(serialized_patient_count)
+

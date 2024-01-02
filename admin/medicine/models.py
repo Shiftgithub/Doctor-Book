@@ -1,12 +1,10 @@
 from django.db import models
+from admin.basemodel.models import BaseModel
 from admin.authentication.user.models import User
 
 
-class Brand(models.Model):
+class Brand(BaseModel):
     name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
         return self.name
@@ -15,11 +13,8 @@ class Brand(models.Model):
         db_table = 'medicine_brand'
 
 
-class Generic(models.Model):
+class Generic(BaseModel):
     name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
         return self.name
@@ -28,12 +23,8 @@ class Generic(models.Model):
         db_table = 'medicine_generic'
 
 
-class Strength(models.Model):
+class Strength(BaseModel):
     name = models.CharField(max_length=255)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
         return self.name
@@ -42,11 +33,8 @@ class Strength(models.Model):
         db_table = 'medicine_strength'
 
 
-class MedicineType(models.Model):
+class MedicineType(BaseModel):
     name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def __str__(self):
         return self.name
@@ -55,7 +43,7 @@ class MedicineType(models.Model):
         db_table = 'medicine_type'
 
 
-class Medicine(models.Model):
+class Medicine(BaseModel):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255, null=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='medicine')
@@ -66,12 +54,18 @@ class Medicine(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_medicines', null=True)
     modified_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='modified_medicines', null=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=False, null=True)
-    deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-
     def __str__(self):
         return self.name
 
     class Meta:
         db_table = 'medicine'
+
+
+class MedicineSchedule(models.Model):
+    schedule = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.schedule
+
+    class Meta:
+        db_table = 'medicine_schedule'

@@ -8,25 +8,42 @@
             <h1 class="card-title">Medicine Details</h1>
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-3"><strong>Brand Name:</strong></div>
-                <div class="col-md-9">{{ medicine_all_data.brand_name }}</div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Brand Name:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ medicine_all_data.brand_name }}" readonly/>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-3"><strong>Generic Name :</strong></div>
-                <div class="col-md-9">{{ medicine_all_data.generic_name }}</div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Generic Name:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ medicine_all_data.brand_name }}" readonly/>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-3"><strong>Medicine Strength :</strong></div>
-                <div class="col-md-9">{{ medicine_all_data.strength }}</div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Medicine Name:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ medicine_all_data.name }}" readonly/>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-3"><strong>Medicine Type :</strong></div>
-                <div class="col-md-9">{{ medicine_all_data.medicine_type }}</div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Medine Strength:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{medicine_all_data.strength }}" readonly/>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-3"><strong>Description :</strong></div>
-                <div class="col-md-9">{{ medicine_all_data.description }}</div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Medine Type:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ medicine_all_data.medicine_type }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Medicine Description :</label>
+                <div class="col-md-9">
+                <textarea class="form-control" readonly rows="10"
+                          cols="30">{{ medicine_all_data.description }}</textarea>
+                </div>
             </div>
         </div>
     </div>
