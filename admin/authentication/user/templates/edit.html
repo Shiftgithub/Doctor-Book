@@ -8,7 +8,11 @@
         <div class="card-header bg-dark">
             <h1 class="card-title">Admin Details</h1>
             <h1 class="card-title float-right">
+<<<<<<< HEAD
                 <a href="{% url 'view_admin' v %}" class="nav-link btn btn-info float-right"
+=======
+                <a href="{% url 'view_admin' admin_id %}" class="nav-link btn btn-info float-right"
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                    type="submit">Back View</a>
             </h1>
         </div>
@@ -29,7 +33,11 @@
                         <div class="row mb-3">
                             <label class="col-md-3 col-form-label" for="fatherNameID">Father Name :</label>
                             <div class="col-md-9">
+<<<<<<< HEAD
                                 {% if patient_all_data.father_name %}
+=======
+                                {% if admin_all_data.father_name %}
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                                 <input class="form-control" type="text" id="fatherNameID"
                                        value="{{ admin_all_data.father_name }}" name="father_name" required/>
                                 {% else %}

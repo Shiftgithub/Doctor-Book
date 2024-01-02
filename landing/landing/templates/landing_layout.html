@@ -26,6 +26,8 @@
     <link href="{% static 'landing_assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
     <link href="{% static 'landing_assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/sweetalert2/sweetalert2.css' %}">
+    <!-- Add this to the head section of your HTML -->
+    <link rel="stylesheet" href="{% static 'adminlte_assets/plugins/select2/css/select2.min.css' %}">
 
     <!-- Template Main CSS File -->
     <link href="{% static 'landing_assets/css/style.css' %}" rel="stylesheet">
@@ -63,6 +65,7 @@
 
 <!-- Template Main JS File -->
 <script src="{% static 'landing_assets/js/main.js' %}"></script>
+<script src="{% static 'adminlte_assets/plugins/select2/js/select2.min.js' %}"></script>
 
 <!-- Render Message -->
 <!-- Operation Message Section -->
@@ -79,11 +82,21 @@
 </script>
 {% endfor %}
 {% endif %}
+<<<<<<< HEAD
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 <df-messenger
         chat-icon="{% static 'landing_assets/img/chaticon2.png' %}"
         chat-title="chatbot"
         agent-id="98432111-10fe-4750-9463-a6c8594429be"
+=======
+<!--chat-icon="{% static 'landing_assets/img/chaticon2.png' %}"-->
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+        intent="WELCOME"
+        chat-icon="{% static 'landing_assets/img/chaticon2.png' %}"
+        chat-title="Doctor-Book-ChatBot"
+        agent-id="1953a56b-c288-4062-9ac8-bf041dc376db"
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
         language-code="en"
 ></df-messenger>
 

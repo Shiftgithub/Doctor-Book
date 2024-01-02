@@ -11,10 +11,17 @@
                   class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="row mb-3">
+<<<<<<< HEAD
                     <label for="specialtySelect" class="col-md-3 col-form-label">Patient Name :<span
                             class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <select class="form-control select2" id="specialtySelect" name="patient_profile" required>
+=======
+                    <label for="patientID" class="col-md-3 col-form-label">Patient Name :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-9">
+                        <select class="form-control select2" id="patientID" name="patient_profile" required>
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                             <option selected disabled value="">Select Patient Name</option>
                             {% for item in patient_data %}
                             <option value="{{ item.id }}">{{ item.id }} . {{ item.full_name }}</option>
@@ -148,6 +155,37 @@
                     form.classList.add('was-validated');
                 }, false);
         });
+<<<<<<< HEAD
+=======
+        $('#patientID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+        $('#labTestID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
      });
 </script>
 {% endblock %}

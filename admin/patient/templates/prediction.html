@@ -15,7 +15,7 @@
                 <label for="bodyPartID" class="col-md-3 col-form-label">Body Part :<span
                         class="text-danger">*</span></label>
                 <div class="col-md-9">
-                    <select class="form-control select2" id="bodyPartID" name="bodypart">
+                    <select class="form-control select2" id="bodyPartID" name="body_part">
                         <option value="" selected>Select Body Part Name</option>
                         {% for item in bodypart_data %}
                         <option value="{{ item.id }}">{{ item.name }}</option>
@@ -45,7 +45,11 @@
             <div class="row p-2">
                 <div class="col-md-3"></div>
                 <div class="col-md-9">
+<<<<<<< HEAD
                     <button type="submit" class="btn btn-primary float-right">Submit</button>
+=======
+                    <button type="submit" class="btn btn-success float-right">Submit</button>
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                 </div>
             </div>
         </form>
@@ -118,6 +122,35 @@
             })
         }
     })
-
+$(document).ready(function () {
+        $('#bodyPartID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+        $('#organID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+     });
 </script>
 {% endblock %}

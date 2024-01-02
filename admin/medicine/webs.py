@@ -34,7 +34,11 @@ def store_medicine(request):
         messages.add_message(request, messages.ERROR, message)
     else:
         messages.add_message(request, messages.ERROR, message)
+<<<<<<< HEAD
     return redirect('add_medicine_form')
+=======
+    return redirect('medicine_form')
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 
 
 def medicine_data_view(request):

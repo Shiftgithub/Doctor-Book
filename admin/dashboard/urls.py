@@ -14,7 +14,10 @@ urlpatterns = [
                 path('doctor/', protected_view(doctor_dashboard), name='doctor_dashboard'),
                 path('patient/', protected_view(patient_dashboard), name='patient_dashboard'),
                 path('change-theme/', protected_view(change_theme), name='change_theme'),
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
             ]
         ),
     ),

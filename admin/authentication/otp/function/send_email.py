@@ -23,10 +23,19 @@ def generate_unique(length):
 
 
 def send_email(email, message):
-    send_mail(
-        'Doctor-Book From',
-        message,
-        settings.EMAIL_HOST_USER,
-        [email],
-        fail_silently=False
-    )
+    try:
+        # Attempt to send the email
+        send_mail(
+            'Doctor-Book From',
+            message,
+            settings.EMAIL_HOST_USER,
+            [email],
+            fail_silently=False
+        )
+        # If send_mail doesn't raise an exception, it means the email was sent successfully
+        return True
+    except Exception as e:
+        # If an exception is raised, it means there was an error in sending the email
+        # You can log the exception or handle it based on your requirements
+        print(f"Error sending email: {e}")
+        return False

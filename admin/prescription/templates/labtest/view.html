@@ -29,22 +29,36 @@
                     <h5>Hospital Address : New Dhaka</h5>
                     <h5>Code : 4111021</h5>
                     <h5>Phone : 01965572363, 01943019803</h5>
+<<<<<<< HEAD
                     <h5>Am 8:00 Close 10:00 pm</h5>
+=======
+                    <h5> 8:00 Am Close 10:00 pm</h5>
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                 </div>
             </div>
             <hr class="darker-hr">
             <div class="row">
                 <div class="col-12">
+<<<<<<< HEAD
                     <img src="{% static prescription_data.barcode_image %}" alt="Barcode Image" width="140px"
                          height="30px"><br>
                 </div>
 
+=======
+                    <img src="{{ prescription_data.barcode_image }}" alt="Barcode Image" width="140px"
+                         height="30px"><br>
+                </div>
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
             </div>
             <div class="row">
                 <div class="col-6 pl-3">
                     <h5>Reg : {{ prescription_data.registration_no }}</h5>
                     <h5>Patient Name : {{ prescription_data.patient_name }}</h5>
+<<<<<<< HEAD
                     <h5>Address : {{ prescription_data.patient_name }}</h5>
+=======
+                    <h5>Address : {{ prescription_data.address }}</h5>
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                 </div>
                 <div class=" col-6 text-right">
                     <h5>Date: {{ prescription_data.created_at }}</h5>

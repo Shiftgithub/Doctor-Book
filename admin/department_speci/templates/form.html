@@ -18,10 +18,17 @@
                 </div>
                 {% else %}
                 <div class="row mb-3">
+<<<<<<< HEAD
                     <label for="specialtySelect" class="col-md-3 col-form-label">Department Name : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <select class="form-control select2" id="specialtySelect" name="department" required>
+=======
+                    <label for="departmentID" class="col-md-2 col-form-label">Department Name : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="departmentID" name="department" required>
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                             <option selected disabled value="">Select Department Name</option>
                             {% for item in department_data %}
                             <option value="{{ item.id }}">{{ item.name }}</option>
@@ -34,15 +41,22 @@
                 {% if not problem_data %}
                 <div class="alert alert-default-warning">
                     <strong>Warning!</strong> Please <a class="text-dark"
-                                                        href="{% url 'add_organ_problem_specification_form' %}"> Add
+                                                        href="{% url 'organ_problem_specification_form' %}"> Add
                     Problem Specification</a> first.
                 </div>
                 {% else %}
                 <div class="row mb-3">
+<<<<<<< HEAD
                     <label for="problemSpecialtySelect" class="col-md-3 col-form-label">Problem : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-9">
                         <select class="form-control select2" id="problemSpecialtySelect"
+=======
+                    <label for="problemSpecialtySelectID" class="col-md-2 col-form-label">Problem : <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                        <select class="form-control select2" id="problemSpecialtySelectID"
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                                 name="organ_problem_specification" required>
                             <option selected disabled value="">Select Problem Name</option>
                             {% for item in problem_data %}
@@ -56,8 +70,8 @@
                 <hr>
                 <!-- Add form fields here -->
                 <div class="row mb-3">
-                    <label for="descriptionId" class="col-md-3 col-form-label">Description : </label>
-                    <div class="col-md-9">
+                    <label for="descriptionId" class="col-md-2 col-form-label">Description : </label>
+                    <div class="col-md-10">
                         <textarea name="description" id="descriptionId" class="form-control" cols="30"
                                   rows="2" required>{{ data.description|default:"N/A" }}</textarea>
                         <div class="invalid-feedback">Please enter a description name.</div>
@@ -86,7 +100,44 @@
                     }
                     form.classList.add('was-validated');
                 }, false);
+<<<<<<< HEAD
         });
      });
+=======
+            });
+
+        // Initialize select2 with search box for department dropdown
+        $('#departmentID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in department_data %} {id: '{{ item.id }}', text: '{{ item.name }}'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+
+        // Initialize select2 with search box for problem dropdown
+        $('#problemSpecialtySelectID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+    });
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 </script>
 {% endblock %}

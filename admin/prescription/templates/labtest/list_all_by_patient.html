@@ -1,0 +1,96 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'adminlte_assets/data_tables/css/datatable.min.css' %}">
+<link rel="stylesheet" href="{% static 'adminlte_assets/data_tables/css/datatable_button.min.css' %}">
+<link rel="stylesheet" href="{% static 'adminlte_assets/data_tables/css/datatable_responsive.min.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">All Lab Prescription</h1>
+        </div>
+        <div class="card-body">
+            <table id="bodyPartData" class="table table-sm table-bordered table-striped text-center">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Issue Date</th>
+                    <th>Patient Name</th>
+                    <th>Phone No</th>
+                    <th>Email</th>
+                    <th>Doctor Name</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for prescription_data in all_prescription_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ prescription_data.issue_date }}</td>
+                    {# Use 'forloop.counter' to get the loop counter #}
+                    <td>{{ prescription_data.patient_name }}</td>
+                    <td>{{ prescription_data.patient_phone_no }}</td>
+                    <td>{{ prescription_data.patient_email }}</td>
+                    <td>{{ prescription_data.doctor_name }}</td>
+                    <td>
+                        <div class="btn-group dropleft">
+                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                      aria-expanded="false">
+                                    <i class="fas fa-bars"></i>
+                                    <!-- <i class="fas fa-ellipsis-v"></i> -->
+                                </span>
+                            <div class="dropdown-menu">
+                                <a href="{% url 'lab_prescription_view' prescription_data.id %}"
+                                   class="dropdown-item text-info">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                                <!-- Modify the onclick attribute to pass the prescription_data.id -->
+                                <a href="" onclick="printPrescription('{{ prescription_data.id }}')" id="print-button"
+                                   class="dropdown-item text-warning"><i class="fas fa-print"></i> Print
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- DataTables & Plugins -->
+<script src="{% static 'adminlte_assets/data_tables/js/datatable.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/data_tables/js/datatable_button.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/data_tables/js/datatable_responsive.min.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#bodyPartData").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "order": false,
+            "buttons": ["copy", "csv", "excel", "print", "colvis"]
+        }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
+    });
+    function printPrescription(id) {
+        // Check if the ID is not empty or undefined
+        // Find the "Print" link by its id
+        const printButton = document.getElementById("print-button");
+        if (id) {
+            var printUrl = `/print-labtest-prescription/${id}/`;  // Use backticks for string interpolation
+            window.open(printUrl, '_blank');
+        } else {
+            console.error("Prescription ID is empty or undefined.");
+        }
+    }
+</script>
+{% endblock %}

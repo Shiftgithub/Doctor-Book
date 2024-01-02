@@ -3,6 +3,7 @@
 
 {% block content %}
 <div class="container mt-4">
+<<<<<<< HEAD
     <form action="{% url 'store_patient_by_doctor' %}" enctype="multipart/form-data" id="PostForm"
           method="POST" class="needs-validation" novalidate>
         {% csrf_token %}
@@ -11,6 +12,16 @@
                 <h1 class="card-title">Add Patient</h1>
             </div>
             <div class="card-body">
+=======
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Add Patient</h1>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'store_patient_by_doctor' %}" enctype="multipart/form-data" id="PostForm"
+                  method="POST" class="needs-validation" novalidate>
+                {% csrf_token %}
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                 <div class="row">
                     <div class="col-md-8">
                         <div class="row mb-3">
@@ -162,9 +173,15 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
             </div>
         </div>
     </form>
+=======
+            </form>
+        </div>
+    </div>
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 </div>
 {% endblock %}
 {% block scripts %}
@@ -288,6 +305,65 @@
                 event.preventDefault(); // Prevent form submission if there are errors
             }
         });
+<<<<<<< HEAD
+=======
+         $('#genderID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+        $('#religionID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+        $('#bloodGroupID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+        $('#matrimonyID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
     });
     function previewImage(event) {
     var input = event.target;

@@ -10,6 +10,7 @@ from landing.prediction.views import prediction
 
 def patient_form(request):
     return render(request, "patient/templates/form.html")
+<<<<<<< HEAD
 
 
 def patient_form_for_doctor(request):
@@ -32,6 +33,8 @@ def patient_form_for_doctor(request):
         "matrimony_data": matrimony_data,
     }
     return render(request, "patient/templates/patient_form.html", data)
+=======
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 
 
 def store_patient(request):
@@ -41,7 +44,10 @@ def store_patient(request):
     if operation_response.data.get('status') == 200:
         email = operation_response.data.get("email")
         request.session["temp_verify_email"] = email
+<<<<<<< HEAD
         messages.add_message(request, messages.INFO, "Please activate your account")
+=======
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
         messages.add_message(request, messages.INFO, message)
         return redirect("otp_form")
     elif operation_response.data.get('status') == 400:
@@ -53,6 +59,7 @@ def store_patient(request):
     else:
         messages.add_message(request, messages.ERROR, message)
         return redirect("add_patient_form")
+<<<<<<< HEAD
 
 
 def store_patient_by_doctor(request):
@@ -85,6 +92,11 @@ def view_patient(request, patient_id):
 
 
 def edit_patient_form(request, patient_id):
+=======
+
+
+def patient_form_for_doctor(request):
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
     response_gender = gender_list(request)
     gender_data = response_gender.data
 
@@ -97,9 +109,15 @@ def edit_patient_form(request, patient_id):
     response_matrimony = matrimony_list(request)
     matrimony_data = response_matrimony.data
 
-    response_patient = patient_data(request, patient_id)
-    patient_all_data = response_patient.data
+    data = {
+        "gender_data": gender_data,
+        "religion_data": religion_data,
+        "blood_group_data": blood_group_data,
+        "matrimony_data": matrimony_data,
+    }
+    return render(request, "patient/templates/patient_form.html", data)
 
+<<<<<<< HEAD
     data = {
         "gender_data": gender_data,
         "religion_data": religion_data,
@@ -109,6 +127,73 @@ def edit_patient_form(request, patient_id):
         "patient_id": patient_id,
     }
     return render(request, "patient/templates/edit.html", data)
+=======
+
+def store_patient_by_doctor(request):
+    operation_response = store_patient_data(request)
+    message = operation_response.data.get('message')
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+    else:
+        messages.add_message(request, messages.ERROR, message)
+    return redirect("patient_form")
+
+
+def get_patient_data(request):
+    response = get_patients_list(request)
+    all_data = response.data
+    return render(request, 'patient/templates/list_all.html', {'all_data': all_data})
+
+
+def view_patient(request, patient_id):
+    admin_id = request.session.get('admin_id')
+    doctor_id = request.session.get('doctor_id')
+    patient_session_id = request.session.get('patient_id')
+    if admin_id is not None or doctor_id is not None or patient_session_id == patient_id:
+        response_patient_data = patient_data(request, patient_id)
+        patient_all_data = response_patient_data.data
+        data = {"patient_all_data": patient_all_data, "patient_id": patient_id}
+        return render(request, "patient/templates/view.html", data)
+    else:
+        return redirect('patient_dashboard')
+
+
+def edit_patient_form(request, patient_id):
+    admin_id = request.session.get('admin_id')
+    doctor_id = request.session.get('doctor_id')
+    patient_session_id = request.session.get('doctor_id')
+    if admin_id is not None or doctor_id is not None or patient_session_id == patient_id:
+        response_gender = gender_list(request)
+        gender_data = response_gender.data
+
+        response_religion = religion_list(request)
+        religion_data = response_religion.data
+
+        response_blood_group = blood_group_list(request)
+        blood_group_data = response_blood_group.data
+
+        response_matrimony = matrimony_list(request)
+        matrimony_data = response_matrimony.data
+
+        response_patient = patient_data(request, patient_id)
+        patient_all_data = response_patient.data
+
+        data = {
+            "gender_data": gender_data,
+            "religion_data": religion_data,
+            "blood_group_data": blood_group_data,
+            "matrimony_data": matrimony_data,
+            "patient_all_data": patient_all_data,
+            "patient_id": patient_id,
+        }
+        return render(request, "patient/templates/edit.html", data)
+    else:
+        return redirect('patient_dashboard')
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 
 
 def edit_patient(request, patient_id):
@@ -133,12 +218,18 @@ def find_doctors(request):
     )
 
 
-################################
 def patient_predict_form(request):
+<<<<<<< HEAD
     response_bodypart = get_all_body_part_list(request)
     bodypart_data = response_bodypart.data
     return render(
         request, "patient/templates/prediction.html", {"bodypart_data": bodypart_data}
+=======
+    response_body_part = get_all_body_part_list(request)
+    body_part_data = response_body_part.data
+    return render(
+        request, "patient/templates/prediction.html", {"bodypart_data": body_part_data}
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
     )
 
 

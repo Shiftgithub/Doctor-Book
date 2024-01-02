@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.shortcuts import render
 import hashlib
 from datetime import datetime
@@ -10,13 +11,26 @@ from admin.authentication.otp.verifyotp.models import *
 from admin.authentication.otp.function.send_email import *
 from admin.authentication.user.serializers import *
 from .serializers import *
+=======
+import hashlib
+from .serializers import *
+from django.db import transaction
+from django.http import JsonResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from django.views.decorators.http import require_GET
+from admin.authentication.otp.function.send_email import *
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 from admin.authentication.otp.verifyotp.models import VerifyOtp
 from admin.authentication.user.serializers import UserSerializer, ImageSerializer
 from admin.authentication.login.views import set_user_info
 
+<<<<<<< HEAD
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 
+=======
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 
 @api_view(['POST'])
 @transaction.atomic
@@ -24,6 +38,10 @@ def store_admin_data(request):
     admin_serializer = AdminProfileSerializer(data=request.data)
     image_serializer = ImageSerializer(data=request.data)
     user_serializer = UserSerializer(data=request.data)
+<<<<<<< HEAD
+=======
+    print(user_serializer)
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
     if admin_serializer.is_valid() and image_serializer.is_valid() and user_serializer.is_valid(raise_exception=True):
         user_name = request.data.get('user_name')
         email = request.data.get('email')
@@ -46,8 +64,13 @@ def store_admin_data(request):
         message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
         otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
         otp_serializer.save()
+<<<<<<< HEAD
         # send_mail = send_email(email, message)
         if otp_serializer:
+=======
+        sent_email = send_email(email, message)
+        if otp_serializer and sent_email:
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
             data = {'email': email, 'status': 200, 'message': 'We send otp on your email. Please activate your account'}
             return Response(data)
         else:

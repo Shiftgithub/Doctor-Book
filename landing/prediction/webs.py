@@ -9,7 +9,11 @@ def predict_form(request):
     response_body_part = get_all_body_part_list(request)
     body_part_data = response_body_part.data
     data = {'bodypart_data': body_part_data}
+<<<<<<< HEAD
     return render(request, 'prediction/templates/predict.html', data)
+=======
+    return render(request, 'prediction/templates/form.html', data)
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 
 
 def predict(request):
@@ -22,7 +26,11 @@ def predict(request):
         problem_specs = operation_response.data.get('problem_specs')
         body_part_name = operation_response.data.get('body_part_name')
         organ_name = operation_response.data.get('organ_name')
+<<<<<<< HEAD
         messages.add_message(request, messages.INFO, 'Here are all Doctor List ')
+=======
+        messages.add_message(request, messages.INFO, message)
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
         data = {
             'doctor_data': doctor_response,
             'bodypart_name': body_part_name,
@@ -32,6 +40,18 @@ def predict(request):
         return render(request, 'prediction/templates/predict_result.html', data)
     elif operation_response.data.get('status') == 400:
         messages.add_message(request, messages.ERROR, message)
+<<<<<<< HEAD
+        return redirect('predict_form')
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('predict_form')
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('predict_form')
+    else:
+        messages.add_message(request, messages.ERROR, message)
+=======
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
         return redirect('predict_form')
     elif operation_response.data.get('status') == 403:
         messages.add_message(request, messages.ERROR, message)
@@ -42,6 +62,21 @@ def predict(request):
     else:
         messages.add_message(request, messages.ERROR, message)
         return redirect('predict_form')
+
+
+def prediction_list(request):
+    response_prediction = get_all_prediction_list_by_patient(request)
+    prediction_data = response_prediction.data
+
+    return render(request, 'prediction/templates/list_all.html', {'prediction_data': prediction_data})
+
+
+def view_prediction_data(request, prediction_id):
+    response_prediction = prediction_data_view(request, prediction_id)
+    prediction_data = response_prediction.data
+
+    data = {'prediction_data': prediction_data}
+    return render(request, 'prediction/templates/view.html', data)
 
 
 def doctor_profile(request, doctor_id):

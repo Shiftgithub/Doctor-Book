@@ -9,6 +9,12 @@ def resend_otp_method(request):
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, message)
         return redirect('otp_form')
+<<<<<<< HEAD
+=======
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.INFO, message)
+        return redirect('login')
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
     elif operation_response.data.get('status') == 401:
         messages.add_message(request, messages.INFO, message)
         return redirect('login')

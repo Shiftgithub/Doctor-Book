@@ -156,9 +156,9 @@
                                 <h3>{{ data.name }}</h3>
                                 <p class="fst-italic">{{ data.description }}</p>
                             </div>
-                            <!-- <div class="col-lg-4 text-center order-1 order-lg-2">
+                            <div class="col-lg-4 text-center order-1 order-lg-2">
                               <img src="{% static 'landing_assets/img/departments-1.jpg' %}" alt="" class="img-fluid">
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
@@ -167,8 +167,8 @@
             {% else %}
             <div class="row alert alert-warning">
                 <h3>No Department Found</h3>
-                <br>
-                <a href="{% url 'landing_dashboard' %}"><i class="fas fa-arrow-left"></i> Go Back</a>
+<!--                <br>-->
+<!--                <a href="{% url 'landing_dashboard' %}"><i class="fas fa-arrow-left"></i> Go Back</a>-->
             </div>
             {% endif %}
         </div>
@@ -189,30 +189,5 @@
         waitUntilVisible: true,
         loop: true
     }).go();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 {% endblock %}

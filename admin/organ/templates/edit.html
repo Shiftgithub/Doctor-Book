@@ -12,10 +12,14 @@
                   novalidate>
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="specialtySelect" class="col-md-2 col-form-label">Body Part Name : <span
+                    <label for="bodyPartID" class="col-md-2 col-form-label">Body Part Name : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
+<<<<<<< HEAD
                         <select class="form-control select2" id="specialtySelect" name="body_part" required>
+=======
+                        <select class="form-control select2" id="bodyPartID" name="body_part" required>
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                             <option selected disabled value="">Select Body Part Name</option>
                             {% for item in bodypart_data %}
                             {% if item.name == organ_data.bodypart %}
@@ -73,6 +77,23 @@
                     form.classList.add('was-validated');
                 }, false);
         });
+<<<<<<< HEAD
+=======
+        $('#bodyPartID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in department_data %} {id: '{{ item.id }}', text: '{{ item.name }}'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
      });
 </script>
 {% endblock %}

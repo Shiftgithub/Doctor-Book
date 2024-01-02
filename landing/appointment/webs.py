@@ -164,7 +164,11 @@ def edit_appointment_form(request, appointment_id):
     patient_id = appointment_data['patient']
     response_patient_data = patient_data(request, patient_id)
     patient_all_data = response_patient_data.data
+<<<<<<< HEAD
     doctor_id = request.session['temp_doctor_id']
+=======
+    doctor_id = request.session['doctor_id']
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 
     days = generate_date(request, doctor_id)
 
@@ -219,6 +223,16 @@ def store_appointment_by_doctor(request):
     else:
         messages.add_message(request, messages.ERROR, 'Error in Request Send')
         return redirect('appointment_form')
+<<<<<<< HEAD
+=======
+
+
+def appointment_list_by_patient(request):
+    patient_id = request.session.get('patient_id')
+    response = get_all_appointment_by_patient(request, patient_id)
+    all_data = response.data
+    return render(request, 'patient/templates/appointment_list_all.html', {'all_data': all_data})
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 
 
 def go_home(request):

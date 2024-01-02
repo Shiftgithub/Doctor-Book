@@ -1,0 +1,82 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'adminlte_assets/data_tables/css/datatable.min.css' %}">
+<link rel="stylesheet" href="{% static 'adminlte_assets/data_tables/css/datatable_button.min.css' %}">
+<link rel="stylesheet" href="{% static 'adminlte_assets/data_tables/css/datatable_responsive.min.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">All Prediction</h1>
+        </div>
+        <div class="card-body">
+            <table id="bodyPartData" class="table table-sm table-bordered table-striped text-center">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Body Part Name</th>
+                    <th>Organ Name</th>
+                    <th>Department</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in prediction_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                     <td>{{ data.specifications.0.organ }}</td>
+                    <td>{{ data.specifications.0.organ }}</td>
+                    <td>{{ data.specifications.0.department }}</td>
+                    <td>
+                        <div class="btn-group dropleft">
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-bars"></i>
+                        </span>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item text-info"
+                                   href="{% url 'prediction_view' data.prediction_id %}">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- DataTables & Plugins -->
+<script src="{% static 'adminlte_assets/data_tables/js/datatable.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/data_tables/js/datatable_button.min.js' %}"></script>
+<script src="{% static 'adminlte_assets/data_tables/js/datatable_responsive.min.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#bodyPartData").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "order": false,
+            "buttons": ["copy", "csv", "excel", "print", "colvis"]
+        }).buttons().container().appendTo('#bodyPartData_wrapper .col-md-6:eq(0)');
+
+        $('#myModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var deleteURL = button.data('delete-url');
+            $('#deleteButtonID').click(function () {
+                console.log('deleteButtonID');
+                window.location.href = deleteURL;
+            });
+        });
+    });
+</script>
+{% endblock %}

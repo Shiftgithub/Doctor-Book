@@ -5,8 +5,13 @@ urlpatterns = [
     path('', include([
         path('ajax/', include('admin.ajax.urls')),
         path('article-', include('admin.article.urls')),
+<<<<<<< HEAD
         path('body-part/', include('admin.bodypart.urls')),
         path('dashboard/', include('admin.dashboard.urls')),
+=======
+        path('body-part-', include('admin.bodypart.urls')),
+        path('dashboard-', include('admin.dashboard.urls')),
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
         path('department-', include('admin.department.urls')),
         path('department-specification-', include('admin.department_speci.urls')),
         path('doctor-', include('admin.doctor.urls')),

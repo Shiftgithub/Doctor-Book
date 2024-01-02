@@ -273,8 +273,43 @@
 </div>
 {% endblock %}
 {% block scripts %}
+<<<<<<< HEAD
 <script src="{% static 'adminlte_assets/js/section-callbackjs' %}"></script>
 <script>
+=======
+<script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+        $('#boardID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+     });
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
     function previewImage(event) {
     var input = event.target;
     var imgElement = document.getElementById("preview");

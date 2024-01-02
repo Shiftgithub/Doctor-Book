@@ -1,18 +1,28 @@
 import socket
 import hashlib
+<<<<<<< HEAD
 from .models import *
 from .serializers import *
+=======
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 from django.db import transaction
 from django.utils import timezone
 from admin.doctor.serializers import *
 from rest_framework.response import Response
+<<<<<<< HEAD
 from rest_framework import status, serializers
+=======
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from admin.authentication.user.serializers import *
 from admin.authentication.login.views import set_user_info
 from admin.authentication.otp.function.send_otp import send_otp
+<<<<<<< HEAD
 from admin.authentication.otp.function.send_email import send_email
+=======
+from admin.authentication.otp.function.send_email import *
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 
 
 # doctor account create
@@ -64,8 +74,17 @@ def store_doctor_data(request):
                     email = ' - '.join(email_fields)
                     message = 'Message From Doctor-Book [Personalized Doctor Predictor]:\n\n' \
                               'Your username: ' + user_name + '\n' + 'Your password: ' + password
+<<<<<<< HEAD
                     # send_email(email, message)
                     return Response({'status': 200, 'message': 'Doctor data stored successfully'})
+=======
+                    sent_email = send_email(email, message)
+                    if sent_email:
+                        return Response({'status': 200, 'message': 'Doctor data stored successfully'})
+                    else:
+                        transaction.set_rollback(True)
+                        return Response({'status': 403, 'message': 'Error in sending mail. try again.'})
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                 else:
                     transaction.set_rollback(True)
                     return Response({'status': 403, 'message': 'Error in storing doctor data'})
@@ -113,7 +132,10 @@ def edit_doctor_data(request, doctor_id):
         doctor = get_object_or_404(DoctorProfile, id=doctor_id, deleted_at=None)
         if not doctor.user:
             return Response({'message': 'No associated user found', 'status': 404})
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
         else:
             doctor_serializer = DoctorSerializer(doctor, data=request.data, partial=True)
             image_instance = doctor.user.images.first()

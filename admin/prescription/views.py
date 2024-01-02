@@ -54,10 +54,14 @@ def store_prescription_data(request, doctor_id, user_id):
 
 
 @api_view(['GET'])
+<<<<<<< HEAD
 def get_all_medicine_prescriptions_list(request):
     user_id = request.session.get('user_id')
     doctor_profile = DoctorProfile.objects.filter(user_id=user_id).first()
     doctor_id = doctor_profile.id
+=======
+def get_all_medicine_prescriptions_list(request, doctor_id):
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
     medicines = PrescriptionForMedicine.objects.filter(deleted_at=None, doctor_profile=doctor_id).prefetch_related(
         'medicine_prescription').order_by('-id')
     serializer = PrescriptionForMedicineViewSerializer(instance=medicines, many=True)
@@ -67,6 +71,19 @@ def get_all_medicine_prescriptions_list(request):
 
 
 @api_view(['GET'])
+<<<<<<< HEAD
+=======
+def get_all_medicine_prescriptions_list_by_patient(request, patient_id):
+    medicines = PrescriptionForMedicine.objects.filter(deleted_at=None, patient_profile=patient_id).prefetch_related(
+        'medicine_prescription').order_by('-id')
+    serializer = PrescriptionForMedicineViewSerializer(instance=medicines, many=True)
+    serializer_data = serializer.data
+
+    return Response(serializer_data)
+
+
+@api_view(['GET'])
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 def get_medicine_prescription_by_id(request, prescription_id):
     medicine = PrescriptionForMedicine.objects.filter(id=prescription_id, deleted_at=None).prefetch_related(
         'medicine_prescription').get()
@@ -114,8 +131,21 @@ def store_lab_prescription_data(request, doctor_id, user_id):
 
 
 @api_view(['GET'])
+<<<<<<< HEAD
 def get_all_lab_test_prescriptions_list(request):
     lab_tests = PrescriptionForLabTest.objects.filter(deleted_at=None).prefetch_related(
+=======
+def get_all_lab_test_prescriptions_list(request, doctor_id):
+    lab_tests = PrescriptionForLabTest.objects.filter(deleted_at=None, doctor_profile=doctor_id).prefetch_related(
+        'prescription_lab').order_by('-id')
+    serializer_data = PrescriptionForLabTestViewSerializer(instance=lab_tests, many=True).data
+    return Response(serializer_data)
+
+
+@api_view(['GET'])
+def get_all_lab_test_prescriptions_list_by_patient(request, patient_id):
+    lab_tests = PrescriptionForLabTest.objects.filter(deleted_at=None, patient_profile=patient_id).prefetch_related(
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
         'prescription_lab').order_by('-id')
     serializer_data = PrescriptionForLabTestViewSerializer(instance=lab_tests, many=True).data
     return Response(serializer_data)
@@ -140,6 +170,7 @@ def count_medicine_prescription(request, doctor_id):
     # Get the PrescriptionForMedicine instances for the given doctor_id
     prescriptions_for_medicine = PrescriptionForMedicine.objects.filter(doctor_profile=doctor_id)
 
+<<<<<<< HEAD
     # Get the MedicinePrescription instances related to the prescriptions_for_medicine
     medicine_prescriptions = MedicinePrescription.objects.filter(prescription__in=prescriptions_for_medicine)
 
@@ -148,6 +179,11 @@ def count_medicine_prescription(request, doctor_id):
 
     # Serializing medicine_prescription_count
     serialized_data = {'medicine_prescription_count': medicine_prescription_count}
+=======
+    # Get the count of prescriptions_for_medicine
+    prescriptions_for_medicine_count = prescriptions_for_medicine.count()
+    serialized_data = {'prescriptions_for_medicine_count': prescriptions_for_medicine_count}
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 
     return Response(serialized_data)
 
@@ -157,6 +193,7 @@ def count_lab_prescription(request, doctor_id):
     # Get the PrescriptionForLabTest instances for the given doctor_id
     prescriptions_for_lab = PrescriptionForLabTest.objects.filter(doctor_profile=doctor_id)
 
+<<<<<<< HEAD
     # Get the LabTestPrescription instances related to the prescriptions_for_lab
     lab_prescriptions = LabTestPrescription.objects.filter(lab_prescription__in=prescriptions_for_lab)
 
@@ -165,6 +202,13 @@ def count_lab_prescription(request, doctor_id):
 
     # Serializing lab_prescription_count
     serialized_data = {'lab_prescription_count': lab_prescription_count}
+=======
+    # Get the count of lab_prescription
+    prescriptions_for_lab_count = prescriptions_for_lab.count()
+
+    # Serializing lab_prescription_count
+    serialized_data = {'prescriptions_for_lab_count': prescriptions_for_lab_count}
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 
     return Response(serialized_data)
 
@@ -192,20 +236,35 @@ def generate_barcode(request, registration):
     pil_image = Image.open(buffer)
 
     # Define the directory where you want to save the barcode image
+<<<<<<< HEAD
     barcode_image_directory = 'static/uploads/barcodes/'
+=======
+    barcode_image_directory = 'media/uploads/barcodes/'
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 
     # Create the directory if it does not exist
     os.makedirs(barcode_image_directory, exist_ok=True)
 
     # Define the path where you want to save the barcode image with the encrypted registration
+<<<<<<< HEAD
     barcode_image_path = os.path.join(barcode_image_directory, '{}.png'.format(truncated_encrypted_registration))
 
     # Save the PIL Image to the specified path
     pil_image.save(barcode_image_path, format='PNG')
+=======
+    save_barcode_image = os.path.join(barcode_image_directory, '{}.png'.format(truncated_encrypted_registration))
+    barcode_image_path = os.path.join('/', save_barcode_image)
+    # Save the PIL Image to the specified path
+    pil_image.save(save_barcode_image, format='PNG')
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 
     # Close the BytesIO buffer
     buffer.close()
 
     # Return the relative path to the generated barcode image without the 'static' prefix
+<<<<<<< HEAD
     relative_path = os.path.relpath(barcode_image_path, 'static')
+=======
+    relative_path = os.path.relpath(barcode_image_path)
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
     return relative_path

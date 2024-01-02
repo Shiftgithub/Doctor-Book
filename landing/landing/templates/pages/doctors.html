@@ -57,6 +57,10 @@
                             <a href="#"><i class="ri-linkedin-box-fill"></i></a>
                             {% endif %}
                         </div>
+                        <p>
+                            <a href="{% url 'date_time_form' data.id %}" class="btn btn-success btn-sm">Appointment</a>
+                            <a href="{% url 'doctor_profile' data.id %}" class="btn btn-info btn-sm">Profile</a>
+                        </p>
                     </div>
                 </div>
             </div>

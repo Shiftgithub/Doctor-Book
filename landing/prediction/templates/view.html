@@ -1,0 +1,57 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Prediction Details</h1>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Body Part Name:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ prediction_data.specifications.0.body_part.name }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Organ Name:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ prediction_data.specifications.0.organ }}" readonly/>
+                </div>
+            </div>
+            <hr>
+            {% for data in prediction_data.specifications %}
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Problem Name:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ data.problem }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Problem Specification:</label>
+                <div class="col-md-9">
+                    <textarea class="form-control" readonly rows="5"
+                              cols="30">{{ data.problem_specification }}</textarea>
+                </div>
+            </div>
+            {% endfor %}
+            <hr>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Department:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ prediction_data.specifications.0.department }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label font-weight-bold">Department Speci Description:</label>
+                <div class="col-md-9">
+                    <input class="form-control" value="{{ prediction_data.specifications.0.department_speci }}"
+                           readonly/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

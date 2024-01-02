@@ -8,7 +8,11 @@ urlpatterns = [
         include(
             [
                 path(
+<<<<<<< HEAD
                     'forge-pass/',
+=======
+                    'forge-pass-',
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                     include(
                         [
                             path('', forget_password_method, name='forget_password'),
@@ -17,7 +21,11 @@ urlpatterns = [
                     ),
                 ),
                 path(
+<<<<<<< HEAD
                     'change-password/',
+=======
+                    'change-password-',
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                     include(
                         [
                             path('', change_password_method, name='change_password'),
@@ -26,7 +34,11 @@ urlpatterns = [
                     ),
                 ),
                 path(
+<<<<<<< HEAD
                     'reset-password/',
+=======
+                    'reset-password-',
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                     include(
                         [
                             path('', protected_view(reset_password_method), name='store_new_password'),
@@ -35,7 +47,11 @@ urlpatterns = [
                     ),
                 ),
                 path(
+<<<<<<< HEAD
                     'change-email/',
+=======
+                    'change-email-',
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                     include(
                         [
                             path('', protected_view(change_email_method), name='store_new_email'),

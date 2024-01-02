@@ -71,7 +71,12 @@
                 </div>
             </div>
             <hr>
+<<<<<<< HEAD
             <form action="{% url 'edit_award' doctor_id %}" enctype="multipart/form-data" id="PostForm" method="POST">
+=======
+            <form action="{% url 'edit_award' doctor_id %}" enctype="multipart/form-data" id="PostForm" method="POST"
+                  class="needs-validation" novalidate>
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                 {% csrf_token %}
                 <div id="award-sections">
                     {% if doctor_data.awards %}
@@ -131,7 +136,11 @@
                             <label class="col-md-2 col-form-label">Awards :</label>
                             <div class="col-md-10">
                                 <input type="text" class="form-control" name="additional_awards[]"
+<<<<<<< HEAD
                                        placeholder="Not Provide" required/>
+=======
+                                       placeholder="Not Provide"/>
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -221,6 +230,25 @@
 {% block scripts %}
 <script src="{% static 'adminlte_assets/js/section-callback.js' %}"></script>
 <script>
+<<<<<<< HEAD
+=======
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
     function previewImage(event) {
     var input = event.target;
     var imgElement = document.getElementById("preview");

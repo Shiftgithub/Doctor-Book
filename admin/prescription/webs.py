@@ -38,16 +38,36 @@ def store_medicine_prescription(request):
         messages.add_message(request, messages.ERROR, message)
     else:
         messages.add_message(request, messages.ERROR, message)
+<<<<<<< HEAD
     return redirect('add_medicine_prescription_form')
 
 
 def medicine_prescription_data_view(request):
     response = get_all_medicine_prescriptions_list(request)
+=======
+    return redirect('medicine_prescription_form')
+
+
+def medicine_prescription_data_view(request):
+    doctor_id = request.session.get('doctor_id')
+    response = get_all_medicine_prescriptions_list(request, doctor_id)
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
     all_prescription_data = response.data
     data = {'all_prescription_data': all_prescription_data}
     return render(request, 'prescription/templates/medicine/list_all.html', data)
 
 
+<<<<<<< HEAD
+=======
+def medicine_prescription_data_view_by_patient(request):
+    patient_id = request.session.get('patient_id')
+    response = get_all_medicine_prescriptions_list_by_patient(request, patient_id)
+    all_prescription_data = response.data
+    data = {'all_prescription_data': all_prescription_data}
+    return render(request, 'prescription/templates/medicine/list_all_by_patient.html', data)
+
+
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 def view_medicine_prescription(request, prescription_id):
     response = get_medicine_prescription_by_id(request, prescription_id)
     prescription_data = response.data
@@ -63,9 +83,13 @@ def view_medicine_prescription(request, prescription_id):
     # Format the 'created_at' field with the desired format
     prescription_data['created_at'] = prescription_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
     data = {
+<<<<<<< HEAD
         # 'age': age,
         'prescription_data': prescription_data,
         # 'medicines_with_schedule': medicines_with_schedule,
+=======
+        'prescription_data': prescription_data,
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
         'prescription_id': prescription_id
     }
     return render(request, 'prescription/templates/medicine/view.html', data)
@@ -124,12 +148,30 @@ def store_lab_prescription(request):
 
 
 def lab_prescription_data_view(request):
+<<<<<<< HEAD
     response = get_all_lab_test_prescriptions_list(request)
     all_prescription_data = response.data
     data = {'all_prescription_data': all_prescription_data}
     return render(request, 'prescription/templates/labtest/list_all.html', data)
 
 
+=======
+    doctor_id = request.session.get('doctor_id')
+    response = get_all_lab_test_prescriptions_list(request, doctor_id)
+    all_prescription_data = response.data
+    data = {'all_prescription_data': all_prescription_data}
+    return render(request, 'prescription/templates/labtest/list_all_by_patient.html', data)
+
+
+def lab_prescription_data_view_by_patient(request):
+    patient_id = request.session.get('patient_id')
+    response = get_all_lab_test_prescriptions_list_by_patient(request, patient_id)
+    all_prescription_data = response.data
+    data = {'all_prescription_data': all_prescription_data}
+    return render(request, 'prescription/templates/labtest/list_all.html', data)
+
+
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 def view_lab_prescription(request, prescription_id):
     response = get_lab_prescription_by_id(request, prescription_id)
     prescription_data = response.data

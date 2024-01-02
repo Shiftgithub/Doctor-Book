@@ -30,6 +30,10 @@ def checking_authorization(request):
             if user.role == ROLE_ADMIN:
                 admin_info = AdminProfile.objects.get(user_id=user.id)
                 set_user_info(request, admin_info, user.id, user.email)
+<<<<<<< HEAD
+=======
+                request.session['admin_id'] = admin_info.id
+>>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
                 return Response({'status': 200, 'role': 'Admin', 'message': 'Login Successfully'})
             elif user.role == ROLE_DOCTOR:
                 doctor_info = DoctorProfile.objects.get(user_id=user.id)
