@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-from django.contrib import messages
-from django.shortcuts import redirect
-=======
 from django.urls import resolve
 from django.contrib import messages
 from django.shortcuts import redirect
 
->>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
 from admin.constants.constants import *
 
 
@@ -14,17 +9,6 @@ def protected_view(view_func):
     def wrapper(request, *args, **kwargs):
         if request.session.get('user_id'):
             role = request.session.get('user_role')
-<<<<<<< HEAD
-            if role == ROLE_ADMIN:
-                # Logic for admin role
-                return view_func(request, *args, **kwargs)
-            elif role == ROLE_DOCTOR:
-                # Logic for doctor role
-                return view_func(request, *args, **kwargs)
-            elif role == ROLE_PATIENT:
-                # Logic for patient role
-                return view_func(request, *args, **kwargs)
-=======
             requested_path = resolve(request.path_info).url_name
             if role == ROLE_ADMIN:
                 routes = [
@@ -295,7 +279,6 @@ def protected_view(view_func):
                 else:
                     return redirect('patient_dashboard')
 
->>>>>>> 0a0d8f532772ef8919a2217788d4c6179800016c
             else:
                 # Unauthorized role, show an error message
                 messages.add_message(request, messages.ERROR, "You are not authorized to access this page")
