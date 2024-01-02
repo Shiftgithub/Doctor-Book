@@ -117,6 +117,63 @@
                     form.classList.add('was-validated');
                 }, false);
         });
+        // Initialize select2 with search box for problem dropdown
+        $('#brandNameID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+         $('#genericNameID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+        $('#medicineTypeID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+        $('#strengthID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
      });
 </script>
 {% endblock %}

@@ -69,9 +69,8 @@
                 <div class="row mb-3">
                     <div class="col-md-2"></div>
                     <div class="col-md-10">
-                        <button type="button"
-                                class="btn btn-sm btn-primary add-specification-section float-right">Add
-                            More
+                        <button type="button" class="btn btn-sm btn-primary add-specification-section float-right">
+                            Add More
                         </button>
                     </div>
                 </div>
@@ -148,6 +147,34 @@
                     }
                     form.classList.add('was-validated');
                 }, false);
+        });
+        $('#bodyPartID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+        $('#organID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
         });
      });
 </script>

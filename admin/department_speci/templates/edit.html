@@ -12,9 +12,9 @@
                   method="POST" class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="departmentID" class="col-md-3 col-form-label">Department Name : <span
+                    <label for="departmentID" class="col-md-2 col-form-label">Department Name : <span
                             class="text-danger">*</span></label>
-                    <div class="col-md-9">
+                    <div class="col-md-10">
                         <select class="form-control select2" id="departmentID" name="department" required>
                             <option selected disabled value="">Select Department Name</option>
                             {% for item in department_data %}
@@ -29,9 +29,9 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="problemSpecificationID" class="col-md-3 col-form-label">Problem : <span
+                    <label for="problemSpecificationID" class="col-md-2 col-form-label">Problem : <span
                             class="text-danger">*</span></label>
-                    <div class="col-md-9">
+                    <div class="col-md-10">
                         <select class="form-control select2" id="problemSpecificationID"
                                 name="organ_problem_specification" required>
                             <option selected disabled value="">Select Problem</option>
@@ -49,8 +49,8 @@
                 <hr>
                 <!-- Add form fields here -->
                 <div class="row mb-3">
-                    <label for="descriptionID" class="col-md-3 col-form-label">Description : </label>
-                    <div class="col-md-9">
+                    <label for="descriptionID" class="col-md-2 col-form-label">Description : </label>
+                    <div class="col-md-10">
                         <textarea name="description" id="descriptionID" class="form-control" cols="30" rows="10"
                                   required>{{ department_specification_data.description }}</textarea>
                         <div class="invalid-feedback">Please enter a description name.</div>
@@ -79,6 +79,37 @@
                     }
                     form.classList.add('was-validated');
                 }, false);
+        });
+        // Initialize select2 with search box for department dropdown
+        $('#departmentID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in department_data %} {id: '{{ item.id }}', text: '{{ item.name }}'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+
+        // Initialize select2 with search box for problem dropdown
+        $('#problemSpecificationID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
         });
      });
 </script>
