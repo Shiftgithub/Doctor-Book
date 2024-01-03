@@ -6,6 +6,9 @@
     #doctors {
         background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
     }
+    .biography-text {
+        text-align: justify;
+    }
 </style>
 {% endblock %}
 {% block content %}
@@ -28,7 +31,7 @@
                     Department : {{ doctor_data.department }}
                 </div>
                 <div class="mt-4">
-                    <p>{{ doctor_data.biography }}</p>
+                    <p class="biography-text">{{ doctor_data.biography }}</p>
                 </div>
             </div>
         </div>

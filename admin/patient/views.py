@@ -38,7 +38,7 @@ def store_patient_data(request):
 
         token_str = generate_token(6)
 
-        message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
+        message = f'Your OTP number is: {token_str}'
         otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
         otp_serializer.save()
         sent_email = send_email(email, message)
