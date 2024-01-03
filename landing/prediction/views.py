@@ -132,7 +132,7 @@ def prediction(request):
                                 problem_specification=problem_spec,
                                 accuracy=accuracy,
                             )
-                            save_matplotlib_image(features, labels,spec_obj, predicted_department_id, accuracy)
+                            save_matplotlib_image(features, labels, spec_obj, predicted_department_id, accuracy)
 
                             spec_objs.append(spec_obj)
                         except OrgansProblemSpecification.DoesNotExist:
@@ -279,7 +279,10 @@ def prediction_data_view(request, prediction_id):
 
 def save_prediction_to_csv(dataset):
     # Define the file path where you want to save the CSV file
-    file_path = os.path.join(settings.MEDIA_ROOT, 'prediction_data.csv')
+    dataset_directory = 'media/uploads/dataset/'
+    # Create the directory if it does not exist
+    os.makedirs(dataset_directory, exist_ok=True)
+    file_path = os.path.join(dataset_directory, 'prediction_data.csv')
 
     # Create a CSV writer and write the header
     with open(file_path, 'w', newline='', encoding='utf-8') as csv_file:
@@ -303,7 +306,7 @@ def save_prediction_to_csv(dataset):
     return file_path
 
 
-def save_matplotlib_image(features, labels,spec_obj, predicted_department_id, accuracy):
+def save_matplotlib_image(features, labels, spec_obj, predicted_department_id, accuracy):
     # Convert numerical values to strings
     feature_values = [str(value) for value in features]
 
@@ -331,9 +334,11 @@ def save_matplotlib_image(features, labels,spec_obj, predicted_department_id, ac
                     xytext=(0, 3),  # 3 points vertical offset
                     textcoords="offset points",
                     ha='center', va='bottom')
-    path = 'media/uploads/prediction_graph/'
+    graph_image_directory = 'media/uploads/graphs/'
+    # Create the directory if it does not exist
+    os.makedirs(graph_image_directory, exist_ok=True)
     # Save the figure to the media folder
-    image_path = os.path.join(path, '{}.png'.format(spec_obj))
+    image_path = os.path.join(graph_image_directory, '{}.png'.format(spec_obj))
     plt.savefig(image_path)
 
     return image_path
