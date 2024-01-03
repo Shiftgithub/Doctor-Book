@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\media\uploads\dataset\prediction_raw_data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\media\uploads\prediction_data.csv">
           <value>
             <Attribute>

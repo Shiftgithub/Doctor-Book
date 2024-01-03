@@ -513,3 +513,18 @@ def get_all_doctors_list_for_landing(request):
     # Serialize the data using the combined serializer
     serializer = DoctorViewForLandingSerializer(doctors, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_all_doctors_list_for_landing_by_id(request, doctor_id):
+    # Fetch all doctor profiles along with related fields
+    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+        'user', 'gender', 'religion', 'blood_group', 'matrimony', 'department'
+    ).prefetch_related(
+        'awards', 'appointment_schedules', 'education', 'social_media',
+        'user__images', 'user__present_address', 'user__permanent_address',
+
+    )
+    # Serialize the data using the combined serializer
+    serializer = DoctorViewForLandingSerializer(doctors, many=True)
+    return Response(serializer.data)

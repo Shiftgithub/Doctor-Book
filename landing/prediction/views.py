@@ -58,6 +58,7 @@ def prediction(request):
 
         prediction_list = get_all_prediction_list(request)
         save_prediction_to_csv(prediction_list)
+        save_raw_prediction_data_to_csv(prediction_list)
 
         if department_specifications.exists():
             department_ids = department_specifications.values_list('department', flat=True)
@@ -175,9 +176,14 @@ def get_all_prediction_list(request):
             'training_data': [
                 {
                     'body_part_id': prediction.body_part_id,
+                    'body_part_name': prediction.body_part.name,
                     'organ_id': prediction.organ_id,
+                    'organ_name': prediction.organ.name,
                     'problem_id': spec.problem_specification.id,
+                    'problem_name': spec.problem_specification.problem,
+                    'problem_specification_name': spec.problem_specification.problem_specification,
                     'department_speci_id': prediction.department_speci.id,
+                    'description': prediction.department_speci.description,
                     'department_id': prediction.department.id,
                 }
                 for spec in prediction.specification.all()
@@ -185,6 +191,7 @@ def get_all_prediction_list(request):
         }
         for prediction in predictions
     ]
+    print(predictions_data)
 
     # Assuming you have a serializer for this specific query
     serializer = PredictionDataViewSerializer(data=predictions_data, many=True)
@@ -300,6 +307,34 @@ def save_prediction_to_csv(dataset):
                     obj['problem_id'],
                     obj['department_speci_id'],
                     obj['department_id'],
+                ])
+
+    # Return the file path (optional)
+    return file_path
+
+
+def save_raw_prediction_data_to_csv(dataset):
+    # Define the file path where you want to save the CSV file
+    dataset_directory = 'media/uploads/dataset/'
+    # Create the directory if it does not exist
+    os.makedirs(dataset_directory, exist_ok=True)
+    file_path = os.path.join(dataset_directory, 'prediction_raw_data.csv')
+
+    # Create a CSV writer and write the header
+    with open(file_path, 'w', newline='', encoding='utf-8') as csv_file:
+        csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(
+            ['Body Part Name', 'Organ Name', 'Problem Name', 'Problem Specification Name','Description'])
+
+        # Write data to the CSV file
+        for objs in dataset:
+            for obj in objs['training_data']:
+                csv_writer.writerow([
+                    obj['body_part_name'],
+                    obj['organ_name'],
+                    obj['problem_name'],
+                    obj['problem_specification_name'],
+                    obj['description'],
                 ])
 
     # Return the file path (optional)

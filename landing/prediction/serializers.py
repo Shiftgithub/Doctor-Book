@@ -70,9 +70,14 @@ class PredictionViewSerializer(serializers.Serializer):
 
 class PredictionDataSerializer(serializers.Serializer):
     body_part_id = serializers.IntegerField()
+    body_part_name = serializers.CharField()
     organ_id = serializers.IntegerField()
+    organ_name = serializers.CharField()
     problem_id = serializers.IntegerField()
+    problem_name = serializers.CharField()
+    problem_specification_name = serializers.CharField()
     department_speci_id = serializers.IntegerField()
+    description = serializers.CharField()
     department_id = serializers.IntegerField()
 
 
