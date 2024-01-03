@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 
 from .serializers import *
 from .models import Prediction
-from django.conf import settings
 from admin.organ.models import Organ
 from admin.bodypart.models import BodyPart
 from rest_framework.response import Response
@@ -191,8 +190,6 @@ def get_all_prediction_list(request):
         }
         for prediction in predictions
     ]
-    print(predictions_data)
-
     # Assuming you have a serializer for this specific query
     serializer = PredictionDataViewSerializer(data=predictions_data, many=True)
     serializer.is_valid()
@@ -324,7 +321,7 @@ def save_raw_prediction_data_to_csv(dataset):
     with open(file_path, 'w', newline='', encoding='utf-8') as csv_file:
         csv_writer = csv.writer(csv_file)
         csv_writer.writerow(
-            ['Body Part Name', 'Organ Name', 'Problem Name', 'Problem Specification Name','Description'])
+            ['Body Part Name', 'Organ Name', 'Problem Name', 'Problem Specification Name', 'Description'])
 
         # Write data to the CSV file
         for objs in dataset:

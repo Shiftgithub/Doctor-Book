@@ -9,22 +9,22 @@ from admin.doctor.views import get_all_doctors_list_for_landing, doctor_data, ge
 
 def landing_dashboard(request):
     response = get_all_departments_list(request)
-    all_data = response.data
+    all_department_data = response.data
+    print(all_department_data)
 
     department_response = count_department(request)
-    department_data = department_response.data
-
+    department_count_data = department_response.data
     doctor_response = count_doctor(request)
-    doctor_data = doctor_response.data
+    doctor_count_data = doctor_response.data
 
     patient_response = count_patient(request)
-    patient_data = patient_response.data
+    patient_count_data = patient_response.data
 
     data = {
-        'all_data': all_data,
-        'department_data': department_data,
-        'doctor_data': doctor_data,
-        'patient_data': patient_data
+        'all_department_data': all_department_data,
+        'department_data': department_count_data,
+        'doctor_data': doctor_count_data,
+        'patient_data': patient_count_data
     }
 
     return render(request, 'landing/templates/pages/home.html', data)

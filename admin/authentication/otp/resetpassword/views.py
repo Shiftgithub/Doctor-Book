@@ -59,7 +59,7 @@ def change_password(request):
             )
             if user_serializer.is_valid():
                 user_serializer.save()
-                message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour password changed successfully'
+                message = 'Your password changed successfully'
                 send_email(email, message)
                 response = {'status': 200, 'email': email,
                             'message': 'Your Account Password Changed Successfully.'

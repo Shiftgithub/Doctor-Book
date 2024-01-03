@@ -13,10 +13,10 @@
                   method="POST" class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="row mb-3">
-                    <label for="specialtySelect" class="col-md-2 col-form-label">Organ Name : <span
+                    <label for="organID" class="col-md-2 col-form-label">Organ Name : <span
                             class="text-danger">*</span></label>
                     <div class="col-md-10">
-                        <select class="form-control select2" id="specialtySelect" name="organ" required>
+                        <select class="form-control select2" id="organID" name="organ" required>
                             <option selected>Select Organ Name</option>
                             {% for item in organ_data %}
                             {% if item.name == organ_problem_specification_data.organ %}
@@ -72,6 +72,20 @@
                     }
                     form.classList.add('was-validated');
                 }, false);
+        });
+        $('#organID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
         });
      });
 </script>

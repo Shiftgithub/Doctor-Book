@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2023 at 03:59 PM
+-- Generation Time: Jan 04, 2024 at 05:02 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -52,7 +52,7 @@ CREATE TABLE `admin_profile` (
 --
 
 INSERT INTO `admin_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `full_name`, `father_name`, `mother_name`, `phone_no`, `date_of_birth`, `nid_no`, `address`, `blood_group_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
-(1, '2023-12-07 12:18:02.748089', NULL, NULL, 'Ursula Sampson', 'Serina Prince', 'Audra Terry', '+1 (885) 983-1482', '1990-03-09', 61, 'Est quasi laborum mo', 5, 3, 3, 2, 1);
+(1, '2024-01-03 12:26:15.132840', NULL, NULL, 'Mamun Mia', 'Kasem Ali', 'Hasina Begum', '+8801965572363', '2001-07-22', 1234567890, 'Dhaka , Narayanganj, Rupganj , Borpa , Dokkhin Masabo', 5, 1, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -154,34 +154,34 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (38, 'Can change department specification', 10, 'change_departmentspecification'),
 (39, 'Can delete department specification', 10, 'delete_departmentspecification'),
 (40, 'Can view department specification', 10, 'view_departmentspecification'),
-(41, 'Can add appointment schedule', 11, 'add_appointmentschedule'),
-(42, 'Can change appointment schedule', 11, 'change_appointmentschedule'),
-(43, 'Can delete appointment schedule', 11, 'delete_appointmentschedule'),
-(44, 'Can view appointment schedule', 11, 'view_appointmentschedule'),
-(45, 'Can add doctor profile', 12, 'add_doctorprofile'),
-(46, 'Can change doctor profile', 12, 'change_doctorprofile'),
-(47, 'Can delete doctor profile', 12, 'delete_doctorprofile'),
-(48, 'Can view doctor profile', 12, 'view_doctorprofile'),
-(49, 'Can add social media', 13, 'add_socialmedia'),
-(50, 'Can change social media', 13, 'change_socialmedia'),
-(51, 'Can delete social media', 13, 'delete_socialmedia'),
-(52, 'Can view social media', 13, 'view_socialmedia'),
-(53, 'Can add schedule time', 14, 'add_scheduletime'),
-(54, 'Can change schedule time', 14, 'change_scheduletime'),
-(55, 'Can delete schedule time', 14, 'delete_scheduletime'),
-(56, 'Can view schedule time', 14, 'view_scheduletime'),
+(41, 'Can add doctor profile', 11, 'add_doctorprofile'),
+(42, 'Can change doctor profile', 11, 'change_doctorprofile'),
+(43, 'Can delete doctor profile', 11, 'delete_doctorprofile'),
+(44, 'Can view doctor profile', 11, 'view_doctorprofile'),
+(45, 'Can add awards', 12, 'add_awards'),
+(46, 'Can change awards', 12, 'change_awards'),
+(47, 'Can delete awards', 12, 'delete_awards'),
+(48, 'Can view awards', 12, 'view_awards'),
+(49, 'Can add appointment schedule', 13, 'add_appointmentschedule'),
+(50, 'Can change appointment schedule', 13, 'change_appointmentschedule'),
+(51, 'Can delete appointment schedule', 13, 'delete_appointmentschedule'),
+(52, 'Can view appointment schedule', 13, 'view_appointmentschedule'),
+(53, 'Can add education', 14, 'add_education'),
+(54, 'Can change education', 14, 'change_education'),
+(55, 'Can delete education', 14, 'delete_education'),
+(56, 'Can view education', 14, 'view_education'),
 (57, 'Can add off day', 15, 'add_offday'),
 (58, 'Can change off day', 15, 'change_offday'),
 (59, 'Can delete off day', 15, 'delete_offday'),
 (60, 'Can view off day', 15, 'view_offday'),
-(61, 'Can add education', 16, 'add_education'),
-(62, 'Can change education', 16, 'change_education'),
-(63, 'Can delete education', 16, 'delete_education'),
-(64, 'Can view education', 16, 'view_education'),
-(65, 'Can add awards', 17, 'add_awards'),
-(66, 'Can change awards', 17, 'change_awards'),
-(67, 'Can delete awards', 17, 'delete_awards'),
-(68, 'Can view awards', 17, 'view_awards'),
+(61, 'Can add schedule time', 16, 'add_scheduletime'),
+(62, 'Can change schedule time', 16, 'change_scheduletime'),
+(63, 'Can delete schedule time', 16, 'delete_scheduletime'),
+(64, 'Can view schedule time', 16, 'view_scheduletime'),
+(65, 'Can add social media', 17, 'add_socialmedia'),
+(66, 'Can change social media', 17, 'change_socialmedia'),
+(67, 'Can delete social media', 17, 'delete_socialmedia'),
+(68, 'Can view social media', 17, 'view_socialmedia'),
 (69, 'Can add faq', 18, 'add_faq'),
 (70, 'Can change faq', 18, 'change_faq'),
 (71, 'Can delete faq', 18, 'delete_faq'),
@@ -238,46 +238,46 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (122, 'Can change day', 31, 'change_day'),
 (123, 'Can delete day', 31, 'delete_day'),
 (124, 'Can view day', 31, 'view_day'),
-(125, 'Can add district', 32, 'add_district'),
-(126, 'Can change district', 32, 'change_district'),
-(127, 'Can delete district', 32, 'delete_district'),
-(128, 'Can view district', 32, 'view_district'),
-(129, 'Can add division', 33, 'add_division'),
-(130, 'Can change division', 33, 'change_division'),
-(131, 'Can delete division', 33, 'delete_division'),
-(132, 'Can view division', 33, 'view_division'),
-(133, 'Can add gender', 34, 'add_gender'),
-(134, 'Can change gender', 34, 'change_gender'),
-(135, 'Can delete gender', 34, 'delete_gender'),
-(136, 'Can view gender', 34, 'view_gender'),
-(137, 'Can add matrimony', 35, 'add_matrimony'),
-(138, 'Can change matrimony', 35, 'change_matrimony'),
-(139, 'Can delete matrimony', 35, 'delete_matrimony'),
-(140, 'Can view matrimony', 35, 'view_matrimony'),
-(141, 'Can add religion', 36, 'add_religion'),
-(142, 'Can change religion', 36, 'change_religion'),
-(143, 'Can delete religion', 36, 'delete_religion'),
-(144, 'Can view religion', 36, 'view_religion'),
+(125, 'Can add division', 32, 'add_division'),
+(126, 'Can change division', 32, 'change_division'),
+(127, 'Can delete division', 32, 'delete_division'),
+(128, 'Can view division', 32, 'view_division'),
+(129, 'Can add gender', 33, 'add_gender'),
+(130, 'Can change gender', 33, 'change_gender'),
+(131, 'Can delete gender', 33, 'delete_gender'),
+(132, 'Can view gender', 33, 'view_gender'),
+(133, 'Can add matrimony', 34, 'add_matrimony'),
+(134, 'Can change matrimony', 34, 'change_matrimony'),
+(135, 'Can delete matrimony', 34, 'delete_matrimony'),
+(136, 'Can view matrimony', 34, 'view_matrimony'),
+(137, 'Can add religion', 35, 'add_religion'),
+(138, 'Can change religion', 35, 'change_religion'),
+(139, 'Can delete religion', 35, 'delete_religion'),
+(140, 'Can view religion', 35, 'view_religion'),
+(141, 'Can add district', 36, 'add_district'),
+(142, 'Can change district', 36, 'change_district'),
+(143, 'Can delete district', 36, 'delete_district'),
+(144, 'Can view district', 36, 'view_district'),
 (145, 'Can add upazila', 37, 'add_upazila'),
 (146, 'Can change upazila', 37, 'change_upazila'),
 (147, 'Can delete upazila', 37, 'delete_upazila'),
 (148, 'Can view upazila', 37, 'view_upazila'),
-(149, 'Can add prescription for medicine', 38, 'add_prescriptionformedicine'),
-(150, 'Can change prescription for medicine', 38, 'change_prescriptionformedicine'),
-(151, 'Can delete prescription for medicine', 38, 'delete_prescriptionformedicine'),
-(152, 'Can view prescription for medicine', 38, 'view_prescriptionformedicine'),
-(153, 'Can add prescription for lab test', 39, 'add_prescriptionforlabtest'),
-(154, 'Can change prescription for lab test', 39, 'change_prescriptionforlabtest'),
-(155, 'Can delete prescription for lab test', 39, 'delete_prescriptionforlabtest'),
-(156, 'Can view prescription for lab test', 39, 'view_prescriptionforlabtest'),
-(157, 'Can add medicine prescription', 40, 'add_medicineprescription'),
-(158, 'Can change medicine prescription', 40, 'change_medicineprescription'),
-(159, 'Can delete medicine prescription', 40, 'delete_medicineprescription'),
-(160, 'Can view medicine prescription', 40, 'view_medicineprescription'),
-(161, 'Can add lab test prescription', 41, 'add_labtestprescription'),
-(162, 'Can change lab test prescription', 41, 'change_labtestprescription'),
-(163, 'Can delete lab test prescription', 41, 'delete_labtestprescription'),
-(164, 'Can view lab test prescription', 41, 'view_labtestprescription'),
+(149, 'Can add prescription for lab test', 38, 'add_prescriptionforlabtest'),
+(150, 'Can change prescription for lab test', 38, 'change_prescriptionforlabtest'),
+(151, 'Can delete prescription for lab test', 38, 'delete_prescriptionforlabtest'),
+(152, 'Can view prescription for lab test', 38, 'view_prescriptionforlabtest'),
+(153, 'Can add lab test prescription', 39, 'add_labtestprescription'),
+(154, 'Can change lab test prescription', 39, 'change_labtestprescription'),
+(155, 'Can delete lab test prescription', 39, 'delete_labtestprescription'),
+(156, 'Can view lab test prescription', 39, 'view_labtestprescription'),
+(157, 'Can add prescription for medicine', 40, 'add_prescriptionformedicine'),
+(158, 'Can change prescription for medicine', 40, 'change_prescriptionformedicine'),
+(159, 'Can delete prescription for medicine', 40, 'delete_prescriptionformedicine'),
+(160, 'Can view prescription for medicine', 40, 'view_prescriptionformedicine'),
+(161, 'Can add medicine prescription', 41, 'add_medicineprescription'),
+(162, 'Can change medicine prescription', 41, 'change_medicineprescription'),
+(163, 'Can delete medicine prescription', 41, 'delete_medicineprescription'),
+(164, 'Can view medicine prescription', 41, 'view_medicineprescription'),
 (165, 'Can add user', 42, 'add_user'),
 (166, 'Can change user', 42, 'change_user'),
 (167, 'Can delete user', 42, 'delete_user'),
@@ -309,7 +309,11 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (193, 'Can add prediction', 49, 'add_prediction'),
 (194, 'Can change prediction', 49, 'change_prediction'),
 (195, 'Can delete prediction', 49, 'delete_prediction'),
-(196, 'Can view prediction', 49, 'view_prediction');
+(196, 'Can view prediction', 49, 'view_prediction'),
+(197, 'Can add specification', 50, 'add_specification'),
+(198, 'Can change specification', 50, 'change_specification'),
+(199, 'Can delete specification', 50, 'delete_specification'),
+(200, 'Can view specification', 50, 'view_specification');
 
 -- --------------------------------------------------------
 
@@ -431,10 +435,10 @@ CREATE TABLE `body_part` (
 INSERT INTO `body_part` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`, `description`) VALUES
 (1, '2023-08-16 16:18:47.181475', NULL, NULL, 'Head (মাথা)', 'This includes the skull, brain, eyes, ears, nose, and mouth. (এটি ক্রানিয়াম, মস্তিষ্ক, চোখ, কান, নাক এবং মুখ অন্তর্ভুক্ত।)'),
 (2, '2023-08-16 16:19:05.773641', NULL, NULL, 'Neck (গলা)', 'Connects the head to the rest of the body and contains important structures like the throat and neck muscles. (মাথা থেকে বাকি শরীরে যোগ করে এবং গলায় মহত্তম ধরনে গঠিত হতে থাকে, যেখানে জিবক এবং গলা মাংস অবস্থিত থাকে।)'),
-(3, '2023-08-16 16:19:22.580351', NULL, NULL, 'Torso or Trunk (বডি বা ট্রাঙ্ক)', 'This is the main part of the body, consisting of the chest, abdomen, and back. (এটি শরীরের প্রধান অংশ, যা বুক, পেট এবং পিঠ অন্তর্ভুক্ত।)'),
+(3, '2023-08-16 16:19:22.580351', NULL, NULL, 'Thorax (থোরেক্স)', 'This is the main part of the body, consisting of the chest, abdomen, and back. (এটি শরীরের প্রধান অংশ, যা বুক, পেট এবং পিঠ অন্তর্ভুক্ত।)'),
 (4, '2023-08-16 16:19:37.531450', NULL, NULL, 'Upper Limbs (উপরের অংশ)', 'These are the arms and hands, including the shoulder, upper arm, forearm, wrist, and fingers. (এটি হাত এবং হাতের অংশ, যেমন মাংস পিছন দিক, উপরোক্ত বাহু, উপরোক্ত হাত এবং আঙ্গুল অন্তর্ভুক্ত।)'),
 (5, '2023-08-16 16:20:04.756456', NULL, NULL, 'Lower Limbs (নিচের অংশ)', 'These are the legs and feet, including the hip, thigh, lower leg, ankle, and toes. (এটি পা এবং পায়ের অংশ, যেমন কোমর, পায়ের উপরোক্ত অংশ, পায়ের নিচু অংশ এবং পায়ের আঙ্গুল অন্তর্ভুক্ত।)'),
-(6, '2023-08-16 16:20:15.903351', NULL, NULL, 'Thorax (থোরেক্স)', 'The area between the neck and abdomen, housing important organs like the heart and lungs. (মাথা এবং পেটের মধ্যবর্তী অংশ, যেখানে হৃদয় এবং ফুসফুস প্রধান অঙ্গ।)'),
+(6, '2023-08-16 16:20:15.903351', NULL, NULL, 'Torso or Trunk (বডি বা ট্রাঙ্ক)', 'The area between the neck and abdomen, housing important organs like the heart and lungs. (মাথা এবং পেটের মধ্যবর্তী অংশ, যেখানে হৃদয় এবং ফুসফুস প্রধান অঙ্গ।)'),
 (7, '2023-08-16 16:20:48.681571', NULL, NULL, 'Abdomen (পেট)', 'The area between the thorax and pelvis, containing organs such as the stomach, liver, intestines, and kidneys. (থোরেক্স এবং কোমরের মধ্যের অংশ, যেখানে পাচক অবয়ব সহ অন্যান্য গুরুত্বপূর্ণ অঙ্গ অবস্থিত।)'),
 (8, '2023-08-16 16:21:00.335954', NULL, NULL, 'Pelvis (প্যালভিস)', 'The bony structure at the base of the spine, supporting the lower part of the body and containing the reproductive organs and bladder. (মেডোয়ের স্ত্রী জননী অঙ্গ এবং মূত্রবাহিনী অন্তর্ভুক্ত এই হল কোণিকা ধারণ করে, যা শরীরের তলদিকে অবস্থিত।)'),
 (9, '2023-08-16 16:21:13.260970', NULL, NULL, 'Back (পিঠ)', 'The posterior aspect of the body, including the spine and associated muscles. (শরীরের পশ্চিমাংশ, স্পাইন এবং সহযোগী মাংস অন্তর্ভুক্ত।)'),
@@ -487,25 +491,33 @@ CREATE TABLE `department` (
 --
 
 INSERT INTO `department` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`, `description`, `image`) VALUES
-(1, '2023-06-27 15:31:23.024744', NULL, NULL, 'Cardiology', 'Cardiology is the study of the heart. Cardiology is a branch of medicine that deals with disorders of the heart and the cardiovascular system. The field includes medical diagnosis and treatment of congenital heart defects, coronary artery disease, heart failure, valvular heart disease, and electrophysiology', NULL),
-(2, '2023-06-27 15:31:51.912129', NULL, NULL, 'Radiology', 'Radiology is the medical discipline that uses medical imaging to diagnose diseases and guide their treatment, within the bodies of humans and other animals', NULL),
-(3, '2023-06-27 15:37:36.134056', NULL, NULL, 'Orthopedic', 'Orthopedic surgery or orthopedics, is the branch of surgery concerned with conditions involving the musculoskeletal system. Orthopedic surgeons use both surgical and nonsurgical means to treat musculoskeletal trauma, spine diseases, sports injuries, degenerative diseases, infections, tumors, and congenital disorders', NULL),
-(4, '2023-06-27 15:37:56.654819', NULL, NULL, 'Neurology', 'Neurology is the branch of medicine dealing with the diagnosis and treatment of all categories of conditions and disease involving the nervous system, which comprises the brain, the spinal cord and the peripheral nerves', NULL),
-(5, '2023-06-27 15:38:29.445529', NULL, NULL, 'Intensive care medicine', 'Intensive care medicine, also called critical care medicine, is a medical specialty that deals with seriously or critically ill patients who have, are at risk of, or are recovering from conditions that may be life-threatening.', NULL),
-(6, '2023-06-27 15:38:52.349986', NULL, NULL, 'Gastroenterology', 'Gastroenterology is the branch of medicine focused on the digestive system and its disorders. The digestive system consists of the gastrointestinal tract, sometimes referred to as the GI tract', NULL),
-(7, '2023-06-27 15:39:16.256063', NULL, NULL, 'Outpatient Department', 'An outpatient department or outpatient clinic is the part of a hospital designed for the treatment of outpatients, people with health problems who visit the hospital for diagnosis or treatment, but do not at this time require a bed or to be admitted for overnight care', NULL),
-(8, '2023-06-27 15:39:40.515379', NULL, NULL, 'Obstetrics and Gynaecology', 'Obstetrics and Gynaecology is the medical specialty that encompasses the two subspecialties of obstetrics and gynecology.', NULL),
-(9, '2023-06-27 15:39:57.423909', NULL, NULL, 'Otolaryngology', 'Otolaryngology logy is a surgical sub speciality within medicine that deals with the surgical and medical management of conditions of the head and neck. Doctors who specialize in this area are called otorhinolaryngologists, otolaryngologists, head and neck surgeons, or ENT surgeons or physicians', NULL),
-(10, '2023-06-27 15:40:39.684386', NULL, NULL, 'Anesthesiology', 'Anesthesiology, anaesthesiology, or anaesthesia is the medical specialty concerned with the total perioperative care of patients before, during and after surgery. It encompasses anesthesia, intensive care medicine, critical emergency medicine, and pain medicine.', NULL),
-(11, '2023-06-27 15:40:58.618505', NULL, NULL, 'Hematology', 'Hematology is the branch of medicine concerned with the study of the cause, prognosis, treatment, and prevention of diseases related to blood.', NULL),
-(12, '2023-06-27 15:41:23.975982', NULL, NULL, 'Casualty department', 'An emergency department, also known as an accident and emergency department, emergency room, emergency ward or casualty department, is a medical treatment facility specializing in emergency medicine, the acute care of patients who present without prior appointment; either by their own means or by that of an ambulance', NULL),
-(13, '2023-06-27 15:41:36.877078', NULL, NULL, 'Geriatrics', 'Geriatrics, or geriatric medicine, is a medical specialty focused on providing care for the unique health needs of older adults. The term geriatrics originates from the Greek γέρων geron meaning \"old man\", and ιατρός iatros meaning \"healer\".', NULL),
-(14, '2023-06-27 15:41:53.719358', NULL, NULL, 'ICU', 'An intensive care unit, also known as an intensive therapy unit or intensive treatment unit or critical care unit, is a special department of a hospital or health care facility that provides intensive care medicine', NULL),
-(15, '2023-06-27 15:42:26.252353', NULL, NULL, 'Coronary care unit', 'A coronary care unit or cardiac intensive care unit is a hospital ward specialized in the care of patients with heart attacks, unstable angina, cardiac dysrhythmia and various other cardiac conditions that require continuous monitoring and treatment', NULL),
-(16, '2023-06-27 15:42:42.684938', NULL, NULL, 'Unit of measurement', 'A unit of measurement is a definite magnitude of a quantity, defined and adopted by convention or by law, that is used as a standard for measurement of the same kind of quantity. Any other quantity of that kind can be expressed as a multiple of the unit of measurement. For example, a length is a physical quantity.', NULL),
-(17, '2023-06-27 15:42:58.511780', NULL, NULL, 'Information', 'Information is an abstract concept that refers to that which has the power to inform. At the most fundamental level, information pertains to the interpretation of that which may be sensed, or their abstractions', NULL),
-(18, '2023-11-09 15:58:28.363521', NULL, NULL, 'Ophthalmology', 'Ophthalmology is a surgical subspecialty within medicine that deals with the diagnosis and treatment of eye disorders. A former term is oculism. An ophthalmologist is a physician who undergoes subspecialty training in medical and surgical eye care', ''),
-(19, '2023-11-09 16:03:23.570401', NULL, NULL, 'Dentistry or Oral Medicine', 'Oral medicine is a specialty of dentistry that focuses on the oral health care of medically complex patients and the diagnosis and management of medical conditions that affect the mouth and nearby structures. Oral medicine deals with oral mucosal diseases, orofacial pain, oral manifestations of systemic diseases, salivary gland disorders, and the dental management of medically complex patients.', '');
+(1, '2024-01-03 12:28:43.407577', NULL, NULL, 'Cardiology', 'Cardiology is the study of the heart. Cardiology is a branch of medicine that deals with disorders of the heart and the cardiovascular system. The field includes medical diagnosis and treatment of congenital heart defects, coronary artery disease, heart failure, valvular heart disease, and electrophysiology. (কার্ডিওলজি হল হৃদয়ের অধ্যয়ন। কার্ডিওলজি হ\'ল ওষুধের একটি শাখা যা হৃৎপিণ্ড এবং কার্ডিওভাসকুলার সিস্টেমের ব্যাধিগুলির সাথে কাজ করে। এই ক্ষেত্রের মধ্যে রয়েছে জন্মগত হার্টের ত্রুটি, করোনারি ধমনী রোগ, হার্ট ফেইলিউর, ভালভুলার হার্ট ডিজিজ এবং ইলেক্ট্রোফিজিওলজির চিকিৎসা নির্ণয় এবং চিকিত্সা)', 'uploads/department_images/20240103182843_Cardiology.png'),
+(2, '2024-01-03 12:35:13.650225', NULL, NULL, 'Radiology', 'Radiology is the medical discipline that uses medical imaging to diagnose diseases and guide their treatment, within the bodies of humans and other animals. (রেডিওলজি হল চিকিৎসা শাস্ত্র যা মানুষ ও অন্যান্য প্রাণীর দেহের মধ্যে রোগ নির্ণয় এবং তাদের চিকিৎসার নির্দেশনা দিতে মেডিকেল ইমেজিং ব্যবহার করে)', 'uploads/department_images/20240103190625_radiology.png'),
+(3, '2024-01-03 12:37:23.228348', NULL, NULL, 'Orthopedic', 'Orthopedic surgery or orthopedics, is the branch of surgery concerned with conditions involving the musculoskeletal system. Orthopedic surgeons use both surgical and nonsurgical means to treat musculoskeletal trauma, spine diseases, sports injuries, degenerative diseases, infections, tumors, and congenital disorders. (অর্থোপেডিক সার্জারি বা অর্থোপেডিকস হল অস্ত্রোপচারের একটি শাখা যা পেশীর স্কেলিটাল সিস্টেমের সাথে জড়িত। অর্থোপেডিক সার্জনরা পেশীবহুল ট্রমা, মেরুদণ্ডের রোগ, খেলার আঘাত, অবক্ষয়জনিত রোগ, সংক্রমণ, টিউমার এবং জন্মগত ব্যাধিগুলির চিকিত্সার জন্য অস্ত্রোপচার এবং ননসার্জিক্যাল উভয় উপায় ব্যবহার করেন।)', 'uploads/department_images/20240103183723_orthopedic.png'),
+(4, '2024-01-03 12:38:38.281525', NULL, NULL, 'Neurology', 'Neurology is the branch of medicine dealing with the diagnosis and treatment of all categories of conditions and disease involving the nervous system, which comprises the brain, the spinal cord and the peripheral nerves. (নিউরোলজি হল মেডিসিনের একটি শাখা যা মস্তিষ্ক, মেরুদন্ড এবং পেরিফেরাল স্নায়ু সমন্বিত স্নায়ুতন্ত্রের সাথে জড়িত সমস্ত বিভাগের অবস্থা এবং রোগের নির্ণয় এবং চিকিত্সার সাথে কাজ করে।)', 'uploads/department_images/20240103183838_neurology.png'),
+(5, '2024-01-03 12:41:23.615449', NULL, NULL, 'Intensive care medicine', 'Intensive care medicine, also called critical care medicine, is a medical specialty that deals with seriously or critically ill patients who have, are at risk of, or are recovering from conditions that may be life-threatening. (ইনটেনসিভ কেয়ার মেডিসিন, যাকে ক্রিটিক্যাল কেয়ার মেডিসিনও বলা হয়, এটি একটি চিকিৎসা বিশেষত্ব যা গুরুতর বা গুরুতর অসুস্থ রোগীদের নিয়ে কাজ করে যাদের জীবন-হুমকি হতে পারে এমন অবস্থার ঝুঁকি রয়েছে বা সেরে উঠছে।)', 'uploads/department_images/20240103184123_Intensive_care_medicine.png'),
+(6, '2024-01-03 12:42:14.681865', NULL, NULL, 'Gastroenterology', 'Gastroenterology is the branch of medicine focused on the digestive system and its disorders. The digestive system consists of the gastrointestinal tract, sometimes referred to as the GI tract. (গ্যাস্ট্রোএন্টারোলজি হল ওষুধের একটি শাখা যা পাচনতন্ত্র এবং এর ব্যাধিগুলির উপর দৃষ্টি নিবদ্ধ করে। পাচনতন্ত্র গ্যাস্ট্রোইনটেস্টাইনাল ট্র্যাক্ট নিয়ে গঠিত, কখনও কখনও জিআই ট্র্যাক্ট হিসাবে উল্লেখ করা হয়।)', 'uploads/department_images/20240103184214_gastroenterology.png'),
+(7, '2024-01-03 12:45:25.321367', NULL, NULL, 'Obstetrics and Gynaecology', 'Obstetrics and Gynaecology is the medical specialty that encompasses the two subspecialties of obstetrics and gynecology. (প্রসূতি এবং স্ত্রীরোগবিদ্যা হল চিকিৎসা বিশেষত্ব যা প্রসূতি এবং স্ত্রীরোগবিদ্যার দুটি উপ-বিশেষতাকে অন্তর্ভুক্ত করে।)', 'uploads/department_images/20240103184525_obstetric__and_gynaecology.png'),
+(8, '2024-01-03 12:46:52.523957', NULL, NULL, 'Otolaryngology', 'Otolaryngology logy is a surgical sub speciality within medicine that deals with the surgical and medical management of conditions of the head and neck. Doctors who specialize in this area are called otorhinolaryngologists, otolaryngologists, head and neck surgeons, or ENT surgeons or physicians. (অটোল্যারিঙ্গোলজি লজি হল মেডিসিনের মধ্যে একটি সার্জিক্যাল সাব স্পেশালিটি যা মাথা এবং ঘাড়ের অবস্থার অস্ত্রোপচার এবং চিকিৎসা ব্যবস্থাপনা নিয়ে কাজ করে। এই ক্ষেত্রে বিশেষজ্ঞ ডাক্তারদের বলা হয় অটোরিনোলারিঙ্গোলজিস্ট, অটোল্যারিঙ্গোলজিস্ট, হেড অ্যান্ড নেক সার্জন, বা ইএনটি সার্জন বা চিকিত্সক।)', 'uploads/department_images/20240103184652_otolaryngology.png'),
+(9, '2024-01-03 12:49:30.247673', NULL, NULL, 'Anesthesiology', 'Anesthesiology, anaesthesiology, or anaesthesia is the medical specialty concerned with the total perioperative care of patients before, during and after surgery. It encompasses anesthesia, intensive care medicine, critical emergency medicine, and pain medicine. (অ্যানেস্থেসিওলজি, অ্যানেস্থেসিওলজি, বা অ্যানেস্থেসিয়া হল সার্জারির আগে, সময় এবং পরে রোগীদের মোট পেরিওপারেটিভ যত্নের সাথে সম্পর্কিত চিকিৎসা বিশেষত্ব। এটি অ্যানেস্থেশিয়া, নিবিড় যত্নের ওষুধ, গুরুতর জরুরী ওষুধ এবং ব্যথার ওষুধ অন্তর্ভুক্ত করে।)', 'uploads/department_images/20240103184930_annesthesiology.png'),
+(10, '2024-01-03 12:50:31.599721', NULL, NULL, 'Hematology', 'Hematology is the branch of medicine concerned with the study of the cause, prognosis, treatment, and prevention of diseases related to blood. (হেমাটোলজি হল ওষুধের একটি শাখা যা রক্ত ​​সম্পর্কিত রোগের কারণ, পূর্বাভাস, চিকিত্সা এবং প্রতিরোধের অধ্যয়নের সাথে সম্পর্কিত।)', 'uploads/department_images/20240103185031_hematology.png'),
+(11, '2024-01-03 12:51:27.450856', NULL, NULL, 'Casualty department', 'An emergency department, also known as an accident and emergency department, emergency room, emergency ward or casualty department, is a medical treatment facility specializing in emergency medicine, the acute care of patients who present without prior appointment; either by their own means or by that of an ambulance. (একটি জরুরী বিভাগ, যা দুর্ঘটনা ও জরুরী বিভাগ, জরুরী কক্ষ, জরুরী ওয়ার্ড বা হতাহত বিভাগ নামেও পরিচিত, একটি চিকিৎসা সুবিধা যা জরুরী ওষুধে বিশেষজ্ঞ, রোগীদের তীব্র যত্ন যারা পূর্বে অ্যাপয়েন্টমেন্ট ছাড়াই উপস্থিত থাকে; হয় তাদের নিজস্ব উপায়ে বা অ্যাম্বুলেন্সের মাধ্যমে।)', 'uploads/department_images/20240103185127_casualty_department.png'),
+(12, '2024-01-03 12:53:14.135703', NULL, NULL, 'Geriatrics', 'Geriatrics, or geriatric medicine, is a medical specialty focused on providing care for the unique health needs of older adults. The term geriatrics originates from the Greek γέρων geron meaning \\\"old man\\\", and ιατρός iatros meaning healer. (জেরিয়াট্রিক্স, বা জেরিয়াট্রিক মেডিসিন হল একটি চিকিৎসা বিশেষত্ব যা বয়স্ক প্রাপ্তবয়স্কদের অনন্য স্বাস্থ্যের প্রয়োজনের যত্ন প্রদানের উপর দৃষ্টি নিবদ্ধ করে। জেরিয়াট্রিক্স শব্দটির উৎপত্তি গ্রীক γέρων জেরোন থেকে যার অর্থ \"বৃদ্ধ মানুষ\" এবং ιατρός iatros অর্থ নিরাময়কারী।)', 'uploads/department_images/20240103185314_geriatrics.png'),
+(13, '2024-01-03 12:54:24.318925', NULL, NULL, 'ICU', 'An intensive care unit, also known as an intensive therapy unit or intensive treatment unit or critical care unit, is a special department of a hospital or health care facility that provides intensive care medicine.', 'uploads/department_images/20240103185424_icu.png'),
+(14, '2024-01-03 12:55:43.040926', NULL, NULL, 'Coronary care unit', 'A coronary care unit or cardiac intensive care unit is a hospital ward specialized in the care of patients with heart attacks, unstable angina, cardiac dysrhythmia and various other cardiac conditions that require continuous monitoring and treatment.', 'uploads/department_images/20240103185543_coronary_care_unit.png'),
+(15, '2024-01-03 12:56:34.170699', NULL, NULL, 'Unit of measurement', 'A unit of measurement is a definite magnitude of a quantity, defined and adopted by convention or by law, that is used as a standard for measurement of the same kind of quantity. Any other quantity of that kind can be expressed as a multiple of the unit of measurement. For example, a length is a physical quantity. (পরিমাপের একটি একক হল একটি পরিমাণের একটি নির্দিষ্ট মাত্রা, যা কনভেনশন বা আইন দ্বারা সংজ্ঞায়িত এবং গৃহীত হয়, যা একই ধরণের পরিমাণের পরিমাপের জন্য একটি মান হিসাবে ব্যবহৃত হয়। এই ধরণের অন্য যেকোন পরিমাণকে পরিমাপের এককের গুণিতক হিসাবে প্রকাশ করা যেতে পারে। উদাহরণস্বরূপ, একটি দৈর্ঘ্য একটি ভৌত ​​পরিমাণ।)', 'uploads/department_images/20240103185634_unit_of_measurement.png'),
+(16, '2024-01-03 12:57:23.804592', NULL, NULL, 'Information', 'Information is an abstract concept that refers to that which has the power to inform. At the most fundamental level, information pertains to the interpretation of that which may be sensed, or their abstractions. (তথ্য একটি বিমূর্ত ধারণা যা বোঝায় যা জানার ক্ষমতা রাখে। সবচেয়ে মৌলিক স্তরে, তথ্য যা সংবেদন করা যেতে পারে, বা তাদের বিমূর্ততাগুলির ব্যাখ্যার সাথে সম্পর্কিত।)', 'uploads/department_images/20240103185723_information.png'),
+(17, '2024-01-03 12:58:46.797486', NULL, NULL, 'Outpatient Department', 'An outpatient department or outpatient clinic is the part of a hospital designed for the treatment of outpatients, people with health problems who visit the hospital for diagnosis or treatment, but do not at this time require a bed or to be admitted for overnight care. (বহির্বিভাগের রোগী বিভাগ বা বহিরাগত ক্লিনিক হল একটি হাসপাতালের অংশ যা বহিরাগত রোগীদের চিকিৎসার জন্য ডিজাইন করা হয়েছে, স্বাস্থ্য সমস্যায় আক্রান্ত ব্যক্তিরা যারা রোগ নির্ণয় বা চিকিৎসার জন্য হাসপাতালে যান, কিন্তু এই সময়ে বিছানার প্রয়োজন হয় না বা রাতারাতি যত্নের জন্য ভর্তি হতে হয়।)', 'uploads/department_images/20240103185846_outpatient_department.png'),
+(18, '2024-01-03 13:00:48.524096', NULL, NULL, 'Ophthalmology', 'Ophthalmology is a surgical subspecialty within medicine that deals with the diagnosis and treatment of eye disorders. A former term is oculism. An ophthalmologist is a physician who undergoes subspecialty training in medical and surgical eye care. (চক্ষুবিদ্যা হল ওষুধের মধ্যে একটি অস্ত্রোপচারের উপ-স্পেশালিটি যা চোখের রোগ নির্ণয় এবং চিকিত্সার সাথে কাজ করে। একটি প্রাক্তন শব্দটি হল ওকুলিজম। একজন চক্ষু বিশেষজ্ঞ হলেন একজন চিকিত্সক যিনি চিকিৎসা এবং অস্ত্রোপচারের চোখের যত্নে উপ-স্পেশালিটি প্রশিক্ষণ গ্রহণ করেন।)', 'uploads/department_images/20240103190048_ophthalmology.png'),
+(19, '2024-01-03 13:03:38.524654', NULL, NULL, 'Dentistry or Oral Medicine', 'Oral medicine is a specialty of dentistry that focuses on the oral health care of medically complex patients and the diagnosis and management of medical conditions that affect the mouth and nearby structures. Oral medicine deals with oral mucosal diseases, orofacial pain, oral manifestations of systemic diseases, salivary gland disorders, and the dental management of medically complex patients. (ওরাল মেডিসিন দন্তচিকিৎসার একটি বিশেষত্ব যা চিকিৎসাগতভাবে জটিল রোগীদের মৌখিক স্বাস্থ্যসেবা এবং মুখ ও আশেপাশের কাঠামোকে প্রভাবিত করে এমন চিকিৎসা অবস্থার নির্ণয় ও ব্যবস্থাপনার উপর দৃষ্টি নিবদ্ধ করে। ওরাল মেডিসিন ওরাল মিউকোসাল ডিজিজ, অরোফেসিয়াল ব্যাথা, সিস্টেমিক রোগের মৌখিক প্রকাশ, লালা গ্রন্থির ব্যাধি এবং চিকিৎসাগত জটিল রোগীদের দাঁতের ব্যবস্থাপনা নিয়ে কাজ করে।)', 'uploads/department_images/20240104211645_dentistry_or_oral_medicine.png'),
+(20, '2024-01-04 10:22:31.461086', NULL, NULL, 'Audiology and Ear-Nose-Throat', 'Advanced Care for the Ear, Nose and Throat\r\nClinical audiologists specialize in the treatment of hearing disorders. They measure and evaluate the ability of adults and children to hear sounds. Audiologists conduct hearing evaluations, test for middle ear disease, treat people with balance problems and fit hearing aids. (কান, নাক এবং গলার জন্য উন্নত যত্ন\r\nক্লিনিকাল অডিওলজিস্টরা শ্রবণজনিত রোগের চিকিৎসায় বিশেষজ্ঞ। তারা প্রাপ্তবয়স্কদের এবং শিশুদের শব্দ শোনার ক্ষমতা পরিমাপ করে এবং মূল্যায়ন করে। অডিওলজিস্টরা শ্রবণ মূল্যায়ন পরিচালনা করেন, মধ্য কানের রোগের জন্য পরীক্ষা করেন, ভারসাম্যের সমস্যায় আক্রান্ত ব্যক্তিদের চিকিত্সা করেন এবং শ্রবণযন্ত্রের জন্য উপযুক্ত।)', 'uploads/department_images/20240104162726_audiology_and_ear_nose_throat_ENT.png'),
+(21, '2024-01-04 10:54:01.131947', NULL, NULL, 'Pulmonology', 'Pulmonology often involves managing patients who need life support and mechanical ventilation. Pulmonologists are specially trained in diseases and conditions of the chest, particularly pneumonia, asthma, tuberculosis, emphysema, and complicated chest infections. (পালমোনোলজি প্রায়শই এমন রোগীদের পরিচালনা করে যাদের জীবন সহায়তা এবং যান্ত্রিক বায়ুচলাচল প্রয়োজন। পালমোনোলজিস্টরা বিশেষভাবে বুকের রোগ ও অবস্থা, বিশেষ করে নিউমোনিয়া, হাঁপানি, যক্ষ্মা, এম্ফিসিমা এবং জটিল বুকের সংক্রমণে প্রশিক্ষিত।)', 'uploads/department_images/20240104165401_Pulmonology.png'),
+(22, '2024-01-04 11:27:36.462547', NULL, NULL, 'Oncology', 'Oncology is a sub-specialty of medicine dedicated to the investigation, diagnosis and treatment of people with cancer or suspected cancer. It includes: preventative medicine. medical oncology (chemotherapy, immunotherapy, hormone therapy and other drugs to treat cancer) (ক্যান্সার বা সন্দেহভাজন ক্যান্সারে আক্রান্ত ব্যক্তিদের তদন্ত, নির্ণয় এবং চিকিত্সার জন্য নিবেদিত ওষুধের একটি উপ-বিশেষত্ব হল অনকোলজি। এর মধ্যে রয়েছে: প্রতিরোধমূলক ওষুধ। মেডিকেল অনকোলজি (কেমোথেরাপি, ইমিউনোথেরাপি, হরমোন থেরাপি এবং ক্যান্সারের চিকিৎসার জন্য অন্যান্য ওষুধ))', 'uploads/department_images/20240104173144_Oncology.png'),
+(23, '2024-01-04 11:36:51.831548', NULL, NULL, 'Nephrology', 'Nephrology is the adult and pediatric study of the kidneys and its diseases. The nephrologist deals with the diagnosis and management of kidney disease. The kidneys are vital for maintaining normal fluid and electrolyte balance in the body. (নেফ্রোলজি হ\'ল কিডনি এবং এর রোগগুলির প্রাপ্তবয়স্ক এবং শিশুদের অধ্যয়ন। নেফ্রোলজিস্ট কিডনি রোগ নির্ণয় এবং ব্যবস্থাপনা নিয়ে কাজ করেন। কিডনি শরীরের স্বাভাবিক তরল এবং ইলেক্ট্রোলাইট ভারসাম্য বজায় রাখার জন্য গুরুত্বপূর্ণ।)', 'uploads/department_images/20240104173651_Nephrology.png'),
+(24, '2024-01-04 11:52:05.211517', NULL, NULL, 'Urology', 'Urology is a part of health care that deals with diseases of the male and female urinary tract (kidneys, ureters, bladder and urethra). It also deals with the male organs that are able to make babies (penis, testes, scrotum, prostate, etc.). (ইউরোলজি হল স্বাস্থ্য পরিচর্যার একটি অংশ যা পুরুষ ও মহিলাদের মূত্রনালীর (কিডনি, মূত্রনালী, মূত্রাশয় এবং মূত্রনালী) রোগ নিয়ে কাজ করে। এটি পুরুষের অঙ্গগুলির সাথেও ডিল করে যা বাচ্চা তৈরি করতে সক্ষম (লিঙ্গ, অণ্ডকোষ, অণ্ডকোষ, প্রোস্টেট ইত্যাদি)।)', 'uploads/department_images/20240104175205_Urology.png'),
+(25, '2024-01-04 12:40:30.551886', NULL, NULL, 'Hepatology', 'Hepatology is a branch of medicine concerned with the study, prevention, diagnosis, and management of diseases that affect the liver, gallbladder, biliary tree, and pancreas. The term hepatology is derived from the Greek words “hepatikos” and “logia,” which mean liver and study, respectively. (হেপাটোলজি হল ওষুধের একটি শাখা যা যকৃত, গলব্লাডার, পিত্তথলির গাছ এবং অগ্ন্যাশয়কে প্রভাবিত করে এমন রোগগুলির অধ্যয়ন, প্রতিরোধ, নির্ণয় এবং ব্যবস্থাপনার সাথে সম্পর্কিত। হেপাটোলজি শব্দটি গ্রীক শব্দ \"হেপাটিকোস\" এবং \"লগিয়া\" থেকে উদ্ভূত হয়েছে, যার অর্থ যথাক্রমে যকৃত এবং অধ্যয়ন।)', 'uploads/department_images/20240104184030_Hepatology.png'),
+(26, '2024-01-04 12:46:47.596955', NULL, NULL, 'Neurosurgery', 'Neurosurgery is surgery of the nervous system.\r\nIt is the medical specialty concerned with the diagnosis and treatment of of patients with injury to, or diseases/disorders of the brain, spinal cord and spinal column, and peripheral nerves within all parts of the body. (নিউরোসার্জারি হল স্নায়ুতন্ত্রের সার্জারি।\r\nএটি শরীরের সমস্ত অংশের মধ্যে মস্তিষ্ক, মেরুদন্ড এবং মেরুদণ্ডের কলাম এবং পেরিফেরাল স্নায়ুতে আঘাত, বা রোগ/ব্যধিযুক্ত রোগীদের রোগ নির্ণয় এবং চিকিত্সার সাথে সম্পর্কিত চিকিৎসা বিশেষত্ব।)', 'uploads/department_images/20240104184647_Neurosurgery.png'),
+(27, '2024-01-04 14:43:09.366843', NULL, NULL, 'Dermatology (চর্মরোগবিদ্যা)', 'Dermatology is the branch of medicine dealing with the skin. It is a speciality with both medical and surgical aspects. A dermatologist is a specialist medical doctor who manages diseases related to skin, hair, nails, and some cosmetic problems. (ডার্মাটোলজি হল ওষুধের একটি শাখা যা ত্বক নিয়ে কাজ করে। এটি চিকিৎসা এবং অস্ত্রোপচার উভয় দিক দিয়েই একটি বিশেষত্ব। একজন চর্মরোগ বিশেষজ্ঞ হলেন একজন বিশেষজ্ঞ চিকিত্সক যিনি ত্বক, চুল, নখ এবং কিছু প্রসাধনী সমস্যা সম্পর্কিত রোগগুলি পরিচালনা করেন।)', 'uploads/department_images/20240104204309_Dermatology.png');
 
 -- --------------------------------------------------------
 
@@ -528,12 +540,367 @@ CREATE TABLE `department_speci` (
 --
 
 INSERT INTO `department_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, `description`, `department_id`, `organ_problem_specification_id`) VALUES
-(1, '2023-11-09 15:57:00.610974', NULL, NULL, 'N/A', 4, 1),
-(2, '2023-11-09 16:00:04.620841', NULL, NULL, 'N/A', 18, 2),
-(3, '2023-11-09 16:01:11.777925', NULL, NULL, 'N/A', 9, 3),
-(4, '2023-11-09 16:02:03.717110', NULL, NULL, 'N/A', 9, 4),
-(5, '2023-11-09 16:03:32.824346', NULL, NULL, 'N/A', 19, 5),
-(6, '2023-12-12 04:57:51.455187', NULL, NULL, 'N/A', 4, 6);
+(1, '2024-01-04 09:20:32.693759', NULL, NULL, 'N/A', 4, 1),
+(2, '2024-01-04 09:20:56.680289', NULL, NULL, 'N/A', 4, 2),
+(3, '2024-01-04 09:21:09.065298', NULL, NULL, 'N/A', 4, 3),
+(4, '2024-01-04 09:21:19.906676', NULL, NULL, 'N/A', 4, 4),
+(5, '2024-01-04 09:21:32.370908', NULL, NULL, 'N/A', 4, 5),
+(6, '2024-01-04 09:22:17.320356', NULL, NULL, 'N/A', 4, 6),
+(7, '2024-01-04 09:22:27.740683', NULL, NULL, 'N/A', 4, 7),
+(8, '2024-01-04 09:22:44.895531', NULL, NULL, 'N/A', 4, 8),
+(9, '2024-01-04 09:22:54.426394', NULL, NULL, 'N/A', 4, 9),
+(10, '2024-01-04 09:23:03.566247', NULL, NULL, 'N/A', 4, 10),
+(11, '2024-01-04 09:23:13.826366', NULL, NULL, 'N/A', 4, 11),
+(12, '2024-01-04 10:12:51.187810', NULL, NULL, 'N/A', 18, 12),
+(13, '2024-01-04 10:13:11.929684', NULL, NULL, 'N/A', 18, 13),
+(14, '2024-01-04 10:13:19.237144', NULL, NULL, 'N/A', 18, 14),
+(15, '2024-01-04 10:13:27.835861', NULL, NULL, 'N/A', 18, 15),
+(16, '2024-01-04 10:13:35.997831', NULL, NULL, 'N/A', 18, 16),
+(17, '2024-01-04 10:13:43.298675', NULL, NULL, 'N/A', 18, 17),
+(18, '2024-01-04 10:13:51.560581', NULL, NULL, 'N/A', 18, 18),
+(19, '2024-01-04 10:13:58.494287', NULL, NULL, 'N/A', 18, 19),
+(20, '2024-01-04 10:14:08.370548', NULL, NULL, 'N/A', 18, 20),
+(21, '2024-01-04 10:14:19.607464', NULL, NULL, 'N/A', 18, 21),
+(22, '2024-01-04 10:22:45.273392', NULL, NULL, 'N/A', 20, 22),
+(23, '2024-01-04 10:22:56.459286', NULL, NULL, 'N/A', 20, 23),
+(24, '2024-01-04 10:23:02.650508', NULL, NULL, 'N/A', 20, 24),
+(25, '2024-01-04 10:23:08.637958', NULL, NULL, 'N/A', 20, 25),
+(26, '2024-01-04 10:23:19.857325', NULL, NULL, 'N/A', 20, 26),
+(27, '2024-01-04 10:23:25.584894', NULL, NULL, 'N/A', 20, 27),
+(28, '2024-01-04 10:23:31.090596', NULL, NULL, 'N/A', 20, 28),
+(29, '2024-01-04 10:23:37.765614', NULL, NULL, 'N/A', 20, 29),
+(30, '2024-01-04 10:24:01.264975', NULL, NULL, 'N/A', 20, 30),
+(31, '2024-01-04 10:24:07.590588', NULL, NULL, 'N/A', 20, 31),
+(32, '2024-01-04 10:29:51.290101', NULL, NULL, 'N/A', 8, 32),
+(33, '2024-01-04 10:29:56.926167', NULL, NULL, 'N/A', 8, 33),
+(34, '2024-01-04 10:30:02.426443', NULL, NULL, 'N/A', 8, 34),
+(35, '2024-01-04 10:30:09.870673', NULL, NULL, 'N/A', 8, 35),
+(36, '2024-01-04 10:30:16.109375', NULL, NULL, 'N/A', 8, 36),
+(37, '2024-01-04 10:30:22.107713', NULL, NULL, 'N/A', 8, 37),
+(38, '2024-01-04 10:30:28.921578', NULL, NULL, 'N/A', 8, 38),
+(39, '2024-01-04 10:30:34.381036', NULL, NULL, 'N/A', 8, 39),
+(40, '2024-01-04 10:30:40.852975', NULL, NULL, 'N/A', 8, 40),
+(41, '2024-01-04 10:30:46.092171', NULL, NULL, 'N/A', 8, 41),
+(42, '2024-01-04 10:41:54.059044', NULL, NULL, 'N/A', 19, 42),
+(43, '2024-01-04 10:42:01.314461', NULL, NULL, 'N/A', 19, 43),
+(44, '2024-01-04 10:42:08.529427', NULL, NULL, 'N/A', 19, 44),
+(45, '2024-01-04 10:42:15.926796', NULL, NULL, 'N/A', 19, 45),
+(46, '2024-01-04 10:42:21.912504', NULL, NULL, 'N/A', 19, 46),
+(47, '2024-01-04 10:42:29.092096', NULL, NULL, 'N/A', 19, 47),
+(48, '2024-01-04 10:42:35.476324', NULL, NULL, 'N/A', 19, 48),
+(49, '2024-01-04 10:42:43.572205', NULL, NULL, 'N/A', 19, 49),
+(50, '2024-01-04 10:42:50.376213', NULL, NULL, 'N/A', 19, 50),
+(51, '2024-01-04 10:42:56.846780', NULL, NULL, 'N/A', 19, 51),
+(52, '2024-01-04 10:46:11.717347', NULL, NULL, 'N/A', 8, 52),
+(53, '2024-01-04 10:46:22.396228', NULL, NULL, 'N/A', 8, 53),
+(54, '2024-01-04 10:46:29.776490', NULL, NULL, 'N/A', 8, 54),
+(55, '2024-01-04 10:46:38.919044', NULL, NULL, 'N/A', 8, 55),
+(56, '2024-01-04 10:46:48.481408', NULL, NULL, 'N/A', 8, 56),
+(57, '2024-01-04 10:46:57.808767', NULL, NULL, 'N/A', 8, 57),
+(58, '2024-01-04 10:47:08.017660', NULL, NULL, 'N/A', 8, 58),
+(59, '2024-01-04 10:47:14.649735', NULL, NULL, 'N/A', 8, 59),
+(60, '2024-01-04 10:47:21.521535', NULL, NULL, 'N/A', 8, 60),
+(61, '2024-01-04 10:47:28.542914', NULL, NULL, 'N/A', 8, 61),
+(62, '2024-01-04 10:49:27.328405', NULL, NULL, 'N/A', 1, 62),
+(63, '2024-01-04 10:49:34.083650', NULL, NULL, 'N/A', 1, 63),
+(64, '2024-01-04 10:49:41.725305', NULL, NULL, 'N/A', 1, 64),
+(65, '2024-01-04 10:49:47.652577', NULL, NULL, 'N/A', 1, 65),
+(66, '2024-01-04 10:49:54.491269', NULL, NULL, 'N/A', 1, 66),
+(67, '2024-01-04 10:50:00.599038', NULL, NULL, 'N/A', 1, 67),
+(68, '2024-01-04 10:50:07.378702', NULL, NULL, 'N/A', 1, 68),
+(69, '2024-01-04 10:50:14.565361', NULL, NULL, 'N/A', 1, 69),
+(70, '2024-01-04 10:50:21.325549', NULL, NULL, 'N/A', 1, 70),
+(71, '2024-01-04 10:50:28.459900', NULL, NULL, 'N/A', 1, 71),
+(72, '2024-01-04 10:54:14.496195', NULL, NULL, 'N/A', 21, 72),
+(73, '2024-01-04 10:54:25.161639', NULL, NULL, 'N/A', 21, 73),
+(74, '2024-01-04 10:54:30.648347', NULL, NULL, 'N/A', 21, 74),
+(75, '2024-01-04 10:54:36.473723', NULL, NULL, 'N/A', 21, 75),
+(76, '2024-01-04 10:54:42.423342', NULL, NULL, 'N/A', 21, 76),
+(77, '2024-01-04 10:54:48.305367', NULL, NULL, 'N/A', 21, 77),
+(78, '2024-01-04 10:55:09.349406', NULL, NULL, 'N/A', 21, 78),
+(79, '2024-01-04 10:55:16.137205', NULL, NULL, 'N/A', 21, 79),
+(80, '2024-01-04 10:55:21.677545', NULL, NULL, 'N/A', 21, 80),
+(81, '2024-01-04 10:55:27.592324', NULL, NULL, 'N/A', 21, 81),
+(82, '2024-01-04 10:58:56.944491', NULL, NULL, 'N/A', 3, 82),
+(83, '2024-01-04 10:59:09.580715', NULL, NULL, 'N/A', 3, 83),
+(84, '2024-01-04 10:59:16.240020', NULL, NULL, 'N/A', 3, 84),
+(85, '2024-01-04 10:59:22.745095', NULL, NULL, 'N/A', 3, 85),
+(86, '2024-01-04 10:59:29.554835', NULL, NULL, 'N/A', 3, 86),
+(87, '2024-01-04 10:59:36.001882', NULL, NULL, 'N/A', 3, 87),
+(88, '2024-01-04 10:59:45.612840', NULL, NULL, 'N/A', 3, 88),
+(89, '2024-01-04 10:59:52.250696', NULL, NULL, 'N/A', 3, 89),
+(90, '2024-01-04 11:00:00.684742', NULL, NULL, 'N/A', 3, 90),
+(91, '2024-01-04 11:00:06.697183', NULL, NULL, 'N/A', 3, 91),
+(92, '2024-01-04 11:02:15.202352', NULL, NULL, 'N/A', 3, 92),
+(93, '2024-01-04 11:02:21.637085', NULL, NULL, 'N/A', 3, 93),
+(94, '2024-01-04 11:02:27.490501', NULL, NULL, 'N/A', 3, 94),
+(95, '2024-01-04 11:02:34.544824', NULL, NULL, 'N/A', 3, 95),
+(96, '2024-01-04 11:02:41.419994', NULL, NULL, 'N/A', 3, 96),
+(97, '2024-01-04 11:02:49.759056', NULL, NULL, 'N/A', 3, 97),
+(98, '2024-01-04 11:02:56.274121', NULL, NULL, 'N/A', 3, 98),
+(99, '2024-01-04 11:03:02.239402', NULL, NULL, 'N/A', 3, 99),
+(100, '2024-01-04 11:03:08.499813', NULL, NULL, 'N/A', 3, 100),
+(101, '2024-01-04 11:03:15.944780', NULL, NULL, 'N/A', 3, 101),
+(102, '2024-01-04 11:05:14.356391', NULL, NULL, 'N/A', 3, 102),
+(103, '2024-01-04 11:05:20.418382', NULL, NULL, 'N/A', 3, 103),
+(104, '2024-01-04 11:05:28.468260', NULL, NULL, 'N/A', 3, 104),
+(105, '2024-01-04 11:05:34.297849', NULL, NULL, 'N/A', 3, 105),
+(106, '2024-01-04 11:05:40.273016', NULL, NULL, 'N/A', 3, 106),
+(107, '2024-01-04 11:05:46.884977', NULL, NULL, 'N/A', 3, 107),
+(108, '2024-01-04 11:05:53.401404', NULL, NULL, 'N/A', 3, 108),
+(109, '2024-01-04 11:05:59.375803', NULL, NULL, 'N/A', 3, 109),
+(110, '2024-01-04 11:06:05.817464', NULL, NULL, 'N/A', 3, 110),
+(111, '2024-01-04 11:06:11.761091', NULL, NULL, 'N/A', 3, 111),
+(112, '2024-01-04 11:06:19.861208', NULL, NULL, 'N/A', 3, 112),
+(113, '2024-01-04 11:08:15.277868', NULL, NULL, 'N/A', 3, 113),
+(114, '2024-01-04 11:08:25.006289', NULL, NULL, 'N/A', 3, 114),
+(115, '2024-01-04 11:08:31.044988', NULL, NULL, 'N/A', 3, 115),
+(116, '2024-01-04 11:08:38.190493', NULL, NULL, 'N/A', 3, 116),
+(117, '2024-01-04 11:08:45.167410', NULL, NULL, 'N/A', 3, 117),
+(118, '2024-01-04 11:08:51.288438', NULL, NULL, 'N/A', 3, 118),
+(119, '2024-01-04 11:08:57.702317', NULL, NULL, 'N/A', 3, 119),
+(120, '2024-01-04 11:09:04.035035', NULL, NULL, 'N/A', 3, 120),
+(121, '2024-01-04 11:09:09.985575', NULL, NULL, 'N/A', 3, 121),
+(122, '2024-01-04 11:09:19.775784', NULL, NULL, 'N/A', 3, 122),
+(123, '2024-01-04 11:10:46.253106', NULL, NULL, 'N/A', 3, 123),
+(124, '2024-01-04 11:10:54.779709', NULL, NULL, 'N/A', 3, 124),
+(125, '2024-01-04 11:11:01.714401', NULL, NULL, 'N/A', 3, 125),
+(126, '2024-01-04 11:11:07.612992', NULL, NULL, 'N/A', 3, 126),
+(127, '2024-01-04 11:11:15.240709', NULL, NULL, 'N/A', 3, 127),
+(128, '2024-01-04 11:11:20.917517', NULL, NULL, 'N/A', 3, 128),
+(129, '2024-01-04 11:11:26.924164', NULL, NULL, 'N/A', 3, 129),
+(130, '2024-01-04 11:11:32.853644', NULL, NULL, 'N/A', 3, 130),
+(131, '2024-01-04 11:11:39.803888', NULL, NULL, 'N/A', 3, 131),
+(132, '2024-01-04 11:19:00.701024', NULL, NULL, 'N/A', 3, 132),
+(133, '2024-01-04 11:19:06.362694', NULL, NULL, 'N/A', 3, 133),
+(134, '2024-01-04 11:19:13.943858', NULL, NULL, 'N/A', 3, 134),
+(135, '2024-01-04 11:19:21.601127', NULL, NULL, 'N/A', 3, 135),
+(136, '2024-01-04 11:19:26.926300', NULL, NULL, 'N/A', 3, 136),
+(137, '2024-01-04 11:19:32.456447', NULL, NULL, 'N/A', 3, 137),
+(138, '2024-01-04 11:19:38.597293', NULL, NULL, 'N/A', 3, 138),
+(139, '2024-01-04 11:19:44.519135', NULL, NULL, 'N/A', 3, 139),
+(140, '2024-01-04 11:19:50.411867', NULL, NULL, 'N/A', 3, 140),
+(141, '2024-01-04 11:19:56.271072', NULL, NULL, 'N/A', 3, 141),
+(142, '2024-01-04 11:20:01.694226', NULL, NULL, 'N/A', 3, 142),
+(143, '2024-01-04 11:20:08.307058', NULL, NULL, 'N/A', 3, 143),
+(144, '2024-01-04 11:20:15.045600', NULL, NULL, 'N/A', 3, 144),
+(145, '2024-01-04 11:20:27.598450', NULL, NULL, 'N/A', 3, 145),
+(146, '2024-01-04 11:20:34.221572', NULL, NULL, 'N/A', 3, 146),
+(147, '2024-01-04 11:20:41.165958', NULL, NULL, 'N/A', 3, 147),
+(148, '2024-01-04 11:20:49.930590', NULL, NULL, 'N/A', 3, 148),
+(149, '2024-01-04 11:20:58.143265', NULL, NULL, 'N/A', 3, 149),
+(150, '2024-01-04 11:21:04.151478', NULL, NULL, 'N/A', 3, 150),
+(151, '2024-01-04 11:21:10.811933', NULL, NULL, 'N/A', 3, 151),
+(152, '2024-01-04 11:21:17.501579', NULL, NULL, 'N/A', 3, 152),
+(153, '2024-01-04 11:21:36.882961', NULL, NULL, 'N/A', 3, 153),
+(154, '2024-01-04 11:21:46.223067', NULL, NULL, 'N/A', 3, 154),
+(155, '2024-01-04 11:21:52.878063', NULL, NULL, 'N/A', 3, 155),
+(156, '2024-01-04 11:22:00.027909', NULL, NULL, 'N/A', 3, 156),
+(157, '2024-01-04 11:22:05.210158', NULL, NULL, 'N/A', 3, 157),
+(158, '2024-01-04 11:22:11.172286', NULL, NULL, 'N/A', 3, 158),
+(159, '2024-01-04 11:22:17.369152', NULL, NULL, 'N/A', 3, 159),
+(160, '2024-01-04 11:22:23.704098', NULL, NULL, 'N/A', 3, 160),
+(161, '2024-01-04 11:22:30.865385', NULL, NULL, 'N/A', 3, 161),
+(162, '2024-01-04 11:22:36.653381', NULL, NULL, 'N/A', 3, 162),
+(163, '2024-01-04 11:22:45.078737', NULL, NULL, 'N/A', 3, 163),
+(164, '2024-01-04 11:22:51.038789', NULL, NULL, 'N/A', 3, 164),
+(165, '2024-01-04 11:22:58.037364', NULL, NULL, 'N/A', 3, 165),
+(166, '2024-01-04 11:23:05.306089', NULL, NULL, 'N/A', 3, 166),
+(167, '2024-01-04 11:23:12.693943', NULL, NULL, 'N/A', 3, 167),
+(168, '2024-01-04 11:23:18.773359', NULL, NULL, 'N/A', 3, 168),
+(169, '2024-01-04 11:23:26.124256', NULL, NULL, 'N/A', 3, 169),
+(170, '2024-01-04 11:23:32.905444', NULL, NULL, 'N/A', 3, 170),
+(171, '2024-01-04 11:23:38.669190', NULL, NULL, 'N/A', 3, 171),
+(172, '2024-01-04 11:24:07.954411', NULL, NULL, 'N/A', 3, 172),
+(173, '2024-01-04 11:24:16.871736', NULL, NULL, 'N/A', 3, 173),
+(174, '2024-01-04 11:24:23.764801', NULL, NULL, 'N/A', 3, 174),
+(175, '2024-01-04 11:24:30.586154', NULL, NULL, 'N/A', 3, 175),
+(176, '2024-01-04 11:24:36.086883', NULL, NULL, 'N/A', 3, 176),
+(177, '2024-01-04 11:24:41.536752', NULL, NULL, 'N/A', 3, 177),
+(178, '2024-01-04 11:24:46.966755', NULL, NULL, 'N/A', 3, 178),
+(179, '2024-01-04 11:24:52.674928', NULL, NULL, 'N/A', 3, 179),
+(180, '2024-01-04 11:24:58.044755', NULL, NULL, 'N/A', 3, 180),
+(181, '2024-01-04 11:25:04.560744', NULL, NULL, 'N/A', 3, 181),
+(182, '2024-01-04 11:27:46.854105', NULL, NULL, 'N/A', 22, 182),
+(183, '2024-01-04 11:32:00.205870', NULL, NULL, 'N/A', 22, 183),
+(184, '2024-01-04 11:32:05.892858', NULL, NULL, 'N/A', 22, 184),
+(185, '2024-01-04 11:32:11.125628', NULL, NULL, 'N/A', 22, 185),
+(186, '2024-01-04 11:32:16.714886', NULL, NULL, 'N/A', 22, 186),
+(187, '2024-01-04 11:32:22.521353', NULL, NULL, 'N/A', 22, 187),
+(188, '2024-01-04 11:32:27.858409', NULL, NULL, 'N/A', 22, 188),
+(189, '2024-01-04 11:33:06.813138', NULL, NULL, 'N/A', 22, 189),
+(190, '2024-01-04 11:33:12.050482', NULL, NULL, 'N/A', 22, 190),
+(191, '2024-01-04 11:33:17.069300', NULL, NULL, 'N/A', 22, 191),
+(192, '2024-01-04 11:34:40.839839', NULL, NULL, 'N/A', 6, 192),
+(193, '2024-01-04 11:34:46.542797', NULL, NULL, 'N/A', 6, 193),
+(194, '2024-01-04 11:34:52.612564', NULL, NULL, 'N/A', 6, 194),
+(195, '2024-01-04 11:34:58.793309', NULL, NULL, 'N/A', 6, 195),
+(196, '2024-01-04 11:35:13.391754', NULL, NULL, 'N/A', 6, 196),
+(197, '2024-01-04 11:35:20.180827', NULL, NULL, 'N/A', 6, 197),
+(198, '2024-01-04 11:35:25.979321', NULL, NULL, 'N/A', 6, 198),
+(199, '2024-01-04 11:35:31.149493', NULL, NULL, 'N/A', 6, 199),
+(200, '2024-01-04 11:35:36.384548', NULL, NULL, 'N/A', 6, 200),
+(201, '2024-01-04 11:35:43.786634', NULL, NULL, 'N/A', 6, 201),
+(202, '2024-01-04 11:37:00.284015', NULL, NULL, 'N/A', 23, 202),
+(203, '2024-01-04 11:37:18.411393', NULL, NULL, 'N/A', 23, 203),
+(204, '2024-01-04 11:37:23.336220', NULL, NULL, 'N/A', 23, 204),
+(205, '2024-01-04 11:37:29.094819', NULL, NULL, 'N/A', 23, 205),
+(206, '2024-01-04 11:37:34.248340', NULL, NULL, 'N/A', 23, 206),
+(207, '2024-01-04 11:37:39.507275', NULL, NULL, 'N/A', 23, 207),
+(208, '2024-01-04 11:37:44.470099', NULL, NULL, 'N/A', 23, 208),
+(209, '2024-01-04 11:37:50.912130', NULL, NULL, 'N/A', 23, 209),
+(210, '2024-01-04 11:37:57.125761', NULL, NULL, 'N/A', 23, 210),
+(211, '2024-01-04 11:38:02.446535', NULL, NULL, 'N/A', 23, 211),
+(212, '2024-01-04 11:38:30.635664', NULL, NULL, 'N/A', 7, 212),
+(213, '2024-01-04 11:39:09.132400', NULL, NULL, 'N/A', 7, 213),
+(214, '2024-01-04 11:47:12.418793', NULL, NULL, 'N/A', 7, 214),
+(215, '2024-01-04 11:47:29.289044', NULL, NULL, 'N/A', 7, 216),
+(216, '2024-01-04 11:47:49.643190', NULL, NULL, 'N/A', 7, 218),
+(217, '2024-01-04 11:48:10.712290', NULL, NULL, 'N/A', 7, 221),
+(218, '2024-01-04 11:48:29.082991', NULL, NULL, 'N/A', 7, 219),
+(219, '2024-01-04 11:52:30.772028', NULL, NULL, 'N/A', 24, 242),
+(220, '2024-01-04 11:52:42.877727', NULL, NULL, 'N/A', 24, 243),
+(221, '2024-01-04 11:52:54.690893', NULL, NULL, 'N/A', 24, 246),
+(222, '2024-01-04 11:53:07.475106', NULL, NULL, 'N/A', 24, 244),
+(223, '2024-01-04 11:53:13.351968', NULL, NULL, 'N/A', 24, 245),
+(224, '2024-01-04 11:53:22.808418', NULL, NULL, 'N/A', 24, 247),
+(225, '2024-01-04 11:53:29.393623', NULL, NULL, 'N/A', 24, 248),
+(226, '2024-01-04 11:53:36.540508', NULL, NULL, 'N/A', 24, 249),
+(227, '2024-01-04 11:53:41.994920', NULL, NULL, 'N/A', 24, 250),
+(228, '2024-01-04 11:53:54.152901', NULL, NULL, 'N/A', 24, 251),
+(229, '2024-01-04 12:36:02.439512', NULL, NULL, 'N/A', 7, 215),
+(230, '2024-01-04 12:37:00.490407', NULL, NULL, 'N/A', 7, 217),
+(231, '2024-01-04 12:37:09.229465', NULL, NULL, 'N/A', 7, 220),
+(232, '2024-01-04 12:40:40.181134', NULL, NULL, 'N/A', 25, 222),
+(233, '2024-01-04 12:40:45.949707', NULL, NULL, 'N/A', 25, 223),
+(234, '2024-01-04 12:40:50.794240', NULL, NULL, 'N/A', 25, 224),
+(235, '2024-01-04 12:40:56.916891', NULL, NULL, 'N/A', 25, 225),
+(236, '2024-01-04 12:41:02.749776', NULL, NULL, 'N/A', 25, 226),
+(237, '2024-01-04 12:41:09.338043', NULL, NULL, 'N/A', 25, 227),
+(238, '2024-01-04 12:41:14.248911', NULL, NULL, 'N/A', 25, 228),
+(239, '2024-01-04 12:41:45.810057', NULL, NULL, 'N/A', 25, 229),
+(240, '2024-01-04 12:41:50.781034', NULL, NULL, 'N/A', 25, 230),
+(241, '2024-01-04 12:41:56.270118', NULL, NULL, 'N/A', 25, 231),
+(242, '2024-01-04 12:43:03.338309', NULL, NULL, 'N/A', 6, 232),
+(243, '2024-01-04 12:43:09.100331', NULL, NULL, 'N/A', 6, 233),
+(244, '2024-01-04 12:43:24.692486', NULL, NULL, 'N/A', 6, 234),
+(245, '2024-01-04 12:43:29.441784', NULL, NULL, 'N/A', 6, 235),
+(246, '2024-01-04 12:43:34.899375', NULL, NULL, 'N/A', 6, 236),
+(247, '2024-01-04 12:43:39.873076', NULL, NULL, 'N/A', 6, 237),
+(248, '2024-01-04 12:43:52.492023', NULL, NULL, 'N/A', 6, 238),
+(249, '2024-01-04 12:44:34.703289', NULL, NULL, 'N/A', 6, 239),
+(250, '2024-01-04 12:44:40.510889', NULL, NULL, 'N/A', 6, 240),
+(251, '2024-01-04 12:44:45.650143', NULL, NULL, 'N/A', 6, 241),
+(252, '2024-01-04 12:46:56.247052', NULL, NULL, 'N/A', 26, 252),
+(253, '2024-01-04 12:47:03.019938', NULL, NULL, 'N/A', 26, 253),
+(254, '2024-01-04 12:47:07.306603', NULL, NULL, 'N/A', 26, 254),
+(255, '2024-01-04 12:47:11.298223', NULL, NULL, 'N/A', 26, 255),
+(256, '2024-01-04 12:47:16.688351', NULL, NULL, 'N/A', 26, 256),
+(257, '2024-01-04 12:47:22.947848', NULL, NULL, 'N/A', 26, 257),
+(258, '2024-01-04 12:47:29.348269', NULL, NULL, 'N/A', 26, 258),
+(259, '2024-01-04 12:47:33.959933', NULL, NULL, 'N/A', 26, 259),
+(260, '2024-01-04 12:47:38.596857', NULL, NULL, 'N/A', 26, 260),
+(261, '2024-01-04 12:47:43.766032', NULL, NULL, 'N/A', 26, 261),
+(262, '2024-01-04 12:48:43.743826', NULL, NULL, 'N/A', 3, 262),
+(263, '2024-01-04 12:48:50.685049', NULL, NULL, 'N/A', 3, 263),
+(264, '2024-01-04 12:48:55.410565', NULL, NULL, 'N/A', 3, 264),
+(265, '2024-01-04 12:49:01.284660', NULL, NULL, 'N/A', 3, 265),
+(266, '2024-01-04 12:49:06.286285', NULL, NULL, 'N/A', 3, 266),
+(267, '2024-01-04 12:49:13.142911', NULL, NULL, 'N/A', 3, 267),
+(268, '2024-01-04 12:49:19.014211', NULL, NULL, 'N/A', 3, 268),
+(269, '2024-01-04 12:49:25.455458', NULL, NULL, 'N/A', 3, 269),
+(270, '2024-01-04 12:49:33.513906', NULL, NULL, 'N/A', 3, 270),
+(271, '2024-01-04 12:49:43.934464', NULL, NULL, 'N/A', 3, 271),
+(272, '2024-01-04 12:50:20.067617', NULL, NULL, 'N/A', 3, 272),
+(273, '2024-01-04 12:50:26.047103', NULL, NULL, 'N/A', 3, 273),
+(274, '2024-01-04 12:50:31.525455', NULL, NULL, 'N/A', 3, 274),
+(275, '2024-01-04 12:50:41.359834', NULL, NULL, 'N/A', 3, 275),
+(276, '2024-01-04 12:50:46.080293', NULL, NULL, 'N/A', 3, 276),
+(277, '2024-01-04 12:50:50.999189', NULL, NULL, 'N/A', 3, 277),
+(278, '2024-01-04 12:50:56.275079', NULL, NULL, 'N/A', 3, 278),
+(279, '2024-01-04 12:51:03.681619', NULL, NULL, 'N/A', 3, 279),
+(280, '2024-01-04 12:51:09.239903', NULL, NULL, 'N/A', 3, 280),
+(281, '2024-01-04 12:51:14.944646', NULL, NULL, 'N/A', 3, 281),
+(282, '2024-01-04 12:51:59.767942', NULL, NULL, 'N/A', 6, 282),
+(283, '2024-01-04 12:52:05.731321', NULL, NULL, 'N/A', 6, 283),
+(284, '2024-01-04 12:52:28.427851', NULL, NULL, 'N/A', 6, 284),
+(285, '2024-01-04 12:52:34.043833', NULL, NULL, 'N/A', 6, 285),
+(286, '2024-01-04 12:52:39.073381', NULL, NULL, 'N/A', 6, 286),
+(287, '2024-01-04 12:52:43.914263', NULL, NULL, 'N/A', 6, 287),
+(288, '2024-01-04 12:52:50.553508', NULL, NULL, 'N/A', 6, 288),
+(289, '2024-01-04 12:52:55.490303', NULL, NULL, 'N/A', 6, 289),
+(290, '2024-01-04 12:53:00.490932', NULL, NULL, 'N/A', 6, 290),
+(291, '2024-01-04 12:53:06.305642', NULL, NULL, 'N/A', 6, 291),
+(292, '2024-01-04 12:57:15.573849', NULL, NULL, 'N/A', 1, 292),
+(293, '2024-01-04 12:57:22.047536', NULL, NULL, 'N/A', 1, 293),
+(294, '2024-01-04 12:57:27.877227', NULL, NULL, 'N/A', 1, 294),
+(295, '2024-01-04 12:57:33.057459', NULL, NULL, 'N/A', 1, 295),
+(296, '2024-01-04 12:57:38.227727', NULL, NULL, 'N/A', 1, 296),
+(297, '2024-01-04 13:03:43.587767', NULL, NULL, 'N/A', 1, 297),
+(298, '2024-01-04 13:31:42.851120', NULL, NULL, 'N/A', 1, 298),
+(299, '2024-01-04 13:31:48.495799', NULL, NULL, 'N/A', 1, 299),
+(300, '2024-01-04 13:31:53.221788', NULL, NULL, 'N/A', 1, 300),
+(301, '2024-01-04 13:31:58.195488', NULL, NULL, 'N/A', 1, 301),
+(302, '2024-01-04 13:54:41.585193', NULL, NULL, 'N/A', 3, 302),
+(303, '2024-01-04 13:54:47.752562', NULL, NULL, 'N/A', 3, 303),
+(304, '2024-01-04 13:54:52.971823', NULL, NULL, 'N/A', 3, 304),
+(305, '2024-01-04 13:54:58.181157', NULL, NULL, 'N/A', 3, 305),
+(306, '2024-01-04 13:55:04.468795', NULL, NULL, 'N/A', 3, 306),
+(307, '2024-01-04 13:56:23.354036', NULL, NULL, 'N/A', 3, 307),
+(308, '2024-01-04 14:04:48.556357', NULL, NULL, 'N/A', 3, 308),
+(309, '2024-01-04 14:16:29.461745', NULL, NULL, 'N/A', 3, 309),
+(310, '2024-01-04 14:16:35.411351', NULL, NULL, 'N/A', 3, 310),
+(311, '2024-01-04 14:16:43.730608', NULL, NULL, 'N/A', 3, 311),
+(312, '2024-01-04 14:16:48.682460', NULL, NULL, 'N/A', 3, 312),
+(313, '2024-01-04 14:16:54.242100', NULL, NULL, 'N/A', 3, 314),
+(314, '2024-01-04 14:16:59.701930', NULL, NULL, 'N/A', 3, 313),
+(315, '2024-01-04 14:17:04.723491', NULL, NULL, 'N/A', 3, 315),
+(316, '2024-01-04 14:17:09.939542', NULL, NULL, 'N/A', 3, 316),
+(317, '2024-01-04 14:17:16.478651', NULL, NULL, 'N/A', 3, 317),
+(318, '2024-01-04 14:17:22.086825', NULL, NULL, 'N/A', 3, 318),
+(319, '2024-01-04 14:21:36.923919', NULL, NULL, 'N/A', 3, 319),
+(320, '2024-01-04 14:21:42.422251', NULL, NULL, 'N/A', 3, 320),
+(321, '2024-01-04 14:21:48.499769', NULL, NULL, 'N/A', 3, 321),
+(322, '2024-01-04 14:28:47.695157', NULL, NULL, 'N/A', 3, 322),
+(323, '2024-01-04 14:28:54.503423', NULL, NULL, 'N/A', 3, 323),
+(324, '2024-01-04 14:28:59.631044', NULL, NULL, 'N/A', 3, 324),
+(325, '2024-01-04 14:29:05.296510', NULL, NULL, 'N/A', 3, 325),
+(326, '2024-01-04 14:29:10.624195', NULL, NULL, 'N/A', 3, 326),
+(327, '2024-01-04 14:29:17.721711', NULL, NULL, 'N/A', 3, 327),
+(328, '2024-01-04 14:29:23.126663', NULL, NULL, 'N/A', 3, 328),
+(329, '2024-01-04 14:29:29.412977', NULL, NULL, 'N/A', 3, 329),
+(330, '2024-01-04 14:29:35.822280', NULL, NULL, 'N/A', 3, 330),
+(331, '2024-01-04 14:30:59.677143', NULL, NULL, 'N/A', 3, 331),
+(332, '2024-01-04 14:39:33.194405', NULL, NULL, 'N/A', 22, 332),
+(333, '2024-01-04 14:39:39.109933', NULL, NULL, 'N/A', 22, 333),
+(334, '2024-01-04 14:39:44.014839', NULL, NULL, 'N/A', 22, 334),
+(335, '2024-01-04 14:39:49.388523', NULL, NULL, 'N/A', 22, 335),
+(336, '2024-01-04 14:39:55.846184', NULL, NULL, 'N/A', 22, 336),
+(337, '2024-01-04 14:40:01.525154', NULL, NULL, 'N/A', 22, 337),
+(338, '2024-01-04 14:40:06.590933', NULL, NULL, 'N/A', 22, 338),
+(339, '2024-01-04 14:40:13.163408', NULL, NULL, 'N/A', 22, 339),
+(340, '2024-01-04 14:40:18.788904', NULL, NULL, 'N/A', 22, 340),
+(341, '2024-01-04 14:40:23.853548', NULL, NULL, 'N/A', 22, 341),
+(342, '2024-01-04 14:51:55.656963', NULL, NULL, 'N/A', 27, 342),
+(343, '2024-01-04 14:52:01.128273', NULL, NULL, 'N/A', 27, 343),
+(344, '2024-01-04 14:52:06.866998', NULL, NULL, 'N/A', 27, 344),
+(345, '2024-01-04 14:52:12.233781', NULL, NULL, 'N/A', 27, 345),
+(346, '2024-01-04 14:52:16.880338', NULL, NULL, 'N/A', 27, 346),
+(347, '2024-01-04 14:52:22.054185', NULL, NULL, 'N/A', 27, 347),
+(348, '2024-01-04 14:52:27.228472', NULL, NULL, 'N/A', 27, 348),
+(349, '2024-01-04 14:52:32.451519', NULL, NULL, 'N/A', 27, 349),
+(350, '2024-01-04 14:52:37.385734', NULL, NULL, 'N/A', 27, 350),
+(351, '2024-01-04 14:52:42.603617', NULL, NULL, 'N/A', 27, 351),
+(352, '2024-01-04 15:02:24.416628', NULL, NULL, 'N/A', 27, 352),
+(353, '2024-01-04 15:02:29.126821', NULL, NULL, 'N/A', 27, 353),
+(354, '2024-01-04 15:02:33.951194', NULL, NULL, 'N/A', 27, 354),
+(355, '2024-01-04 15:02:38.995742', NULL, NULL, 'N/A', 27, 355),
+(356, '2024-01-04 15:02:43.761986', NULL, NULL, 'N/A', 27, 356),
+(357, '2024-01-04 15:02:49.617692', NULL, NULL, 'N/A', 27, 357),
+(358, '2024-01-04 15:02:55.301918', NULL, NULL, 'N/A', 27, 358),
+(359, '2024-01-04 15:03:01.108115', NULL, NULL, 'N/A', 27, 359),
+(360, '2024-01-04 15:03:06.005280', NULL, NULL, 'N/A', 27, 360),
+(361, '2024-01-04 15:03:11.856710', NULL, NULL, 'N/A', 27, 361);
 
 -- --------------------------------------------------------
 
@@ -692,13 +1059,13 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (5, 'contenttypes', 'contenttype'),
 (9, 'department', 'department'),
 (10, 'department_speci', 'departmentspecification'),
-(11, 'doctor', 'appointmentschedule'),
-(17, 'doctor', 'awards'),
-(12, 'doctor', 'doctorprofile'),
-(16, 'doctor', 'education'),
+(13, 'doctor', 'appointmentschedule'),
+(12, 'doctor', 'awards'),
+(11, 'doctor', 'doctorprofile'),
+(14, 'doctor', 'education'),
 (15, 'doctor', 'offday'),
-(14, 'doctor', 'scheduletime'),
-(13, 'doctor', 'socialmedia'),
+(16, 'doctor', 'scheduletime'),
+(17, 'doctor', 'socialmedia'),
 (18, 'faq', 'faq'),
 (25, 'labtest', 'labtest'),
 (19, 'medicine', 'brand'),
@@ -713,17 +1080,18 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (29, 'personal_data', 'blood_group'),
 (30, 'personal_data', 'board'),
 (31, 'personal_data', 'day'),
-(32, 'personal_data', 'district'),
-(33, 'personal_data', 'division'),
-(34, 'personal_data', 'gender'),
-(35, 'personal_data', 'matrimony'),
-(36, 'personal_data', 'religion'),
+(36, 'personal_data', 'district'),
+(32, 'personal_data', 'division'),
+(33, 'personal_data', 'gender'),
+(34, 'personal_data', 'matrimony'),
+(35, 'personal_data', 'religion'),
 (37, 'personal_data', 'upazila'),
 (49, 'prediction', 'prediction'),
-(41, 'prescription', 'labtestprescription'),
-(40, 'prescription', 'medicineprescription'),
-(39, 'prescription', 'prescriptionforlabtest'),
-(38, 'prescription', 'prescriptionformedicine'),
+(50, 'prediction', 'specification'),
+(39, 'prescription', 'labtestprescription'),
+(41, 'prescription', 'medicineprescription'),
+(38, 'prescription', 'prescriptionforlabtest'),
+(40, 'prescription', 'prescriptionformedicine'),
 (6, 'sessions', 'session'),
 (46, 'user', 'adminprofile'),
 (45, 'user', 'images'),
@@ -750,43 +1118,41 @@ CREATE TABLE `django_migrations` (
 --
 
 INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
-(1, 'contenttypes', '0001_initial', '2023-12-07 12:16:46.470014'),
-(2, 'auth', '0001_initial', '2023-12-07 12:16:49.039242'),
-(3, 'admin', '0001_initial', '2023-12-07 12:16:49.435195'),
-(4, 'admin', '0002_logentry_remove_auto_add', '2023-12-07 12:16:49.448732'),
-(5, 'admin', '0003_logentry_add_action_flag_choices', '2023-12-07 12:16:49.464474'),
-(6, 'personal_data', '0001_initial', '2023-12-07 12:16:50.875116'),
-(7, 'user', '0001_initial', '2023-12-07 12:16:53.530404'),
-(8, 'patient', '0001_initial', '2023-12-07 12:16:54.540989'),
-(9, 'department', '0001_initial', '2023-12-07 12:16:54.590703'),
-(10, 'doctor', '0001_initial', '2023-12-07 12:16:58.287646'),
-(11, 'appointment', '0001_initial', '2023-12-07 12:16:58.629195'),
-(12, 'article', '0001_initial', '2023-12-07 12:16:58.936265'),
-(13, 'contenttypes', '0002_remove_content_type_name', '2023-12-07 12:16:59.164017'),
-(14, 'auth', '0002_alter_permission_name_max_length', '2023-12-07 12:16:59.304267'),
-(15, 'auth', '0003_alter_user_email_max_length', '2023-12-07 12:16:59.331095'),
-(16, 'auth', '0004_alter_user_username_opts', '2023-12-07 12:16:59.345446'),
-(17, 'auth', '0005_alter_user_last_login_null', '2023-12-07 12:16:59.467432'),
-(18, 'auth', '0006_require_contenttypes_0002', '2023-12-07 12:16:59.475672'),
-(19, 'auth', '0007_alter_validators_add_error_messages', '2023-12-07 12:16:59.489029'),
-(20, 'auth', '0008_alter_user_username_max_length', '2023-12-07 12:16:59.518563'),
-(21, 'auth', '0009_alter_user_last_name_max_length', '2023-12-07 12:16:59.550351'),
-(22, 'auth', '0010_alter_group_name_max_length', '2023-12-07 12:16:59.579769'),
-(23, 'auth', '0011_update_proxy_permissions', '2023-12-07 12:16:59.610176'),
-(24, 'auth', '0012_alter_user_first_name_max_length', '2023-12-07 12:16:59.636452'),
-(25, 'bodypart', '0001_initial', '2023-12-07 12:16:59.694051'),
-(26, 'organ', '0001_initial', '2023-12-07 12:16:59.852039'),
-(27, 'organ_problem_speci', '0001_initial', '2023-12-07 12:17:00.029954'),
-(28, 'department_speci', '0001_initial', '2023-12-07 12:17:00.439884'),
-(29, 'faq', '0001_initial', '2023-12-07 12:17:00.790155'),
-(30, 'labtest', '0001_initial', '2023-12-07 12:17:01.058861'),
-(31, 'medicine', '0001_initial', '2023-12-07 12:17:02.590222'),
-(32, 'prescription', '0001_initial', '2023-12-07 12:17:05.519663'),
-(33, 'sessions', '0001_initial', '2023-12-07 12:17:05.683675'),
-(34, 'verifyotp', '0001_initial', '2023-12-07 12:17:05.900854'),
-(35, 'labtest', '0002_labtest_created_at_labtest_deleted_at_and_more', '2023-12-07 12:40:39.728650'),
-(36, 'appointment', '0002_alter_getappointment_doctor_and_more', '2023-12-11 16:54:12.256592'),
-(37, 'prediction', '0001_initial', '2023-12-11 18:57:17.669294');
+(1, 'contenttypes', '0001_initial', '2024-01-03 12:18:30.737952'),
+(2, 'auth', '0001_initial', '2024-01-03 12:18:32.122936'),
+(3, 'admin', '0001_initial', '2024-01-03 12:18:32.479214'),
+(4, 'admin', '0002_logentry_remove_auto_add', '2024-01-03 12:18:32.493173'),
+(5, 'admin', '0003_logentry_add_action_flag_choices', '2024-01-03 12:18:32.505148'),
+(6, 'personal_data', '0001_initial', '2024-01-03 12:18:33.474546'),
+(7, 'user', '0001_initial', '2024-01-03 12:18:35.822702'),
+(8, 'patient', '0001_initial', '2024-01-03 12:18:36.707082'),
+(9, 'department', '0001_initial', '2024-01-03 12:18:36.769726'),
+(10, 'doctor', '0001_initial', '2024-01-03 12:18:40.267773'),
+(11, 'appointment', '0001_initial', '2024-01-03 12:18:40.638781'),
+(12, 'article', '0001_initial', '2024-01-03 12:18:41.062667'),
+(13, 'contenttypes', '0002_remove_content_type_name', '2024-01-03 12:18:41.207262'),
+(14, 'auth', '0002_alter_permission_name_max_length', '2024-01-03 12:18:41.339142'),
+(15, 'auth', '0003_alter_user_email_max_length', '2024-01-03 12:18:41.367068'),
+(16, 'auth', '0004_alter_user_username_opts', '2024-01-03 12:18:41.384028'),
+(17, 'auth', '0005_alter_user_last_login_null', '2024-01-03 12:18:41.545592'),
+(18, 'auth', '0006_require_contenttypes_0002', '2024-01-03 12:18:41.552578'),
+(19, 'auth', '0007_alter_validators_add_error_messages', '2024-01-03 12:18:41.567534'),
+(20, 'auth', '0008_alter_user_username_max_length', '2024-01-03 12:18:41.593464'),
+(21, 'auth', '0009_alter_user_last_name_max_length', '2024-01-03 12:18:41.619396'),
+(22, 'auth', '0010_alter_group_name_max_length', '2024-01-03 12:18:41.650313'),
+(23, 'auth', '0011_update_proxy_permissions', '2024-01-03 12:18:41.687213'),
+(24, 'auth', '0012_alter_user_first_name_max_length', '2024-01-03 12:18:41.714143'),
+(25, 'bodypart', '0001_initial', '2024-01-03 12:18:41.764230'),
+(26, 'organ', '0001_initial', '2024-01-03 12:18:41.929783'),
+(27, 'organ_problem_speci', '0001_initial', '2024-01-03 12:18:42.213027'),
+(28, 'department_speci', '0001_initial', '2024-01-03 12:18:42.564089'),
+(29, 'faq', '0001_initial', '2024-01-03 12:18:42.901188'),
+(30, 'labtest', '0001_initial', '2024-01-03 12:18:42.949061'),
+(31, 'medicine', '0001_initial', '2024-01-03 12:18:44.331366'),
+(32, 'prediction', '0001_initial', '2024-01-03 12:18:45.680042'),
+(33, 'prescription', '0001_initial', '2024-01-03 12:18:48.584768'),
+(34, 'sessions', '0001_initial', '2024-01-03 12:18:48.671377'),
+(35, 'verifyotp', '0001_initial', '2024-01-03 12:18:48.883805');
 
 -- --------------------------------------------------------
 
@@ -799,23 +1165,6 @@ CREATE TABLE `django_session` (
   `session_data` longtext NOT NULL,
   `expire_date` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `django_session`
---
-
-INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('0ophy9x8xffzt61sowl6zpuuc33mjtsv', '.eJxNjTEKwzAMAL9SNJdAoFOmTnlCVyNsBQS2FWw5Q0v_XoXY0E06HboPtErFcYDlcb_mjIlggR2VKesMHReJf3hQSsjR8Fu0qWzPc-WMKmXykoZVFbVV09ArH2T4DM79urUYR_XFB2O-rUwxVPN6znVfKe0uiLf_F_r-AIkOQ0I:1rCbAO:R8KW1V_6JAhYrIZih09f7XIrfK6EsTwpI4R2h-bFv9M', '2023-12-25 07:57:28.377276'),
-('38np4tlibu6d6ihkwrw0dheo9i6ioxd5', '.eJyrViotTi2Kz0xRsjLUgbDzEnNTlayUElNyM_OUoGJF-TkYYqm5iZk5QMGk_PLMisoiBxA3My-xJL9ILzk_F6aquCSxpLQYpDe5JLMsFSiMbFdaaU4OzMLQouLSnESF4MTcguL8PKVaAGDSNiU:1rC0U9:ameMlxr7oPCo9d22lBLxLOETYV8EVZpgM0Sa6naBxtU', '2023-12-23 16:47:25.190907'),
-('8rdshf03z2uv2542gpoymr2wrxdfer5p', '.eJyrViotTi2Kz0xRsjLUgbDzEnNTlayUElNyM_OUoGJF-TkYYqm5iZk5QMGk_PLMisoiBxA3My-xJL9ILzk_F6aquCSxpLQYpDe5JLMsFSiMbFdaaU4OzMLQouLSnESF4MTcguL8PKVaAGDSNiU:1rCho4:GNqkHYyrEWpPlmeHRSS45kUpnBIT0gzjdbsWjvFjM8U', '2023-12-25 15:02:52.592227'),
-('9yvfd5i42nrq6ha1sumyp8lz8fej5qoh', '.eJw1T0sOgyAUvIph3ajgp-CqTbroLcwT0NCCGJAmpundi7_dm8-byXxR8NK1SqCGXPZ7BCNRgwQ6sLN6w5bP1p2kNKB0ZPulW_rltiI1QjSk3JrT5GeYg48u4LP6yEivPfhQ-6D1WfZwaXLvgk6e9n1-KwODbINba7I1SvEsTNqC8Nmm-YzkpMAkp7guWMXaAnNMyq6vWU3LkmIgpIOKXWnJakaFSF_TENP3Jdtm_PsDrnJTkA:1rCuVO:vE_umw3N9jeMW7lhUPSG1eTxRqm2tL3rgqyoIB-c1ms', '2023-12-26 04:36:26.102600'),
-('cv51y1bwjs74uk00uop2z10dpecwh4rm', '.eJw1T0sOgyAUvIph3ajgp-CqTbroLcwT0NCCGJAmpundi7_dm8-byXxR8NK1SqCGXPZ7BCNRgwQ6sLN6w5bP1p2kNKB0ZPulW_rltiI1QjSk3JrT5GeYg48u4LP6yEivPfhQ-6D1WfZwaXLvgk6e9n1-KwODbINba7I1SvEsTNqC8Nmm-YzkpMAkp7guWMXaAnNMyq6vWU3LkmIgpIOKXWnJakaFSF_TENP3Jdtm_PsDrnJTkA:1rC3f1:FnOrkE7Q_WT4dM1CT1DFMf9tYZ-6EbJ2IQ7cIR0DI9w', '2023-12-23 20:10:51.209394'),
-('dtj2btiqaz9lz5k65wn4nyf0pnkm6xk4', '.eJyrViotTi2Kz0xRsjLUgbDzEnNTlayUElNyM_OUoGJF-TkYYqm5iZk5QMGk_PLMisoiBxA3My-xJL9ILzk_F6aquCSxpLQYpDe5JLMsFSiMbFdaaU4OzMLQouLSnESF4MTcguL8PKVaAGDSNiU:1rBeun:M2UvAMUZYhaHDQFXSLKraHjIAKXtccHayHKM_arP1qM', '2023-12-22 17:45:29.748498'),
-('eu7lq9fw2m6uck3h9c8g9neks6qdem0c', '.eJxNjTEKwzAMAL9SNJdAoFOmTnlCVyNsBQS2FWw5Q0v_XoXY0E06HboPtErFcYDlcb_mjIlggR2VKesMHReJf3hQSsjR8Fu0qWzPc-WMKmXykoZVFbVV09ArH2T4DM79urUYR_XFB2O-rUwxVPN6znVfKe0uiLf_F_r-AIkOQ0I:1rCkja:18F5vyj0xJJf8A-aCa3CYZGiz-hWn33mZWGlvIdo4vI', '2023-12-25 18:10:26.228105'),
-('fgg9urlhqs018o8a6p7ytlr6j8bwafbc', '.eJyrViotTi2Kz0xRsjLUgbDzEnNTlayUElNyM_OUoGJF-TkYYqm5iZk5QMGk_PLMisoiBxA3My-xJL9ILzk_F6aquCSxpLQYpDe5JLMsFSiMbFdaaU4OzMLQouLSnESF4MTcguL8PKVaAGDSNiU:1rD1n8:N9nagyXVM6P89lGitIXaBiD4eIYc1s2H-b28X4DFJtU', '2023-12-26 12:23:14.098343'),
-('isbon8lxrrfny6zj2ua0rxugmt23eur9', '.eJxtj7sKwkAQRX9l2UrBSDZqk0obu7S2YchOYGAfIZmNL_x3dzERFbs7Zw5zmbsMA_Y1aVluV6_swKIsZQdM6FjJCffefOCZogUyEd88B_btPo3kgH2_brydrYGBwxA1aJhGjDgVqmnbBmPm1hONBE4cCY0eojfV1ZPPaLta-ybe_0LQdZ4c26Rq4HRJqUwVWZEXG7GovNNwXco_NpN92eU2F4dKZCLGXYqzPWJP7fX9qcYxaLrQOfw--3gCq9RxZA:1rCNgH:a6HlVwVh5CQX6L_84DV_8MbVbN4XLcpMqiQPUKrWJA4', '2023-12-24 17:33:29.098721'),
-('re7qu2rpddyoax09vpg9xppbdlgog6cg', '.eJyrViotTi2Kz0xRsjLUgbDzEnNTlayUElNyM_OUoGJF-TkYYqm5iZk5QMGk_PLMisoiBxA3My-xJL9ILzk_F6aquCSxpLQYpDe5JLMsFSiMbFdaaU4OzMLQouLSnESF4MTcguL8PKVaAGDSNiU:1rBYxL:hUB1vMPUMJNuWO0v7JI1jmvKy7OOrAVoiD7krBtSx7c', '2023-12-22 11:23:43.615815'),
-('zqga8644z94nq0s627itfk132r5emtp7', '.eJyNjs0KwjAQhF8l5KRgpa0K2pNevHkSz2FtIizkj2RbLeK7m1Yqgh68zc5-uzN3Tsp4IV1NLgiUvCpmLwu8d2jJKEtCAile8XydFWVW5uWCTfYBJXRT_oMmNAO9qZY52x1YxpJc9XKkWxXw0gllAHUiz-6Kty5s-xEtpCbz2pkEN1G9Sw3awvAapEE77oPTX95_nyMBNbG_rQlblezPrEuj9Rh4CrHRwI5gfHSWP56L22m_:1rBHF0:p_4n3v6Kt-cAUw-PEbEvYEHhc4La8G4Qcj67hYFSg0Q', '2023-12-21 16:28:46.664394');
 
 -- --------------------------------------------------------
 
@@ -831,17 +1180,9 @@ CREATE TABLE `doctor_appointment_schedule` (
   `per_patient_time` int(11) DEFAULT NULL,
   `consultation_fee` int(11) DEFAULT NULL,
   `created_by_id` bigint(20) DEFAULT NULL,
-  `doctor_profile_id` bigint(20) DEFAULT NULL,
-  `modified_by_id` bigint(20) DEFAULT NULL
+  `modified_by_id` bigint(20) DEFAULT NULL,
+  `doctor_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `doctor_appointment_schedule`
---
-
-INSERT INTO `doctor_appointment_schedule` (`id`, `created_at`, `updated_at`, `deleted_at`, `per_patient_time`, `consultation_fee`, `created_by_id`, `doctor_profile_id`, `modified_by_id`) VALUES
-(1, '2023-12-07 15:39:33.251782', NULL, NULL, 10, 500, NULL, 1, NULL),
-(2, '2023-12-07 15:40:22.069352', NULL, NULL, 15, 700, NULL, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -859,30 +1200,9 @@ CREATE TABLE `doctor_awards` (
   `publications` varchar(255) DEFAULT NULL,
   `research_interests` varchar(255) DEFAULT NULL,
   `created_by_id` bigint(20) DEFAULT NULL,
-  `doctor_profile_id` bigint(20) DEFAULT NULL,
-  `modified_by_id` bigint(20) DEFAULT NULL
+  `modified_by_id` bigint(20) DEFAULT NULL,
+  `doctor_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `doctor_awards`
---
-
-INSERT INTO `doctor_awards` (`id`, `created_at`, `updated_at`, `deleted_at`, `awards`, `honors`, `publications`, `research_interests`, `created_by_id`, `doctor_profile_id`, `modified_by_id`) VALUES
-(1, '2023-12-08 09:52:56.037896', '2023-12-09 17:18:25.534301', NULL, '1', '1', '1', '1', NULL, 1, NULL),
-(2, '2023-12-09 15:51:10.911994', NULL, NULL, 'Id aliquid adipisici', 'Eum mollitia non eos', 'Libero quam cumque n', 'Sit asperiores lore', NULL, 2, NULL),
-(3, '2023-12-09 15:51:10.917986', NULL, NULL, 'Harum molestiae beat', 'Ut rerum sunt est q', 'Adipisicing dolore m', 'Quod laborum In aut', NULL, 2, NULL),
-(4, '2023-12-09 16:17:28.104507', '2023-12-09 16:17:28.103508', NULL, 'Reprehenderit sunt', 'Cillum consequatur', 'Totam a sit autem ul', 'Omnis exercitationem', NULL, 1, NULL),
-(5, '2023-12-09 16:17:28.124056', '2023-12-09 16:17:28.124056', NULL, 'Ipsum deserunt dolo', 'Odio labore velit ne', 'Ducimus labore ulla', 'Est nesciunt laboru', NULL, 1, NULL),
-(6, '2023-12-09 16:17:28.132039', '2023-12-09 16:17:28.131039', NULL, 'Explicabo Ullamco l', 'Proident et porro e', 'Repudiandae non labo', 'Sapiente eum do eum', NULL, 1, NULL),
-(7, '2023-12-09 17:18:04.274071', '2023-12-09 17:18:04.273073', NULL, 'Aut qui laudantium', 'Irure adipisci accus', 'Consequatur Officia', 'Magni aliquid et exc', NULL, 1, NULL),
-(8, '2023-12-09 17:18:04.288205', '2023-12-09 17:18:04.287036', NULL, 'Reprehenderit sunt', 'Cillum consequatur', 'Totam a sit autem ul', 'Omnis exercitationem', NULL, 1, NULL),
-(9, '2023-12-09 17:18:04.300180', '2023-12-09 17:18:04.300180', NULL, 'Ipsum deserunt dolo', 'Odio labore velit ne', 'Ducimus labore ulla', 'Est nesciunt laboru', NULL, 1, NULL),
-(10, '2023-12-09 17:18:04.308153', '2023-12-09 17:18:04.308153', NULL, 'Explicabo Ullamco l', 'Proident et porro e', 'Repudiandae non labo', 'Sapiente eum do eum', NULL, 1, NULL),
-(11, '2023-12-09 17:18:04.318829', '2023-12-09 17:18:04.318829', NULL, '1', '1', '1', '1', NULL, 1, NULL),
-(12, '2023-12-09 17:18:59.237734', NULL, NULL, 'Nemo nesciunt volup', 'Et similique consect', 'Facilis quia quisqua', 'Ut fugiat eum anim ', NULL, 3, NULL),
-(13, '2023-12-09 17:18:59.238730', NULL, NULL, 'Id qui illum elige', 'Est cupidatat rerum ', 'Doloremque exercitat', 'Sed magna expedita i', NULL, 3, NULL),
-(14, '2023-12-09 17:19:34.970957', '2023-12-09 17:48:34.577285', NULL, 'Nam cumque voluptate', 'Temporibus ipsum de', 'Deleniti quia alias', 'Voluptatum quas temp', NULL, 4, NULL),
-(15, '2023-12-09 17:19:34.972948', '2023-12-09 17:48:34.597424', NULL, 'Ut qui est saepe dol', 'Iure quam quia enim', 'At nulla dolorem ess', 'Velit nulla at labor', NULL, 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -920,15 +1240,6 @@ CREATE TABLE `doctor_off_day` (
   `off_day_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `doctor_off_day`
---
-
-INSERT INTO `doctor_off_day` (`id`, `created_at`, `updated_at`, `deleted_at`, `created_by_id`, `doctor_profile_id`, `modified_by_id`, `off_day_id`) VALUES
-(1, '2023-12-07 15:39:33.270734', NULL, NULL, NULL, 1, NULL, 1),
-(2, '2023-12-07 15:40:22.087984', NULL, NULL, NULL, 2, NULL, 2),
-(3, '2023-12-07 15:40:22.093967', NULL, NULL, NULL, 2, NULL, 3);
-
 -- --------------------------------------------------------
 
 --
@@ -948,7 +1259,7 @@ CREATE TABLE `doctor_profile` (
   `phone_no` varchar(110) DEFAULT NULL,
   `nid_no` varchar(20) DEFAULT NULL,
   `experience` varchar(1000) DEFAULT NULL,
-  `biography` varchar(1000) DEFAULT NULL,
+  `biography` varchar(10000) DEFAULT NULL,
   `languages_spoken` varchar(255) DEFAULT NULL,
   `passport_no` varchar(255) DEFAULT NULL,
   `blood_group_id` bigint(20) NOT NULL,
@@ -964,10 +1275,10 @@ CREATE TABLE `doctor_profile` (
 --
 
 INSERT INTO `doctor_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `full_name`, `father_name`, `mother_name`, `date_of_birth`, `birth_registration_no`, `phone_no`, `nid_no`, `experience`, `biography`, `languages_spoken`, `passport_no`, `blood_group_id`, `department_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
-(1, '2023-12-07 12:18:42.652863', '2023-12-08 10:39:59.749342', NULL, 'Dr. Abul Hok', 'Lois Rodriquez', 'Ramona Owen', '1970-02-19', '50', '+1 (394) 196-2398', '91', 'Fugiat et dolor dig', 'Recusandae Quisquam', 'Natus duis deleniti', 'Adipisicing soluta v', 1, 4, 1, 2, 1, 2),
-(2, '2023-12-07 15:37:12.435675', NULL, NULL, 'Britanney Tyson', 'Cora Mcdaniel', 'Amal Parker', '2019-03-24', '73', '+1 (891) 686-7221', '99', 'Reprehenderit qui c', 'Maxime quis deserunt', 'Tempore ut dolores', 'Quis sequi aspernatu', 5, 4, 3, 1, 3, 3),
-(3, '2023-12-09 16:18:29.906594', NULL, NULL, 'Kennan Whitehead', 'Maxine Pierce', 'Owen Glover', '1977-01-31', '85', '+1 (756) 625-3376', '51', 'Est et vel dolore v', 'Deserunt sit nihil', 'Enim omnis nostrum o', 'Deserunt sit laudant', 6, 18, 1, 1, 5, 13),
-(4, '2023-12-09 17:18:49.914221', NULL, NULL, 'Jerry Watts', 'Yael Savage', 'Veda Carter', '2016-07-31', '27', '+1 (193) 844-6852', '39', 'Soluta sit hic cupi', 'Dolorem vel impedit', 'Ea sed eligendi tota', 'Ut est quo proident', 3, 17, 2, 5, 5, 14);
+(1, '2024-01-04 09:55:54.637054', NULL, NULL, 'Dr. Arunangshu Das', 'Aimee Long', 'Brielle Melton', '1971-01-19', '6', '01965784645', '76', '5 Years', 'Dr Arunangshu Das passed MBBS from Mymensing Medical College in 2005. After that he joined Radiotherapy Department of Dhaka Medical College in 2007 as Honorary Medical Officer. At the end of 2008 he received a scholarship and went to National Cancer Center (NCC) Singapore for a clinical attachment and training. In 2009, he successfully completed Post Graduate Certificate in Palliative Medicine  from Flinders University Australia.  He joined Government Health Service (27th BCS) in December 2008. Subsequently in 2010 he was posted at National Institute of Cancer Research and Hospital (NICRH), Dhaka at the Department of Radiation Oncology. In 2012 he went to UKM, Malaysia for a higher training in Oncology. He successfully completed FCPS in Radiotherapy from Bangladesh College of Physicians and Surgeons of Bangladesh (BCPS) in 2014. At the middle of 2014 he went to TATA Memorial Hospital Mumbai for a clinical training in Radiation Oncology. He received the prestigious International Development and Education Award (IDEA) in January 2018 from American Society of Clinical Oncology (ASCO) USA. He also achieved the prestigious ESMO Asia Leadership Award in 2020. As a part of voluntary activity he is working as the General Secretary of Bangladesh Society for Breast Cancer Study. He is active in clinical research and published many articles both nationally and internationally. He has long 15 years experience working the field of Oncology. Currently he is working as Associate Consultant at Oncology Department of Square Hospitals Ltd.', 'Bangla, English', 'N/A', 1, 4, 1, 1, 2, 2),
+(2, '2024-01-04 10:16:07.349043', NULL, NULL, 'Dr. Md. Towhiduzzaman', 'Kalia Shaw', 'Julie Dunlap', '1976-04-15', '8', '01963369911', '61', 'Assumenda rerum cons', 'Dr. Towhiduzzaman received SAARC Cardiology  hands on Fellowship in Interventional Cardiology at Escorts Heart Institute and Research Centre (EHIR&C), New Delhi, India for 01(one) year in June 2006. Subsequently he was selected for another 01 year hands on Fellowship program in Interventional Cardiology at National Heart Centre, Singapore and received the fellowship award in July 2007.  He has successfully completed Rotablation, Intravascular ultrasound Pressure wire and peripheral stenting course. He also gained and experienced a numerous number of invasive and clinical training and observatory fellowship and visited  USA, Canada, France, England, Japan, Italy, Sweden, Hong Kong, China, Jamaica, Costarica, Vietnam, Malaysia, Thailand, India, Pakistan and Nepal. Dr. Towhiduzzaman has published articles and presented cases at numerous national and international conferences. He has vast experiences of 10 years to perform invasive & interventional and complex diagnostic and therapeutic procedures independently & confidently. He is regular Faculty/Guest Speaker and participated in a large number of International workshops, seminars, symposiums both home and abroad that has enriched his decision making capacity, professional skills and care giving attitude to an international level. For last 10 years he is performing highest number of complex bifurcation, CTOs, primary PCI, and Renal & Peripheral Angioplasties at Square Hospital.His sub specialty interest is in Interventional Cardiology.Professional Appointment & Committee Membership:Life Member – Bangladesh Cardiac Society (BSC), Bangladesh Society of Cardiovascular Interventions (BSCI), Bangladesh Society of Echo Cardiography (BSE), Bangladesh Medical Association (BMA)Org. Secretary (Elect) Bangladesh Cardiac Society from 2015, Scientific Secretary (Elect), 2009 – 14.Others: Fellow, Society of Cardiac angiography &Intervention(FSCAI, USA), Associate Fellow American College of Cardiology (FACC), Member-American Society of Echocardiography (MASE), European Society of Percutaneous Cardiovascular Interventions. (EPACI), European Society of Cardiology (MESC)', 'Bangla, English', 'Ut ut blanditiis id', 3, 18, 1, 1, 1, 3),
+(3, '2024-01-04 11:42:11.395957', NULL, NULL, 'Dr. Asif Manwar', 'Armand Nguyen', 'Ila Norris', '2018-06-14', '18', '+1 (993) 535-9147', '24', 'Praesentium in expli', 'Dr. Asif Manwar, a graduate of Chittagong Medical College, started career as Resident Medical Officer, BIRDEM in 2002 en-route to Ibrahim Cardiac Hospital.  Dr. Manwar pursued PG Dip Cardiology in 2004 under University of London with Distinction & Sir John Goodwin Prize for academic excellence by Imperial College London. Academic up-gradation in 2006 created an opportunity to serve Apollo Hospital Dhaka as Registrar, Cardiology. To aspire proficiency at masters’ level he completed MSc Cardiology with Distinction once again by Canterbury Christ Church & University College London (UCL) in 2008. To achieve superspeciality, he opted Fellowship in Paediatric Cardiology being registered with Medical Council of India in 2009.           \r\n\r\nDr. Manwar is proficient in all facets of non-invasive procedures like 3D-TOE-DSE, Dyssynchrony, Strain Rate, Tissue Doppler Imaging, Contrast & Intra-operative Echo. He got basic training from Hammersmith, Royal Brompton and advanced training from The Heart Hospital London. He obtained hands on training in Grown-Up Congenital, Paediatric, Neonatal & Fetal Echo from AMRITA Kerala & New Delhi India. \r\n\r\nDr. Asif Manwar joined SQUARE Hospital as Specialist Cardiologist, contributing his expertise since then before taking up position of Associate Consultant in 2015 & Coordinator Non-Invasive Lab in 2017.', 'Bangla, English', 'Distinctio Sed dolo', 8, 22, 1, 4, 3, 4),
+(4, '2024-01-04 11:43:53.046856', NULL, NULL, 'Dr. Fowaz Hussain Shuvo', 'Haley Perkins', 'Silas Owen', '1989-04-12', '53', '+1 (965) 663-4104', '26', 'Provident occaecat', 'Dr. Fowaz Hussain graduated from Dhaka Medical College and obtained his MD (Hepatology) from Bangabandhu Sheikh Mujib Medical University (BSMMU). He gained experience through his working tenure of more than 10 years at department of Hepatology and Gastroenterology of a reputed corporate hospital of Dhaka where he groomed himself up as one of the dependable gastroenterologists of the country. He was also an Assistant Professor in the department of Hepatolgy at Mymensingh Medical College & Hospital. Dr. Fowaz Hussain is an expert in Interventional procedures like Endoscopy, Colonoscopy, Polypectomy, ERCP, Esophageal Stentings, Bleeding Homeostasis and Clippings. Dr. Fowaz Hussain got his advanced interventional training and joined many workshops in India, Singapore and different countries of Europe. He has many publications both in international and national levels.', 'Bangla, English', 'Tempor quo officia a', 5, 7, 1, 1, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -985,15 +1296,6 @@ CREATE TABLE `doctor_schedule_times` (
   `appointment_schedule_id` bigint(20) DEFAULT NULL,
   `doctor_profile_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `doctor_schedule_times`
---
-
-INSERT INTO `doctor_schedule_times` (`id`, `created_at`, `updated_at`, `deleted_at`, `start_time`, `end_time`, `appointment_schedule_id`, `doctor_profile_id`) VALUES
-(1, '2023-12-07 15:39:33.262753', NULL, NULL, '09:30:00.000000', '12:30:00.000000', 1, 1),
-(2, '2023-12-07 15:39:33.266744', NULL, NULL, '17:00:00.000000', '23:00:00.000000', 1, 1),
-(3, '2023-12-07 15:40:22.074026', NULL, NULL, '09:30:00.000000', '14:00:00.000000', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -1070,37 +1372,11 @@ CREATE TABLE `images` (
 --
 
 INSERT INTO `images` (`id`, `created_at`, `updated_at`, `deleted_at`, `photo_name`, `user_id`) VALUES
-(1, '2023-12-07 12:18:02.759752', NULL, NULL, '', 1),
-(2, '2023-12-07 12:18:42.672812', NULL, NULL, 'static/uploads/images/20231208163959_31c124bf69684481a22ba597849698dd.jpg', 2),
-(3, '2023-12-07 15:37:12.440664', NULL, NULL, '', 3),
-(4, '2023-12-07 15:41:50.822537', '2023-12-10 01:42:59.505127', NULL, '', 4),
-(5, '2023-12-07 15:42:47.436600', NULL, NULL, '', 5),
-(6, '2023-12-07 15:58:28.719770', NULL, NULL, '', 6),
-(7, '2023-12-07 16:00:45.912543', NULL, NULL, '', 7),
-(8, '2023-12-07 16:02:13.958786', NULL, NULL, '', 8),
-(9, '2023-12-07 16:02:57.233843', NULL, NULL, '', 9),
-(10, '2023-12-07 16:04:57.951102', NULL, NULL, '', 10),
-(11, '2023-12-07 16:06:01.000208', NULL, NULL, '', 11),
-(12, '2023-12-08 09:09:40.055250', NULL, NULL, '', 12),
-(13, '2023-12-09 16:18:29.915569', NULL, NULL, '', 13),
-(14, '2023-12-09 17:18:49.925386', NULL, NULL, '', 14),
-(15, '2023-12-10 13:32:58.518291', NULL, NULL, '', 15),
-(16, '2023-12-10 13:33:13.180856', NULL, NULL, '', 16),
-(17, '2023-12-10 13:33:39.018108', NULL, NULL, '', 17),
-(18, '2023-12-10 13:33:59.299273', NULL, NULL, '', 18),
-(19, '2023-12-10 17:03:20.490911', NULL, NULL, '', 19),
-(20, '2023-12-11 11:14:33.411430', NULL, NULL, '', 20),
-(21, '2023-12-11 11:18:09.572369', NULL, NULL, '', 21),
-(22, '2023-12-11 11:19:20.127909', NULL, NULL, '', 22),
-(23, '2023-12-11 11:21:29.306798', NULL, NULL, '', 23),
-(24, '2023-12-11 11:21:39.824945', '2023-12-12 17:58:05.092848', NULL, '', 24),
-(25, '2023-12-11 11:25:44.649630', NULL, NULL, '', 25),
-(26, '2023-12-11 11:27:34.014186', NULL, NULL, '', 26),
-(27, '2023-12-11 15:09:04.520489', NULL, NULL, '', 27),
-(28, '2023-12-12 11:41:54.572247', NULL, NULL, '', 28),
-(29, '2023-12-12 11:47:51.934022', NULL, NULL, '', 29),
-(30, '2023-12-12 11:48:30.109913', NULL, NULL, '', 30),
-(31, '2023-12-12 12:12:58.392515', NULL, NULL, '', 31);
+(1, '2024-01-03 12:26:15.136829', NULL, NULL, 'uploads/images/20240103182615_1bca73153bbb4509a0831ca5bdd9bc50.jpg', 1),
+(2, '2024-01-04 09:55:54.652016', NULL, NULL, 'uploads/images/20240104155554_32a7f847c00a4017b624c16785dec07d.png', 2),
+(3, '2024-01-04 10:16:07.353033', NULL, NULL, 'uploads/images/20240104161607_e3771eebce404dc6ac651c66cf3dc6f8.jpg', 3),
+(4, '2024-01-04 11:42:11.423879', NULL, NULL, 'uploads/images/20240104174211_489b0886c31c447380658497eb25a241.png', 4),
+(5, '2024-01-04 11:43:53.048848', NULL, NULL, 'uploads/images/20240104174353_e2b6dcd3bde548109fcea2563d67ada6.png', 5);
 
 -- --------------------------------------------------------
 
@@ -1110,20 +1386,19 @@ INSERT INTO `images` (`id`, `created_at`, `updated_at`, `deleted_at`, `photo_nam
 
 CREATE TABLE `lab_test` (
   `id` bigint(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` varchar(1000) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
   `deleted_at` datetime(6) DEFAULT NULL,
-  `updated_at` datetime(6) DEFAULT NULL
+  `name` varchar(255) NOT NULL,
+  `description` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `lab_test`
 --
 
-INSERT INTO `lab_test` (`id`, `name`, `description`, `created_at`, `deleted_at`, `updated_at`) VALUES
-(1, 'Blood Test', 'N/A', '2023-12-07 12:40:39.661058', '2023-12-07 12:56:15.608995', NULL),
-(2, 'Blood Test', 'N/A', '2023-12-10 14:08:10.580965', NULL, NULL);
+INSERT INTO `lab_test` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`, `description`) VALUES
+(1, NULL, NULL, NULL, 'Blood Test', NULL);
 
 -- --------------------------------------------------------
 
@@ -1137,18 +1412,10 @@ CREATE TABLE `lab_test_prescription` (
   `updated_at` datetime(6) DEFAULT NULL,
   `deleted_at` datetime(6) DEFAULT NULL,
   `created_by_id` bigint(20) DEFAULT NULL,
-  `lab_prescription_id` bigint(20) DEFAULT NULL,
   `lab_test_id` bigint(20) DEFAULT NULL,
-  `modified_by_id` bigint(20) DEFAULT NULL
+  `modified_by_id` bigint(20) DEFAULT NULL,
+  `lab_prescription_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `lab_test_prescription`
---
-
-INSERT INTO `lab_test_prescription` (`id`, `created_at`, `updated_at`, `deleted_at`, `created_by_id`, `lab_prescription_id`, `lab_test_id`, `modified_by_id`) VALUES
-(1, '2023-12-10 14:08:19.399053', NULL, NULL, 2, 1, 2, NULL),
-(2, '2023-12-12 05:29:08.913595', NULL, NULL, 2, 2, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -1188,17 +1455,10 @@ CREATE TABLE `medicine` (
   `brand_id` bigint(20) NOT NULL,
   `created_by_id` bigint(20) DEFAULT NULL,
   `generic_id` bigint(20) NOT NULL,
-  `medicine_type_id` bigint(20) NOT NULL,
   `modified_by_id` bigint(20) DEFAULT NULL,
+  `medicine_type_id` bigint(20) NOT NULL,
   `strength_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `medicine`
---
-
-INSERT INTO `medicine` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`, `description`, `brand_id`, `created_by_id`, `generic_id`, `medicine_type_id`, `modified_by_id`, `strength_id`) VALUES
-(1, '2023-12-07 12:20:02.018886', NULL, NULL, 'Napa', 'Cupidatat sint quod', 153, NULL, 282, 17, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1881,20 +2141,6 @@ CREATE TABLE `medicine_prescription` (
   `prescription_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `medicine_prescription`
---
-
-INSERT INTO `medicine_prescription` (`id`, `created_at`, `updated_at`, `deleted_at`, `frequency`, `duration`, `created_by_id`, `medicine_id`, `medicine_schedule_id`, `modified_by_id`, `prescription_id`) VALUES
-(1, '2023-12-07 15:47:44.727183', NULL, NULL, '1+1+1', '1 week', 3, 1, 1, NULL, 1),
-(3, '2023-12-08 10:14:57.743613', NULL, NULL, 'Vel debitis recusand', 'Vitae et irure labor', 3, 1, 2, NULL, 2),
-(4, '2023-12-08 10:40:19.569201', NULL, NULL, 'Deleniti id obcaecat', 'Amet commodi qui in', 2, 1, 2, NULL, 3),
-(5, '2023-12-10 03:18:58.575066', NULL, NULL, 'Esse quis error ut a', 'Nihil culpa reprehe', 3, 1, 2, NULL, 4),
-(6, '2023-12-10 03:19:10.509210', NULL, NULL, 'Consequatur dolorum ', 'Ratione est reiciend', 3, 1, 1, NULL, 5),
-(7, '2023-12-11 10:45:01.847822', NULL, NULL, 'Ea esse rerum id c', 'Debitis rerum aut ei', 2, 1, 2, NULL, 6),
-(8, '2023-12-12 05:28:23.408724', NULL, NULL, 'Aliquid quia volupta', 'Nesciunt aliquip mi', 2, 1, 1, NULL, 7),
-(9, '2023-12-12 05:29:01.376885', NULL, NULL, 'Aliquid quia volupta', 'Nesciunt aliquip mi', 2, 1, 1, NULL, 8);
-
 -- --------------------------------------------------------
 
 --
@@ -2014,7 +2260,7 @@ INSERT INTO `organ` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`, `de
 (5, '2023-08-16 16:39:35.813459', NULL, NULL, 'Mouth  (মুখ)', 'Used for eating, speaking, and breathing. Contains structures like the tongue and teeth. (খাবার গ্রাহণ, কথা বলা এবং শ্বাস নেওয়ার জন্য ব্যবহৃত হয়। জিভ এবং দাঁতের মতো অঙ্গগুলি এখানে অন্তর্ভুক্ত রয়েছে।)', 1),
 (6, '2023-08-16 16:41:15.634343', NULL, NULL, 'Throat structures (গলা প্রতিরক্ষা)', 'Include the pharynx and larynx, which are involved in swallowing, speaking, and breathing. (গ্যারগল এবং ল্যারিংক্স অন্তর্ভুক্ত, যা নেত্রমোক্ষণ, বলা এবং শ্বাসকে নিয়ন্ত্রণ করে।\r\nশরীরের উপাংশ:)', 2),
 (7, '2023-08-16 16:42:38.982906', NULL, NULL, 'Heart (হৃদয়)', ' A muscular organ that pumps blood throughout the body, supplying oxygen and nutrients to cells. (শরীরের সারস্বত্বিক অঙ্গ, যা রক্ত পূর্বাধ এবং নিঃশ্বাসিত রক্ত পাঠানোর জন্য ব্যবহৃত হয়, পূর্বাধবৃদ্ধি এবং পুষ্টি সংক্রিয়া করে।)', 3),
-(8, '2023-08-16 16:42:38.990509', NULL, NULL, 'Lungs (ফুসফুস)', 'Respiratory organs responsible for exchanging oxygen and carbon dioxide with the blood. (রক্ত দ্বারা অক্সিজেন এবং কার্বন ডাইঅক্সাইড পরিবর্তনের জন্য জিবনবৃত্তি সঞ্চালন করে।)', 3),
+(8, '2023-08-16 16:42:38.990509', '2024-01-03 17:13:37.988262', NULL, 'Lungs  (শ্বাসযন্ত্র)', 'Exchange oxygen and carbon dioxide during breathing. (শ্বাসের সময় অক্সিজেন এবং কার্বন ডাই অক্সাইড বিনিময় করুন।)', 3),
 (9, '2023-08-16 16:49:00.823126', NULL, NULL, 'Shoulder joint (কাঁধ জয়েন্ট)', 'Allows a wide range of arm movements. (পয়েন্ট হয় এবং আয়ত্তকার বাহু চলাচল সাহায্য করে।)', 4),
 (10, '2023-08-16 16:49:00.829623', NULL, NULL, 'Upper arm muscles ( উপরের বাহুর পেশী)', 'Responsible for arm movement and stability. (বাহু চলাচল এবং স্থিতির জন্য দায়িত্বপ্রাপ্ত।)', 4),
 (11, '2023-08-16 16:49:00.843031', NULL, NULL, 'Forearm muscles ( হাতের পেশী)', 'Control hand and finger movements. (হাত এবং আঙ্গুল চলাচল নিয়ন্ত্রণ করে।)', 4),
@@ -2025,8 +2271,8 @@ INSERT INTO `organ` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`, `de
 (16, '2023-08-16 17:20:48.019845', NULL, NULL, 'Lower leg muscles (নীচের পায়ের পেশী)', 'Control movements of the foot and ankle. (পা এবং গোড়ালির গতিবিধি নিয়ন্ত্রণ করুন।)', 5),
 (17, '2023-08-16 17:20:48.025952', NULL, NULL, 'Ankle joint (গোড়ালি জয়েন্ট)', 'Enables foot movement. (পা নড়াচড়া সক্ষম করে।)', 5),
 (18, '2023-08-16 17:20:48.031306', NULL, NULL, 'Foot bones and muscles (পায়ের হাড় এবং পেশী)', 'Provide support and enable standing, walking, and running. (সমর্থন প্রদান করুন এবং দাঁড়ানো, হাঁটা এবং দৌড়ানো সক্ষম করুন।)', 5),
-(19, '2023-08-16 18:38:24.460260', NULL, NULL, 'Heart (হৃদয়)', 'Pumps oxygenated blood to the body and deoxygenated blood to the lungs. (শরীরে অক্সিজেনযুক্ত রক্ত ​​এবং ফুসফুসে অক্সিজেনযুক্ত রক্ত ​​পাম্প করে।)', 6),
-(20, '2023-08-16 18:38:24.467784', NULL, NULL, 'Lungs  (শ্বাসযন্ত্র)', 'Exchange oxygen and carbon dioxide during breathing. (শ্বাসের সময় অক্সিজেন এবং কার্বন ডাই অক্সাইড বিনিময় করুন।)', 6),
+(19, '2023-08-16 18:38:24.460260', '2024-01-03 17:09:33.397779', NULL, 'Thymus gland (থাইমাস গ্রন্থি)', 'The thymus gland is a specialized organ of the immune system located in the upper part of the chest, just behind the sternum (breastbone) and in front of the heart. It is most active during childhood and adolescence, gradually decreasing in size and activity as a person ages. Here is some detailed information about the thymus gland ( থাইমাস গ্রন্থি হ\'ল ইমিউন সিস্টেমের একটি বিশেষ অঙ্গ যা বুকের উপরের অংশে, স্টার্নামের ঠিক পিছনে (স্তনের হাড়) এবং হৃৎপিণ্ডের সামনে অবস্থিত। এটি শৈশব এবং বয়ঃসন্ধিকালে সর্বাধিক সক্রিয়, ধীরে ধীরে একজন ব্যক্তির বয়স হিসাবে আকার এবং কার্যকলাপ হ্রাস পায়। এখানে থাইমাস গ্রন্থি সম্পর্কে কিছু বিস্তারিত তথ্য রয়েছে:)', 6),
+(20, '2023-08-16 18:38:24.467784', '2024-01-04 08:16:15.379547', NULL, 'Null', 'N/A', 6),
 (21, '2023-08-16 18:40:11.699053', NULL, NULL, 'Stomach (পেট)', 'Digests food and breaks it down into nutrients. (খাবার হজম করে এবং পুষ্টিতে ভেঙ্গে দেয়।)', 7),
 (22, '2023-08-16 18:40:11.705056', NULL, NULL, 'Liver (লিভার)', 'Performs various metabolic functions, including detoxification and nutrient processing. (ডিটক্সিফিকেশন এবং পুষ্টি প্রক্রিয়াকরণ সহ বিভিন্ন বিপাকীয় কার্য সম্পাদন করে।)', 7),
 (23, '2023-08-16 18:41:46.340305', NULL, NULL, 'Intestines (small and large) (অন্ত্র (ছোট এবং বড়)', 'Absorb nutrients and water from digested food. (হজম হওয়া খাবার থেকে পুষ্টি এবং জল শোষণ করে।)', 7),
@@ -2044,7 +2290,9 @@ INSERT INTO `organ` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`, `de
 (35, '2023-08-16 18:51:55.268335', NULL, NULL, 'Bone Marrow (অস্থিমজ্জা)', 'Soft tissue within bones that produces blood cells (red marrow) and stores fat (yellow marrow). (হাড়ের মধ্যে নরম টিস্যু যা রক্ত ​​​​কোষ (লাল মজ্জা) তৈরি করে এবং চর্বি (হলুদ মজ্জা) সঞ্চয় করে।)', 11),
 (36, '2023-08-16 18:54:13.561291', NULL, NULL, 'Epidermis (এপিডার্মিস)', 'The outer layer of the skin, consisting of multiple layers of cells that provide a barrier against pathogens and UV radiation. (ত্বকের বাইরের স্তর, কোষের একাধিক স্তর নিয়ে গঠিত যা প্যাথোজেন এবং ইউভি বিকিরণের বিরুদ্ধে বাধা প্রদান করে।)', 12),
 (37, '2023-08-16 18:54:13.566648', NULL, NULL, 'Dermis (ডার্মিস)', 'The layer beneath the epidermis that contains blood vessels, nerves, sweat glands, hair follicles, and connective tissue. (এপিডার্মিসের নীচের স্তর যা রক্তনালী, স্নায়ু, ঘাম গ্রন্থি, চুলের ফলিকল এবং সংযোগকারী টিস্যু ধারণ করে।)', 12),
-(38, '2023-08-16 18:54:13.572578', NULL, NULL, 'Subcutaneous Tissue (Hypodermis) (সাবকুটেনিয়াস টিস্যু (হাইপোডার্মিস))', 'The layer beneath the dermis that contains fat cells and helps insulate the body. (ডার্মিসের নীচের স্তর যাতে চর্বি কোষ থাকে এবং শরীরকে নিরোধক করতে সাহায্য করে।)', 12);
+(38, '2023-08-16 18:54:13.572578', NULL, NULL, 'Subcutaneous Tissue (Hypodermis) (সাবকুটেনিয়াস টিস্যু (হাইপোডার্মিস))', 'The layer beneath the dermis that contains fat cells and helps insulate the body. (ডার্মিসের নীচের স্তর যাতে চর্বি কোষ থাকে এবং শরীরকে নিরোধক করতে সাহায্য করে।)', 12),
+(39, '2024-01-03 17:15:58.725930', NULL, '2024-01-04 07:58:38.167832', 'Kidneys (কিডনি)', 'The kidneys are two bean-shaped organs, each about the size of a fist. They are located just below the rib cage, one on each side of your spine. Healthy kidneys filter about a half cup of blood every minute, removing wastes and extra water to make urine. (কিডনি হল দুটি শিমের আকৃতির অঙ্গ, প্রতিটি একটি মুষ্টির আকারের। এগুলি আপনার মেরুদণ্ডের প্রতিটি পাশে একটি পাঁজরের খাঁচার নীচে অবস্থিত। স্বাস্থ্যকর কিডনি প্রতি মিনিটে প্রায় দেড় কাপ রক্ত ফিল্টার করে, বর্জ্য অপসারণ করে এবং অতিরিক্ত পানি প্রস্রাব তৈরি করে।)', 6),
+(40, '2024-01-04 05:05:38.349709', '2024-01-04 05:07:34.084786', '2024-01-04 08:07:45.540123', 'Reproductive organs (প্রজনন অঙ্গ)', 'The male reproductive system includes the testes (which produce sperm), penis, epididymis, vas deferens, ejaculatory ducts and urethra. The female reproductive system consists of the ovaries (which produce eggs or oocytes), fallopian tubes, uterus, cervix, vagina and vulva. (পুরুষ প্রজনন ব্যবস্থার মধ্যে রয়েছে অণ্ডকোষ (যা শুক্রাণু উৎপন্ন করে), লিঙ্গ, এপিডিডাইমিস, ভাস ডিফারেনস, বীর্যপাত নালী এবং মূত্রনালী। মহিলাদের প্রজনন ব্যবস্থায় ডিম্বাশয় (যা ডিম বা oocytes উৎপন্ন করে), ফ্যালোপিয়ান টিউব, জরায়ু, জরায়ু, যোনি এবং ভালভা নিয়ে গঠিত।)', 6);
 
 -- --------------------------------------------------------
 
@@ -2067,12 +2315,379 @@ CREATE TABLE `organ_problem_speci` (
 --
 
 INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, `problem`, `problem_specification`, `organ_id`) VALUES
-(1, '2023-11-09 15:51:24.223814', NULL, NULL, '  Brain Tumor, Stroke, Epilepsy (মস্তিষ্কের টিউমার, স্ট্রোক, মৃগীরোগ)', 'Abnormal cell growth in the brain, disruption of blood supply leading to cell damage, neurological disorder causing seizures. (মস্তিষ্কে অস্বাভাবিক কোষের বৃদ্ধি, রক্ত সরবরাহ ব্যাহত হওয়ার ফলে কোষের ক্ষতি হয়, স্নায়বিক ব্যাধি খিঁচুনি সৃষ্টি করে।)', 1),
-(2, '2023-11-09 15:52:20.439895', NULL, NULL, ' Cataracts, Glaucoma, Conjunctivitis ( ছানি, গ্লুকোমা, কনজেক্টিভাইটিস)', 'Clouding of the eye\'s lens, increased intraocular pressure, inflammation of the conjunctiva. (চোখের লেন্সের মেঘ, ইন্ট্রাওকুলার চাপ বৃদ্ধি, কনজেক্টিভার প্রদাহ।)', 2),
-(3, '2023-11-09 15:53:12.062282', NULL, NULL, 'Hearing Loss, Tinnitus, Ear Infections (শ্রবণশক্তি হ্রাস, টিনিটাস, কানের সংক্রমণ)', ' Impairment of auditory function, ringing in the ears, inflammation or infection of the ear. ( শ্রবণ ফাংশনের দুর্বলতা, কানে বাজানো, কানের প্রদাহ বা সংক্রমণ।)', 3),
-(4, '2023-11-09 15:54:06.646672', NULL, NULL, 'Sinusitis, Allergic Rhinitis, Deviated Septum (সাইনোসাইটিস, অ্যালার্জিক রাইনাইটিস, বিচ্যুত সেপ্টাম)', 'Inflammation of the sinuses, allergic reaction affecting the nasal passages, displacement of the nasal septum. (সাইনাসের প্রদাহ, অনুনাসিক প্যাসেজগুলিকে প্রভাবিত করে অ্যালার্জির প্রতিক্রিয়া, অনুনাসিক সেপ্টামের স্থানচ্যুতি।)', 4),
-(5, '2023-11-09 15:55:01.306669', NULL, NULL, 'Tooth Decay, Gum Disease, Oral Cancer (দাঁত ক্ষয়, মাড়ির রোগ, মুখের ক্যান্সার)', ' Deterioration of tooth structure, inflammation of the gums, cancer affecting the oral cavity. ( দাঁতের গঠনের অবনতি, মাড়ির প্রদাহ, মুখের গহ্বরকে প্রভাবিত করে ক্যান্সার।)', 5),
-(6, '2023-12-12 04:57:27.006537', NULL, NULL, 'Sint qui nihil itaque saepe nostrum adipisicing lorem vel nostrud minim aute excepturi sapiente sint nulla quis similique aperiam voluptatem', 'Qui nesciunt iure tempor odit dicta et', 1);
+(1, '2024-01-03 13:38:24.820027', NULL, NULL, 'Migraine (মাইগ্রেন)', 'Recurrent headaches often accompanied by nausea, vomiting, and sensitivity to light and sound. (বারবার মাথাব্যথার সাথে প্রায়ই বমি বমি ভাব, বমি এবং আলো ও শব্দের প্রতি সংবেদনশীলতা থাকে।)', 1),
+(2, '2024-01-03 13:39:49.276380', NULL, NULL, 'Alzheimer\'s Disease (আলঝেইমার রোগ)', 'Progressive neurodegenerative disorder affecting memory, cognitive function, and behavior.(প্রগতিশীল নিউরোডিজেনারেটিভ ডিসঅর্ডার যা স্মৃতিশক্তি, জ্ঞানীয় কার্যকারিতা এবং আচরণকে প্রভাবিত করে।)', 1),
+(3, '2024-01-03 13:43:44.424046', NULL, NULL, 'Concussion (মস্তিষ্কের আঘাত)', 'Traumatic brain injury resulting from a blow to the head, leading to temporary cognitive and physical impairment.(মাথায় আঘাতের ফলে আঘাতজনিত মস্তিষ্কের আঘাত, যা সাময়িক জ্ঞানীয় এবং শারীরিক প্রতিবন্ধকতার দিকে পরিচালিত করে।)', 1),
+(4, '2024-01-03 13:43:44.430032', NULL, NULL, 'Parkinson\'s Disease (স্নায়বিক ব্যাধি ও কম্পন )', 'Neurological disorder causing tremors, stiffness, and difficulty with balance and coordination.(স্নায়বিক ব্যাধি যার ফলে কম্পন, দৃঢ়তা এবং ভারসাম্য ও সমন্বয়ে অসুবিধা হয়।)', 1),
+(5, '2024-01-03 13:43:44.436009', NULL, NULL, 'Cerebral Palsy (অঙ্গবিন্যাসকে প্রভাবিত)', 'Group of disorders affecting movement and posture due to damage to the developing brain, often occurring before or during birth. (বিকাশমান মস্তিষ্কের ক্ষতির কারণে নড়াচড়া এবং অঙ্গবিন্যাসকে প্রভাবিত করে ব্যাধিগুলির গ্রুপ, প্রায়শই জন্মের আগে বা সময় ঘটে।)', 1),
+(6, '2024-01-03 13:47:12.870119', NULL, NULL, ' Traumatic Brain Injury (TBI) (ট্রমাটিক ব্রেন ইনজুরি )', 'Damage to the brain caused by an external force, often resulting from accidents, falls, or sports injuries, leading to various cognitive and physical impairments. (বাহ্যিক শক্তির কারণে মস্তিষ্কের ক্ষতি, প্রায়শই দুর্ঘটনা, পড়ে যাওয়া বা খেলাধুলার আঘাতের ফলে বিভিন্ন জ্ঞানীয় এবং শারীরিক প্রতিবন্ধকতা দেখা দেয়।)', 1),
+(7, '2024-01-03 13:48:37.490778', NULL, NULL, 'Encephalitis', 'Inflammation of the brain, often caused by viral infections, leading to symptoms such as fever, headache, and altered mental status. (মস্তিষ্কের প্রদাহ, প্রায়শই ভাইরাল সংক্রমণের কারণে হয়, যা জ্বর, মাথাব্যথা এবং পরিবর্তিত মানসিক অবস্থার মতো লক্ষণগুলির দিকে পরিচালিত করে।)', 1),
+(8, '2024-01-03 13:49:50.723761', NULL, NULL, 'Brain Abscess (মস্তিষ্ক ফোড়া)', 'Collection of pus within the brain, usually caused by a bacterial or fungal infection. (ব্রেন অ্যাবসেস মস্তিষ্কের মধ্যে পুঁজ সংগ্রহ, সাধারণত ব্যাকটেরিয়া বা ছত্রাকের সংক্রমণের কারণে হয়।)', 1),
+(9, '2024-01-03 13:52:44.699232', NULL, NULL, ' Brain Tumors (ব্রেন টিউমার)', 'Abnormal growth of cells in the brain that can be benign or malignant, causing various symptoms based on the location and size of the tumor. (মস্তিষ্কে কোষের অস্বাভাবিক বৃদ্ধি যা সৌম্য বা ম্যালিগন্যান্ট হতে পারে, যা টিউমারের অবস্থান এবং আকারের উপর ভিত্তি করে বিভিন্ন উপসর্গ সৃষ্টি করে।)', 1),
+(10, '2024-01-03 13:52:44.713198', NULL, NULL, 'Stroke (স্ট্রোক)', 'neurological disorder causing seizures.  (রক্ত সরবরাহ ব্যাহত হওয়ার ফলে কোষের ক্ষতি হয়)', 1),
+(11, '2024-01-03 13:52:44.717185', NULL, NULL, 'Epilepsy ( মৃগীরোগ)', 'disruption of blood supply leading to cell damage( স্নায়বিক ব্যাধি খিঁচুনি সৃষ্টি করে।)', 1),
+(12, '2024-01-03 13:59:39.648036', NULL, NULL, 'Glaucoma ( গ্লুকোমা)', 'Increased intraocular pressure leading to optic nerve damage, often resulting in gradual vision loss. (বর্ধিত ইন্ট্রাওকুলার চাপ অপটিক স্নায়ুর ক্ষতির দিকে পরিচালিত করে, প্রায়শই ধীরে ধীরে দৃষ্টিশক্তি হ্রাস পায়।)', 2),
+(13, '2024-01-03 13:59:39.653029', NULL, NULL, 'Conjunctivitis (কনজেক্টিভাইটিস)', 'Inflammation of the conjunctiva, causing redness, itching, and discharge. It can be caused by viruses, bacteria, or allergies. ( কনজেক্টিভা প্রদাহ, যার ফলে লালভাব, চুলকানি এবং স্রাব হয়। এটি ভাইরাস, ব্যাকটেরিয়া বা অ্যালার্জির কারণে হতে পারে।)', 2),
+(14, '2024-01-03 13:59:39.659005', '2024-01-03 14:02:51.948646', NULL, 'Cataracts ( ছানি )', 'Clouding of the eye\'s natural lens, leading to blurry vision and visual impairment. (চোখের প্রাকৃতিক লেন্স ক্লাউডিং, ঝাপসা দৃষ্টি এবং দৃষ্টি প্রতিবন্ধকতার দিকে পরিচালিত করে।)', 2),
+(15, '2024-01-03 14:08:09.583834', NULL, NULL, 'Retinal Detachment (রেটিনার বিচু্যতি)', 'Separation of the retina from the underlying layers of the eye, leading to vision loss if not promptly treated.(চোখের অন্তর্নিহিত স্তরগুলি থেকে রেটিনা বিচ্ছিন্ন হয়ে যায়, যা অবিলম্বে চিকিত্সা না করলে দৃষ্টিশক্তি হ্রাস পায়।)', 2),
+(16, '2024-01-03 14:08:09.590813', NULL, NULL, 'Macular Degeneration (ম্যাকুলার ডিজেনারেশন)', ' Breakdown or damage to the macula, causing loss of central vision, especially in older adults. (ম্যাকুলার ভাঙ্গন বা ক্ষতি, যার ফলে কেন্দ্রীয় দৃষ্টিশক্তি নষ্ট হয়, বিশেষ করে বয়স্কদের ক্ষেত্রে।)', 2),
+(17, '2024-01-03 14:08:09.604782', NULL, NULL, ' Diabetic Retinopathy (ডায়াবেটিক রেটিনা ক্ষয়)', 'Damage to the blood vessels of the retina due to diabetes, leading to vision impairment or blindness. (ডায়াবেটিসের কারণে রেটিনার রক্তনালীগুলির ক্ষতি হয়, যার ফলে দৃষ্টি প্রতিবন্ধকতা বা অন্ধত্ব হয়।)', 2),
+(18, '2024-01-03 14:08:09.608773', NULL, NULL, 'Color Blindness (বর্ণান্ধতা)', ' Inability to perceive certain colors accurately due to a deficiency in color-sensitive pigments in the eyes. (চোখের রঙ-সংবেদনশীল রঙ্গকগুলির ঘাটতির কারণে নির্দিষ্ট রঙগুলি সঠিকভাবে উপলব্ধি করতে অক্ষমতা।)', 2),
+(19, '2024-01-03 14:08:09.613752', NULL, NULL, 'Corneal Ulcer (কর্নিয়াল আলসার)', ' Open sore on the cornea, often caused by bacterial or fungal infections, leading to pain, redness, and vision problems.(কর্নিয়াতে খোলা কালশিটে, প্রায়শই ব্যাকটেরিয়া বা ছত্রাকের সংক্রমণের কারণে হয়, যার ফলে ব্যথা, লালভাব এবং দৃষ্টি সমস্যা হয়।)', 2),
+(20, '2024-01-03 14:09:08.063323', NULL, NULL, ' Amblyopia (Lazy Eye) (অ্যাম্বলিওপিয়া (অলস চোখ))', 'Reduced vision in one eye that is not correctable by glasses or contact lenses, often due to a lack of proper visual stimulation during early childhood. ( একটি চোখের দৃষ্টি হ্রাস যা চশমা বা কন্টাক্ট লেন্স দ্বারা সংশোধন করা যায় না, প্রায়শই শৈশবকালে সঠিক চাক্ষুষ উদ্দীপনার অভাবের কারণে।)', 2),
+(21, '2024-01-03 14:10:44.595244', NULL, NULL, 'Dry Eye Syndrome (ড্রাই আই সিনড্রোম)', 'Insufficient production of tears or poor-quality tears, causing discomfort, redness, and blurred vision.(অপর্যাপ্ত অশ্রু উৎপাদন বা নিম্নমানের অশ্রু, অস্বস্তি, লালভাব এবং দৃষ্টি ঝাপসা করে।)', 2),
+(22, '2024-01-03 14:19:40.353551', NULL, NULL, 'Ear Infection (Otitis Externa) (কানের সংক্রমণ (ওটিটিস এক্সটার্না))', ' Infection of the outer ear canal, often caused by bacteria or fungi, leading to pain, itching, and sometimes hearing loss.(বাইরের কানের খালের সংক্রমণ, প্রায়শই ব্যাকটেরিয়া বা ছত্রাক দ্বারা সৃষ্ট, যার ফলে ব্যথা, চুলকানি এবং কখনও কখনও শ্রবণশক্তি হ্রাস পায়।)', 3),
+(23, '2024-01-03 14:19:40.360533', NULL, NULL, 'Tinnitus (টিনিটাস)', 'Perception of noise or ringing in the ears without an external sound source, often associated with hearing loss or exposure to loud noise.(বাহ্যিক শব্দের উত্স ছাড়াই কানে আওয়াজ বা বাজানোর উপলব্ধি, প্রায়শই শ্রবণশক্তি হ্রাস বা উচ্চ শব্দের সংস্পর্শে আসার সাথে যুক্ত।)', 3),
+(24, '2024-01-03 14:19:40.365520', NULL, NULL, ' Otitis Media (ওটিটিস মিডিয়া)', 'Inflammation of the middle ear, commonly seen in children, causing ear pain and sometimes hearing loss.(মধ্য কানের প্রদাহ, সাধারণত শিশুদের মধ্যে দেখা যায়, যার ফলে কানে ব্যথা হয় এবং কখনও কখনও শ্রবণশক্তি হ্রাস পায়।)', 3),
+(25, '2024-01-03 14:19:40.389455', NULL, NULL, 'Meniere\'s Disease (মেনিয়ারের রোগ)', 'Inner ear disorder characterized by episodes of vertigo, hearing loss, tinnitus, and a feeling of fullness or pressure in the ear.(অভ্যন্তরীণ কানের ব্যাধি যা ভার্টিগো, শ্রবণশক্তি হ্রাস, টিনিটাস এবং কানে পূর্ণতা বা চাপের অনুভূতি দ্বারা চিহ্নিত করা হয়।)', 3),
+(26, '2024-01-03 14:19:40.399431', NULL, NULL, ' Presbycusis(প্রেসবিকিউসিস)', 'Gradual hearing loss that occurs as a natural part of the aging process, typically affecting high-frequency sounds.(ধীরে ধীরে শ্রবণশক্তি হ্রাস যা বার্ধক্য প্রক্রিয়ার একটি প্রাকৃতিক অংশ হিসাবে ঘটে, সাধারণত উচ্চ-ফ্রিকোয়েন্সি শব্দগুলিকে প্রভাবিত করে।)', 3),
+(27, '2024-01-03 14:19:40.409409', NULL, NULL, ' Acoustic Neuroma(অ্যাকোস্টিক নিউরোমা)', 'Benign tumor on the vestibulocochlear nerve, leading to hearing loss, tinnitus, and imbalance.(ভেস্টিবুলোকোক্লিয়ার নার্ভে সৌম্য টিউমার, যা শ্রবণশক্তি হ্রাস, টিনিটাস এবং ভারসাম্যহীনতার দিকে পরিচালিত করে।)', 3),
+(28, '2024-01-03 14:19:40.419376', NULL, NULL, 'Eustachian Tube Dysfunction (ইউস্টাচিয়ান টিউবের কর্মহীনতা)', 'Impaired function of the Eustachian tubes, affecting pressure balance in the middle ear and causing ear discomfort.(ইউস্টাচিয়ান টিউবগুলির প্রতিবন্ধী কার্যকারিতা, মধ্যকর্ণে চাপের ভারসাম্যকে প্রভাবিত করে এবং কানের অস্বস্তি সৃষ্টি করে।)', 3),
+(29, '2024-01-03 14:19:40.423365', NULL, NULL, 'Conductive Hearing Loss (পরিবাহী শ্রবণশক্তি হ্রাস)', ' Hearing loss caused by problems with the ear canal, eardrum, or middle ear, often resulting from infections or blockages.(কানের খাল, কানের পর্দা বা মধ্যকর্ণের সমস্যাগুলির কারণে শ্রবণশক্তি হ্রাস, প্রায়শই সংক্রমণ বা ব্লকেজের ফলে।)', 3),
+(30, '2024-01-03 14:19:40.430349', NULL, NULL, ' Sensorineural Hearing Loss (সংবেদনশীল শ্রবণশক্তি হ্রাস)', 'Hearing loss due to damage to the inner ear or auditory nerve, commonly caused by aging, noise exposure, or certain medical conditions. (অভ্যন্তরীণ কান বা শ্রবণ স্নায়ুর ক্ষতির কারণে শ্রবণশক্তি হ্রাস, সাধারণত বার্ধক্য, শব্দ এক্সপোজার বা নির্দিষ্ট কিছু চিকিৎসা অবস্থার কারণে হয়।)', 3),
+(31, '2024-01-03 14:19:40.438324', NULL, NULL, 'Otosclerosis(অটোস্ক্লেরোসিস)', 'Abnormal bone growth in the middle ear, often causing hearing loss by interfering with the movement of the stapes bone. (মধ্যকর্ণে অস্বাভাবিক হাড়ের বৃদ্ধি, প্রায়ই স্টেপস হাড়ের নড়াচড়ায় হস্তক্ষেপ করে শ্রবণশক্তি হ্রাস করে।)', 3),
+(32, '2024-01-03 14:28:34.454141', NULL, NULL, 'Sinusitis (সাইনোসাইটিস)', ' Inflammation of the sinuses, often caused by infection, leading to nasal congestion, facial pain, and difficulty breathing. (সাইনাসের প্রদাহ, প্রায়শই সংক্রমণের কারণে হয়, যার ফলে নাক বন্ধ হয়ে যায়, মুখের ব্যথা হয় এবং শ্বাস নিতে অসুবিধা হয়।)', 4),
+(33, '2024-01-03 14:28:34.459128', NULL, NULL, 'Allergic Rhinitis(অ্যালার্জিক রাইনাইটিস)', 'Inflammation of the nasal passages due to an allergic reaction, causing symptoms such as sneezing, runny nose, and itching. (অ্যালার্জির প্রতিক্রিয়ার কারণে অনুনাসিক প্যাসেজের প্রদাহ, যার ফলে হাঁচি, নাক দিয়ে পানি পড়া এবং চুলকানির মতো লক্ষণ দেখা দেয়।)', 4),
+(34, '2024-01-03 14:28:34.464124', NULL, NULL, 'Deviated Septum(শ্বাস নিতে অসুবিধা, নাক বন্ধ)', 'Displacement of the nasal septum, the wall between the nostrils, which can cause difficulty breathing, nasal congestion, and recurrent sinus infections. (নাকের সেপ্টামের স্থানচ্যুতি, নাকের মধ্যবর্তী প্রাচীর, যা শ্বাস নিতে অসুবিধা, নাক বন্ধ এবং বারবার সাইনাস সংক্রমণের কারণ হতে পারে।)', 4),
+(35, '2024-01-03 14:28:34.470100', NULL, NULL, 'Nasal Polyps(অনুনাসিক পলিপ)', 'Noncancerous growths that develop in the lining of the nasal passages, often causing congestion, loss of smell, and facial pressure. (অ-ক্যান্সারস বৃদ্ধি যা অনুনাসিক প্যাসেজের আস্তরণে বিকশিত হয়, প্রায়শই ভিড়, গন্ধ হ্রাস এবং মুখের চাপ সৃষ্টি করে।)', 4),
+(36, '2024-01-03 14:28:34.480072', NULL, NULL, 'Rhinoplasty Complications (রাইনোপ্লাস্টি জটিলতা)', ' Issues arising after a nasal surgery (rhinoplasty), which may include infection, scarring, or dissatisfaction with the cosmetic outcome. (একটি অনুনাসিক অস্ত্রোপচারের (রাইনোপ্লাস্টি) পরে উদ্ভূত সমস্যা, যার মধ্যে সংক্রমণ, দাগ বা প্রসাধনী ফলাফলের সাথে অসন্তুষ্টি অন্তর্ভুক্ত থাকতে পারে।)', 4),
+(37, '2024-01-03 14:28:34.486056', NULL, NULL, 'Epistaxis (Nosebleed)  (এপিস্ট্যাক্সিস (নাক দিয়ে রক্ত পড়া))', 'Bleeding from the nose, which can be caused by dry air, nasal injuries, or underlying health conditions. (নাক থেকে রক্তপাত, যা শুষ্ক বাতাস, নাকের আঘাত, বা অন্তর্নিহিত স্বাস্থ্যের অবস্থার কারণে হতে পারে।)', 4),
+(38, '2024-01-03 14:28:34.512987', NULL, NULL, ' Nasal Fracture (নাকের ফাটল)', ' Break or crack in the bones of the nose, often resulting from trauma, causing pain, swelling, and difficulty breathing through the nose. (নাকের হাড় ভেঙ্গে যাওয়া বা ফাটল, প্রায়শই আঘাতের ফলে ব্যথা, ফুলে যাওয়া এবং নাক দিয়ে শ্বাস নিতে অসুবিধা হয়।)', 4),
+(39, '2024-01-03 14:28:34.523956', NULL, NULL, ' Rhinitis Medicamentosa (ঔষধি রাইনাইটিস)', 'Nasal congestion and irritation caused by the overuse of nasal decongestant sprays or other medications. (অনুনাসিক ডিকনজেস্ট্যান্ট স্প্রে বা অন্যান্য ওষুধের অত্যধিক ব্যবহারের কারণে নাক বন্ধ এবং জ্বালা।)', 4),
+(40, '2024-01-03 14:28:34.532931', NULL, NULL, 'Nasal Vestibulitis (নাকের ভেস্টিবুলাইটিস)', 'Inflammation of the nasal vestibule, the area just inside the nostrils, often accompanied by redness, swelling, and pain. (সমস্যার স্পেসিফিকেশন: অনুনাসিক ভেস্টিবুলের প্রদাহ, নাকের ছিদ্রের ঠিক ভিতরের অংশে প্রায়ই লালভাব, ফোলাভাব এবং ব্যথা হয়।)', 4),
+(41, '2024-01-03 14:28:34.546895', NULL, NULL, 'Foreign Body in Nose  (নাকে বিদেশী শরীর)', ' Presence of an object or substance lodged in the nasal passages, causing discomfort, difficulty breathing, and sometimes infection. (অনুনাসিক প্যাসেজে কোনও বস্তু বা পদার্থের উপস্থিতি, অস্বস্তি, শ্বাস নিতে অসুবিধা এবং কখনও কখনও সংক্রমণের কারণ।)', 4),
+(42, '2024-01-03 14:38:27.859647', NULL, NULL, 'Tooth Decay (Dental Caries) (দাঁতের ক্ষয় (ডেন্টাল ক্যারিস))', 'Destruction of the tooth enamel by acid-producing bacteria, leading to cavities, toothache, and potential infection. (অ্যাসিড-উৎপাদনকারী ব্যাকটেরিয়া দ্বারা দাঁতের এনামেল ধ্বংস করা, যা গহ্বর, দাঁতে ব্যথা এবং সম্ভাব্য সংক্রমণের দিকে পরিচালিত করে।)', 5),
+(43, '2024-01-03 14:38:27.871616', NULL, NULL, 'Gingivitis (জিঞ্জিভাইটিস)', ' Inflammation of the gums, often caused by plaque buildup, resulting in redness, swelling, and bleeding during brushing. (মাড়ির প্রদাহ, প্রায়শই প্লাক তৈরির কারণে হয়, যার ফলে ব্রাশ করার সময় লালচেভাব, ফোলাভাব এবং রক্তপাত হয়।)', 5),
+(44, '2024-01-03 14:38:27.897544', NULL, NULL, 'Periodontitis (পিরিওডোনটাইটিস)', 'Advanced stage of gum disease, involving inflammation and infection that can damage the gums and underlying bone, leading to tooth loss. (মাড়ির রোগের উন্নত পর্যায়ে, প্রদাহ এবং সংক্রমণ জড়িত যা মাড়ি এবং অন্তর্নিহিত হাড়ের ক্ষতি করতে পারে, যার ফলে দাঁতের ক্ষতি হতে পারে।)', 5),
+(45, '2024-01-03 14:38:27.903531', NULL, NULL, 'Halitosis (Bad Breath). (হ্যালিটোসিস (নিঃশ্বাসের দুর্গন্ধ)।)', 'Persistent unpleasant odor from the mouth, often caused by bacteria on the tongue, gum disease, or other oral health issues. (মুখ থেকে ক্রমাগত অপ্রীতিকর গন্ধ, প্রায়ই জিহ্বায় ব্যাকটেরিয়া, মাড়ির রোগ বা অন্যান্য মৌখিক স্বাস্থ্য সমস্যাগুলির কারণে)', 5),
+(46, '2024-01-03 14:38:27.908514', NULL, NULL, 'Oral Thrush (Candidiasis) (ওরাল থ্রাশ (ক্যান্ডিডিয়াসিস))', 'Fungal infection in the mouth, commonly caused by Candida yeast, resulting in white lesions on the tongue, inner cheeks, and throat. (মুখের মধ্যে ছত্রাকের সংক্রমণ, সাধারণত ক্যান্ডিডা ইস্ট দ্বারা সৃষ্ট, যার ফলে জিহ্বা, ভিতরের গাল এবং গলায় সাদা ক্ষত দেখা দেয়।)', 5),
+(47, '2024-01-03 14:38:27.912504', NULL, NULL, 'Canker Sores (ক্যানকার ঘা)', 'Painful, shallow sores that can develop on the inside of the mouth, lips, or tongue, with the exact cause often unclear. (বেদনাদায়ক, অগভীর ঘা যা মুখ, ঠোঁট বা জিহ্বার ভিতরে বিকশিত হতে পারে, যার সঠিক কারণ প্রায়শই অস্পষ্ট থাকে।)', 5),
+(48, '2024-01-03 14:38:27.918487', NULL, NULL, 'Temporomandibular Joint (TMJ) Disorder (টেম্পোরোম্যান্ডিবুলার জয়েন্ট (টিএমজে) ডিসঅর্ডার)', 'Dysfunction of the jaw joint and surrounding muscles, causing pain, clicking sounds, and difficulty with jaw movement. (চোয়ালের জয়েন্ট এবং আশেপাশের পেশীগুলির কর্মহীনতা, ব্যথা, ক্লিক শব্দ এবং চোয়াল চলাচলে অসুবিধা সৃষ্টি করে।)', 5),
+(49, '2024-01-03 14:38:27.922476', NULL, NULL, 'Oral Cancer (মুখের ক্যান্সার)', 'Cancerous growth in the mouth, including the lips, tongue, cheeks, and throat, with symptoms like persistent sores, difficulty swallowing, and changes in voice. (ঠোঁট, জিহ্বা, গাল এবং গলা সহ মুখের মধ্যে ক্যান্সারের বৃদ্ধি, অবিরাম ঘা, গিলতে অসুবিধা এবং কণ্ঠস্বর পরিবর্তনের মতো লক্ষণ সহ।)', 5),
+(50, '2024-01-03 14:38:27.927463', NULL, NULL, 'Bruxism (Teeth Grinding) (ব্রুক্সিজম (দাঁত পিষে))', 'Involuntary grinding or clenching of the teeth, often during sleep, leading to tooth wear, jaw pain, and headaches. (অনিচ্ছাকৃতভাবে দাঁত পিষে যাওয়া বা ক্লেঞ্চ করা, প্রায়শই ঘুমের সময়, যার ফলে দাঁত পরা, চোয়ালে ব্যথা এবং মাথাব্যথা হয়।)', 5),
+(51, '2024-01-03 14:38:27.932453', NULL, NULL, 'Salivary Gland Disorders (লালা গ্রন্থির ব্যাধি)', 'Conditions affecting the salivary glands, such as infections, stones, or tumors, resulting in dry mouth, pain, and difficulty swallowing.', 5),
+(52, '2024-01-03 14:46:55.439527', NULL, NULL, 'Pharyngitis (ফ্যারিঞ্জাইটিস)', 'Inflammation of the pharynx, causing a sore throat, difficulty swallowing, and often accompanied by symptoms like fever and cough. (গলবিল প্রদাহ, গলা ব্যথা, গিলতে অসুবিধা এবং প্রায়ই জ্বর এবং কাশির মতো উপসর্গের সাথে থাকে।)', 6),
+(53, '2024-01-03 14:46:55.450499', NULL, NULL, 'Laryngitis (ল্যারিঞ্জাইটিস)', 'Inflammation of the larynx, leading to hoarseness, voice changes, and sometimes discomfort or pain while speaking. (স্বরযন্ত্রের প্রদাহ, কর্কশতা, কণ্ঠস্বর পরিবর্তন এবং কথা বলার সময় কখনও কখনও অস্বস্তি বা ব্যথার দিকে পরিচালিত করে।)', 6),
+(54, '2024-01-03 14:46:55.456482', NULL, NULL, 'Tonsillitis (টনসিলাইটিস)', 'Inflammation of the tonsils, often due to viral or bacterial infections, resulting in throat pain, difficulty swallowing, and swollen lymph nodes. (টনসিলের প্রদাহ, প্রায়শই ভাইরাল বা ব্যাকটেরিয়া সংক্রমণের কারণে, যার ফলে গলা ব্যথা, গিলতে অসুবিধা এবং লিম্ফ নোডগুলি ফুলে যায়।)', 6),
+(55, '2024-01-03 14:46:55.464459', NULL, NULL, ' Laryngopharyngeal Reflux (LPR) (ল্যারিঙ্গোফ্যারিঞ্জিয়াল রিফ্লাক্স (এলপিআর))', 'Backflow of stomach acid into the larynx and pharynx, causing irritation, throat clearing, and a sensation of a lump in the throat. (স্বরযন্ত্র এবং ফ্যারিনেক্সে পাকস্থলীর অ্যাসিডের পশ্চাদপ্রবাহ, যার ফলে জ্বালা, গলা পরিষ্কার হয় এবং গলায় পিণ্ডের অনুভূতি হয়।)', 6),
+(56, '2024-01-03 14:46:55.469448', NULL, NULL, 'Strep Throat (স্ট্রেপ গলা)', 'Bacterial infection of the throat caused by Streptococcus bacteria, leading to severe sore throat, fever, and sometimes headache and rash. (স্ট্রেপ্টোকক্কাস ব্যাকটেরিয়া দ্বারা সৃষ্ট গলার ব্যাকটেরিয়া সংক্রমণ, যার ফলে গুরুতর গলা ব্যথা, জ্বর এবং কখনও কখনও মাথাব্যথা এবং ফুসকুড়ি হয়।)', 6),
+(57, '2024-01-03 14:50:33.319638', NULL, NULL, 'Epiglottitis (এপিগ্লোটাইটিস)', 'Inflammation of the epiglottis, a flap-like structure in the throat that prevents food from entering the windpipe, leading to difficulty breathing, sore throat, and fever. (এপিগ্লোটিসের প্রদাহ, গলার মধ্যে একটি ফ্ল্যাপের মতো গঠন যা বায়ুনালীতে খাবার প্রবেশ করতে বাধা দেয়, যার ফলে শ্বাস নিতে অসুবিধা, গলা ব্যথা এবং জ্বর হয়।)', 6),
+(58, '2024-01-03 14:50:33.325620', NULL, NULL, 'Vocal Cord Nodules (ভোকাল কর্ড নোডুলস)', 'Noncancerous growths on the vocal cords, often caused by vocal strain, resulting in hoarseness, a breathy voice, and difficulty with pitch and volume. (ভোকাল কর্ডে অ-ক্যান্সারস বৃদ্ধি, প্রায়শই কণ্ঠের স্ট্রেন দ্বারা সৃষ্ট হয়, যার ফলে কর্কশতা, একটি শ্বাসকষ্ট স্বর এবং পিচ এবং ভলিউম নিয়ে অসুবিধা হয়।)', 6),
+(59, '2024-01-03 14:50:33.332604', NULL, NULL, 'Throat Cancer (গলার ক্যান্সার)', 'Cancerous growth in the throat, including the pharynx, larynx, and tonsils, with symptoms such as persistent cough, difficulty swallowing, and voice changes. (ক্রমাগত কাশি, গিলতে অসুবিধা এবং কণ্ঠস্বর পরিবর্তনের মতো উপসর্গ সহ গলবিল, স্বরযন্ত্র এবং টনসিল সহ গলায় ক্যান্সারের বৃদ্ধি।)', 6),
+(60, '2024-01-03 14:50:33.348560', NULL, NULL, 'Throat Abscess (গলা ফোড়া)', 'Collection of pus in the throat, usually as a result of a bacterial infection, causing severe throat pain, difficulty swallowing, and sometimes drooling. (গলায় পুঁজ জমা হয়, সাধারণত ব্যাকটেরিয়া সংক্রমণের ফলে গলায় প্রচণ্ড ব্যথা হয়, গিলতে অসুবিধা হয় এবং কখনও কখনও ঢোলা হয়।)', 6),
+(61, '2024-01-03 14:50:33.356539', NULL, NULL, 'Globus Pharyngeus (গ্লোবাস ফ্যারিঞ্জিয়াস)', 'Sensation of a lump or foreign object in the throat without any physical cause, often associated with anxiety or gastroesophageal reflux. (কোন শারীরিক কারণ ছাড়াই গলায় পিণ্ড বা বিদেশী বস্তুর সংবেদন, প্রায়ই উদ্বেগ বা গ্যাস্ট্রোইসোফেজিয়াল রিফ্লাক্সের সাথে যুক্ত।)', 6),
+(62, '2024-01-03 14:55:20.083326', NULL, NULL, 'Coronary Artery Disease (CAD) (করোনারি আর্টারি ডিজিজ (CAD))', ' Buildup of plaque in the coronary arteries, leading to reduced blood flow to the heart muscle and increasing the risk of angina or heart attack. (করোনারি ধমনীতে ফলক তৈরি হয়, যার ফলে হৃদপিন্ডের পেশীতে রক্ত চলাচল কমে যায় এবং এনজিনা বা হার্ট অ্যাটাকের ঝুঁকি বেড়ে যায়।)', 7),
+(63, '2024-01-03 14:55:20.088312', NULL, NULL, 'Myocardial Infarction (Heart Attack) (মায়োকার্ডিয়াল ইনফার্কশন (হার্ট অ্যাটাক))', 'Blockage of blood flow to a part of the heart muscle, resulting in damage or death of the heart tissue, often causing chest pain, shortness of breath, and fatigue. (হৃৎপিণ্ডের পেশীর একটি অংশে রক্ত প্রবাহে বাধা, যার ফলে হৃদপিণ্ডের টিস্যুর ক্ষতি বা মৃত্যু হয়, প্রায়ই বুকে ব্যথা, শ্বাসকষ্ট এবং ক্লান্তি দেখা দেয়।)\r\n', 7),
+(64, '2024-01-03 14:55:20.093299', NULL, NULL, 'Arrhythmia (অ্যারিথমিয়া)', 'Irregular heart rhythm, which may cause the heart to beat too fast (tachycardia), too slow (bradycardia), or with an irregular pattern, potentially leading to palpitations or fainting. (অনিয়মিত হৃৎপিণ্ডের ছন্দ, যার কারণে হৃৎপিণ্ড খুব দ্রুত স্পন্দিত হতে পারে (টাকাইকার্ডিয়া), খুব ধীরগতি (ব্র্যাডিকার্ডিয়া), বা অনিয়মিত প্যাটার্ন সহ, সম্ভাব্যভাবে ধড়ফড় বা অজ্ঞান হয়ে যেতে পারে।)', 7),
+(65, '2024-01-03 14:55:20.098286', NULL, NULL, 'Heart Failure (হার্ট ফেইলিউর)', 'Gradual weakening of the heart\'s pumping ability, causing symptoms such as shortness of breath, fatigue, and fluid retention. (হৃৎপিণ্ডের পাম্পিং ক্ষমতা ধীরে ধীরে দুর্বল হয়ে যাওয়া, যার ফলে শ্বাসকষ্ট, ক্লান্তি এবং তরল ধারণের মতো উপসর্গ দেখা দেয়।)', 7),
+(66, '2024-01-03 14:55:20.110255', NULL, NULL, 'Valvular Heart Disease (হৃদরোগ)', 'Malfunction or damage to one or more of the heart valves, affecting blood flow and potentially leading to symptoms like chest pain, fatigue, or heart palpitations. (এক বা একাধিক হার্টের ভালভের ত্রুটি বা ক্ষতি, রক্ত ​​প্রবাহকে প্রভাবিত করে এবং সম্ভাব্যভাবে বুকে ব্যথা, ক্লান্তি বা হৃদস্পন্দনের মতো লক্ষণগুলির দিকে পরিচালিত করে।)', 7),
+(67, '2024-01-03 15:00:24.672956', NULL, NULL, 'Atrial Fibrillation (AFib) (অ্যাট্রিয়াল ফাইব্রিলেশন))', 'Irregular and often rapid heartbeat originating in the atria, increasing the risk of stroke and other heart-related complications. (অনিয়মিত এবং প্রায়শই দ্রুত হৃদস্পন্দন অ্যাট্রিয়া থেকে উদ্ভূত হয়, যা স্ট্রোক এবং অন্যান্য হার্ট সংক্রান্ত জটিলতার ঝুঁকি বাড়ায়।)', 7),
+(68, '2024-01-03 15:00:24.683447', NULL, NULL, 'Hypertension (High Blood Pressure) (উচ্চ রক্তচাপ (উচ্চ রক্তচাপ))', 'Persistent elevation of blood pressure, which can strain the heart and blood vessels, potentially leading to heart attack, stroke, or other cardiovascular issues. (রক্তচাপের ক্রমাগত উচ্চতা, যা হার্ট এবং রক্তনালীগুলিকে স্ট্রেন করতে পারে, সম্ভাব্য হার্ট অ্যাটাক, স্ট্রোক বা অন্যান্য কার্ডিওভাসকুলার সমস্যা হতে পারে।)', 7),
+(69, '2024-01-03 15:00:24.688428', NULL, NULL, 'Cardiomyopathy (কার্ডিওমায়োপ্যাথি)', 'Disease of the heart muscle, affecting its structure and function, and potentially causing symptoms like fatigue, swelling, and shortness of breath. (হৃৎপিণ্ডের পেশীর রোগ, এর গঠন এবং কার্যকারিতাকে প্রভাবিত করে এবং সম্ভাব্যভাবে ক্লান্তি, ফোলাভাব এবং শ্বাসকষ্টের মতো উপসর্গ সৃষ্টি করে।)', 7),
+(70, '2024-01-03 15:00:24.692418', NULL, NULL, 'Angina Pectoris (প্রশাসনিক উপস্থাপনা)', 'Chest pain or discomfort caused by reduced blood flow to the heart muscle, often triggered by physical exertion or stress. (বুকের ব্যথা বা অস্বস্তি হৃৎপিণ্ডের পেশীতে রক্ত ​​প্রবাহ কমে যাওয়ার কারণে, প্রায়শই শারীরিক পরিশ্রম বা চাপের কারণে শুরু হয়।)', 7),
+(71, '2024-01-03 15:00:24.698402', NULL, NULL, 'Endocarditis (এন্ডোকার্ডাইটিস)', 'Inflammation of the inner lining of the heart chambers and valves, typically caused by a bacterial infection, leading to symptoms like fever, fatigue, and heart murmurs. (হৃদপিন্ডের চেম্বার এবং ভালভের অভ্যন্তরীণ আস্তরণের প্রদাহ, সাধারণত ব্যাকটেরিয়া সংক্রমণের কারণে হয়, যার ফলে জ্বর, ক্লান্তি এবং হার্টের বকবক হওয়ার মতো উপসর্গ দেখা দেয়।)', 7),
+(72, '2024-01-03 15:08:44.734960', NULL, NULL, 'Lung Cancer (ফুসফুসের ক্যান্সার)', 'Uncontrolled growth of abnormal cells in the lungs, often presenting with symptoms like persistent cough, chest pain, and weight loss. (ফুসফুসে অস্বাভাবিক কোষের অনিয়ন্ত্রিত বৃদ্ধি, প্রায়ই ক্রমাগত কাশি, বুকে ব্যথা এবং ওজন হ্রাসের মতো উপসর্গ দেখা দেয়।)', 8),
+(73, '2024-01-03 15:08:44.739946', NULL, NULL, 'Pulmonary Embolism (পালমোনারি )', 'Blockage of one or more pulmonary arteries by blood clots, causing sudden onset of shortness of breath, chest pain, and, in severe cases, heart failure. (রক্ত জমাট বেঁধে এক বা একাধিক পালমোনারি ধমনীতে বাধা, হঠাৎ করে শ্বাসকষ্ট, বুকে ব্যথা এবং গুরুতর ক্ষেত্রে হার্ট ফেইলিউর।)', 8),
+(74, '2024-01-03 15:08:44.744932', NULL, NULL, 'Pneumonia (নিউমোনিয়া)', 'Infection that causes inflammation of the air sacs in one or both lungs, leading to symptoms such as fever, cough with phlegm, and difficulty breathing. (সংক্রমণ যা এক বা উভয় ফুসফুসে বাতাসের থলিতে প্রদাহ সৃষ্টি করে, যার ফলে জ্বর, কফের সাথে কাশি এবং শ্বাসকষ্টের মতো উপসর্গ দেখা দেয়।)', 8),
+(75, '2024-01-03 15:08:44.750919', NULL, NULL, 'Asthma (হাঁপানি)', 'Chronic inflammation of the airways, leading to recurrent episodes of wheezing, shortness of breath, chest tightness, and coughing. (শ্বাসনালীতে দীর্ঘস্থায়ী প্রদাহ, যার ফলে বারবার শ্বাসকষ্ট, শ্বাসকষ্ট, বুকে আঁটসাঁটতা এবং কাশি হয়।)', 8),
+(76, '2024-01-03 15:08:44.756901', NULL, NULL, 'Chronic Obstructive Pulmonary Disease (COPD) (ক্রনিক অবস্ট্রাকটিভ পালমোনারি ডিজিজ (সিওপিডি))', ' A group of progressive lung diseases, including chronic bronchitis and emphysema, characterized by airflow obstruction and difficulty breathing. (দীর্ঘস্থায়ী ব্রঙ্কাইটিস এবং এমফিসেমা সহ প্রগতিশীল ফুসফুসের রোগের একটি গ্রুপ, যা বায়ুপ্রবাহে বাধা এবং শ্বাস নিতে অসুবিধা দ্বারা চিহ্নিত করা হয়।)', 8),
+(77, '2024-01-03 15:08:44.787818', NULL, NULL, 'Tuberculosis (TB) (যক্ষ্মা (টিবি))', 'Bacterial infection, usually affecting the lungs, causing symptoms like persistent cough, weight loss, and night sweats. (ব্যাকটেরিয়া সংক্রমণ, সাধারণত ফুসফুসকে প্রভাবিত করে, ক্রমাগত কাশি, ওজন হ্রাস এবং রাতের ঘামের মতো উপসর্গ সৃষ্টি করে।)', 8),
+(78, '2024-01-03 15:08:44.802777', NULL, NULL, 'Pulmonary Fibrosis (পালমোনারি ফাইব্রোসিস)', 'Scarring of lung tissue, leading to progressive stiffness and reduced lung function, resulting in difficulty breathing. (ফুসফুসের টিস্যুতে দাগ পড়ে, যা প্রগতিশীল শক্ত হয়ে যায় এবং ফুসফুসের কার্যকারিতা হ্রাস পায়, যার ফলে শ্বাস নিতে অসুবিধা হয়।)', 8),
+(79, '2024-01-03 15:08:44.807764', NULL, NULL, 'Bronchitis (ব্রংকাইটিস)', 'Inflammation of the bronchial tubes, often due to viral or bacterial infections, resulting in coughing, chest discomfort, and mucus production. (ব্রঙ্কিয়াল টিউবের প্রদাহ, প্রায়ই ভাইরাল বা ব্যাকটেরিয়া সংক্রমণের কারণে, যার ফলে কাশি, বুকে অস্বস্তি এবং শ্লেষ্মা তৈরি হয়।)', 8),
+(80, '2024-01-03 15:08:44.812981', NULL, NULL, 'Pleurisy (প্লুরিসি)', 'Inflammation of the lining surrounding the lungs (pleura), causing chest pain that worsens during breathing. (ফুসফুসের (প্লুরা) আশেপাশের আস্তরণের প্রদাহ, যার ফলে বুকে ব্যথা হয় যা শ্বাস-প্রশ্বাসের সময় খারাপ হয়।)', 8),
+(81, '2024-01-03 15:08:44.818964', NULL, NULL, 'Cystic Fibrosis (সিস্টিক ফাইব্রোসিস)', 'Inherited genetic disorder affecting the lungs and digestive system, leading to thick and sticky mucus production, respiratory infections, and digestive problems. (উত্তরাধিকারসূত্রে প্রাপ্ত জেনেটিক ব্যাধি ফুসফুস এবং পাচনতন্ত্রকে প্রভাবিত করে, যার ফলে ঘন এবং আঠালো শ্লেষ্মা উত্পাদন, শ্বাসযন্ত্রের সংক্রমণ এবং হজমের সমস্যা হয়।)', 8),
+(82, '2024-01-04 05:21:47.097683', NULL, NULL, 'Rotator Cuff Tear (রোটেটর কাফ টিয়ার)', 'Partial or complete tear of the tendons in the rotator cuff, leading to pain, weakness, and limited range of motion in the shoulder. (রোটেটর কফের টেন্ডনগুলির আংশিক বা সম্পূর্ণ ছিঁড়ে যাওয়া, যার ফলে ব্যথা, দুর্বলতা এবং কাঁধে গতির সীমিত পরিসর হয়।)', 9),
+(83, '2024-01-04 05:21:47.105661', NULL, NULL, 'Frozen Shoulder (Adhesive Capsulitis) (হিমায়িত কাঁধ (আঠালো ক্যাপসুলাইটিস))', 'Inflammation and thickening of the shoulder capsule, causing pain and stiffness, limiting the ability to move the shoulder. (কাঁধের ক্যাপসুলের প্রদাহ এবং ঘন হওয়া, ব্যথা এবং শক্ত হয়ে যাওয়া, কাঁধের নড়াচড়া করার ক্ষমতা সীমিত করে।)', 9),
+(84, '2024-01-04 05:21:47.110648', NULL, NULL, 'Shoulder Impingement Syndrome (শোল্ডার ইম্পিংমেন্ট সিনড্রোম)', 'Compression of the tendons and bursa in the shoulder, resulting in pain, especially during overhead movements. (কাঁধে টেন্ডন এবং বার্সার সংকোচন, যার ফলে ব্যথা হয়, বিশেষ করে ওভারহেড নড়াচড়ার সময়।)', 9),
+(85, '2024-01-04 05:21:47.116632', NULL, NULL, 'Shoulder Dislocation (কাঁধের স্থানচ্যুতি)', 'Displacement of the shoulder joint, often caused by trauma, resulting in intense pain and instability. (কাঁধের জয়েন্টের স্থানচ্যুতি, প্রায়ই ট্রমা দ্বারা সৃষ্ট, যার ফলে তীব্র ব্যথা এবং অস্থিরতা হয়।)', 9),
+(86, '2024-01-04 05:21:47.121619', NULL, NULL, 'Bursitis (বারসাইটিস)', 'Inflammation of the bursa sac in the shoulder, leading to pain, swelling, and limited mobility. (কাঁধে বারসা থলির প্রদাহ, যার ফলে ব্যথা, ফোলাভাব এবং সীমিত গতিশীলতা দেখা দেয়।)', 9),
+(87, '2024-01-04 05:21:47.136583', NULL, NULL, 'Tendinitis (Biceps Tendinitis) (টেন্ডিনাইটিস (বাইসেপস টেন্ডিনাইটিস))', ' Inflammation of the biceps tendon, causing pain in the front part of the shoulder, especially during specific movements. (বাইসেপ টেন্ডনের প্রদাহ, কাঁধের সামনের অংশে ব্যথা সৃষ্টি করে, বিশেষ করে নির্দিষ্ট নড়াচড়ার সময়।)', 9),
+(88, '2024-01-04 05:21:47.141578', NULL, NULL, 'Labral Tear (ল্যাব্রাল টিয়ার)', 'Tear in the cartilage (labrum) that surrounds the shoulder socket, causing pain, instability, and a catching sensation. (কাঁধের সকেটের চারপাশে থাকা তরুণাস্থি (ল্যাব্রাম) ছিঁড়ে যায়, যার ফলে ব্যথা, অস্থিরতা এবং একটি আকর্ষক সংবেদন ঘটে।)', 9),
+(89, '2024-01-04 05:21:47.146552', NULL, NULL, 'Acromioclavicular (AC) Joint Separation (অ্যাক্রোমিওক্ল্যাভিকুলার (AC) জয়েন্ট সেপারেশন)', 'Dislocation of the AC joint, often due to trauma, resulting in pain and a visible bump at the top of the shoulder. (এসি জয়েন্টের স্থানচ্যুতি, প্রায়শই আঘাতের কারণে, যার ফলে ব্যথা এবং কাঁধের শীর্ষে একটি দৃশ্যমান আচমকা দেখা দেয়।)', 9),
+(90, '2024-01-04 05:21:47.150542', NULL, NULL, 'Fractured Humerus (ফ্র্যাকচারড হিউমারাস)', 'Break in the upper arm bone (humerus), leading to pain, swelling, and difficulty moving the arm. (উপরের বাহুর হাড় (হিউমারাস) ভেঙ্গে যায়, যার ফলে ব্যথা, ফোলাভাব এবং হাত নাড়াতে অসুবিধা হয়।)', 9),
+(91, '2024-01-04 05:21:47.156527', NULL, NULL, 'Shoulder Arthritis (কাঁধের আর্থ্রাইটিস)', 'Degeneration of the shoulder joint, causing pain, stiffness, and reduced range of motion, often associated with aging or joint conditions. (কাঁধের জয়েন্টের অবক্ষয়, ব্যথা, দৃঢ়তা এবং গতির সীমা হ্রাস করে, যা প্রায়শই বার্ধক্য বা জয়েন্টের অবস্থার সাথে যুক্ত।)', 9),
+(92, '2024-01-04 05:28:58.518938', NULL, NULL, 'Biceps Tendon Rupture (বাইসেপ টেন্ডন ফাটল)', 'Tear or rupture of the biceps tendon, causing pain, weakness, and a bulging deformity in the upper arm. (বাইসেপ টেন্ডন ছিঁড়ে যাওয়া বা ফেটে যাওয়া, যার ফলে ব্যথা, দুর্বলতা এবং উপরের বাহুতে বিকৃতি দেখা দেয়।)', 10),
+(93, '2024-01-04 05:28:58.524921', NULL, NULL, 'Brachial Plexus Injury (ব্র্যাচিয়াল প্লেক্সাস ইনজুরি)', 'Damage to the network of nerves controlling the muscles of the upper arm, leading to weakness, numbness, or paralysis. (উপরের বাহুর পেশী নিয়ন্ত্রণকারী স্নায়ুর নেটওয়ার্কের ক্ষতি, যা দুর্বলতা, অসাড়তা বা পক্ষাঘাতের দিকে পরিচালিত করে।)', 10),
+(94, '2024-01-04 05:28:58.533897', NULL, NULL, 'Tennis Elbow (Lateral Epicondylitis) (টেনিস এলবো (পার্শ্বীয় এপিকন্ডাইলাইটিস))', 'Inflammation of the tendons on the outer part of the elbow, causing pain and tenderness, often associated with repetitive arm movements. (কনুইয়ের বাইরের অংশে টেন্ডনের প্রদাহ, ব্যথা এবং কোমলতা সৃষ্টি করে, যা প্রায়ই বারবার হাতের নড়াচড়ার সাথে যুক্ত।)', 10),
+(95, '2024-01-04 05:28:58.538884', NULL, NULL, 'Golfer\'s Elbow (Medial Epicondylitis) (গলফারের কনুই (মেডিয়াল এপিকন্ডাইলাইটিস))', 'Inflammation of the tendons on the inner part of the elbow, resulting in pain, stiffness, and weakness, commonly seen in golfers and those with repetitive gripping motions. (কনুইয়ের ভিতরের অংশে টেন্ডনগুলির প্রদাহ, যার ফলে ব্যথা, শক্ত হয়ে যাওয়া এবং দুর্বলতা দেখা যায়, সাধারণত গল্ফারদের এবং বারবার গ্রিপিং গতির সাথে দেখা যায়।)', 10),
+(96, '2024-01-04 05:28:58.543870', NULL, NULL, 'Triceps Tendonitis (ট্রাইসেপস টেন্ডোনাইটিস)', 'Inflammation of the triceps tendon, leading to pain, swelling, and difficulty extending the forearm. (ট্রাইসেপস টেন্ডনের প্রদাহ, যার ফলে ব্যথা, ফুলে যাওয়া এবং বাহু প্রসারিত করতে অসুবিধা হয়।)', 10),
+(97, '2024-01-04 05:28:58.549861', NULL, NULL, 'Myositis (মায়োসাইটিস)', 'Inflammation of the muscles, causing muscle pain, weakness, and swelling in the upper arm. (পেশীর প্রদাহ, পেশীতে ব্যথা, দুর্বলতা এবং উপরের বাহুতে ফুলে যাওয়া।)', 10),
+(98, '2024-01-04 05:28:58.569800', NULL, NULL, 'Compartment Syndrome (কম্পার্টমেন্ট সিন্ড্রোম)', 'Increased pressure within the muscles, leading to pain, swelling, and potential nerve damage in the upper arm. (পেশীগুলির মধ্যে চাপ বৃদ্ধি, যার ফলে ব্যথা, ফুলে যাওয়া এবং উপরের বাহুতে সম্ভাব্য স্নায়ুর ক্ষতি হতে পারে।)', 10),
+(99, '2024-01-04 05:28:58.574789', NULL, NULL, 'Upper Arm Fracture (উপরের আর্ম ফ্র্যাকচার)', 'Break in the upper arm bone (humerus), causing pain, swelling, and difficulty moving the arm. (উপরের বাহুর হাড় (হিউমারাস) ভেঙ্গে যাওয়া, যার ফলে ব্যথা, ফুলে যাওয়া এবং হাত নাড়াতে অসুবিধা হয়।)', 10),
+(100, '2024-01-04 05:28:58.578777', NULL, NULL, 'Muscle Strain (মাংসপেশীর টান)', 'Overstretching or tearing of the muscle fibers, resulting in pain, swelling, and limited range of motion in the upper arm. (পেশীর ফাইবারগুলি অতিরিক্ত প্রসারিত করা বা ছিঁড়ে যাওয়া, যার ফলে ব্যথা, ফোলাভাব এবং উপরের বাহুতে সীমিত পরিসরের গতি।)', 10),
+(101, '2024-01-04 05:28:58.583766', NULL, NULL, 'Thoracic Outlet Syndrome (থোরাসিক আউটলেট সিন্ড্রোম)', 'Compression of nerves or blood vessels between the neck and shoulder, causing pain, numbness, and weakness in the upper arm. (ঘাড় এবং কাঁধের মধ্যে স্নায়ু বা রক্তনালীগুলির সংকোচন, যার ফলে উপরের বাহুতে ব্যথা, অসাড়তা এবং দুর্বলতা দেখা দেয়।)', 10),
+(102, '2024-01-04 05:37:54.246708', NULL, NULL, 'Forearm Tendonitis (ফরাম টেনডোনাইটিস)', 'Inflammation of the tendons in the forearm, resulting in pain, swelling, and difficulty with gripping or rotating the forearm. (ফরামের টেন্ডনগুলির সুজোন, যা ব্যথা, ফুলবে এবং ফরাম ঘোরানো বা ঘোরানো সহ সুবিধা দিতে অসুবিধা সৃষ্টি করে।)', 11),
+(103, '2024-01-04 05:37:54.252684', NULL, NULL, 'Radial Tunnel Syndrome (রেডিয়াল টানেল সিনড্রোম)', 'Compression of the radial nerve in the forearm, leading to pain, tenderness, and weakness in the back of the hand and forearm. (ফরামের রেডিয়াল নার্ভের সংকোচন, হাত এবং ফরামে পিছু দিয়ে ব্যথা, সহানুভূতি এবং দুর্বলতা সৃষ্টি করে।)', 11),
+(104, '2024-01-04 05:37:54.257671', NULL, NULL, 'Compartment Syndrome in Forearm (ফরামের কম্পার্টমেন্ট সিনড্রোম)', 'Increased pressure within the compartments of the forearm muscles, causing pain, swelling, and potential nerve or muscle damage. (ফরামের মাংসগুলির কম্পার্টমেন্টের অভ্যন্তরে চাপের বৃদ্ধি, যা ব্যথা, ফুলবে এবং সম্ভাব্যতঃ নার্ভ বা মাংসের ক্ষতি সৃষ্টি করে।)', 11),
+(105, '2024-01-04 05:37:54.262658', NULL, NULL, 'Forearm Strain (ফরাম স্ট্রেইন)', 'Overexertion or injury to the muscles of the forearm, resulting in pain, stiffness, and limited range of motion. (ফরামের মাংস বা টেনডনগুলির উত্তীর্ণ বা আঘাত, যা ব্যথা, অস্থিরতা এবং সীমাবদ্ধ চলাচলের সাথে সৃষ্টি করে।)', 11),
+(106, '2024-01-04 05:37:54.266647', NULL, NULL, 'Tennis Elbow (Lateral Epicondylitis) (টেনিস এলবো (ল্যাটারাল এপিকনডাইলাইটিস))', 'Inflammation of the tendons on the outer part of the elbow, extending into the forearm, causing pain and discomfort. (কন্ডাইলের বাইরে টেন্ডনগুলির সুজোন, ফুলবে এবং অসুবিধা সৃষ্টি করে।)', 11),
+(107, '2024-01-04 05:37:54.272631', NULL, NULL, 'Golfer\'s Elbow (Medial Epicondylitis) (গলফারের কনু (মিডিয়াল এপিকনডাইলাইটিস))', 'Inflammation of the tendons on the inner part of the elbow, extending into the forearm, leading to pain and weakness. (কনুর অভ্যন্তরীণ অংশে টেন্ডনের সুজোন, যা ফরামে প্রসারিত হয় এবং ব্যথা এবং দুর্বলতা সৃষ্টি করতে পারে।)', 11),
+(108, '2024-01-04 05:37:54.277618', NULL, NULL, 'Forearm Fracture (ফরাম ভাঙ্গ)', 'Break in the bones of the forearm (radius or ulna), causing pain, swelling, and difficulty moving the wrist and hand. (ফরামের হাড় (রেডিয়াস বা আলনা) ভাঙ্গ, যা ব্যথা, স্থূলতা এবং কাঁধ এবং হাত চলাচলে সীমাবদ্ধতা সৃষ্টি করতে পারে।)', 11),
+(109, '2024-01-04 05:37:54.283601', NULL, NULL, 'Pronator Teres Syndrome (প্রোনাটর টিয়ারেস সিনড্রোম)', 'Compression of the median nerve in the forearm, resulting in pain, tingling, and weakness in the forearm and hand. (ফরামের মধ্যে মেডিয়ান নার্ভের সংকোচন, যা ফরাম এবং হাতে ব্যথা, ক্ষারবদ্ধতা এবং দুর্বলতা সৃষ্টি করতে পারে।)', 11),
+(110, '2024-01-04 05:37:54.303555', NULL, NULL, 'Repetitive Strain Injury (RSI) - Forearm (নরাবৃত্তি ক্রিয়া আঘাত (RSI) - ফরাম)', 'Overuse injury affecting the muscles and tendons in the forearm due to repetitive motions, causing pain and discomfort. (পুনরাবৃত্তি ক্রিয়ার কারণে ফরামে মাংস এবং টেন্ডনগুলি প্রভাবিত হওয়া, যা ব্যথা এবং অসুবিধা সৃষ্টি করতে পারে।)', 11),
+(111, '2024-01-04 05:37:54.309532', NULL, NULL, 'Forearm Muscle Spasm (ফরাম মাংস স্প্যাসম)', 'Sudden and involuntary contraction of forearm muscles, leading to pain, tightness, and temporary loss of function. (কটি বার্তা এবং অকৌণী ফরাম মাংসের অস্বাভাবিক সংকোচন, যা ব্যথা, কঠিনতা এবং সাময়িক কার্যক্ষমতা হারাতে পারে।)', 11),
+(112, '2024-01-04 05:51:57.779164', NULL, NULL, 'Wrist Joint Strain (কবাব সংযোগ কঠিনতা)', 'Overstretching or tearing of ligaments in the wrist joint, resulting in pain, bruising, and difficulty gripping. (কব্জির জয়েন্টে লিগামেন্টের অত্যধিক স্ট্রেচিং বা ছিঁড়ে যাওয়া, যার ফলে ব্যথা, ক্ষত এবং আঁকড়ে ধরতে অসুবিধা হয়।)', 12),
+(113, '2024-01-04 05:51:57.784152', NULL, NULL, 'Wrist Tendinitis (কবাব সংযোগ টেনডাইটিস)', 'Inflammation of the tendons in the wrist, leading to pain, swelling, and reduced hand movement. (কব্জিতে টেন্ডনের প্রদাহ, যার ফলে ব্যথা, ফোলাভাব এবং হাতের নড়াচড়া কমে যায়।)', 12),
+(114, '2024-01-04 05:51:57.789137', NULL, NULL, 'Carpal Tunnel Syndrome (কার্পাল টানেল সিনড্রোম)', 'Compression of the median nerve in the wrist, causing numbness, tingling, and weakness in the hand. (কব্জিতে মিডিয়ান নার্ভের সংকোচন, যার ফলে হাতে অসাড়তা, কাঁপুনি এবং দুর্বলতা দেখা দেয়।)', 12),
+(115, '2024-01-04 05:51:57.794124', NULL, NULL, 'Wrist Fracture (কবাব ভাঙ্গা)', 'Break in the bones of the wrist, resulting in pain, swelling, and limited wrist mobility. (কব্জির হাড় ভেঙ্গে যায়, যার ফলে ব্যথা, ফোলাভাব এবং কব্জির গতিশীলতা সীমিত হয়।)', 12),
+(116, '2024-01-04 05:51:57.799112', NULL, NULL, 'De Quervain\'s Tenosynovitis (ডি কুয়ারভেনস টেনোসাইনোভাইটিস)', 'Inflammation of the tendons on the thumb side of the wrist, causing pain and difficulty moving the thumb. (কব্জির বুড়ো আঙুলের পাশে টেন্ডনের প্রদাহ, যার ফলে ব্যথা হয় এবং বুড়ো আঙুল নাড়াতে অসুবিধা হয়।)', 12),
+(117, '2024-01-04 05:51:57.803100', NULL, NULL, 'Ganglion Cyst (গ্যাঙ্গলিয়ন সিস্ট)', 'A non-cancerous lump filled with synovial fluid that develops near the wrist joint, often causing discomfort. (কব্জির জয়েন্টের কাছে বিকশিত সাইনোভিয়াল তরল দ্বারা ভরা একটি ক্যান্সারবিহীন পিণ্ড, প্রায়শই অস্বস্তি সৃষ্টি করে।)', 12),
+(118, '2024-01-04 05:51:57.809084', NULL, NULL, 'Wrist Arthritis (কবাব আর্থ্রাইটিস)', 'Inflammation of the wrist joint, resulting in pain, stiffness, and reduced range of motion. (কব্জি জয়েন্টের প্রদাহ, যার ফলে ব্যথা, দৃঢ়তা এবং গতির পরিসীমা কমে যায়।)', 12),
+(119, '2024-01-04 05:51:57.814070', NULL, NULL, 'Wrist Ligament Tear (কবাব বন্ধনী ফাট)', ' Rupture or tearing of ligaments in the wrist, leading to instability, pain, and swelling. (কব্জিতে লিগামেন্ট ফেটে যাওয়া বা ছিঁড়ে যাওয়া, যার ফলে অস্থিরতা, ব্যথা এবং ফুলে যাওয়া।)', 12),
+(120, '2024-01-04 05:51:57.819058', NULL, NULL, 'Intersection Syndrome (ইন্টারসেকশন সিনড্রোম) ', 'Inflammation of the tendons in the wrist and forearm, often caused by repetitive motion, resulting in pain and swelling. (কব্জি এবং বাহুতে টেন্ডনগুলির প্রদাহ, প্রায়শই পুনরাবৃত্তিমূলক গতির কারণে হয়, যার ফলে ব্যথা এবং ফুলে যায়।)', 12),
+(121, '2024-01-04 05:51:57.824045', NULL, NULL, 'Wrist Bursitis (কবাব বারসাইটিস) ', 'Inflammation of the bursae in the wrist joint, causing pain, swelling, and limited wrist movement. (কব্জি জয়েন্টে বার্সার প্রদাহ, ব্যথা, ফোলা এবং সীমিত কব্জি নড়াচড়ার কারণ।)', 12),
+(122, '2024-01-04 06:05:08.895859', NULL, NULL, 'Fracture of Hand Bones (হাতের হাড়ের ভাঙ্গা)', 'Break in the bones of the hand, causing pain, swelling, and difficulty in hand movements. (হাতের হাড়ে (হাতের অংশের হাড়) ভাঙ্গার ফলে ব্যথা, স্থূলতা, এবং হাতে চলাচলে সমস্যা হতে পারে।)', 13),
+(123, '2024-01-04 06:05:08.911816', NULL, NULL, 'Carpal Tunnel Syndrome (কারপাল টানেল সিনড্রোম)', 'Nerve compression in the carpal tunnel area of the hand, resulting in pain, numbness, and reduced manual dexterity. (হাতের কারপাল টানেল এলাকায় নার্ভ সংকোচনের ফলে হাতে ব্যথা, সোজা, এবং মৌখিক দক্ষতা হতে পারে।)', 13),
+(124, '2024-01-04 06:05:08.923785', NULL, NULL, 'Trigger Finger (ট্রিগার ফিঙ্গার)', 'Prolonged constriction during finger flexion, causing difficulty in demonstrating a definite manual dexterity (আঙ্গুলের মৌখিক পদক্ষেপের সময় দীর্ঘকালিক বন্ধন হওয়ার ফলে আঙ্গুলটি একটি নিশ্চিত দক্ষতা দেখাতে সমস্যা হতে পারে।)', 13),
+(125, '2024-01-04 06:05:08.933759', NULL, NULL, 'Hand Tendinitis (হাতের টেনডাইটিস)', ' Inflammation of hand tendons leading to hand pain, discomfort, and difficulty in movements. (হাতের টেনডনের সূজনের ফলে হাতে ব্যথা, অসুস্থতা, এবং চলাচলে সমস্যা হতে পারে।)', 13),
+(126, '2024-01-04 06:05:08.942734', NULL, NULL, 'Hand Muscle Strain (হাতের মাংসিক সংকোচন)', 'Pain in the hand due to overuse of hand muscles, especially during activities. (হাতের মাংসিক অধিকতর ব্যবহারের জন্য তাদের অতিক্রম হওয়ার ফলে হাতে ব্যথা, বিশেষতঃ ব্যবহার সময়ে।)', 13),
+(127, '2024-01-04 06:05:08.947720', NULL, NULL, 'Hand Osteoarthritis (হাতের অস্টিওআর্থ্রাইটিস)', 'Degenerative joint disease in the hand, causing pain, stiffness, and reduced range of motion. (হাতের মধ্যে পুনর্নবীকরণশীল সংযোগ রোগ, যা ব্যথা, কাঠিন্য, এবং চলাচলের পরিসীমা হ্রাস করতে পারে।)', 13),
+(128, '2024-01-04 06:05:08.952707', NULL, NULL, 'Hand Rheumatoid Arthritis ( হাতের রিউমেটয়ইড আর্থ্রাইটিস)', 'Chronic inflammatory disorder affecting the hand joints, leading to pain, swelling, and potential joint deformities. ( হাতের সংযোগগুলির উপর দীর্ঘকালিক সূজন বা একটি মৌখিক রোগ, যা ব্যথা, স্থূলতা, এবং সংযোগ উদীরণের সম্ভাবনাও দেখাতে পারে।)', 13),
+(129, '2024-01-04 06:05:08.957696', NULL, NULL, 'Hand Dupuytren\'s Contracture (হাতের ডুপুইট্রেনস কনট্র্যাকচার)', 'Thickening of the tissue beneath the skin of the hand, leading to the fingers being pulled inward, causing difficulty in straightening them. (হাতের চামড়ার নিচে ঊপরের দিকে শক্তিশালী হয়ে যাওয়া, যা আঙ্গুলগুলি মুক্ত করা সহ সমস্যা হতে পারে।)', 13),
+(130, '2024-01-04 06:05:08.962681', NULL, NULL, 'Hand De Quervain\'s Tenosynovitis (হাতের ডি কারভানস টেনোসাইনোভাইটিস)', 'Inflammation of the tendons on the thumb side of the hand, causing pain and swelling. (হাতের মৌলিক দিকে টেনডনের সূজন, যা ব্যথা এবং স্থূলতা সৃষ্টি করতে পারে।)', 13),
+(131, '2024-01-04 06:05:08.966670', NULL, NULL, 'Hand Ganglion Cyst ( হাতের গ্যাংগলিয়ন সিস্ট)', 'Noncancerous lumps filled with synovial fluid that can develop along tendons or joints in the hand, causing pain and discomfort. (হাতের টেনডন বা সংযোগের দিকে উত্থান করতে পারে সিনোভাইয়াল তরল দিয়ে পূর্ণ অক্সিজেন বুকের ছায়ায়, যা ব্যথা এবং অসুস্থতা সৃষ্টি করতে পারে।)', 13),
+(132, '2024-01-04 06:49:54.672602', NULL, NULL, 'Hip Osteoarthritis (হিপ অস্টিওআর্থ্রাইটিস)', '    Degenerative joint disease in the hip, causing pain, stiffness, and reduced mobility. ( হিপে পুনর্নবীকরণশীল সংযোগ রোগ, যা ব্যথা, কাঠিন্য, এবং সংযোগ উদীরণের পরিসীমা হ্রাস করতে পারে।)', 14),
+(133, '2024-01-04 06:49:54.684571', NULL, NULL, 'Hip Bursitis (হিপ বারসাইটিস)', 'Inflammation of the bursae (fluid-filled sacs) in the hip joint, causing pain and discomfort. (হিপ সংযোগের বারসা (তরল ভরাটে) সূজন এবং ব্যথা সৃষ্টি করতে পারে।)', 14),
+(134, '2024-01-04 06:49:54.691552', NULL, NULL, 'Hip Labral Tear (হিপ লেব্রাল টেয়ার)', 'Damage or tear to the labrum (cartilage) in the hip joint, leading to pain, clicking, or locking. (হিপ সংযোগের লেব্রাম (কার্টিলেজ) ক্ষতি বা ফাটানো, যা ব্যথা, ক্লিকিং, অথবা তালমেন্ট সৃষ্টি করতে পারে।)', 14),
+(135, '2024-01-04 06:49:54.695541', NULL, NULL, 'Hip Fracture (হিপ ফ্র্যাকচার)', 'Break or crack in the bones of the hip, often resulting from a fall or injury, causing severe pain and limited mobility. (হিপের হাড়ে ভাঙ্গা বা ফাটানো, সাধারিত একটি পড়া বা আঘাত থেকে হয়, যা তীব্র ব্যথা এবং সীমিত চলাচলের কারণে হতে পারে।)', 14),
+(136, '2024-01-04 06:49:54.700527', NULL, NULL, 'Hip Dysplasia (হিপ ডিসপ্লেশিয়া)', 'Abnormal development of the hip joint, potentially leading to instability and early degeneration. (হিপ সংযোগের অস্বাভাবিক বিকাশ, যা অস্থিরতা এবং শীঘ্রই পুনর্নবীক)', 14),
+(137, '2024-01-04 06:49:54.705513', NULL, NULL, 'Hip Tendinitis (হিপ টেন্ডাইটিস)', 'Inflammation of the tendons around the hip joint, causing pain and discomfort. (হিপ সংযোগের চারপাশের টেন্ডনের সূজন, যা ব্যথা এবং অসুবিধা সৃষ্টি করতে পারে।)', 14),
+(138, '2024-01-04 06:49:54.710500', NULL, NULL, 'Hip Impingement (হিপ ইমপিংমেন্ট)', 'Abnormal contact between the bones in the hip joint, leading to pain and reduced range of motion. (হিপ সংযোগের হাড়ের মধ্যে অস্বাভাবিক যোগস্পর্শ, যা ব্যথা এবং চলাচলের পরিসীমা হ্রাস করতে পারে।)', 14),
+(139, '2024-01-04 06:49:54.725461', NULL, NULL, 'Hip Synovitis (হিপ সাইনোভাইটিস)', 'Inflammation of the synovial membrane in the hip joint, causing pain and swelling. (হিপ সংযোগের সাইনোভাইটিস মেম্ব্রেনের সূজন, যা ব্যথা এবং স্থূলতা সৃষ্টি করতে পারে।)', 14),
+(140, '2024-01-04 06:49:54.733455', NULL, NULL, 'Hip Dislocation (হিপ ডিসলোকেশন)', 'Displacement of the bones in the hip joint, causing severe pain and loss of joint function. (হিপ সংযোগের হাড় অস্থানান, যা তীব্র ব্যথা এবং সংযোগ কার্যক্ষমতা হারাতে পারে।)', 14),
+(141, '2024-01-04 06:49:54.741427', NULL, NULL, 'Hip Avulsion Fracture (হিপ অ্যাভালশন ফ্র্যাকচার)', 'Fracture caused by the pulling away of a tendon or ligament from the hip bone, resulting in pain and limited mobility.   (হিপ হাড় থেকে একটি টেন্ডন বা স্নায়ু টেনে টেনে বের হওয়ার ফলে ফ্র্যাকচার, যা ব্যথা এবং সীমিত চলাচলের কারণে হতে পারে।)', 14),
+(142, '2024-01-04 06:56:30.770764', NULL, NULL, 'Hamstring Strain (হ্যামস্ট্রিং স্ট্রেইন)', 'Overstretching or tearing of the hamstring muscles, leading to pain, swelling, and difficulty in leg movement. (হ্যামস্ট্রিং মাংসের অত্যধিক প্রসারণ বা ফাটানো, যা ব্যথা, স্থূলতা, এবং পা চলাচলে সমস্যা সৃষ্টি করতে পারে।)', 15),
+(143, '2024-01-04 06:56:30.774753', NULL, NULL, 'Quadriceps Tendinitis (কোয়াড্রিসেপ্স টেন্ডাইটিস)', 'Inflammation of the tendons in the quadriceps muscles, causing pain and discomfort in the front of the thigh. (কোয়াড্রিসেপ্স মাংসের টেন্ডনের সূজন, যা শইঁ দিকে ব্যথা এবং অসুবিধা সৃষ্টি করতে পারে।)', 15),
+(144, '2024-01-04 06:56:30.780736', NULL, NULL, 'Thigh Contusion (হাঁড়ি দুর্বলতা)', 'Bruising or injury to the muscles of the thigh due to a direct impact, resulting in pain and discoloration. (একটি সরাসরি আঘাতের ফলে হাঁড়ির মাংসে শক্তি বা আঘাত, যা ব্যথা এবং রঙ পরিবর্তন সৃষ্টি করতে পারে।)', 15),
+(145, '2024-01-04 06:56:30.785738', NULL, NULL, 'Compartment Syndrome of the Thigh (হাঁড়ির ঘেরা সিন্ড্রোম)', 'Increased pressure within the muscles of the thigh, causing pain, swelling, and potential nerve damage. (হাঁড়ির মাংসের অভ্যন্তরে চাপ বাড়ানো, যা ব্যথা, স্থূলতা এবং সম্ভাব্য তারকা ক্ষতি সৃষ্টি করতে পারে।)', 15),
+(146, '2024-01-04 06:56:30.794700', NULL, NULL, 'Iliotibial Band Syndrome (ইলিওটিবিয়াল ব্যান্ড সিন্ড্রোম)', 'Inflammation of the iliotibial band, a thick band of tissue running along the outer thigh, causing pain during movement. (ইলিওটিবিয়াল ব্যান্ডের সূজন, বাইরের হাঁড়ির দিকে দৌড়াতে ব্যথা সৃষ্টি করতে পারে।)', 15),
+(147, '2024-01-04 06:56:30.801692', NULL, NULL, 'Thigh Sprain (হাঁড়ি স্প্রেন)', 'Overstretching or tearing of ligaments in the thigh, resulting in pain, swelling, and difficulty in leg movement. (হাঁড়ির মাংসের বন্ধনীস্তরের অত্যধিক প্রসারণ বা ফাটানো, যা ব্যথা, স্থূলতা, এবং পা চলাচলে সমস্যা সৃষ্টি করতে পারে।)', 15),
+(148, '2024-01-04 06:56:30.807663', NULL, NULL, 'Adductor Muscle Strain (অ্যাডাক্টর মাংসের স্ট্রেইন)', 'Injury to the adductor muscles, located on the inner side of the thigh, causing pain and discomfort. (অ্যাডাক্টর মাংসের আঘাত, যা হাঁড়ির অভ্যন্তরীণ দিকে অবস্থিত, ব্যথা এবং অসুবিধা সৃষ্টি করতে পারে।)', 15),
+(149, '2024-01-04 06:56:30.812650', NULL, NULL, 'Compartment Syndrome of the Anterior Thigh (অ্যান্টেরিয়র হাঁড়ির ঘেরা সিন্ড্রোম)', 'Increased pressure within the anterior thigh muscles, leading to pain, swelling, and potential nerve damage. (অ্যান্টেরিয়র হাঁড়ির মাংসের অভ্যন্তরে চাপ বাড়ানো, যা ব্যথা, স্থূলতা এবং সম্ভাব্য তারকা ক্ষতি সৃষ্টি করতে পারে।)', 15),
+(150, '2024-01-04 06:56:30.817637', NULL, NULL, 'Thigh Bursitis (হাঁড়ি বারসাইটিস)', 'Inflammation of the bursae (fluid-filled sacs) in the thigh, causing pain and swelling. (হাঁড়ির মাংসের বারসে (তরলপূর্ণ স্যাক) সূজন, যা ব্যথা এবং স্থূলতা সৃষ্টি করতে পারে।)', 15),
+(151, '2024-01-04 06:56:30.821626', NULL, NULL, 'Thigh Nerve Compression (হাঁড়ি নার্ভ কমপ্রেশন)', 'Pressure or compression on the nerves in the thigh, leading to pain, tingling, and weakness. (হাঁড়ির নার্ভের উপর চাপ বা কমপ্রেশন, যা ব্যথা, ঝিঁকা, এবং দুর্বলতা সৃষ্টি করতে পারে।)', 15),
+(152, '2024-01-04 07:04:37.229224', NULL, NULL, 'Shin Splints (হাঁটু বিবাদ)', 'Pain and inflammation along the inner edge of the shinbone (tibia) due to overuse or improper training. (ব্যবহারের বা অযথা প্রশিক্ষণের জন্য হাঁটুর অভ্যন্তরীণ দিকে ব্যথা এবং সুজোন।)', 16);
+INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, `problem`, `problem_specification`, `organ_id`) VALUES
+(153, '2024-01-04 07:04:37.239197', NULL, NULL, 'Calf Muscle Strain (পিঁড়ি মাংসের স্ট্রেইন)', 'Overstretching or tearing of the muscles in the calf, leading to pain and limited mobility. (পিঁড়ি মাংসের মাংসের অত্যধিক প্রসারণ বা ফাটানো, যা ব্যথা এবং সীমিত চলাচলের সৃষ্টি করতে পারে।)', 16),
+(154, '2024-01-04 07:04:37.249169', NULL, NULL, 'Achilles Tendonitis (একিলিস টেনডোনাইটিস)', 'Inflammation of the Achilles tendon, the large tendon at the back of the ankle, causing pain and stiffness. (একিলিস টেনডনের সূজন, টাঙের পিছনের দিকে বড় টেনডন, ব্যথা এবং কাঠিন্য সৃষ্টি করতে পারে।)', 16),
+(155, '2024-01-04 07:04:37.254157', NULL, NULL, 'Calf Cramps (পিঁড়ি মাংসের ক্র্যাম্প)', 'Sudden, painful, and involuntary contractions of the calf muscles, often caused by dehydration or muscle fatigue. (পিঁড়ি মাংসের অচেতন, ব্যথায়ুক্ত এবং অস্বাধীন সংকোচন, যার কারণ সাধারণভাবে অবসাদ বা মাংস ক্লান্তি।)', 16),
+(156, '2024-01-04 07:04:37.271112', NULL, NULL, 'Compartment Syndrome of the Lower Leg (নিচের পা এর ঘেরা সিন্ড্রোম)', 'Increased pressure within the muscles of the lower leg, causing pain, swelling, and potential nerve damage. (নিচের পা মাংসের ভিতরে চাপ বাড়ানো, যা ব্যথা, স্থূলতা এবং সম্ভাব্য তারকা ক্ষতি সৃষ্টি করতে পারে।)', 16),
+(157, '2024-01-04 07:04:37.276099', NULL, NULL, 'Ankle Sprain (কক্ষিকা মারানো)', 'Stretching or tearing of ligaments in the ankle, resulting in pain, swelling, and difficulty walking. (কক্ষিকা এর লিগামেন্ট গুলির প্রসার বা ফাটানো, যা ব্যথা, স্থূলতা, এবং চলাচলে সমস্যা সৃষ্টি করতে পারে।)', 16),
+(158, '2024-01-04 07:04:37.311005', NULL, NULL, 'Plantar Fasciitis (প্ল্যান্টার ফ্যাসিআইটিস)', 'Inflammation of the plantar fascia, the tissue along the bottom of the foot, causing heel pain. (ল্যান্টার ফ্যাসিয়া, পা এর নিচের দিকের উপরে রয়েছে এমন উপকরণের সূজন, হীলে ব্যথা সৃষ্টি করতে পারে।)', 16),
+(159, '2024-01-04 07:04:37.320989', NULL, NULL, 'Achilles Tendon Rupture (একিলিস টেনডন ফাটা)', 'Complete or partial tear of the Achilles tendon, often occurring during activities that involve pushing off the foot. (একিলিস টেনডনের সম্পূর্ণ বা আংশিক ফাটা, যা সাধারিতভাবে পা দিয়ে ধাক্কা মারার ক্রিয়ায় ঘটে।)', 16),
+(160, '2024-01-04 07:04:37.329958', NULL, NULL, 'Deep Vein Thrombosis (গভীর শিরাসংকোচ)', 'Formation of blood clots in the deep veins of the leg, causing swelling and pain. (পা এর গভীর শিরায় রক্তক্লট তৈরি হয়, যা স্থূলতা এবং ব্যথা সৃষ্টি করতে পারে।)', 16),
+(161, '2024-01-04 07:04:37.345109', NULL, NULL, 'Compartment Syndrome of the Foot (পা এর ঘেরা সিন্ড্রোম)', 'Increased pressure within the muscles of the foot, leading to pain, swelling, and potential nerve damage. (পা এর মাংসের ভিতরে চাপ বাড়ানো, যা ব্যথা, স্থূলতা এবং সম্ভাব্য তারকা ক্ষতি সৃষ্টি করতে পারে।)', 16),
+(162, '2024-01-04 07:11:03.568478', NULL, NULL, 'Sprained Ankle (কক্ষিকা মারানো)', 'Overstretching or tearing of ligaments in the ankle joint, resulting in pain, swelling, and difficulty walking. (কক্ষিকা এর যৌক্তিক একটি অংশে লিগামেন্টের ব্যাপারে সীমানাহীন বা ফাটানো, যা ব্যথা, স্থূলতা, এবং চলাচলে সমস্যা সৃষ্টি করতে পারে।)', 17),
+(163, '2024-01-04 07:11:03.581444', NULL, NULL, 'Ankle Arthritis (কক্ষিকা আর্থ্রাইটিস)', 'Inflammation of the ankle joint, leading to pain, stiffness, and reduced range of motion. (কক্ষিকা যৌক্তিকের সূজন, যা ব্যথা, ঠান্ডাই, এবং চলাচলের পরিসীমা কমাতে পারে।)', 17),
+(164, '2024-01-04 07:11:03.588420', NULL, NULL, 'Achilles Tendonitis (একিলিস টেনডনাইটিস)', 'Inflammation of the Achilles tendon, causing pain and swelling in the back of the ankle. (একিলিস টেনডনের সূজন, যা কক্ষিকা এর পিঠে ব্যথা এবং স্থূলতা সৃষ্টি করতে পারে।)', 17),
+(165, '2024-01-04 07:11:03.594409', NULL, NULL, 'Ankle Fracture (কক্ষিকা ভাঙ্গা)', 'Break in the bones of the ankle, causing pain, swelling, and difficulty walking. (কক্ষিকা এর হাড়ে (কক্ষি এবং টাক্ষণিকা) ভাঙ্গা, যা ব্যথা, স্থূলতা, এবং চলাচলে সমস্যা সৃষ্টি করতে পারে।)', 17),
+(166, '2024-01-04 07:11:03.601390', NULL, NULL, 'Gout in the Ankle (কক্ষিকায় গাউট)', 'Buildup of uric acid crystals in the ankle joint, leading to sudden and severe pain. (কক্ষিকা যৌক্তিকে ইউরিক এসিড ক্রিস্টালের সংগ্রহ, যা হাঠা এবং তীব্র ব্যথা সৃষ্টি করতে পারে।)', 17),
+(167, '2024-01-04 07:11:03.605375', NULL, NULL, 'Ankle Bursitis (কক্ষিকা বারসাইটিস)', 'Inflammation of the bursae in the ankle joint, causing pain, swelling, and limited movement. (কক্ষিকা যৌক্তিকের বারসা সূজন, যা ব্যথা, স্থূলতা, এবং সীমিত চলাচল সৃষ্টি করতে পারে।)', 17),
+(168, '2024-01-04 07:11:03.610362', NULL, NULL, 'Ankle Instability (কক্ষিকা অস্থিরতা)', 'Weakness or lack of support in the ligaments of the ankle, leading to recurrent sprains. (কক্ষিকা যৌক্তিকের লিগামেন্টে দুর্বলতা বা সহায় অভাব, যা পুনরায় স্প্রেনের কারণ হতে পারে।)', 17),
+(169, '2024-01-04 07:11:03.615349', NULL, NULL, 'Ankle Tendon Rupture (কক্ষিকা টেনডন ভেঙ্গে যাওয়া)', 'Tear or breakage of the tendons in the ankle, resulting in pain, swelling, and difficulty walking. (কক্ষিকা যৌক্তিকের টেনডনের ফাটানো বা ভাঙ্গা, যা ব্যথা, স্থূলতা, এবং চলাচলে সমস্যা সৃষ্টি করতে পারে।)', 17),
+(170, '2024-01-04 07:11:03.619338', NULL, NULL, 'Ankle Synovitis (কক্ষিকা সাইনোভাইটিস)', 'Inflammation of the synovial membrane in the ankle joint, causing pain and swelling. (কক্ষিকা যৌক্তিকের সাইনোভাইটিস এর সূজন, যা ব্যথা এবং স্থূলতা সৃষ্টি করতে পারে।)', 17),
+(171, '2024-01-04 07:11:03.623326', NULL, NULL, 'Ankle Nerve Compression (কক্ষিকা তন্তু সংকোচন)', 'Pressure on the nerves in the ankle, leading to pain, tingling, and numbness. (কক্ষিকা যৌক্তিকে তন্তুগুলির উপর চাপ, যা ব্যথা, মোচন এবং অবোধ সৃষ্টি করতে পারে।)', 17),
+(172, '2024-01-04 07:16:39.519243', NULL, NULL, 'Foot Stress Fracture (পা স্ট্রেস ফ্র্যাকচার)', 'Tiny cracks in the bones of the foot due to repetitive stress, causing pain and swelling. (পা হাড়ের অস্তিত্বের পুনঃপুনঃ চাপের ফলে ছোট ছোট ফাটল, যা ব্যথা এবং স্থূলতা সৃষ্টি করতে পারে।)', 18),
+(173, '2024-01-04 07:16:39.524229', NULL, NULL, 'Foot Plantar Fasciitis (পা প্ল্যান্টার ফ্যাশিআইটিস)', 'Inflammation of the plantar fascia in the foot, leading to heel pain and stiffness. (পা হাড়ের প্ল্যান্টার ফ্যাশিয়া এর সূজন, যা হীল ব্যথা এবং অস্থিরতা সৃষ্টি করতে পারে।)', 18),
+(174, '2024-01-04 07:16:39.530212', NULL, NULL, 'Foot Tendonitis (পা টেনডোনাইটিস)', 'Inflammation of the tendons in the foot, causing pain and swelling. (পা হাড়ের টেনডনের সূজন, যা ব্যথা এবং স্থূলতা সৃষ্টি করতে পারে।)', 18),
+(175, '2024-01-04 07:16:39.541183', NULL, NULL, 'Foot Stress Fracture (পা স্ট্রেস ফ্র্যাকচার)', 'Tiny cracks in the bones of the foot due to repetitive stress, causing pain and swelling. (পা হাড়ের অস্তিত্বের পুনঃপুনঃ চাপের ফলে ছোট ছোট ফাটল, যা ব্যথা এবং স্থূলতা সৃষ্টি করতে পারে।)', 18),
+(176, '2024-01-04 07:16:39.546171', NULL, NULL, 'Foot Neuroma (পা নিউরোমা)', 'Thickening of the tissue around a nerve in the foot, leading to pain and numbness.  (পা হাড়ে একটি তন্তুর চারপাশের ঊভীকরণ, যা ব্যথা এবং অবোধ সৃষ্টি করতে পারে।)', 18),
+(177, '2024-01-04 07:16:39.554149', NULL, NULL, 'Foot Bunions (পা বাইনান)', 'Enlargement of the joint at the base of the big toe, causing pain and deformity. (বড় হাতের নিচের যৌথের বাড়ানো, যা ব্যথা এবং মোচন সৃষ্টি করতে পারে।)', 18),
+(178, '2024-01-04 07:16:39.560133', NULL, NULL, 'Foot Achilles Tendinitis (পা একিলিস টেন্ডাইটিস)', 'Inflammation of the Achilles tendon, causing pain and stiffness in the back of the heel. (একিলিস টেন্ডনের সূজন, যা হীলের পিছনে ব্যথা এবং অস্থিরতা সৃষ্টি করতে পারে।)', 18),
+(179, '2024-01-04 07:16:39.570107', NULL, NULL, 'Foot Gout (পা গাউট)', 'Buildup of uric acid crystals in the joints of the foot, causing intense pain and swelling. (পা যৌথে ইউরিক এসিড ক্রিস্টালের সংগ্রহ, যা কঠোর ব্যথা এবং স্থূলতা সৃষ্টি করতে পারে।)', 18),
+(180, '2024-01-04 07:16:39.580084', NULL, NULL, 'Foot Stress Fracture (পা স্ট্রেস ফ্র্যাকচার)', 'Tiny cracks in the bones of the foot due to repetitive stress, causing pain and swelling. (পা হাড়ের অস্তিত্বের পুনঃপুনঃ চাপের ফলে ছোট ছোট ফাটল, যা ব্যথা এবং স্থূলতা সৃষ্টি করতে পারে।)', 18),
+(181, '2024-01-04 07:16:39.587061', NULL, NULL, 'Foot Corns and Calluses (পা কর্ণ এবং ক্যালিউস)', 'Thickened areas of skin on the feet, often caused by friction, leading to pain and discomfort. (পায়ে ত্বকের মোটার অংশ, সাধারিত ঘর্ষণের ফলে, যা ব্যথা এবং অসুখ সৃষ্টি করতে পারে।)', 18),
+(182, '2024-01-04 07:27:18.544685', NULL, NULL, 'Thymoma (থাইমোমা)', 'Rare tumor of the thymus gland, potentially causing chest pain and respiratory issues. (থাইমাস গ্র্যান্ডের দুর্লভ টিউমর, যা মস্তিষ্ক ব্যথা এবং শ্বাসকঠিনতা সৃষ্টি করতে পারে।)', 19),
+(183, '2024-01-04 07:27:18.550664', NULL, NULL, 'Thymus Hyperplasia (থাইমাস হাইপারপ্লেশিয়া)', 'Enlargement of the thymus gland, potentially affecting the immune system. (থাইমাস গ্র্যান্ডের বাড়ানো, যা সংজ্ঞানাত্মকভাবে ইমিউন সিস্টেম প্রভাবিত করতে পারে।)', 19),
+(184, '2024-01-04 07:27:18.554661', NULL, NULL, 'Thymus Atrophy (থাইমাস এট্রফি)', 'Shrinking of the thymus gland, potentially leading to a weakened immune response. (থাইমাস গ্র্যান্ডের সঙ্কোচন, যা কমজোর ইমিউন প্রতিক্রিয়ার দিকে নেতৃত্ব করতে পারে।)', 19),
+(185, '2024-01-04 07:27:18.564634', NULL, NULL, 'Thymic Carcinoma (থাইমিক কারসিনোমা)', 'Cancer originating in the cells of the thymus gland, potentially causing chest pain and respiratory issues. (থাইমাস গ্র্যান্ডের কোষগুলি হতে উত্পন্ন ক্যান্সার, যা মস্তিষ্ক ব্যথা এবং শ্বাসকঠিনতা সৃষ্টি করতে পারে।)', 19),
+(186, '2024-01-04 07:27:18.571616', NULL, NULL, 'Thymus Cyst (থাইমাস সিস্ট)', 'Fluid-filled sac or cyst in the thymus gland, usually benign and asymptomatic. (থাইমাস গ্র্যান্ডে তরল পূর্ণ বলা বা সিস্ট, সাধারিতভাবে অহিংসাত্মক এবং লক্ষণহীন।)', 19),
+(187, '2024-01-04 07:27:18.577593', NULL, NULL, 'Thymus Abscess (থাইমাস এবসেস)', 'Pus-filled cavity or abscess in the thymus gland, often resulting from bacterial infection. (থাইমাস গ্র্যান্ডে পাওয়া ময়ল বা এবসেস, সাধারিতভাবে ব্যাকটেরিয়াল সংক্রমণের ফলে হতে পারে।)', 19),
+(188, '2024-01-04 07:27:18.586567', NULL, NULL, 'Thymus Hemangioma (থাইমাস হেম্যাঞ্জিওমা)', 'Benign tumor made up of blood vessels in the thymus gland, usually asymptomatic. (থাইমাস গ্র্যান্ডে রক্তদান থাকা একটি অহিংসাত্মক টিউমার, সাধারিতভাবে লক্ষণহীন।)', 19),
+(189, '2024-01-04 07:27:18.590556', NULL, NULL, 'Thymus Granuloma (থাইমাস গ্র্যানুলোমা)', 'Inflammatory nodule or mass in the thymus gland, often due to immune system responses. (    থাইমাস গ্র্যান্ডে সূচির অথবা M\r\n\r\nmatiর একটি অস্বাভাবিক পৃথক অংশ, সাধারিতভাবে ইমিউন সিস্টেম প্রতিক্রিয়া দেওয়ার ফলে।)', 19),
+(190, '2024-01-04 07:27:18.595545', NULL, NULL, 'Thymus Lipoma (থাইমাস লিপোমা)', 'Fatty tumor in the thymus gland, usually benign and non-cancerous. (থাইমাস গ্র্যান্ডে চর্বিত টিউমার, সাধারিতভাবে অহিংসাত্মক এবং ক্যান্সার নয়।)', 19),
+(191, '2024-01-04 07:27:18.600530', NULL, NULL, 'Thymus Lymphoma (থাইমাস লিম্ফোমা)', 'Cancer affecting the lymphocytes in the thymus gland, potentially causing chest pain and respiratory issues. (থাইমাস গ্র্যান্ডে লিম্ফোসাইটগুলির প্রভাবিত ক্যান্সার, মস্তিষ্ক ব্যথা এবং শ্বাসকঠিনতা সৃষ্টি করতে পারে।)', 19),
+(192, '2024-01-04 07:32:35.481561', NULL, NULL, 'Stomach Ulcer (পেটের জ্বালানি)', 'Open sore or lesion on the inner lining of the stomach, often caused by the erosion of stomach acid. (পেটের অভ্যন্তরীণ লাইনিং এ খোলা জড়া বা ক্ষত, সাধারিতভাবে পেটের এসিড অনশনের ফলে হতে পারে।)', 21),
+(193, '2024-01-04 07:32:35.490536', NULL, NULL, 'Stomach Cancer (পেটের ক্যান্সার)', 'Uncontrolled growth of abnormal cells in the stomach, often forming tumors. (পেটে অস্বাভাবিক কোষের অনিয়ন্ত্রিত বৃদ্ধি, সাধারিতভাবে টিউমার তৈরি হয়।)', 21),
+(194, '2024-01-04 07:32:35.495523', NULL, NULL, 'Stomach Polyps (পেটের পলিপ্স)', 'Abnormal growths on the inner lining of the stomach, often benign but may lead to cancer. (পেটের অভ্যন্তরীণ লাইনিং এ অস্বাভাবিক বৃদ্ধি, সাধারিতভাবে অহিংসাত্মক তবে ক্যান্সারে পৌঁছতে পারে।)', 21),
+(195, '2024-01-04 07:32:35.501508', NULL, NULL, 'Stomach Bleeding (পেটের রক্তস্রাব)', 'Loss of blood from the stomach, often due to ulcers, inflammation, or other gastrointestinal issues. (পেট থেকে রক্ত হারানো, সাধারিতভাবে জ্বালানি, সূজ, বা অন্যান্য গ্যাস্ট্রোইনটেস্টাইনাল সমস্যার কারণে।)', 21),
+(196, '2024-01-04 07:32:35.524446', NULL, NULL, 'Stomach Obstruction (পেটের বন্ধন)', 'Blockage or hindrance in the normal flow of food through the stomach, causing pain and discomfort. (খাদ্যের সাধারিত প্রবাহে পেটে বন্ধন বা বাধা, যা ব্যথা এবং অসুবিধা সৃষ্টি করতে পারে।)', 21),
+(197, '2024-01-04 07:32:35.528434', NULL, NULL, 'Gastroenteritis (গ্যাস্ট্রওএন্টেরাইটিস)', 'Inflammation of the stomach and intestines, often caused by viral or bacterial infections, leading to diarrhea and abdominal pain. (পেট এবং অস্তিরিতে সুজোন, সাধারিতভাবে ভাইরাল বা ব্যাকটেরিয়াল সংক্রমণের ফলে, যা ডায়রিয়া এবং পেট ব্যথার কারণ হতে পারে।)', 21),
+(198, '2024-01-04 07:32:35.539405', NULL, NULL, 'Stomach Hernia (পেটের হার্নিয়া)', 'Protrusion of the stomach through the abdominal wall, causing a bulge and discomfort. (পেটের ভিতরের প্রবৃদ্ধি দ্বারা পেট মোড়া, একটি বুল্জ এবং অসুবিধা সৃষ্টি করতে পারে।)', 21),
+(199, '2024-01-04 07:32:35.547387', NULL, NULL, 'Stomach Infection (পেটের সংক্রমণ)', 'Invasion of harmful microorganisms in the stomach, causing infection, nausea, and vomiting. (পেটে ক্ষতিকর ক্ষুদ্রজীবনু আক্রমণ, সংক্রমণ, মত্স্যক্তি এবং বমি সৃষ্টি করতে পারে।)', 21),
+(200, '2024-01-04 07:32:35.557357', NULL, NULL, 'Stomach Spasm (পেটের স্প্যাসম)', 'Sudden and involuntary contraction of the stomach muscles, causing pain and cramps. (পেটের মাংসের অচেতন এবং ইচ্ছামুক্ত সংকোচন, যা ব্যথা এবং ক্র্যাম্প সৃষ্টি করতে পারে।)', 21),
+(201, '2024-01-04 07:32:35.566333', NULL, NULL, 'Stomach Obstruction (পেটের বন্ধন)', 'Blockage or hindrance in the normal flow of food through the stomach, causing pain and discomfort. (খাদ্যের সাধারিত প্রবাহে পেটে বন্ধন বা বাধা, যা ব্যথা এবং অসুবিধা সৃষ্টি করতে পারে।)', 21),
+(202, '2024-01-04 07:37:24.267581', NULL, NULL, 'Kidney Stones (কিডনি পাথর)', 'Formation of hard deposits in the kidneys, causing severe pain and discomfort during urination. (কিডনিতে কঠিন জমা গঠন, মূত্রত্যাগের সময় কঠিন ব্যথা এবং অসুবিধা সৃষ্টি করতে পারে।)', 24),
+(203, '2024-01-04 07:37:24.276545', NULL, NULL, 'Kidney Infection (কিডনি সংক্রমণ)', 'Bacterial infection affecting the kidneys, leading to fever, pain, and urinary issues. (কিডনিগুলির ক্ষতিকর ব্যাকটেরিয়াল সংক্রমণ, জ্বর, ব্যথা এবং মূত্রসংক্রান্তি সমস্যার কারণ হতে পারে।)', 24),
+(204, '2024-01-04 07:37:24.282530', NULL, NULL, 'Kidney Failure (কিডনি ব্যাধি)', 'Inability of the kidneys to perform their normal functions, leading to a buildup of toxins in the body. (কিডনিগুলির স্বাভাবিক কার্যক্রম পালনে অক্ষমতা, শরীরে জীবাণুবাদাম সংগ্রহ হয়ে আসা।)', 24),
+(205, '2024-01-04 07:37:24.286519', NULL, NULL, 'Polycystic Kidney Disease (পলিসিস্টিক কিডনি রোগ)', 'Genetic disorder causing the formation of fluid-filled cysts in the kidneys, affecting their normal functioning. (জেনেটিক ব্যাধি, যা কিডনিতে তরলপূর্ণ সিস্ট গঠনের কারণে তাদের স্বাভাবিক কার্যক্রম প্রভাবিত করে।)', 24),
+(206, '2024-01-04 07:37:24.292503', NULL, NULL, 'Hydronephrosis (হাইড্রোনেফ্রোসিস)', 'Swelling of the kidneys due to the accumulation of urine, often caused by obstruction in the urinary tract. (মূত্রদানের বন্ধন কারণে মূত্রের সংগ্রহের ফলে কিডনির ফোলা যায়।)', 24),
+(207, '2024-01-04 07:37:24.297490', NULL, NULL, 'Glomerulonephritis (গ্লোমেরুলোনেফ্রাইটিস)', 'Inflammation of the glomeruli in the kidneys, affecting their ability to filter blood properly. (কিডনিতে গ্লোমেরুলাসে সুজোন, যা রক্ত ঠিকমতো শোধন করতে তাদের সক্ষমতা প্রভাবিত করে।)', 24),
+(208, '2024-01-04 07:37:24.302477', NULL, NULL, 'Renal Artery Stenosis (রিনাল আর্টারি স্টেনোসিস)', 'Narrowing of the renal arteries, leading to reduced blood flow to the kidneys and potential hypertension. (কিডনির ধমনি দোর করা, যা কিডনিগুলিতে রক্ত প্রবাহের হ্রাস এবং সম্ভাব্য রক্তচাপে প্রাপ্তি হতে পারে।)', 24),
+(209, '2024-01-04 07:37:24.306466', NULL, NULL, 'Renal Cell Carcinoma (রেনাল সেল কারসিনোমা)', 'Cancerous growth in the cells of the kidneys, potentially spreading to other parts of the body. (কিডনির কোষগুলির ভিতরে ক্যান্সারোজ বৃদ্ধি, সম্ভাব্যতঃ শরীরের অন্যান্য অংশে ছড়াতে পারে।)', 24),
+(210, '2024-01-04 07:37:24.315441', NULL, NULL, 'Renal Hypertension (রিনাল হাইপারটেনশন)', 'High blood pressure caused by kidney-related factors, impacting overall cardiovascular health. (কিডনি সংক্রান্ত কারণে উত্তেজন প্রবৃদ্ধি, সামগ্রিক হৃদরোগ প্রভাবিত করতে পারে।)', 24),
+(211, '2024-01-04 07:37:24.325422', NULL, NULL, 'Renal Cyst (রিনাল সিস্ট)', 'Fluid-filled sacs or pockets in the kidneys, which may lead to pain or complications if they grow larger. (কিডনিগুলিতে তরলপূর্ণ স্যাক বা জোড়াসুজোড়ি, যা তাদের বড় হলে ব্যথা বা সমস্যা সৃষ্টি করতে পারে।)', 24),
+(212, '2024-01-04 07:42:56.718772', NULL, NULL, 'Ovarian Cyst (অয়ারিয়ান সিস্ট)', 'Formation of fluid-filled sacs within or on the surface of the ovaries, often causing pain or discomfort. (অয়ারিয়ান গলার ভিতরে অথবা সারফেসে তরলপূর্ণ স্যাক গঠন, যা সাধারিত ভাবে ব্যথা বা অসুবিধা সৃষ্টি করে।)', 25),
+(213, '2024-01-04 07:42:56.722765', NULL, NULL, 'Testicular Cancer (টেস্টিকুলার ক্যান্সার)', 'Development of cancerous cells in the testicles, potentially spreading to other parts of the body. (টেস্টিকেলে ক্যান্সারোজ কোষগুলির উন্নতি, যা সম্ভাব্যতঃ শরীরের অন্যান্য অংশে ছড়াতে পারে।)', 25),
+(214, '2024-01-04 07:42:56.727751', NULL, NULL, 'Polycystic Ovary Syndrome (PCOS) (পলিসিস্টিক অয়ারি সিন্ড্রোম)', 'Hormonal disorder causing enlarged ovaries with small cysts, leading to irregular menstrual cycles and other symptoms. (সুস্থতা হরমোনের অস্তিত্বের কারণে অয়ারিয়ান বড় হয়ে উঠে এবং ছোট সিস্ট থাকতে, যা অনিৰ্বাচনীয় মাসিক চক্র এবং অন্যান্য লক্ষণের কারণে।)', 25),
+(215, '2024-01-04 07:42:56.731735', NULL, NULL, 'Erectile Dysfunction (ED) (ইরেক্টাইল ডিসফাংকশন)', 'Inability to achieve or maintain an erection, often affecting sexual performance. (একটি উত্তেজন অর্জন বা বজায় রাখতে অক্ষমতা, সাধারিত ভাবে যৌন কর্মক্ষমতা প্রভাবিত করতে সহায় করে।)', 25),
+(216, '2024-01-04 07:42:56.737718', NULL, NULL, 'Endometriosis (এন্ডোমিট্রিওসিস)', 'Growth of endometrial tissue outside the uterus, causing pain, inflammation, and potential fertility issues. (গর্ভাশয়ের বাইরে এন্ডোমেট্রিয়াল ঊপস্থিতির বৃদ্ধি, যা ব্যথা, সুজোন, এবং সম্ভাব্য সান্তানিকামনা সমস্যা সৃষ্টি করতে পারে।)', 25),
+(217, '2024-01-04 07:42:56.743704', NULL, NULL, 'Prostate Enlargement (প্রোস্টেট বৃদ্ধি)', 'The abnormal growth of the prostate gland, leading to urinary problems and other complications. (প্রোস্টেট গ্র্যান্ডের অস্বাভাবিক বৃদ্ধি, যা মূত্রনালী সমস্যা এবং অন্যান্য জটিলতা সৃষ্টি করতে পারে।)', 25),
+(218, '2024-01-04 07:42:56.753682', NULL, NULL, 'Pelvic Inflammatory Disease (PID) (পেলভিক ইনফ্লামেটরি ডিজিজ)', 'Infection of the female reproductive organs, often causing pelvic pain and affecting fertility. (মহিলা প্রজনন অঙ্গগুলির সংক্রামণ, যা সাধারিত পেলভিক ব্যথা এবং সান্তানিকামনা প্রভাবিত করতে পারে।)', 25),
+(219, '2024-01-04 07:42:56.769632', NULL, NULL, 'Ectopic Pregnancy (একটপিক গর্ভাবস্থা)', 'Implantation of the fertilized egg outside the uterus, posing a serious health risk. (উত্তেজিত ডিম্ব গর্ভাশয়ের বাইরে অবস্থান হয়, যা একটি গম্ভীর স্বাস্থ্য ঝুঁকি তৈরি করে।)', 25),
+(220, '2024-01-04 07:42:56.774621', NULL, NULL, 'Benign Prostatic Hyperplasia (BPH) (অলসরোগ প্রোস্টেটিক হাইপারপ্লেশিয়া)', 'Non-cancerous enlargement of the prostate gland, causing urinary symptoms. (প্রোস্টেট গ্র্যান্ডের অক্যানসারোজ বৃদ্ধি, যা মূত্রনালী লক্ষণ সৃষ্টি করে।)', 25),
+(221, '2024-01-04 07:42:56.783596', NULL, NULL, 'Vaginal Infections (ভ্যাজিনাল সংক্রমণ)', 'Infections affecting the vaginal area, leading to discomfort, discharge, and itching. (ভ্যাজিনাল এলাকার উপর প্রভাব ফেলা সংক্রমণ, যা অসুবিধা, ডিসচার্জ, এবং খোচায়।)', 25),
+(222, '2024-01-04 08:36:16.304326', NULL, NULL, 'Hepatitis (হেপাটাইটিস)', 'Inflammation of the liver, often caused by viral infections, leading to liver dysfunction. (লিভারের সুজোন, সাধারিতভাবে ভাইরাসোজোকার ফলে, যা লিভার দৌর্বল্যে পরিণত হয়।)', 22),
+(223, '2024-01-04 08:36:16.311313', NULL, NULL, 'Fatty Liver Disease (চর্বির লিভার রোগ)', 'Accumulation of fat in the liver cells, often associated with obesity and metabolic disorders. (লিভার কোষে চর্বির সংগ্রহ, সাধারিতভাবে স্থূলতা এবং মেটাবলিক অসুষ্ঠীর সাথে যোগাযোগ করা হয়।)', 22),
+(224, '2024-01-04 08:36:16.316292', NULL, NULL, 'Cirrhosis (সার্কোসিস)', 'Scarring of the liver tissue, often the result of long-term liver damage or chronic conditions. (লিভার ঊষ্ণতার স্কারিং, সাধারিতভাবে দীর্ঘকালিক লিভার ক্ষতি বা অবস্থানগুলির ফল।)', 22),
+(225, '2024-01-04 08:36:16.321279', NULL, NULL, 'Liver Cancer (লিভার ক্যান্সার)', 'Uncontrolled growth of cells in the liver, forming tumors that can be cancerous. (লিভারে কোষের অসীম বৃদ্ধি, যা ক্যানসারের হতে পারে টিউমার গঠন হয়।)', 22),
+(226, '2024-01-04 08:36:16.330261', NULL, NULL, 'Hemochromatosis (হেমোক্রোমাটোসিস)', 'Excessive accumulation of iron in the liver, leading to complications in various organs.  (লিভারে আয়রনের অত্যধিক সংগ্রহ, বিভিন্ন অঙ্গে জটিলতা সৃষ্টি করতে পারে।)', 22),
+(227, '2024-01-04 08:36:16.340238', NULL, NULL, 'Primary Biliary Cirrhosis (প্রাথমিক বিলিয়ারি সার্কোসিস)', 'Chronic liver disease where the bile ducts inside the liver are damaged, leading to cirrhosis. (লিভারের মধ্যে বিলিয়ারি সার্কোসিস হয়, যেখানে বিলি ডাক্টের ক্ষতি হয়, সার্কোসিসে পরিণত হয়।)', 22),
+(228, '2024-01-04 08:36:16.348214', NULL, NULL, 'Fatty Liver Disease (ফ্যাটি লিভার রোগ)', 'Accumulation of fat in liver cells, often associated with obesity and metabolic syndrome. (লিভার কোষে চর্বির সংগ্রহ, যা সাধারিতা এবং ময়লাটিক সিন্ড্রোমের সাথে সম্পর্কিত।)', 22),
+(229, '2024-01-04 08:36:16.358181', NULL, NULL, 'Liver Hemangioma (লিভার হেম‌্যাঞ্জিওমা)', 'A non-cancerous tumor made up of blood vessels in the liver. (লিভারে রক্তনালীগুলি দ্বারা গঠিত একটি অসঙ্গতি টিউমার।)', 22),
+(230, '2024-01-04 08:36:16.366160', NULL, NULL, 'Autoimmune Hepatitis (অটোইমিউন হেপাটাইটিস)', 'The immune system mistakenly attacks liver cells, leading to inflammation and liver damage. (অসুস্থ প্রণালী ভুলভাবে লিভার কোষগুলি আক্রমণ করে, যা সূজন এবং লিভার ক্ষতি সৃষ্টি করে।)', 22),
+(231, '2024-01-04 08:36:16.370149', NULL, NULL, 'Liver Cyst (লিভার সিস্ট)', 'Fluid-filled sacs in the liver, which are usually benign but can cause discomfort. (লিভারে পানি দিয়ে পূর্ণ স্যাক, যা সাধারিতা দিয়ে অসাধারিত হতে পারে তবে অসুখগ্রস্ত হতে পারে।)', 22),
+(232, '2024-01-04 08:42:17.164747', NULL, NULL, 'Irritable Bowel Syndrome (IBS) - (ইরিটেবল বাওল সিন্ড্রোম)', 'A functional gastrointestinal disorder characterized by abdominal pain, bloating, and changes in bowel habits. (একটি কার্যক্ষম পাচনতাত্ত্বিক সমস্যা, যা পেটের ব্যথা, সুজন, এবং বাওল অভ্যন্তরের পরিবর্তনের দ্বারা চিহ্নিত।)', 23),
+(233, '2024-01-04 08:42:17.169734', NULL, NULL, 'Crohn\'s Disease (ক্রোনস রোগ)', 'An inflammatory bowel disease causing inflammation of the digestive tract, leading to abdominal pain and diarrhea.\r\n(একটি দাহ্য বাওল রোগ, যা পেটের ব্যথা এবং পাতলা পায়ের কারণে পাচনতাত্ত্বিক দ্বারা সূজন হয়।)', 23),
+(234, '2024-01-04 08:42:17.180705', NULL, NULL, 'Diverticulitis (ডাইভারটিকুলাইটিস)', 'Inflammation or infection of small pouches (diverticula) that can form in the walls of the intestines. (ক্ষুদ্র পাউচ (ডাইভারটিকুলা), যা বয়স করার সাথে ইনটেস্টাইনের দেওয়ারে গঠিত হতে পারে, তাদের সূজন বা সংক্রমণ।)', 23),
+(235, '2024-01-04 08:42:17.184694', NULL, NULL, 'Celiac Disease (সিলিয়াক রোগ)', 'An autoimmune disorder where the ingestion of gluten leads to damage in the small intestine. (একটি অটোইমিউন ব্যবস্থার অসুস্থতা, যেখানে গ্লুটেন খাওয়ার ফলে ছোট ইনটেস্টাইনে ক্ষতি হয়।)', 23),
+(236, '2024-01-04 08:42:17.190677', NULL, NULL, 'Colon Polyps (কোলন পলিপ)', 'Growth on the inner lining of the colon or rectum, which can lead to colorectal cancer. (কোলন বা মলায় অভ্যন্তরীণ লাইনিংয়ে বৃদ্ধি, যা কোলোরেক্টাল ক্যান্সারে পৌঁছতে পারে।)', 23),
+(237, '2024-01-04 08:42:17.196668', NULL, NULL, 'Ulcerative Colitis (অলসারেটিভ কলাইটিস)', 'Chronic inflammation of the colon, causing ulcers and long-term digestive issues. (কোলনের দীর্ঘকালীন সূজন, যা অলসার এবং দীর্ঘকালীন পাচনতাত্ত্বিক সমস্যা সৃষ্টি করে।)', 23),
+(238, '2024-01-04 08:42:17.210628', NULL, NULL, 'Gastroenteritis (গ্যাস্ট্রোএন্টেরাইটিস)', 'Inflammation of the stomach and intestines, often caused by viral or bacterial infections. (পেট এবং ইনটেস্টাইনের সূজন, যা সাধারিত ভাইরাল বা ব্যাকটেরিয়াল সংক্রমণের কারণে হতে পারে।)', 23),
+(239, '2024-01-04 08:42:17.225591', NULL, NULL, 'Intestinal Obstruction (ইনটেস্টাইনাল অবস্থান)', 'Blockage that prevents the normal flow of food and liquids through the intestines. (খাদ্য এবং তরলের মাধ্যমে ইনটেস্টাইনের মাধ্যমে সাধারিত প্রবাহ প্রতিরোধ করে তাত্ক্ষণিক।)', 23),
+(240, '2024-01-04 08:42:17.233573', NULL, NULL, 'Malabsorption Syndrome (ম্যালঅ্যাবসরপশন সিন্ড্রোম)', 'Inability to absorb nutrients from food, leading to nutritional deficiencies. (খাদ্য থেকে পুষ্টিতত্ত্ব শোষণ করতে অক্ষমতা, যা পুষ্টি অভাবে পরিচিত।)', 23),
+(241, '2024-01-04 08:42:17.242540', NULL, NULL, 'Gallstones (পিতপথরী)', 'Hardened deposits in the gallbladder, often causing pain and other digestive issues. (পিতাশয়ে কঠিন ঠোঁট, সাধারিত ব্যথা এবং অন্যান্য পাচনতাত্ত্বিক সমস্যা সৃষ্টি করতে সাধারিত।)', 23),
+(242, '2024-01-04 08:49:51.351654', NULL, NULL, 'Bladder Infection (ব্ল্যাডার ইনফেকশন)', 'Inflammation of the bladder, often caused by bacterial infection, leading to pain and frequent urination. (ব্ল্যাডারের সূজন, সাধারিতভাবে ব্যাকটেরিয়াল সংক্রমণের কারণে, যা ব্যথা এবং সচল মূত্রাশয় সৃষ্টি করতে পারে।)', 26),
+(243, '2024-01-04 08:49:51.357639', NULL, NULL, 'Bladder Stones (ব্ল্যাডার পাথর)', 'Hardened deposits in the bladder, causing pain, blood in urine, and discomfort during urination. (ব্ল্যাডারে কঠিন ঠোঁট, যা ব্যথা, মূত্রে রক্ত, এবং মূত্রক্রিয়ার সময় অসুবিধা সৃষ্টি করতে পারে।)', 26),
+(244, '2024-01-04 08:49:51.362627', NULL, NULL, 'Interstitial Cystitis (ইন্টারস্টিশিয়াল সিসটাইটিস)', 'Chronic inflammation of the bladder wall, causing pelvic pain and a frequent urge to urinate. (ব্ল্যাডারের দেয়ালের দীর্ঘকালীন সূজন, যা পেলভিক ব্যথা এবং সাধারিত মূত্রাশয়ে আগ্রহ সৃষ্টি করতে পারে।)', 26),
+(245, '2024-01-04 08:49:51.367613', NULL, NULL, 'Neurogenic Bladder (নিউরোজেনিক ব্ল্যাডার)', 'Dysfunction of the bladder due to nerve damage, leading to problems with urination control. (নার্ভ ক্ষতির কারণে ব্ল্যাডারের অকার্যকরতা, যা মূত্রাশয় নিয়ন্ত্রণে সমস্যা সৃষ্টি করতে পারে।)', 26),
+(246, '2024-01-04 08:49:51.376596', NULL, NULL, 'Bladder Cancer (ব্ল্যাডার ক্যান্সার)', 'Uncontrolled cell growth in the bladder, often leading to blood in urine, pain, and changes in urination habits (ব্ল্যাডারে অনিয়ন্ত্রিত কোষ বৃদ্ধি, সাধারিতভাবে মূত্রে রক্ত, ব্যথা এবং মূত্রক্রিয়ার অভ্যন্তরে পরিবর্তনের ফলে হতে পারে।)', 26),
+(247, '2024-01-04 08:49:51.414487', NULL, NULL, 'Urinary Incontinence (মূত্রাশয় অসংযতি)', 'Inability to control urine flow, leading to involuntary leakage, often due to weakened pelvic floor muscles. (মূত্র প্রবাহ নিয়ন্ত্রণ করতে অক্ষম, অসংজ্ঞানে ছড়ানো, সাধারিতভাবে পেলভিক মাঝের মাংসপেশী দলীয় হওয়ার কারণে।)', 26),
+(248, '2024-01-04 08:49:51.422471', NULL, NULL, 'Overactive Bladder (অভাবমূত্রাশয়)', 'Urgent and frequent need to urinate, often associated with sudden and uncontrollable bladder contractions (মূত্রাশয়ে জরুরিপূর্ণ এবং সাধারিতভাবে মূত্রাশয়ের অচেতন সংকোচগুলির সাথে সম্পর্কিত অসংযতি হতে পারে।)', 26),
+(249, '2024-01-04 08:49:51.431442', NULL, NULL, 'Bladder Diverticulum (ব্ল্যাডার ডাইভারটিকুলাম)', 'Pouch or sac-like bulges that form in the bladder wall, leading to difficulties in emptying the bladder. (ব্ল্যাডারের দেয়ালে গঠিত পাউচ বা স্যাকের মতো উত্তোলন, ব্ল্যাডার খালি করতে সমস্যা সৃষ্টি করতে পারে।)', 26),
+(250, '2024-01-04 08:49:51.439434', NULL, NULL, 'Bladder Fistula (ব্ল্যাডার ফিস্টুলা)', 'Abnormal connection between the bladder and nearby organs, causing urine to leak into places it shouldn\'t. (ব্ল্যাডার এবং সামীপ্যবর্তী অঙ্গ মধ্যে অস্বাভাবিক সংযোগ, যা মূত্র তার অবাঞ্ছিত জায়গায় ছড়ানোর কারণে হতে পারে।)', 26),
+(251, '2024-01-04 08:49:51.447400', NULL, NULL, 'Bladder Prolapse (ব্ল্যাডার প্রোল্যাপ্স)', 'Descending or dropping of the bladder into the vagina, leading to discomfort and difficulties in urination. (ব্ল্যাডারটি ভ্যাজাইনায় অবনতি বা পড়তে, যা ব্যথা এবং মূত্রাশয়ে সমস্যা সৃষ্টি করতে পারে।)', 26),
+(252, '2024-01-04 08:55:39.907329', NULL, NULL, 'Spinal Cord Injury (স্পাইনাল কর্ড আঘাত)', 'Damage to the spinal cord resulting in loss of function, sensation, or mobility. (স্পাইনাল কর্ডে ক্ষতি হয়ে কারণে কার্যক্ষমতা, অববোধ, বা চলাচলের ক্ষতি হতে পারে।)', 27),
+(253, '2024-01-04 08:55:39.914307', NULL, NULL, 'Spinal Stenosis (স্পাইনাল স্টেনোসিস)', 'Narrowing of the spinal canal, putting pressure on the spinal cord and nerves, leading to pain and numbness. (স্পাইনাল ক্যানালের সংকোচন, স্পাইনাল কর্ড এবং তার উপর চাপ দেওয়া, যা ব্যথা এবং অববোধ সৃষ্টি করতে পারে।)', 27),
+(254, '2024-01-04 08:55:39.919295', NULL, NULL, 'Herniated Disc (হার্নিয়েটেড ডিস্ক)', 'Protrusion or rupture of the cushion-like discs between the vertebrae, causing back pain and nerve compression. \r\n (ভার্টিব্রের মধ্যে মোচার মত ডিস্কের উত্তোলন বা ফাটা, যা পিঠে ব্যথা এবং তার পিছনে দবি সংকোচণ সৃষ্টি করতে পারে।)', 27),
+(255, '2024-01-04 08:55:39.925278', NULL, NULL, 'Spinal Tumor (স্পাইনাল টিউমার)', 'Abnormal growth of cells within or near the spinal cord, potentially causing neurological symptoms. (স্পাইনাল কর্ডের ভিতর বা সামীপ্যবর্তী কোষের অস্বাভাবিক বৃদ্ধি, যা স্পাইনাল সংকেত সৃষ্টি করতে পারে।)', 27),
+(256, '2024-01-04 08:55:39.935266', NULL, NULL, 'Spinal Cord Abscess (স্পাইনাল কর্ড এবং পাশাপাশি স্থিত পোঁকা)', 'Collection of infected material (pus) near the spinal cord, leading to inflammation and potential damage. (স্পাইনাল কর্ড এবং তার কাছাকাছি স্থিত আক্রান্ত উপাদানের (পুস) সংগ্রহ, যা প্রদাহ এবং সম্ভাব্য ক্ষতি সৃষ্টি করতে পারে।)', 27),
+(257, '2024-01-04 08:55:39.944228', NULL, NULL, 'Cauda Equina Syndrome (কডা ইকউইনা সিনড্রোম)', 'Compression of the nerve roots at the lower end of the spinal cord, leading to lower back pain, weakness, and bowel/bladder dysfunction. (স্পাইনাল কর্ডের নীচের শেষে নার্ভ রুট সংকোচন, যা নিচের পিঠে ব্যথা, দুর্বলতা, এবং বৌল/ব্ল্যাডার অক্ষমতা সৃষ্টি করতে পারে।)', 27),
+(258, '2024-01-04 08:55:39.948217', NULL, NULL, 'Degenerative Disc Disease (অসংক্রান্ত ডিস্ক রোগ)', 'Wear and tear of the intervertebral discs over time, causing pain, stiffness, and reduced flexibility. (সময়ের সাথে ইন্টাভার্টিব্রাল ডিস্কের পোড়ার আবর্জন, যা ব্যথা, অস্থিরতা, এবং কম চমৎকারতা সৃষ্টি করতে পারে।)', 27),
+(259, '2024-01-04 08:55:39.952206', NULL, NULL, 'Spinal Cord Hemorrhage (স্পাইনাল কর্ড হেমরেজ)', 'Bleeding within the spinal cord, leading to pressure on the nerves and potential damage. (স্পাইনাল কর্ডের ভিতরে রক্তস্রাব, যা নার্ভে চাপ এবং সম্ভাব্য ক্ষতি সৃষ্টি করতে পারে।)', 27),
+(260, '2024-01-04 08:55:39.960189', NULL, NULL, 'Spinal Cord Ischemia (স্পাইনাল কর্ড আইসকেমিয়া)', 'Lack of blood supply to the spinal cord, leading to cell damage and neurological symptoms. (স্পাইনাল কর্ডে রক্ত সরবরাহের অভাব, যা কোষ ক্ষতি এবং স্নায়বিক লক্ষণ সৃষ্টি করতে পারে।)', 27),
+(261, '2024-01-04 08:55:39.981139', NULL, NULL, 'Spinal Cord Infection (স্পাইনাল কর্ড সংক্রামণ)', 'Infection of the spinal cord, causing inflammation and potential damage to the nerve tissues. (স্পাইনাল কর্ডের সংক্রমণ, যা প্রদাহ এবং নার্ভ ঊঁচু স্থানে ক্ষতি সৃষ্টি করতে পারে।)', 27),
+(262, '2024-01-04 09:00:54.723749', NULL, NULL, 'Muscle Strain (মাংসপেশী স্ট্রেইন)', 'Overstretching or tearing of muscles supporting the spine, leading to pain, stiffness, and limited mobility. (স্পাইন সাপোর্ট করা মাংসপেশীর অধিক আঙ্গুলভঙ্গ, যা ব্যথা, অস্থিরতা, এবং সীমিত চলাচল সৃষ্টি করতে পারে।)', 28),
+(263, '2024-01-04 09:00:54.728734', NULL, NULL, 'Herniated Disc (হার্নিয়েটেড ডিস্ক)', 'The intervertebral disc bulges or ruptures, putting pressure on the spinal nerves, causing pain and numbness (ইন্টাভার্টিব্রাল ডিস্ক ফোটার বা ফাটার ফলে, স্পাইনাল নার্ভের উপর চাপ পড়ে, যা ব্যথা এবং অস্তিত্বের কারণ হতে পারে।)', 28),
+(264, '2024-01-04 09:00:54.734720', NULL, NULL, 'Spinal Stenosis (স্পাইনাল স্টেনোসিস)', 'Narrowing of the spinal canal, putting pressure on the nerves and causing pain, weakness, or numbness. (স্পাইনাল ক্যানালের সংকোচন, নার্ভে চাপ পড়ার ফলে ব্যথা, দুর্বলতা, অথবা অস্তিত্বের কারণ হতে পারে।)', 28),
+(265, '2024-01-04 09:00:54.739705', NULL, NULL, 'Muscle Spasms (মাংসপেশী স্প্যাসম)', 'Sudden and involuntary contractions of the muscles supporting the spine, causing pain and discomfort. (স্পাইন সাপোর্ট করা মাংসপেশীর অচেতন এবং ইচ্ছামুক্ত সংকোচন, যা ব্যথা এবং অসুবিধা সৃষ্টি করতে পারে।)', 28),
+(266, '2024-01-04 09:00:54.744691', NULL, NULL, 'Muscle Atrophy (মাংসপেশী ক্ষয়)', 'Wasting away or loss of muscle mass supporting the spine, leading to weakness and decreased function. (স্পাইন সাপোর্ট করা মাংসপেশীর স্নায়ু ক্ষয় বা হারানো, যা দুর্বলতা এবং ক্ষমতা কমে আনতে পারে।)', 28),
+(267, '2024-01-04 09:00:54.750677', NULL, NULL, 'Kyphosis (কাইফোসিস)', 'Excessive outward curvature of the spine, leading to a hunchback appearance and potential pain. (স্পাইনের অত্যধিক বাইরে কার্ভেচার, যা একটি হাঞ্চির মুখোমুখি দেখা দেয় এবং সম্ভাব্যতঃ ব্যথা সৃষ্টি করতে পারে।)', 28),
+(268, '2024-01-04 09:00:54.755662', NULL, NULL, 'Lordosis (লর্ডোসিস)', 'Excessive inward curvature of the spine, often in the lower back, causing a swayback appearance. (স্পাইনের অত্যধিক অভ্যন্তরে কার্ভেচার, সাধারণভাবে নিচের পিঠে, একটি সোয়েব্যাক মুখোমুখি করতে পারে।)', 28),
+(269, '2024-01-04 09:00:54.763651', NULL, NULL, 'Scoliosis (স্কলিওসিস)', 'Sideways curvature of the spine, often in an S or C shape, causing uneven shoulders or hips. (স্পাইনের পাশাপাশি কার্ভেচার, সাধারণভাবে S বা C আকারে, অসমত কন্ধ বা হিপ সৃষ্টি করতে পারে।)', 28),
+(270, '2024-01-04 09:00:54.773614', NULL, NULL, 'Sciatica (সাইয়াটিকা)', 'Compression or irritation of the sciatic nerve, causing pain, numbness, and tingling down the leg. (সাইয়াটিক নার্ভের সংকোচন বা চিন্তার ফলে, পা নিচে ব্যথা, অসুবিধা এবং মাঝে মাঝে ঝিঁঝিঁ বা মোমড়ক হতে পারে।)', 28),
+(271, '2024-01-04 09:00:54.782592', NULL, NULL, 'Ankylosing Spondylitis (এঙ্কিলোজিং স্পন্ডিলাইটিস)', 'Inflammatory arthritis affecting the spine, leading to stiffness, pain, and fusion of vertebrae. (স্পাইন প্রভৃতি প্রভৃতি আক্রান্তকারী আর্থ্রাইটিস, যা অস্থিরতা, ব্যথা, এবং ভার্টিব্রার একোটা হতে পারে।)', 28),
+(272, '2024-01-04 09:07:03.551906', NULL, NULL, 'Muscle Strain (মাংসপেশী স্ট্রেইন)', 'Overstretching or tearing of muscle fibers, leading to pain, swelling, and limited movement. (মাংসপেশী তন্তুগুলির অতিস্থূলন বা ছিদ্রান্বেষণ, যা ব্যথা, স্থূলতা, এবং সীমিত চলাচল সৃষ্টি করতে পারে।)', 29),
+(273, '2024-01-04 09:07:03.567873', NULL, NULL, 'Muscle Spasm (মাংসপেশী স্প্যাসম)', 'Sudden and involuntary contraction of muscles, causing pain, tightness, and temporary loss of function. (মাংসপেশী অচেতন এবং ইচ্ছামুক্ত সংকোচন, যা ব্যথা, সঙ্গতি এবং অস্থায়ী কার্যক্ষমতা হারাতে উপনিবৃত্ত।)', 29),
+(274, '2024-01-04 09:07:03.581825', NULL, NULL, 'Muscular Dystrophy (মাসকুলার ডিসট্রোফি)', 'Genetic disorders leading to progressive muscle degeneration and weakness. (ধারাবাহিক মাংসপেশীর পুনঃউদ্ধার এবং দুর্বলতা সৃষ্টি করতে যাওয়া আত্মীয় ব্যাধি।)', 29),
+(275, '2024-01-04 09:07:03.590801', NULL, NULL, 'Compartment Syndrome (কম্পার্টমেন্ট সিনড্রোম)', 'Increased pressure within the muscles, leading to reduced blood flow, pain, and potential nerve damage. (মাংসপেশীতে বৃদ্ধি প্রয়োজন, যা রক্তচাপের কমতির ফলে, ব্যথা এবং সম্ভাব্য নার্ভ ক্ষতি সৃষ্টি করতে পারে।)', 29),
+(276, '2024-01-04 09:07:03.600775', NULL, NULL, 'Myositis (মায়োসাইটিস)', 'Inflammation of muscle tissues, causing weakness, pain, and sometimes, difficulty in swallowing or breathing.\r\n(মাংসপেশী ঊষ্ণাংশের সুজোন, যা দুর্বলতা, ব্যথা এবং কখনই, কুচকানো বা শ্বাস নিতে সমস্যা সৃষ্টি করতে পারে।)', 29),
+(277, '2024-01-04 09:07:03.616748', NULL, NULL, 'Tendonitis (টেনডোনাইটিস)', 'Inflammation of the tendons, often caused by overuse or injury, resulting in pain and limited joint movement. (টেনডনগুলির সুজোন, সাধারিত ব্যবহার বা আঘাতের ফলে হতে, যা ব্যথা এবং সীমিত জয়েন্ট চলাচল সৃষ্টি করতে পারে।)', 29),
+(278, '2024-01-04 09:07:03.628702', NULL, NULL, 'Muscle Atrophy (মাসকুলার এট্রফি)', 'Wasting away or loss of muscle tissue, leading to weakness and decreased muscle mass. (মাংসপেশী ঊষ্ণাংশের বা হানা হয় বা মাংসপেশী পরিমাণের কমতির ফলে, যা দুর্বলতা এবং মাংসপেশী দ্রবতা কমতি করে।)', 29),
+(279, '2024-01-04 09:07:03.646653', NULL, NULL, 'Rhabdomyolysis (র্যাবডোমাইোলাইসিস)', 'Breakdown of muscle tissue, releasing a protein into the bloodstream that can cause kidney damage. (মাংসপেশী ঊষ্ণাংশের বিচ্ছেদ, যা রক্তপাতে একটি প্রোটিন মুক্ত করে যা কিডনি ক্ষতি সৃষ্টি করতে পারে।)', 29),
+(280, '2024-01-04 09:07:03.656626', NULL, NULL, 'Frozen Shoulder (হলুদ কনু):', 'Stiffness and pain in the shoulder joint, limiting its range of motion. (কনু জয়েন্টে মোচ এবং ব্যথা, যা তার চলাচলের পরিসীমা সীমিত করে।)', 29),
+(281, '2024-01-04 09:07:03.667602', NULL, NULL, 'Muscle Cramps (মাসকুলার ক্র্যাম্প)', 'Sudden and involuntary contractions of muscles, causing intense pain and temporary immobility. (মাংসপেশীর অচেতন এবং ইচ্ছামুক্ত সংকোচন, যা তীব্র ব্যথা এবং অস্থায়ী অচলতা সৃষ্টি করতে পারে।)', 29),
+(282, '2024-01-04 09:14:50.847678', NULL, NULL, 'Gastroesophageal Reflux Disease (GERD) (গ্যাস্ট্রোইসোফাগিয়াল রিফ্লাক্স রোগ)', 'Chronic condition where stomach acid flows back into the esophagus, causing irritation and discomfort. (যেখানে পেটের অ্যাসিড আসলে পুনঃইসোফেগাসে ফিরে যায়, যা উদ্বেগ এবং অসুখ সৃষ্টি করে।)', 30),
+(283, '2024-01-04 09:14:50.856655', NULL, NULL, 'Irritable Bowel Syndrome (IBS) (আইবিএস)', 'Functional gastrointestinal disorder characterized by abdominal pain, bloating, and changes in bowel habits. (কার্যক্ষম পেট অসুখের প্রতিষ্ঠান যা পেটের ব্যথা, স্তন্যতা এবং পায়ের অভ্যন্তরীণ পরিবর্তনের মাধ্যমে চিহ্নিত।)', 30),
+(284, '2024-01-04 09:14:50.862638', NULL, NULL, 'Uterine Fibroids (গর্ভাশয়ের ফাইব্রয়েড)', 'Non-cancerous growths of the uterus that often appear during childbearing years, causing pelvic pain and heavy menstrual bleeding. (গর্ভাশয়ের অস্ত্রাণু যা সাধারণভাবে সন্তানধারণ বছরে দেখা যায়, যা হাতড়ি ব্যথা এবং ভারী মাসিকধরা সৃষ্টি করে।)', 30),
+(285, '2024-01-04 09:14:50.867624', NULL, NULL, 'Achalasia (অ্যাকালাসিয়া)', 'Disorder of the esophagus where the lower sphincter doesn\'t relax properly, causing difficulty in swallowing (এসোফাগাসের ব্যথা যেখানে নিচু স্ফিংক্টার সঠিকভাবে শান্ত হয়না, যা কুণ্ডল করতে কষ্ট সৃষ্টি করে।)', 30),
+(286, '2024-01-04 09:14:50.872616', NULL, NULL, 'Gallstones (পিত্তাশয়ের পাথর)', 'Hardened deposits in the gallbladder, causing pain and discomfort, especially after consuming fatty foods. (পিত্তাশয়ে কঠিন জমা, ব্যথা এবং অসুখ সৃষ্টি করে, সহজে ভোজন করার পরে বিশেষভাবে পরবর্তী।)', 30),
+(287, '2024-01-04 09:14:50.877599', NULL, NULL, 'Pancreatitis (প্যাঙ্ক্রিয়াটাইটিস)', 'Inflammation of the pancreas, leading to abdominal pain, nausea, and digestive issues. (অগ্ন্যাশয়ের প্রদাহ, যার ফলে পেটে ব্যথা, বমি বমি ভাব এবং হজমের সমস্যা হয়।)', 30),
+(288, '2024-01-04 09:14:50.883582', NULL, NULL, 'Rotator Cuff Injury (রোটেটর কাফ ক্ষতি)', 'Damage to the group of muscles and tendons around the shoulder joint, causing pain and limited range of motion. (কাঁধের জয়েন্টের চারপাশে পেশী এবং টেন্ডনের গোষ্ঠীর ক্ষতি, ব্যথা এবং গতির সীমিত পরিসরের কারণ।)', 30),
+(289, '2024-01-04 09:14:50.891564', NULL, NULL, 'Herniated Disc (হার্নিয়েটেড ডিস্ক)', 'Protrusion of the intervertebral disc, pressing on nerves and causing back pain and numbness. (ইন্টারভার্টেব্রাল ডিস্কের প্রোট্রুশন, স্নায়ুতে চাপ দেয় এবং পিঠে ব্যথা এবং অসাড়তা সৃষ্টি করে।)', 30),
+(290, '2024-01-04 09:14:50.902532', NULL, NULL, 'Glaucoma (গ্লাউকোমা)', 'Eye condition characterized by increased intraocular pressure, leading to optic nerve damage and vision loss. (চোখের অবস্থা বর্ধিত ইন্ট্রাওকুলার চাপ দ্বারা চিহ্নিত, যা অপটিক স্নায়ুর ক্ষতি এবং দৃষ্টিশক্তি হ্রাসের দিকে পরিচালিত করে।)', 30),
+(291, '2024-01-04 09:14:50.922479', NULL, NULL, 'Cervical Spondylosis (সার্ভিক্যোল স্পণ্ডিলোসিস)', 'Degeneration of the cervical spine, causing neck pain, stiffness, and sometimes numbness or weakness. (সার্ভিকাল মেরুদণ্ডের অবক্ষয় ঘাড়ে ব্যথা, শক্ত হয়ে যাওয়া এবং কখনও কখনও অসাড়তা বা দুর্বলতা সৃষ্টি করে।)', 30),
+(292, '2024-01-04 12:56:09.618200', NULL, NULL, 'Myocardial Infarction (Heart Attack) (মাইকার্ডিয়াল ইনফারকশন - হার্ট অ্যাট্যাক)', 'Blockage of blood flow to the heart muscle, leading to damage or death of heart tissue. (হৃদপিন্ডের পেশীতে রক্ত ​​প্রবাহে বাধা, যার ফলে হৃদপিন্ডের টিস্যুর ক্ষতি বা মৃত্যু হয়।)', 31),
+(293, '2024-01-04 12:56:09.631164', '2024-01-04 13:31:17.222405', NULL, 'Pericarditis (পেরিকার্ডাইটিস)', 'Inflammation of the pericardium, the sac around the heart, causing chest pain and discomfort. (পেরিকার্ডিয়ামের প্রদাহ, হৃৎপিণ্ডের চারপাশে থলি, বুকে ব্যথা এবং অস্বস্তি সৃষ্টি করে।)', 31),
+(294, '2024-01-04 12:56:09.646124', NULL, NULL, 'Heart Failure (হার্ট ফেইলার)', 'Inability of the heart to pump blood effectively, leading to symptoms like shortness of breath and fatigue. (হৃৎপিণ্ড কার্যকরভাবে রক্ত ​​পাম্প করার ক্ষমতা, যার ফলে শ্বাসকষ্ট এবং ক্লান্তির মতো উপসর্গ দেখা দেয়।)', 31),
+(295, '2024-01-04 12:56:09.656101', NULL, NULL, 'Cardiomyopathy (কার্ডিওমায়োপাথি)', 'Disease of the heart muscle, affecting its structure and function. (হৃৎপিণ্ডের পেশীর রোগ, এর গঠন এবং কার্যকারিতা প্রভাবিত করে।)', 31),
+(296, '2024-01-04 12:56:09.664079', NULL, NULL, 'Valvular Heart Disease (ভালভুলার হার্ট ডিজিজ)', 'Malfunction or damage to the heart valves, leading to impaired blood flow (হার্টের ভালভের ত্রুটি বা ক্ষতি, যার ফলে রক্ত ​​চলাচল ব্যাহত হয়)', 31),
+(297, '2024-01-04 13:00:06.139180', NULL, NULL, 'Hypertrophic Cardiomyopathy (হাইপারট্রোফিক কার্ডিওমায়োপাথি)', 'Problem Specification: Genetic condition causing thickening of the heart muscle, increasing the risk of heart failure, arrhythmias, and sudden cardiac death. (হৃদয়ের মাংসপেশীর মাসুকে মোটামুটি করা, হৃদয় ব্যাধি, অতএব হৃদয়ের প্রভাবকে বাড়াতে পারে এবং অসমাপ্ত হৃদয় মৃত্যুর ঝুঁকিতে বাড়াতে পারে।)', 31),
+(298, '2024-01-04 13:27:31.042494', NULL, NULL, 'Heart Valve Disease (হৃদয় ভালভ রোগ)', 'Problem Specification (সমস্যার বিবরণ): Malfunction or damage to one or more of the heart valves, affecting blood flow and potentially leading to symptoms like chest pain, fatigue, or heart palpitations. (সমস্যা স্পেসিফিকেশন (সমস্যার বিবরণ): এক বা একাধিক হার্টের ভালভের ত্রুটি বা ক্ষতি, রক্ত ​​​​প্রবাহকে প্রভাবিত করে এবং সম্ভাব্যভাবে বুকে ব্যথা, ক্লান্তি বা হৃদস্পন্দনের মতো লক্ষণগুলির দিকে পরিচালিত করে।)', 31),
+(299, '2024-01-04 13:29:29.987013', NULL, NULL, 'Peripheral Artery Disease (PAD) (পেরিফেরাল আর্টারি রোগ)', 'Narrowing of the peripheral arteries, often in the legs, reducing blood flow and increasing the risk of complications like leg pain and non-healing wounds. (পেরিফেরাল ধমনী সংকুচিত করা, প্রায়শই পায়ে, রক্ত ​​প্রবাহ হ্রাস করে এবং পায়ে ব্যথা এবং অ নিরাময় ক্ষতের মতো জটিলতার ঝুঁকি বাড়ায়।)', 31),
+(300, '2024-01-04 13:29:29.996980', NULL, NULL, 'Myocarditis (মায়োকার্ডাইটিস)', 'Inflammation of the heart muscle, which can weaken the heart and lead to symptoms like chest pain, fatigue, and shortness of breath. (হৃৎপিণ্ডের পেশীর প্রদাহ, যা হৃৎপিণ্ডকে দুর্বল করে দিতে পারে এবং বুকে ব্যথা, ক্লান্তি এবং শ্বাসকষ্টের মতো উপসর্গ দেখা দিতে পারে।)', 31),
+(301, '2024-01-04 13:30:30.115076', NULL, NULL, 'Coronary Artery Spasm (করোনারি আর্টারি স্প্যাসম)', 'Sudden contraction of the coronary arteries, leading to a temporary reduction in blood flow to the heart muscle and causing chest pain or discomfort. (করোনারি ধমনীর আকস্মিক সংকোচন, যার ফলে হৃৎপিণ্ডের পেশীতে রক্ত ​​চলাচল সাময়িকভাবে কমে যায় এবং বুকে ব্যথা বা অস্বস্তি হয়।)', 31),
+(302, '2024-01-04 13:36:42.656243', NULL, NULL, 'Osteoporosis (অস্তিস্ক যন্ত্রণা)', 'A condition characterized by weakened and porous bones, often affecting the spine, which can lead to fractures and a reduction in overall bone density. (দুর্বল এবং ছিদ্রযুক্ত হাড় দ্বারা চিহ্নিত একটি অবস্থা, প্রায়শই মেরুদণ্ডকে প্রভাবিত করে, যা ফ্র্যাকচার এবং সামগ্রিক হাড়ের ঘনত্ব হ্রাস করতে পারে।)', 32),
+(303, '2024-01-04 13:36:42.662225', NULL, NULL, 'Scoliosis (স্কলিওসিস)', 'Problem Specification (সমস্যার বিবরণ): Abnormal sideways curvature of the spine, which can affect posture, cause back pain, and, in severe cases, impact organ function. (সমস্যা স্পেসিফিকেশন (সমস্যার বিবরণ): মেরুদণ্ডের অস্বাভাবিক পার্শ্ববর্তী বক্রতা, যা অঙ্গবিন্যাসকে প্রভাবিত করতে পারে, পিঠে ব্যথা হতে পারে এবং গুরুতর ক্ষেত্রে অঙ্গের কার্যকারিতাকে প্রভাবিত করতে পারে।)', 32),
+(304, '2024-01-04 13:36:42.668210', NULL, NULL, 'Herniated Disc (হার্নিয়েটেড ডিস্ক)', 'The displacement or rupture of an intervertebral disc, leading to pressure on nearby nerves, resulting in pain, numbness, or weakness. (একটি ইন্টারভার্টেব্রাল ডিস্কের স্থানচ্যুতি বা ফেটে যাওয়া, যা কাছাকাছি স্নায়ুর উপর চাপ সৃষ্টি করে, যার ফলে ব্যথা, অসাড়তা বা দুর্বলতা দেখা দেয়।)', 32),
+(305, '2024-01-04 13:36:42.673197', NULL, NULL, 'Spinal Stenosis (স্পাইনাল স্টেনোসিস)', 'Narrowing of the spinal canal, putting pressure on the spinal cord and nerves, leading to symptoms like back pain, leg pain, or numbness. (মেরুদন্ডের খাল সরু হয়ে যাওয়া, মেরুদন্ড এবং স্নায়ুর উপর চাপ পড়ে, যার ফলে পিঠে ব্যথা, পায়ে ব্যথা বা অসাড়তার মতো উপসর্গ দেখা দেয়।)', 32),
+(306, '2024-01-04 13:53:55.875523', NULL, NULL, 'Craniosynostosis (ক্র্যানিওসিনোস্টোসিস)', 'Craniosynostosis is a condition where the bones in an infant\'s skull fuse prematurely. This can affect the shape of the head and may require surgical intervention. (ক্রেনিওসিনোস্টোসিস হল এমন একটি অবস্থা যেখানে একটি শিশুর মাথার খুলির হাড় অকালে ফিউজ হয়ে যায়। এটি মাথার আকৃতিকে প্রভাবিত করতে পারে এবং অস্ত্রোপচারের হস্তক্ষেপের প্রয়োজন হতে পারে।)', 32),
+(307, '2024-01-04 13:56:12.416020', NULL, NULL, 'Rib Fractures (পাঁজরের ফাটল)', 'Rib fractures involve breaks or cracks in the ribs. They can result from trauma, such as a direct blow to the chest, and can cause pain and difficulty breathing. (পাঁজরের ফাটল বা পাঁজরে ফাটল দেখা দেয়। এগুলি আঘাতের ফলে হতে পারে, যেমন বুকে সরাসরি আঘাত, এবং ব্যথা এবং শ্বাস নিতে অসুবিধা হতে পারে।)', 32),
+(308, '2024-01-04 14:04:38.837938', NULL, NULL, 'Osteomyelitis of the Spine (মেরুদণ্ডের অস্টিওমাইলাইটিস)', 'Osteomyelitis is an infection of the bone, and when it affects the spine, it can lead to pain, swelling, and potential damage to the spinal cord. (অস্টিওমাইলাইটিস হল হাড়ের একটি সংক্রমণ, এবং যখন এটি মেরুদণ্ডকে প্রভাবিত করে, তখন এটি ব্যথা, ফুলে যাওয়া এবং মেরুদণ্ডের সম্ভাব্য ক্ষতি হতে পারে।)', 32),
+(309, '2024-01-04 14:16:10.785580', NULL, NULL, 'Rotator Cuff Tear (রোটেটর কাফ টিয়ার)', 'A tear in the tendons of the rotator cuff in the shoulder, leading to pain, weakness, and limited range of motion. (কাঁধের রোটেটর কাফের টেন্ডনে ছিঁড়ে যাওয়া, যার ফলে ব্যথা, দুর্বলতা এবং গতি সীমিত হয়।)', 33),
+(310, '2024-01-04 14:16:10.803530', NULL, NULL, 'Frozen Shoulder (Adhesive Capsulitis) (ফ্রোজেন শোল্ডার (আঠালো ক্যাপসুলাইটিস):)', ' Inflammation and thickening of the shoulder joint capsule, causing pain and stiffness in the shoulder. (কাঁধের জয়েন্ট ক্যাপসুলের প্রদাহ এবং ঘন হয়ে যাওয়া, কাঁধে ব্যথা এবং শক্ত হয়ে যাওয়া।)', 33),
+(311, '2024-01-04 14:16:10.810509', NULL, NULL, 'Tennis Elbow (Lateral Epicondylitis) (টেনিস এলবো (পার্শ্বীয় এপিকন্ডাইলাইটিস))', 'Inflammation of the tendons on the outer part of the elbow, resulting in pain and tenderness. (কনুইয়ের বাইরের অংশে টেন্ডনগুলির প্রদাহ, যার ফলে ব্যথা এবং কোমলতা হয়।)', 33),
+(312, '2024-01-04 14:16:10.814500', NULL, NULL, 'Carpal Tunnel Syndrome (কার্পাল টানেল সিনড্রোম)', 'Compression of the median nerve in the wrist, leading to numbness, tingling, and weakness in the hand. (কব্জির মধ্যবর্তী স্নায়ুর সংকোচন, যার ফলে হাতের অসাড়তা, কাঁপুনি এবং দুর্বলতা দেখা দেয়।)', 33),
+(313, '2024-01-04 14:16:10.819485', NULL, NULL, 'Hip Labral Tear (হিপ ল্যাব্রাল টিয়ার)', 'A tear in the cartilage (labrum) of the hip joint, causing hip pain and potential joint instability. (নিতম্বের জয়েন্টের তরুণাস্থিতে (ল্যাব্রাম) একটি ছিঁড়ে যাওয়া, যার ফলে নিতম্বের ব্যথা এবং সম্ভাব্য জয়েন্টের অস্থিরতা।)', 33),
+(314, '2024-01-04 14:16:10.823475', NULL, NULL, 'Patellofemoral Pain Syndrome (প্যাটেলোফেমোরাল পেইন সিনড্রোম)', 'Knee pain around or under the kneecap, often related to activities that load the joint. (হাঁটুর আশেপাশে বা হাঁটুর নীচে হাঁটু ব্যথা, প্রায়শই জয়েন্ট লোড করে এমন কার্যকলাপের সাথে সম্পর্কিত।)', 33),
+(315, '2024-01-04 14:16:10.829460', NULL, NULL, 'Achilles Tendinitis (অ্যাকিলিস টেন্ডিনাইটিস)', 'Inflammation of the Achilles tendon, resulting in pain and stiffness in the back of the heel. (অ্যাকিলিস টেন্ডনের প্রদাহ, যার ফলে গোড়ালির পিছনে ব্যথা এবং শক্ত হয়ে যায়।)', 33),
+(316, '2024-01-04 14:16:10.833449', NULL, NULL, 'Shin Splints (শিন স্প্লিন্টস)', 'Pain along the shinbone (tibia), typically caused by excessive stress on the shin tissues. (শিনবোন (টিবিয়া) বরাবর ব্যথা, সাধারণত শিন টিস্যুতে অতিরিক্ত চাপের কারণে হয়।)', 33),
+(317, '2024-01-04 14:16:10.837438', NULL, NULL, 'Ankle Sprain (গোড়ালি মচকে যাওয়া)', 'Stretching or tearing of the ligaments around the ankle, leading to pain and swelling. (গোড়ালির চারপাশের লিগামেন্টগুলি প্রসারিত বা ছিঁড়ে যাওয়া, যার ফলে ব্যথা এবং ফুলে যায়।)', 33),
+(318, '2024-01-04 14:16:10.842436', NULL, NULL, 'Stress Fracture (Stress Fracture)', 'Tiny cracks in the bone often caused by repetitive stress, resulting in localized pain. (হাড়ের ছোট ফাটল প্রায়ই পুনরাবৃত্তিমূলক চাপের কারণে ঘটে, যার ফলে স্থানীয় ব্যথা হয়।)', 33),
+(319, '2024-01-04 14:19:09.397196', NULL, NULL, 'Herniated Disc (Slipped Disc) (হার্নিয়েটেড ডিস্ক (স্লিপড ডিস্ক))', 'Displacement of the intervertebral disc, causing compression of nearby nerves and resulting in pain and weakness. (ইন্টারভার্টেব্রাল ডিস্কের স্থানচ্যুতি, কাছাকাছি স্নায়ুর সংকোচন ঘটায় এবং এর ফলে ব্যথা এবং দুর্বলতা দেখা দেয়।)', 32),
+(320, '2024-01-04 14:20:28.496850', NULL, NULL, 'Thoracic Outlet Syndrome (থোরাসিক আউটলেট সিন্ড্রোম)', 'Thoracic outlet syndrome occurs when nerves or blood vessels between the collarbone and first rib are compressed, leading to pain, numbness, and tingling in the arm. (থোরাসিক আউটলেট সিন্ড্রোম ঘটে যখন কলারবোন এবং প্রথম পাঁজরের মধ্যবর্তী স্নায়ু বা রক্তনালীগুলি সংকুচিত হয়, যার ফলে বাহুতে ব্যথা, অসাড়তা এবং ঝাঁকুনি দেখা দেয়।)', 32),
+(321, '2024-01-04 14:21:20.477540', NULL, NULL, 'Tarlov Cysts (টারলোভ সিস্ট)', 'Tarlov cysts are fluid-filled sacs that can form on nerve roots in the spine, causing pain, weakness, and sensory abnormalities. (টারলোভ সিস্ট হল তরল-ভরা থলি যা মেরুদন্ডের স্নায়ুর শিকড়ে গঠন করতে পারে, যার ফলে ব্যথা, দুর্বলতা এবং সংবেদনশীল অস্বাভাবিকতা দেখা দেয়।)', 32);
+INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, `problem`, `problem_specification`, `organ_id`) VALUES
+(322, '2024-01-04 14:28:29.306668', NULL, NULL, 'Osteoarthritis (অস্টিওআর্থারাইটিস)', 'Degeneration of joint cartilage and underlying bone, leading to pain, swelling, and reduced joint mobility. (জয়েন্ট কার্টিলেজ এবং অন্তর্নিহিত হাড়ের অবক্ষয়, যার ফলে ব্যথা, ফোলাভাব এবং জয়েন্টের গতিশীলতা হ্রাস পায়।)', 34),
+(323, '2024-01-04 14:28:29.317638', NULL, NULL, 'Rheumatoid Arthritis (রিউমাটয়েড আর্থ্রাইটিস)', 'Autoimmune disorder causing inflammation of joint synovium, leading to pain, stiffness, and joint deformities. (অটোইমিউন ডিসঅর্ডার যা জয়েন্ট সাইনোভিয়ামের প্রদাহ সৃষ্টি করে, যার ফলে ব্যথা, শক্ত হওয়া এবং জয়েন্টের বিকৃতি ঘটে।)', 34),
+(324, '2024-01-04 14:28:29.326612', NULL, NULL, 'Gout (গাউট)', 'Buildup of uric acid crystals in joints, causing sudden, intense pain and inflammation. (জয়েন্টগুলোতে ইউরিক অ্যাসিড স্ফটিক তৈরি হয়, যা হঠাৎ, তীব্র ব্যথা এবং প্রদাহ সৃষ্টি করে।)', 34),
+(325, '2024-01-04 14:28:29.333600', NULL, NULL, 'Bursitis (বারসাইটিস)', 'Inflammation of the bursae (fluid-filled sacs), causing pain and swelling in the joints. (বারসার প্রদাহ (তরল ভরা থলি), যার ফলে জয়েন্টগুলোতে ব্যথা এবং ফোলাভাব হয়।)', 34),
+(326, '2024-01-04 14:28:29.340576', NULL, NULL, 'Tendonitis (টেন্ডোনাইটিস)', 'Inflammation of tendons, leading to pain and restricted movement in the joints. (টেন্ডনের প্রদাহ, জয়েন্টগুলোতে ব্যথা এবং সীমিত নড়াচড়ার দিকে পরিচালিত করে।)', 34),
+(327, '2024-01-04 14:28:29.357530', NULL, NULL, 'Ligament Sprain (লিগামেন্ট স্প্রেইন)', 'Stretching or tearing of ligaments supporting joints, resulting in pain, swelling, and instability. (জয়েন্টগুলিকে সমর্থনকারী লিগামেন্টগুলি প্রসারিত করা বা ছিঁড়ে যাওয়া, যার ফলে ব্যথা, ফুলে যাওয়া এবং অস্থিরতা দেখা দেয়।)', 34),
+(328, '2024-01-04 14:28:29.366507', NULL, NULL, 'Meniscus Tear (মেনিস্কাস টিয়ার)', 'Tearing of the meniscus cartilage in the knee, causing pain, swelling, and limited joint movement. (হাঁটুতে মেনিস্কাস কার্টিলেজ ছিঁড়ে যাওয়া, ব্যথা, ফোলা এবং সীমিত জয়েন্ট নড়াচড়ার কারণ।)', 34),
+(329, '2024-01-04 14:28:29.375497', NULL, NULL, 'Synovitis (সাইনোভাইটিস)', 'Inflammation of the synovial membrane in joints, leading to pain, swelling, and stiffness. (জয়েন্টগুলোতে সাইনোভিয়াল ঝিল্লির প্রদাহ, যার ফলে ব্যথা, ফোলাভাব এবং শক্ত হয়ে যায়।)', 34),
+(330, '2024-01-04 14:28:29.384459', NULL, NULL, 'Joint Infection (জয়েন্ট ইনফেকশন)', 'Infection affecting joints, causing pain, swelling, and potential joint damage. (সংক্রমণ জয়েন্টগুলিকে প্রভাবিত করে, যার ফলে ব্যথা, ফোলাভাব এবং সম্ভাব্য জয়েন্টের ক্ষতি হয়।)', 34),
+(331, '2024-01-04 14:30:47.969130', NULL, NULL, 'Osteoporosis-Related Joint Problems (অস্টিওপোরোসিস-সম্পর্কিত জয়েন্ট সমস্যা)', 'Weakening of bones, including joints, leading to an increased risk of fractures and joint-related issues. (জয়েন্টগুলি সহ হাড়ের দুর্বলতা, হাড় ভাঙার ঝুঁকি এবং জয়েন্ট-সম্পর্কিত সমস্যাগুলির দিকে পরিচালিত করে।)', 34),
+(332, '2024-01-04 14:39:16.792377', NULL, NULL, 'Leukemia (লিউকেমিয়া)', 'Cancer of the blood-forming tissues, including bone marrow, leading to the overproduction of abnormal white blood cells. (অস্থি মজ্জা সহ রক্ত ​​গঠনকারী টিস্যুগুলির ক্যান্সার, যা অস্বাভাবিক শ্বেত রক্ত ​​​​কোষের অতিরিক্ত উৎপাদনের দিকে পরিচালিত করে।)', 35),
+(333, '2024-01-04 14:39:16.800353', NULL, NULL, 'Multiple Myeloma (একাধিক মেলোমা)', 'Cancer that forms in plasma cells, a type of white blood cell found in the bone marrow, leading to weakened bones and other complications. ( ক্যান্সার যা প্লাজমা কোষে তৈরি হয়, অস্থি মজ্জাতে পাওয়া এক ধরনের শ্বেত রক্তকণিকা, যা দুর্বল হাড় এবং অন্যান্য জটিলতার দিকে পরিচালিত করে।)', 35),
+(334, '2024-01-04 14:39:16.807334', NULL, NULL, 'Aplastic Anemia', 'A condition where the bone marrow fails to produce an adequate number of blood cells, resulting in fatigue, increased infection risk, and bleeding. (এমন একটি অবস্থা যেখানে অস্থি মজ্জা পর্যাপ্ত সংখ্যক রক্তকণিকা তৈরি করতে ব্যর্থ হয়, যার ফলে ক্লান্তি, সংক্রমণের ঝুঁকি বেড়ে যায় এবং রক্তপাত হয়।)', 35),
+(335, '2024-01-04 14:39:16.819302', NULL, NULL, 'Myelodysplastic Syndromes (MDS) (মাইলোডিসপ্লাস্টিক সিনড্রোম (এমডিএস))', 'Disorders caused by poorly formed or dysfunctional blood cells, often leading to anemia, infection, and bleeding issues. (দুর্বলভাবে গঠিত বা অকার্যকর রক্তকণিকার কারণে সৃষ্ট ব্যাধি, যা প্রায়ই রক্তাল্পতা, সংক্রমণ এবং রক্তপাতের সমস্যার দিকে পরিচালিত করে।)', 35),
+(336, '2024-01-04 14:39:16.824290', NULL, NULL, 'Polycythemia Vera (পলিসিথেমিয়া ভেরা)', 'Overproduction of red blood cells in the bone marrow, leading to thickened blood and increased risk of clotting. (অস্থি মজ্জাতে লোহিত রক্তকণিকার অতিরিক্ত উৎপাদন, যার ফলে রক্ত ​​ঘন হয়ে যায় এবং জমাট বাঁধার ঝুঁকি বেড়ে যায়।)', 35),
+(337, '2024-01-04 14:39:16.829277', NULL, NULL, 'Hairy Cell Leukemia (হেয়ারি সেল লিউকেমিয়া)', 'A rare type of leukemia affecting B cells in the bone marrow, leading to low blood counts and an enlarged spleen. (একটি বিরল ধরনের লিউকেমিয়া অস্থি মজ্জার বি কোষকে প্রভাবিত করে, যার ফলে রক্তের সংখ্যা কম হয় এবং প্লীহা বড় হয়।)', 35),
+(338, '2024-01-04 14:39:16.835260', NULL, NULL, 'Bone Marrow Fibrosis (অস্থি মজ্জা ফাইব্রোসিস)', 'Abnormal formation of fibrous tissue in the bone marrow, affecting blood cell production and leading to organ dysfunction. (অস্থি মজ্জাতে ফাইব্রাস টিস্যুর অস্বাভাবিক গঠন, রক্তকণিকা উৎপাদনকে প্রভাবিত করে এবং অঙ্গের কর্মহীনতার দিকে পরিচালিত করে।)', 35),
+(339, '2024-01-04 14:39:16.840246', NULL, NULL, 'Macrophage Activation Syndrome (MAS) (ম্যাক্রোফেজ অ্যাক্টিভেশন সিন্ড্রোম (এমএএস))', 'Overactivation of immune cells in the bone marrow, causing systemic inflammation and organ damage. (অস্থি মজ্জাতে ইমিউন কোষের অত্যধিক সক্রিয়করণ, যা সিস্টেমিক প্রদাহ এবং অঙ্গের ক্ষতি করে।)', 35),
+(340, '2024-01-04 14:39:16.844235', NULL, NULL, 'Chronic Myelomonocytic Leukemia (CMML) (ক্রনিক মাইলোমোনোসাইটিক লিউকেমিয়া (CMML))', 'A type of leukemia characterized by an increase in monocytes in the bone marrow, leading to various blood-related issues. (এক ধরনের লিউকেমিয়া অস্থি মজ্জাতে মনোসাইট বৃদ্ধির দ্বারা চিহ্নিত করা হয়, যা বিভিন্ন রক্ত-সম্পর্কিত সমস্যার দিকে পরিচালিত করে।)', 35),
+(341, '2024-01-04 14:39:16.849222', NULL, NULL, 'Erythropoietic Protoporphyria (EPP) (এরিথ্রোপয়েটিক প্রোটোপোরফাইরিয়া (ইপিপি))', 'A rare genetic disorder affecting heme production in the bone marrow, leading to photosensitivity and skin-related symptoms. (একটি বিরল জেনেটিক ব্যাধি যা অস্থি মজ্জাতে হিম উৎপাদনকে প্রভাবিত করে, যা আলোক সংবেদনশীলতা এবং ত্বক-সম্পর্কিত লক্ষণগুলির দিকে পরিচালিত করে।)', 35),
+(342, '2024-01-04 14:48:38.208058', NULL, NULL, 'Eczema (Dermatitis) (একজিমা (ডার্মাটাইটিস))', 'Inflammation of the epidermis, causing redness, itching, and the development of rashes (এপিডার্মিসের প্রদাহ, লালভাব, চুলকানি এবং ফুসকুড়ির বিকাশ ঘটায়)', 36),
+(343, '2024-01-04 14:48:38.213044', NULL, NULL, 'Psoriasis (সোরিয়াসিস)', 'Chronic autoimmune condition leading to the rapid buildup of skin cells, resulting in scaly, itchy patches on the epidermis. (দীর্ঘস্থায়ী অটোইমিউন অবস্থা যা ত্বকের কোষগুলিকে দ্রুত গঠনের দিকে নিয়ে যায়, যার ফলে এপিডার্মিসে আঁশযুক্ত, চুলকানি প্যাচ হয়।)', 36),
+(344, '2024-01-04 14:48:38.218032', NULL, NULL, 'Acne Vulgaris (ব্রণ)', 'Common skin condition characterized by the formation of pimples, blackheads, and whiteheads on the epidermis. (এপিডার্মিসে ব্রণ, ব্ল্যাকহেডস এবং হোয়াইটহেডস গঠনের দ্বারা চিহ্নিত ত্বকের সাধারণ অবস্থা।)', 36),
+(345, '2024-01-04 14:48:38.223018', NULL, NULL, 'Contact Dermatitis (ডার্মাটাইটিসা)', 'Skin inflammation caused by contact with irritants or allergens, resulting in redness, itching, and sometimes blisters. (বিরক্তিকর বা অ্যালার্জেনের সংস্পর্শের কারণে ত্বকের প্রদাহ, যার ফলে লালভাব, চুলকানি এবং কখনও কখনও ফোসকা দেখা দেয়।)', 36),
+(346, '2024-01-04 14:48:38.229002', NULL, NULL, 'Skin Cancer (Melanoma, Basal Cell Carcinoma, Squamous Cell Carcinoma) (আত্মীয় ক্যান্সার (মেলানোমা, বেসাল সেল কার্সিনোমা, স্কোয়ামাস সেল কার্সিনোমা))', 'Uncontrolled growth of skin cells leading to the formation of cancerous lesions on the epidermis. (ত্বকের কোষের অনিয়ন্ত্রিত বৃদ্ধির ফলে এপিডার্মিসে ক্যান্সারজনিত ক্ষত তৈরি হয়।)', 36),
+(347, '2024-01-04 14:48:38.233989', NULL, NULL, 'Rosacea (রোসেসিয়া)', 'Chronic skin condition causing redness, visible blood vessels, and sometimes small, red, pus-filled bumps on the face. (দীর্ঘস্থায়ী ত্বকের অবস্থা যার ফলে লালচেভাব, দৃশ্যমান রক্তনালী, এবং কখনও কখনও মুখে ছোট, লাল, পুঁজ-ভরা দাগ দেখা দেয়।)', 36),
+(348, '2024-01-04 14:48:38.238974', NULL, NULL, 'Ichthyosis (ইচথিওসিস)', 'Genetic skin disorder characterized by dry, scaly skin due to the accumulation of dead skin cells on the epidermis. (এপিডার্মিসে মৃত ত্বকের কোষ জমে থাকার কারণে শুষ্ক, আঁশযুক্ত ত্বক দ্বারা চিহ্নিত জিনগত ত্বকের ব্যাধি।)', 36),
+(349, '2024-01-04 14:51:37.617944', NULL, NULL, 'Vitiligo (ভিটিলিগো)', 'Loss of skin color in patches, occurs when pigment-producing cells in the epidermis are destroyed. (প্যাচগুলিতে ত্বকের রঙের ক্ষতি ঘটে, যখন এপিডার্মিসের রঙ্গক-উৎপাদনকারী কোষগুলি ধ্বংস হয়ে যায়।)', 36),
+(350, '2024-01-04 14:51:37.625924', NULL, NULL, 'Impetigo (ইমপেটিগো)', 'Contagious bacterial skin infection causing red sores and blisters, often seen in children. (সংক্রামক ব্যাকটেরিয়াজনিত ত্বকের সংক্রমণ যা লাল ঘা এবং ফোস্কা সৃষ্টি করে, প্রায়শই শিশুদের মধ্যে দেখা যায়।)', 36),
+(351, '2024-01-04 14:51:37.631908', NULL, NULL, 'Pruritus (Itching) (প্রুরিটাস (চুলকানি))', 'Persistent itching of the skin, often a symptom of an underlying skin condition or systemic disease. (ত্বকের ক্রমাগত চুলকানি, প্রায়ই একটি অন্তর্নিহিত ত্বকের অবস্থা বা সিস্টেমিক রোগের লক্ষণ।)', 36),
+(352, '2024-01-04 14:57:08.539511', NULL, NULL, 'Dermal Abscess (ডার্মাল অ্যাবসেস)', 'Collection of pus within the dermis, often caused by bacterial infection, resulting in a painful, swollen lump. (ডার্মিসের মধ্যে পুঁজ সংগ্রহ, প্রায়শই ব্যাকটেরিয়া সংক্রমণের কারণে হয়, যার ফলে একটি বেদনাদায়ক, ফোলা পিণ্ড হয়।)', 37),
+(353, '2024-01-04 14:57:08.545495', NULL, NULL, 'Cellulitis (সেলুলাইটিস)', 'Bacterial infection affecting the dermis and subcutaneous tissues, leading to redness, warmth, and swelling. (ব্যাকটেরিয়া সংক্রমণ ডার্মিস এবং ত্বকের নিচের টিস্যুগুলিকে প্রভাবিত করে, যার ফলে লালভাব, উষ্ণতা এবং ফোলাভাব দেখা দেয়।)', 37),
+(354, '2024-01-04 14:57:08.552477', NULL, NULL, 'Hives (Urticaria) (আমবাত (আর্টিকারিয়া))', 'Allergic reaction causing itchy, raised welts on the skin due to the release of histamine in the dermis. (ডার্মিসে হিস্টামিন নিঃসরণের কারণে ত্বকে চুলকানি, উত্থিত ওয়েল্টস সৃষ্টি করে অ্যালার্জির প্রতিক্রিয়া।)', 37),
+(355, '2024-01-04 15:02:09.780811', NULL, NULL, 'Dermal Hematoma (ডার্মাল হেমাটোমা)', 'Blood accumulation within the dermal tissue, usually caused by trauma or injury. (ডার্মাল টিস্যুর মধ্যে রক্ত ​​জমে, সাধারণত আঘাত বা আঘাতের কারণে।)', 37),
+(356, '2024-01-04 15:02:09.790885', NULL, NULL, 'Dermal Cyst (ডার্মাল সিস্ট)', 'Fluid-filled sac within the dermis, often benign but may require removal if causing discomfort. (ডার্মিসের মধ্যে তরল-ভরা থলি, প্রায়ই সৌম্য কিন্তু অস্বস্তির কারণ হলে অপসারণের প্রয়োজন হতে পারে।)', 37),
+(357, '2024-01-04 15:02:09.795867', NULL, NULL, 'Granuloma Annulare (গ্রানুলোমা অ্যানুলারে)', 'Chronic skin condition characterized by the formation of raised, reddish bumps in the dermal layer. (দীর্ঘস্থায়ী ত্বকের অবস্থা যা ত্বকের স্তরে উত্থিত, লালচে আঁচড়ের গঠন দ্বারা চিহ্নিত করা হয়।)', 37),
+(358, '2024-01-04 15:02:09.800854', NULL, NULL, 'Scleroderma (স্ক্লেরোডার্মা)', 'Autoimmune disorder causing thickening and hardening of the skin due to excess collagen production in the dermis. (অটোইমিউন ডিসঅর্ডার ডার্মিসে অতিরিক্ত কোলাজেন উৎপাদনের কারণে ত্বক ঘন এবং শক্ত হয়ে যায়।)', 37),
+(359, '2024-01-04 15:02:09.806839', NULL, NULL, 'Dermal Ulcer (ডার্মাল আলসার)', ' Open sore or wound affecting the dermal layer, often associated with poor blood circulation. (খোলা কালশিটে বা ক্ষত ত্বকের স্তরকে প্রভাবিত করে, যা প্রায়ই দুর্বল রক্ত ​​সঞ্চালনের সাথে যুক্ত।)', 37),
+(360, '2024-01-04 15:02:09.811824', NULL, NULL, 'Dermatofibroma (ডার্মাটোফাইব্রোমা)', 'Non-cancerous skin growth in the dermis, typically firm to the touch and brownish in color. (ডার্মিসে ক্যান্সারবিহীন ত্বকের বৃদ্ধি, সাধারণত স্পর্শে দৃঢ় এবং বাদামী রঙের।)', 37),
+(361, '2024-01-04 15:02:09.816812', NULL, NULL, 'Dermal Necrosis (ডার্মাল নেক্রোসিস)', 'Death of skin tissue in the dermal layer, often caused by inadequate blood supply. (ত্বকের স্তরে ত্বকের টিস্যুর মৃত্যু, প্রায়ই অপর্যাপ্ত রক্ত ​​সরবরাহের কারণে ঘটে।)', 37),
+(362, '2024-01-04 15:10:43.648577', NULL, NULL, 'Lipoma (লিপোমা)', 'Benign growth of fat cells in the subcutaneous tissue, forming soft, movable lumps beneath the skin. (ত্বকের নিচের টিস্যুতে চর্বি কোষের সৌম্য বৃদ্ধি, ত্বকের নিচে নরম, চলমান পিণ্ড তৈরি করে।)', 38),
+(363, '2024-01-04 15:10:43.656555', NULL, NULL, 'Cellulitis (সেলুলাইটিস)', 'Bacterial infection of the subcutaneous tissue, causing redness, swelling, and tenderness. (ত্বকের নিচের টিস্যুর ব্যাকটেরিয়া সংক্রমণ, লালভাব, ফোলাভাব এবং কোমলতা সৃষ্টি করে।)', 38),
+(364, '2024-01-04 15:10:43.669518', NULL, NULL, 'Hypodermic Abscess (হাইপোডার্মিক অ্যাবসেস)', 'Collection of pus within the subcutaneous tissue, often resulting from bacterial infection. (সাবকিউটেনিয়াস টিস্যুর মধ্যে পুঁজ সংগ্রহ, প্রায়ই ব্যাকটেরিয়া সংক্রমণের ফলে।)', 38),
+(365, '2024-01-04 15:10:43.711406', NULL, NULL, 'Panniculitis (প্যানিকুলাইটিস)', ' Inflammation of the subcutaneous fat, leading to painful nodules or lumps (সাবকুটেনিয়াস ফ্যাটের প্রদাহ, যা বেদনাদায়ক নোডুলস বা পিণ্ডের দিকে পরিচালিত করে।)', 38),
+(366, '2024-01-04 15:10:43.751298', NULL, NULL, 'Subcutaneous Hematoma (সাবকুটেনিয়াস হেমাটোমা)', 'Accumulation of blood in the subcutaneous tissue, usually caused by trauma or injury. (সাবকুটেনিয়াস টিস্যুতে রক্ত ​​জমে, সাধারণত আঘাত বা আঘাতের কারণে হয়।)', 38),
+(367, '2024-01-04 15:10:43.758280', NULL, NULL, 'Erythema Nodosum (এরিথেমা নোডোসাম)', 'Inflammatory condition affecting the subcutaneous fat, causing tender, red nodules, often associated with underlying systemic conditions. (প্রদাহজনক অবস্থা যা ত্বকের নিচের চর্বিকে প্রভাবিত করে, যার ফলে কোমল, লাল নোডিউল হয়, যা প্রায়ই অন্তর্নিহিত সিস্টেমিক অবস্থার সাথে যুক্ত।)', 38),
+(368, '2024-01-04 15:10:43.763266', NULL, NULL, 'Hidradenitis Suppurativa (হাইড্রাডেনাইটিস)', 'Chronic skin condition characterized by inflamed hair follicles and abscesses in the subcutaneous tissue, usually in areas with skin folds. (দীর্ঘস্থায়ী ত্বকের অবস্থা যা ত্বকের নিচের টিস্যুতে স্ফীত লোমকূপ এবং ফোড়া দ্বারা চিহ্নিত করা হয়, সাধারণত ত্বকের ভাঁজযুক্ত অঞ্চলে।)', 38),
+(369, '2024-01-04 15:10:43.772248', NULL, NULL, 'Scleroderma (Subcutaneous Variant) (স্ক্লেরোডার্মা (সাবকুটেনিয়াস ভ্যারিয়েন্ট))', 'Rare form of scleroderma affecting the subcutaneous tissue, leading to hardening and thickening of the skin. (স্ক্লেরোডার্মার বিরল রূপ যা ত্বকের নিচের টিস্যুকে প্রভাবিত করে, যা ত্বককে শক্ত ও ঘন করে তোলে।)', 38),
+(370, '2024-01-04 15:10:43.778226', NULL, NULL, 'Subcutaneous Emphysema', 'Presence of air in the subcutaneous tissue, often visible as swelling and a crackling sensation upon touch. (সাবকুটেনিয়াস টিস্যুতে বাতাসের উপস্থিতি, প্রায়শই ফোলা হিসাবে দৃশ্যমান হয় এবং স্পর্শে কর্কশ সংবেদন হয়।)', 38),
+(371, '2024-01-04 15:10:43.792189', '2024-01-04 15:11:27.585915', NULL, 'Lipoatrophy (লিপোএট্রফি)', 'Loss of subcutaneous fat, resulting in localized or generalized depressions in the skin. (ত্বকের নিচের চর্বি হ্রাস, যার ফলে ত্বকে স্থানীয় বা সাধারণ বিষণ্নতা দেখা দেয়।)', 38);
 
 -- --------------------------------------------------------
 
@@ -2095,37 +2710,11 @@ CREATE TABLE `otp` (
 --
 
 INSERT INTO `otp` (`id`, `created_at`, `updated_at`, `deleted_at`, `otp`, `is_verified`, `user_id`) VALUES
-(1, '2023-12-07 12:18:02.764738', '2023-12-07 18:18:16.490938', NULL, '473557', 1, 1),
-(2, '2023-12-07 12:18:42.636943', NULL, NULL, '0', 1, 2),
-(3, '2023-12-07 15:37:12.424147', NULL, NULL, '0', 1, 3),
-(4, '2023-12-07 15:41:50.826527', '2023-12-07 21:44:57.942905', NULL, '0', 1, 4),
-(5, '2023-12-07 15:42:47.438594', NULL, NULL, '779714', 0, 5),
-(6, '2023-12-07 15:58:28.719770', NULL, NULL, '549806', 0, 6),
-(7, '2023-12-07 16:00:45.923226', NULL, NULL, '878038', 0, 7),
-(8, '2023-12-07 16:02:13.960687', NULL, NULL, '443482', 0, 8),
-(9, '2023-12-07 16:02:57.245428', NULL, NULL, '235538', 0, 9),
-(10, '2023-12-07 16:04:57.951102', NULL, NULL, '661351', 0, 10),
-(11, '2023-12-07 16:06:01.017431', NULL, NULL, '397898', 0, 11),
-(12, '2023-12-08 09:09:40.070872', NULL, NULL, '668435', 0, 12),
-(13, '2023-12-09 16:18:29.899607', NULL, NULL, '0', 1, 13),
-(14, '2023-12-09 17:18:49.896655', NULL, NULL, '0', 1, 14),
-(15, '2023-12-10 13:32:58.522505', NULL, NULL, '547192', 0, 15),
-(16, '2023-12-10 13:33:13.181853', NULL, NULL, '472226', 0, 16),
-(17, '2023-12-10 13:33:39.089765', NULL, NULL, '443367', 0, 17),
-(18, '2023-12-10 13:33:59.299273', NULL, NULL, '947277', 0, 18),
-(19, '2023-12-10 17:03:20.490911', NULL, NULL, '805708', 0, 19),
-(20, '2023-12-11 11:14:33.411430', NULL, NULL, '685879', 0, 20),
-(21, '2023-12-11 11:18:09.573366', NULL, NULL, '041309', 0, 21),
-(22, '2023-12-11 11:19:20.127909', NULL, NULL, '142693', 0, 22),
-(23, '2023-12-11 11:21:29.323073', NULL, NULL, '414640', 0, 23),
-(24, '2023-12-11 11:21:39.824945', NULL, NULL, '686320', 0, 24),
-(25, '2023-12-11 11:25:44.650642', NULL, NULL, '660209', 0, 25),
-(26, '2023-12-11 11:27:34.024159', NULL, NULL, '185223', 0, 26),
-(27, '2023-12-11 15:09:04.532477', NULL, NULL, '428577', 0, 27),
-(28, '2023-12-12 11:41:54.573284', NULL, NULL, '124846', 0, 28),
-(29, '2023-12-12 11:47:51.935070', NULL, NULL, '645912', 0, 29),
-(30, '2023-12-12 11:48:30.110975', NULL, NULL, '494822', 0, 30),
-(31, '2023-12-12 12:12:58.393512', NULL, NULL, '912486', 0, 31);
+(1, '2024-01-03 12:26:15.151789', '2024-01-03 18:27:11.387022', NULL, '0', 1, 1),
+(2, '2024-01-04 09:55:54.628081', NULL, NULL, '0', 1, 2),
+(3, '2024-01-04 10:16:07.347051', NULL, NULL, '0', 1, 3),
+(4, '2024-01-04 11:42:11.379998', NULL, NULL, '0', 1, 4),
+(5, '2024-01-04 11:43:53.045858', NULL, NULL, '0', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -2141,49 +2730,9 @@ CREATE TABLE `patient_appointment` (
   `appointment_date` longtext DEFAULT NULL,
   `appointment_time` longtext DEFAULT NULL,
   `is_confirmed` tinyint(1) DEFAULT NULL,
-  `doctor_id` bigint(20) NOT NULL,
-  `patient_id` bigint(20) NOT NULL
+  `doctor_id` bigint(20) DEFAULT NULL,
+  `patient_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `patient_appointment`
---
-
-INSERT INTO `patient_appointment` (`id`, `created_at`, `updated_at`, `deleted_at`, `appointment_date`, `appointment_time`, `is_confirmed`, `doctor_id`, `patient_id`) VALUES
-(1, '2023-12-07 15:41:50.837498', NULL, NULL, '07-12-2023 (Thursday)', '10:00 PM - 10:10 PM', 0, 1, 1),
-(2, '2023-12-07 15:42:47.448567', NULL, NULL, '07-12-2023 (Thursday)', '09:50 PM - 10:00 PM', 0, 1, 2),
-(3, '2023-12-07 15:58:28.736181', NULL, NULL, '07-12-2023 (Thursday)', '10:20 PM - 10:30 PM', 0, 1, 3),
-(4, '2023-12-07 16:00:45.923226', NULL, NULL, '07-12-2023 (Thursday)', '10:30 PM - 10:40 PM', 0, 1, 4),
-(5, '2023-12-07 16:02:13.962506', NULL, NULL, '07-12-2023 (Thursday)', '10:40 PM - 10:50 PM', 0, 1, 5),
-(6, '2023-12-07 16:04:57.951102', NULL, NULL, '07-12-2023 (Thursday)', '10:10 PM - 10:20 PM', 0, 1, 7),
-(7, '2023-12-07 16:06:01.017431', NULL, NULL, '08-12-2023 (Friday)', '09:40 AM - 09:50 AM', 0, 1, 8),
-(8, '2023-12-08 09:09:40.086493', NULL, NULL, '08-12-2023 (Friday)', '07:30 PM - 07:40 PM', 0, 1, 9),
-(9, '2023-12-10 13:32:58.550414', NULL, NULL, '12-12-2023 (Tuesday)', '09:30 AM - 09:45 AM', 0, 2, 10),
-(10, '2023-12-10 13:33:13.186840', NULL, NULL, '12-12-2023 (Tuesday)', '09:45 AM - 10:00 AM', 0, 2, 11),
-(11, '2023-12-10 13:33:39.093755', NULL, NULL, '10-12-2023 (Sunday)', '07:40 PM - 07:50 PM', 0, 1, 12),
-(12, '2023-12-10 13:33:59.318780', NULL, NULL, '10-12-2023 (Sunday)', '08:50 PM - 09:00 PM', 0, 1, 13),
-(13, '2023-12-10 17:02:57.407201', NULL, NULL, '11-12-2023 (Monday)', '11:00 AM - 11:10 AM', 0, 1, 1),
-(14, '2023-12-10 17:03:20.507998', '2023-12-11 17:38:31.342547', NULL, '12-12-2023 (Tuesday)', '09:40 AM - 09:50 AM', 0, 2, 14),
-(15, '2023-12-11 07:45:11.758725', NULL, NULL, '11-12-2023 (Monday)', '05:00 PM - 05:10 PM', 0, 1, 1),
-(16, '2023-12-11 07:45:50.749002', NULL, NULL, '11-12-2023 (Monday)', '05:10 PM - 05:20 PM', 0, 1, 1),
-(17, '2023-12-11 07:51:55.763316', NULL, NULL, '11-12-2023 (Monday)', '05:20 PM - 05:30 PM', 0, 1, 1),
-(18, '2023-12-11 07:52:15.836015', NULL, NULL, '11-12-2023 (Monday)', '05:30 PM - 05:40 PM', 0, 1, 1),
-(19, '2023-12-11 07:54:10.951161', NULL, NULL, '11-12-2023 (Monday)', '05:40 PM - 05:50 PM', 0, 1, 1),
-(20, '2023-12-11 07:55:17.179652', NULL, NULL, '11-12-2023 (Monday)', '05:50 PM - 06:00 PM', 0, 1, 1),
-(21, '2023-12-11 07:56:50.189258', NULL, NULL, '11-12-2023 (Monday)', '06:00 PM - 06:10 PM', 0, 1, 1),
-(22, '2023-12-11 07:57:31.707268', NULL, NULL, '11-12-2023 (Monday)', '06:10 PM - 06:20 PM', 0, 1, 1),
-(23, '2023-12-11 11:14:33.428103', NULL, NULL, '11-12-2023 (Monday)', '06:20 PM - 06:30 PM', 0, 1, 15),
-(24, '2023-12-11 11:18:09.576359', '2023-12-11 16:59:42.783555', NULL, '12-12-2023 (Tuesday)', '09:30 AM - 09:40 AM', 0, 1, 16),
-(25, '2023-12-11 11:19:20.127909', '2023-12-11 16:54:57.153627', NULL, '12-12-2023 (Tuesday)', '10:00 AM - 10:15 AM', 0, 2, 17),
-(26, '2023-12-11 11:21:29.323073', NULL, NULL, '11-12-2023 (Monday)', '10:40 PM - 10:50 PM', 0, 1, 18),
-(27, '2023-12-11 11:21:39.824945', NULL, NULL, '11-12-2023 (Monday)', '07:10 PM - 07:20 PM', 0, 1, 19),
-(28, '2023-12-11 11:25:44.653621', NULL, NULL, '11-12-2023 (Monday)', '06:30 PM - 06:40 PM', 0, 1, 20),
-(29, '2023-12-11 11:27:34.043109', NULL, NULL, '11-12-2023 (Monday)', '07:30 PM - 07:40 PM', 0, 1, 21),
-(30, '2023-12-11 15:09:04.535468', NULL, NULL, '11-12-2023 (Monday)', '09:10 PM - 09:20 PM', 0, 1, 22),
-(31, '2023-12-11 18:07:05.241840', NULL, NULL, '12-12-2023 (Tuesday)', '09:40 AM - 09:50 AM', 0, 1, 1),
-(32, '2023-12-11 18:09:13.926315', NULL, NULL, '12-12-2023 (Tuesday)', '09:50 AM - 10:00 AM', 0, 1, 1),
-(33, '2023-12-11 18:10:30.412966', NULL, NULL, '12-12-2023 (Tuesday)', '10:00 AM - 10:10 AM', 0, 1, 1),
-(34, '2023-12-11 18:14:40.034825', NULL, NULL, '12-12-2023 (Tuesday)', '10:10 AM - 10:20 AM', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2211,38 +2760,6 @@ CREATE TABLE `patient_profile` (
   `user_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `patient_profile`
---
-
-INSERT INTO `patient_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `full_name`, `father_name`, `mother_name`, `phone_no`, `registration_no`, `date_of_birth`, `nid_no`, `address`, `blood_group_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
-(1, '2023-12-07 15:41:50.816555', '2023-12-10 01:42:59.487189', NULL, 'Vivian Fields', 'None', 'None', '+1 (175) 305-7776', 'CGD-08601424205993', '2023-12-17', 12, 'None', 1, 1, 1, 1, 4),
-(2, '2023-12-07 15:42:47.415656', NULL, NULL, 'India Roth', NULL, NULL, '+1 (827) 562-6138', 'HXI-20006049880399', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5),
-(3, '2023-12-07 15:58:28.703023', NULL, NULL, 'Donovan Harvey', NULL, NULL, '+1 (937) 816-7569', 'BTR-71363820169631', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6),
-(4, '2023-12-07 16:00:45.910549', NULL, NULL, 'Axel Carey', NULL, NULL, '+1 (444) 941-8254', 'XVT-59293719389123', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 7),
-(5, '2023-12-07 16:02:13.945202', NULL, NULL, 'Andrew Harvey', NULL, NULL, '+1 (884) 394-1903', 'CXE-17249681597627', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8),
-(6, '2023-12-07 16:02:57.233843', NULL, NULL, 'Jason Bender', NULL, NULL, '+1 (459) 519-7508', 'FHD-17267434015750', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9),
-(7, '2023-12-07 16:04:57.949676', NULL, NULL, 'Stephen Lawrence', NULL, NULL, '+1 (974) 429-7463', 'VCH-99037853872910', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10),
-(8, '2023-12-07 16:06:00.988076', NULL, NULL, 'Regina Wilcox', NULL, NULL, '+1 (482) 348-3427', 'WXW-45864613065072', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 11),
-(9, '2023-12-08 09:09:40.055250', NULL, NULL, 'Carlos Odom', NULL, NULL, '+1 (733) 442-5792', 'MVD-31214606895436', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 12),
-(10, '2023-12-10 13:32:58.500197', NULL, NULL, 'Garrison Watson', NULL, NULL, '+1 (583) 677-6038', 'VKD-18781206442156', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 15),
-(11, '2023-12-10 13:33:13.179858', NULL, NULL, 'Hilary Schroeder', NULL, NULL, '+1 (128) 288-4513', 'IQI-31095800121841', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16),
-(12, '2023-12-10 13:33:39.001800', NULL, NULL, 'Jenna Singleton', NULL, NULL, '+1 (256) 575-2669', 'REQ-07297103440252', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 17),
-(13, '2023-12-10 13:33:59.299273', NULL, NULL, 'Jerome Branch', NULL, NULL, '+1 (122) 187-9949', 'PXM-93143330325669', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 18),
-(14, '2023-12-10 17:03:20.490911', NULL, NULL, 'Hannah Harding', NULL, NULL, '+1 (987) 918-8348', 'NEB-24309750889181', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 19),
-(15, '2023-12-11 11:14:33.395157', NULL, NULL, 'Alvin Durham', NULL, NULL, '+1 (975) 654-9758', 'IUL-75097851496732', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 20),
-(16, '2023-12-11 11:18:09.550882', NULL, NULL, 'Francesca Berg', NULL, NULL, '+1 (726) 341-8631', 'JYL-64594008081186', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 21),
-(17, '2023-12-11 11:19:20.127909', NULL, NULL, 'Ira Gallegos', NULL, NULL, '+1 (852) 699-8067', 'CKD-14335655207832', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 22),
-(18, '2023-12-11 11:21:29.306798', NULL, NULL, 'Jack Cleveland', NULL, NULL, '+1 (791) 565-7517', 'FAC-64604860753073', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 23),
-(19, '2023-12-11 11:21:39.824945', '2023-12-12 17:58:04.763950', NULL, 'Alma Craig', 'Cora Gibson', 'Ina Sharp', '+1 (328) 123-1229', 'ZUK-10164721085566', '2013-03-02', 71, 'Do reprehenderit ad', 3, 1, 2, 2, 24),
-(20, '2023-12-11 11:25:44.630634', NULL, NULL, 'Lane Carrillo', NULL, NULL, '+1 (908) 918-9734', 'JJD-29831939627907', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 25),
-(21, '2023-12-11 11:27:34.011194', NULL, NULL, 'Candace Sanchez', NULL, NULL, '+1 (927) 777-9389', 'NGM-05675848030513', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 26),
-(22, '2023-12-11 15:09:04.516499', NULL, NULL, 'Colette Little', NULL, NULL, '+1 (257) 168-4549', 'OTK-99340917794223', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 27),
-(23, '2023-12-12 11:41:54.565952', NULL, NULL, 'Sydney Ramos', 'Debra Moran', 'Vladimir Holt', '+1 (109) 896-5235', 'KZT-15770692573505', '1971-05-18', 51, 'Sint quasi quo esse', 4, 3, 4, 2, 28),
-(24, '2023-12-12 11:47:51.932960', NULL, NULL, 'Charity Poole', 'Athena Briggs', 'Virginia Stephens', '+1 (887) 429-8594', 'BBO-83145083763296', '2012-10-26', 80, 'Omnis nulla est off', 8, 3, 4, 1, 29),
-(25, '2023-12-12 11:48:30.108917', NULL, NULL, 'Neve Frost', 'Yardley Salas', 'Dante Hanson', '+1 (115) 219-3433', 'LSC-20321569224862', '1999-07-19', 73, 'Suscipit quas molest', 2, 2, 4, 1, 30),
-(26, '2023-12-12 12:12:58.374516', NULL, NULL, 'David Salinas', 'Leonard Lott', 'Jeanette Fleming', '+1 (613) 921-8363', 'BQN-10769451977729', '2019-07-08', 26, 'Magni deserunt quis', 6, 1, 2, 4, 31);
-
 -- --------------------------------------------------------
 
 --
@@ -2267,10 +2784,10 @@ CREATE TABLE `permanent_address` (
 --
 
 INSERT INTO `permanent_address` (`id`, `created_at`, `updated_at`, `deleted_at`, `permanent_village_state`, `permanent_postal_code`, `permanent_district_id`, `permanent_division_id`, `permanent_upazila_id`, `user_id`) VALUES
-(1, '2023-12-07 12:18:42.780647', NULL, NULL, 'Cupidatat sapiente n', 6, 39, 6, 353, 2),
-(2, '2023-12-07 15:37:12.457615', NULL, NULL, 'Blanditiis quaerat a', 89, 52, 7, 447, 3),
-(3, '2023-12-09 16:18:29.966170', NULL, NULL, 'Perspiciatis quo et', 52, 2, 1, 14, 13),
-(4, '2023-12-09 17:18:49.928378', NULL, NULL, 'A nobis possimus co', 95, 3, 1, 23, 14);
+(1, '2024-01-04 09:55:54.674954', NULL, NULL, 'Bancharampur', 5, 28, 5, 211, 2),
+(2, '2024-01-04 10:16:07.366004', NULL, NULL, 'Sint culpa repudia', 26, 52, 7, 446, 3),
+(3, '2024-01-04 11:42:11.458785', NULL, NULL, 'Quis dignissimos vol', 50, 40, 6, 360, 4),
+(4, '2024-01-04 11:43:53.367995', NULL, NULL, 'Neque qui sit dolore', 97, 29, 5, 222, 5);
 
 -- --------------------------------------------------------
 
@@ -2287,32 +2804,23 @@ CREATE TABLE `prediction` (
   `created_by_id` bigint(20) DEFAULT NULL,
   `department_id` bigint(20) DEFAULT NULL,
   `department_speci_id` bigint(20) DEFAULT NULL,
-  `organ_id` bigint(20) DEFAULT NULL,
-  `organ_problem_speci_id` bigint(20) DEFAULT NULL
+  `organ_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `prediction`
 --
 
-INSERT INTO `prediction` (`id`, `created_at`, `updated_at`, `deleted_at`, `body_part_id`, `created_by_id`, `department_id`, `department_speci_id`, `organ_id`, `organ_problem_speci_id`) VALUES
-(1, '2023-12-11 19:04:08.868855', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
-(2, '2023-12-11 19:05:23.754080', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
-(3, '2023-12-12 04:47:23.460244', NULL, NULL, NULL, NULL, 4, 1, 1, NULL),
-(4, '2023-12-12 04:54:29.467507', NULL, NULL, 1, NULL, 4, 1, 1, NULL),
-(5, '2023-12-12 04:58:02.766139', NULL, NULL, 1, NULL, 4, 1, 1, NULL),
-(6, '2023-12-12 04:58:18.706271', NULL, NULL, 1, NULL, 4, 1, 1, NULL),
-(7, '2023-12-12 04:58:34.298185', NULL, NULL, 1, NULL, 4, 1, 1, NULL),
-(8, '2023-12-12 04:59:01.050724', NULL, NULL, 1, NULL, 4, 1, 1, NULL),
-(9, '2023-12-12 04:59:11.339755', NULL, NULL, 1, NULL, 4, 1, 1, NULL),
-(10, '2023-12-12 05:00:18.607290', NULL, NULL, 1, NULL, 4, 1, 1, NULL),
-(11, '2023-12-12 05:00:43.419964', NULL, NULL, 1, NULL, 4, 1, 1, NULL),
-(12, '2023-12-12 05:01:06.165741', NULL, NULL, 1, NULL, 4, 1, 1, NULL),
-(13, '2023-12-12 05:01:35.804329', NULL, NULL, 1, NULL, 4, 1, 1, NULL),
-(14, '2023-12-12 05:02:37.750977', NULL, NULL, 1, NULL, 4, 1, 1, NULL),
-(15, '2023-12-12 05:05:21.591991', NULL, NULL, 1, NULL, 4, 1, 1, NULL),
-(16, '2023-12-12 05:06:08.423503', NULL, NULL, 1, 1, 4, 1, 1, NULL),
-(17, '2023-12-12 05:07:53.238967', NULL, NULL, 1, 1, 4, 1, 1, NULL);
+INSERT INTO `prediction` (`id`, `created_at`, `updated_at`, `deleted_at`, `body_part_id`, `created_by_id`, `department_id`, `department_speci_id`, `organ_id`) VALUES
+(1, '2024-01-04 10:01:09.851738', NULL, NULL, 1, NULL, 4, 1, 1),
+(2, '2024-01-04 10:04:37.743454', NULL, NULL, 1, NULL, 4, 2, 1),
+(3, '2024-01-04 10:04:47.596500', NULL, NULL, 1, NULL, 4, 3, 1),
+(4, '2024-01-04 10:04:56.448011', NULL, NULL, 1, NULL, 4, 4, 1),
+(5, '2024-01-04 10:05:16.451331', NULL, NULL, 1, NULL, 4, 5, 1),
+(6, '2024-01-04 10:17:41.167258', NULL, NULL, 1, NULL, 18, 12, 2),
+(7, '2024-01-04 11:45:57.030771', NULL, NULL, 8, NULL, 7, 212, 25),
+(8, '2024-01-04 11:49:48.318457', NULL, NULL, 8, NULL, 7, 212, 25),
+(9, '2024-01-04 13:22:02.346601', NULL, NULL, 3, NULL, 1, 64, 7);
 
 -- --------------------------------------------------------
 
@@ -2338,14 +2846,6 @@ CREATE TABLE `prescription_for_lab_test` (
   `patient_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `prescription_for_lab_test`
---
-
-INSERT INTO `prescription_for_lab_test` (`id`, `created_at`, `updated_at`, `deleted_at`, `cc`, `oe`, `dd`, `ad`, `tl`, `pmh`, `issue_date`, `created_by_id`, `doctor_profile_id`, `modified_by_id`, `patient_profile_id`) VALUES
-(1, '2023-12-10 14:08:19.369132', NULL, NULL, 'Excepturi dicta vel', 'Soluta optio praese', 'Dolorem incididunt s', 'Qui reprehenderit m', 'Maxime est culpa as', 'Assumenda dolores ir', '2023-12-10', 2, 1, NULL, 9),
-(2, '2023-12-12 05:29:08.909607', NULL, NULL, 'Id dignissimos eiusm', 'Distinctio Doloremq', 'Est eius saepe qui a', 'Alias accusantium re', 'Ex at vero consectet', 'Accusamus et archite', '2023-12-12', 2, 1, NULL, 15);
-
 -- --------------------------------------------------------
 
 --
@@ -2369,20 +2869,6 @@ CREATE TABLE `prescription_for_medicine` (
   `modified_by_id` bigint(20) DEFAULT NULL,
   `patient_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `prescription_for_medicine`
---
-
-INSERT INTO `prescription_for_medicine` (`id`, `created_at`, `updated_at`, `deleted_at`, `cc`, `oe`, `dd`, `ad`, `tl`, `pmh`, `issue_date`, `created_by_id`, `doctor_profile_id`, `modified_by_id`, `patient_profile_id`) VALUES
-(1, '2023-12-07 15:47:44.714218', NULL, NULL, 'Fugiat sapiente dolo', 'Quibusdam facilis re', 'Ut sed quis est neq', 'Eligendi ullamco con', 'Deleniti recusandae', 'In tempor eligendi a', '2023-12-07', 3, 2, NULL, 1),
-(2, '2023-12-08 10:14:57.743613', NULL, NULL, 'Vel beatae deserunt', 'Quis repudiandae sun', 'Fugiat consectetur', 'Autem architecto mol', 'Dolor vel voluptates', 'Rerum eius veniam d', '2023-12-08', 3, 2, NULL, 5),
-(3, '2023-12-08 10:40:19.566605', NULL, NULL, 'Atque necessitatibus', 'Culpa exercitatione', 'Veniam deserunt qui', 'Velit qui amet sit', 'Qui reprehenderit c', 'Ipsa sunt animi o', '2023-12-08', 2, 1, NULL, 1),
-(4, '2023-12-10 03:18:58.575066', NULL, NULL, 'Magna assumenda vero', 'Minim consequatur R', 'Tempore ut quaerat', 'Optio est minima o', 'Est adipisicing et c', 'Non consectetur dol', '2023-12-10', 3, 2, NULL, 9),
-(5, '2023-12-10 03:19:10.508179', NULL, NULL, 'Voluptates ut ex est', 'Et laboris sit quib', 'Exercitation et aut', 'Hic asperiores quaer', 'Anim itaque officia', 'Accusamus consequunt', '2023-12-10', 3, 2, NULL, 8),
-(6, '2023-12-11 10:45:01.846557', NULL, NULL, 'Voluptatum assumenda', 'Minim non nostrum es', 'Est rerum quae nisi', 'Odio nulla voluptati', 'Dolore dolores beata', 'Et temporibus a mini', '2023-12-11', 2, 1, NULL, 6),
-(7, '2023-12-12 05:28:23.401279', NULL, NULL, 'Distinctio Reprehen', 'Voluptatem a exercit', 'Dolor corrupti temp', 'Assumenda quo natus', 'Quod qui mollit mini', 'Quia iste itaque iru', '2023-12-12', 2, 1, NULL, 10),
-(8, '2023-12-12 05:29:01.374853', NULL, NULL, 'Distinctio Reprehen', 'Voluptatem a exercit', 'Dolor corrupti temp', 'Assumenda quo natus', 'Quod qui mollit mini', 'Quia iste itaque iru', '2023-12-12', 2, 1, NULL, 10);
 
 -- --------------------------------------------------------
 
@@ -2408,10 +2894,10 @@ CREATE TABLE `present_address` (
 --
 
 INSERT INTO `present_address` (`id`, `created_at`, `updated_at`, `deleted_at`, `present_village_state`, `present_postal_code`, `present_district_id`, `present_division_id`, `present_upazila_id`, `user_id`) VALUES
-(1, '2023-12-07 12:18:42.674803', NULL, NULL, 'Quia quae illum non', 16, 61, 8, 497, 2),
-(2, '2023-12-07 15:37:12.454625', NULL, NULL, 'Unde nisi expedita e', 66, 38, 6, 317, 3),
-(3, '2023-12-09 16:18:29.955182', NULL, NULL, 'Pariatur Assumenda', 61, 62, 8, 507, 13),
-(4, '2023-12-09 17:18:49.927380', NULL, NULL, 'Quam quia minim haru', 8, 3, 1, 19, 14);
+(1, '2024-01-04 09:55:54.658996', NULL, NULL, 'Bancharampur', 52, 2, 1, 8, 2),
+(2, '2024-01-04 10:16:07.364004', NULL, NULL, 'Qui in in optio dui', 81, 29, 5, 221, 3),
+(3, '2024-01-04 11:42:11.443827', NULL, NULL, 'Quo deleniti volupta', 82, 2, 1, 7, 4),
+(4, '2024-01-04 11:43:53.367001', NULL, NULL, 'Amet et eveniet qu', 38, 19, 3, 143, 5);
 
 -- --------------------------------------------------------
 
@@ -2434,6 +2920,35 @@ INSERT INTO `religion` (`id`, `name`) VALUES
 (3, 'Christianity'),
 (4, 'Buddhism'),
 (5, 'Other');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `specification`
+--
+
+CREATE TABLE `specification` (
+  `id` bigint(20) NOT NULL,
+  `accuracy` decimal(10,3) DEFAULT NULL,
+  `prediction_id` bigint(20) DEFAULT NULL,
+  `problem_specification_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `specification`
+--
+
+INSERT INTO `specification` (`id`, `accuracy`, `prediction_id`, `problem_specification_id`) VALUES
+(1, NULL, 1, 1),
+(2, NULL, 2, 2),
+(3, NULL, 3, 3),
+(4, NULL, 4, 4),
+(5, NULL, 5, 5),
+(6, '1.000', 6, 12),
+(7, '0.000', 7, 212),
+(8, '0.000', 7, 213),
+(9, '1.000', 8, 212),
+(10, '0.000', 9, 64);
 
 -- --------------------------------------------------------
 
@@ -3016,37 +3531,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `created_at`, `updated_at`, `deleted_at`, `user_name`, `email`, `password`, `hash`, `role`, `status`) VALUES
-(1, '2023-12-07 12:18:02.742104', NULL, NULL, 'admin', 'bowixyr@mailinator.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'admin', 'active'),
-(2, '2023-12-07 12:18:42.542557', NULL, NULL, 'd', 'fybyfy@mailinator.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'doctor', 'active'),
-(3, '2023-12-07 15:37:12.418884', NULL, NULL, 'doctor2', 'nenyn@mailinator.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'doctor', 'active'),
-(4, '2023-12-07 15:41:50.813562', NULL, NULL, 'patient1', 'zotutof@mailinator.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active'),
-(5, '2023-12-07 15:42:47.410669', NULL, NULL, 'patient2', 'teza@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(6, '2023-12-07 15:58:28.641458', NULL, NULL, 'xugani', 'futowyguxe@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(7, '2023-12-07 16:00:45.860324', NULL, NULL, 'niwatysup', 'pekizulime@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(8, '2023-12-07 16:02:13.928695', NULL, NULL, 'sohofivyru', 'pubipufa@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(9, '2023-12-07 16:02:57.227651', NULL, NULL, 'sonez', 'cuhyqawe@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(10, '2023-12-07 16:04:57.935680', NULL, NULL, 'mepinofa', 'sotyw@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(11, '2023-12-07 16:06:00.988076', NULL, NULL, 'pekewik', 'dyqesuv@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(12, '2023-12-08 09:09:40.001928', NULL, NULL, 'runici', 'vadysaxa@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(13, '2023-12-09 16:18:29.877653', NULL, NULL, 'lesuxogi', 'zesebule@mailinator.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'doctor', 'active'),
-(14, '2023-12-09 17:18:49.889979', NULL, NULL, 'hobefypuze', 'lilezoxy@mailinator.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'doctor', 'active'),
-(15, '2023-12-10 13:32:58.469684', NULL, NULL, 'myheciby', 'cefoci@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(16, '2023-12-10 13:33:13.177863', NULL, NULL, 'kygysyrel', 'kacu@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(17, '2023-12-10 13:33:39.001800', NULL, NULL, 'horawi', 'sasaneqo@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(18, '2023-12-10 13:33:59.299273', NULL, NULL, 'coqim', 'dixubik@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(19, '2023-12-10 17:03:20.489830', NULL, NULL, 'pojifajoq', 'devudixiwu@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(20, '2023-12-11 11:14:33.395157', NULL, NULL, 'xojybup', 'viti@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(21, '2023-12-11 11:18:09.550882', NULL, NULL, 'tyfaxaruqu', 'talavuj@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(22, '2023-12-11 11:19:20.119905', NULL, NULL, 'dymozibala', 'wyvydi@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(23, '2023-12-11 11:21:29.306798', NULL, NULL, 'kotajoxe', 'xuxygytuk@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(24, '2023-12-11 11:21:39.824945', NULL, NULL, 'kehote', 'ripa@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(25, '2023-12-11 11:25:44.630634', NULL, NULL, 'judobehuho', 'sypy@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(26, '2023-12-11 11:27:34.010196', NULL, NULL, 'cynosewune', 'mitasyxos@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(27, '2023-12-11 15:09:04.513507', NULL, NULL, 'sisifus', 'binybake@mailinator.com', 'Pa$$w0rd!', 'b2fe8b46929bfa4c65fee9d5d43a2423799b18e360782e9abc27bd420877243e', 'patient', 'inactive'),
-(28, '2023-12-12 11:41:54.546390', NULL, NULL, 'nunebo', 'sypaqoru@mailinator.com', '12345678', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f', 'patient', 'inactive'),
-(29, '2023-12-12 11:47:51.931588', NULL, NULL, 'zasonono', 'hynyvor@mailinator.com', '12345678', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f', 'patient', 'inactive'),
-(30, '2023-12-12 11:48:30.106707', NULL, NULL, 'mozinyby', 'banawi@mailinator.com', '12345678', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f', 'patient', 'inactive'),
-(31, '2023-12-12 12:12:58.373351', NULL, NULL, 'xynoryjy', 'pymi@mailinator.com', '12345678', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f', 'patient', 'inactive');
+(1, '2024-01-03 12:26:15.130846', NULL, NULL, 'admin', 'mamunmiaturan@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'admin', 'active'),
+(2, '2024-01-04 09:55:54.624091', NULL, NULL, 'doctor1', 'doctor1@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(3, '2024-01-04 10:16:07.343059', NULL, NULL, 'doctor2', 'rataguj@mailinator.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(4, '2024-01-04 11:42:11.376007', NULL, NULL, 'doctor3', 'doctor3@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(5, '2024-01-04 11:43:53.042867', NULL, NULL, 'doctor4', 'gemomar@mailinator.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active');
 
 --
 -- Indexes for dumped tables
@@ -3200,9 +3689,9 @@ ALTER TABLE `django_session`
 --
 ALTER TABLE `doctor_appointment_schedule`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `doctor_appointment_s_doctor_profile_id_e7c71ff8_fk_doctor_pr` (`doctor_profile_id`),
+  ADD KEY `doctor_appointment_schedule_created_by_id_07123948_fk_user_id` (`created_by_id`),
   ADD KEY `doctor_appointment_schedule_modified_by_id_0536e92f_fk_user_id` (`modified_by_id`),
-  ADD KEY `doctor_appointment_schedule_created_by_id_07123948_fk_user_id` (`created_by_id`);
+  ADD KEY `doctor_appointment_s_doctor_profile_id_e7c71ff8_fk_doctor_pr` (`doctor_profile_id`);
 
 --
 -- Indexes for table `doctor_awards`
@@ -3210,8 +3699,8 @@ ALTER TABLE `doctor_appointment_schedule`
 ALTER TABLE `doctor_awards`
   ADD PRIMARY KEY (`id`),
   ADD KEY `doctor_awards_created_by_id_4cd1bfbe_fk_user_id` (`created_by_id`),
-  ADD KEY `doctor_awards_doctor_profile_id_48d2d29b_fk_doctor_profile_id` (`doctor_profile_id`),
-  ADD KEY `doctor_awards_modified_by_id_e6c328bb_fk_user_id` (`modified_by_id`);
+  ADD KEY `doctor_awards_modified_by_id_e6c328bb_fk_user_id` (`modified_by_id`),
+  ADD KEY `doctor_awards_doctor_profile_id_48d2d29b_fk_doctor_profile_id` (`doctor_profile_id`);
 
 --
 -- Indexes for table `doctor_educations`
@@ -3291,9 +3780,9 @@ ALTER TABLE `lab_test`
 ALTER TABLE `lab_test_prescription`
   ADD PRIMARY KEY (`id`),
   ADD KEY `lab_test_prescription_created_by_id_782a713d_fk_user_id` (`created_by_id`),
-  ADD KEY `lab_test_prescriptio_lab_prescription_id_7fe85013_fk_prescript` (`lab_prescription_id`),
   ADD KEY `lab_test_prescription_lab_test_id_6014dcc1_fk_lab_test_id` (`lab_test_id`),
-  ADD KEY `lab_test_prescription_modified_by_id_055cd99c_fk_user_id` (`modified_by_id`);
+  ADD KEY `lab_test_prescription_modified_by_id_055cd99c_fk_user_id` (`modified_by_id`),
+  ADD KEY `lab_test_prescriptio_lab_prescription_id_7fe85013_fk_prescript` (`lab_prescription_id`);
 
 --
 -- Indexes for table `matrimony`
@@ -3309,8 +3798,8 @@ ALTER TABLE `medicine`
   ADD KEY `medicine_brand_id_29366812_fk_medicine_brand_id` (`brand_id`),
   ADD KEY `medicine_created_by_id_273e3ab9_fk_user_id` (`created_by_id`),
   ADD KEY `medicine_generic_id_df7b5970_fk_medicine_generic_id` (`generic_id`),
-  ADD KEY `medicine_medicine_type_id_d22bcead_fk_medicine_type_id` (`medicine_type_id`),
   ADD KEY `medicine_modified_by_id_e885a48c_fk_user_id` (`modified_by_id`),
+  ADD KEY `medicine_medicine_type_id_d22bcead_fk_medicine_type_id` (`medicine_type_id`),
   ADD KEY `medicine_strength_id_88f25c4f_fk_medicine_strength_id` (`strength_id`);
 
 --
@@ -3414,8 +3903,7 @@ ALTER TABLE `prediction`
   ADD KEY `prediction_created_by_id_dcb9923e_fk_patient_profile_id` (`created_by_id`),
   ADD KEY `prediction_department_id_a5dabb64_fk_department_id` (`department_id`),
   ADD KEY `prediction_department_speci_id_03db92a4_fk_department_speci_id` (`department_speci_id`),
-  ADD KEY `prediction_organ_id_87623336_fk_organ_id` (`organ_id`),
-  ADD KEY `prediction_organ_problem_speci__591245ef_fk_organ_pro` (`organ_problem_speci_id`);
+  ADD KEY `prediction_organ_id_87623336_fk_organ_id` (`organ_id`);
 
 --
 -- Indexes for table `prescription_for_lab_test`
@@ -3452,6 +3940,14 @@ ALTER TABLE `present_address`
 --
 ALTER TABLE `religion`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `specification`
+--
+ALTER TABLE `specification`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `specification_prediction_id_d014949a_fk_prediction_id` (`prediction_id`),
+  ADD KEY `specification_problem_specificatio_9db51dd9_fk_organ_pro` (`problem_specification_id`);
 
 --
 -- Indexes for table `upazila`
@@ -3498,7 +3994,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=197;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
 
 --
 -- AUTO_INCREMENT for table `auth_user`
@@ -3546,13 +4042,13 @@ ALTER TABLE `days`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `department_speci`
 --
 ALTER TABLE `department_speci`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=362;
 
 --
 -- AUTO_INCREMENT for table `district`
@@ -3576,25 +4072,25 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `doctor_appointment_schedule`
 --
 ALTER TABLE `doctor_appointment_schedule`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `doctor_awards`
 --
 ALTER TABLE `doctor_awards`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `doctor_educations`
@@ -3606,7 +4102,7 @@ ALTER TABLE `doctor_educations`
 -- AUTO_INCREMENT for table `doctor_off_day`
 --
 ALTER TABLE `doctor_off_day`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `doctor_profile`
@@ -3618,7 +4114,7 @@ ALTER TABLE `doctor_profile`
 -- AUTO_INCREMENT for table `doctor_schedule_times`
 --
 ALTER TABLE `doctor_schedule_times`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `doctor_social_media`
@@ -3642,19 +4138,19 @@ ALTER TABLE `gender`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `lab_test`
 --
 ALTER TABLE `lab_test`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `lab_test_prescription`
 --
 ALTER TABLE `lab_test_prescription`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `matrimony`
@@ -3666,7 +4162,7 @@ ALTER TABLE `matrimony`
 -- AUTO_INCREMENT for table `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `medicine_brand`
@@ -3684,7 +4180,7 @@ ALTER TABLE `medicine_generic`
 -- AUTO_INCREMENT for table `medicine_prescription`
 --
 ALTER TABLE `medicine_prescription`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `medicine_schedule`
@@ -3708,31 +4204,31 @@ ALTER TABLE `medicine_type`
 -- AUTO_INCREMENT for table `organ`
 --
 ALTER TABLE `organ`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `organ_problem_speci`
 --
 ALTER TABLE `organ_problem_speci`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=372;
 
 --
 -- AUTO_INCREMENT for table `otp`
 --
 ALTER TABLE `otp`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `patient_appointment`
 --
 ALTER TABLE `patient_appointment`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `patient_profile`
 --
 ALTER TABLE `patient_profile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `permanent_address`
@@ -3744,19 +4240,19 @@ ALTER TABLE `permanent_address`
 -- AUTO_INCREMENT for table `prediction`
 --
 ALTER TABLE `prediction`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `prescription_for_lab_test`
 --
 ALTER TABLE `prescription_for_lab_test`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `prescription_for_medicine`
 --
 ALTER TABLE `prescription_for_medicine`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `present_address`
@@ -3771,6 +4267,12 @@ ALTER TABLE `religion`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `specification`
+--
+ALTER TABLE `specification`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `upazila`
 --
 ALTER TABLE `upazila`
@@ -3780,7 +4282,7 @@ ALTER TABLE `upazila`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -4001,8 +4503,7 @@ ALTER TABLE `prediction`
   ADD CONSTRAINT `prediction_created_by_id_dcb9923e_fk_patient_profile_id` FOREIGN KEY (`created_by_id`) REFERENCES `patient_profile` (`id`),
   ADD CONSTRAINT `prediction_department_id_a5dabb64_fk_department_id` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`),
   ADD CONSTRAINT `prediction_department_speci_id_03db92a4_fk_department_speci_id` FOREIGN KEY (`department_speci_id`) REFERENCES `department_speci` (`id`),
-  ADD CONSTRAINT `prediction_organ_id_87623336_fk_organ_id` FOREIGN KEY (`organ_id`) REFERENCES `organ` (`id`),
-  ADD CONSTRAINT `prediction_organ_problem_speci__591245ef_fk_organ_pro` FOREIGN KEY (`organ_problem_speci_id`) REFERENCES `organ_problem_speci` (`id`);
+  ADD CONSTRAINT `prediction_organ_id_87623336_fk_organ_id` FOREIGN KEY (`organ_id`) REFERENCES `organ` (`id`);
 
 --
 -- Constraints for table `prescription_for_lab_test`
@@ -4030,6 +4531,13 @@ ALTER TABLE `present_address`
   ADD CONSTRAINT `present_address_present_division_id_4c3ef850_fk_division_id` FOREIGN KEY (`present_division_id`) REFERENCES `division` (`id`),
   ADD CONSTRAINT `present_address_present_upazila_id_6403653a_fk_upazila_id` FOREIGN KEY (`present_upazila_id`) REFERENCES `upazila` (`id`),
   ADD CONSTRAINT `present_address_user_id_dfc03294_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `specification`
+--
+ALTER TABLE `specification`
+  ADD CONSTRAINT `specification_prediction_id_d014949a_fk_prediction_id` FOREIGN KEY (`prediction_id`) REFERENCES `prediction` (`id`),
+  ADD CONSTRAINT `specification_problem_specificatio_9db51dd9_fk_organ_pro` FOREIGN KEY (`problem_specification_id`) REFERENCES `organ_problem_speci` (`id`);
 
 --
 -- Constraints for table `upazila`
