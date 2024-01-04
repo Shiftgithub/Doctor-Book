@@ -10,7 +10,35 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\media\uploads\dataset\prediction_data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\media\uploads\dataset\prediction_raw_data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\media\uploads\prediction_data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\static\data\prediction.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\static\data\prediction_data1.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

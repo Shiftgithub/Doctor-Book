@@ -1,0 +1,41 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    #doctors {
+        background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
+    }
+    .biography-text {
+        text-align: justify;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<section id="doctors" class="doctors">
+    <div class="container pt-3">
+        {% for doctor_data in doctor_all_data %}
+        <div class="row">
+            <div class="col-md-3 col-sm-12 mt-3 text-center">
+                <div class="mt-3">
+                    <img src="{{ doctor_data.images.0.photo_name }}" alt="About Image" height="320px" width="100%">
+                </div>
+                <div class="mt-4">
+                    <a href="{% url 'appointment' doctor_data.id %}"
+                       class="btn btn-success btn ">Get {{ doctor_data.full_name }}'s Appointment</a>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-12">
+                <div class="mt-4">
+                    <strong>Doctor Name : {{ doctor_data.full_name }}</strong><br>
+                    Department : {{ doctor_data.department }}
+                </div>
+                <div class="mt-4">
+                    <p class="biography-text">{{ doctor_data.biography }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

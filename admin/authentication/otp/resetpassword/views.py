@@ -25,12 +25,13 @@ def forget_password(request):
         if user.status == STATUS_ACTIVE or user.status == STATUS_INACTIVE:
             if otp_serializer.is_valid():
                 otp_serializer.save()
-                message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP Number is: {token_str}'
+                message = f'Your OTP Number is: {token_str}'
                 sent_email = send_email(email, message)
                 if sent_email:
-                    response = {'status': 200, 'email': email,
-                                'message': 'We send  mail on your email. Please check your email.'
-                                }
+                    response = {
+                        'status': 200, 'email': email,
+                        'message': 'We send  mail on your email. Please check your email.'
+                    }
                     return Response(response)
                 else:
                     transaction.set_rollback(True)
@@ -58,7 +59,7 @@ def change_password(request):
             )
             if user_serializer.is_valid():
                 user_serializer.save()
-                message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour password changed successfully'
+                message = 'Your password changed successfully'
                 send_email(email, message)
                 response = {'status': 200, 'email': email,
                             'message': 'Your Account Password Changed Successfully.'

@@ -79,7 +79,7 @@
                 url: '/ajax/organ/' + body_part_id,
                 type: 'GET',
                 success: function (response) {
-                    let options = '<option selected>Select Organ Name</option>';
+                    let options = '<option value="" selected disabled>Select Organ Name</option>';
 
                     $.each(response, function (key, value) {
                         options += `<option value="${value.id}">${value.name}</option>`;

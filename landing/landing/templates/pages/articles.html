@@ -44,12 +44,13 @@
             <!--                <div class="col-sm-12 col-md-4 d-flex align-items-stretch">-->
             <div class="col-sm-12 col-md-4">
                 <div class="icon-box">
-                    <a href="{% url 'landing_article_view' data.id %}">
-                        <div><img src="{{ data.image }}" alt="Article Image" height="200px" width="300px"></div>
-                        <h3>{{data.heading}}</h3>
-                        <h5>{{data.tag}}</h5>
-                        {% if data.description|wordcount > 15 %}
-                        <p class="text-dark">{{ data.description|truncatewords:15 }}
+                    <a href="{% url 'landing_article_view' data.id %}" class="nav-link">
+                        <div><img src="{{ data.image }}" alt="Article Image" height="200%" width="80%"></div>
+                        <br>
+                        <h5>Heading : {{data.heading}}</h5>
+                        <p>Tag : {{data.tag}}</p>
+                        {% if data.description|wordcount > 5 %}
+                        <p>{{ data.description|truncatewords:5 }}
                             <a href="{% url 'landing_article_view' data.id %}">See More</a>
                         </p>
                         {% else %}
@@ -57,6 +58,7 @@
                         {% endif %}
                     </a>
                 </div>
+                <br>
             </div>
             {% endfor %}
         </div>

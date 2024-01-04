@@ -12,7 +12,7 @@ def resend_otp(request):
         if verify_otp_instance:
             verify_otp_instance.otp = generate_token(6)
             verify_otp_instance.save()
-            message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {verify_otp_instance.otp}'
+            message = f'Your OTP number is: {verify_otp_instance.otp}'
             sent_email = send_email(email, message)
             if sent_email:
                 return Response({'status': 200, 'email': email, 'message': 'We send a mail please check your email.'})

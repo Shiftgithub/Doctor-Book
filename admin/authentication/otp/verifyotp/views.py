@@ -38,8 +38,10 @@ def verify_otp(request):
             message = 'Your Doctor Book Account has been activated'
             sent_email = send_email(email, message)
             if sent_email:
-                response = {'id': user.id, 'email': user.email, 'status': 200,
-                            'message': 'Account Activated Successfully'}
+                response = {
+                    'id': user.id, 'email': user.email, 'status': 200,
+                    'message': 'Account Activated Successfully'
+                }
                 return Response(response)
             else:
                 transaction.set_rollback(True)

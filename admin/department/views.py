@@ -22,7 +22,7 @@ def store_department_data(request):
 
 @api_view(['GET'])
 def get_all_departments_list(request):
-    departments = Department.objects.filter(deleted_at=None).order_by('-id')
+    departments = Department.objects.filter(deleted_at=None).order_by('id')
     serializer = DepartmentSerializer(departments, many=True)
     return Response(serializer.data)
 
@@ -42,6 +42,12 @@ def edit_department_data(request, department_id):
     serializer = DepartmentSerializer(department, data=request.data)
 
     if serializer.is_valid():
+        if 'image' in request.data and request.data['image']:
+            # New image is selected
+            serializer.validated_data['image'] = request.data['image']
+        else:
+            # No new image selected, retain the existing image
+            serializer.validated_data['image'] = department.image
         if serializer.save(updated_at=timezone.now()):
             return Response({'status': 200, 'message': 'Department data updated successfully'})
         else:

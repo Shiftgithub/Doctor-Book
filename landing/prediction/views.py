@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 
 from .serializers import *
 from .models import Prediction
-from django.conf import settings
 from admin.organ.models import Organ
 from admin.bodypart.models import BodyPart
 from rest_framework.response import Response
@@ -58,6 +57,7 @@ def prediction(request):
 
         prediction_list = get_all_prediction_list(request)
         save_prediction_to_csv(prediction_list)
+        save_raw_prediction_data_to_csv(prediction_list)
 
         if department_specifications.exists():
             department_ids = department_specifications.values_list('department', flat=True)
@@ -132,7 +132,7 @@ def prediction(request):
                                 problem_specification=problem_spec,
                                 accuracy=accuracy,
                             )
-                            save_matplotlib_image(features, labels,spec_obj, predicted_department_id, accuracy)
+                            save_matplotlib_image(features, labels, spec_obj, predicted_department_id, accuracy)
 
                             spec_objs.append(spec_obj)
                         except OrgansProblemSpecification.DoesNotExist:
@@ -175,9 +175,14 @@ def get_all_prediction_list(request):
             'training_data': [
                 {
                     'body_part_id': prediction.body_part_id,
+                    'body_part_name': prediction.body_part.name,
                     'organ_id': prediction.organ_id,
+                    'organ_name': prediction.organ.name,
                     'problem_id': spec.problem_specification.id,
+                    'problem_name': spec.problem_specification.problem,
+                    'problem_specification_name': spec.problem_specification.problem_specification,
                     'department_speci_id': prediction.department_speci.id,
+                    'description': prediction.department_speci.description,
                     'department_id': prediction.department.id,
                 }
                 for spec in prediction.specification.all()
@@ -185,7 +190,6 @@ def get_all_prediction_list(request):
         }
         for prediction in predictions
     ]
-
     # Assuming you have a serializer for this specific query
     serializer = PredictionDataViewSerializer(data=predictions_data, many=True)
     serializer.is_valid()
@@ -279,7 +283,10 @@ def prediction_data_view(request, prediction_id):
 
 def save_prediction_to_csv(dataset):
     # Define the file path where you want to save the CSV file
-    file_path = os.path.join(settings.MEDIA_ROOT, 'prediction_data.csv')
+    dataset_directory = 'media/uploads/dataset/'
+    # Create the directory if it does not exist
+    os.makedirs(dataset_directory, exist_ok=True)
+    file_path = os.path.join(dataset_directory, 'prediction_data.csv')
 
     # Create a CSV writer and write the header
     with open(file_path, 'w', newline='', encoding='utf-8') as csv_file:
@@ -303,7 +310,35 @@ def save_prediction_to_csv(dataset):
     return file_path
 
 
-def save_matplotlib_image(features, labels,spec_obj, predicted_department_id, accuracy):
+def save_raw_prediction_data_to_csv(dataset):
+    # Define the file path where you want to save the CSV file
+    dataset_directory = 'media/uploads/dataset/'
+    # Create the directory if it does not exist
+    os.makedirs(dataset_directory, exist_ok=True)
+    file_path = os.path.join(dataset_directory, 'prediction_raw_data.csv')
+
+    # Create a CSV writer and write the header
+    with open(file_path, 'w', newline='', encoding='utf-8') as csv_file:
+        csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(
+            ['Body Part Name', 'Organ Name', 'Problem Name', 'Problem Specification Name', 'Description'])
+
+        # Write data to the CSV file
+        for objs in dataset:
+            for obj in objs['training_data']:
+                csv_writer.writerow([
+                    obj['body_part_name'],
+                    obj['organ_name'],
+                    obj['problem_name'],
+                    obj['problem_specification_name'],
+                    obj['description'],
+                ])
+
+    # Return the file path (optional)
+    return file_path
+
+
+def save_matplotlib_image(features, labels, spec_obj, predicted_department_id, accuracy):
     # Convert numerical values to strings
     feature_values = [str(value) for value in features]
 
@@ -331,9 +366,11 @@ def save_matplotlib_image(features, labels,spec_obj, predicted_department_id, ac
                     xytext=(0, 3),  # 3 points vertical offset
                     textcoords="offset points",
                     ha='center', va='bottom')
-    path = 'media/uploads/prediction_graph/'
+    graph_image_directory = 'media/uploads/graphs/'
+    # Create the directory if it does not exist
+    os.makedirs(graph_image_directory, exist_ok=True)
     # Save the figure to the media folder
-    image_path = os.path.join(path, '{}.png'.format(spec_obj))
+    image_path = os.path.join(graph_image_directory, '{}.png'.format(spec_obj))
     plt.savefig(image_path)
 
     return image_path

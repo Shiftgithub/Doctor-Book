@@ -170,10 +170,10 @@ def predict_result(request):
         return redirect("patient_predict_form")
 
 
-def doctor_profile(request, doctor_id):
-    response_doctor = doctor_data(request, doctor_id)
+def check_doctor_profile(request, doctor_id):
+    response_doctor = get_all_doctors_list_for_landing_by_id(request, doctor_id)
     doctor_all_data = response_doctor.data
-    return render(request, "patient/templates/doctor_profile.html", {"doctor_all_data": doctor_all_data})
+    return render(request, "patient/templates/check_doctor_profile.html", {"doctor_all_data": doctor_all_data})
 
 
 def appointment(request, doctor_id):
