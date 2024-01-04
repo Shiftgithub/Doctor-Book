@@ -108,15 +108,15 @@
             </div>
             <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
                 <div class="count-box">
-                    <i class="far fa-hospital"></i>
+                    <i class="fas fa-user-injured"></i>
                     <span>{{patient_data.patient_count}}</span>
                     <p>Patients</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
                 <div class="count-box">
-                    <i class="far fa-hospital"></i>
-                    <span>0</span>
+                    <i class="fas fa-award"></i>
+                    <span>10</span>
                     <p>Awards</p>
                 </div>
             </div>
@@ -137,9 +137,9 @@
 
         <div class="row gy-4">
             <div class="col-lg-3">
-                {% if all_data %}
+                {% if all_department_data %}
                 <ul class="nav nav-tabs flex-column">
-                    {% for data in all_data %}
+                    {% for data in all_department_data %}
                     <li class="nav-item">
                         <a class="nav-link {% if forloop.first %}active show{% endif %}" data-bs-toggle="tab"
                            href="#tab-{{ forloop.counter }}">{{ data.name }}</a>
@@ -149,7 +149,7 @@
             </div>
             <div class="col-lg-9">
                 <div class="tab-content">
-                    {% for data in all_data %}
+                    {% for data in all_department_data %}
                     <div class="tab-pane {% if forloop.first %}active show{% endif %}" id="tab-{{ forloop.counter }}">
                         <div class="row gy-4">
                             <div class="col-lg-8 details order-2 order-lg-1">
@@ -157,7 +157,7 @@
                                 <p class="fst-italic">{{ data.description }}</p>
                             </div>
                             <div class="col-lg-4 text-center order-1 order-lg-2">
-                              <img src="{% static 'landing_assets/img/departments-1.jpg' %}" alt="" class="img-fluid">
+                                <img src="{{ data.image }}" alt="" class="img-fluid">
                             </div>
                         </div>
                     </div>
@@ -167,8 +167,6 @@
             {% else %}
             <div class="row alert alert-warning">
                 <h3>No Department Found</h3>
-<!--                <br>-->
-<!--                <a href="{% url 'landing_dashboard' %}"><i class="fas fa-arrow-left"></i> Go Back</a>-->
             </div>
             {% endif %}
         </div>

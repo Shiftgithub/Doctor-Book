@@ -8,8 +8,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from admin.authentication.user.serializers import *
 from admin.authentication.login.views import set_user_info
-from admin.authentication.otp.function.send_otp import send_otp
 from admin.authentication.otp.function.send_email import *
+from admin.authentication.otp.function.send_otp import send_otp
 
 
 # doctor account create
@@ -25,7 +25,6 @@ def store_doctor_data(request):
 
         if user_serializer.is_valid(
                 raise_exception=True) and doctor_serializer.is_valid() and image_serializer.is_valid() and present_address_serializer.is_valid() and permanent_address_serializer.is_valid():
-
             user_name = request.data.get('user_name')
             email = request.data.get('email')
 
@@ -34,7 +33,7 @@ def store_doctor_data(request):
 
             if User.objects.filter(email=email, ).exists():
                 return Response({'message': 'This email already used. Please try another.', 'status': 404})
-            password = '1'
+            password = '0123456789'
             hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
             user_instance = user_serializer.save(password=password, hash=hashed_password,
@@ -55,12 +54,7 @@ def store_doctor_data(request):
                 present_instance = present_address_serializer.save(user=user_instance)
                 permanent_instance = permanent_address_serializer.save(user=user_instance)
                 if doctor_instance and image_instance and present_instance and permanent_instance:
-                    user_fields = [user_serializer.validated_data['user_name']]
-                    user_name = ' - '.join(user_fields)
-                    email_fields = [user_serializer.validated_data['email']]
-                    email = ' - '.join(email_fields)
-                    message = 'Message From Doctor-Book [Personalized Doctor Predictor]:\n\n' \
-                              'Your username: ' + user_name + '\n' + 'Your password: ' + password
+                    message = 'Your username is : ' + user_name + '<br>' + 'Your password is : ' + password
                     sent_email = send_email(email, message)
                     if sent_email:
                         return Response({'status': 200, 'message': 'Doctor data stored successfully'})
@@ -504,6 +498,21 @@ def get_doctors_name_department_data(request):
 def get_all_doctors_list_for_landing(request):
     # Fetch all doctor profiles along with related fields
     doctors = DoctorProfile.objects.filter(deleted_at=None).select_related(
+        'user', 'gender', 'religion', 'blood_group', 'matrimony', 'department'
+    ).prefetch_related(
+        'awards', 'appointment_schedules', 'education', 'social_media',
+        'user__images', 'user__present_address', 'user__permanent_address',
+
+    )
+    # Serialize the data using the combined serializer
+    serializer = DoctorViewForLandingSerializer(doctors, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_all_doctors_list_for_landing_by_id(request, doctor_id):
+    # Fetch all doctor profiles along with related fields
+    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
         'user', 'gender', 'religion', 'blood_group', 'matrimony', 'department'
     ).prefetch_related(
         'awards', 'appointment_schedules', 'education', 'social_media',

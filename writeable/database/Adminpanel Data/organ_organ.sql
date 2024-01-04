@@ -117,3 +117,14 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+--Bodypart :Head
+--    organ:Brain
+--        problem name : Brain Tumor(মস্তিষ্কের টিউমার),
+--        problem Specification : Abnormal cell growth in the brain(মস্তিষ্কে অস্বাভাবিক কোষের বৃদ্ধি)
+--        problem name : Stroke(স্ট্রোক)
+--        problem Specification : neurological disorder causing seizures.  (রক্ত সরবরাহ ব্যাহত হওয়ার ফলে কোষের ক্ষতি হয়)
+--
+--        problem name : Epilepsy ( মৃগীরোগ)
+--        problem Specification : disruption of blood supply leading to cell damage( স্নায়বিক ব্যাধি খিঁচুনি সৃষ্টি করে।)

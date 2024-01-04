@@ -7,6 +7,8 @@ urlpatterns = [
         include(
             [
                 path("doctors/", landing_doctors, name="landing_doctors"),
+                path('doctor-profile/<int:doctor_id>/', landing_doctor_profile, name='doctor_profile'),
+
                 path("faq/", landing_faq, name="landing_faq"),
                 path(
                     "show-article/",

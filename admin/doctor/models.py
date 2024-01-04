@@ -21,7 +21,7 @@ class DoctorProfile(BaseModel):
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='doctors')
     nid_no = models.CharField(max_length=20, null=True)
     experience = models.CharField(max_length=1000, null=True)
-    biography = models.CharField(max_length=1000, null=True)
+    biography = models.CharField(max_length=10000, null=True)
     languages_spoken = models.CharField(max_length=255, null=True)
     passport_no = models.CharField(max_length=255, null=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='doctors', null=True)

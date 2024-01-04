@@ -73,7 +73,6 @@ landing/prediction/migrations/__pycache__/
 landing/prediction/__pycache__/
 landing/prediction/migrations/__pycache__/
 
-media/
 
 # vs code folder ignored
 /.vscode/

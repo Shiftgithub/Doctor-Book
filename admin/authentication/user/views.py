@@ -17,7 +17,6 @@ def store_admin_data(request):
     admin_serializer = AdminProfileSerializer(data=request.data)
     image_serializer = ImageSerializer(data=request.data)
     user_serializer = UserSerializer(data=request.data)
-    print(user_serializer)
     if admin_serializer.is_valid() and image_serializer.is_valid() and user_serializer.is_valid(raise_exception=True):
         user_name = request.data.get('user_name')
         email = request.data.get('email')
@@ -35,9 +34,7 @@ def store_admin_data(request):
         image_serializer.save(user_id=user_profile_instance)
 
         token_str = generate_token(6)
-        email_fields = [user_serializer.validated_data['email']]
-        email = ' - '.join(email_fields)
-        message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
+        message = f'Your OTP number is: {token_str}'
         otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
         otp_serializer.save()
         sent_email = send_email(email, message)

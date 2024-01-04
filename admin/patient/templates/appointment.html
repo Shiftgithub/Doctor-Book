@@ -46,7 +46,6 @@
             <h4><b>Doctor Name : {{ doctor_data.full_name }}</b></h4>
             <p><b>Department Name : {{ doctor_data.department }}</b></p>
         </div>
-
         <hr/>
         <div class="row">
             <div class="col-sm-12 col-md-3">
@@ -116,10 +115,10 @@
         } else {
             // No time slots found
             options += `
-                <div class="alert alert-warning">
+                <div class="alert alert-dark">
                     <h4 class="alert-heading">No Time Slots Found</h4>
                     <p>There are no time slots available at the moment. Please check back later.</p>
-                    <a href="{% url 'predict_form' %}" class="btn-info" >Go Back</a>
+                    <a href="{% url 'find_doctors' %}" class="text-light" >Go Back</a>
                 </div>`;
         }
 

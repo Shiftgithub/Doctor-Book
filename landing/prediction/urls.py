@@ -3,7 +3,6 @@ from django.urls import path, include
 from core.login_decorators import protected_view
 
 urlpatterns = [
-    path('doctor-profile/<int:doctor_id>/', doctor_profile, name='doctor_profile'),
     path(
         'prediction-',
         include(

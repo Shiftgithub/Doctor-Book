@@ -16,7 +16,7 @@ from admin.organ_problem_speci.serializers import OrganProblemSerializer
 def prediction(request):
     predict_serializer = PredictionSerializer(data=request.data)
     if predict_serializer.is_valid():
-        body_part_id = predict_serializer.validated_data.get('bodypart')
+        body_part_id = predict_serializer.validated_data.get('body_part')
         organ_id = predict_serializer.validated_data.get('organ')
         problem_specs = request.POST.getlist('problem_specs[]')
 
