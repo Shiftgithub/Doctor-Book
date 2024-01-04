@@ -10,7 +10,6 @@ from admin.doctor.views import get_all_doctors_list_for_landing, doctor_data, ge
 def landing_dashboard(request):
     response = get_all_departments_list(request)
     all_department_data = response.data
-    print(all_department_data)
 
     department_response = count_department(request)
     department_count_data = department_response.data
