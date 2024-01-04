@@ -6,6 +6,9 @@
     #hero {
         background: url("{% static 'landing_assets/img/hero-bg.png' %}") center center no-repeat;
     }
+    .department-text {
+        text-align: justify;
+    }
 </style>
 {% endblock %}
 
@@ -154,7 +157,7 @@
                         <div class="row gy-4">
                             <div class="col-lg-8 details order-2 order-lg-1">
                                 <h3>{{ data.name }}</h3>
-                                <p class="fst-italic">{{ data.description }}</p>
+                                <p class="fst-italic department-text">{{ data.description }}</p>
                             </div>
                             <div class="col-lg-4 text-center order-1 order-lg-2">
                                 <img src="{{ data.image }}" alt="" class="img-fluid">
