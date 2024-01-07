@@ -88,6 +88,8 @@ def edit_admin_form(request, admin_id):
 def edit_admin(request, admin_id):
     operation_response = edit_admin_data(request, admin_id)
     message = operation_response.data.get('message')
+    email = operation_response.data.get('email')
+    request.session['temp_verify_email'] = email
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, message)
     elif operation_response.data.get('status') == 400:

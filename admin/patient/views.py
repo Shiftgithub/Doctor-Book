@@ -81,6 +81,7 @@ def patient_data(request, patient_id):
 
 @api_view(['PUT', 'POST'])
 def edit_patient_data(request, patient_id):
+    patient_session_id = request.data.get('patient_id')
     try:
         patient = PatientProfile.objects.get(id=patient_id, deleted_at=None)
     except PatientProfile.DoesNotExist:
@@ -97,7 +98,8 @@ def edit_patient_data(request, patient_id):
             image_serializer.validated_data['photo_name'] = patient.user.images.first().photo_name
         if patient_serializer.save(updated_at=datetime.now()) and image_serializer.save(
                 updated_at=datetime.now()):
-            set_user_info(request, patient, patient.user.id, patient.user.email)
+            if patient_session_id == patient_id:
+                set_user_info(request, patient, patient.user.id, patient.user.email)
             return Response({'status': 200, 'message': 'Patient data updated successfully'})
         else:
             return Response({'status': 403, 'message': 'Error in updating patient data'})
