@@ -25,7 +25,7 @@ def store_lab_test_data(request):
 # all lab_test list function
 @api_view(['GET'])
 def get_all_lab_test_list(request):
-    lab_test = LabTest.objects.filter(deleted_at=None).order_by('-id')
+    lab_test = LabTest.objects.filter(deleted_at=None).order_by('id')
     serializer = LabTestSerializer(lab_test, many=True)
     serialized_data = serializer.data
     return Response(serialized_data)

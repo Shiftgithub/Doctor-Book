@@ -18,8 +18,8 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Medicine Brand</th>
-                    <th>Medicine</th>
+                    <th>Medicine Name</th>
+                    <th>strength</th>
                     <th>Description</th>
                     <th>Action</th>
                 </tr>
@@ -29,8 +29,8 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     {# Use 'forloop.counter' to get the loop counter #}
-                    <td>{{ data.brand_name }}</td>
                     <td>{{ data.name }}</td>
+                    <td>{{ data.strength }}</td>
                     <td>{{ data.description }}</td>
                     <td>
                         <div class="btn-group dropleft">
