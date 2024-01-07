@@ -275,6 +275,7 @@ def protected_view(view_func):
                     'prediction_view',
                 ]
                 if requested_path in routes:
+                    print(requested_path)
                     return view_func(request, *args, **kwargs)
                 else:
                     return redirect('patient_dashboard')

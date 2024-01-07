@@ -104,7 +104,7 @@ def doctor_data(request, doctor_id):
 @api_view(['PUT', 'POST'])
 @transaction.atomic
 def edit_doctor_data(request, doctor_id):
-    doctor_session_id = request.data.get('doctor_id')
+    doctor_session_id = request.session.get('doctor_id')
     try:
         doctor = get_object_or_404(DoctorProfile, id=doctor_id, deleted_at=None)
         if not doctor.user:
@@ -139,6 +139,7 @@ def edit_doctor_data(request, doctor_id):
                 permanent_address = permanent_address_serializer.save()
                 if doctor_data_updated and image_updated and present_address and permanent_address:
                     # session variable should be updated here
+                    print(doctor_session_id)
                     if doctor_session_id == doctor_id:
                         set_user_info(request, doctor, doctor.user.id, doctor.user.email)
                     return Response({'status': 200, 'message': 'Doctor data are updated successfully.'})

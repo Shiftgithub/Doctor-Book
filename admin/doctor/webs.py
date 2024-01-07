@@ -120,7 +120,6 @@ def edit_doctor_form(request, doctor_id):
 
 def edit_doctor(request, doctor_id):
     operation_response = edit_doctor_data(request, doctor_id)
-
     message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
         messages.add_message(request, messages.INFO, message)

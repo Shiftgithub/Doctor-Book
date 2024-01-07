@@ -81,7 +81,7 @@ def patient_data(request, patient_id):
 
 @api_view(['PUT', 'POST'])
 def edit_patient_data(request, patient_id):
-    patient_session_id = request.data.get('patient_id')
+    patient_session_id = request.session.get('patient_id')
     try:
         patient = PatientProfile.objects.get(id=patient_id, deleted_at=None)
     except PatientProfile.DoesNotExist:
