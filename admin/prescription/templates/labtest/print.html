@@ -85,33 +85,33 @@
             </div>
             <table class="table">
                 <tr>
-                    <th>Chief Complain :</th>
+                    <th>Chief Complain:</th>
                     <td>{{ prescription_data.cc }}</td>
                 </tr>
                 <tr>
-                    <th>On Examination :</th>
+                    <th>On Examination:</th>
                     <td>{{ prescription_data.oe }}</td>
                 </tr>
                 <tr>
-                    <th>Diagnosis (DD) :</th>
+                    <th>Diagnosis:</th>
                     <td>{{ prescription_data.dd }}</td>
                 </tr>
                 <tr>
-                    <th>Advice :</th>
+                    <th>Advice:</th>
                     <td>{{ prescription_data.ad }}</td>
                 </tr>
                 <tr>
-                    <th>Treatment List :</th>
+                    <th>Treatment List:</th>
                     <td>{{ prescription_data.tl }}</td>
                 </tr>
                 <tr>
-                    <th>Medical History :</th>
+                    <th>Medical History:</th>
                     <td>{{ prescription_data.pmh }}</td>
                 </tr>
                 <tr>
                     {% for name in prescription_data.lab_test_name %}
                 <tr>
-                    <th>Lab Test Name :</th>
+                    <th>Lab Test Name:</th>
                     <td>{{ name }}</td>
                 </tr>
                 {% endfor %}
