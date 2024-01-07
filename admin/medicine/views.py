@@ -20,7 +20,7 @@ def store_medicine_data(request):
 
 @api_view(['GET'])
 def get_all_medicines_list(request):
-    medicines = Medicine.objects.filter(deleted_at=None).order_by('-id')
+    medicines = Medicine.objects.filter(deleted_at=None).order_by('id')
     serializer = MedicineViewSerializer(medicines, many=True)
     return Response(serializer.data)
 
