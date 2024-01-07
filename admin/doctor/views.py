@@ -12,7 +12,7 @@ from admin.authentication.otp.function.send_email import *
 from admin.authentication.otp.function.send_otp import send_otp
 
 
-# doctor account create
+# doctor profile create
 @api_view(['POST'])
 @transaction.atomic
 def store_doctor_data(request):

@@ -1316,8 +1316,7 @@ INSERT INTO `medicine_type` (`id`, `name`) VALUES
 INSERT INTO `days` (`id`, `name`) VALUES (NULL, 'Saturday'), (NULL, 'Sunday'), (NULL, 'Monday'), (NULL, 'Tuesday'), (NULL, 'Wednesday'), (NULL, 'Thursday'), (NULL, 'Friday');
 INSERT INTO `medicine_schedule` (`id`, `schedule`) VALUES (NULL, 'After Meal'), (NULL, 'Before Meal');
 INSERT INTO `lab_test` (`id`, `name`,`description`) VALUES (NULL, 'Blood Test',NULL);
-INSERT INTO `medicine_strength` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES (1, '100 gm', '2021-02-15 16:59:49', NULL, NULL), (2, '250 gm', '2021-02-15 16:59:49', NULL, NULL), (3, '500 gm', '2021-02-15 16:59:49', NULL, NULL);
-
+INSERT INTO `medicine_strength` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`) VALUES (NULL, NULL, NULL, NULL, '5 mg'), (NULL, NULL, NULL, NULL, '10 mg'), (NULL, NULL, NULL, NULL, '20 mg'), (NULL, NULL, NULL, NULL, '50 mg'), (NULL, NULL, NULL, NULL, '100 mg'), (NULL, NULL, NULL, NULL, '250 mg'), (NULL, NULL, NULL, NULL, '500 mg'), (NULL, NULL, NULL, NULL, '1000 mg');
 INSERT INTO `body_part` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Head (মাথা)', 'This includes the skull, brain, eyes, ears, nose, and mouth. (এটি ক্রানিয়াম, মস্তিষ্ক, চোখ, কান, নাক এবং মুখ অন্তর্ভুক্ত।)', '2023-08-16 16:18:47.181475', NULL, NULL),
 (2, 'Neck (গলা)', 'Connects the head to the rest of the body and contains important structures like the throat and neck muscles. (মাথা থেকে বাকি শরীরে যোগ করে এবং গলায় মহত্তম ধরনে গঠিত হতে থাকে, যেখানে জিবক এবং গলা মাংস অবস্থিত থাকে।)', '2023-08-16 16:19:05.773641', NULL, NULL),

@@ -216,3 +216,30 @@ def generate_barcode(request, registration):
     # Return the relative path to the generated barcode image without the 'static' prefix
     relative_path = os.path.relpath(barcode_image_path)
     return relative_path
+
+
+@api_view(['GET'])
+def count_medicine_prescription_for_patient(request, patient_id):
+    # Get the PrescriptionForMedicine instances for the given patient_id
+    prescriptions_for_medicine = PrescriptionForMedicine.objects.filter(patient_profile=patient_id)
+
+    # Get the count of prescriptions_for_medicine
+    prescriptions_for_medicine_count = prescriptions_for_medicine.count()
+    serialized_data = {'prescriptions_for_medicine_count': prescriptions_for_medicine_count}
+
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def count_lab_prescription_for_patient(request, patient_id):
+    # Get the PrescriptionForLabTest instances for the given patient_id
+    prescriptions_for_lab = PrescriptionForLabTest.objects.filter(patient_profile=patient_id)
+
+    # Get the count of lab_prescription
+    prescriptions_for_lab_count = prescriptions_for_lab.count()
+
+    # Serializing lab_prescription_count
+    serialized_data = {'prescriptions_for_lab_count': prescriptions_for_lab_count}
+
+    return Response(serialized_data)
+
