@@ -5,7 +5,7 @@
         <div class="alert alert-default-info">
             <div class="row">
                 <div class="col-6">
-                    <h6>Welcome to our Doctor Book DoctorPanel</h6>
+                    <h6 id="doctor-welcome-message">Welcome to your Doctor Dashboard</h6>
                 </div>
                 <div class="col-6 text-right">
                     <h5 id="current-time"></h5>
@@ -89,5 +89,35 @@
 
     // Call the function once to display the initial time and date
     updateCurrentTime();
+
+    var doctorWelcomeMessages = [
+        "Welcome to your Doctor Dashboard. Your patients' health is in good hands!",
+        "Hello, Doctor! We're here to assist you in providing exceptional healthcare.",
+        "Thank you for choosing our platform for managing your patients' health.",
+        "Your dedication to patient care makes a difference. Welcome to your dashboard!",
+        "Empowering doctors to deliver quality healthcare. Welcome aboard!",
+        "Your expertise is valued here. Welcome to your Doctor Dashboard!",
+        "Your patients trust you for a reason. Let's make healthcare better together.",
+        "Managing health records has never been easier. Welcome to your dashboard!",
+        "We appreciate your commitment to patient well-being. Welcome, Doctor!",
+        "Your impact on patient lives starts here. Welcome to your Doctor Dashboard!",
+        "Every interaction counts. Your dashboard is ready to assist you.",
+        "Elevating healthcare with your expertise. Welcome to the Doctor Dashboard!",
+        "Your dedication to patient care is truly commendable. Welcome!",
+        "Patient health at your fingertips. Welcome to your Doctor Dashboard!",
+        "Your skills, our platform. Let's enhance healthcare together. Welcome!",
+        // Add more messages as needed
+    ];
+
+    // Function to display a random welcome message for the doctor's dashboard
+    function displayRandomDoctorWelcomeMessage() {
+        var randomIndex = Math.floor(Math.random() * doctorWelcomeMessages.length);
+        var randomDoctorWelcomeMessage = doctorWelcomeMessages[randomIndex];
+        var doctorWelcomeMessageElement = document.querySelector('#doctor-welcome-message');
+        doctorWelcomeMessageElement.textContent = randomDoctorWelcomeMessage;
+    }
+
+    // Call the function on page load
+    displayRandomDoctorWelcomeMessage();
 </script>
 {% endblock %}

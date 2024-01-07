@@ -82,7 +82,7 @@
                     <div class="medicine-section">
                         {% if not medicine_data %}
                         <div class="alert alert-default-warning">
-                            <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_medicine_form' %}">
+                            <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'medicine_form' %}">
                             Add Medicine </a> first.
                         </div>
                         {% else %}
@@ -155,7 +155,7 @@
     </div>
     {% if not medicine_data %}
     <div class="alert alert-default-warning">
-        <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'add_medicine_form' %}">
+        <strong>Warning!</strong> Please <a class="text-dark" href="{% url 'medicine_form' %}">
         Add Medicine </a> first.
     </div>
     {% else %}

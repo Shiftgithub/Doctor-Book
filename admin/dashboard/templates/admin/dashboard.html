@@ -6,7 +6,7 @@
         <div class="alert alert-default-info">
             <div class="row">
                 <div class="col-6">
-                    <h6>Welcome to our Doctor Book AdminPanel</h6>
+                    <h6 id="admin-welcome-message">Welcome to the Doctor Book Administration Panel</h6>
                 </div>
                 <div class="col-6 text-right">
                     <h5 id="current-time"></h5>
@@ -72,11 +72,27 @@
                     <div class="card-body">
                         <div class="chart">
                             <canvas id="pieChartID"
-                                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
+                                    style="min-height: 280px; height: 280px; max-height: 280px; max-width: 100%;">
                             </canvas>
                         </div>
                     </div>
-                    <div></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">Total Predictions Overview</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                                    class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="predictionChartContainer"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -85,6 +101,7 @@
 {% endblock %}
 
 {% block scripts %}
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         function updateCurrentTime() {
@@ -142,6 +159,65 @@
 
         // Call the function to update the pie chart with initial values
         updatePieChart({{ department_data.department_count }}, {{ doctor_data.doctor_count }}, {{ patient_data.patient_count }});
+
+        function updatePredictionChart(predictionData) {
+            var predictionChartContainer = document.querySelector('#predictionChartContainer');
+
+            // Extract prediction count from predictionData
+            var predictionCount = predictionData.prediction_count;
+
+            // Generate x and y values based on the prediction count
+            var xValues = [];
+            var yValues = [];
+            for (var i = 0; i <= predictionCount; i++) {
+                xValues.push(i);
+                yValues.push(i * 1.0);  // Adjust as needed based on your logic
+            }
+
+            // Define Data
+            var data = [
+                { x: xValues, y: yValues, mode: "lines" }
+            ];
+
+            // Define Layout
+            var layout = { title: "Prediction Data Overview" };
+
+            // Display using Plotly
+            Plotly.newPlot(predictionChartContainer, data, layout);
+        }
+
+        // Call the function to update the Plotly chart with prediction data
+        updatePredictionChart({{ prediction_data | safe }});  // Use | safe to render HTML safely
     });
+
+    // Array of welcome messages for the administration dashboard
+    var adminWelcomeMessages = [
+        "Welcome to the Doctor Book Administration Panel. Managing healthcare made easy!",
+        "Hello, Administrator! Your role is crucial in ensuring a smooth healthcare experience.",
+        "Thank you for overseeing the Doctor Book platform. Welcome to the Administration Panel!",
+        "Your administrative skills contribute to the success of healthcare management. Welcome!",
+        "Empowering administrators to efficiently manage healthcare resources. Welcome aboard!",
+        "Your role is pivotal in maintaining the integrity of our healthcare platform. Welcome!",
+        "Managing healthcare data and resources with precision. Welcome to the Administration Panel!",
+        "We appreciate your commitment to the efficient operation of Doctor Book. Welcome!",
+        "Your impact on healthcare administration starts here. Welcome to the Administration Panel!",
+        "Every administrative task matters. Your dashboard is ready to assist you.",
+        "Streamlining healthcare processes with your expertise. Welcome to the Administration Panel!",
+        "Your dedication to administrative excellence is truly commendable. Welcome!",
+        "Efficient healthcare management begins with you. Welcome to the Administration Panel!",
+        "Your skills, our platform. Let's enhance healthcare administration together. Welcome!",
+        // Add more messages as needed
+    ];
+
+    // Function to display a random welcome message for the administration dashboard
+    function displayRandomAdminWelcomeMessage() {
+        var randomIndex = Math.floor(Math.random() * adminWelcomeMessages.length);
+        var randomAdminWelcomeMessage = adminWelcomeMessages[randomIndex];
+        var adminWelcomeMessageElement = document.querySelector('#admin-welcome-message');
+        adminWelcomeMessageElement.textContent = randomAdminWelcomeMessage;
+    }
+
+    // Call the function on page load
+    displayRandomAdminWelcomeMessage();
 </script>
 {% endblock %}

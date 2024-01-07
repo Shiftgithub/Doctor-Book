@@ -10,6 +10,7 @@ from admin.patient.models import PatientProfile
 from landing.landing.views import *
 from landing.appointment.views import *
 from admin.prescription.views import *
+from landing.prediction.views import count_predictions, count_prediction_for_admin
 
 
 def get_time_of_day():
@@ -39,10 +40,14 @@ def admin_dashboard(request):
     doctor_all_data = doctor_response.data
     patient_response = count_patient(request)
     patient_data = patient_response.data
+    prediction_response = count_prediction_for_admin(request)
+    prediction_data = prediction_response.data
+    print(prediction_data)
     data = {
         'department_data': department_data,
         'doctor_data': doctor_all_data,
         'patient_data': patient_data,
+        'prediction_data': prediction_data,
     }
     return render(request, 'dashboard/templates/admin/dashboard.html', data)
 
@@ -69,9 +74,22 @@ def doctor_dashboard(request):
 
 
 def patient_dashboard(request):
-    # patient_id = request.session['patient_id']
+    patient_id = request.session['patient_id']
     notification(request)
-    return render(request, 'dashboard/templates/patient/dashboard.html')
+    medicine_prescription_response = count_medicine_prescription_for_patient(request, patient_id)
+    medicine_prescription_data = medicine_prescription_response.data
+
+    prediction_response = count_predictions(request, patient_id)
+    prediction_data = prediction_response.data
+
+    lab_prescription_response = count_lab_prescription_for_patient(request, patient_id)
+    lab_prescription_data = lab_prescription_response.data
+    data = {
+        'prediction_data': prediction_data,
+        'lab_prescription_data': lab_prescription_data,
+        'medicine_prescription_data': medicine_prescription_data,
+    }
+    return render(request, 'dashboard/templates/patient/dashboard.html', data)
 
 
 def notification(request):
