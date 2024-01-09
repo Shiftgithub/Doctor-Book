@@ -98,15 +98,13 @@ $(document).ready(function() {
     });
 });
 
-
-
 // For off-day fields call back
 $(document).ready(function() {
     // Hide the remove button for the initial off-day section
     $('.off-day-section .remove-off-day-section').hide();
 
     // Get the HTML template for a new off-day section
-    let template = $('#templateID').html();
+    let template = $('#offDayTemplateID').html();
 
     // Add off-day section
     $(document).on('click', '.add-off-day-section', function() {
@@ -132,7 +130,6 @@ $(document).ready(function() {
         }
     });
 });
-
 // for award section
 $(document).ready(function() {
     // Hide the "Remove" button for the initial award section

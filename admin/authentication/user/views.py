@@ -18,6 +18,7 @@ def store_admin_data(request):
     image_serializer = ImageSerializer(data=request.data)
     user_serializer = UserSerializer(data=request.data)
     if admin_serializer.is_valid() and image_serializer.is_valid() and user_serializer.is_valid(raise_exception=True):
+        full_name = request.data.get('full_name')
         user_name = request.data.get('user_name')
         email = request.data.get('email')
 
@@ -37,7 +38,7 @@ def store_admin_data(request):
         message = f'Your OTP number is: {token_str}'
         otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
         otp_serializer.save()
-        sent_email = send_email(email, message)
+        sent_email = send_email(email, full_name, message)
         if otp_serializer and sent_email:
             data = {'email': email, 'status': 200, 'message': 'We send otp on your email. Please activate your account'}
             return Response(data)

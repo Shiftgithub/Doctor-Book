@@ -20,7 +20,7 @@ def store_medicine_data(request):
 
 @api_view(['GET'])
 def get_all_medicines_list(request):
-    medicines = Medicine.objects.filter(deleted_at=None).order_by('-id')
+    medicines = Medicine.objects.filter(deleted_at=None).order_by('id')
     serializer = MedicineViewSerializer(medicines, many=True)
     return Response(serializer.data)
 
@@ -99,4 +99,16 @@ def medicine_schedule_list(request):
     medicine_schedule = MedicineSchedule.objects.all()
     serializer = MedicineScheduleSerializer(medicine_schedule, many=True)
     serialized_data = serializer.data
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def count_medicine(request):
+    # Get the medicine instances for the given doctor_id
+    medicine = Medicine.objects.filter(deleted_at=None)
+
+    # Get the count of prescriptions_for_medicine
+    medicine_count = medicine.count()
+    serialized_data = {'medicine_count': medicine_count}
+
     return Response(serialized_data)

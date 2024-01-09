@@ -346,7 +346,7 @@ def save_matplotlib_image(features, labels, spec_obj, predicted_department_id, a
     fig, ax = plt.subplots()
 
     # Assuming features contains relevant data for plotting
-    feature_names = ['Body Part ID', 'Organ ID', 'Problem ID', 'Dept. Specification ID']
+    feature_names = ['Body Part', 'Organ', 'Problem', 'Dept. Specification']
 
     # Generate random colors for each bar
     colors = np.random.rand(len(feature_names), 3)
@@ -374,3 +374,31 @@ def save_matplotlib_image(features, labels, spec_obj, predicted_department_id, a
     plt.savefig(image_path)
 
     return image_path
+
+
+@api_view(['GET'])
+def count_predictions(request, patient_id):
+    # Get the PrescriptionForLabTest instances for the given patient_id
+    predictions = Prediction.objects.filter(created_by=patient_id)
+
+    # Get the count of prediction
+    prediction_count = predictions.count()
+
+    # Serializing prediction_count
+    serialized_data = {'prediction_count': prediction_count}
+
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def count_prediction_for_admin(request):
+    # Get the PrescriptionForLabTest instances for the given patient_id
+    predictions = Prediction.objects.filter(deleted_at=None)
+
+    # Get the count of prediction
+    prediction_count = predictions.count()
+
+    # Serializing prediction_count
+    serialized_data = {'prediction_count': prediction_count}
+
+    return Response(serialized_data)

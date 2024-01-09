@@ -51,33 +51,33 @@
             </div>
             <table class="table">
                 <tr>
-                    <th> Chief Complain (CC) :</th>
+                    <th>Chief Complain:</th>
                     <td>{{ prescription_data.cc }}</td>
                 </tr>
                 <tr>
-                    <th> On Examination (ON):</th>
+                    <th>On Examination:</th>
                     <td>{{ prescription_data.oe }}</td>
                 </tr>
                 <tr>
-                    <th> Differential Diagnosis (DD) :</th>
+                    <th>Diagnosis:</th>
                     <td>{{ prescription_data.dd }}</td>
                 </tr>
                 <tr>
-                    <th> Advice (AD) :</th>
+                    <th>Advice:</th>
                     <td>{{ prescription_data.ad }}</td>
                 </tr>
                 <tr>
-                    <th> Treatment List (TL) :</th>
+                    <th>Treatment List:</th>
                     <td>{{ prescription_data.tl }}</td>
                 </tr>
                 <tr>
-                    <th> Past Medical History (PMH) :</th>
+                    <th>Medical History:</th>
                     <td>{{ prescription_data.pmh }}</td>
                 </tr>
                 <tr>
                     {% for name in prescription_data.lab_test_name %}
                 <tr>
-                    <th>Lab Test Name :</th>
+                    <th>Lab Test Name:</th>
                     <td>{{ name }}</td>
                 </tr>
                 {% endfor %}

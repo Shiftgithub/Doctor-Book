@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 04, 2024 at 05:02 PM
+-- Generation Time: Jan 09, 2024 at 07:11 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -52,7 +52,7 @@ CREATE TABLE `admin_profile` (
 --
 
 INSERT INTO `admin_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `full_name`, `father_name`, `mother_name`, `phone_no`, `date_of_birth`, `nid_no`, `address`, `blood_group_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
-(1, '2024-01-03 12:26:15.132840', NULL, NULL, 'Mamun Mia', 'Kasem Ali', 'Hasina Begum', '+8801965572363', '2001-07-22', 1234567890, 'Dhaka , Narayanganj, Rupganj , Borpa , Dokkhin Masabo', 5, 1, 2, 1, 1);
+(1, '2024-01-03 12:26:15.132840', NULL, NULL, 'Mamun Mia Turan', 'Kasem Ali', 'Hasina Begum', '+8801965572363', '2001-07-22', 1234567890, 'Dhaka , Narayanganj, Rupganj , Borpa , Dokkhin Masabo', 5, 1, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -72,6 +72,18 @@ CREATE TABLE `article` (
   `created_by_id` bigint(20) DEFAULT NULL,
   `modified_by_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `article`
+--
+
+INSERT INTO `article` (`id`, `created_at`, `updated_at`, `deleted_at`, `heading`, `tag`, `description`, `image`, `created_by_id`, `modified_by_id`) VALUES
+(1, '2024-01-04 16:42:24.423590', NULL, NULL, 'Understanding Cancer: A Comprehensive Overview', 'Oncology', 'Introduction\r\nCancer is a complex and pervasive group of diseases characterized by the uncontrolled growth and spread of abnormal cells. It can affect virtually any part of the body, leading to a multitude of health challenges. In this article, we will explore the basics of cancer, its causes, common types, detection methods, and available treatments.\r\n\r\nWhat is Cancer?\r\nCancer occurs when the body\'s normal control mechanisms stop working. Old cells do not die, and instead, they form a mass of tissue known as a tumor. Not all tumors are cancerous; benign tumors do not spread to other parts of the body, while malignant tumors are cancerous and can invade surrounding tissues.\r\n\r\nCauses of Cancer\r\nUnderstanding the factors that contribute to cancer is crucial for prevention and early detection. The causes of cancer are multifaceted and may include genetic predisposition, environmental factors, lifestyle choices, and exposure to carcinogens.\r\n\r\nCommon Types of Cancer\r\nCancer can manifest in various forms, each with its unique characteristics and treatment approaches. Some of the most prevalent types include breast cancer, lung cancer, prostate cancer, colorectal cancer, and leukemia.\r\n\r\nBreast Cancer\r\nBreast cancer is a type of cancer that originates in the cells of the breast. It can occur in both men and women, though it is far more common in women.\r\n\r\nLung Cancer\r\nLung cancer primarily affects the lungs and is often associated with tobacco smoking. However, non-smokers can also develop lung cancer due to other risk factors.\r\n\r\nProstate Cancer\r\nProstate cancer occurs in the prostate, a small gland that produces seminal fluid in men. It is one of the most common cancers in men.\r\n\r\nColorectal Cancer\r\nColorectal cancer affects the colon or rectum and usually begins as a growth called a polyp. Early detection through screening can prevent its progression.\r\n\r\nLeukemia\r\nLeukemia is a cancer of the blood and bone marrow, resulting in the overproduction of abnormal white blood cells. It can be acute or chronic and requires specialized treatments.\r\n\r\nDetecting Cancer\r\nEarly detection significantly improves the chances of successful cancer treatment. Common methods of cancer detection include screenings, imaging tests, and biopsy procedures.\r\n\r\nCancer Treatment Options\r\nTreatment for cancer varies based on the type, stage, and location of the disease. Options include surgery, chemotherapy, radiation therapy, immunotherapy, and targeted therapy.\r\n\r\nConclusion\r\nCancer remains a formidable health challenge, but advancements in research and technology have led to improved diagnosis and treatment options. Understanding the basics of cancer, its causes, and available treatments is essential for both prevention and coping with a cancer diagnosis.', 'uploads/article_images/20240104231125_cancer.png', 1, 1),
+(2, '2024-01-04 16:53:22.086476', NULL, NULL, 'Brain Cancer: A Unique Challenge', 'Neurology', 'Brain Cancer Overview\r\nBrain cancer is a specific type of cancer that originates in the tissues of the brain or spinal cord. Unlike cancers in other parts of the body, brain cancers can pose unique challenges due to the complexity and sensitivity of the central nervous system.\r\n\r\nTypes of Brain Cancer\r\nThere are various types of brain cancers, with gliomas being the most common. Glioblastoma multiforme (GBM), an aggressive form of glioma, is particularly challenging due to its rapid growth and resistance to treatment.\r\n\r\nSymptoms of Brain Cancer\r\nSymptoms of brain cancer can vary but may include persistent headaches, seizures, difficulty speaking or comprehending language, changes in personality, and impaired motor function. Early detection is crucial for timely intervention.\r\n\r\nCauses and Risk Factors\r\nWhile the exact causes of brain cancer are not always clear, certain risk factors may contribute to its development. These factors include exposure to radiation, family history of brain tumors, and certain genetic conditions.\r\n\r\nDiagnosis and Treatment\r\nDiagnosis\r\nDiagnosing brain cancer often involves imaging tests such as MRIs or CT scans, followed by a biopsy to confirm the type and grade of the tumor. The location of the tumor within the brain is a critical factor in determining the best course of treatment.\r\n\r\nTreatment\r\nTreatment for brain cancer depends on factors like the type, grade, and location of the tumor. Common treatment modalities include surgery to remove the tumor, radiation therapy, and chemotherapy. In some cases, a combination of these approaches may be recommended.\r\n\r\nOngoing Research and Hope for the Future\r\nMedical research is continually advancing our understanding of brain cancer, leading to the development of novel treatments and therapeutic approaches. Clinical trials and research studies offer hope for improved outcomes and quality of life for individuals diagnosed with brain cancer.\r\n\r\nConclusion\r\nBrain cancer presents a unique set of challenges due to its location within the central nervous system. Understanding the symptoms, risk factors, and available treatment options is crucial for early detection and effective management of this complex disease.', 'uploads/article_images/20240104225322_brain_cancer.png', 1, NULL),
+(3, '2024-01-04 17:14:55.742016', NULL, NULL, 'Blood Cancer: Unraveling the Complexity', 'Hematology', 'Blood Cancer Overview\r\nBlood cancer, also known as hematologic cancer, originates in the blood-forming tissues, such as the bone marrow and lymphatic system. This category includes various types of cancers affecting the blood, bone marrow, lymph nodes, and immune system.\r\n\r\nTypes of Blood Cancer\r\nThere are three main types of blood cancer: leukemia, lymphoma, and myeloma.\r\n\r\nLeukemia: Affects the blood and bone marrow, causing an overproduction of abnormal white blood cells.\r\n\r\nLymphoma: Targets the lymphatic system, leading to the abnormal growth of lymphocytes, a type of white blood cell.\r\n\r\nMyeloma: Impacts plasma cells, a type of white blood cell that produces antibodies, resulting in weakened immune function.\r\n\r\nSymptoms of Blood Cancer\r\nCommon symptoms include fatigue, unexplained weight loss, frequent infections, easy bruising or bleeding, and swollen lymph nodes. Early diagnosis is crucial for effective treatment.\r\n\r\nCauses and Risk Factors\r\nThe causes of blood cancer are often complex and may involve genetic, environmental, and immune system factors. Some risk factors include exposure to certain chemicals or radiation, family history, and specific genetic mutations.\r\n\r\nDiagnosis and Treatment\r\nDiagnosis\r\nBlood cancer is typically diagnosed through blood tests, bone marrow biopsy, and imaging studies. Identifying the specific type and stage of blood cancer is essential for tailoring an effective treatment plan.\r\n\r\nTreatment\r\nTreatment approaches for blood cancer vary based on the type and stage of the disease. Common treatments include chemotherapy, radiation therapy, stem cell transplantation, and targeted therapies designed to address specific characteristics of cancer cells.\r\n\r\nOngoing Research and Progress\r\nResearch in blood cancer focuses on developing targeted therapies, immunotherapies, and improving the understanding of genetic factors influencing the disease. Clinical trials play a crucial role in testing new treatments and advancing our knowledge.\r\n\r\nConclusion\r\nBlood cancer encompasses a range of conditions affecting the blood and immune system. Recognizing early symptoms, understanding risk factors, and staying informed about evolving treatment options are vital for individuals and their families facing a blood cancer diagnosis.', 'uploads/article_images/20240104231455_blood_cancer.png', 1, NULL),
+(4, '2024-01-04 17:24:20.381366', NULL, NULL, 'Understanding Migraine: Unraveling the Complexity of Headache Disorders', 'Migraine', 'Introduction\r\nMigraine is a neurological disorder characterized by recurring moderate to severe headaches, often accompanied by other symptoms such as nausea, sensitivity to light, and visual disturbances. These episodes, known as migraine attacks, can significantly impact an individual\'s quality of life. In this article, we delve into the intricacies of migraines, exploring their causes, symptoms, triggers, and available treatment options.\r\n\r\nWhat is Migraine?\r\nMigraine is not simply a severe headache; it is a complex neurological condition involving abnormal brain activity. The exact cause of migraines is not fully understood, but a combination of genetic and environmental factors is believed to contribute. Migraine attacks often go beyond head pain, involving the activation of the trigeminal nerve, leading to a cascade of symptoms.\r\n\r\nSymptoms of Migraine\r\nMigraine symptoms can vary from person to person, but common features include:\r\n\r\nIntense Headache: Typically throbbing or pulsating, often on one side of the head.\r\nSensory Sensitivity: Increased sensitivity to light (photophobia) and sound (phonophobia).\r\nNausea and Vomiting: Gastrointestinal symptoms frequently accompany migraine attacks.\r\nAura: Some individuals experience visual disturbances, such as flashes of light or blind spots, before or during a migraine.\r\nTriggers and Contributing Factors\r\nIdentifying triggers is crucial for managing migraines. Common triggers include:\r\n\r\nHormonal Changes: Many women experience migraines related to their menstrual cycle.\r\nCertain Foods: Trigger foods vary, but common culprits include chocolate, cheese, and processed foods.\r\nStress: Emotional stress and tension can trigger migraines.\r\nSleep Patterns: Irregular sleep patterns or insufficient sleep may contribute.\r\nEnvironmental Factors: Strong smells, bright lights, and changes in weather can trigger migraines for some.\r\nDiagnosis\r\nDiagnosing migraines involves a thorough medical history, symptom analysis, and, in some cases, imaging studies to rule out other potential causes. The International Classification of Headache Disorders provides criteria for diagnosing various types of migraines.\r\n\r\nTreatment Options\r\nLifestyle Modifications\r\nTrigger Management: Identifying and avoiding triggers can help reduce the frequency of migraine attacks.\r\nRegular Sleep: Establishing a consistent sleep pattern is essential for migraine management.\r\nStress Reduction: Stress management techniques, such as relaxation exercises and mindfulness, can be beneficial.\r\nMedications\r\nAcute Medications: Over-the-counter pain relievers and prescription medications can help alleviate pain during a migraine attack.\r\nPreventive Medications: For individuals with frequent or severe migraines, preventive medications may be prescribed to reduce the frequency and intensity of attacks.\r\nEmerging Therapies\r\nAdvancements in migraine research have led to the development of novel therapies, including:\r\n\r\nCGRP Inhibitors: Monoclonal antibodies targeting calcitonin gene-related peptide (CGRP), a key player in migraines.\r\nNeuromodulation Devices: Devices such as transcutaneous electrical nerve stimulation (TENS) and vagus nerve stimulation show promise in migraine management.\r\nConclusion\r\nWhile migraines can be challenging to manage, a comprehensive approach combining lifestyle modifications, trigger management, and appropriate medications can significantly improve the quality of life for those affected. Ongoing research continues to deepen our understanding of migraines and pave the way for innovative treatment options.\r\n\r\nIf you suspect you have migraines or experience recurrent severe headaches, consult with a healthcare professional for an accurate diagnosis and personalized treatment plan.', 'uploads/article_images/20240104232420_Migraine.png', 1, NULL),
+(5, '2024-01-04 17:37:00.420942', NULL, NULL, 'Navigating Diabetes: Understanding, Managing, and Thriving', 'Diabetes', 'Introduction\r\nDiabetes is a chronic health condition characterized by elevated levels of blood glucose (sugar) due to either insufficient insulin production or the body\'s ineffective use of insulin. With millions of individuals worldwide grappling with diabetes, it is crucial to comprehend the intricacies of this condition. This article aims to shed light on the types of diabetes, symptoms, risk factors, and effective management strategies.\r\n\r\nTypes of Diabetes\r\nType 1 Diabetes\r\nIn Type 1 diabetes, the immune system mistakenly attacks and destroys insulin-producing beta cells in the pancreas. This results in little to no insulin production, requiring individuals to rely on insulin injections for survival.\r\n\r\nType 2 Diabetes\r\nType 2 diabetes, more common among adults, involves the body\'s inability to use insulin effectively. While genetics play a role, lifestyle factors such as poor diet and sedentary behavior contribute significantly to its development.\r\n\r\nGestational Diabetes\r\nGestational diabetes occurs during pregnancy when hormonal changes affect insulin\'s effectiveness. Though it usually resolves after childbirth, it increases the risk of Type 2 diabetes later in life.\r\n\r\nSymptoms of Diabetes\r\nRecognizing the signs of diabetes is crucial for early diagnosis and management. Common symptoms include:\r\n\r\nExcessive Thirst and Hunger\r\nFrequent Urination\r\nFatigue\r\nUnexplained Weight Loss\r\nBlurred Vision\r\nSlow Wound Healing\r\nRisk Factors\r\nSeveral factors increase the risk of developing diabetes:\r\n\r\nFamily History\r\nAge (Risk Increases with Age)\r\nObesity or Excess Body Weight\r\nPhysical Inactivity\r\nUnhealthy Diet High in Sugars and Processed Foods\r\nDiagnosis and Monitoring\r\nDiabetes is diagnosed through blood tests measuring blood glucose levels. Regular monitoring helps individuals manage their condition effectively, preventing complications.\r\n\r\nDiabetes Management\r\nLifestyle Modifications\r\nHealthy Eating: Adopting a balanced, nutrient-dense diet is crucial. Monitoring carbohydrate intake and choosing whole foods can help manage blood sugar levels.\r\n\r\nRegular Physical Activity: Engaging in regular exercise improves insulin sensitivity and helps control weight.\r\n\r\nWeight Management: Maintaining a healthy weight reduces insulin resistance.\r\n\r\nMedications\r\nOral Medications: Various oral medications help lower blood sugar levels in Type 2 diabetes.\r\n\r\nInsulin Therapy: Essential for Type 1 diabetes and sometimes required for Type 2 diabetes, insulin therapy aims to regulate blood glucose levels.\r\n\r\nContinuous Glucose Monitoring (CGM)\r\nAdvancements in technology have introduced CGM systems, providing real-time data on blood sugar levels, helping individuals make informed decisions about their diabetes management.\r\n\r\nComplications and Prevention\r\nUnmanaged diabetes can lead to complications such as heart disease, kidney damage, and nerve problems. However, proactive management and lifestyle changes significantly reduce these risks.\r\n\r\nConclusion\r\nLiving with diabetes requires a multifaceted approach encompassing lifestyle modifications, medication management, and regular monitoring. Understanding the nuances of this condition empowers individuals to take charge of their health, fostering a life not just marked by diabetes management but one of overall well-being.\r\n\r\nIf you suspect you have diabetes or are at risk, consult with a healthcare professional for proper diagnosis and personalized guidance.', 'uploads/article_images/20240104233700_diabetes.png', 1, NULL),
+(6, '2024-01-04 17:39:47.481302', NULL, NULL, 'Understanding Common Eye Problems: Causes, Symptoms, and Care', 'Eye Care', 'Introduction\r\nOur eyes are essential for daily functioning, and maintaining good eye health is crucial. Various eye problems can affect individuals of all ages, from refractive errors to more serious conditions. This article provides an overview of common eye problems, their causes, symptoms, and suggested care.\r\n\r\nRefractive Errors\r\nMyopia (Nearsightedness)\r\nMyopia occurs when distant objects appear blurry. It happens when the eyeball is too long or the cornea is too curved.\r\n\r\nHyperopia (Farsightedness)\r\nHyperopia results in difficulty seeing close objects clearly. It happens when the eyeball is too short or the cornea has too little curvature.\r\n\r\nAstigmatism\r\nAstigmatism occurs due to an irregular shape of the cornea or lens, causing blurred or distorted vision at any distance.\r\n\r\nCommon Eye Conditions\r\nCataracts\r\nCataracts involve the clouding of the eye\'s natural lens, leading to blurred vision. Aging, injury, or certain medications can contribute to cataract formation.\r\n\r\nGlaucoma\r\nGlaucoma is a group of eye conditions that damage the optic nerve, often due to increased intraocular pressure. It can lead to gradual vision loss.\r\n\r\nAge-Related Macular Degeneration (AMD)\r\nAMD is a degenerative eye disease affecting the macula, leading to central vision loss. It commonly occurs with aging.\r\n\r\nDiabetic Retinopathy\r\nDiabetic retinopathy results from damage to the blood vessels in the retina due to diabetes. It can lead to vision impairment or blindness if left untreated.\r\n\r\nDry Eye Syndrome\r\nDry eye syndrome occurs when the eyes do not produce enough tears or the tears evaporate too quickly. It can cause discomfort, redness, and blurred vision.\r\n\r\nSymptoms of Eye Problems\r\nBlurred or Distorted Vision\r\nEye Pain or Discomfort\r\nRedness or Irritation\r\nSensitivity to Light\r\nDifficulty Seeing at Night\r\nFloaters or Flashing Lights\r\nChanges in Color Perception\r\nCare and Prevention\r\nRegular Eye Exams\r\nRoutine eye exams are crucial for early detection and management of eye problems. They help identify issues before symptoms arise.\r\n\r\nHealthy Lifestyle Choices\r\nBalanced Diet: Nutrient-rich foods support eye health.\r\nRegular Exercise: Promotes overall well-being, including eye health.\r\nAdequate Sleep: Ensures proper rest for the eyes.\r\nProtective Measures\r\nUV Protection: Wearing sunglasses with UV protection shields eyes from harmful rays.\r\nScreen Breaks: Follow the 20-20-20 rule to reduce eye strain when using digital devices.\r\nProper Contact Lens Care\r\nFor those using contact lenses, following proper hygiene and replacement schedules is essential to prevent infections and discomfort.\r\n\r\nConclusion\r\nMaintaining good eye health is vital for a high quality of life. Regular eye exams, a healthy lifestyle, and protective measures can significantly contribute to preventing and managing common eye problems. If you experience persistent symptoms or changes in vision, consult with an eye care professional for a thorough evaluation and personalized care.', 'uploads/article_images/20240104234146_images.jpeg', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1166,6 +1178,20 @@ CREATE TABLE `django_session` (
   `expire_date` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `django_session`
+--
+
+INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('34d6u56avsgtxsro2dl515zo5e7fonvd', '.eJxlj80KgzAQhF-l5FzURI2pp76AzyCbP0nJqiSml9J3rz8VCr0t3-zMMC-Sogm906Sl1-MeAQ1pCWh0I_myMPk_ZhCcXyECphEdLCnAeB82mqkJz7e4rErczGpxT7Pi3zKbvD8buy3o0jk4rQ5hMH0KW0uORjvI0-wn0DHfpZizglUFLRrK67KkvSiZbkBwzpmolJASSkGNrZVVN2mlzB7zsIbvM47N7w8c01UM:1rMlvE:W0G5MXRqqVZsF0uwpzxehqjBlvbjuUwSzUzQNIoUibU', '2024-01-22 09:27:52.911719'),
+('3gy4htnavx82jiqio9wgnuz2nb96g3r0', '.eJxlj0GOwjAMRa-CskY0zTStYMUFumNfucStjOK0Shqk0WjuTgJEQsIr69n-3_9PxIB-ICNO9f7VO2AUJwGGyYk384v9YshANkEGjo4JtujBnedMD9eFy1rY0iTk4-tGd0z402yK1hbHPgvteoLdJUsVAWKYcYg-e1WMhqCKq13AhOo5CpWSqpF1LVP9yHZQY6c7lHKUY910Rh5brXSj1WR0Ywy0h9s6J_FnmJJ8Q16HO3qafkswl177fwAC9l-W:1rNGTI:88R3-J3Yz5uPryKYlahPYsSMwRFFn5Uspy9KGIojXqg', '2024-01-23 18:05:04.089653'),
+('5k532vzra7638ojvejk2fbjlace36yn1', '.eJxFj9sKwyAMhl-leD1adbaWXm3Q9yiZ2k7QWjzsZuzdZ080EEi-_ORPvigF5QctUUdvez2DVahD0onoPEEH9c5c9ITKgjaX9jGtfSmcXfMUhQgxhawCEfVHZby6kWM6JmNOy96XxdOnGeYpvFPRQzh3aAuTGpJfzSqrpIYqLcaBDNU2ChXFlGGCGalzsOFOgY8t4wJjyJy_GsoEaXhbSyUwl-UyT3n5fvj2Pvn9AZNxV5M:1rMB5N:6z5cpVElKbu49CLkDQ1CJ87SxF45WMrHU-FdRf5Ndjc', '2024-01-20 18:07:53.301150'),
+('f7i4q8we651pzm6cjqh5j0ku9kk588ad', '.eJxlj1sKwjAQRbci-RabtI2PfrkB11AmD8toJi1JI4i4dxu1ovg3nLkP7o2laEOLhjVi-bo9kGUNA0Po2ZuF3v0xS4BuggSUPCGMKYDfd5mudE-zLI7TJ2azHvFiJ_xddkzOzY2HHLQ4IMxWJOhsm0JuKcgahCINrgcTi-crFiUvay54JbblWshWKA2bSshKKVVLvgO-rYQGqYzZKS356jR0U_hzxrx5tDS0FxvweP1MOoPCAAGv4EX9M-lbnQM29wejO2wS:1rLfTH:yrEm52wbqQeFKPFIe5VCvLyh5OAepM0_wDNSv7uEPX0', '2024-01-19 08:22:27.114632'),
+('iibfpgxmunwsmnerepivvm6ga3ualwno', '.eJxNj80OgyAQhF-l4dyIID_VU_sOvZtVqCEBNPz00vTdq1YSb5tvZndmPyhHHXqjUCeu_9mD06hDCySjfSLowGG2J1yodmDsyX2fNlCNsyuOmCDluFpgTOatV7yFkUN9ZWtL4jMH8JeHNWXVOJh0n8MWgJ1WBnBe7Awq4l2KmNaU1aSWRHBOaD9I1g4tVZIrxW6sAdHyF9WiGagUhEO1-Gk9fpTdvybfH5KiVNA:1rMm4T:mkHe5prC4FXC794uk7ui1-oJt33rkDRcxCKWAivjisQ', '2024-01-22 09:37:25.489359'),
+('kjhylurj2xr1epvbnwjyuq2nqolkutaj', '.eJxFj9sKwyAMhl-leD1adbaWXm3Q9yiZ2k7QWjzsZuzdZ080EEi-_ORPvigF5QctUUdvez2DVahD0onoPEEH9c5c9ITKgjaX9jGtfSmcXfMUhQgxhawCEfVHZby6kWM6JmNOy96XxdOnGeYpvFPRQzh3aAuTGpJfzSqrpIYqLcaBDNU2ChXFlGGCGalzsOFOgY8t4wJjyJy_GsoEaXhbSyUwl-UyT3n5fvj2Pvn9AZNxV5M:1rMAp0:Qdkg36XXDfKHT0y_dDM57T-2PYHdMWY9T-AlliS7o00', '2024-01-20 17:50:58.982987'),
+('koi1lj3qs3v05jtfb8ro6iyguqc0h2hh', '.eJxFj9sKwyAMhl-leD1adbaWXm3Q9yiZ2k7QWjzsZuzdZ080EEi-_ORPvigF5QctUUdvez2DVahD0onoPEEH9c5c9ITKgjaX9jGtfSmcXfMUhQgxhawCEfVHZby6kWM6JmNOy96XxdOnGeYpvFPRQzh3aAuTGpJfzSqrpIYqLcaBDNU2ChXFlGGCGalzsOFOgY8t4wJjyJy_GsoEaXhbSyUwl-UyT3n5fvj2Pvn9AZNxV5M:1rM8lw:vGfyObNLslzazAs6Cw88uwcVV6dyChOkD4uxAngjrjM', '2024-01-20 15:39:40.066675'),
+('q2rgbuqq8n94nfva6dzoiz8wv4az56cg', '.eJxFj8sOgyAQRX_FsG4EBJ-rNvE_zChoSUAMSDdN_72-iItJZs7c3DvzRcFL1ymBmuxx9jMYiRok7LBaR9FFndU3jVAaUPrWPqd9Tgdr9ooiv8Ia_KaCYVUfueE9jV7bMWgdI1uXJi8XZpgn_w5JCz56KAOT7ILbw7CRQgEOi7YgPD5WHmck44SSkpas5LSDmrBK9Ez0OeVDxaq64FlNxpKxnOd9kS7ztJmfhx_v098fkZNXRg:1rMRTJ:VT_7Ixn-RjtvKpcCRmRLKWWDb9OZbt2Lt2rPvQcFgP4', '2024-01-21 11:37:41.260122');
+
 -- --------------------------------------------------------
 
 --
@@ -1183,6 +1209,16 @@ CREATE TABLE `doctor_appointment_schedule` (
   `modified_by_id` bigint(20) DEFAULT NULL,
   `doctor_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `doctor_appointment_schedule`
+--
+
+INSERT INTO `doctor_appointment_schedule` (`id`, `created_at`, `updated_at`, `deleted_at`, `per_patient_time`, `consultation_fee`, `created_by_id`, `modified_by_id`, `doctor_profile_id`) VALUES
+(1, '2024-01-07 05:49:07.492638', NULL, NULL, 10, 500, NULL, NULL, 1),
+(2, '2024-01-07 05:50:43.958230', NULL, NULL, 10, 600, NULL, NULL, 2),
+(3, '2024-01-07 05:51:20.526212', NULL, NULL, 10, 500, NULL, NULL, 3),
+(4, '2024-01-07 05:52:08.987476', NULL, NULL, 15, 500, NULL, NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -1240,6 +1276,18 @@ CREATE TABLE `doctor_off_day` (
   `off_day_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `doctor_off_day`
+--
+
+INSERT INTO `doctor_off_day` (`id`, `created_at`, `updated_at`, `deleted_at`, `created_by_id`, `doctor_profile_id`, `modified_by_id`, `off_day_id`) VALUES
+(1, '2024-01-07 05:49:07.510590', NULL, NULL, NULL, 1, NULL, 1),
+(2, '2024-01-07 05:49:07.515194', NULL, NULL, NULL, 1, NULL, 5),
+(3, '2024-01-07 05:50:43.985242', NULL, NULL, NULL, 2, NULL, 7),
+(4, '2024-01-07 05:51:20.532199', NULL, NULL, NULL, 3, NULL, 4),
+(5, '2024-01-07 05:51:20.540306', NULL, NULL, NULL, 3, NULL, 6),
+(6, '2024-01-07 05:52:09.000296', NULL, NULL, NULL, 4, NULL, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -1276,8 +1324,8 @@ CREATE TABLE `doctor_profile` (
 
 INSERT INTO `doctor_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `full_name`, `father_name`, `mother_name`, `date_of_birth`, `birth_registration_no`, `phone_no`, `nid_no`, `experience`, `biography`, `languages_spoken`, `passport_no`, `blood_group_id`, `department_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
 (1, '2024-01-04 09:55:54.637054', NULL, NULL, 'Dr. Arunangshu Das', 'Aimee Long', 'Brielle Melton', '1971-01-19', '6', '01965784645', '76', '5 Years', 'Dr Arunangshu Das passed MBBS from Mymensing Medical College in 2005. After that he joined Radiotherapy Department of Dhaka Medical College in 2007 as Honorary Medical Officer. At the end of 2008 he received a scholarship and went to National Cancer Center (NCC) Singapore for a clinical attachment and training. In 2009, he successfully completed Post Graduate Certificate in Palliative Medicine  from Flinders University Australia.  He joined Government Health Service (27th BCS) in December 2008. Subsequently in 2010 he was posted at National Institute of Cancer Research and Hospital (NICRH), Dhaka at the Department of Radiation Oncology. In 2012 he went to UKM, Malaysia for a higher training in Oncology. He successfully completed FCPS in Radiotherapy from Bangladesh College of Physicians and Surgeons of Bangladesh (BCPS) in 2014. At the middle of 2014 he went to TATA Memorial Hospital Mumbai for a clinical training in Radiation Oncology. He received the prestigious International Development and Education Award (IDEA) in January 2018 from American Society of Clinical Oncology (ASCO) USA. He also achieved the prestigious ESMO Asia Leadership Award in 2020. As a part of voluntary activity he is working as the General Secretary of Bangladesh Society for Breast Cancer Study. He is active in clinical research and published many articles both nationally and internationally. He has long 15 years experience working the field of Oncology. Currently he is working as Associate Consultant at Oncology Department of Square Hospitals Ltd.', 'Bangla, English', 'N/A', 1, 4, 1, 1, 2, 2),
-(2, '2024-01-04 10:16:07.349043', NULL, NULL, 'Dr. Md. Towhiduzzaman', 'Kalia Shaw', 'Julie Dunlap', '1976-04-15', '8', '01963369911', '61', 'Assumenda rerum cons', 'Dr. Towhiduzzaman received SAARC Cardiology  hands on Fellowship in Interventional Cardiology at Escorts Heart Institute and Research Centre (EHIR&C), New Delhi, India for 01(one) year in June 2006. Subsequently he was selected for another 01 year hands on Fellowship program in Interventional Cardiology at National Heart Centre, Singapore and received the fellowship award in July 2007.  He has successfully completed Rotablation, Intravascular ultrasound Pressure wire and peripheral stenting course. He also gained and experienced a numerous number of invasive and clinical training and observatory fellowship and visited  USA, Canada, France, England, Japan, Italy, Sweden, Hong Kong, China, Jamaica, Costarica, Vietnam, Malaysia, Thailand, India, Pakistan and Nepal. Dr. Towhiduzzaman has published articles and presented cases at numerous national and international conferences. He has vast experiences of 10 years to perform invasive & interventional and complex diagnostic and therapeutic procedures independently & confidently. He is regular Faculty/Guest Speaker and participated in a large number of International workshops, seminars, symposiums both home and abroad that has enriched his decision making capacity, professional skills and care giving attitude to an international level. For last 10 years he is performing highest number of complex bifurcation, CTOs, primary PCI, and Renal & Peripheral Angioplasties at Square Hospital.His sub specialty interest is in Interventional Cardiology.Professional Appointment & Committee Membership:Life Member – Bangladesh Cardiac Society (BSC), Bangladesh Society of Cardiovascular Interventions (BSCI), Bangladesh Society of Echo Cardiography (BSE), Bangladesh Medical Association (BMA)Org. Secretary (Elect) Bangladesh Cardiac Society from 2015, Scientific Secretary (Elect), 2009 – 14.Others: Fellow, Society of Cardiac angiography &Intervention(FSCAI, USA), Associate Fellow American College of Cardiology (FACC), Member-American Society of Echocardiography (MASE), European Society of Percutaneous Cardiovascular Interventions. (EPACI), European Society of Cardiology (MESC)', 'Bangla, English', 'Ut ut blanditiis id', 3, 18, 1, 1, 1, 3),
-(3, '2024-01-04 11:42:11.395957', NULL, NULL, 'Dr. Asif Manwar', 'Armand Nguyen', 'Ila Norris', '2018-06-14', '18', '+1 (993) 535-9147', '24', 'Praesentium in expli', 'Dr. Asif Manwar, a graduate of Chittagong Medical College, started career as Resident Medical Officer, BIRDEM in 2002 en-route to Ibrahim Cardiac Hospital.  Dr. Manwar pursued PG Dip Cardiology in 2004 under University of London with Distinction & Sir John Goodwin Prize for academic excellence by Imperial College London. Academic up-gradation in 2006 created an opportunity to serve Apollo Hospital Dhaka as Registrar, Cardiology. To aspire proficiency at masters’ level he completed MSc Cardiology with Distinction once again by Canterbury Christ Church & University College London (UCL) in 2008. To achieve superspeciality, he opted Fellowship in Paediatric Cardiology being registered with Medical Council of India in 2009.           \r\n\r\nDr. Manwar is proficient in all facets of non-invasive procedures like 3D-TOE-DSE, Dyssynchrony, Strain Rate, Tissue Doppler Imaging, Contrast & Intra-operative Echo. He got basic training from Hammersmith, Royal Brompton and advanced training from The Heart Hospital London. He obtained hands on training in Grown-Up Congenital, Paediatric, Neonatal & Fetal Echo from AMRITA Kerala & New Delhi India. \r\n\r\nDr. Asif Manwar joined SQUARE Hospital as Specialist Cardiologist, contributing his expertise since then before taking up position of Associate Consultant in 2015 & Coordinator Non-Invasive Lab in 2017.', 'Bangla, English', 'Distinctio Sed dolo', 8, 22, 1, 4, 3, 4),
+(2, '2024-01-04 10:16:07.349043', NULL, NULL, 'Dr. Md. Towhiduzzaman', 'Kalia Shaw', 'Julie Dunlap', '1976-04-15', '8', '01963369911', '61', 'Assumenda rerum cons', 'Dr. Towhiduzzaman received SAARC Cardiology  hands on Fellowship in Interventional Cardiology at Escorts Heart Institute and Research Centre (EHIR&C), New Delhi, India for 01(one) year in June 2006. Subsequently he was selected for another 01 year hands on Fellowship program in Interventional Cardiology at National Heart Centre, Singapore and received the fellowship award in July 2007.  He has successfully completed Rotablation, Intravascular ultrasound Pressure wire and peripheral stenting course. He also gained and experienced a numerous number of invasive and clinical training and observatory fellowship and visited  USA, Canada, France, England, Japan, Italy, Sweden, Hong Kong, China, Jamaica, Costarica, Vietnam, Malaysia, Thailand, India, Pakistan and Nepal. Dr. Towhiduzzaman has published articles and presented cases at numerous national and international conferences. He has vast experiences of 10 years to perform invasive & interventional and complex diagnostic and therapeutic procedures independently & confidently. He is regular Faculty/Guest Speaker and participated in a large number of International workshops, seminars, symposiums both home and abroad that has enriched his decision making capacity, professional skills and care giving attitude to an international level. For last 10 years he is performing highest number of complex bifurcation, CTOs, primary PCI, and Renal & Peripheral Angioplasties at Square Hospital.His sub specialty interest is in Interventional Cardiology.Professional Appointment & Committee Membership:Life Member – Bangladesh Cardiac Society (BSC), Bangladesh Society of Cardiovascular Interventions (BSCI), Bangladesh Society of Echo Cardiography (BSE), Bangladesh Medical Association (BMA)Org. Secretary (Elect) Bangladesh Cardiac Society from 2015, Scientific Secretary (Elect), 2009 – 14.Others: Fellow, Society of Cardiac angiography &Intervention(FSCAI, USA), Associate Fellow American College of Cardiology (FACC), Member-American Society of Echocardiography (MASE), European Society of Percutaneous Cardiovascular Interventions. (EPACI), European Society of Cardiology (MESC)', 'Bangla, English', 'Ut ut blanditiis id', 3, 4, 1, 1, 1, 3),
+(3, '2024-01-04 11:42:11.395957', NULL, NULL, 'Dr. Asif Manwar', 'Armand Nguyen', 'Ila Norris', '2018-06-14', '18', '+1 (993) 535-9147', '24', 'Praesentium in expli', 'Dr. Asif Manwar, a graduate of Chittagong Medical College, started career as Resident Medical Officer, BIRDEM in 2002 en-route to Ibrahim Cardiac Hospital.  Dr. Manwar pursued PG Dip Cardiology in 2004 under University of London with Distinction & Sir John Goodwin Prize for academic excellence by Imperial College London. Academic up-gradation in 2006 created an opportunity to serve Apollo Hospital Dhaka as Registrar, Cardiology. To aspire proficiency at masters’ level he completed MSc Cardiology with Distinction once again by Canterbury Christ Church & University College London (UCL) in 2008. To achieve superspeciality, he opted Fellowship in Paediatric Cardiology being registered with Medical Council of India in 2009.           Dr. Manwar is proficient in all facets of non-invasive procedures like 3D-TOE-DSE, Dyssynchrony, Strain Rate, Tissue Doppler Imaging, Contrast & Intra-operative Echo. He got basic training from Hammersmith, Royal Brompton and advanced training from The Heart Hospital London. He obtained hands on training in Grown-Up Congenital, Paediatric, Neonatal & Fetal Echo from AMRITA Kerala & New Delhi India. Dr. Asif Manwar joined SQUARE Hospital as Specialist Cardiologist, contributing his expertise since then before taking up position of Associate Consultant in 2015 & Coordinator Non-Invasive Lab in 2017.', 'Bangla, English', 'Distinctio Sed dolo', 8, 22, 1, 4, 3, 4),
 (4, '2024-01-04 11:43:53.046856', NULL, NULL, 'Dr. Fowaz Hussain Shuvo', 'Haley Perkins', 'Silas Owen', '1989-04-12', '53', '+1 (965) 663-4104', '26', 'Provident occaecat', 'Dr. Fowaz Hussain graduated from Dhaka Medical College and obtained his MD (Hepatology) from Bangabandhu Sheikh Mujib Medical University (BSMMU). He gained experience through his working tenure of more than 10 years at department of Hepatology and Gastroenterology of a reputed corporate hospital of Dhaka where he groomed himself up as one of the dependable gastroenterologists of the country. He was also an Assistant Professor in the department of Hepatolgy at Mymensingh Medical College & Hospital. Dr. Fowaz Hussain is an expert in Interventional procedures like Endoscopy, Colonoscopy, Polypectomy, ERCP, Esophageal Stentings, Bleeding Homeostasis and Clippings. Dr. Fowaz Hussain got his advanced interventional training and joined many workshops in India, Singapore and different countries of Europe. He has many publications both in international and national levels.', 'Bangla, English', 'Tempor quo officia a', 5, 7, 1, 1, 1, 5);
 
 -- --------------------------------------------------------
@@ -1296,6 +1344,20 @@ CREATE TABLE `doctor_schedule_times` (
   `appointment_schedule_id` bigint(20) DEFAULT NULL,
   `doctor_profile_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `doctor_schedule_times`
+--
+
+INSERT INTO `doctor_schedule_times` (`id`, `created_at`, `updated_at`, `deleted_at`, `start_time`, `end_time`, `appointment_schedule_id`, `doctor_profile_id`) VALUES
+(1, '2024-01-07 05:49:07.494631', NULL, NULL, '09:00:00.000000', '13:00:00.000000', 1, 1),
+(2, '2024-01-07 05:49:07.496626', NULL, NULL, '16:00:00.000000', '19:00:00.000000', 1, 1),
+(3, '2024-01-07 05:49:07.497625', NULL, NULL, '20:00:00.000000', '23:30:00.000000', 1, 1),
+(4, '2024-01-07 05:50:43.960624', NULL, NULL, '11:00:00.000000', '14:00:00.000000', 2, 2),
+(5, '2024-01-07 05:50:43.973189', NULL, NULL, '17:00:00.000000', '21:00:00.000000', 2, 2),
+(6, '2024-01-07 05:51:20.527208', NULL, NULL, '17:00:00.000000', '23:00:00.000000', 3, 3),
+(7, '2024-01-07 05:52:08.989470', NULL, NULL, '10:00:00.000000', '13:30:00.000000', 4, 4),
+(8, '2024-01-07 05:52:08.998390', NULL, NULL, '18:30:00.000000', '23:30:00.000000', 4, 4);
 
 -- --------------------------------------------------------
 
@@ -1331,6 +1393,32 @@ CREATE TABLE `faq` (
   `created_by_id` bigint(20) DEFAULT NULL,
   `modified_by_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `faq`
+--
+
+INSERT INTO `faq` (`id`, `created_at`, `updated_at`, `deleted_at`, `question`, `answer`, `created_by_id`, `modified_by_id`) VALUES
+(1, '2024-01-04 16:24:07.938548', NULL, NULL, 'What is the purpose of this doctor prediction project?', 'This project aims to assist you in finding suitable doctors based on your problem specification.', 1, NULL),
+(2, '2024-01-04 16:24:35.325966', NULL, NULL, 'How does the doctor book system work?', 'The system utilizes advanced algorithms and machine learning models to analyze historical data, user preferences, and real-time information to predict the most suitable doctors for a given query.', 1, 1),
+(3, '2024-01-04 16:25:13.837017', NULL, NULL, 'What information is required for the doctor prediction process?', 'The system requires input such as preferred specialty, and desired appointment time to provide accurate predictions.', 1, NULL),
+(4, '2024-01-04 16:25:39.934566', NULL, NULL, 'Is the doctor book system based on historical data or real-time information?', 'The system combines historical data with real-time information to ensure up-to-date and relevant predictions.', 1, NULL),
+(5, '2024-01-04 16:27:21.591254', NULL, NULL, 'Can I trust the predictions made by the system?', 'Our system undergoes rigorous testing and validation to ensure accuracy. While no system is perfect, we continuously strive to improve and refine our prediction models.', 1, NULL),
+(6, '2024-01-04 16:27:40.159945', NULL, NULL, 'What factors are considered in predicting the availability of a doctor?', 'Availability predictions take into account factors such as the doctor\'s schedule, historical appointment data, and any specific preferences provided by the user.', 1, NULL),
+(7, '2024-01-04 16:27:56.461820', NULL, NULL, 'How often are the predictions updated?', 'predictions are updated regularly to reflect changes in doctor availability and ensure users receive the most current information.', 1, NULL),
+(8, '2024-01-04 16:28:20.737305', NULL, NULL, 'Can I book an appointment directly through the system?', 'Yes, our system allows users to seamlessly book appointments with the predicted doctors. The booking process is user-friendly and efficient.', 1, NULL),
+(9, '2024-01-04 16:28:41.258006', NULL, NULL, 'Is the doctor book system accessible on mobile devices?', 'Absolutely! Our system is designed to be responsive and accessible on various devices, including mobile phones and tablets.', 1, NULL),
+(10, '2024-01-04 16:28:59.364381', NULL, NULL, 'What security measures are in place to protect user data?', 'We prioritize the security of user data and implement encryption protocols to safeguard personal information. Our privacy policy provides comprehensive details on data protection.', 1, NULL),
+(11, '2024-01-04 16:29:15.927353', NULL, NULL, 'How can I provide feedback or report issues with the doctor book?', 'Users can easily provide feedback or report issues through our contact page or customer support email. We value user input and use it to enhance our system.', 1, NULL),
+(12, '2024-01-04 16:29:32.941016', NULL, NULL, 'Are there any costs associated with using the doctor book system?', 'The basic features of our doctor prediction system are free to use. However, there may be additional charges for premium features or services.', 1, NULL),
+(13, '2024-01-04 16:30:10.436614', NULL, NULL, 'What should I do if I encounter technical difficulties while using the system?', 'If you experience technical difficulties, please refer to our troubleshooting guide on the support page. For further assistance, contact our technical support team at [doctorbook.official@gmail.com].', 1, NULL),
+(14, '2024-01-04 16:30:28.014806', NULL, NULL, 'Is my personal information kept confidential?', 'We take privacy seriously. Your personal information is securely stored and handled in accordance with our privacy policy. Rest assured that your data is kept confidential.', 1, NULL),
+(15, '2024-01-04 16:32:10.796274', NULL, NULL, 'How does the system handle emergency situations?', 'In emergency situations, the system prioritizes and provides immediate access to available doctors. However, for critical emergencies, we strongly recommend contacting local emergency services.', 1, NULL),
+(16, '2024-01-04 16:32:30.684857', NULL, NULL, 'Can I receive notifications for upcoming appointments?', 'Yes, our system offers the option to enable notifications. Users can receive alerts for upcoming appointments, ensuring they don\'t miss important meetings with their chosen doctors.', 1, NULL),
+(17, '2024-01-04 16:32:39.672043', NULL, NULL, 'Are alternative or backup doctors suggested in case my preferred choice is unavailable?', 'Absolutely. If your preferred doctor is unavailable, the system automatically suggests alternative doctors based on similar criteria to ensure you still have options.', 1, NULL),
+(18, '2024-01-04 16:33:22.230313', NULL, NULL, 'How does the system ensure fairness and avoid biases in doctor predictions?', 'We employ advanced algorithms designed to mitigate biases and ensure fairness in doctor predictions. Regular audits and updates are conducted to address any potential biases that may arise.', 1, NULL),
+(19, '2024-01-04 16:33:40.354512', NULL, NULL, 'What information is required for user registration, and is it mandatory?', 'User registration typically requires basic information such as name, email, and location. While registration is not mandatory for browsing, it is necessary for booking appointments and accessing personalized features.', 1, NULL),
+(20, '2024-01-04 16:33:52.108231', NULL, NULL, 'How does the system handle data privacy and compliance with regulations?', 'Our system adheres to strict data privacy regulations. We comply with industry standards and regulations, and our privacy policy outlines how user data is collected, stored, and processed.', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -1372,11 +1460,14 @@ CREATE TABLE `images` (
 --
 
 INSERT INTO `images` (`id`, `created_at`, `updated_at`, `deleted_at`, `photo_name`, `user_id`) VALUES
-(1, '2024-01-03 12:26:15.136829', NULL, NULL, 'uploads/images/20240103182615_1bca73153bbb4509a0831ca5bdd9bc50.jpg', 1),
-(2, '2024-01-04 09:55:54.652016', NULL, NULL, 'uploads/images/20240104155554_32a7f847c00a4017b624c16785dec07d.png', 2),
-(3, '2024-01-04 10:16:07.353033', NULL, NULL, 'uploads/images/20240104161607_e3771eebce404dc6ac651c66cf3dc6f8.jpg', 3),
-(4, '2024-01-04 11:42:11.423879', NULL, NULL, 'uploads/images/20240104174211_489b0886c31c447380658497eb25a241.png', 4),
-(5, '2024-01-04 11:43:53.048848', NULL, NULL, 'uploads/images/20240104174353_e2b6dcd3bde548109fcea2563d67ada6.png', 5);
+(1, '2024-01-03 12:26:15.136829', '2024-01-10 00:05:04.080678', NULL, 'uploads/images/20240110000306_2b757e00b0b147d096525452fd54dda6.jpg', 1),
+(2, '2024-01-04 09:55:54.652016', NULL, NULL, 'uploads/images/20240110000431_3703f05b461d435ea166fed782ea7a79.png', 2),
+(3, '2024-01-04 10:16:07.353033', NULL, NULL, 'uploads/images/20240110000404_3c51e96bc2f148d1ac130dd87ca61d29.png', 3),
+(4, '2024-01-04 11:42:11.423879', NULL, NULL, 'uploads/images/20240110000341_af22a8d46f444ded8644beeebaca2f8f.png', 4),
+(5, '2024-01-04 11:43:53.048848', NULL, NULL, 'uploads/images/20240110000240_f1d0c44826a44b6b9627718c0037dcaa.png', 5),
+(6, '2024-01-05 06:27:49.254032', '2024-01-10 00:08:47.859252', NULL, 'uploads/images/20240110000847_dc5f36d1758843de9dd5863d495493f4.png', 6),
+(7, '2024-01-05 06:30:28.677482', '2024-01-10 00:08:35.542208', NULL, 'uploads/images/20240110000835_c927d84d5eb54ec9bfc9277e89debf40.jpg', 7),
+(8, '2024-01-08 08:53:16.700880', '2024-01-10 00:08:08.515602', NULL, 'uploads/images/20240110000808_70281ce2e6074d98a0473356629b71d4.jpg', 8);
 
 -- --------------------------------------------------------
 
@@ -1398,7 +1489,101 @@ CREATE TABLE `lab_test` (
 --
 
 INSERT INTO `lab_test` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`, `description`) VALUES
-(1, NULL, NULL, NULL, 'Blood Test', NULL);
+(1, NULL, '2024-01-05 08:02:32.426566', NULL, 'Complete Blood Count (CBC)', 'Measures the number of red blood cells, white blood cells, and platelets in the blood.'),
+(2, '2024-01-05 08:03:08.767750', NULL, NULL, 'Blood Glucose Test', 'Measures the amount of glucose (sugar) in the blood to assess for diabetes or monitor blood sugar levels.'),
+(3, '2024-01-05 08:03:21.864350', NULL, NULL, 'Lipid Profile', 'Measures cholesterol levels, including total cholesterol, HDL (high-density lipoprotein), LDL (low-density lipoprotein), and triglycerides.'),
+(4, '2024-01-05 08:03:36.105799', NULL, NULL, 'Liver Function Tests (LFTs)', 'Includes tests such as ALT, AST, alkaline phosphatase, and bilirubin to assess the health of the liver.'),
+(5, '2024-01-05 08:03:49.711406', NULL, NULL, 'Kidney Function Tests', 'Includes tests like creatinine and blood urea nitrogen (BUN) to evaluate kidney function.'),
+(6, '2024-01-05 08:04:18.995442', NULL, NULL, 'hyroid Function Tests', 'Measures levels of thyroid hormones (T3, T4) and thyroid-stimulating hormone (TSH) to assess thyroid function.'),
+(7, '2024-01-05 08:04:35.623875', NULL, NULL, 'Hemoglobin A1c', 'Provides an average of blood sugar levels over the past 2-3 months, commonly used to monitor long-term glucose control in diabetes.'),
+(8, '2024-01-05 08:04:50.424277', NULL, NULL, 'Coagulation Panel (PT/INR, PTT)', 'Measures blood clotting time and helps assess the risk of bleeding or clotting disorders.'),
+(9, '2024-01-05 08:05:44.231134', NULL, NULL, 'Electrolyte Panel', 'Measures levels of electrolytes like sodium, potassium, and chloride to assess fluid balance and kidney function.'),
+(10, '2024-01-05 08:05:55.518811', NULL, NULL, 'C-Reactive Protein (CRP)', 'Measures inflammation in the body and is used to assess various conditions, including infections and inflammatory disorders.'),
+(11, '2024-01-05 08:06:07.048986', NULL, NULL, 'Prostate-Specific Antigen (PSA)', 'Used to screen for prostate cancer in men.'),
+(12, '2024-01-05 08:06:16.434174', NULL, NULL, 'Urinalysis', 'Examines the physical and chemical properties of urine, helping to detect various conditions such as kidney disease and urinary tract infections.'),
+(13, '2024-01-05 08:06:35.984130', NULL, NULL, 'Serum Iron and Ferritin', 'Measures iron levels in the blood and helps diagnose conditions like iron deficiency anemia.'),
+(14, '2024-01-05 08:06:46.393486', NULL, NULL, 'HIV Test', 'Detects antibodies or antigens related to the human immunodeficiency virus (HIV) to diagnose HIV infection.'),
+(15, '2024-01-05 08:06:55.933777', NULL, NULL, 'Hepatitis Panel', 'Tests for markers of hepatitis viruses, including hepatitis B and C.'),
+(16, '2024-01-05 08:07:30.205375', NULL, NULL, 'Amylase and Lipase', 'Tests that measure enzymes related to pancreatic function. Elevated levels may indicate pancreatic disorders.'),
+(17, '2024-01-05 08:07:39.926326', NULL, NULL, 'Vitamin D Levels', 'Measures the level of vitamin D in the blood, crucial for bone health and overall well-being.'),
+(18, '2024-01-05 08:07:52.718469', NULL, NULL, 'Rheumatoid Factor (RF) and Anti-CCP', 'Tests used in the diagnosis of autoimmune disorders like rheumatoid arthritis.'),
+(19, '2024-01-05 08:08:01.743588', NULL, NULL, 'Troponin', 'Measures levels of troponin in the blood, which can indicate damage to the heart muscle, often used in the diagnosis of heart attacks.'),
+(20, '2024-01-05 08:08:11.890221', NULL, NULL, 'Thyroid Antibody Tests (TPOAb, TGAb)', 'Tests for antibodies related to thyroid conditions, helping diagnose autoimmune thyroid disorders.'),
+(21, '2024-01-05 08:08:22.389278', NULL, NULL, 'D-dimer', 'Measures the presence of blood clot breakdown products and is used to assess the risk of blood clots.'),
+(22, '2024-01-05 08:08:45.648826', NULL, NULL, 'Creatine Kinase (CK) and CK-MB', 'Tests that measure enzymes released during muscle damage, often used in the diagnosis of heart attacks or muscle disorders.'),
+(23, '2024-01-05 08:08:54.572660', NULL, NULL, 'HbA1c', 'Similar to Hemoglobin A1c, it measures the average blood sugar levels but with a different method, providing an alternative to assess diabetes control.'),
+(24, '2024-01-05 08:09:04.344189', NULL, NULL, 'Hemoglobin Electrophoresis', 'Used to identify abnormal types of hemoglobin, particularly in conditions like sickle cell anemia or thalassemia.'),
+(25, '2024-01-05 08:09:14.743146', NULL, NULL, 'Anti-Mullerian Hormone (AMH)', 'Assesses ovarian reserve and is often used in fertility assessments.'),
+(26, '2024-01-05 08:09:23.207517', NULL, NULL, 'Folate and Vitamin B12 Levels', 'Measures levels of these vitamins in the blood, essential for various bodily functions, including nerve function and red blood cell formation.'),
+(27, '2024-01-05 08:09:38.371456', NULL, NULL, 'Prothrombin Time (PT)', 'Measures the time it takes for blood to clot and is used to assess bleeding disorders or monitor anticoagulant therapy.'),
+(28, '2024-01-05 08:09:48.572079', NULL, NULL, 'Alpha-Fetoprotein (AFP)', 'Often used as a tumor marker, particularly in the monitoring of liver cancer.'),
+(29, '2024-01-05 08:10:01.224524', NULL, NULL, 'Lactate Dehydrogenase (LDH)', 'Measures levels of LDH, an enzyme that can indicate tissue damage or disease.'),
+(30, '2024-01-05 08:10:19.195785', NULL, NULL, 'Homocysteine', 'Measures levels of homocysteine in the blood, which may be associated with an increased risk of cardiovascular disease.'),
+(31, '2024-01-05 08:11:28.174822', NULL, NULL, 'Oral Glucose Tolerance Test (OGTT)', 'Involves fasting, followed by drinking a glucose solution. Blood glucose levels are measured at intervals to assess the body\'s ability to metabolize glucose.'),
+(32, '2024-01-05 08:11:37.344367', NULL, NULL, 'Fasting Blood Glucose (FBG)', 'Measures blood glucose levels after an overnight fast. Elevated levels may indicate diabetes.'),
+(33, '2024-01-05 08:11:46.831887', NULL, NULL, 'Random Blood Glucose Test', 'Measures blood glucose levels at any time, regardless of when the individual last ate. This test is often used for routine monitoring.'),
+(34, '2024-01-05 08:11:56.304551', NULL, NULL, 'Postprandial Blood Glucose Test', 'Measures blood glucose levels 2 hours after eating a meal, helping to assess how the body processes glucose.'),
+(35, '2024-01-05 08:12:07.966884', NULL, NULL, 'Insulin Levels', 'Measures insulin levels in the blood. Abnormal levels may indicate insulin resistance or insufficient insulin production.'),
+(36, '2024-01-05 08:12:17.623782', NULL, NULL, 'C-Peptide Test', 'Measures the level of C-peptide, a byproduct of insulin production. This test helps differentiate between type 1 and type 2 diabetes.'),
+(37, '2024-01-05 08:12:27.517369', NULL, NULL, 'Glycated Albumin', 'Measures the percentage of albumin (a protein in the blood) that has sugar attached. It reflects short-term changes in blood glucose levels.'),
+(38, '2024-01-05 08:12:38.369079', NULL, NULL, 'Fructosamine Test', 'Measures glycated protein levels in the blood, providing information about average glucose levels over the past 2-3 weeks'),
+(39, '2024-01-05 08:12:47.961772', NULL, NULL, 'Ketone Bodies', 'Measures the presence of ketones in the blood or urine. Elevated levels may indicate diabetic ketoacidosis.'),
+(40, '2024-01-05 08:13:33.749650', NULL, NULL, 'Anti-Nuclear Antibody (ANA) Test', 'Screens for autoimmune conditions that might affect the nervous system.'),
+(41, '2024-01-05 08:14:00.624932', NULL, NULL, 'Drug Levels', 'Monitoring levels of medications used to manage neurological conditions, ensuring they are within a therapeutic range'),
+(42, '2024-01-05 08:14:10.454076', NULL, NULL, 'Genetic Testing', 'In some cases, genetic testing may be performed to identify mutations associated with neurological conditions, such as Alzheimer\'s disease or certain types of epilepsy.'),
+(43, '2024-01-05 08:14:20.739932', NULL, NULL, 'Antibody Tests for Neurological Disorders (e.g., Anti-MOG, Anti-NMDA)', 'Used to identify antibodies associated with autoimmune or paraneoplastic neurological disorders.'),
+(44, '2024-01-05 08:14:31.788286', NULL, NULL, 'Heavy Metal Testing (e.g., Lead, Mercury)', 'Exposure to certain heavy metals can have neurotoxic effects; testing may be relevant in specific cases.'),
+(45, '2024-01-05 08:15:07.893402', NULL, NULL, 'Calcium and Phosphorus Levels', 'Assesses bone health and mineralization, important for conditions such as osteoporosis.'),
+(46, '2024-01-05 08:15:17.323916', NULL, NULL, 'Alkaline Phosphatase (ALP)', 'Measures an enzyme produced by bones and the liver; elevated levels may indicate bone disorders.'),
+(47, '2024-01-05 08:15:25.382472', NULL, NULL, 'Vitamin D Levels', 'Evaluates vitamin D status, essential for bone health and calcium absorption.'),
+(48, '2024-01-05 08:15:34.543397', NULL, NULL, 'Parathyroid Hormone (PTH)', 'Assesses the function of the parathyroid glands, which play a role in calcium regulation.'),
+(49, '2024-01-05 08:15:43.194351', NULL, NULL, 'Uric Acid', 'Elevated levels may indicate gout, a type of arthritis that affects the joints.'),
+(50, '2024-01-05 08:15:54.302051', NULL, NULL, 'Rheumatoid Factor (RF) and Anti-CCP Antibodies', 'Tests used to help diagnose autoimmune forms of arthritis, such as rheumatoid arthritis.'),
+(51, '2024-01-05 08:16:05.783237', NULL, NULL, 'Creatine Kinase (CK) and Aldolase', 'Measures enzymes released during muscle damage and can be useful in diagnosing muscle disorders.'),
+(52, '2024-01-05 08:17:43.848905', NULL, NULL, 'Cardiac Enzymes (Troponin, CK-MB, LDH)', 'Troponin is specific to heart muscle damage, while CK-MB and LDH are enzymes released during heart attacks. These tests help diagnose myocardial infarction.'),
+(53, '2024-01-05 08:18:00.044183', NULL, NULL, 'Brain Natriuretic Peptide (BNP) or NT-proBNP', 'Measures levels of these peptides released by the heart in response to heart failure; helps in the diagnosis and monitoring of heart failure.'),
+(54, '2024-01-05 08:18:37.381509', NULL, NULL, 'Homocysteine', 'Elevated levels may be associated with an increased risk of cardiovascular disease.'),
+(55, '2024-01-05 08:18:46.236219', NULL, NULL, 'C-reactive Protein (CRP)', 'Measures inflammation, which is a risk factor for cardiovascular disease.'),
+(56, '2024-01-05 08:19:00.281949', NULL, NULL, 'Echocardiography', 'While not a blood test, it is a common diagnostic tool in cardiology that uses sound waves to create images of the heart\'s structure and function.'),
+(57, '2024-01-05 08:19:45.911245', NULL, NULL, 'Celiac Disease Antibody Panel', 'Some neurological conditions, like gluten ataxia, may be associated with celiac disease.'),
+(58, '2024-01-05 08:20:13.814856', NULL, NULL, 'Lumbar Puncture (CSF Analysis)', 'While not a blood test, CSF analysis involves obtaining fluid from the spine to assess for infections, inflammation, or bleeding in the central nervous system.'),
+(59, '2024-01-05 08:26:55.009663', NULL, NULL, 'Visual Acuity Test', 'A basic eye test that measures the clarity of vision using an eye chart. While not a traditional lab test, it\'s a fundamental part of eye examinations.'),
+(60, '2024-01-05 08:27:33.307383', NULL, NULL, 'Intraocular Pressure (IOP) Measurement', 'Elevated intraocular pressure is associated with conditions like glaucoma. Tonometry is a common method used to measure IOP.'),
+(61, '2024-01-05 08:27:41.846495', NULL, NULL, 'Corneal Thickness Measurement', 'Evaluates the thickness of the cornea, which is important in assessing the risk of glaucoma.'),
+(62, '2024-01-05 08:27:53.104011', NULL, NULL, 'Blood Pressure Measurement', 'High blood pressure can affect the blood vessels in the eyes and contribute to conditions such as hypertensive retinopathy.'),
+(63, '2024-01-05 08:28:04.256691', NULL, NULL, 'Blood Tests for Systemic Conditions', 'Tests for conditions like diabetes and autoimmune diseases that may have ocular manifestations.'),
+(64, '2024-01-05 08:28:24.275763', NULL, NULL, 'Autoimmune Antibody Tests (e.g., ANA, Rheumatoid Factor)', 'Relevant in autoimmune conditions that may have ocular manifestations, such as uveitis.'),
+(65, '2024-01-05 08:28:38.291889', NULL, NULL, 'Allergy Testing', 'In cases of chronic allergic conjunctivitis, allergy testing may help identify specific allergens triggering symptoms.'),
+(66, '2024-01-05 08:28:51.760349', NULL, NULL, 'Fluorescein Angiography', 'While not a traditional lab test, it involves injecting a fluorescent dye into the bloodstream to visualize blood flow in the retina and identify abnormalities.'),
+(67, '2024-01-05 08:29:30.671737', NULL, NULL, 'Liver Function Tests (LFTs)', 'Includes tests such as ALT, AST, alkaline phosphatase, and bilirubin to assess the health of the liver.'),
+(68, '2024-01-05 08:29:44.930008', NULL, NULL, 'Pancreatic Enzymes (Amylase, Lipase)', 'Elevated levels may indicate pancreatic disorders such as pancreatitis.'),
+(69, '2024-01-05 08:30:52.441802', NULL, NULL, 'Fecal Occult Blood Test (FOBT) or Fecal Immunochemical Test (FIT)', 'Screens for the presence of blood in the stool, which may suggest gastrointestinal bleeding.'),
+(70, '2024-01-05 08:31:16.426838', NULL, NULL, 'Stool Culture and Sensitivity', 'Identifies the presence of pathogens in the stool, helping diagnose infections such as bacterial gastroenteritis.'),
+(71, '2024-01-05 08:31:29.168796', NULL, NULL, 'Helicobacter pylori Testing', 'Detects the presence of H. pylori bacteria, which can cause peptic ulcers and gastritis.'),
+(72, '2024-01-05 08:31:48.092640', NULL, NULL, 'Iron Studies (Iron, Ferritin, Total Iron-Binding Capacity)', 'Assesses iron levels and iron storage, important in conditions like iron-deficiency anemia.'),
+(73, '2024-01-05 08:33:29.033660', NULL, NULL, 'Pregnancy Test', 'Detects the presence of human chorionic gonadotropin (hCG) in the urine or blood to confirm pregnancy.'),
+(74, '2024-01-05 08:33:42.283086', NULL, NULL, 'Blood Type and Rh Factor', 'Determines the mother\'s blood type and Rh factor, important for preventing Rh incompatibility issues during pregnancy.'),
+(75, '2024-01-05 08:33:54.905535', NULL, NULL, 'Rubella Immunity Testing', 'Determines immunity to rubella to assess the risk of congenital rubella syndrome.'),
+(76, '2024-01-05 08:34:11.070872', NULL, NULL, 'Group B Streptococcus (GBS) Screening', 'Identifies the presence of GBS bacteria, which can affect newborns during childbirth.'),
+(77, '2024-01-05 08:34:25.522477', NULL, NULL, 'Non-Invasive Prenatal Testing (NIPT)', 'Screens for chromosomal abnormalities in the fetus, often used for high-risk pregnancies.'),
+(78, '2024-01-05 08:34:41.304665', NULL, NULL, 'Pap Smear (Pap Test)', 'Screens for cervical cancer by examining cervical cells for abnormalities.'),
+(79, '2024-01-05 08:34:53.621199', NULL, NULL, 'Human Papillomavirus (HPV) Test', 'Detects the presence of high-risk HPV types that may lead to cervical cancer.'),
+(80, '2024-01-05 08:35:09.407775', NULL, NULL, 'Pelvic Exam', 'A physical examination of the pelvic organs to assess reproductive health.'),
+(81, '2024-01-05 08:35:25.954421', NULL, NULL, 'Sexually Transmitted Infection (STI) Testing', 'Screens for STIs such as chlamydia, gonorrhea, syphilis, and HIV.'),
+(82, '2024-01-05 08:35:40.612635', NULL, NULL, 'Hormone Levels (e.g., FSH, LH, Estradiol, Progesterone)', 'Measures hormone levels to assess ovarian function and menstrual cycle irregularities.'),
+(83, '2024-01-05 08:35:56.583411', NULL, NULL, 'Ovarian Reserve Testing (e.g., AMH)', 'Estimates the quantity of a woman\'s remaining egg supply.'),
+(84, '2024-01-05 08:36:07.438498', NULL, NULL, 'Breast Cancer Screening (Mammography, Breast Ultrasound)', 'Detects abnormalities in breast tissue, helping to screen for breast cancer.'),
+(85, '2024-01-05 08:36:23.780806', NULL, NULL, 'Endometrial Biopsy', 'Involves taking a sample of the uterine lining to assess for abnormalities or diagnose conditions like endometrial cancer.'),
+(86, '2024-01-05 08:36:37.413785', NULL, NULL, 'Urogynecologic Tests (e.g., Urodynamic Testing)', 'Evaluates bladder and pelvic floor function, particularly relevant for conditions like urinary incontinence.'),
+(87, '2024-01-05 08:37:32.768814', NULL, NULL, 'Oral Cancer Screening (Biopsy)', 'A biopsy of suspicious oral lesions to identify cancerous or precancerous cells.'),
+(88, '2024-01-05 08:37:49.007306', NULL, NULL, 'Salivary pH Test', 'Measures the acidity or alkalinity of saliva, which can be relevant to oral health and risk of tooth decay.'),
+(89, '2024-01-05 08:38:03.330280', NULL, NULL, 'Salivary Amylase Test', 'Assesses the levels of salivary amylase, an enzyme involved in carbohydrate digestion.'),
+(90, '2024-01-05 08:38:17.433282', NULL, NULL, 'Salivary Flow Rate Test', 'Measures the amount of saliva produced over a certain period, important for diagnosing dry mouth (xerostomia) or salivary gland disorders.'),
+(91, '2024-01-05 08:38:31.534716', NULL, NULL, 'Caries Risk Assessment', 'Evaluates risk factors for dental caries (cavities) through a combination of clinical assessment and sometimes bacterial testing.'),
+(92, '2024-01-05 08:38:51.612286', NULL, NULL, 'Cytology (Oral Brush Biopsy)', 'Collects cells from the oral cavity for analysis, particularly useful for identifying abnormalities in the lining of the mouth.'),
+(93, '2024-01-05 08:39:11.146667', NULL, NULL, 'Periodontal Microbiological Testing', 'Analyzes the composition of bacteria in the periodontal pockets to assess the risk and severity of periodontal disease.'),
+(94, '2024-01-05 08:39:33.274706', NULL, NULL, 'Coagulation Tests (PT/INR, APTT)', 'Important for patients on anticoagulant therapy, as it helps manage bleeding risks during dental procedures.'),
+(95, '2024-01-05 08:39:55.177806', NULL, NULL, 'Hormonal Testing', 'In some cases, hormonal testing may be relevant, especially in conditions like hormonal gingivitis or during pregnancy.');
 
 -- --------------------------------------------------------
 
@@ -1416,6 +1601,15 @@ CREATE TABLE `lab_test_prescription` (
   `modified_by_id` bigint(20) DEFAULT NULL,
   `lab_prescription_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `lab_test_prescription`
+--
+
+INSERT INTO `lab_test_prescription` (`id`, `created_at`, `updated_at`, `deleted_at`, `created_by_id`, `lab_test_id`, `modified_by_id`, `lab_prescription_id`) VALUES
+(1, '2024-01-07 09:22:28.583492', NULL, NULL, 2, 1, NULL, 1),
+(2, '2024-01-07 09:22:28.586487', NULL, NULL, 2, 2, NULL, 1),
+(3, '2024-01-07 09:22:28.587482', NULL, NULL, 2, 4, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1459,6 +1653,23 @@ CREATE TABLE `medicine` (
   `medicine_type_id` bigint(20) NOT NULL,
   `strength_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `medicine`
+--
+
+INSERT INTO `medicine` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`, `description`, `brand_id`, `created_by_id`, `generic_id`, `modified_by_id`, `medicine_type_id`, `strength_id`) VALUES
+(1, '2024-01-06 14:41:46.218636', NULL, '2024-01-06 18:20:33.422800', 'Napa', 'Omnis velit consecte', 4, NULL, 303, NULL, 17, 1),
+(2, '2024-01-06 18:19:54.401095', NULL, NULL, 'Napa', 'N/A', 1, NULL, 329, NULL, 2, 4),
+(3, '2024-01-07 05:31:30.507771', NULL, NULL, 'Amoxicillin', 'n/a', 32, NULL, 191, NULL, 11, 7),
+(4, '2024-01-07 05:31:58.466304', NULL, NULL, 'Ciprofloxacin', 'n/a', 171, NULL, 340, NULL, 15, 6),
+(5, '2024-01-07 05:32:16.923755', NULL, NULL, 'Lisinopril', 'n/a', 170, NULL, 355, NULL, 11, 2),
+(6, '2024-01-07 05:32:52.919434', NULL, NULL, 'Amlodipine', 'n/a', 129, NULL, 374, NULL, 16, 1),
+(7, '2024-01-07 05:33:23.824963', NULL, NULL, 'Hydrochlorothiazide', 'n/a', 62, NULL, 90, NULL, 2, 3),
+(8, '2024-01-07 05:33:37.427799', NULL, NULL, 'Aspirin', 'n/a', 69, NULL, 184, NULL, 4, 3),
+(9, '2024-01-07 05:34:17.691533', NULL, NULL, 'Paracetamol', 'n/a', 65, NULL, 210, NULL, 2, 4),
+(10, '2024-01-07 05:34:57.066056', NULL, NULL, 'Fexofenadine', 'n/a', 121, NULL, 329, NULL, 2, 5),
+(11, '2024-01-07 05:35:20.130079', NULL, NULL, 'Finasteride', 'n/a', 128, NULL, 68, NULL, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -2141,6 +2352,15 @@ CREATE TABLE `medicine_prescription` (
   `prescription_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `medicine_prescription`
+--
+
+INSERT INTO `medicine_prescription` (`id`, `created_at`, `updated_at`, `deleted_at`, `frequency`, `duration`, `created_by_id`, `medicine_id`, `medicine_schedule_id`, `modified_by_id`, `prescription_id`) VALUES
+(1, '2024-01-07 09:24:01.944300', NULL, NULL, '1+1+1', '2 days', 2, 2, 1, NULL, 1),
+(2, '2024-01-07 09:24:01.950286', NULL, NULL, '1+0+1', '2 days', 2, 8, 1, NULL, 1),
+(3, '2024-01-07 09:24:01.951283', NULL, NULL, '1+1+1', '2 days', 2, 10, 1, NULL, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -2179,9 +2399,14 @@ CREATE TABLE `medicine_strength` (
 --
 
 INSERT INTO `medicine_strength` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`) VALUES
-(1, '2021-02-15 16:59:49.000000', NULL, NULL, '100 gm'),
-(2, '2021-02-15 16:59:49.000000', NULL, NULL, '250 gm'),
-(3, '2021-02-15 16:59:49.000000', NULL, NULL, '500 gm');
+(1, NULL, NULL, NULL, '5 mg'),
+(2, NULL, NULL, NULL, '10 mg'),
+(3, NULL, NULL, NULL, '20 mg'),
+(4, NULL, NULL, NULL, '50 mg'),
+(5, NULL, NULL, NULL, '100 mg'),
+(6, NULL, NULL, NULL, '250 mg'),
+(7, NULL, NULL, NULL, '500 mg'),
+(8, NULL, NULL, NULL, '1000 mg');
 
 -- --------------------------------------------------------
 
@@ -2711,10 +2936,13 @@ CREATE TABLE `otp` (
 
 INSERT INTO `otp` (`id`, `created_at`, `updated_at`, `deleted_at`, `otp`, `is_verified`, `user_id`) VALUES
 (1, '2024-01-03 12:26:15.151789', '2024-01-03 18:27:11.387022', NULL, '0', 1, 1),
-(2, '2024-01-04 09:55:54.628081', NULL, NULL, '0', 1, 2),
+(2, '2024-01-04 09:55:54.628081', '2024-01-05 00:26:13.003608', NULL, '593202', 1, 2),
 (3, '2024-01-04 10:16:07.347051', NULL, NULL, '0', 1, 3),
 (4, '2024-01-04 11:42:11.379998', NULL, NULL, '0', 1, 4),
-(5, '2024-01-04 11:43:53.045858', NULL, NULL, '0', 1, 5);
+(5, '2024-01-04 11:43:53.045858', NULL, NULL, '0', 1, 5),
+(6, '2024-01-05 06:27:49.258022', '2024-01-05 12:28:20.124918', NULL, '0', 1, 6),
+(7, '2024-01-05 06:30:28.678479', '2024-01-05 12:59:48.921608', NULL, '0', 1, 7),
+(8, '2024-01-08 08:53:16.701877', '2024-01-08 14:53:39.021182', NULL, '0', 1, 8);
 
 -- --------------------------------------------------------
 
@@ -2733,6 +2961,15 @@ CREATE TABLE `patient_appointment` (
   `doctor_id` bigint(20) DEFAULT NULL,
   `patient_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `patient_appointment`
+--
+
+INSERT INTO `patient_appointment` (`id`, `created_at`, `updated_at`, `deleted_at`, `appointment_date`, `appointment_time`, `is_confirmed`, `doctor_id`, `patient_id`) VALUES
+(1, '2024-01-08 08:58:09.760047', NULL, NULL, '08-01-2024 (Monday)', '06:00 PM - 06:10 PM', 0, 1, 3),
+(2, '2024-01-08 08:58:42.197289', NULL, NULL, '08-01-2024 (Monday)', '07:00 PM - 07:10 PM', 0, 2, 3),
+(3, '2024-01-08 09:01:55.494285', NULL, NULL, '10-01-2024 (Wednesday)', '05:00 PM - 05:10 PM', 0, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -2759,6 +2996,15 @@ CREATE TABLE `patient_profile` (
   `religion_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `patient_profile`
+--
+
+INSERT INTO `patient_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `full_name`, `father_name`, `mother_name`, `phone_no`, `registration_no`, `date_of_birth`, `nid_no`, `address`, `blood_group_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
+(1, '2024-01-05 06:27:49.219126', NULL, NULL, 'Turan Ali', 'Kasem Ali', 'Hasina Begum', '+8801965572363', 'LTS-58765293083407', '2001-06-22', 1234567890, 'Dhaka , Narayanganj, Rupganj , Borpa , Dokkhin Masabo', 4, 1, 2, 1, 6),
+(2, '2024-01-05 06:30:28.656536', NULL, NULL, 'Turan', 'Cade Townsend', 'Tara Conner', '019623569874', 'OLZ-16272506021051', '1991-01-31', 2, 'Tempora iusto nostru', 5, 1, 2, 1, 7),
+(3, '2024-01-08 08:53:16.695894', NULL, NULL, 'MD Rajib', 'Jin Cobb', 'Salvador Strickland', '01753911172', 'QLE-27229387677569', '1975-07-19', 81, 'Reprehenderit libero', 6, 1, 1, 1, 8);
 
 -- --------------------------------------------------------
 
@@ -2816,11 +3062,7 @@ INSERT INTO `prediction` (`id`, `created_at`, `updated_at`, `deleted_at`, `body_
 (2, '2024-01-04 10:04:37.743454', NULL, NULL, 1, NULL, 4, 2, 1),
 (3, '2024-01-04 10:04:47.596500', NULL, NULL, 1, NULL, 4, 3, 1),
 (4, '2024-01-04 10:04:56.448011', NULL, NULL, 1, NULL, 4, 4, 1),
-(5, '2024-01-04 10:05:16.451331', NULL, NULL, 1, NULL, 4, 5, 1),
-(6, '2024-01-04 10:17:41.167258', NULL, NULL, 1, NULL, 18, 12, 2),
-(7, '2024-01-04 11:45:57.030771', NULL, NULL, 8, NULL, 7, 212, 25),
-(8, '2024-01-04 11:49:48.318457', NULL, NULL, 8, NULL, 7, 212, 25),
-(9, '2024-01-04 13:22:02.346601', NULL, NULL, 3, NULL, 1, 64, 7);
+(5, '2024-01-04 10:05:16.451331', NULL, NULL, 1, NULL, 4, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -2846,6 +3088,13 @@ CREATE TABLE `prescription_for_lab_test` (
   `patient_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `prescription_for_lab_test`
+--
+
+INSERT INTO `prescription_for_lab_test` (`id`, `created_at`, `updated_at`, `deleted_at`, `cc`, `oe`, `dd`, `ad`, `tl`, `pmh`, `issue_date`, `created_by_id`, `doctor_profile_id`, `modified_by_id`, `patient_profile_id`) VALUES
+(1, '2024-01-07 09:22:28.567535', NULL, NULL, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '2024-01-07', 2, 1, NULL, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -2869,6 +3118,13 @@ CREATE TABLE `prescription_for_medicine` (
   `modified_by_id` bigint(20) DEFAULT NULL,
   `patient_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `prescription_for_medicine`
+--
+
+INSERT INTO `prescription_for_medicine` (`id`, `created_at`, `updated_at`, `deleted_at`, `cc`, `oe`, `dd`, `ad`, `tl`, `pmh`, `issue_date`, `created_by_id`, `doctor_profile_id`, `modified_by_id`, `patient_profile_id`) VALUES
+(1, '2024-01-07 09:24:01.939314', NULL, NULL, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '2024-01-07', 2, 1, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -2943,12 +3199,7 @@ INSERT INTO `specification` (`id`, `accuracy`, `prediction_id`, `problem_specifi
 (2, NULL, 2, 2),
 (3, NULL, 3, 3),
 (4, NULL, 4, 4),
-(5, NULL, 5, 5),
-(6, '1.000', 6, 12),
-(7, '0.000', 7, 212),
-(8, '0.000', 7, 213),
-(9, '1.000', 8, 212),
-(10, '0.000', 9, 64);
+(5, NULL, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -3533,9 +3784,12 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `created_at`, `updated_at`, `deleted_at`, `user_name`, `email`, `password`, `hash`, `role`, `status`) VALUES
 (1, '2024-01-03 12:26:15.130846', NULL, NULL, 'admin', 'mamunmiaturan@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'admin', 'active'),
 (2, '2024-01-04 09:55:54.624091', NULL, NULL, 'doctor1', 'doctor1@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
-(3, '2024-01-04 10:16:07.343059', NULL, NULL, 'doctor2', 'rataguj@mailinator.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(3, '2024-01-04 10:16:07.343059', NULL, NULL, 'doctor2', 'doctor2@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
 (4, '2024-01-04 11:42:11.376007', NULL, NULL, 'doctor3', 'doctor3@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
-(5, '2024-01-04 11:43:53.042867', NULL, NULL, 'doctor4', 'gemomar@mailinator.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active');
+(5, '2024-01-04 11:43:53.042867', NULL, NULL, 'doctor4', 'doctor4@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(6, '2024-01-05 06:27:49.196187', NULL, NULL, 'patient1', 'patient1@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active'),
+(7, '2024-01-05 06:30:28.617644', NULL, NULL, 'patient2', 'kabirariyan14@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active'),
+(8, '2024-01-08 08:53:16.692902', NULL, NULL, 'patient3', 'patient5@mailinator.com', '123', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'patient', 'active');
 
 --
 -- Indexes for dumped tables
@@ -3976,7 +4230,7 @@ ALTER TABLE `admin_profile`
 -- AUTO_INCREMENT for table `article`
 --
 ALTER TABLE `article`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `auth_group`
@@ -4084,7 +4338,7 @@ ALTER TABLE `django_migrations`
 -- AUTO_INCREMENT for table `doctor_appointment_schedule`
 --
 ALTER TABLE `doctor_appointment_schedule`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `doctor_awards`
@@ -4102,7 +4356,7 @@ ALTER TABLE `doctor_educations`
 -- AUTO_INCREMENT for table `doctor_off_day`
 --
 ALTER TABLE `doctor_off_day`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `doctor_profile`
@@ -4114,7 +4368,7 @@ ALTER TABLE `doctor_profile`
 -- AUTO_INCREMENT for table `doctor_schedule_times`
 --
 ALTER TABLE `doctor_schedule_times`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `doctor_social_media`
@@ -4126,7 +4380,7 @@ ALTER TABLE `doctor_social_media`
 -- AUTO_INCREMENT for table `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `gender`
@@ -4138,19 +4392,19 @@ ALTER TABLE `gender`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `lab_test`
 --
 ALTER TABLE `lab_test`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `lab_test_prescription`
 --
 ALTER TABLE `lab_test_prescription`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `matrimony`
@@ -4162,7 +4416,7 @@ ALTER TABLE `matrimony`
 -- AUTO_INCREMENT for table `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `medicine_brand`
@@ -4180,7 +4434,7 @@ ALTER TABLE `medicine_generic`
 -- AUTO_INCREMENT for table `medicine_prescription`
 --
 ALTER TABLE `medicine_prescription`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `medicine_schedule`
@@ -4192,7 +4446,7 @@ ALTER TABLE `medicine_schedule`
 -- AUTO_INCREMENT for table `medicine_strength`
 --
 ALTER TABLE `medicine_strength`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `medicine_type`
@@ -4216,19 +4470,19 @@ ALTER TABLE `organ_problem_speci`
 -- AUTO_INCREMENT for table `otp`
 --
 ALTER TABLE `otp`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `patient_appointment`
 --
 ALTER TABLE `patient_appointment`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `patient_profile`
 --
 ALTER TABLE `patient_profile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `permanent_address`
@@ -4240,19 +4494,19 @@ ALTER TABLE `permanent_address`
 -- AUTO_INCREMENT for table `prediction`
 --
 ALTER TABLE `prediction`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `prescription_for_lab_test`
 --
 ALTER TABLE `prescription_for_lab_test`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `prescription_for_medicine`
 --
 ALTER TABLE `prescription_for_medicine`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `present_address`
@@ -4270,7 +4524,7 @@ ALTER TABLE `religion`
 -- AUTO_INCREMENT for table `specification`
 --
 ALTER TABLE `specification`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `upazila`
@@ -4282,7 +4536,7 @@ ALTER TABLE `upazila`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables

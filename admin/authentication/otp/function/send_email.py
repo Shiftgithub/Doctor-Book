@@ -22,7 +22,7 @@ def generate_unique(length):
     return unique
 
 
-def send_email(email, message):
+def send_email(email, full_name, message):
     try:
         # Build the HTML content with the image, message, and additional data
         html_content = f'''
@@ -36,7 +36,7 @@ def send_email(email, message):
         </head>
         <body>
             <div class="content">
-               <h3> Hello Sir / Ma'am,</h3>
+               <h3> Dear {full_name},</h3>
                <h4>Thank you for Using Doctor Book. </h4>
                <h2>{message}</h2>
                <p>Regards,</p>

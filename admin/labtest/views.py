@@ -25,7 +25,7 @@ def store_lab_test_data(request):
 # all lab_test list function
 @api_view(['GET'])
 def get_all_lab_test_list(request):
-    lab_test = LabTest.objects.filter(deleted_at=None).order_by('-id')
+    lab_test = LabTest.objects.filter(deleted_at=None).order_by('id')
     serializer = LabTestSerializer(lab_test, many=True)
     serialized_data = serializer.data
     return Response(serialized_data)
@@ -79,3 +79,15 @@ def delete_lab_test_data(request, lab_test_id):
         else:
             response = {'status': 400, 'message': 'Bad Request', 'errors': serializer.errors}
             return Response(response)
+
+
+@api_view(['GET'])
+def count_labtest(request):
+    # Get the medicine instances for the given doctor_id
+    labtest = LabTest.objects.filter(deleted_at=None)
+
+    # Get the count of labtest
+    labtest_count = labtest.count()
+    serialized_data = {'labtest_count': labtest_count}
+
+    return Response(serialized_data)

@@ -12,7 +12,7 @@ from admin.authentication.otp.function.send_email import *
 from admin.authentication.otp.function.send_otp import send_otp
 
 
-# doctor account create
+# doctor profile create
 @api_view(['POST'])
 @transaction.atomic
 def store_doctor_data(request):
@@ -25,6 +25,7 @@ def store_doctor_data(request):
 
         if user_serializer.is_valid(
                 raise_exception=True) and doctor_serializer.is_valid() and image_serializer.is_valid() and present_address_serializer.is_valid() and permanent_address_serializer.is_valid():
+            full_name = request.data.get('full_name')
             user_name = request.data.get('user_name')
             email = request.data.get('email')
 
@@ -55,7 +56,7 @@ def store_doctor_data(request):
                 permanent_instance = permanent_address_serializer.save(user=user_instance)
                 if doctor_instance and image_instance and present_instance and permanent_instance:
                     message = 'Your username is : ' + user_name + '<br>' + 'Your password is : ' + password
-                    sent_email = send_email(email, message)
+                    sent_email = send_email(email, full_name, message)
                     if sent_email:
                         return Response({'status': 200, 'message': 'Doctor data stored successfully'})
                     else:
@@ -104,6 +105,7 @@ def doctor_data(request, doctor_id):
 @api_view(['PUT', 'POST'])
 @transaction.atomic
 def edit_doctor_data(request, doctor_id):
+    doctor_session_id = request.session.get('doctor_id')
     try:
         doctor = get_object_or_404(DoctorProfile, id=doctor_id, deleted_at=None)
         if not doctor.user:
@@ -138,8 +140,10 @@ def edit_doctor_data(request, doctor_id):
                 permanent_address = permanent_address_serializer.save()
                 if doctor_data_updated and image_updated and present_address and permanent_address:
                     # session variable should be updated here
-                    set_user_info(request, doctor, doctor.user.id, doctor.user.email)
-                    return Response({'status': 200})
+                    print(doctor_session_id)
+                    if doctor_session_id == doctor_id:
+                        set_user_info(request, doctor, doctor.user.id, doctor.user.email)
+                    return Response({'status': 200, 'message': 'Doctor data are updated successfully.'})
                 else:
                     transaction.set_rollback(True)
                     return Response(
