@@ -46,8 +46,10 @@ def verify_otp(request):
         check_verified = otp_check.is_verified
         if check_verified == 0:
             status = 308
+            messages = 'Account Activated Successfully'
         elif check_verified == 1:
             status = 200
+            messages = 'OTP are correct now you change your password'
         else:
             pass
         if otp_check:
@@ -61,19 +63,27 @@ def verify_otp(request):
             # Update the user's status to active
             user.status = STATUS_ACTIVE
             update_user = user.save(update_fields=['status'])
-
-            message = 'Your Doctor Book Account has been activated'
-            sent_email = send_email(email, user_info.full_name, message)
-            if sent_email:
+            if check_verified == 1:
                 response = {
                     'id': user.id, 'email': user.email, 'status': status,
-                    'message': 'Account Activated Successfully'
+                    'message': messages
                 }
                 return Response(response)
+            elif check_verified == 0:
+                message = 'Your Doctor Book Account has been activated'
+                sent_email = send_email(email, user_info.full_name, message)
+                if sent_email:
+                    response = {
+                        'id': user.id, 'email': user.email, 'status': status,
+                        'message': messages
+                    }
+                    return Response(response)
+                else:
+                    transaction.set_rollback(True)
+                    response = {'status': 401, 'message': 'Check your internet connection.', 'email': email}
+                    return Response(response)
             else:
-                transaction.set_rollback(True)
-                response = {'status': 401, 'message': 'Check your internet connection.', 'email': email}
-                return Response(response)
+                pass
         else:
             transaction.set_rollback(True)
             response = {'status': 401, 'message': 'OTP are not match!', 'email': email}
