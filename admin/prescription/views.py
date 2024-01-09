@@ -165,7 +165,7 @@ def count_medicine_prescription(request, doctor_id):
 @api_view(['GET'])
 def count_lab_prescription(request, doctor_id):
     # Get the PrescriptionForLabTest instances for the given doctor_id
-    prescriptions_for_lab = PrescriptionForLabTest.objects.filter(doctor_profile=doctor_id)
+    prescriptions_for_lab = PrescriptionForLabTest.objects.filter(doctor_profile=doctor_id,deleted_at=None)
 
     # Get the count of lab_prescription
     prescriptions_for_lab_count = prescriptions_for_lab.count()

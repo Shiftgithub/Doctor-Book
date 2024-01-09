@@ -79,3 +79,15 @@ def delete_lab_test_data(request, lab_test_id):
         else:
             response = {'status': 400, 'message': 'Bad Request', 'errors': serializer.errors}
             return Response(response)
+
+
+@api_view(['GET'])
+def count_labtest(request):
+    # Get the medicine instances for the given doctor_id
+    labtest = LabTest.objects.filter(deleted_at=None)
+
+    # Get the count of labtest
+    labtest_count = labtest.count()
+    serialized_data = {'labtest_count': labtest_count}
+
+    return Response(serialized_data)

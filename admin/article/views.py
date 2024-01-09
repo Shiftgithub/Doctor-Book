@@ -81,3 +81,15 @@ def get_article_by_id(request, article_id):
     article = get_object_or_404(Article, id=article_id, deleted_at=None)
     serializer = ArticleSerializer(article)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def count_article(request):
+    # Get the article instances for the given doctor_id
+    article = Article.objects.filter(deleted_at=None)
+
+    # Get the count of prescriptions_for_medicine
+    article_count = article.count()
+    serialized_data = {'article_count': article_count}
+
+    return Response(serialized_data)
