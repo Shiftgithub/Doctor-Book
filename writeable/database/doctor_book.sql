@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 07, 2024 at 10:24 AM
+-- Generation Time: Jan 09, 2024 at 07:11 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -52,7 +52,7 @@ CREATE TABLE `admin_profile` (
 --
 
 INSERT INTO `admin_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `full_name`, `father_name`, `mother_name`, `phone_no`, `date_of_birth`, `nid_no`, `address`, `blood_group_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
-(1, '2024-01-03 12:26:15.132840', '2024-01-07 11:38:49.065097', NULL, 'Mamun Mia', 'Kasem Ali', 'Hasina Begum', '+8801965572363', '2001-07-22', 1234567890, 'Dhaka , Narayanganj, Rupganj , Borpa , Dokkhin Masabo', 5, 1, 2, 1, 1);
+(1, '2024-01-03 12:26:15.132840', NULL, NULL, 'Mamun Mia Turan', 'Kasem Ali', 'Hasina Begum', '+8801965572363', '2001-07-22', 1234567890, 'Dhaka , Narayanganj, Rupganj , Borpa , Dokkhin Masabo', 5, 1, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1183,12 +1183,14 @@ CREATE TABLE `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('34d6u56avsgtxsro2dl515zo5e7fonvd', '.eJxlj80KgzAQhF-l5FzURI2pp76AzyCbP0nJqiSml9J3rz8VCr0t3-zMMC-Sogm906Sl1-MeAQ1pCWh0I_myMPk_ZhCcXyECphEdLCnAeB82mqkJz7e4rErczGpxT7Pi3zKbvD8buy3o0jk4rQ5hMH0KW0uORjvI0-wn0DHfpZizglUFLRrK67KkvSiZbkBwzpmolJASSkGNrZVVN2mlzB7zsIbvM47N7w8c01UM:1rMlvE:W0G5MXRqqVZsF0uwpzxehqjBlvbjuUwSzUzQNIoUibU', '2024-01-22 09:27:52.911719'),
+('3gy4htnavx82jiqio9wgnuz2nb96g3r0', '.eJxlj0GOwjAMRa-CskY0zTStYMUFumNfucStjOK0Shqk0WjuTgJEQsIr69n-3_9PxIB-ICNO9f7VO2AUJwGGyYk384v9YshANkEGjo4JtujBnedMD9eFy1rY0iTk4-tGd0z402yK1hbHPgvteoLdJUsVAWKYcYg-e1WMhqCKq13AhOo5CpWSqpF1LVP9yHZQY6c7lHKUY910Rh5brXSj1WR0Ywy0h9s6J_FnmJJ8Q16HO3qafkswl177fwAC9l-W:1rNGTI:88R3-J3Yz5uPryKYlahPYsSMwRFFn5Uspy9KGIojXqg', '2024-01-23 18:05:04.089653'),
 ('5k532vzra7638ojvejk2fbjlace36yn1', '.eJxFj9sKwyAMhl-leD1adbaWXm3Q9yiZ2k7QWjzsZuzdZ080EEi-_ORPvigF5QctUUdvez2DVahD0onoPEEH9c5c9ITKgjaX9jGtfSmcXfMUhQgxhawCEfVHZby6kWM6JmNOy96XxdOnGeYpvFPRQzh3aAuTGpJfzSqrpIYqLcaBDNU2ChXFlGGCGalzsOFOgY8t4wJjyJy_GsoEaXhbSyUwl-UyT3n5fvj2Pvn9AZNxV5M:1rMB5N:6z5cpVElKbu49CLkDQ1CJ87SxF45WMrHU-FdRf5Ndjc', '2024-01-20 18:07:53.301150'),
 ('f7i4q8we651pzm6cjqh5j0ku9kk588ad', '.eJxlj1sKwjAQRbci-RabtI2PfrkB11AmD8toJi1JI4i4dxu1ovg3nLkP7o2laEOLhjVi-bo9kGUNA0Po2ZuF3v0xS4BuggSUPCGMKYDfd5mudE-zLI7TJ2azHvFiJ_xddkzOzY2HHLQ4IMxWJOhsm0JuKcgahCINrgcTi-crFiUvay54JbblWshWKA2bSshKKVVLvgO-rYQGqYzZKS356jR0U_hzxrx5tDS0FxvweP1MOoPCAAGv4EX9M-lbnQM29wejO2wS:1rLfTH:yrEm52wbqQeFKPFIe5VCvLyh5OAepM0_wDNSv7uEPX0', '2024-01-19 08:22:27.114632'),
+('iibfpgxmunwsmnerepivvm6ga3ualwno', '.eJxNj80OgyAQhF-l4dyIID_VU_sOvZtVqCEBNPz00vTdq1YSb5tvZndmPyhHHXqjUCeu_9mD06hDCySjfSLowGG2J1yodmDsyX2fNlCNsyuOmCDluFpgTOatV7yFkUN9ZWtL4jMH8JeHNWXVOJh0n8MWgJ1WBnBe7Awq4l2KmNaU1aSWRHBOaD9I1g4tVZIrxW6sAdHyF9WiGagUhEO1-Gk9fpTdvybfH5KiVNA:1rMm4T:mkHe5prC4FXC794uk7ui1-oJt33rkDRcxCKWAivjisQ', '2024-01-22 09:37:25.489359'),
 ('kjhylurj2xr1epvbnwjyuq2nqolkutaj', '.eJxFj9sKwyAMhl-leD1adbaWXm3Q9yiZ2k7QWjzsZuzdZ080EEi-_ORPvigF5QctUUdvez2DVahD0onoPEEH9c5c9ITKgjaX9jGtfSmcXfMUhQgxhawCEfVHZby6kWM6JmNOy96XxdOnGeYpvFPRQzh3aAuTGpJfzSqrpIYqLcaBDNU2ChXFlGGCGalzsOFOgY8t4wJjyJy_GsoEaXhbSyUwl-UyT3n5fvj2Pvn9AZNxV5M:1rMAp0:Qdkg36XXDfKHT0y_dDM57T-2PYHdMWY9T-AlliS7o00', '2024-01-20 17:50:58.982987'),
 ('koi1lj3qs3v05jtfb8ro6iyguqc0h2hh', '.eJxFj9sKwyAMhl-leD1adbaWXm3Q9yiZ2k7QWjzsZuzdZ080EEi-_ORPvigF5QctUUdvez2DVahD0onoPEEH9c5c9ITKgjaX9jGtfSmcXfMUhQgxhawCEfVHZby6kWM6JmNOy96XxdOnGeYpvFPRQzh3aAuTGpJfzSqrpIYqLcaBDNU2ChXFlGGCGalzsOFOgY8t4wJjyJy_GsoEaXhbSyUwl-UyT3n5fvj2Pvn9AZNxV5M:1rM8lw:vGfyObNLslzazAs6Cw88uwcVV6dyChOkD4uxAngjrjM', '2024-01-20 15:39:40.066675'),
-('m15p0nhhbpr4671ddhaivokl6zy1rrie', '.eJxVkEsOgzAMRK9SZV0BCRQKq16AMyCTGJQqIVE-3VS9ewMUie6s5_GM7TcJqO0gDA_GDVKQjl5J9LjX9a9eQCPpiIUgcQmU_LAz6oQPihqkOqkf8woybvSh8AFC9EkCPMgXJnwOnqJSR2IPOi6XXsIxKjXMOES3BuQahYQ8WmVA-Hxr-ZwVrCpo0VBatuV9aKoRORsBJhwrznnb1o0o2MSgnvjY0Oxp52T-_wDrknPazSwbua1ov2ZXfL57cmfX:1rMPLT:BGyWpzkSFC3jUdPlIGob63b4SuJSJrW_wzU97NYZAPM', '2024-01-21 09:21:27.886312'),
-('roqfi4cg8w3i3mo46g80dlzu7z9xzlt2', '.eJxFj8sOgyAQRX_FsG4U0Eh11Sb-hxkeUhoQA9JN03-vz7iYZObMzb0zX5SiCr2RqKW3vR_BKdQi6cXsA0EHDd5e9ITKgbGX9qHXORferXWK4gxziosKxGw-asFrGjm2Q7L2jOxCnj1DGmHU8ZWyDuLpYRxo1aewhhVOSQNFmqwHGYttFQuKaYUJZoSUTXnvWcWVoBxgULwSQjRNzSSmA4V6EJyR_D3pxXw_fHuf_P7TP1kV:1rMNdt:JIOcwQ-2KroFLXIcGy7wJTlcH40jo7mUPwxS0KJEyyY', '2024-01-21 07:32:21.430731');
+('q2rgbuqq8n94nfva6dzoiz8wv4az56cg', '.eJxFj8sOgyAQRX_FsG4EBJ-rNvE_zChoSUAMSDdN_72-iItJZs7c3DvzRcFL1ymBmuxx9jMYiRok7LBaR9FFndU3jVAaUPrWPqd9Tgdr9ooiv8Ia_KaCYVUfueE9jV7bMWgdI1uXJi8XZpgn_w5JCz56KAOT7ILbw7CRQgEOi7YgPD5WHmck44SSkpas5LSDmrBK9Ez0OeVDxaq64FlNxpKxnOd9kS7ztJmfhx_v098fkZNXRg:1rMRTJ:VT_7Ixn-RjtvKpcCRmRLKWWDb9OZbt2Lt2rPvQcFgP4', '2024-01-21 11:37:41.260122');
 
 -- --------------------------------------------------------
 
@@ -1321,10 +1323,10 @@ CREATE TABLE `doctor_profile` (
 --
 
 INSERT INTO `doctor_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `full_name`, `father_name`, `mother_name`, `date_of_birth`, `birth_registration_no`, `phone_no`, `nid_no`, `experience`, `biography`, `languages_spoken`, `passport_no`, `blood_group_id`, `department_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
-(1, '2024-01-04 09:55:54.637054', '2024-01-07 05:39:38.686064', NULL, 'Dr. Arunangshu Das', 'Aimee Long', 'Brielle Melton', '1971-01-19', '6', '01965784645', '76', '5 Years', 'Dr Arunangshu Das passed MBBS from Mymensing Medical College in 2005. After that he joined Radiotherapy Department of Dhaka Medical College in 2007 as Honorary Medical Officer. At the end of 2008 he received a scholarship and went to National Cancer Center (NCC) Singapore for a clinical attachment and training. In 2009, he successfully completed Post Graduate Certificate in Palliative Medicine  from Flinders University Australia.  He joined Government Health Service (27th BCS) in December 2008. Subsequently in 2010 he was posted at National Institute of Cancer Research and Hospital (NICRH), Dhaka at the Department of Radiation Oncology. In 2012 he went to UKM, Malaysia for a higher training in Oncology. He successfully completed FCPS in Radiotherapy from Bangladesh College of Physicians and Surgeons of Bangladesh (BCPS) in 2014. At the middle of 2014 he went to TATA Memorial Hospital Mumbai for a clinical training in Radiation Oncology. He received the prestigious International Development and Education Award (IDEA) in January 2018 from American Society of Clinical Oncology (ASCO) USA. He also achieved the prestigious ESMO Asia Leadership Award in 2020. As a part of voluntary activity he is working as the General Secretary of Bangladesh Society for Breast Cancer Study. He is active in clinical research and published many articles both nationally and internationally. He has long 15 years experience working the field of Oncology. Currently he is working as Associate Consultant at Oncology Department of Square Hospitals Ltd.', 'Bangla, English', 'N/A', 1, 4, 1, 1, 2, 2),
-(2, '2024-01-04 10:16:07.349043', '2024-01-07 05:53:28.863820', NULL, 'Dr. Md. Towhiduzzaman', 'Kalia Shaw', 'Julie Dunlap', '1976-04-15', '8', '01963369911', '61', 'Assumenda rerum cons', 'Dr. Towhiduzzaman received SAARC Cardiology  hands on Fellowship in Interventional Cardiology at Escorts Heart Institute and Research Centre (EHIR&C), New Delhi, India for 01(one) year in June 2006. Subsequently he was selected for another 01 year hands on Fellowship program in Interventional Cardiology at National Heart Centre, Singapore and received the fellowship award in July 2007.  He has successfully completed Rotablation, Intravascular ultrasound Pressure wire and peripheral stenting course. He also gained and experienced a numerous number of invasive and clinical training and observatory fellowship and visited  USA, Canada, France, England, Japan, Italy, Sweden, Hong Kong, China, Jamaica, Costarica, Vietnam, Malaysia, Thailand, India, Pakistan and Nepal. Dr. Towhiduzzaman has published articles and presented cases at numerous national and international conferences. He has vast experiences of 10 years to perform invasive & interventional and complex diagnostic and therapeutic procedures independently & confidently. He is regular Faculty/Guest Speaker and participated in a large number of International workshops, seminars, symposiums both home and abroad that has enriched his decision making capacity, professional skills and care giving attitude to an international level. For last 10 years he is performing highest number of complex bifurcation, CTOs, primary PCI, and Renal & Peripheral Angioplasties at Square Hospital.His sub specialty interest is in Interventional Cardiology.Professional Appointment & Committee Membership:Life Member – Bangladesh Cardiac Society (BSC), Bangladesh Society of Cardiovascular Interventions (BSCI), Bangladesh Society of Echo Cardiography (BSE), Bangladesh Medical Association (BMA)Org. Secretary (Elect) Bangladesh Cardiac Society from 2015, Scientific Secretary (Elect), 2009 – 14.Others: Fellow, Society of Cardiac angiography &Intervention(FSCAI, USA), Associate Fellow American College of Cardiology (FACC), Member-American Society of Echocardiography (MASE), European Society of Percutaneous Cardiovascular Interventions. (EPACI), European Society of Cardiology (MESC)', 'Bangla, English', 'Ut ut blanditiis id', 3, 18, 1, 1, 1, 3),
-(3, '2024-01-04 11:42:11.395957', '2024-01-07 05:53:13.868375', NULL, 'Dr. Asif Manwar', 'Armand Nguyen', 'Ila Norris', '2018-06-14', '18', '+1 (993) 535-9147', '24', 'Praesentium in expli', 'Dr. Asif Manwar, a graduate of Chittagong Medical College, started career as Resident Medical Officer, BIRDEM in 2002 en-route to Ibrahim Cardiac Hospital.  Dr. Manwar pursued PG Dip Cardiology in 2004 under University of London with Distinction & Sir John Goodwin Prize for academic excellence by Imperial College London. Academic up-gradation in 2006 created an opportunity to serve Apollo Hospital Dhaka as Registrar, Cardiology. To aspire proficiency at masters’ level he completed MSc Cardiology with Distinction once again by Canterbury Christ Church & University College London (UCL) in 2008. To achieve superspeciality, he opted Fellowship in Paediatric Cardiology being registered with Medical Council of India in 2009.           Dr. Manwar is proficient in all facets of non-invasive procedures like 3D-TOE-DSE, Dyssynchrony, Strain Rate, Tissue Doppler Imaging, Contrast & Intra-operative Echo. He got basic training from Hammersmith, Royal Brompton and advanced training from The Heart Hospital London. He obtained hands on training in Grown-Up Congenital, Paediatric, Neonatal & Fetal Echo from AMRITA Kerala & New Delhi India. Dr. Asif Manwar joined SQUARE Hospital as Specialist Cardiologist, contributing his expertise since then before taking up position of Associate Consultant in 2015 & Coordinator Non-Invasive Lab in 2017.', 'Bangla, English', 'Distinctio Sed dolo', 8, 22, 1, 4, 3, 4),
-(4, '2024-01-04 11:43:53.046856', '2024-01-07 05:53:00.565549', NULL, 'Dr. Fowaz Hussain Shuvo', 'Haley Perkins', 'Silas Owen', '1989-04-12', '53', '+1 (965) 663-4104', '26', 'Provident occaecat', 'Dr. Fowaz Hussain graduated from Dhaka Medical College and obtained his MD (Hepatology) from Bangabandhu Sheikh Mujib Medical University (BSMMU). He gained experience through his working tenure of more than 10 years at department of Hepatology and Gastroenterology of a reputed corporate hospital of Dhaka where he groomed himself up as one of the dependable gastroenterologists of the country. He was also an Assistant Professor in the department of Hepatolgy at Mymensingh Medical College & Hospital. Dr. Fowaz Hussain is an expert in Interventional procedures like Endoscopy, Colonoscopy, Polypectomy, ERCP, Esophageal Stentings, Bleeding Homeostasis and Clippings. Dr. Fowaz Hussain got his advanced interventional training and joined many workshops in India, Singapore and different countries of Europe. He has many publications both in international and national levels.', 'Bangla, English', 'Tempor quo officia a', 5, 7, 1, 1, 1, 5);
+(1, '2024-01-04 09:55:54.637054', NULL, NULL, 'Dr. Arunangshu Das', 'Aimee Long', 'Brielle Melton', '1971-01-19', '6', '01965784645', '76', '5 Years', 'Dr Arunangshu Das passed MBBS from Mymensing Medical College in 2005. After that he joined Radiotherapy Department of Dhaka Medical College in 2007 as Honorary Medical Officer. At the end of 2008 he received a scholarship and went to National Cancer Center (NCC) Singapore for a clinical attachment and training. In 2009, he successfully completed Post Graduate Certificate in Palliative Medicine  from Flinders University Australia.  He joined Government Health Service (27th BCS) in December 2008. Subsequently in 2010 he was posted at National Institute of Cancer Research and Hospital (NICRH), Dhaka at the Department of Radiation Oncology. In 2012 he went to UKM, Malaysia for a higher training in Oncology. He successfully completed FCPS in Radiotherapy from Bangladesh College of Physicians and Surgeons of Bangladesh (BCPS) in 2014. At the middle of 2014 he went to TATA Memorial Hospital Mumbai for a clinical training in Radiation Oncology. He received the prestigious International Development and Education Award (IDEA) in January 2018 from American Society of Clinical Oncology (ASCO) USA. He also achieved the prestigious ESMO Asia Leadership Award in 2020. As a part of voluntary activity he is working as the General Secretary of Bangladesh Society for Breast Cancer Study. He is active in clinical research and published many articles both nationally and internationally. He has long 15 years experience working the field of Oncology. Currently he is working as Associate Consultant at Oncology Department of Square Hospitals Ltd.', 'Bangla, English', 'N/A', 1, 4, 1, 1, 2, 2),
+(2, '2024-01-04 10:16:07.349043', NULL, NULL, 'Dr. Md. Towhiduzzaman', 'Kalia Shaw', 'Julie Dunlap', '1976-04-15', '8', '01963369911', '61', 'Assumenda rerum cons', 'Dr. Towhiduzzaman received SAARC Cardiology  hands on Fellowship in Interventional Cardiology at Escorts Heart Institute and Research Centre (EHIR&C), New Delhi, India for 01(one) year in June 2006. Subsequently he was selected for another 01 year hands on Fellowship program in Interventional Cardiology at National Heart Centre, Singapore and received the fellowship award in July 2007.  He has successfully completed Rotablation, Intravascular ultrasound Pressure wire and peripheral stenting course. He also gained and experienced a numerous number of invasive and clinical training and observatory fellowship and visited  USA, Canada, France, England, Japan, Italy, Sweden, Hong Kong, China, Jamaica, Costarica, Vietnam, Malaysia, Thailand, India, Pakistan and Nepal. Dr. Towhiduzzaman has published articles and presented cases at numerous national and international conferences. He has vast experiences of 10 years to perform invasive & interventional and complex diagnostic and therapeutic procedures independently & confidently. He is regular Faculty/Guest Speaker and participated in a large number of International workshops, seminars, symposiums both home and abroad that has enriched his decision making capacity, professional skills and care giving attitude to an international level. For last 10 years he is performing highest number of complex bifurcation, CTOs, primary PCI, and Renal & Peripheral Angioplasties at Square Hospital.His sub specialty interest is in Interventional Cardiology.Professional Appointment & Committee Membership:Life Member – Bangladesh Cardiac Society (BSC), Bangladesh Society of Cardiovascular Interventions (BSCI), Bangladesh Society of Echo Cardiography (BSE), Bangladesh Medical Association (BMA)Org. Secretary (Elect) Bangladesh Cardiac Society from 2015, Scientific Secretary (Elect), 2009 – 14.Others: Fellow, Society of Cardiac angiography &Intervention(FSCAI, USA), Associate Fellow American College of Cardiology (FACC), Member-American Society of Echocardiography (MASE), European Society of Percutaneous Cardiovascular Interventions. (EPACI), European Society of Cardiology (MESC)', 'Bangla, English', 'Ut ut blanditiis id', 3, 4, 1, 1, 1, 3),
+(3, '2024-01-04 11:42:11.395957', NULL, NULL, 'Dr. Asif Manwar', 'Armand Nguyen', 'Ila Norris', '2018-06-14', '18', '+1 (993) 535-9147', '24', 'Praesentium in expli', 'Dr. Asif Manwar, a graduate of Chittagong Medical College, started career as Resident Medical Officer, BIRDEM in 2002 en-route to Ibrahim Cardiac Hospital.  Dr. Manwar pursued PG Dip Cardiology in 2004 under University of London with Distinction & Sir John Goodwin Prize for academic excellence by Imperial College London. Academic up-gradation in 2006 created an opportunity to serve Apollo Hospital Dhaka as Registrar, Cardiology. To aspire proficiency at masters’ level he completed MSc Cardiology with Distinction once again by Canterbury Christ Church & University College London (UCL) in 2008. To achieve superspeciality, he opted Fellowship in Paediatric Cardiology being registered with Medical Council of India in 2009.           Dr. Manwar is proficient in all facets of non-invasive procedures like 3D-TOE-DSE, Dyssynchrony, Strain Rate, Tissue Doppler Imaging, Contrast & Intra-operative Echo. He got basic training from Hammersmith, Royal Brompton and advanced training from The Heart Hospital London. He obtained hands on training in Grown-Up Congenital, Paediatric, Neonatal & Fetal Echo from AMRITA Kerala & New Delhi India. Dr. Asif Manwar joined SQUARE Hospital as Specialist Cardiologist, contributing his expertise since then before taking up position of Associate Consultant in 2015 & Coordinator Non-Invasive Lab in 2017.', 'Bangla, English', 'Distinctio Sed dolo', 8, 22, 1, 4, 3, 4),
+(4, '2024-01-04 11:43:53.046856', NULL, NULL, 'Dr. Fowaz Hussain Shuvo', 'Haley Perkins', 'Silas Owen', '1989-04-12', '53', '+1 (965) 663-4104', '26', 'Provident occaecat', 'Dr. Fowaz Hussain graduated from Dhaka Medical College and obtained his MD (Hepatology) from Bangabandhu Sheikh Mujib Medical University (BSMMU). He gained experience through his working tenure of more than 10 years at department of Hepatology and Gastroenterology of a reputed corporate hospital of Dhaka where he groomed himself up as one of the dependable gastroenterologists of the country. He was also an Assistant Professor in the department of Hepatolgy at Mymensingh Medical College & Hospital. Dr. Fowaz Hussain is an expert in Interventional procedures like Endoscopy, Colonoscopy, Polypectomy, ERCP, Esophageal Stentings, Bleeding Homeostasis and Clippings. Dr. Fowaz Hussain got his advanced interventional training and joined many workshops in India, Singapore and different countries of Europe. He has many publications both in international and national levels.', 'Bangla, English', 'Tempor quo officia a', 5, 7, 1, 1, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -1458,13 +1460,14 @@ CREATE TABLE `images` (
 --
 
 INSERT INTO `images` (`id`, `created_at`, `updated_at`, `deleted_at`, `photo_name`, `user_id`) VALUES
-(1, '2024-01-03 12:26:15.136829', '2024-01-07 11:38:49.081053', NULL, 'uploads/images/20240107113849_6373611101a34ad0b797236bc4e1d5da.jpg', 1),
-(2, '2024-01-04 09:55:54.652016', NULL, NULL, 'uploads/images/20240107113938_74bec2baafeb4ccc9967d02f2a6fcb71.jpg', 2),
-(3, '2024-01-04 10:16:07.353033', NULL, NULL, 'uploads/images/20240107115328_919e55cd51764c55a4de20ec01436eb0.jpg', 3),
-(4, '2024-01-04 11:42:11.423879', NULL, NULL, 'uploads/images/20240107115313_804a1280cfdb45cbacc158476051d157.jpg', 4),
-(5, '2024-01-04 11:43:53.048848', NULL, NULL, 'uploads/images/20240107115300_487dd5a7a9994e9e800e27c42408265c.png', 5),
-(6, '2024-01-05 06:27:49.254032', NULL, NULL, '', 6),
-(7, '2024-01-05 06:30:28.677482', NULL, NULL, '', 7);
+(1, '2024-01-03 12:26:15.136829', '2024-01-10 00:05:04.080678', NULL, 'uploads/images/20240110000306_2b757e00b0b147d096525452fd54dda6.jpg', 1),
+(2, '2024-01-04 09:55:54.652016', NULL, NULL, 'uploads/images/20240110000431_3703f05b461d435ea166fed782ea7a79.png', 2),
+(3, '2024-01-04 10:16:07.353033', NULL, NULL, 'uploads/images/20240110000404_3c51e96bc2f148d1ac130dd87ca61d29.png', 3),
+(4, '2024-01-04 11:42:11.423879', NULL, NULL, 'uploads/images/20240110000341_af22a8d46f444ded8644beeebaca2f8f.png', 4),
+(5, '2024-01-04 11:43:53.048848', NULL, NULL, 'uploads/images/20240110000240_f1d0c44826a44b6b9627718c0037dcaa.png', 5),
+(6, '2024-01-05 06:27:49.254032', '2024-01-10 00:08:47.859252', NULL, 'uploads/images/20240110000847_dc5f36d1758843de9dd5863d495493f4.png', 6),
+(7, '2024-01-05 06:30:28.677482', '2024-01-10 00:08:35.542208', NULL, 'uploads/images/20240110000835_c927d84d5eb54ec9bfc9277e89debf40.jpg', 7),
+(8, '2024-01-08 08:53:16.700880', '2024-01-10 00:08:08.515602', NULL, 'uploads/images/20240110000808_70281ce2e6074d98a0473356629b71d4.jpg', 8);
 
 -- --------------------------------------------------------
 
@@ -1657,7 +1660,7 @@ CREATE TABLE `medicine` (
 
 INSERT INTO `medicine` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`, `description`, `brand_id`, `created_by_id`, `generic_id`, `modified_by_id`, `medicine_type_id`, `strength_id`) VALUES
 (1, '2024-01-06 14:41:46.218636', NULL, '2024-01-06 18:20:33.422800', 'Napa', 'Omnis velit consecte', 4, NULL, 303, NULL, 17, 1),
-(2, '2024-01-06 18:19:54.401095', '2024-01-06 18:21:26.537793', NULL, 'Napa', 'N/A', 1, NULL, 329, NULL, 2, 4),
+(2, '2024-01-06 18:19:54.401095', NULL, NULL, 'Napa', 'N/A', 1, NULL, 329, NULL, 2, 4),
 (3, '2024-01-07 05:31:30.507771', NULL, NULL, 'Amoxicillin', 'n/a', 32, NULL, 191, NULL, 11, 7),
 (4, '2024-01-07 05:31:58.466304', NULL, NULL, 'Ciprofloxacin', 'n/a', 171, NULL, 340, NULL, 15, 6),
 (5, '2024-01-07 05:32:16.923755', NULL, NULL, 'Lisinopril', 'n/a', 170, NULL, 355, NULL, 11, 2),
@@ -2938,7 +2941,8 @@ INSERT INTO `otp` (`id`, `created_at`, `updated_at`, `deleted_at`, `otp`, `is_ve
 (4, '2024-01-04 11:42:11.379998', NULL, NULL, '0', 1, 4),
 (5, '2024-01-04 11:43:53.045858', NULL, NULL, '0', 1, 5),
 (6, '2024-01-05 06:27:49.258022', '2024-01-05 12:28:20.124918', NULL, '0', 1, 6),
-(7, '2024-01-05 06:30:28.678479', '2024-01-05 12:59:48.921608', NULL, '0', 1, 7);
+(7, '2024-01-05 06:30:28.678479', '2024-01-05 12:59:48.921608', NULL, '0', 1, 7),
+(8, '2024-01-08 08:53:16.701877', '2024-01-08 14:53:39.021182', NULL, '0', 1, 8);
 
 -- --------------------------------------------------------
 
@@ -2957,6 +2961,15 @@ CREATE TABLE `patient_appointment` (
   `doctor_id` bigint(20) DEFAULT NULL,
   `patient_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `patient_appointment`
+--
+
+INSERT INTO `patient_appointment` (`id`, `created_at`, `updated_at`, `deleted_at`, `appointment_date`, `appointment_time`, `is_confirmed`, `doctor_id`, `patient_id`) VALUES
+(1, '2024-01-08 08:58:09.760047', NULL, NULL, '08-01-2024 (Monday)', '06:00 PM - 06:10 PM', 0, 1, 3),
+(2, '2024-01-08 08:58:42.197289', NULL, NULL, '08-01-2024 (Monday)', '07:00 PM - 07:10 PM', 0, 2, 3),
+(3, '2024-01-08 09:01:55.494285', NULL, NULL, '10-01-2024 (Wednesday)', '05:00 PM - 05:10 PM', 0, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -2989,8 +3002,9 @@ CREATE TABLE `patient_profile` (
 --
 
 INSERT INTO `patient_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `full_name`, `father_name`, `mother_name`, `phone_no`, `registration_no`, `date_of_birth`, `nid_no`, `address`, `blood_group_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
-(1, '2024-01-05 06:27:49.219126', NULL, NULL, 'Mamun Mia', NULL, NULL, '+8801965572363', 'LTS-58765293083407', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6),
-(2, '2024-01-05 06:30:28.656536', NULL, NULL, 'Turan', NULL, NULL, '01960507337', 'OLZ-16272506021051', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 7);
+(1, '2024-01-05 06:27:49.219126', NULL, NULL, 'Turan Ali', 'Kasem Ali', 'Hasina Begum', '+8801965572363', 'LTS-58765293083407', '2001-06-22', 1234567890, 'Dhaka , Narayanganj, Rupganj , Borpa , Dokkhin Masabo', 4, 1, 2, 1, 6),
+(2, '2024-01-05 06:30:28.656536', NULL, NULL, 'Turan', 'Cade Townsend', 'Tara Conner', '019623569874', 'OLZ-16272506021051', '1991-01-31', 2, 'Tempora iusto nostru', 5, 1, 2, 1, 7),
+(3, '2024-01-08 08:53:16.695894', NULL, NULL, 'MD Rajib', 'Jin Cobb', 'Salvador Strickland', '01753911172', 'QLE-27229387677569', '1975-07-19', 81, 'Reprehenderit libero', 6, 1, 1, 1, 8);
 
 -- --------------------------------------------------------
 
@@ -3048,53 +3062,7 @@ INSERT INTO `prediction` (`id`, `created_at`, `updated_at`, `deleted_at`, `body_
 (2, '2024-01-04 10:04:37.743454', NULL, NULL, 1, NULL, 4, 2, 1),
 (3, '2024-01-04 10:04:47.596500', NULL, NULL, 1, NULL, 4, 3, 1),
 (4, '2024-01-04 10:04:56.448011', NULL, NULL, 1, NULL, 4, 4, 1),
-(5, '2024-01-04 10:05:16.451331', NULL, NULL, 1, NULL, 4, 5, 1),
-(6, '2024-01-04 10:17:41.167258', NULL, NULL, 1, NULL, 18, 12, 2),
-(7, '2024-01-04 11:45:57.030771', NULL, NULL, 8, NULL, 7, 212, 25),
-(8, '2024-01-04 11:49:48.318457', NULL, NULL, 8, NULL, 7, 212, 25),
-(9, '2024-01-04 13:22:02.346601', NULL, NULL, 3, NULL, 1, 64, 7),
-(10, '2024-01-06 14:44:43.114704', NULL, NULL, 1, 1, 4, 1, 1),
-(11, '2024-01-06 16:40:24.398499', NULL, NULL, 1, 1, 4, 1, 1),
-(12, '2024-01-07 06:59:08.457047', NULL, NULL, 1, NULL, 4, 1, 1),
-(13, '2024-01-07 06:59:14.637829', NULL, NULL, 1, NULL, 4, 1, 1),
-(14, '2024-01-07 06:59:17.865706', NULL, NULL, 1, NULL, 4, 1, 1),
-(15, '2024-01-07 06:59:21.667130', NULL, NULL, 1, NULL, 4, 1, 1),
-(16, '2024-01-07 06:59:24.618116', NULL, NULL, 1, NULL, 4, 1, 1),
-(17, '2024-01-07 06:59:27.887637', NULL, NULL, 1, NULL, 4, 1, 1),
-(18, '2024-01-07 06:59:31.329754', NULL, NULL, 1, NULL, 4, 1, 1),
-(19, '2024-01-07 07:01:27.125606', NULL, NULL, 1, NULL, 4, 1, 1),
-(20, '2024-01-07 07:01:29.911483', NULL, NULL, 1, NULL, 4, 1, 1),
-(21, '2024-01-07 07:01:33.391457', NULL, NULL, 1, NULL, 4, 1, 1),
-(22, '2024-01-07 07:01:36.500498', NULL, NULL, 1, NULL, 4, 1, 1),
-(23, '2024-01-07 07:01:39.824532', NULL, NULL, 1, NULL, 4, 1, 1),
-(24, '2024-01-07 07:01:42.911614', NULL, NULL, 1, NULL, 4, 1, 1),
-(25, '2024-01-07 07:05:14.850813', NULL, NULL, 1, NULL, 4, 1, 1),
-(26, '2024-01-07 07:05:19.777981', NULL, NULL, 1, NULL, 4, 1, 1),
-(27, '2024-01-07 07:05:24.917939', NULL, NULL, 1, NULL, 4, 1, 1),
-(28, '2024-01-07 07:05:28.476740', NULL, NULL, 1, NULL, 4, 1, 1),
-(29, '2024-01-07 07:05:32.210834', NULL, NULL, 1, NULL, 4, 1, 1),
-(30, '2024-01-07 07:05:35.544882', NULL, NULL, 1, NULL, 4, 1, 1),
-(31, '2024-01-07 07:05:39.200630', NULL, NULL, 1, NULL, 4, 1, 1),
-(32, '2024-01-07 07:05:42.827023', NULL, NULL, 1, NULL, 4, 1, 1),
-(33, '2024-01-07 07:10:01.060541', NULL, NULL, 1, NULL, 4, 1, 1),
-(34, '2024-01-07 07:10:09.471364', NULL, NULL, 1, NULL, 4, 1, 1),
-(35, '2024-01-07 07:10:12.944822', NULL, NULL, 1, NULL, 4, 1, 1),
-(36, '2024-01-07 07:10:17.089219', NULL, NULL, 1, NULL, 4, 1, 1),
-(37, '2024-01-07 07:27:01.650145', NULL, NULL, 1, NULL, 4, 1, 1),
-(38, '2024-01-07 07:27:05.140970', NULL, NULL, 1, NULL, 4, 1, 1),
-(39, '2024-01-07 07:27:08.428147', NULL, NULL, 1, NULL, 4, 1, 1),
-(40, '2024-01-07 07:27:11.650810', NULL, NULL, 1, NULL, 4, 1, 1),
-(41, '2024-01-07 07:27:23.004257', NULL, NULL, 1, NULL, 4, 1, 1),
-(42, '2024-01-07 07:27:29.420951', NULL, NULL, 1, NULL, 4, 1, 1),
-(43, '2024-01-07 07:27:33.819082', NULL, NULL, 1, NULL, 4, 1, 1),
-(44, '2024-01-07 07:27:36.749131', NULL, NULL, 1, NULL, 4, 1, 1),
-(45, '2024-01-07 07:27:40.407465', NULL, NULL, 1, NULL, 4, 1, 1),
-(46, '2024-01-07 07:27:44.363885', NULL, NULL, 1, NULL, 4, 1, 1),
-(47, '2024-01-07 07:27:48.266398', NULL, NULL, 1, NULL, 4, 1, 1),
-(48, '2024-01-07 07:27:52.367568', NULL, NULL, 1, NULL, 4, 1, 1),
-(49, '2024-01-07 07:27:56.997811', NULL, NULL, 1, NULL, 4, 1, 1),
-(50, '2024-01-07 07:28:00.769183', NULL, NULL, 1, NULL, 4, 1, 1),
-(51, '2024-01-07 07:28:04.960243', NULL, NULL, 1, NULL, 4, 1, 1);
+(5, '2024-01-04 10:05:16.451331', NULL, NULL, 1, NULL, 4, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -3231,54 +3199,7 @@ INSERT INTO `specification` (`id`, `accuracy`, `prediction_id`, `problem_specifi
 (2, NULL, 2, 2),
 (3, NULL, 3, 3),
 (4, NULL, 4, 4),
-(5, NULL, 5, 5),
-(6, '1.000', 6, 12),
-(7, '0.000', 7, 212),
-(8, '0.000', 7, 213),
-(9, '1.000', 8, 212),
-(10, '0.000', 9, 64),
-(11, '0.000', 10, 1),
-(12, '1.000', 11, 1),
-(13, '1.000', 12, 1),
-(14, '1.000', 13, 1),
-(15, '1.000', 14, 1),
-(16, '1.000', 15, 1),
-(17, '1.000', 16, 1),
-(18, '1.000', 17, 1),
-(19, '1.000', 18, 1),
-(20, '1.000', 19, 1),
-(21, '1.000', 20, 1),
-(22, '1.000', 21, 1),
-(23, '1.000', 22, 1),
-(24, '1.000', 23, 1),
-(25, '1.000', 24, 1),
-(26, '1.000', 25, 1),
-(27, '1.000', 26, 1),
-(28, '1.000', 27, 1),
-(29, '1.000', 28, 1),
-(30, '1.000', 29, 1),
-(31, '1.000', 30, 1),
-(32, '1.000', 31, 1),
-(33, '1.000', 32, 1),
-(34, '1.000', 33, 1),
-(35, '1.000', 34, 1),
-(36, '1.000', 35, 1),
-(37, '1.000', 36, 1),
-(38, '1.000', 37, 1),
-(39, '1.000', 38, 1),
-(40, '1.000', 39, 1),
-(41, '1.000', 40, 1),
-(42, '1.000', 41, 1),
-(43, '1.000', 42, 1),
-(44, '1.000', 43, 1),
-(45, '1.000', 44, 1),
-(46, '1.000', 45, 1),
-(47, '1.000', 46, 1),
-(48, '1.000', 47, 1),
-(49, '1.000', 48, 1),
-(50, '1.000', 49, 1),
-(51, '1.000', 50, 1),
-(52, '1.000', 51, 1);
+(5, NULL, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -3867,7 +3788,8 @@ INSERT INTO `user` (`id`, `created_at`, `updated_at`, `deleted_at`, `user_name`,
 (4, '2024-01-04 11:42:11.376007', NULL, NULL, 'doctor3', 'doctor3@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
 (5, '2024-01-04 11:43:53.042867', NULL, NULL, 'doctor4', 'doctor4@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
 (6, '2024-01-05 06:27:49.196187', NULL, NULL, 'patient1', 'patient1@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active'),
-(7, '2024-01-05 06:30:28.617644', NULL, NULL, 'patient2', 'kabirariyan14@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active');
+(7, '2024-01-05 06:30:28.617644', NULL, NULL, 'patient2', 'kabirariyan14@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active'),
+(8, '2024-01-08 08:53:16.692902', NULL, NULL, 'patient3', 'patient5@mailinator.com', '123', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'patient', 'active');
 
 --
 -- Indexes for dumped tables
@@ -4470,7 +4392,7 @@ ALTER TABLE `gender`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `lab_test`
@@ -4548,19 +4470,19 @@ ALTER TABLE `organ_problem_speci`
 -- AUTO_INCREMENT for table `otp`
 --
 ALTER TABLE `otp`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `patient_appointment`
 --
 ALTER TABLE `patient_appointment`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `patient_profile`
 --
 ALTER TABLE `patient_profile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `permanent_address`
@@ -4572,7 +4494,7 @@ ALTER TABLE `permanent_address`
 -- AUTO_INCREMENT for table `prediction`
 --
 ALTER TABLE `prediction`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `prescription_for_lab_test`
@@ -4602,7 +4524,7 @@ ALTER TABLE `religion`
 -- AUTO_INCREMENT for table `specification`
 --
 ALTER TABLE `specification`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `upazila`
@@ -4614,7 +4536,7 @@ ALTER TABLE `upazila`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
