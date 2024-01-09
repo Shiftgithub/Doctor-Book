@@ -92,7 +92,6 @@ def store_appointment_and_create_account(request):
     elif operation_response.data.get('status') == 404:
         messages.add_message(request, messages.ERROR, message)
         return redirect('appointment_schedule_form')
-
     else:
         messages.add_message(request, messages.ERROR, message)
         return redirect('appointment_schedule_form')

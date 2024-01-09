@@ -1,18 +1,16 @@
 import hashlib
-from rest_framework.response import Response
-
-from admin.constants.constants import ROLE_ADMIN, ROLE_DOCTOR, ROLE_PATIENT
 from .serializers import *
+from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from admin.doctor.models import OffDay
-from admin.doctor.models import ScheduleTime, AppointmentSchedule
+from admin.doctor.models import ScheduleTime
 from datetime import datetime, timedelta
 from admin.patient.models import PatientProfile
 from django.db import transaction
 from admin.doctor.models import DoctorProfile
 from admin.authentication.user.serializers import UserSerializer
 from admin.patient.serializers import PatientSerializer
-from admin.authentication.otp.function.send_email import generate_unique, send_email, generate_token
+from admin.authentication.otp.function.send_email import *
 from admin.authentication.user.models import Images
 from admin.authentication.otp.verifyotp.models import VerifyOtp
 from django.http import JsonResponse
@@ -227,7 +225,7 @@ def store_appointment_data(request):
     appointment_date = request.session.get('temp_appointment_date')
     appointment_time = request.session.get('temp_appointment_time')
     doctor_id = request.session.get('temp_doctor_id')
-    prediction_id = request.session['prediction_id']
+    prediction_id = request.session.get('prediction_id')
     if appointment_date and appointment_time and doctor_id:
         get_appointment = GetAppointment.objects.filter(doctor=doctor_id, appointment_date=appointment_date,
                                                         appointment_time=appointment_time, deleted_at=None)
@@ -245,24 +243,45 @@ def store_appointment_data(request):
                     doctor = DoctorProfile.objects.get(id=doctor_id)
                 except DoctorProfile.DoesNotExist:
                     return Response({'status': 404, 'message': 'Doctor not found'})
-                prediction = get_object_or_404(Prediction, id=prediction_id, deleted_at=None)
-                prediction_serializer = PredictionUpdateSerializer(prediction, data={'created_by': patient.id},
-                                                                   partial=True)
-                if prediction_serializer.is_valid():
-                    prediction_obj = prediction_serializer.save()
-                # Set the 'doctor' field to the retrieved 'User' instance
-                appointment = appointment_serializer.save(
-                    appointment_date=appointment_date,
-                    appointment_time=appointment_time,
-                    doctor=doctor,
-                    patient=patient
-                )
-                prediction = prediction_serializer.save(created_by=patient)
-                if appointment and prediction:
-                    return Response({'status': 200, 'message': 'Appointment request send successfully'})
+                try:
+                    user = User.objects.get(id=patient.user_id)
+                except DoctorProfile.DoesNotExist:
+                    return Response({'status': 404, 'message': 'Doctor not found'})
+                if prediction_id:
+                    prediction = get_object_or_404(Prediction, id=prediction_id, deleted_at=None)
+                    prediction_serializer = PredictionUpdateSerializer(prediction, data={'created_by': patient.id},
+                                                                       partial=True)
+                    if prediction_serializer.is_valid():
+                        prediction_obj = prediction_serializer.save(created_by=patient)
+                    # Set the 'doctor' field to the retrieved 'User' instance
+                    appointment_obj = appointment_serializer.save(
+                        appointment_date=appointment_date,
+                        appointment_time=appointment_time,
+                        doctor=doctor,
+                        patient=patient
+                    )
+                    if appointment_obj and prediction_obj:
+                        data = {'status': 200, 'message': 'Appointment request send successfully'}
+                    else:
+                        transaction.set_rollback(True)
+                        return Response({'status': 403, 'message': 'Error in request appointment schedule'})
                 else:
-                    transaction.set_rollback(True)
-                    return Response({'status': 403, 'message': 'Error in request appointment schedule'})
+                    appointment_obj = appointment_serializer.save(
+                        appointment_date=appointment_date,
+                        appointment_time=appointment_time,
+                        doctor=doctor,
+                        patient=patient
+                    )
+                    if appointment_obj:
+                        data = {'status': 200, 'message': 'Appointment request send successfully'}
+                    else:
+                        transaction.set_rollback(True)
+                        return Response({'status': 403, 'message': 'Error in request appointment schedule'})
+                schedule_message = (f'Your appointment Date is : {appointment_date} and Appointment '
+                                    f'Time : {appointment_time}')
+                sent_email = send_email(user.email, patient.full_name, schedule_message)
+                return Response(data)
+
             else:
                 return Response({'status': 400, 'message': 'Invalid request!'})
     else:
@@ -275,7 +294,7 @@ def create_patient_account_store_appointment(request):
     appointment_date = request.session.get('temp_appointment_date')
     appointment_time = request.session.get('temp_appointment_time')
     doctor_id = request.session.get('temp_doctor_id')
-    prediction_id = request.session['prediction_id']
+    prediction_id = request.session.get('prediction_id')
     if appointment_date and appointment_time and doctor_id:
         get_appointment = GetAppointment.objects.filter(doctor=doctor_id, appointment_date=appointment_date,
                                                         appointment_time=appointment_time, deleted_at=None)
@@ -310,7 +329,7 @@ def create_patient_account_store_appointment(request):
                 token_str = generate_token(6)
                 email_fields = [user_serializer.validated_data['email']]
                 email = ' - '.join(email_fields)
-                message = 'Your OTP number is: {token_str}'
+                message = f'Your OTP number is: {token_str}'
                 otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
                 otp_serializer.save()
                 sent_email = send_email(email, full_name, message)
@@ -327,21 +346,35 @@ def create_patient_account_store_appointment(request):
                             doctor=doctor,
                             patient=patient
                         )
-                        prediction = get_object_or_404(Prediction, id=prediction_id, deleted_at=None)
-                        prediction_serializer = PredictionUpdateSerializer(prediction, data={'created_by': patient.id},
-                                                                           partial=True)
-                        if prediction_serializer.is_valid():
-                            prediction_obj = prediction_serializer.save()
-                            if appointment and prediction_obj:
+                        if prediction_id:
+                            prediction = get_object_or_404(Prediction, id=prediction_id, deleted_at=None)
+                            prediction_serializer = PredictionUpdateSerializer(prediction,
+                                                                               data={'created_by': patient.id},
+                                                                               partial=True)
+                            if prediction_serializer.is_valid():
+                                prediction_obj = prediction_serializer.save()
+                                if appointment and prediction_obj:
+                                    data = {'email': email, 'status': 200,
+                                            'message': 'Appointment request send successfully. We send OTP on your '
+                                                       'email please active your account using OTP'}
+                                else:
+                                    transaction.set_rollback(True)
+                                    return Response({'status': 403, 'message': 'Error in sending appointment request!'})
+                            else:
+                                transaction.set_rollback(True)
+                                return Response({'status': 404, 'message': 'Invalid request!'})
+                        else:
+                            if appointment:
                                 data = {'email': email, 'status': 200,
-                                        'message': 'Appointment request send successfully. We send otp on your email please active your account using otp'}
-                                return Response(data)
+                                        'message': 'Appointment request send successfully. We send OTP on your email '
+                                                   'please active your account using OTP'}
                             else:
                                 transaction.set_rollback(True)
                                 return Response({'status': 403, 'message': 'Error in sending appointment request!'})
-                        else:
-                            transaction.set_rollback(True)
-                            return Response({'status': 404, 'message': 'Invalid request!'})
+                        schedule_message = (f'Your appointment Date is : {appointment_date} and Appointment '
+                                            f'Time : {appointment_time}')
+                        sent_email = send_email(email, full_name, schedule_message)
+                        return Response(data)
                     else:
                         transaction.set_rollback(True)
                         return Response({'status': 404, 'message': 'Invalid request!'})
