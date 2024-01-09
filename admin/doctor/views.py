@@ -25,6 +25,7 @@ def store_doctor_data(request):
 
         if user_serializer.is_valid(
                 raise_exception=True) and doctor_serializer.is_valid() and image_serializer.is_valid() and present_address_serializer.is_valid() and permanent_address_serializer.is_valid():
+            full_name = request.data.get('full_name')
             user_name = request.data.get('user_name')
             email = request.data.get('email')
 
@@ -55,7 +56,7 @@ def store_doctor_data(request):
                 permanent_instance = permanent_address_serializer.save(user=user_instance)
                 if doctor_instance and image_instance and present_instance and permanent_instance:
                     message = 'Your username is : ' + user_name + '<br>' + 'Your password is : ' + password
-                    sent_email = send_email(email, message)
+                    sent_email = send_email(email, full_name, message)
                     if sent_email:
                         return Response({'status': 200, 'message': 'Doctor data stored successfully'})
                     else:

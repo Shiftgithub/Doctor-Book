@@ -1,5 +1,7 @@
 import hashlib
 from rest_framework.response import Response
+
+from admin.constants.constants import ROLE_ADMIN, ROLE_DOCTOR, ROLE_PATIENT
 from .serializers import *
 from rest_framework.decorators import api_view
 from admin.doctor.models import OffDay
@@ -285,8 +287,9 @@ def create_patient_account_store_appointment(request):
             appointment_serializer = PatientAppointmentSerializer(data=request.data)
 
             if user_serializer.is_valid(raise_exception=True) and patient_serializer.is_valid():
-                user_name = request.data.get('user_name')
                 email = request.data.get('email')
+                full_name = request.data.get('full_name')
+                user_name = request.data.get('user_name')
 
                 if User.objects.filter(user_name=user_name).exists():
                     return Response({'message': 'This User name already taken. Please try another.', 'status': 404})
@@ -310,7 +313,7 @@ def create_patient_account_store_appointment(request):
                 message = 'Your OTP number is: {token_str}'
                 otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
                 otp_serializer.save()
-                sent_email = send_email(email, message)
+                sent_email = send_email(email, full_name, message)
                 if otp_serializer and sent_email:
                     if appointment_serializer.is_valid():
                         try:
@@ -407,14 +410,13 @@ def get_store_appointment(request):
             patient = PatientProfile.objects.get(id=patient_id, deleted_at=None)
         except PatientProfile.DoesNotExist:
             return Response({'status': 404, 'message': 'Patient not found'})
-
         try:
             doctor = DoctorProfile.objects.get(id=doctor_id)
         except DoctorProfile.DoesNotExist:
             return Response({'status': 404, 'message': 'Doctor not found'})
         try:
-            user_ifo = User.objects.get(id=patient.user_id, deleted_at=None)
-            email = user_ifo.email
+            user_info = User.objects.get(id=patient.user_id, deleted_at=None)
+            email = user_info.email
         except User.DoesNotExist:
             return Response({'status': 404, 'message': 'User not found'})
         # Try to retrieve the existing appointment
@@ -428,7 +430,7 @@ def get_store_appointment(request):
             return Response({'status': 403, 'message': 'This time is already taken'})
         else:
             message = f'Your appointment Date is : {appointment_date} and Appointment Time : {appointment_time}'
-            sent_email = send_email(email, message)
+            sent_email = send_email(email, patient.full_name, message)
             if appointment_serializer and sent_email:
                 if appointment_serializer.save(
                         appointment_date=appointment_date,
@@ -469,12 +471,12 @@ def edit_appointment_data(request, appointment_id):
         except PatientProfile.DoesNotExist:
             return Response({'status': 403, 'message': 'User not found'})
         try:
-            user_ifo = User.objects.get(id=patient.user_id, deleted_at=None)
-            email = user_ifo.email
+            user_info = User.objects.get(id=patient.user_id, deleted_at=None)
+            email = user_info.email
         except User.DoesNotExist:
             return Response({'status': 403, 'message': 'User not found'})
         message = f'Your appointment Date is : {appointment_date} and Appointment Time : {appointment_time}'
-        sent_email = send_email(email, message)
+        sent_email = send_email(email, patient.full_name, message)
         if sent_email and serializer.save(doctor=doctor, updated_at=timezone.now()):
             return Response({'status': 200, 'message': 'Appointment data updated successfully'})
         else:

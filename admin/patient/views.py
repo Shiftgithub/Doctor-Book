@@ -16,6 +16,7 @@ def store_patient_data(request):
     patient_serializer = PatientSerializer(data=request.data)
     user_serializer = UserSerializer(data=request.data)
     if user_serializer.is_valid(raise_exception=True) and patient_serializer.is_valid():
+        full_name = request.data.get('full_name')
         user_name = request.data.get('user_name')
         email = request.data.get('email')
 
@@ -41,7 +42,7 @@ def store_patient_data(request):
         message = f'Your OTP number is: {token_str}'
         otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
         otp_serializer.save()
-        sent_email = send_email(email, message)
+        sent_email = send_email(email,full_name, message)
         if otp_serializer and sent_email:
             data = {'email': email, 'status': 200, 'message': 'Patient data stored successfully'}
             return Response(data)
