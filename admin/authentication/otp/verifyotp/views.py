@@ -43,7 +43,13 @@ def verify_otp(request):
             otp_check = VerifyOtp.objects.get(otp=otp, user=user)
         except VerifyOtp.DoesNotExist:
             return Response({'status': 401, 'message': 'OTP are not match!', 'email': email})
-
+        check_verified = otp_check.is_verified
+        if check_verified == 0:
+            status = 308
+        elif check_verified == 1:
+            status = 200
+        else:
+            pass
         if otp_check:
             now = datetime.now()
             otp_check.otp = 0
@@ -57,10 +63,10 @@ def verify_otp(request):
             update_user = user.save(update_fields=['status'])
 
             message = 'Your Doctor Book Account has been activated'
-            sent_email = send_email(email,user_info.full_name,message)
+            sent_email = send_email(email, user_info.full_name, message)
             if sent_email:
                 response = {
-                    'id': user.id, 'email': user.email, 'status': 200,
+                    'id': user.id, 'email': user.email, 'status': status,
                     'message': 'Account Activated Successfully'
                 }
                 return Response(response)
