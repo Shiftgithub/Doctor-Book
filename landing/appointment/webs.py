@@ -182,11 +182,11 @@ def edit_appointment_form(request, appointment_id):
 
 def edit_appointment(request, appointment_id):
     operation_response = edit_appointment_data(request, appointment_id)
-
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Appointment data edited successfully')
+        messages.add_message(request, messages.INFO, message)
     else:
-        messages.add_message(request, messages.ERROR, 'Error editing Appointment data')
+        messages.add_message(request, messages.ERROR, message)
 
     return redirect('edit_appointment_form', appointment_id=appointment_id)
 
@@ -213,11 +213,21 @@ def appointment_form(request):
 
 def store_appointment_by_doctor(request):
     operation_response = get_store_appointment(request)
+    message = operation_response.data.get('message')
     if operation_response.data.get('status') == 200:
-        messages.add_message(request, messages.INFO, 'Appointment Request Send successfully')
+        messages.add_message(request, messages.INFO, message)
+        return redirect('appointment_form')
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('appointment_form')
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('appointment_form')
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
         return redirect('appointment_form')
     else:
-        messages.add_message(request, messages.ERROR, 'Error in Request Send')
+        messages.add_message(request, messages.ERROR, message)
         return redirect('appointment_form')
 
 

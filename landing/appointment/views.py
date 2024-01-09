@@ -10,9 +10,8 @@ from django.db import transaction
 from admin.doctor.models import DoctorProfile
 from admin.authentication.user.serializers import UserSerializer
 from admin.patient.serializers import PatientSerializer
-from admin.authentication.otp.function.send_email import generate_unique, send_email
+from admin.authentication.otp.function.send_email import generate_unique, send_email, generate_token
 from admin.authentication.user.models import Images
-from admin.authentication.otp.function.send_email import generate_token
 from admin.authentication.otp.verifyotp.models import VerifyOtp
 from django.http import JsonResponse
 from django.utils import timezone
@@ -308,19 +307,17 @@ def create_patient_account_store_appointment(request):
                 token_str = generate_token(6)
                 email_fields = [user_serializer.validated_data['email']]
                 email = ' - '.join(email_fields)
-                message = f'Message From Doctor-Book [Personalized Doctor Predictor]:\n\nYour OTP number is: {token_str}'
+                message = 'Your OTP number is: {token_str}'
                 otp_serializer = VerifyOtp(otp=token_str, user_id=user_profile_instance)
                 otp_serializer.save()
                 sent_email = send_email(email, message)
                 if otp_serializer and sent_email:
                     if appointment_serializer.is_valid():
-                        # Retrieve the 'DoctorProfile' instance for the doctor using 'doctor_id'
                         try:
                             doctor = DoctorProfile.objects.get(id=doctor_id)
                         except DoctorProfile.DoesNotExist:
                             return Response({'status': 404, 'message': 'Doctor not found'})
 
-                        # Set the 'doctor' field to the retrieved 'User' instance
                         appointment = appointment_serializer.save(
                             appointment_date=appointment_date,
                             appointment_time=appointment_time,
@@ -398,6 +395,7 @@ def count_appointments(request, doctor_id):
 
 
 @api_view(['POST'])
+@transaction.atomic
 def get_store_appointment(request):
     appointment_serializer = PatientAppointmentSerializer(data=request.data)
     if appointment_serializer.is_valid():
@@ -414,7 +412,11 @@ def get_store_appointment(request):
             doctor = DoctorProfile.objects.get(id=doctor_id)
         except DoctorProfile.DoesNotExist:
             return Response({'status': 404, 'message': 'Doctor not found'})
-
+        try:
+            user_ifo = User.objects.get(id=patient.user_id, deleted_at=None)
+            email = user_ifo.email
+        except User.DoesNotExist:
+            return Response({'status': 404, 'message': 'User not found'})
         # Try to retrieve the existing appointment
         get_appointment = GetAppointment.objects.filter(
             doctor_id=doctor_id,  # Use the actual ID, assuming doctor_id is the ID of DoctorProfile
@@ -425,13 +427,19 @@ def get_store_appointment(request):
         if get_appointment.exists():
             return Response({'status': 403, 'message': 'This time is already taken'})
         else:
-            if appointment_serializer.save(
-                    appointment_date=appointment_date,
-                    appointment_time=appointment_time,
-                    doctor=doctor,
-                    patient=patient
-            ):
-                return Response({'status': 200, 'message': 'Appointment data stored successfully'})
+            message = f'Your appointment Date is : {appointment_date} and Appointment Time : {appointment_time}'
+            sent_email = send_email(email, message)
+            if appointment_serializer and sent_email:
+                if appointment_serializer.save(
+                        appointment_date=appointment_date,
+                        appointment_time=appointment_time,
+                        doctor=doctor,
+                        patient=patient
+                ):
+                    return Response({'status': 200, 'message': 'Appointment data stored successfully'})
+                else:
+                    transaction.set_rollback(True)
+                    return Response({'status': 404, 'message': 'Appointment data stored failed'})
             else:
                 return Response({'status': 400, 'message': 'Invalid data'})
     else:
@@ -439,6 +447,7 @@ def get_store_appointment(request):
 
 
 @api_view(['PUT', 'POST'])
+@transaction.atomic
 def edit_appointment_data(request, appointment_id):
     # Use get_object_or_404 for fetching the appointment
     appointment = get_object_or_404(GetAppointment, id=appointment_id, deleted_at=None)
@@ -446,21 +455,34 @@ def edit_appointment_data(request, appointment_id):
     # Check if the appointment is found before proceeding
     if not appointment:
         return Response({'status': 404, 'message': 'Appointment not found'})
-
     if serializer.is_valid():
         doctor_id = request.data.get('doctor')
-
+        patient_id = request.data.get('patient')
+        appointment_date = request.data.get('appointment_date')
+        appointment_time = request.data.get('appointment_time')
         try:
-            doctor = DoctorProfile.objects.get(id=doctor_id)
+            doctor = DoctorProfile.objects.get(id=doctor_id, deleted_at=None)
         except DoctorProfile.DoesNotExist:
-            return Response({'status': 404, 'message': 'Doctor not found'})
-
-        if serializer.save(doctor=doctor, updated_at=timezone.now()):
+            return Response({'status': 403, 'message': 'Doctor not found'})
+        try:
+            patient = PatientProfile.objects.get(id=patient_id, deleted_at=None)
+        except PatientProfile.DoesNotExist:
+            return Response({'status': 403, 'message': 'User not found'})
+        try:
+            user_ifo = User.objects.get(id=patient.user_id, deleted_at=None)
+            email = user_ifo.email
+        except User.DoesNotExist:
+            return Response({'status': 403, 'message': 'User not found'})
+        message = f'Your appointment Date is : {appointment_date} and Appointment Time : {appointment_time}'
+        sent_email = send_email(email, message)
+        if sent_email and serializer.save(doctor=doctor, updated_at=timezone.now()):
             return Response({'status': 200, 'message': 'Appointment data updated successfully'})
         else:
-            return Response({'status': 403, 'message': 'Error in updating appointment data'})
+            transaction.set_rollback(True)
+            return Response({'status': 404, 'message': 'Error in updating appointment data'})
     else:
-        return Response({'status': 403, 'message': 'Invalid data!'})
+        transaction.set_rollback(True)
+        return Response({'status': 400, 'message': 'Invalid data!'})
 
 
 @api_view(['GET'])
