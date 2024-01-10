@@ -6,9 +6,9 @@
             <!-- Dashboard -->
             <li class="nav-item mainItem">
                 <a href="{% url 'admin_dashboard' %}" class="nav-link">
-<!--                    <i class="nav-icon fas fa-clinic-medical"></i>-->
+                    <!--                    <i class="nav-icon fas fa-clinic-medical"></i>-->
                     <i class="nav-icon fas fa-home"></i>
-<!--                    <i class="nav-icon fas fa-align-justify"></i>-->
+                    <!--                    <i class="nav-icon fas fa-align-justify"></i>-->
                     <p>
                         Dashboard
                     </p>
@@ -178,6 +178,12 @@
                         </a>
                     </li>
                     <li class="nav-item nav-child">
+                        <a href="{% url 'chamber_form' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add Chamber Details </p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
                         <a href="{% url 'doctor_list' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>All Doctors</p>
@@ -217,6 +223,12 @@
                         <a href="{% url 'award_list' %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Doctors Awards Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'chamber_list' %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Doctors Chamber Details</p>
                         </a>
                     </li>
                 </ul>

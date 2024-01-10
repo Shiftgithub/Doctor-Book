@@ -5,10 +5,7 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header bg-dark">
-            <h1 class="card-title">Doctor Social Information</h1>
-            <h1 class="card-title float-right">
-                <a href="{% url 'social_view' doctor_id %}" class="nav-link btn btn-info float-right">Back View</a>
-            </h1>
+            <h1 class="card-title">Doctor Chamber / Hospital Information</h1>
         </div>
         <div class="card-body">
             {% for doctor_data in doctor_all_data %}
@@ -65,55 +62,43 @@
             <hr>
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <legend class="text-info"><i class="fab fa-linkedin"></i> Social Media</legend>
+                    <legend class="text-info"><i class="fab fa-linkedin"></i> Chamber</legend>
                 </div>
             </div>
-            <form action="{% url 'edit_social' doctor_id %}" enctype="multipart/form-data" id="PostForm"
-                  method="POST">
+            <form action="{% url 'edit_chamber' doctor_id %}" enctype="multipart/form-data" id="PostForm"
+                  method="POST" class="needs-validation" novalidate>
                 {% csrf_token %}
-                <input type="hidden" name="social_id" value="{{ doctor_data.social_media.0.id }}"/>
+                <input type="hidden" name="chamber_id" value="{{ doctor_data.chamber.0.hospital_name }}"/>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label">Website : </label>
+                    <label class="col-md-2 col-form-label">Hospital Name : </label>
                     <div class="col-md-10">
-                        {% if doctor_data.social_media.0.website %}
-                        <input type="url" class="form-control" value="{{ doctor_data.social_media.0.website }}"
-                               name="website"/>
-                        {% else %}
-                        <input type="url" class="form-control" name="website" placeholder="www.website.com"/>
-                        {% endif %}
+                        <input type="text" class="form-control" value="{{ doctor_data.chamber.0.hospital_name }}"
+                               name="hospital_name" required/>
+                        <div class="invalid-feedback">Please enter chamber / hospital name.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label">Linkedin : </label>
+                    <label class="col-md-2 col-form-label">Address : </label>
                     <div class="col-md-10">
-                        {% if doctor_data.social_media.0.linkedin %}
-                        <input type="url" class="form-control" value="{{ doctor_data.social_media.0.linkedin }}"
-                               name="linkedin"/>
-                        {% else %}
-                        <input type="url" class="form-control" name="linkedin" placeholder="www.linkedin.com"/>
-                        {% endif %}
+                        <input type="text" class="form-control" value="{{ doctor_data.chamber.0.address }}"
+                               name="address" required/>
+                        <div class="invalid-feedback">Please enter address.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label">Facebook : </label>
+                    <label class="col-md-2 col-form-label">Address Code : </label>
                     <div class="col-md-10">
-                        {% if doctor_data.social_media.0.facebook %}
-                        <input type="url" class="form-control" value="{{ doctor_data.social_media.0.facebook }}"
-                               name="facebook"/>
-                        {% else %}
-                        <input type="url" class="form-control" name="facebook" placeholder="www.facebook.com"/>
-                        {% endif %}
+                        <input type="number" class="form-control" value="{{ doctor_data.chamber.0.address_code }}"
+                               name="address_code" required/>
+                        <div class="invalid-feedback">Please enter address code.</div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-2 col-form-label">Instagram : </label>
+                    <label class="col-md-2 col-form-label">Hospital Phone No : </label>
                     <div class="col-md-10">
-                        {% if doctor_data.social_media.0.instagram %}
-                        <input type="url" class="form-control" value="{{ doctor_data.social_media.0.instagram }}"
-                               name="instagram"/>
-                        {% else %}
-                        <input type="url" class="form-control" name="instagram" placeholder="www.instagram.com"/>
-                        {% endif %}
+                        <input type="text" class="form-control" value="{{ doctor_data.chamber.0.phone_no }}"
+                               name="phone_no" required/>
+                        <div class="invalid-feedback">Please enter hospital phone no code.</div>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -131,4 +116,25 @@
         {% endfor %}
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+        });
+     });
+</script>
 {% endblock %}

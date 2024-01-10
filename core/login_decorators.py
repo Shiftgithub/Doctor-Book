@@ -85,6 +85,13 @@ def protected_view(view_func):
                     'edit_award_form',
                     'edit_award',
 
+                    'chamber_form',
+                    'store_chamber',
+                    'chamber_list',
+                    'view_chamber',
+                    'edit_chamber_form',
+                    'edit_chamber',
+
                     # for department specification
                     'department_specification_form',
                     'store_department_specification',
@@ -179,6 +186,10 @@ def protected_view(view_func):
                     'award_view',
                     'edit_award_form',
                     'edit_award',
+
+                    'chamber_form',
+                    'store_chamber',
+                    'view_chamber',
 
                     # for faq
                     'faq_form',

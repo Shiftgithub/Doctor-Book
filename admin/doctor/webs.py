@@ -409,3 +409,74 @@ def edit_doctor_social(request, doctor_id):
         messages.add_message(request, messages.ERROR, message)
 
     return redirect('edit_social_form', doctor_id=doctor_id)
+
+
+def chamber_form(request):
+    response_doctor = get_all_doctors_name_by_chamber(request)
+    doctors_data = response_doctor.data
+    data = {'doctor_data': doctors_data}
+    return render(request, 'doctor/templates/forms/chamber_form.html', data)
+
+
+def store_chamber(request):
+    operation_response = chamber_store(request)
+    message = operation_response.data.get('message')
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+    else:
+        messages.add_message(request, messages.ERROR, message)
+    return redirect('chamber_form')
+
+
+def get_doctor_chamber_data(request):
+    response = get_doctors_name_department_data(request)
+    all_data = response.data
+    return render(request, 'doctor/templates/lists/chamber_list.html', {'all_data': all_data})
+
+
+def view_chamber(request, doctor_id):
+    admin_id = request.session.get('admin_id')
+    doctor_session_id = request.session.get('doctor_id')
+    if admin_id is not None or doctor_session_id == doctor_id:
+        response_chamber_data = doctor_chamber_data(request, doctor_id)
+        chamber_data = response_chamber_data.data
+        data = {
+            'chamber_data': chamber_data, 'doctor_id': doctor_id
+        }
+        return render(request, 'doctor/templates/views/chamber_view.html', data)
+    else:
+        return redirect('doctor_dashboard')
+
+
+def edit_chamber_form(request, doctor_id):
+    admin_id = request.session.get('admin_id')
+    doctor_session_id = request.session.get('doctor_id')
+    if admin_id is not None or doctor_session_id == doctor_id:
+        response_doctor = doctor_chamber_data(request, doctor_id)
+        doctor_all_data = response_doctor.data
+        print(doctor_all_data)
+        data = {
+            'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id
+        }
+        return render(request, 'doctor/templates/edits/chamber_edit.html', data)
+    else:
+        return redirect('doctor_dashboard')
+
+
+def edit_doctor_chamber(request, doctor_id):
+    operation_response = edit_chamber_data(request, doctor_id)
+    message = operation_response.data.get('message')
+    if operation_response.data.get('status') == 200:
+        messages.add_message(request, messages.INFO, message)
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+    else:
+        messages.add_message(request, messages.ERROR, message)
+
+    return redirect('edit_chamber_form', doctor_id=doctor_id)

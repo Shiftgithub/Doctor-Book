@@ -38,6 +38,14 @@ urlpatterns = [
                 path('edit-social/<int:doctor_id>/', protected_view(edit_social_form), name='edit_social_form'),
                 path('update-social/<int:doctor_id>/', protected_view(edit_doctor_social), name='edit_social'),
 
+                path('chamber-form/', protected_view(chamber_form), name='chamber_form'),
+                path('chamber-store/', protected_view(store_chamber), name='store_chamber'),
+                path('chamber-list/', protected_view(get_doctor_chamber_data), name='chamber_list'),
+                path('chamber-view/<int:doctor_id>/', protected_view(view_chamber), name='view_chamber'),
+                path('edit-chamber/<int:doctor_id>/', protected_view(edit_chamber_form), name='edit_chamber_form'),
+                path('update-chamber/<int:doctor_id>/', protected_view(edit_doctor_chamber),
+                     name='edit_chamber'),
+
                 path('award-form/', protected_view(award_form), name='award_form'),
                 path('award-store/', protected_view(store_award), name='store_award'),
                 path('award-list/', protected_view(get_doctor_award_data), name='award_list'),

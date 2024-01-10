@@ -84,8 +84,9 @@
                             <label class="col-md-2 col-form-label" for="certificateDegreeID">Degree
                                 Name: <span class="text-danger">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" name="certificate_degrees[]"
-                                       value="{{ education_obj.certificate_degree }}"/>
+                                <input type="text" class="form-control" name="certificate_degrees[]"
+                                       id="certificateDegreeID" value="{{ education_obj.certificate_degree }}"
+                                       required/>
                                 <div class="invalid-feedback">Please enter certificate / degree name.</div>
                             </div>
                         </div>
@@ -118,8 +119,8 @@
                             <label class="col-md-2 col-form-label" for="resultID">Result :<span
                                     class="text-danger">*</span></label>
                             <div class="col-md-10">
-                                <input type="number" class="form-control" id="resultID" name="results[]"
-                                       value="{{ education_obj.result }}" required/>
+                                <input type="text" class="form-control" id="resultID" name="results[]"
+                                       value="{{ education_obj.result }}" placeholder="type your gpa : 4.00" required/>
                                 <div class="invalid-feedback">Please enter result.</div>
                             </div>
                         </div>
@@ -172,8 +173,8 @@
                             <label class="col-md-2 col-form-label" for="resultID">Result :<span
                                     class="text-danger">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" id="resultID" name="additional_results[]" type="number"
-                                       required/>
+                                <input class="form-control" id="resultID" name="additional_results[]" type="text"
+                                       required placeholder="type your gpa : 4.00"/>
                                 <div class="invalid-feedback">Please enter result.</div>
                             </div>
                         </div>
@@ -305,21 +306,6 @@
             }
         });
      });
-    function previewImage(event) {
-    var input = event.target;
-    var imgElement = document.getElementById("preview");
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-            imgElement.src = e.target.result;
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
-    }
 }
 </script>
 

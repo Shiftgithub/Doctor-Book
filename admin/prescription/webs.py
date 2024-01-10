@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from admin.patient.views import get_patients_list
 from admin.medicine.views import *
 from admin.labtest.views import *
+from ..doctor.views import doctor_chamber_data
 
 
 # medicine prescription
@@ -60,6 +61,10 @@ def medicine_prescription_data_view_by_patient(request):
 def view_medicine_prescription(request, prescription_id):
     response = get_medicine_prescription_by_id(request, prescription_id)
     prescription_data = response.data
+    doctor_id = prescription_data['doctor_profile']
+
+    response_chamber_data = doctor_chamber_data(request, doctor_id)
+    chamber_data = response_chamber_data.data
     prescription_data['medicine_details'] = zip(
         prescription_data['medicine_name'],
         prescription_data['medicine_schedule_time'],
@@ -73,7 +78,8 @@ def view_medicine_prescription(request, prescription_id):
     prescription_data['created_at'] = prescription_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
     data = {
         'prescription_data': prescription_data,
-        'prescription_id': prescription_id
+        'prescription_id': prescription_id,
+        'chamber_data': chamber_data,
     }
     return render(request, 'prescription/templates/medicine/view.html', data)
 
@@ -81,6 +87,10 @@ def view_medicine_prescription(request, prescription_id):
 def print_medicine_prescription(request, prescription_id):
     response = get_medicine_prescription_by_id(request, prescription_id)
     prescription_data = response.data
+    doctor_id = prescription_data['doctor_profile']
+
+    response_chamber_data = doctor_chamber_data(request, doctor_id)
+    chamber_data = response_chamber_data.data
     prescription_data['medicine_details'] = zip(
         prescription_data['medicine_name'],
         prescription_data['medicine_schedule_time'],
@@ -94,7 +104,8 @@ def print_medicine_prescription(request, prescription_id):
     prescription_data['created_at'] = prescription_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
     data = {
         'prescription_data': prescription_data,
-        'prescription_id': prescription_id
+        'prescription_id': prescription_id,
+        'chamber_data': chamber_data,
     }
     return render(request, 'prescription/templates/medicine/print.html', data)
 
@@ -149,15 +160,21 @@ def lab_prescription_data_view_by_patient(request):
 def view_lab_prescription(request, prescription_id):
     response = get_lab_prescription_by_id(request, prescription_id)
     prescription_data = response.data
+    doctor_id = prescription_data['doctor_profile']
+
+    response_chamber_data = doctor_chamber_data(request, doctor_id)
+    chamber_data = response_chamber_data.data
 
     # Convert 'created_at' string to datetime object
     prescription_data['created_at'] = datetime.datetime.strptime(prescription_data['created_at'],
                                                                  "%Y-%m-%dT%H:%M:%S.%fZ")
     # Format the 'created_at' field with the desired format
     prescription_data['created_at'] = prescription_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
+
     data = {
         'prescription_data': prescription_data,
-        'prescription_id': prescription_id
+        'prescription_id': prescription_id,
+        'chamber_data': chamber_data,
     }
     return render(request, 'prescription/templates/labtest/view.html', data)
 
@@ -166,11 +183,17 @@ def print_labtest_prescription(request, prescription_id):
     response = get_lab_prescription_by_id(request, prescription_id)
     prescription_data = response.data
 
+    doctor_id = prescription_data['doctor_profile']
+
+    response_chamber_data = doctor_chamber_data(request, doctor_id)
+    chamber_data = response_chamber_data.data
+
     prescription_data['created_at'] = datetime.datetime.strptime(prescription_data['created_at'],
                                                                  "%Y-%m-%dT%H:%M:%S.%fZ")
     prescription_data['created_at'] = prescription_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
     data = {
         'prescription_data': prescription_data,
-        'prescription_id': prescription_id
+        'prescription_id': prescription_id,
+        'chamber_data': chamber_data,
     }
     return render(request, 'prescription/templates/labtest/print.html', data)
