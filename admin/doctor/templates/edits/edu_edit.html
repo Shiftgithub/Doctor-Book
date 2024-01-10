@@ -84,9 +84,8 @@
                             <label class="col-md-2 col-form-label" for="certificateDegreeID">Degree
                                 Name: <span class="text-danger">*</span></label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="certificate_degrees[]"
-                                       id="certificateDegreeID" value="{{ education_obj.certificate_degree }}"
-                                       required/>
+                                <input class="form-control" name="certificate_degrees[]"
+                                       value="{{ education_obj.certificate_degree }}"/>
                                 <div class="invalid-feedback">Please enter certificate / degree name.</div>
                             </div>
                         </div>
@@ -119,7 +118,7 @@
                             <label class="col-md-2 col-form-label" for="resultID">Result :<span
                                     class="text-danger">*</span></label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" id="resultID" name="results[]"
+                                <input type="number" class="form-control" id="resultID" name="results[]"
                                        value="{{ education_obj.result }}" placeholder="type your gpa : 4.00" required/>
                                 <div class="invalid-feedback">Please enter result.</div>
                             </div>
@@ -173,8 +172,8 @@
                             <label class="col-md-2 col-form-label" for="resultID">Result :<span
                                     class="text-danger">*</span></label>
                             <div class="col-md-10">
-                                <input class="form-control" id="resultID" name="additional_results[]" type="text"
-                                       required placeholder="type your gpa : 4.00"/>
+                                <input class="form-control" id="resultID" name="additional_results[]" type="number"
+                                       placeholder="type your gpa : 4.00" required/>
                                 <div class="invalid-feedback">Please enter result.</div>
                             </div>
                         </div>
@@ -258,7 +257,7 @@
                 class="text-danger">*</span></label>
         <div class="col-md-10">
             <input class="form-control" id="resultID" name="additional_results[]" type="number"
-                   required/>
+                   placeholder="type your gpa : 4.00" required/>
             <div class="invalid-feedback">Please enter result.</div>
         </div>
     </div>
