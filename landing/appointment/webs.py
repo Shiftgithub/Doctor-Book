@@ -3,7 +3,7 @@ from .views import *
 from django.contrib import messages
 from admin.patient.views import patient_data, get_patients_list
 from django.shortcuts import render, redirect
-from admin.doctor.views import doctor_data, get_all_doctors_list_for_landing, get_all_doctors_list
+from admin.doctor.views import doctor_data, get_all_doctors_list_for_landing, get_all_doctors_list, doctor_name_data
 
 
 def date_time_form(request, doctor_id):
@@ -119,6 +119,7 @@ def appointment_list_by_date(request):
 
     return render(request, 'appointment/templates/today_appointment_list.html', {'all_data': all_data})
 
+
 def store_appointment(request):
     operation_response = get_store_appointment(request)
     message = operation_response.data.get('message')
@@ -145,10 +146,14 @@ def view_appointment(request, appointment_id):
     response_patient_data = patient_data(request, patient_id)
     patient_all_data = response_patient_data.data
 
+    doctor_id = appointment_data['doctor']
+    response_doctor_data = doctor_name_data(request, doctor_id)
+    doctor_name = response_doctor_data.data
     data = {
-        'appointment_data': appointment_data,
+        'doctor_name': doctor_name,
         "patient_data": patient_all_data,
-        'appointment_id': appointment_id
+        'appointment_id': appointment_id,
+        'appointment_data': appointment_data,
     }
     return render(request, 'appointment/templates/view.html', data)
 

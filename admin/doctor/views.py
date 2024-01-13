@@ -574,3 +574,9 @@ def edit_chamber_data(request, doctor_id):
                 return Response({'status': 403, 'message': 'Error in updating chamber data'})
         else:
             return Response({'status': 400, 'message': 'Chamber Data stored Failed'})
+
+
+def doctor_name_data(request, doctor_id):
+    doctors = DoctorProfile.objects.filter(id=doctor_id)
+    serializer = DoctorSerializer(doctors, many=True)
+    return Response(serializer.data)

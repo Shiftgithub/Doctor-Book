@@ -81,6 +81,12 @@
                 </div>
             </div>
             <div class="row mb-3">
+                <label class="col-md-2 col-form-label">Doctor Name :</label>
+                <div class="col-md-10">
+                    <input class="form-control" value="{{ doctor_name.0.full_name }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
                 <label class="col-md-2 col-form-label">Appointment Date :</label>
                 <div class="col-md-10">
                     {% if appointment_data.appointment_date %}
