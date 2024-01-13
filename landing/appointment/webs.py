@@ -112,13 +112,12 @@ def appointment_list_by_date(request):
     # Assuming all_data is a list of dictionaries
     for item in all_data:
         # Convert 'created_at' string to datetime object
-        item['created_at'] = datetime.strptime(item['created_at'], "%Y-%m-%dT%H:%M:%S.%fZ")
+        item['created_at'] = datetime.strptime(item['created_at'], "%Y-%m-%dT%H:%M:%S.%f%z")
 
         # Format the 'created_at' field with the desired format
         item['created_at'] = item['created_at'].strftime("%Y-%m-%d %I:%M %p")
 
     return render(request, 'appointment/templates/today_appointment_list.html', {'all_data': all_data})
-
 
 def store_appointment(request):
     operation_response = get_store_appointment(request)
@@ -139,7 +138,7 @@ def store_appointment(request):
 def view_appointment(request, appointment_id):
     response = appointment_data_view(request, appointment_id)
     appointment_data = response.data
-    appointment_data['created_at'] = datetime.strptime(appointment_data['created_at'], "%Y-%m-%dT%H:%M:%S.%fZ")
+    appointment_data['created_at'] = datetime.strptime(appointment_data['created_at'], "%Y-%m-%dT%H:%M:%S.%f%z")
     appointment_data['created_at'] = appointment_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
 
     patient_id = appointment_data['patient']
@@ -157,7 +156,7 @@ def view_appointment(request, appointment_id):
 def edit_appointment_form(request, appointment_id):
     response = appointment_data_view(request, appointment_id)
     appointment_data = response.data
-    appointment_data['created_at'] = datetime.strptime(appointment_data['created_at'], "%Y-%m-%dT%H:%M:%S.%fZ")
+    appointment_data['created_at'] = datetime.strptime(appointment_data['created_at'], "%Y-%m-%dT%H:%M:%S.%f%z")
     appointment_data['created_at'] = appointment_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
 
     patient_id = appointment_data['patient']

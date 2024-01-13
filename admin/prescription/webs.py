@@ -72,8 +72,10 @@ def view_medicine_prescription(request, prescription_id):
         prescription_data['duration']
     )
     # Convert 'created_at' string to datetime object
-    prescription_data['created_at'] = datetime.datetime.strptime(prescription_data['created_at'],
-                                                                 "%Y-%m-%dT%H:%M:%S.%fZ")
+    prescription_data['created_at'] = datetime.datetime.strptime(
+        prescription_data['created_at'],
+        "%Y-%m-%dT%H:%M:%S.%f%z"  # Updated format string
+    )
     # Format the 'created_at' field with the desired format
     prescription_data['created_at'] = prescription_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
     data = {
@@ -98,8 +100,10 @@ def print_medicine_prescription(request, prescription_id):
         prescription_data['duration']
     )
     # Convert 'created_at' string to datetime object
-    prescription_data['created_at'] = datetime.datetime.strptime(prescription_data['created_at'],
-                                                                 "%Y-%m-%dT%H:%M:%S.%fZ")
+    prescription_data['created_at'] = datetime.datetime.strptime(
+        prescription_data['created_at'],
+        "%Y-%m-%dT%H:%M:%S.%f%z"  # Updated format string
+    )
     # Format the 'created_at' field with the desired format
     prescription_data['created_at'] = prescription_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
     data = {
@@ -166,8 +170,10 @@ def view_lab_prescription(request, prescription_id):
     chamber_data = response_chamber_data.data
 
     # Convert 'created_at' string to datetime object
-    prescription_data['created_at'] = datetime.datetime.strptime(prescription_data['created_at'],
-                                                                 "%Y-%m-%dT%H:%M:%S.%fZ")
+    prescription_data['created_at'] = datetime.datetime.strptime(
+        prescription_data['created_at'],
+        "%Y-%m-%dT%H:%M:%S.%f%z"  # Updated format string
+    )
     # Format the 'created_at' field with the desired format
     prescription_data['created_at'] = prescription_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
 
@@ -182,15 +188,19 @@ def view_lab_prescription(request, prescription_id):
 def print_labtest_prescription(request, prescription_id):
     response = get_lab_prescription_by_id(request, prescription_id)
     prescription_data = response.data
-
     doctor_id = prescription_data['doctor_profile']
 
     response_chamber_data = doctor_chamber_data(request, doctor_id)
     chamber_data = response_chamber_data.data
 
-    prescription_data['created_at'] = datetime.datetime.strptime(prescription_data['created_at'],
-                                                                 "%Y-%m-%dT%H:%M:%S.%fZ")
+    # Convert 'created_at' string to datetime object
+    prescription_data['created_at'] = datetime.datetime.strptime(
+        prescription_data['created_at'],
+        "%Y-%m-%dT%H:%M:%S.%f%z"  # Updated format string
+    )
+    # Format the 'created_at' field with the desired format
     prescription_data['created_at'] = prescription_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
+
     data = {
         'prescription_data': prescription_data,
         'prescription_id': prescription_id,
