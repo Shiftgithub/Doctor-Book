@@ -290,7 +290,6 @@ def protected_view(view_func):
                     return view_func(request, *args, **kwargs)
                 else:
                     return redirect('patient_dashboard')
-
             else:
                 # Unauthorized role, show an error message
                 messages.add_message(request, messages.ERROR, "You are not authorized to access this page")

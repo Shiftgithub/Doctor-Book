@@ -3,7 +3,7 @@ from .views import *
 from django.contrib import messages
 from admin.patient.views import patient_data, get_patients_list
 from django.shortcuts import render, redirect
-from admin.doctor.views import doctor_data, get_all_doctors_list_for_landing, get_all_doctors_list
+from admin.doctor.views import doctor_data, get_all_doctors_list_for_landing, get_all_doctors_list, doctor_name_data
 
 
 def date_time_form(request, doctor_id):
@@ -112,7 +112,7 @@ def appointment_list_by_date(request):
     # Assuming all_data is a list of dictionaries
     for item in all_data:
         # Convert 'created_at' string to datetime object
-        item['created_at'] = datetime.strptime(item['created_at'], "%Y-%m-%dT%H:%M:%S.%fZ")
+        item['created_at'] = datetime.strptime(item['created_at'], "%Y-%m-%dT%H:%M:%S.%f%z")
 
         # Format the 'created_at' field with the desired format
         item['created_at'] = item['created_at'].strftime("%Y-%m-%d %I:%M %p")
@@ -139,17 +139,21 @@ def store_appointment(request):
 def view_appointment(request, appointment_id):
     response = appointment_data_view(request, appointment_id)
     appointment_data = response.data
-    appointment_data['created_at'] = datetime.strptime(appointment_data['created_at'], "%Y-%m-%dT%H:%M:%S.%fZ")
+    appointment_data['created_at'] = datetime.strptime(appointment_data['created_at'], "%Y-%m-%dT%H:%M:%S.%f%z")
     appointment_data['created_at'] = appointment_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
 
     patient_id = appointment_data['patient']
     response_patient_data = patient_data(request, patient_id)
     patient_all_data = response_patient_data.data
 
+    doctor_id = appointment_data['doctor']
+    response_doctor_data = doctor_name_data(request, doctor_id)
+    doctor_name = response_doctor_data.data
     data = {
-        'appointment_data': appointment_data,
+        'doctor_name': doctor_name,
         "patient_data": patient_all_data,
-        'appointment_id': appointment_id
+        'appointment_id': appointment_id,
+        'appointment_data': appointment_data,
     }
     return render(request, 'appointment/templates/view.html', data)
 
@@ -157,7 +161,7 @@ def view_appointment(request, appointment_id):
 def edit_appointment_form(request, appointment_id):
     response = appointment_data_view(request, appointment_id)
     appointment_data = response.data
-    appointment_data['created_at'] = datetime.strptime(appointment_data['created_at'], "%Y-%m-%dT%H:%M:%S.%fZ")
+    appointment_data['created_at'] = datetime.strptime(appointment_data['created_at'], "%Y-%m-%dT%H:%M:%S.%f%z")
     appointment_data['created_at'] = appointment_data['created_at'].strftime("%Y-%m-%d %I:%M %p")
 
     patient_id = appointment_data['patient']

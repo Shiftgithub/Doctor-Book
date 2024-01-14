@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2024 at 07:11 PM
+-- Generation Time: Jan 13, 2024 at 06:10 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -325,7 +325,11 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (197, 'Can add specification', 50, 'add_specification'),
 (198, 'Can change specification', 50, 'change_specification'),
 (199, 'Can delete specification', 50, 'delete_specification'),
-(200, 'Can view specification', 50, 'view_specification');
+(200, 'Can view specification', 50, 'view_specification'),
+(201, 'Can add chamber', 51, 'add_chamber'),
+(202, 'Can change chamber', 51, 'change_chamber'),
+(203, 'Can delete chamber', 51, 'delete_chamber'),
+(204, 'Can view chamber', 51, 'view_chamber');
 
 -- --------------------------------------------------------
 
@@ -457,6 +461,25 @@ INSERT INTO `body_part` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`,
 (10, '2023-08-16 16:21:26.155763', NULL, NULL, 'Muscles (পেশি)', 'These are found throughout the body and are responsible for movement and support. (এগুলি শরীরের সারাংশে পাওয়া যায় এবং চলাচল এবং সমর্থনের জন্য জরুরি।)'),
 (11, '2023-08-16 16:21:37.610542', NULL, NULL, 'Skeleton (আস্থি)', 'The framework of bones that provides structure and protection for the body\'s organs. (অঙ্গগুলির কাঠামো, যা শরীরের অঙ্গগুলির জন্য স্ট্রাকচার এবং রক্ষা সরঞ্জাম প্রদান করে।)'),
 (12, '2023-08-16 16:21:49.187009', NULL, NULL, 'Skin (চামড়া)', 'The body\'s largest organ, providing a protective barrier and helping regulate temperature. (শরীরের সর্ববৃহৎ অঙ্গ, যা একটি রক্ষণাত্মক বিভাগ প্রদান করে এবং তাপমাত্রা নিয়ন্ত্রণ করতে সাহায্য করে।)');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chamber`
+--
+
+CREATE TABLE `chamber` (
+  `id` bigint(20) NOT NULL,
+  `created_at` datetime(6) DEFAULT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `hospital_name` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `address_code` varchar(255) DEFAULT NULL,
+  `phone_no` varchar(255) DEFAULT NULL,
+  `open_closing` varchar(255) DEFAULT NULL,
+  `doctor_profile_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1073,6 +1096,7 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (10, 'department_speci', 'departmentspecification'),
 (13, 'doctor', 'appointmentschedule'),
 (12, 'doctor', 'awards'),
+(51, 'doctor', 'chamber'),
 (11, 'doctor', 'doctorprofile'),
 (14, 'doctor', 'education'),
 (15, 'doctor', 'offday'),
@@ -1164,7 +1188,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (32, 'prediction', '0001_initial', '2024-01-03 12:18:45.680042'),
 (33, 'prescription', '0001_initial', '2024-01-03 12:18:48.584768'),
 (34, 'sessions', '0001_initial', '2024-01-03 12:18:48.671377'),
-(35, 'verifyotp', '0001_initial', '2024-01-03 12:18:48.883805');
+(35, 'verifyotp', '0001_initial', '2024-01-03 12:18:48.883805'),
+(36, 'doctor', '0002_chamber', '2024-01-13 16:40:18.686812');
 
 -- --------------------------------------------------------
 
@@ -1186,11 +1211,13 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('34d6u56avsgtxsro2dl515zo5e7fonvd', '.eJxlj80KgzAQhF-l5FzURI2pp76AzyCbP0nJqiSml9J3rz8VCr0t3-zMMC-Sogm906Sl1-MeAQ1pCWh0I_myMPk_ZhCcXyECphEdLCnAeB82mqkJz7e4rErczGpxT7Pi3zKbvD8buy3o0jk4rQ5hMH0KW0uORjvI0-wn0DHfpZizglUFLRrK67KkvSiZbkBwzpmolJASSkGNrZVVN2mlzB7zsIbvM47N7w8c01UM:1rMlvE:W0G5MXRqqVZsF0uwpzxehqjBlvbjuUwSzUzQNIoUibU', '2024-01-22 09:27:52.911719'),
 ('3gy4htnavx82jiqio9wgnuz2nb96g3r0', '.eJxlj0GOwjAMRa-CskY0zTStYMUFumNfucStjOK0Shqk0WjuTgJEQsIr69n-3_9PxIB-ICNO9f7VO2AUJwGGyYk384v9YshANkEGjo4JtujBnedMD9eFy1rY0iTk4-tGd0z402yK1hbHPgvteoLdJUsVAWKYcYg-e1WMhqCKq13AhOo5CpWSqpF1LVP9yHZQY6c7lHKUY910Rh5brXSj1WR0Ywy0h9s6J_FnmJJ8Q16HO3qafkswl177fwAC9l-W:1rNGTI:88R3-J3Yz5uPryKYlahPYsSMwRFFn5Uspy9KGIojXqg', '2024-01-23 18:05:04.089653'),
 ('5k532vzra7638ojvejk2fbjlace36yn1', '.eJxFj9sKwyAMhl-leD1adbaWXm3Q9yiZ2k7QWjzsZuzdZ080EEi-_ORPvigF5QctUUdvez2DVahD0onoPEEH9c5c9ITKgjaX9jGtfSmcXfMUhQgxhawCEfVHZby6kWM6JmNOy96XxdOnGeYpvFPRQzh3aAuTGpJfzSqrpIYqLcaBDNU2ChXFlGGCGalzsOFOgY8t4wJjyJy_GsoEaXhbSyUwl-UyT3n5fvj2Pvn9AZNxV5M:1rMB5N:6z5cpVElKbu49CLkDQ1CJ87SxF45WMrHU-FdRf5Ndjc', '2024-01-20 18:07:53.301150'),
+('99pkvlafhfn782uri3108m1lziatsoaf', '.eJxtUMtqwzAQ_BWhUwt1vFL9IDm1H-BTezdrSzEqXknYUiCU_nslpw6FVqdhdjSzs5_cL1qZMRhne6P4ScATD5p8r9wY3HLjfij03hkbSNvQKwyan7ioChCFBFmxh7doFV4f-T_qYCir4Zj82WvHCpagzDCp46rvORu2uKlRkbH7fHHzH04TmjmRhBQtGQxxQfsyZfYwOtpla0iTNX9ONS860b_DznGe98QuG7HOIHvPVvfdCCfdxyVnlZTOhWX0s0O1lttoLfMBQAhI7xmaXg5t3WqAAQZRtQqOTS3rqpZnVVdKYXP48FMy38rcmn99A7c8fz0:1rOhGl:6ksCgPgEoQB4U9EehHDXJZ7ydM_yKGVpRENmf7cQoCE', '2024-01-27 16:54:03.016452'),
 ('f7i4q8we651pzm6cjqh5j0ku9kk588ad', '.eJxlj1sKwjAQRbci-RabtI2PfrkB11AmD8toJi1JI4i4dxu1ovg3nLkP7o2laEOLhjVi-bo9kGUNA0Po2ZuF3v0xS4BuggSUPCGMKYDfd5mudE-zLI7TJ2azHvFiJ_xddkzOzY2HHLQ4IMxWJOhsm0JuKcgahCINrgcTi-crFiUvay54JbblWshWKA2bSshKKVVLvgO-rYQGqYzZKS356jR0U_hzxrx5tDS0FxvweP1MOoPCAAGv4EX9M-lbnQM29wejO2wS:1rLfTH:yrEm52wbqQeFKPFIe5VCvLyh5OAepM0_wDNSv7uEPX0', '2024-01-19 08:22:27.114632'),
 ('iibfpgxmunwsmnerepivvm6ga3ualwno', '.eJxNj80OgyAQhF-l4dyIID_VU_sOvZtVqCEBNPz00vTdq1YSb5tvZndmPyhHHXqjUCeu_9mD06hDCySjfSLowGG2J1yodmDsyX2fNlCNsyuOmCDluFpgTOatV7yFkUN9ZWtL4jMH8JeHNWXVOJh0n8MWgJ1WBnBe7Awq4l2KmNaU1aSWRHBOaD9I1g4tVZIrxW6sAdHyF9WiGagUhEO1-Gk9fpTdvybfH5KiVNA:1rMm4T:mkHe5prC4FXC794uk7ui1-oJt33rkDRcxCKWAivjisQ', '2024-01-22 09:37:25.489359'),
 ('kjhylurj2xr1epvbnwjyuq2nqolkutaj', '.eJxFj9sKwyAMhl-leD1adbaWXm3Q9yiZ2k7QWjzsZuzdZ080EEi-_ORPvigF5QctUUdvez2DVahD0onoPEEH9c5c9ITKgjaX9jGtfSmcXfMUhQgxhawCEfVHZby6kWM6JmNOy96XxdOnGeYpvFPRQzh3aAuTGpJfzSqrpIYqLcaBDNU2ChXFlGGCGalzsOFOgY8t4wJjyJy_GsoEaXhbSyUwl-UyT3n5fvj2Pvn9AZNxV5M:1rMAp0:Qdkg36XXDfKHT0y_dDM57T-2PYHdMWY9T-AlliS7o00', '2024-01-20 17:50:58.982987'),
 ('koi1lj3qs3v05jtfb8ro6iyguqc0h2hh', '.eJxFj9sKwyAMhl-leD1adbaWXm3Q9yiZ2k7QWjzsZuzdZ080EEi-_ORPvigF5QctUUdvez2DVahD0onoPEEH9c5c9ITKgjaX9jGtfSmcXfMUhQgxhawCEfVHZby6kWM6JmNOy96XxdOnGeYpvFPRQzh3aAuTGpJfzSqrpIYqLcaBDNU2ChXFlGGCGalzsOFOgY8t4wJjyJy_GsoEaXhbSyUwl-UyT3n5fvj2Pvn9AZNxV5M:1rM8lw:vGfyObNLslzazAs6Cw88uwcVV6dyChOkD4uxAngjrjM', '2024-01-20 15:39:40.066675'),
-('q2rgbuqq8n94nfva6dzoiz8wv4az56cg', '.eJxFj8sOgyAQRX_FsG4EBJ-rNvE_zChoSUAMSDdN_72-iItJZs7c3DvzRcFL1ymBmuxx9jMYiRok7LBaR9FFndU3jVAaUPrWPqd9Tgdr9ooiv8Ia_KaCYVUfueE9jV7bMWgdI1uXJi8XZpgn_w5JCz56KAOT7ILbw7CRQgEOi7YgPD5WHmck44SSkpas5LSDmrBK9Ez0OeVDxaq64FlNxpKxnOd9kS7ztJmfhx_v098fkZNXRg:1rMRTJ:VT_7Ixn-RjtvKpcCRmRLKWWDb9OZbt2Lt2rPvQcFgP4', '2024-01-21 11:37:41.260122');
+('q2rgbuqq8n94nfva6dzoiz8wv4az56cg', '.eJxFj8sOgyAQRX_FsG4EBJ-rNvE_zChoSUAMSDdN_72-iItJZs7c3DvzRcFL1ymBmuxx9jMYiRok7LBaR9FFndU3jVAaUPrWPqd9Tgdr9ooiv8Ia_KaCYVUfueE9jV7bMWgdI1uXJi8XZpgn_w5JCz56KAOT7ILbw7CRQgEOi7YgPD5WHmck44SSkpas5LSDmrBK9Ez0OeVDxaq64FlNxpKxnOd9kS7ztJmfhx_v098fkZNXRg:1rMRTJ:VT_7Ixn-RjtvKpcCRmRLKWWDb9OZbt2Lt2rPvQcFgP4', '2024-01-21 11:37:41.260122'),
+('tk02humqzszg1hox271mi3ml92h1cviy', '.eJxlj80OgjAQhF-F9Gzojy1ET74AN-9koYXUdIG01Ivx3W1BEhP3tPlmdybzIjEY31pNrvy07xOgIVcCGu1EvszP7o8ZBOsSRMA4oYU1ephuY6ZlP-NxFtakhPzcr_ZpEv4NG6JzR2KTjYrGQnHPVoeBRRhNG33Oomi0BRoXN4MOdJMCFUxIxjlLc2ZVK7pa1YaxjnVc1ppdKiWUVGLQSmoNVflYxmS-ldmbvz8jvlYg:1rOhUx:9upNXyd8hYOSPRhgYqP8sOqkRxylojrZpDUeYtrO8Cc', '2024-01-27 17:08:43.154705');
 
 -- --------------------------------------------------------
 
@@ -1326,7 +1353,11 @@ INSERT INTO `doctor_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `f
 (1, '2024-01-04 09:55:54.637054', NULL, NULL, 'Dr. Arunangshu Das', 'Aimee Long', 'Brielle Melton', '1971-01-19', '6', '01965784645', '76', '5 Years', 'Dr Arunangshu Das passed MBBS from Mymensing Medical College in 2005. After that he joined Radiotherapy Department of Dhaka Medical College in 2007 as Honorary Medical Officer. At the end of 2008 he received a scholarship and went to National Cancer Center (NCC) Singapore for a clinical attachment and training. In 2009, he successfully completed Post Graduate Certificate in Palliative Medicine  from Flinders University Australia.  He joined Government Health Service (27th BCS) in December 2008. Subsequently in 2010 he was posted at National Institute of Cancer Research and Hospital (NICRH), Dhaka at the Department of Radiation Oncology. In 2012 he went to UKM, Malaysia for a higher training in Oncology. He successfully completed FCPS in Radiotherapy from Bangladesh College of Physicians and Surgeons of Bangladesh (BCPS) in 2014. At the middle of 2014 he went to TATA Memorial Hospital Mumbai for a clinical training in Radiation Oncology. He received the prestigious International Development and Education Award (IDEA) in January 2018 from American Society of Clinical Oncology (ASCO) USA. He also achieved the prestigious ESMO Asia Leadership Award in 2020. As a part of voluntary activity he is working as the General Secretary of Bangladesh Society for Breast Cancer Study. He is active in clinical research and published many articles both nationally and internationally. He has long 15 years experience working the field of Oncology. Currently he is working as Associate Consultant at Oncology Department of Square Hospitals Ltd.', 'Bangla, English', 'N/A', 1, 4, 1, 1, 2, 2),
 (2, '2024-01-04 10:16:07.349043', NULL, NULL, 'Dr. Md. Towhiduzzaman', 'Kalia Shaw', 'Julie Dunlap', '1976-04-15', '8', '01963369911', '61', 'Assumenda rerum cons', 'Dr. Towhiduzzaman received SAARC Cardiology  hands on Fellowship in Interventional Cardiology at Escorts Heart Institute and Research Centre (EHIR&C), New Delhi, India for 01(one) year in June 2006. Subsequently he was selected for another 01 year hands on Fellowship program in Interventional Cardiology at National Heart Centre, Singapore and received the fellowship award in July 2007.  He has successfully completed Rotablation, Intravascular ultrasound Pressure wire and peripheral stenting course. He also gained and experienced a numerous number of invasive and clinical training and observatory fellowship and visited  USA, Canada, France, England, Japan, Italy, Sweden, Hong Kong, China, Jamaica, Costarica, Vietnam, Malaysia, Thailand, India, Pakistan and Nepal. Dr. Towhiduzzaman has published articles and presented cases at numerous national and international conferences. He has vast experiences of 10 years to perform invasive & interventional and complex diagnostic and therapeutic procedures independently & confidently. He is regular Faculty/Guest Speaker and participated in a large number of International workshops, seminars, symposiums both home and abroad that has enriched his decision making capacity, professional skills and care giving attitude to an international level. For last 10 years he is performing highest number of complex bifurcation, CTOs, primary PCI, and Renal & Peripheral Angioplasties at Square Hospital.His sub specialty interest is in Interventional Cardiology.Professional Appointment & Committee Membership:Life Member – Bangladesh Cardiac Society (BSC), Bangladesh Society of Cardiovascular Interventions (BSCI), Bangladesh Society of Echo Cardiography (BSE), Bangladesh Medical Association (BMA)Org. Secretary (Elect) Bangladesh Cardiac Society from 2015, Scientific Secretary (Elect), 2009 – 14.Others: Fellow, Society of Cardiac angiography &Intervention(FSCAI, USA), Associate Fellow American College of Cardiology (FACC), Member-American Society of Echocardiography (MASE), European Society of Percutaneous Cardiovascular Interventions. (EPACI), European Society of Cardiology (MESC)', 'Bangla, English', 'Ut ut blanditiis id', 3, 4, 1, 1, 1, 3),
 (3, '2024-01-04 11:42:11.395957', NULL, NULL, 'Dr. Asif Manwar', 'Armand Nguyen', 'Ila Norris', '2018-06-14', '18', '+1 (993) 535-9147', '24', 'Praesentium in expli', 'Dr. Asif Manwar, a graduate of Chittagong Medical College, started career as Resident Medical Officer, BIRDEM in 2002 en-route to Ibrahim Cardiac Hospital.  Dr. Manwar pursued PG Dip Cardiology in 2004 under University of London with Distinction & Sir John Goodwin Prize for academic excellence by Imperial College London. Academic up-gradation in 2006 created an opportunity to serve Apollo Hospital Dhaka as Registrar, Cardiology. To aspire proficiency at masters’ level he completed MSc Cardiology with Distinction once again by Canterbury Christ Church & University College London (UCL) in 2008. To achieve superspeciality, he opted Fellowship in Paediatric Cardiology being registered with Medical Council of India in 2009.           Dr. Manwar is proficient in all facets of non-invasive procedures like 3D-TOE-DSE, Dyssynchrony, Strain Rate, Tissue Doppler Imaging, Contrast & Intra-operative Echo. He got basic training from Hammersmith, Royal Brompton and advanced training from The Heart Hospital London. He obtained hands on training in Grown-Up Congenital, Paediatric, Neonatal & Fetal Echo from AMRITA Kerala & New Delhi India. Dr. Asif Manwar joined SQUARE Hospital as Specialist Cardiologist, contributing his expertise since then before taking up position of Associate Consultant in 2015 & Coordinator Non-Invasive Lab in 2017.', 'Bangla, English', 'Distinctio Sed dolo', 8, 22, 1, 4, 3, 4),
-(4, '2024-01-04 11:43:53.046856', NULL, NULL, 'Dr. Fowaz Hussain Shuvo', 'Haley Perkins', 'Silas Owen', '1989-04-12', '53', '+1 (965) 663-4104', '26', 'Provident occaecat', 'Dr. Fowaz Hussain graduated from Dhaka Medical College and obtained his MD (Hepatology) from Bangabandhu Sheikh Mujib Medical University (BSMMU). He gained experience through his working tenure of more than 10 years at department of Hepatology and Gastroenterology of a reputed corporate hospital of Dhaka where he groomed himself up as one of the dependable gastroenterologists of the country. He was also an Assistant Professor in the department of Hepatolgy at Mymensingh Medical College & Hospital. Dr. Fowaz Hussain is an expert in Interventional procedures like Endoscopy, Colonoscopy, Polypectomy, ERCP, Esophageal Stentings, Bleeding Homeostasis and Clippings. Dr. Fowaz Hussain got his advanced interventional training and joined many workshops in India, Singapore and different countries of Europe. He has many publications both in international and national levels.', 'Bangla, English', 'Tempor quo officia a', 5, 7, 1, 1, 1, 5);
+(4, '2024-01-04 11:43:53.046856', NULL, NULL, 'Dr. Fowaz Hussain Shuvo', 'Haley Perkins', 'Silas Owen', '1989-04-12', '53', '+1 (965) 663-4104', '26', 'Provident occaecat', 'Dr. Fowaz Hussain graduated from Dhaka Medical College and obtained his MD (Hepatology) from Bangabandhu Sheikh Mujib Medical University (BSMMU). He gained experience through his working tenure of more than 10 years at department of Hepatology and Gastroenterology of a reputed corporate hospital of Dhaka where he groomed himself up as one of the dependable gastroenterologists of the country. He was also an Assistant Professor in the department of Hepatolgy at Mymensingh Medical College & Hospital. Dr. Fowaz Hussain is an expert in Interventional procedures like Endoscopy, Colonoscopy, Polypectomy, ERCP, Esophageal Stentings, Bleeding Homeostasis and Clippings. Dr. Fowaz Hussain got his advanced interventional training and joined many workshops in India, Singapore and different countries of Europe. He has many publications both in international and national levels.', 'Bangla, English', 'Tempor quo officia a', 5, 7, 1, 1, 1, 5),
+(5, '2024-01-13 16:03:22.716454', '2024-01-13 16:09:57.132348', NULL, 'Professor Dr. Sufia Nasrin Rita', 'Bianca Ball', 'Aspen Bray', '1985-05-10', '12365441222', '01363968545', '151442455', 'Elit aspernatur sus', 'Professor Dr. Sufia Nasrin Rita passed Bachelor of Dental Surgery (BDS) from Dental Unit of Chittagong Medical College under Chittagong University in 2000. After training and research, she passed FCPS in Orthodontics & Dentofacial Orthopedics FIRST TIME in Bangladesh from Bangladesh College of Physicians and Surgeons (BCPS) in 2007. She gained different medical and dental skills by doing extensive training on different subjects of dentistry. Professor Rita is related to many clinical and academic activities by delivering lectures, developing course curriculum for students and dental doctors and she is the question setter, moderator and examiner of BDS, MCPS, FCPS examinations. She presented on dentistry and orthodontics in several scientific conferences and published 25 scientific articles in recognized reputed journals. She used to deliver awareness speech and treatment advices regularly in Televisions and social medias.Professor Dr. Sufia Nasrin Rita had been serving patients with treating general diseases of oral cavity, teeth and gum by scaling, polishing, filling, Root Canal Treatment, removal of teeth, replacement of missing teeth for the last 21 years in different clinics and hospitals of Bangladesh. Her special interest is mostly on improving facial appearances and beauty with correction of spacing, irregularity, mal alignment and malposition of teeth and jaws by BRACES and ORTHODONTIC treatment. Prof Rita is the editorial board member of BCPS Journal and also the member of Faculty of Dentistry, IT, Medical Education Department of Bangladesh College of Physicians and Surgeons (BCPS).At present she is working as Professor and Head of Dept of Orthodontics in Sapporo Dental College in the morning and as Consultant of Dental Surgery and Orthodontics at Square Hospitals Ltd in the evening.', 'Bangla, English', '12365555', 1, 27, 2, 1, 1, 10),
+(6, '2024-01-13 16:06:35.635398', NULL, NULL, 'Associate Professor Dr. S. M. Anwar Sadat', 'Kirestin Parrish', 'Quincy Hardy', '1981-11-07', '10', '01352854565', '75', '5 Years', 'Dr. S. M. Anwar Sadat passed Bachelor of Dental Surgery (BDS) from Dental Unit of Chittagong Medical College under Chittagong University in 1997. He passed MCPS in Dental Surgery from BCPS in 2003; FCPS in Oral & Maxillofacial Surgery FIRST TIME in Bangladesh from BCPS in 2005. He also did his masters (MS) in same discipline from Dhaka Dental College under Dhaka University in 2009. \r\n\r\n\r\n\r\nRecently in 2021, Dr. Anwar Sadat has been awarded FDSRCPS from Glasgow, United Kingdom for his excellent academic, research and clinical contribution to the dentistry of Bangladesh.\r\n\r\n\r\n\r\nHe got advanced training in oral cancer surgery and reconstruction from University of Peradeniya, Kandy, Sri Lanka as JICA Fellowship (Japan); Dental Implant from Boston, USA; Aesthetic Jaw Surgery from Chulalongkorn University, Thailand; Cancer and Trauma Reconstruction from Peking University, China.\r\n\r\n\r\n\r\nHe had been serving patients of Dentistry and Maxillofacial Surgery for the last 23 years in different Government and non-government hospitals of Bangladesh. Along with the general dental treatment like Extraction of teeth, scaling, polishing, filling, root canal treatment, crown bridge prosthesis, he has special interest on treating oral cancer, oral ulcer, facial trauma and missing tooth by placement of DENTAL IMPLANT.\r\n\r\n\r\n\r\n He is related to extensive academic activity with delivering lectures, conducting clinical sessions for doctors, research activity on oral ulcer and oral cancer and health related talk in Televisions and social medias. With his credit, he presented more than 100 presentations in conferences and workshops and also published 59 scientific articles in reputed national and international scientific journals.\r\n\r\nDr. Sadat is Member Secretary, Faculty of Dentistry, BCPS. He is editorial board member of BCPS Journal, advisor of Update Dental College Journal, member of IT, CPD, RTMD, Question Bank, Curriculum development, Skill development and Medical Education Department of Bangladesh College of Physicians and Surgeons (BCPS). He used to conduct ICT Training in BCPS and Research Methodology Training in BCPS and other organizations. He has contribution to curriculum development of courses of dental specialities and he is the question setter, moderator and examiner of MCPS in Dental Surgery and FCPS in oral and Maxillofacial Surgery.\r\n\r\n\r\n\r\nAt present he is working in the department of Oral and Maxillofacial Surgery, Dhaka Dental College in the morning and as Consultant at Square Hospitals Ltd, Dhaka in the evening.', 'Bangla, English', 'N/A', 7, 27, 1, 1, 1, 11),
+(7, '2024-01-13 16:12:08.704483', NULL, NULL, 'Prof. Dr. S. R. Begum', 'Blossom Harper', 'Shannon Barlow', '1983-02-27', '44', '01914459632', '35', '5 Years', 'Prof. Dr. Sultana Razia Begum graduated from Mymenshingh Medical College and secured 2nd position with Honors in Surgery and Obstetrics and Gynecology.  In FCPS examination she passed it in the 1st attempt from Bangladesh College of Physicians and Surgeons (BCPS).\r\n\r\nProf. S. R. Begum started practicing at the department of ObsGyn in Dhaka Medical College. Afterwards she joined Rajshahi Medical College as Assistant Professor and eventually promoted to the rank of Associate Professor and Professor of ObGyn. She chaired ObsGyn department of Rajshahi Medical College, Sher-e- Bangla Medical College and Bangabandhu Sheikh Mujib Medical University (BSMMU). As a Professor of ObsGyn, she engaged in teaching under Graduate, Post Graduate, Masters and Fellowship level. She is the examiner of all the universities of the country, College of Physicians and Surgeons.\r\n\r\nProf. S R Begum conducts research by herself and supervises research works of FCPS and MS students. She attended innumerable workshops and conferences in different countries of Europe, USA and Asia. With over 30 years of experience Prof. S. R. Begum is one of the highly skilled Consultant of Square Hospital.', 'Et ipsum exercitati', 'N/A', 8, 27, 2, 2, 1, 12),
+(8, '2024-01-13 16:14:28.915280', NULL, NULL, 'Dr. Nargis Fatema', 'Farrah Golden', 'Wynter Keller', '1989-09-01', '13', '01965258932', '35', '5 Years', 'Dr. Nargis Fatema graduated from Sir Salimullah Medical College. After completing internship she dedicated her at the department of Obstetrics & Gynaecology of BIRDEM. Later, she accomplished the fellowship FCPS in Obstetrics & Gynaecology from Bangladesh College of Physicians and Surgeons (BCPS) in 2000 and later obtained MS (ObsGyn) from BSMMU.  Dr. Nargis Fatema joined in government services under Ministry of Health and Family Welfare and worked in Dhaka Medical College Hospital, Sir Salimullah Medical College & Mitford Hospital. She received advanced training in Laparoscopic Surgery from BIRDEM and performed as a faculty member of MOET training course. She participated and presented papers in a number of national and international workshops, seminars, and symposiums and was awarded for her research paper in SAFOG conference and EASD conference at Italy. Her approach towards the patients is very holistic which includes not just understanding the disease but also the feelings and emotional state of the patient and her family. Her 24 years of experience is enriched with knowledge, decision making capacity, operative skills and care giving attitude. She has special interest in high risk pregnancy and laparoscopic surgery. She is working as a full time consultant at Square Hospital from 2007.', 'Bangla, English', 'Qui omnis rem et rep', 6, 27, 2, 1, 1, 13);
 
 -- --------------------------------------------------------
 
@@ -1467,7 +1498,13 @@ INSERT INTO `images` (`id`, `created_at`, `updated_at`, `deleted_at`, `photo_nam
 (5, '2024-01-04 11:43:53.048848', NULL, NULL, 'uploads/images/20240110000240_f1d0c44826a44b6b9627718c0037dcaa.png', 5),
 (6, '2024-01-05 06:27:49.254032', '2024-01-10 00:08:47.859252', NULL, 'uploads/images/20240110000847_dc5f36d1758843de9dd5863d495493f4.png', 6),
 (7, '2024-01-05 06:30:28.677482', '2024-01-10 00:08:35.542208', NULL, 'uploads/images/20240110000835_c927d84d5eb54ec9bfc9277e89debf40.jpg', 7),
-(8, '2024-01-08 08:53:16.700880', '2024-01-10 00:08:08.515602', NULL, 'uploads/images/20240110000808_70281ce2e6074d98a0473356629b71d4.jpg', 8);
+(8, '2024-01-08 08:53:16.700880', '2024-01-10 00:08:08.515602', NULL, 'uploads/images/20240110000808_70281ce2e6074d98a0473356629b71d4.jpg', 8),
+(9, '2024-01-13 15:56:44.853040', NULL, NULL, '', 9),
+(10, '2024-01-13 16:03:22.720442', NULL, NULL, 'uploads/images/20240113220957_d841d87290e94e5a9a2e459bbb38e528.png', 10),
+(11, '2024-01-13 16:06:35.654347', NULL, NULL, 'uploads/images/20240113220635_e9c23f7af03a40f190df46025070687c.png', 11),
+(12, '2024-01-13 16:12:08.707474', NULL, NULL, 'uploads/images/20240113221208_b41c93f0c9004b8f95da4de2038dd4b2.png', 12),
+(13, '2024-01-13 16:14:28.918265', NULL, NULL, 'uploads/images/20240113221428_3c1a6d68c6c14b9a835616cd175cb316.png', 13),
+(14, '2024-01-13 16:20:02.900231', '2024-01-13 22:22:48.595950', NULL, 'uploads/images/20240113222248_d5e667c49789425093d38a5a5309f7d9.png', 14);
 
 -- --------------------------------------------------------
 
@@ -2359,7 +2396,9 @@ CREATE TABLE `medicine_prescription` (
 INSERT INTO `medicine_prescription` (`id`, `created_at`, `updated_at`, `deleted_at`, `frequency`, `duration`, `created_by_id`, `medicine_id`, `medicine_schedule_id`, `modified_by_id`, `prescription_id`) VALUES
 (1, '2024-01-07 09:24:01.944300', NULL, NULL, '1+1+1', '2 days', 2, 2, 1, NULL, 1),
 (2, '2024-01-07 09:24:01.950286', NULL, NULL, '1+0+1', '2 days', 2, 8, 1, NULL, 1),
-(3, '2024-01-07 09:24:01.951283', NULL, NULL, '1+1+1', '2 days', 2, 10, 1, NULL, 1);
+(3, '2024-01-07 09:24:01.951283', NULL, NULL, '1+1+1', '2 days', 2, 10, 1, NULL, 1),
+(4, '2024-01-13 16:39:19.809632', NULL, NULL, '1+1+1', '3 days', 2, 4, 1, NULL, 2),
+(5, '2024-01-13 16:39:19.817610', NULL, NULL, '1+0+1', '2 days', 2, 7, 1, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -2546,7 +2585,7 @@ INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at
 (4, '2024-01-03 13:43:44.430032', NULL, NULL, 'Parkinson\'s Disease (স্নায়বিক ব্যাধি ও কম্পন )', 'Neurological disorder causing tremors, stiffness, and difficulty with balance and coordination.(স্নায়বিক ব্যাধি যার ফলে কম্পন, দৃঢ়তা এবং ভারসাম্য ও সমন্বয়ে অসুবিধা হয়।)', 1),
 (5, '2024-01-03 13:43:44.436009', NULL, NULL, 'Cerebral Palsy (অঙ্গবিন্যাসকে প্রভাবিত)', 'Group of disorders affecting movement and posture due to damage to the developing brain, often occurring before or during birth. (বিকাশমান মস্তিষ্কের ক্ষতির কারণে নড়াচড়া এবং অঙ্গবিন্যাসকে প্রভাবিত করে ব্যাধিগুলির গ্রুপ, প্রায়শই জন্মের আগে বা সময় ঘটে।)', 1),
 (6, '2024-01-03 13:47:12.870119', NULL, NULL, ' Traumatic Brain Injury (TBI) (ট্রমাটিক ব্রেন ইনজুরি )', 'Damage to the brain caused by an external force, often resulting from accidents, falls, or sports injuries, leading to various cognitive and physical impairments. (বাহ্যিক শক্তির কারণে মস্তিষ্কের ক্ষতি, প্রায়শই দুর্ঘটনা, পড়ে যাওয়া বা খেলাধুলার আঘাতের ফলে বিভিন্ন জ্ঞানীয় এবং শারীরিক প্রতিবন্ধকতা দেখা দেয়।)', 1),
-(7, '2024-01-03 13:48:37.490778', NULL, NULL, 'Encephalitis', 'Inflammation of the brain, often caused by viral infections, leading to symptoms such as fever, headache, and altered mental status. (মস্তিষ্কের প্রদাহ, প্রায়শই ভাইরাল সংক্রমণের কারণে হয়, যা জ্বর, মাথাব্যথা এবং পরিবর্তিত মানসিক অবস্থার মতো লক্ষণগুলির দিকে পরিচালিত করে।)', 1),
+(7, '2024-01-03 13:48:37.490778', '2024-01-13 17:00:00.580513', NULL, 'Encephalitis (এনসেফালাইটিস)', 'Inflammation of the brain, often caused by viral infections, leading to symptoms such as fever, headache, and altered mental status. (মস্তিষ্কের প্রদাহ, প্রায়শই ভাইরাল সংক্রমণের কারণে হয়, যা জ্বর, মাথাব্যথা এবং পরিবর্তিত মানসিক অবস্থার মতো লক্ষণগুলির দিকে পরিচালিত করে।)', 1),
 (8, '2024-01-03 13:49:50.723761', NULL, NULL, 'Brain Abscess (মস্তিষ্ক ফোড়া)', 'Collection of pus within the brain, usually caused by a bacterial or fungal infection. (ব্রেন অ্যাবসেস মস্তিষ্কের মধ্যে পুঁজ সংগ্রহ, সাধারণত ব্যাকটেরিয়া বা ছত্রাকের সংক্রমণের কারণে হয়।)', 1),
 (9, '2024-01-03 13:52:44.699232', NULL, NULL, ' Brain Tumors (ব্রেন টিউমার)', 'Abnormal growth of cells in the brain that can be benign or malignant, causing various symptoms based on the location and size of the tumor. (মস্তিষ্কে কোষের অস্বাভাবিক বৃদ্ধি যা সৌম্য বা ম্যালিগন্যান্ট হতে পারে, যা টিউমারের অবস্থান এবং আকারের উপর ভিত্তি করে বিভিন্ন উপসর্গ সৃষ্টি করে।)', 1),
 (10, '2024-01-03 13:52:44.713198', NULL, NULL, 'Stroke (স্ট্রোক)', 'neurological disorder causing seizures.  (রক্ত সরবরাহ ব্যাহত হওয়ার ফলে কোষের ক্ষতি হয়)', 1),
@@ -2690,9 +2729,9 @@ INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at
 (148, '2024-01-04 06:56:30.807663', NULL, NULL, 'Adductor Muscle Strain (অ্যাডাক্টর মাংসের স্ট্রেইন)', 'Injury to the adductor muscles, located on the inner side of the thigh, causing pain and discomfort. (অ্যাডাক্টর মাংসের আঘাত, যা হাঁড়ির অভ্যন্তরীণ দিকে অবস্থিত, ব্যথা এবং অসুবিধা সৃষ্টি করতে পারে।)', 15),
 (149, '2024-01-04 06:56:30.812650', NULL, NULL, 'Compartment Syndrome of the Anterior Thigh (অ্যান্টেরিয়র হাঁড়ির ঘেরা সিন্ড্রোম)', 'Increased pressure within the anterior thigh muscles, leading to pain, swelling, and potential nerve damage. (অ্যান্টেরিয়র হাঁড়ির মাংসের অভ্যন্তরে চাপ বাড়ানো, যা ব্যথা, স্থূলতা এবং সম্ভাব্য তারকা ক্ষতি সৃষ্টি করতে পারে।)', 15),
 (150, '2024-01-04 06:56:30.817637', NULL, NULL, 'Thigh Bursitis (হাঁড়ি বারসাইটিস)', 'Inflammation of the bursae (fluid-filled sacs) in the thigh, causing pain and swelling. (হাঁড়ির মাংসের বারসে (তরলপূর্ণ স্যাক) সূজন, যা ব্যথা এবং স্থূলতা সৃষ্টি করতে পারে।)', 15),
-(151, '2024-01-04 06:56:30.821626', NULL, NULL, 'Thigh Nerve Compression (হাঁড়ি নার্ভ কমপ্রেশন)', 'Pressure or compression on the nerves in the thigh, leading to pain, tingling, and weakness. (হাঁড়ির নার্ভের উপর চাপ বা কমপ্রেশন, যা ব্যথা, ঝিঁকা, এবং দুর্বলতা সৃষ্টি করতে পারে।)', 15),
-(152, '2024-01-04 07:04:37.229224', NULL, NULL, 'Shin Splints (হাঁটু বিবাদ)', 'Pain and inflammation along the inner edge of the shinbone (tibia) due to overuse or improper training. (ব্যবহারের বা অযথা প্রশিক্ষণের জন্য হাঁটুর অভ্যন্তরীণ দিকে ব্যথা এবং সুজোন।)', 16);
+(151, '2024-01-04 06:56:30.821626', NULL, NULL, 'Thigh Nerve Compression (হাঁড়ি নার্ভ কমপ্রেশন)', 'Pressure or compression on the nerves in the thigh, leading to pain, tingling, and weakness. (হাঁড়ির নার্ভের উপর চাপ বা কমপ্রেশন, যা ব্যথা, ঝিঁকা, এবং দুর্বলতা সৃষ্টি করতে পারে।)', 15);
 INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, `problem`, `problem_specification`, `organ_id`) VALUES
+(152, '2024-01-04 07:04:37.229224', NULL, NULL, 'Shin Splints (হাঁটু বিবাদ)', 'Pain and inflammation along the inner edge of the shinbone (tibia) due to overuse or improper training. (ব্যবহারের বা অযথা প্রশিক্ষণের জন্য হাঁটুর অভ্যন্তরীণ দিকে ব্যথা এবং সুজোন।)', 16),
 (153, '2024-01-04 07:04:37.239197', NULL, NULL, 'Calf Muscle Strain (পিঁড়ি মাংসের স্ট্রেইন)', 'Overstretching or tearing of the muscles in the calf, leading to pain and limited mobility. (পিঁড়ি মাংসের মাংসের অত্যধিক প্রসারণ বা ফাটানো, যা ব্যথা এবং সীমিত চলাচলের সৃষ্টি করতে পারে।)', 16),
 (154, '2024-01-04 07:04:37.249169', NULL, NULL, 'Achilles Tendonitis (একিলিস টেনডোনাইটিস)', 'Inflammation of the Achilles tendon, the large tendon at the back of the ankle, causing pain and stiffness. (একিলিস টেনডনের সূজন, টাঙের পিছনের দিকে বড় টেনডন, ব্যথা এবং কাঠিন্য সৃষ্টি করতে পারে।)', 16),
 (155, '2024-01-04 07:04:37.254157', NULL, NULL, 'Calf Cramps (পিঁড়ি মাংসের ক্র্যাম্প)', 'Sudden, painful, and involuntary contractions of the calf muscles, often caused by dehydration or muscle fatigue. (পিঁড়ি মাংসের অচেতন, ব্যথায়ুক্ত এবং অস্বাধীন সংকোচন, যার কারণ সাধারণভাবে অবসাদ বা মাংস ক্লান্তি।)', 16),
@@ -2860,9 +2899,9 @@ INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at
 (317, '2024-01-04 14:16:10.837438', NULL, NULL, 'Ankle Sprain (গোড়ালি মচকে যাওয়া)', 'Stretching or tearing of the ligaments around the ankle, leading to pain and swelling. (গোড়ালির চারপাশের লিগামেন্টগুলি প্রসারিত বা ছিঁড়ে যাওয়া, যার ফলে ব্যথা এবং ফুলে যায়।)', 33),
 (318, '2024-01-04 14:16:10.842436', NULL, NULL, 'Stress Fracture (Stress Fracture)', 'Tiny cracks in the bone often caused by repetitive stress, resulting in localized pain. (হাড়ের ছোট ফাটল প্রায়ই পুনরাবৃত্তিমূলক চাপের কারণে ঘটে, যার ফলে স্থানীয় ব্যথা হয়।)', 33),
 (319, '2024-01-04 14:19:09.397196', NULL, NULL, 'Herniated Disc (Slipped Disc) (হার্নিয়েটেড ডিস্ক (স্লিপড ডিস্ক))', 'Displacement of the intervertebral disc, causing compression of nearby nerves and resulting in pain and weakness. (ইন্টারভার্টেব্রাল ডিস্কের স্থানচ্যুতি, কাছাকাছি স্নায়ুর সংকোচন ঘটায় এবং এর ফলে ব্যথা এবং দুর্বলতা দেখা দেয়।)', 32),
-(320, '2024-01-04 14:20:28.496850', NULL, NULL, 'Thoracic Outlet Syndrome (থোরাসিক আউটলেট সিন্ড্রোম)', 'Thoracic outlet syndrome occurs when nerves or blood vessels between the collarbone and first rib are compressed, leading to pain, numbness, and tingling in the arm. (থোরাসিক আউটলেট সিন্ড্রোম ঘটে যখন কলারবোন এবং প্রথম পাঁজরের মধ্যবর্তী স্নায়ু বা রক্তনালীগুলি সংকুচিত হয়, যার ফলে বাহুতে ব্যথা, অসাড়তা এবং ঝাঁকুনি দেখা দেয়।)', 32),
-(321, '2024-01-04 14:21:20.477540', NULL, NULL, 'Tarlov Cysts (টারলোভ সিস্ট)', 'Tarlov cysts are fluid-filled sacs that can form on nerve roots in the spine, causing pain, weakness, and sensory abnormalities. (টারলোভ সিস্ট হল তরল-ভরা থলি যা মেরুদন্ডের স্নায়ুর শিকড়ে গঠন করতে পারে, যার ফলে ব্যথা, দুর্বলতা এবং সংবেদনশীল অস্বাভাবিকতা দেখা দেয়।)', 32);
+(320, '2024-01-04 14:20:28.496850', NULL, NULL, 'Thoracic Outlet Syndrome (থোরাসিক আউটলেট সিন্ড্রোম)', 'Thoracic outlet syndrome occurs when nerves or blood vessels between the collarbone and first rib are compressed, leading to pain, numbness, and tingling in the arm. (থোরাসিক আউটলেট সিন্ড্রোম ঘটে যখন কলারবোন এবং প্রথম পাঁজরের মধ্যবর্তী স্নায়ু বা রক্তনালীগুলি সংকুচিত হয়, যার ফলে বাহুতে ব্যথা, অসাড়তা এবং ঝাঁকুনি দেখা দেয়।)', 32);
 INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, `problem`, `problem_specification`, `organ_id`) VALUES
+(321, '2024-01-04 14:21:20.477540', NULL, NULL, 'Tarlov Cysts (টারলোভ সিস্ট)', 'Tarlov cysts are fluid-filled sacs that can form on nerve roots in the spine, causing pain, weakness, and sensory abnormalities. (টারলোভ সিস্ট হল তরল-ভরা থলি যা মেরুদন্ডের স্নায়ুর শিকড়ে গঠন করতে পারে, যার ফলে ব্যথা, দুর্বলতা এবং সংবেদনশীল অস্বাভাবিকতা দেখা দেয়।)', 32),
 (322, '2024-01-04 14:28:29.306668', NULL, NULL, 'Osteoarthritis (অস্টিওআর্থারাইটিস)', 'Degeneration of joint cartilage and underlying bone, leading to pain, swelling, and reduced joint mobility. (জয়েন্ট কার্টিলেজ এবং অন্তর্নিহিত হাড়ের অবক্ষয়, যার ফলে ব্যথা, ফোলাভাব এবং জয়েন্টের গতিশীলতা হ্রাস পায়।)', 34),
 (323, '2024-01-04 14:28:29.317638', NULL, NULL, 'Rheumatoid Arthritis (রিউমাটয়েড আর্থ্রাইটিস)', 'Autoimmune disorder causing inflammation of joint synovium, leading to pain, stiffness, and joint deformities. (অটোইমিউন ডিসঅর্ডার যা জয়েন্ট সাইনোভিয়ামের প্রদাহ সৃষ্টি করে, যার ফলে ব্যথা, শক্ত হওয়া এবং জয়েন্টের বিকৃতি ঘটে।)', 34),
 (324, '2024-01-04 14:28:29.326612', NULL, NULL, 'Gout (গাউট)', 'Buildup of uric acid crystals in joints, causing sudden, intense pain and inflammation. (জয়েন্টগুলোতে ইউরিক অ্যাসিড স্ফটিক তৈরি হয়, যা হঠাৎ, তীব্র ব্যথা এবং প্রদাহ সৃষ্টি করে।)', 34),
@@ -2942,7 +2981,13 @@ INSERT INTO `otp` (`id`, `created_at`, `updated_at`, `deleted_at`, `otp`, `is_ve
 (5, '2024-01-04 11:43:53.045858', NULL, NULL, '0', 1, 5),
 (6, '2024-01-05 06:27:49.258022', '2024-01-05 12:28:20.124918', NULL, '0', 1, 6),
 (7, '2024-01-05 06:30:28.678479', '2024-01-05 12:59:48.921608', NULL, '0', 1, 7),
-(8, '2024-01-08 08:53:16.701877', '2024-01-08 14:53:39.021182', NULL, '0', 1, 8);
+(8, '2024-01-08 08:53:16.701877', '2024-01-08 14:53:39.021182', NULL, '0', 1, 8),
+(9, '2024-01-13 15:56:44.855034', NULL, NULL, '329244', 0, 9),
+(10, '2024-01-13 16:03:22.714476', NULL, NULL, '0', 1, 10),
+(11, '2024-01-13 16:06:35.624428', NULL, NULL, '0', 1, 11),
+(12, '2024-01-13 16:12:08.703485', NULL, NULL, '0', 1, 12),
+(13, '2024-01-13 16:14:28.911284', NULL, NULL, '0', 1, 13),
+(14, '2024-01-13 16:20:02.913193', '2024-01-13 22:20:36.726233', NULL, '0', 1, 14);
 
 -- --------------------------------------------------------
 
@@ -2969,7 +3014,9 @@ CREATE TABLE `patient_appointment` (
 INSERT INTO `patient_appointment` (`id`, `created_at`, `updated_at`, `deleted_at`, `appointment_date`, `appointment_time`, `is_confirmed`, `doctor_id`, `patient_id`) VALUES
 (1, '2024-01-08 08:58:09.760047', NULL, NULL, '08-01-2024 (Monday)', '06:00 PM - 06:10 PM', 0, 1, 3),
 (2, '2024-01-08 08:58:42.197289', NULL, NULL, '08-01-2024 (Monday)', '07:00 PM - 07:10 PM', 0, 2, 3),
-(3, '2024-01-08 09:01:55.494285', NULL, NULL, '10-01-2024 (Wednesday)', '05:00 PM - 05:10 PM', 0, 3, 3);
+(3, '2024-01-08 09:01:55.494285', NULL, NULL, '10-01-2024 (Wednesday)', '05:00 PM - 05:10 PM', 0, 3, 3),
+(4, '2024-01-13 16:28:07.648425', NULL, NULL, '14-01-2024 (Sunday)', '09:00 AM - 09:10 AM', 0, 1, 5),
+(5, '2024-01-13 16:49:29.693987', NULL, NULL, '19-01-2024 (Friday)', '09:00 AM - 09:10 AM', 0, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -3004,7 +3051,9 @@ CREATE TABLE `patient_profile` (
 INSERT INTO `patient_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `full_name`, `father_name`, `mother_name`, `phone_no`, `registration_no`, `date_of_birth`, `nid_no`, `address`, `blood_group_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
 (1, '2024-01-05 06:27:49.219126', NULL, NULL, 'Turan Ali', 'Kasem Ali', 'Hasina Begum', '+8801965572363', 'LTS-58765293083407', '2001-06-22', 1234567890, 'Dhaka , Narayanganj, Rupganj , Borpa , Dokkhin Masabo', 4, 1, 2, 1, 6),
 (2, '2024-01-05 06:30:28.656536', NULL, NULL, 'Turan', 'Cade Townsend', 'Tara Conner', '019623569874', 'OLZ-16272506021051', '1991-01-31', 2, 'Tempora iusto nostru', 5, 1, 2, 1, 7),
-(3, '2024-01-08 08:53:16.695894', NULL, NULL, 'MD Rajib', 'Jin Cobb', 'Salvador Strickland', '01753911172', 'QLE-27229387677569', '1975-07-19', 81, 'Reprehenderit libero', 6, 1, 1, 1, 8);
+(3, '2024-01-08 08:53:16.695894', NULL, NULL, 'MD Rajib', 'Jin Cobb', 'Salvador Strickland', '01753911172', 'QLE-27229387677569', '1975-07-19', 81, 'Reprehenderit libero', 6, 1, 1, 1, 8),
+(4, '2024-01-13 15:56:44.754269', NULL, NULL, 'Parbez Ali', NULL, NULL, '01658963652', 'SDL-10004253632363', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9),
+(5, '2024-01-13 16:20:02.886217', '2024-01-13 22:22:48.580002', NULL, 'Razib Uddin', 'Nasir Uddin', 'Sahara Begum', '01705091444', 'IMZ-82166700351329', '2001-01-12', 123365555, 'Dhaka', 2, 1, 2, 1, 14);
 
 -- --------------------------------------------------------
 
@@ -3033,7 +3082,11 @@ INSERT INTO `permanent_address` (`id`, `created_at`, `updated_at`, `deleted_at`,
 (1, '2024-01-04 09:55:54.674954', NULL, NULL, 'Bancharampur', 5, 28, 5, 211, 2),
 (2, '2024-01-04 10:16:07.366004', NULL, NULL, 'Sint culpa repudia', 26, 52, 7, 446, 3),
 (3, '2024-01-04 11:42:11.458785', NULL, NULL, 'Quis dignissimos vol', 50, 40, 6, 360, 4),
-(4, '2024-01-04 11:43:53.367995', NULL, NULL, 'Neque qui sit dolore', 97, 29, 5, 222, 5);
+(4, '2024-01-04 11:43:53.367995', NULL, NULL, 'Neque qui sit dolore', 97, 29, 5, 222, 5),
+(5, '2024-01-13 16:03:22.737406', NULL, NULL, 'khulna', 44, 52, 7, 446, 10),
+(6, '2024-01-13 16:06:35.975709', NULL, NULL, 'Narayangonj', 322, 45, 6, 395, 11),
+(7, '2024-01-13 16:12:08.731412', NULL, NULL, 'Bogura', 99, 2, 1, 7, 12),
+(8, '2024-01-13 16:14:29.368062', NULL, NULL, 'atpara', 57, 17, 3, 126, 13);
 
 -- --------------------------------------------------------
 
@@ -3062,7 +3115,12 @@ INSERT INTO `prediction` (`id`, `created_at`, `updated_at`, `deleted_at`, `body_
 (2, '2024-01-04 10:04:37.743454', NULL, NULL, 1, NULL, 4, 2, 1),
 (3, '2024-01-04 10:04:47.596500', NULL, NULL, 1, NULL, 4, 3, 1),
 (4, '2024-01-04 10:04:56.448011', NULL, NULL, 1, NULL, 4, 4, 1),
-(5, '2024-01-04 10:05:16.451331', NULL, NULL, 1, NULL, 4, 5, 1);
+(5, '2024-01-04 10:05:16.451331', NULL, NULL, 1, NULL, 4, 5, 1),
+(6, '2024-01-13 16:25:07.212431', NULL, NULL, 1, NULL, 4, 1, 1),
+(7, '2024-01-13 16:27:16.119869', NULL, NULL, 1, 5, 4, 1, 1),
+(8, '2024-01-13 16:30:56.169605', NULL, NULL, 1, 5, 4, 1, 1),
+(9, '2024-01-13 16:33:09.191831', NULL, NULL, 2, 5, 8, 52, 6),
+(10, '2024-01-13 16:44:03.606869', NULL, NULL, 1, NULL, 4, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3124,7 +3182,8 @@ CREATE TABLE `prescription_for_medicine` (
 --
 
 INSERT INTO `prescription_for_medicine` (`id`, `created_at`, `updated_at`, `deleted_at`, `cc`, `oe`, `dd`, `ad`, `tl`, `pmh`, `issue_date`, `created_by_id`, `doctor_profile_id`, `modified_by_id`, `patient_profile_id`) VALUES
-(1, '2024-01-07 09:24:01.939314', NULL, NULL, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '2024-01-07', 2, 1, NULL, 2);
+(1, '2024-01-07 09:24:01.939314', NULL, NULL, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '2024-01-07', 2, 1, NULL, 2),
+(2, '2024-01-13 16:39:19.780708', NULL, NULL, 'Migraine (মাইগ্রেন)', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '2024-01-13', 2, 1, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -3153,7 +3212,11 @@ INSERT INTO `present_address` (`id`, `created_at`, `updated_at`, `deleted_at`, `
 (1, '2024-01-04 09:55:54.658996', NULL, NULL, 'Bancharampur', 52, 2, 1, 8, 2),
 (2, '2024-01-04 10:16:07.364004', NULL, NULL, 'Qui in in optio dui', 81, 29, 5, 221, 3),
 (3, '2024-01-04 11:42:11.443827', NULL, NULL, 'Quo deleniti volupta', 82, 2, 1, 7, 4),
-(4, '2024-01-04 11:43:53.367001', NULL, NULL, 'Amet et eveniet qu', 38, 19, 3, 143, 5);
+(4, '2024-01-04 11:43:53.367001', NULL, NULL, 'Amet et eveniet qu', 38, 19, 3, 143, 5),
+(5, '2024-01-13 16:03:22.736415', NULL, NULL, 'Rangpur', 8, 9, 2, 68, 10),
+(6, '2024-01-13 16:06:35.966734', NULL, NULL, 'Babuganj', 292, 22, 4, 168, 11),
+(7, '2024-01-13 16:12:08.730414', NULL, NULL, 'bahubal', 38, 61, 8, 498, 12),
+(8, '2024-01-13 16:14:29.360085', NULL, NULL, 'akhaura', 48, 28, 5, 210, 13);
 
 -- --------------------------------------------------------
 
@@ -3199,7 +3262,14 @@ INSERT INTO `specification` (`id`, `accuracy`, `prediction_id`, `problem_specifi
 (2, NULL, 2, 2),
 (3, NULL, 3, 3),
 (4, NULL, 4, 4),
-(5, NULL, 5, 5);
+(5, NULL, 5, 5),
+(6, '1.000', 6, 1),
+(7, '1.000', 7, 1),
+(8, '1.000', 8, 1),
+(9, '1.000', 8, 2),
+(10, '1.000', 8, 3),
+(11, '1.000', 9, 52),
+(12, '0.000', 10, 1);
 
 -- --------------------------------------------------------
 
@@ -3788,8 +3858,14 @@ INSERT INTO `user` (`id`, `created_at`, `updated_at`, `deleted_at`, `user_name`,
 (4, '2024-01-04 11:42:11.376007', NULL, NULL, 'doctor3', 'doctor3@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
 (5, '2024-01-04 11:43:53.042867', NULL, NULL, 'doctor4', 'doctor4@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
 (6, '2024-01-05 06:27:49.196187', NULL, NULL, 'patient1', 'patient1@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active'),
-(7, '2024-01-05 06:30:28.617644', NULL, NULL, 'patient2', 'kabirariyan14@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active'),
-(8, '2024-01-08 08:53:16.692902', NULL, NULL, 'patient3', 'patient5@mailinator.com', '123', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'patient', 'active');
+(7, '2024-01-05 06:30:28.617644', NULL, NULL, 'patient2', 'patient2@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active'),
+(8, '2024-01-08 08:53:16.692902', NULL, NULL, 'patient3', 'patient3@mailinator.com', '123', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'patient', 'active'),
+(9, '2024-01-13 15:56:44.752273', NULL, NULL, 'patient4', 'patient4@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'inactive'),
+(10, '2024-01-13 16:03:22.710469', NULL, NULL, 'doctor5', 'doctor5@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(11, '2024-01-13 16:06:35.618444', NULL, NULL, 'doctor6', 'doctor6@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(12, '2024-01-13 16:12:08.698498', NULL, NULL, 'doctor7', 'doctor7@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(13, '2024-01-13 16:14:28.895327', NULL, NULL, 'doctor8', 'doctor8@gail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(14, '2024-01-13 16:20:02.884226', NULL, NULL, 'patient5', 'razibuddinapon123@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active');
 
 --
 -- Indexes for dumped tables
@@ -3876,6 +3952,13 @@ ALTER TABLE `board`
 --
 ALTER TABLE `body_part`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `chamber`
+--
+ALTER TABLE `chamber`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `chamber_doctor_profile_id_b7d062ee_fk_doctor_profile_id` (`doctor_profile_id`);
 
 --
 -- Indexes for table `days`
@@ -4248,7 +4331,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=205;
 
 --
 -- AUTO_INCREMENT for table `auth_user`
@@ -4285,6 +4368,12 @@ ALTER TABLE `board`
 --
 ALTER TABLE `body_part`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `chamber`
+--
+ALTER TABLE `chamber`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `days`
@@ -4326,13 +4415,13 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `doctor_appointment_schedule`
@@ -4362,7 +4451,7 @@ ALTER TABLE `doctor_off_day`
 -- AUTO_INCREMENT for table `doctor_profile`
 --
 ALTER TABLE `doctor_profile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `doctor_schedule_times`
@@ -4392,7 +4481,7 @@ ALTER TABLE `gender`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `lab_test`
@@ -4434,7 +4523,7 @@ ALTER TABLE `medicine_generic`
 -- AUTO_INCREMENT for table `medicine_prescription`
 --
 ALTER TABLE `medicine_prescription`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `medicine_schedule`
@@ -4470,31 +4559,31 @@ ALTER TABLE `organ_problem_speci`
 -- AUTO_INCREMENT for table `otp`
 --
 ALTER TABLE `otp`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `patient_appointment`
 --
 ALTER TABLE `patient_appointment`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `patient_profile`
 --
 ALTER TABLE `patient_profile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `permanent_address`
 --
 ALTER TABLE `permanent_address`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `prediction`
 --
 ALTER TABLE `prediction`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `prescription_for_lab_test`
@@ -4506,13 +4595,13 @@ ALTER TABLE `prescription_for_lab_test`
 -- AUTO_INCREMENT for table `prescription_for_medicine`
 --
 ALTER TABLE `prescription_for_medicine`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `present_address`
 --
 ALTER TABLE `present_address`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `religion`
@@ -4524,7 +4613,7 @@ ALTER TABLE `religion`
 -- AUTO_INCREMENT for table `specification`
 --
 ALTER TABLE `specification`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `upazila`
@@ -4536,7 +4625,7 @@ ALTER TABLE `upazila`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
@@ -4585,6 +4674,12 @@ ALTER TABLE `auth_user_groups`
 ALTER TABLE `auth_user_user_permissions`
   ADD CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   ADD CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `chamber`
+--
+ALTER TABLE `chamber`
+  ADD CONSTRAINT `chamber_doctor_profile_id_b7d062ee_fk_doctor_profile_id` FOREIGN KEY (`doctor_profile_id`) REFERENCES `doctor_profile` (`id`);
 
 --
 -- Constraints for table `department_speci`

@@ -34,7 +34,7 @@ EMAIL_BACKEND = EMAIL_BACKEND
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '10.0.2.2']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -81,7 +81,7 @@ INSTALLED_APPS = [
     'landing.prediction.apps.PredictionConfig',
     'landing.url.apps.UrlConfig',
 
-    # rest_framework
+    # for package
     'rest_framework',
     'barcode',
 ]
@@ -95,9 +95,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-
-    # My Middleware
-    # 'core.middleware.LoginCheckMiddleWare',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -159,7 +156,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 
