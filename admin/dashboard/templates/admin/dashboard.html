@@ -81,6 +81,29 @@
             <div class="col-md-6">
                 <div class="card card-dark">
                     <div class="card-header">
+                        <h3 class="card-title">Departments - Doctors - Patients Overview</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                                    class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <canvas id="graphChart"
+                                    style="min-height: 280px; height: 280px; max-height: 280px; max-width: 100%;">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-12">
+                <div class="card card-dark">
+                    <div class="card-header">
                         <h3 class="card-title">Total Predictions Overview</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
@@ -99,9 +122,7 @@
     </div>
 </div>
 {% endblock %}
-
 {% block scripts %}
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         function updateCurrentTime() {
@@ -125,71 +146,90 @@
             currentTimeElement.textContent = formattedTime;
             currentDateElement.textContent = formattedDate;
         }
-
         // Update the time and date every second
         setInterval(updateCurrentTime, 1000);
-
         // Call the function once to display the initial time and date
         updateCurrentTime();
 
         function updatePieChart(departmentCount, doctorCount, patientCount) {
             console.log('departmentCount:', departmentCount, 'doctorCount:', doctorCount, 'patientCount:', patientCount);
-
             var pieChartCanvas = document.getElementById('pieChartID');
-
             var data = {
                 labels: ['Departments', 'Doctors', 'Patients'],
                 datasets: [{
                     data: [departmentCount, doctorCount, patientCount],
-                    backgroundColor: ['#007BFF','#f39c12','#28A745'],
+                    backgroundColor: ['#EB5E0B','green','blue'],
                 }]
             };
-
             var options = {
                 maintainAspectRatio: false,
                 responsive: true,
             };
-
             var pieChart = new Chart(pieChartCanvas, {
                 type: 'pie',
                 data: data,
                 options: options
             });
         }
-
         // Call the function to update the pie chart with initial values
         updatePieChart({{ department_data.department_count }}, {{ doctor_data.doctor_count }}, {{ patient_data.patient_count }});
 
-        function updatePredictionChart(predictionData) {
-            var predictionChartContainer = document.querySelector('#predictionChartContainer');
+        function updateGraphChart(labtestCount, medicineCount, articleCount) {
+            var xValues = ["Labtest","Medicine", "Article"];
+            var yValues = [labtestCount, medicineCount, articleCount]; // Adjusted values
+            var barColors = ["#86A7FC", "#16A596", "#FF8E6E"];
 
-            // Extract prediction count from predictionData
-            var predictionCount = predictionData.prediction_count;
-
-            // Generate x and y values based on the prediction count
-            var xValues = [];
-            var yValues = [];
-            for (var i = 0; i <= predictionCount; i++) {
-                xValues.push(i);
-                yValues.push(i * 1.0);  // Adjust as needed based on your logic
-            }
-
-            // Define Data
-            var data = [
-                { x: xValues, y: yValues, mode: "lines" }
-            ];
-
-            // Define Layout
-            var layout = { title: "Prediction Data Overview" };
-
-            // Display using Plotly
-            Plotly.newPlot(predictionChartContainer, data, layout);
+            new Chart("graphChart", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: "Labtest - Medicines - Articles Overview"
+                    }
+                }
+            });
         }
 
-        // Call the function to update the Plotly chart with prediction data
-        updatePredictionChart({{ prediction_data | safe }});  // Use | safe to render HTML safely
-    });
+        // Call the function to update the bar chart with initial values
+        updateGraphChart({{ labtest_data.labtest_count }},{{ medicine_data.medicine_count }}, {{ article_data.article_count }});
 
+        function updatePredictionChart(predictionData) {
+                var predictionChartContainer = document.querySelector('#predictionChartContainer');
+
+                // Extract prediction count from predictionData
+                var predictionCount = predictionData.prediction_count;
+
+                // Generate x and y values based on the prediction count
+                var xValues = [];
+                var yValues = [];
+                for (var i = 0; i <= predictionCount; i++) {
+                    xValues.push(i);
+                    yValues.push(i * 1.0);  // Adjust as needed based on your logic
+                }
+
+                // Define Data
+                var data = [
+                    { x: xValues, y: yValues, mode: "lines" }
+                ];
+
+                // Define Layout
+                var layout = { title: "Prediction Data Overview" };
+
+                // Display using Plotly
+                Plotly.newPlot(predictionChartContainer, data, layout);
+            }
+
+            // Call the function to update the Plotly chart with prediction data
+            updatePredictionChart({{ prediction_data | safe }});  // Use | safe to render HTML safely
+    });
     // Array of welcome messages for the administration dashboard
     var adminWelcomeMessages = [
         "Welcome to the Doctor Book Administration Panel. Managing healthcare made easy!",

@@ -55,40 +55,102 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">Appointment - Lab Prescription - Medicine Prescription - Medicine - Labtest - Article Overview</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                                    class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <canvas id="graphChart"
+                                    style="min-height: 280px; height: 280px; max-height: 280px; max-width: 100%;">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-    // Function to update the current time and date
-    function updateCurrentTime() {
-        var currentTimeElement = document.getElementById('current-time');
-        var currentDateElement = document.getElementById('current-date');
-        var currentTime = new Date();
-        var hours = currentTime.getHours();
-        var minutes = currentTime.getMinutes();
-        var seconds = currentTime.getSeconds();
-        var ampm = hours >= 12 ? 'PM' : 'AM';
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to update the current time and date
+        function updateCurrentTime() {
+            var currentTimeElement = document.getElementById('current-time');
+            var currentDateElement = document.getElementById('current-date');
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            var seconds = currentTime.getSeconds();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
 
-        // Convert to 12-hour format
-        hours = hours % 12;
-        hours = hours ? hours : 12; // The hour '0' should be '12'
+            // Convert to 12-hour format
+            hours = hours % 12;
+            hours = hours ? hours : 12; // The hour '0' should be '12'
 
-        var formattedTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds + ' ' + ampm;
+            var formattedTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds + ' ' + ampm;
 
-        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        var formattedDate = currentTime.toLocaleDateString(undefined, options);
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            var formattedDate = currentTime.toLocaleDateString(undefined, options);
 
-        currentTimeElement.textContent = formattedTime;
-        currentDateElement.textContent = formattedDate;
-    }
+            currentTimeElement.textContent = formattedTime;
+            currentDateElement.textContent = formattedDate;
+        }
 
-    // Update the time and date every second
-    setInterval(updateCurrentTime, 1000);
+        // Update the time and date every second
+        setInterval(updateCurrentTime, 1000);
 
-    // Call the function once to display the initial time and date
-    updateCurrentTime();
+        // Call the function once to display the initial time and date
+        updateCurrentTime();
+
+        // Function to update the bar chart with appointment, lab test, medicine, labtest, article counts
+        function updateGraphChart(appointmentCount, labPrescriptionCount, medicinePrescriptionCount, labtestCount,medicineCount, articleCount) {
+            var xValues = ["Appointments", "Lab Prescription", "Medicine Prescription", "Lab Test","Medicine", "Article"];
+            var yValues = [appointmentCount, labPrescriptionCount, medicinePrescriptionCount, labtestCount,medicineCount, articleCount]; // Adjusted values
+            var barColors = ["#86A7FC", "#16A596", "#FF8E6E", "#FF9843","#123456", "#789ABC"];
+
+            new Chart("graphChart", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: "Appointment - Lab Prescription - Medicine Prescription - Lab Test - Article Overview"
+                    }
+                }
+            });
+        }
+
+        // Call the function to update the bar chart with initial values
+        updateGraphChart(
+            {{ count_appointment_data.appointments_count }},
+            {{ lab_prescription_data.prescriptions_for_lab_count }},
+            {{ medicine_prescription_data.prescriptions_for_medicine_count }},
+            {{ labtest_data.labtest_count }},
+            {{ medicine_data.medicine_count }},
+            {{ article_data.article_count }},
+            {{ lab_prescription_data.prescriptions_for_lab_count }}
+        );
+    });
+
 
     var doctorWelcomeMessages = [
         "Welcome to your Doctor Dashboard. Your patients' health is in good hands!",

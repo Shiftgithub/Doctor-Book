@@ -17,7 +17,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-user-md"></i>
                     <p>
-                        Doctor Modification
+                        Profile
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -50,6 +50,12 @@
                         <a href="{% url 'award_view' request.session.doctor_id %}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Awards Details</p>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-child">
+                        <a href="{% url 'view_chamber' request.session.doctor_id %}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Chamber's Details</p>
                         </a>
                     </li>
                 </ul>

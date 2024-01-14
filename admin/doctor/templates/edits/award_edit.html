@@ -238,21 +238,6 @@
                 }, false);
         });
      });
-    function previewImage(event) {
-    var input = event.target;
-    var imgElement = document.getElementById("preview");
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-            imgElement.src = e.target.result;
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        imgElement.src = "{% static 'adminlte_assets/img/nobody.png' %}";
-    }
 }
 </script>
 

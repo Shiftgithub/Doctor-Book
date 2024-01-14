@@ -3,9 +3,12 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
+from admin.article.views import count_article
 from admin.constants.constants import *
 from admin.doctor.views import doctor_data
 from admin.doctor.models import DoctorProfile
+from admin.labtest.views import count_labtest
+from admin.medicine.views import count_medicine
 from admin.patient.models import PatientProfile
 from landing.landing.views import *
 from landing.appointment.views import *
@@ -38,13 +41,27 @@ def admin_dashboard(request):
 
     doctor_response = count_doctor(request)
     doctor_all_data = doctor_response.data
+
     patient_response = count_patient(request)
     patient_data = patient_response.data
+
     prediction_response = count_prediction_for_admin(request)
     prediction_data = prediction_response.data
-    print(prediction_data)
+
+    medicine_response = count_medicine(request)
+    medicine_data = medicine_response.data
+
+    labtest_response = count_labtest(request)
+    labtest_data = labtest_response.data
+
+    article_response = count_article(request)
+    article_data = article_response.data
+
     data = {
         'department_data': department_data,
+        'medicine_data': medicine_data,
+        'labtest_data': labtest_data,
+        'article_data': article_data,
         'doctor_data': doctor_all_data,
         'patient_data': patient_data,
         'prediction_data': prediction_data,
@@ -65,10 +82,22 @@ def doctor_dashboard(request):
 
     count_appointment_response = count_appointments(request, doctor_id)
     count_appointment_data = count_appointment_response.data
+
+    medicine_response = count_medicine(request)
+    medicine_data = medicine_response.data
+
+    labtest_response = count_labtest(request)
+    labtest_data = labtest_response.data
+
+    article_response = count_article(request)
+    article_data = article_response.data
     data = {
-        'medicine_prescription_data': medicine_prescription_data,
+        'medicine_data': medicine_data,
+        'labtest_data': labtest_data,
+        'article_data': article_data,
         'lab_prescription_data': lab_prescription_data,
-        'count_appointment_data': count_appointment_data
+        'count_appointment_data': count_appointment_data,
+        'medicine_prescription_data': medicine_prescription_data,
     }
     return render(request, 'dashboard/templates/doctor/dashboard.html', data)
 
@@ -84,7 +113,13 @@ def patient_dashboard(request):
 
     lab_prescription_response = count_lab_prescription_for_patient(request, patient_id)
     lab_prescription_data = lab_prescription_response.data
+
+    patient_id = request.session.get('patient_id')
+    response = get_all_appointment_by_patient(request, patient_id)
+    all_data = response.data
+
     data = {
+        'all_data': all_data,
         'prediction_data': prediction_data,
         'lab_prescription_data': lab_prescription_data,
         'medicine_prescription_data': medicine_prescription_data,

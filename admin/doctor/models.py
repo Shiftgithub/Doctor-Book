@@ -104,3 +104,15 @@ class SocialMedia(BaseModel):
 
     class Meta:
         db_table = 'doctor_social_media'
+
+
+class Chamber(BaseModel):
+    hospital_name = models.CharField(max_length=255, null=True)
+    address = models.CharField(max_length=255, null=True)
+    address_code = models.CharField(max_length=255, null=True)
+    phone_no = models.CharField(max_length=255, null=True)
+    open_closing = models.CharField(max_length=255, null=True)
+    doctor_profile = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='chamber', null=True)
+
+    class Meta:
+        db_table = 'chamber'

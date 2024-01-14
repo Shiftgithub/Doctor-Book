@@ -56,127 +56,177 @@
             </div>
         </div>
         <div class="row text-center">
-            <div class="col-sm-12 col-md-6">
-                <table id="bodyPartData" class="table table-sm table-bordered table-striped text-center">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Body Part Name</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="col-md-12">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">Total Predictions Overview</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                                    class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="predictionChartContainer"></div>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-12 col-md-6">
-                <table id="bodyPartData" class="table table-sm table-bordered table-striped text-center">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Body Part Name</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <!--            <div class="card-body">-->
+            <!--                <table id="bodyPartData" class="table table-sm table-bordered table-striped text-center">-->
+            <!--                    <thead>-->
+            <!--                    <tr>-->
+            <!--                        <th>#</th>-->
+            <!--                        <th>Name</th>-->
+            <!--                        <th>Appointment Date</th>-->
+            <!--                        <th>Appointment Time</th>-->
+            <!--                        <th>Action</th>-->
+            <!--                    </tr>-->
+            <!--                    </thead>-->
+            <!--                    <tbody>-->
+            <!--                    {% for data in all_data %}-->
+            <!--                    <tr>-->
+            <!--                        <td>{{ forloop.counter }}</td>-->
+            <!--                        {# Use 'forloop.counter' to get the loop counter #}-->
+            <!--                        <td>{{ data.patient_name }}</td>-->
+            <!--                        <td>{{ data.appointment_date }}</td>-->
+            <!--                        <td>{{ data.appointment_time }}</td>-->
+            <!--                        <td>-->
+            <!--                            <div class="btn-group dropleft">-->
+            <!--                             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"-->
+            <!--                                   aria-expanded="false"> <i class="fas fa-bars"></i>-->
+            <!--                             </span>-->
+            <!--                                <div class="dropdown-menu">-->
+            <!--                                    <a href="{% url 'view_appointment' data.id %}"-->
+            <!--                                       class="dropdown-item text-info">-->
+            <!--                                        <i class="fas fa-eye"></i> View-->
+            <!--                                    </a>-->
+            <!--                                </div>-->
+            <!--                            </div>-->
+            <!--                        </td>-->
+            <!--                    </tr>-->
+            <!--                    {% endfor %}-->
+            <!--                    </tbody>-->
+            <!--                </table>-->
+            <!--            </div>-->
         </div>
     </div>
 </div>
 {% endblock %}
 {% block scripts %}
 <script>
-    // Function to update the current time and date
-    function updateCurrentTime() {
-        var currentTimeElement = document.getElementById('current-time');
-        var currentDateElement = document.getElementById('current-date');
-        var currentTime = new Date();
-        var hours = currentTime.getHours();
-        var minutes = currentTime.getMinutes();
-        var seconds = currentTime.getSeconds();
-        var ampm = hours >= 12 ? 'PM' : 'AM';
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to update the current time and date
+        function updateCurrentTime() {
+            var currentTimeElement = document.getElementById('current-time');
+            var currentDateElement = document.getElementById('current-date');
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            var seconds = currentTime.getSeconds();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
 
-        // Convert to 12-hour format
-        hours = hours % 12;
-        hours = hours ? hours : 12; // The hour '0' should be '12'
+            // Convert to 12-hour format
+            hours = hours % 12;
+            hours = hours ? hours : 12; // The hour '0' should be '12'
 
-        var formattedTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds + ' ' + ampm;
+            var formattedTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds + ' ' + ampm;
 
-        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        var formattedDate = currentTime.toLocaleDateString(undefined, options);
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            var formattedDate = currentTime.toLocaleDateString(undefined, options);
 
-        currentTimeElement.textContent = formattedTime;
-        currentDateElement.textContent = formattedDate;
-    }
+            currentTimeElement.textContent = formattedTime;
+            currentDateElement.textContent = formattedDate;
+        }
 
-    // Update the time and date every second
-    setInterval(updateCurrentTime, 1000);
+        // Update the time and date every second
+        setInterval(updateCurrentTime, 1000);
 
-    // Call the function once to display the initial time and date
-    updateCurrentTime();
+        // Call the function once to display the initial time and date
+        updateCurrentTime();
 
-    var healthcareMessages = [
-        "Welcome to our Doctor Book PatientPanel. Your health is our priority!",
-        "Hello there! We're here to provide personalized healthcare just for you.",
-        "Thank you for choosing us for your healthcare needs. Let's keep you healthy!",
-        "Your well-being is our mission. Welcome to a healthier you!",
-        "Empowering you to live a healthier life. Welcome to our patient panel!",
-        "We're dedicated to providing quality healthcare tailored to your needs.",
-        "Your journey to better health begins here. Welcome!",
-        "Together, let's prioritize your health and well-being.",
-        "Our team is committed to ensuring your health and happiness.",
-        "Your health is our top priority. Welcome to personalized care!",
-        "Every step of the way, we're here for your health and wellness.",
-        "Embrace a healthier tomorrow with our personalized healthcare services.",
-        "Your health journey starts now. Welcome to our patient panel!",
-        "We're honored to be a part of your health and wellness journey.",
-        "Empowering you with knowledge and care for a healthier life.",
-        "Your health is your wealth. Welcome to our patient panel!",
-        "We believe in a healthy you. Let's work together on your well-being.",
-        "Your journey to optimal health begins with us. Welcome aboard!",
-        "Prioritizing your health and happiness. Welcome to personalized care!",
-        "At the heart of our service is your well-being. Welcome!",
-        "Unlocking the path to a healthier lifestyle. Welcome to our community!",
-        "Committed to delivering excellence in healthcare. Welcome!",
-        "Your health, our commitment. Welcome to a world of personalized care!",
-        "Championing your health goals. Welcome to our patient panel!",
-        "Every interaction, a step toward better health. Welcome!",
-        "In health, we trust. Welcome to a partnership in your well-being!",
-        "Empowering you to take charge of your health. Welcome aboard!",
-        "Your health, your journey. Welcome to a life of well-being!",
-        "Building a healthier community, one patient at a time. Welcome!",
-        "Dedicated to your health and happiness. Welcome to our patient panel!",
-        "We're here to support your health goals. Welcome to personalized care!",
-        "Embarking on a journey to better health. Welcome aboard!",
-        "Guiding you to a healthier tomorrow. Welcome to our community!",
-        "Your health is our inspiration. Welcome to personalized wellness!",
-        "A commitment to your health and happiness. Welcome!",
-        "Inspiring a healthier you. Welcome to our patient panel!",
-        "Your well-being is our passion. Welcome to a world of care!",
-        "In the pursuit of your well-being, we stand by you. Welcome!",
-        "Cherishing your health, every step of the way. Welcome aboard!",
-        "Elevating your health experience. Welcome to personalized care!",
-    ];
+        function updatePredictionChart(predictionData) {
+                var predictionChartContainer = document.querySelector('#predictionChartContainer');
 
-    // Function to display a random healthcare message
-    function displayRandomHealthcareMessage() {
-        var randomIndex = Math.floor(Math.random() * healthcareMessages.length);
-        var randomHealthcareMessage = healthcareMessages[randomIndex];
-        var welcomeMessageElement = document.querySelector('#welcome-message');
-        welcomeMessageElement.textContent = randomHealthcareMessage;
-    }
+                // Extract prediction count from predictionData
+                var predictionCount = predictionData.prediction_count;
 
-    // Call the function on page load
-    displayRandomHealthcareMessage();
+                // Generate x and y values based on the prediction count
+                var xValues = [];
+                var yValues = [];
+                for (var i = 0; i <= predictionCount; i++) {
+                    xValues.push(i);
+                    yValues.push(i * 1.0);  // Adjust as needed based on your logic
+                }
+
+                // Define Data
+                var data = [
+                    { x: xValues, y: yValues, mode: "lines" }
+                ];
+
+                // Define Layout
+                var layout = { title: "Prediction Data Overview" };
+
+                // Display using Plotly
+                Plotly.newPlot(predictionChartContainer, data, layout);
+            }
+
+            // Call the function to update the Plotly chart with prediction data
+            updatePredictionChart({{ prediction_data | safe }});  // Use | safe to render HTML safely
+        });
+        var healthcareMessages = [
+            "Welcome to our Doctor Book PatientPanel. Your health is our priority!",
+            "Hello there! We're here to provide personalized healthcare just for you.",
+            "Thank you for choosing us for your healthcare needs. Let's keep you healthy!",
+            "Your well-being is our mission. Welcome to a healthier you!",
+            "Empowering you to live a healthier life. Welcome to our patient panel!",
+            "We're dedicated to providing quality healthcare tailored to your needs.",
+            "Your journey to better health begins here. Welcome!",
+            "Together, let's prioritize your health and well-being.",
+            "Our team is committed to ensuring your health and happiness.",
+            "Your health is our top priority. Welcome to personalized care!",
+            "Every step of the way, we're here for your health and wellness.",
+            "Embrace a healthier tomorrow with our personalized healthcare services.",
+            "Your health journey starts now. Welcome to our patient panel!",
+            "We're honored to be a part of your health and wellness journey.",
+            "Empowering you with knowledge and care for a healthier life.",
+            "Your health is your wealth. Welcome to our patient panel!",
+            "We believe in a healthy you. Let's work together on your well-being.",
+            "Your journey to optimal health begins with us. Welcome aboard!",
+            "Prioritizing your health and happiness. Welcome to personalized care!",
+            "At the heart of our service is your well-being. Welcome!",
+            "Unlocking the path to a healthier lifestyle. Welcome to our community!",
+            "Committed to delivering excellence in healthcare. Welcome!",
+            "Your health, our commitment. Welcome to a world of personalized care!",
+            "Championing your health goals. Welcome to our patient panel!",
+            "Every interaction, a step toward better health. Welcome!",
+            "In health, we trust. Welcome to a partnership in your well-being!",
+            "Empowering you to take charge of your health. Welcome aboard!",
+            "Your health, your journey. Welcome to a life of well-being!",
+            "Building a healthier community, one patient at a time. Welcome!",
+            "Dedicated to your health and happiness. Welcome to our patient panel!",
+            "We're here to support your health goals. Welcome to personalized care!",
+            "Embarking on a journey to better health. Welcome aboard!",
+            "Guiding you to a healthier tomorrow. Welcome to our community!",
+            "Your health is our inspiration. Welcome to personalized wellness!",
+            "A commitment to your health and happiness. Welcome!",
+            "Inspiring a healthier you. Welcome to our patient panel!",
+            "Your well-being is our passion. Welcome to a world of care!",
+            "In the pursuit of your well-being, we stand by you. Welcome!",
+            "Cherishing your health, every step of the way. Welcome aboard!",
+            "Elevating your health experience. Welcome to personalized care!",
+        ];
+
+        // Function to display a random healthcare message
+        function displayRandomHealthcareMessage() {
+            var randomIndex = Math.floor(Math.random() * healthcareMessages.length);
+            var randomHealthcareMessage = healthcareMessages[randomIndex];
+            var welcomeMessageElement = document.querySelector('#welcome-message');
+            welcomeMessageElement.textContent = randomHealthcareMessage;
+        }
+
+        // Call the function on page load
+        displayRandomHealthcareMessage();
 </script>
 {% endblock %}
