@@ -277,8 +277,8 @@ def store_appointment_data(request):
                     else:
                         transaction.set_rollback(True)
                         return Response({'status': 403, 'message': 'Error in request appointment schedule'})
-                schedule_message = (f'Your appointment Date is : {appointment_date} and Appointment '
-                                    f'Time : {appointment_time}')
+                schedule_message = (
+                    f'Appointment Confirmed : {appointment_date} , {appointment_time} with {doctor.full_name}')
                 sent_email = send_email(user.email, patient.full_name, schedule_message)
                 return Response(data)
 
@@ -371,8 +371,8 @@ def create_patient_account_store_appointment(request):
                             else:
                                 transaction.set_rollback(True)
                                 return Response({'status': 403, 'message': 'Error in sending appointment request!'})
-                        schedule_message = (f'Your appointment Date is : {appointment_date} and Appointment '
-                                            f'Time : {appointment_time}')
+                        schedule_message = (
+                            f'Appointment Confirmed : {appointment_date} , {appointment_time} with {doctor.full_name}')
                         sent_email = send_email(email, full_name, schedule_message)
                         return Response(data)
                     else:
@@ -462,7 +462,7 @@ def get_store_appointment(request):
         if get_appointment.exists():
             return Response({'status': 403, 'message': 'This time is already taken'})
         else:
-            message = f'Your appointment Date is : {appointment_date} and Appointment Time : {appointment_time}'
+            message = f'Appointment Confirmed : {appointment_date} , {appointment_time} with {doctor.full_name}'
             sent_email = send_email(email, patient.full_name, message)
             if appointment_serializer and sent_email:
                 if appointment_serializer.save(
@@ -508,7 +508,7 @@ def edit_appointment_data(request, appointment_id):
             email = user_info.email
         except User.DoesNotExist:
             return Response({'status': 403, 'message': 'User not found'})
-        message = f'Your appointment Date is : {appointment_date} and Appointment Time : {appointment_time}'
+        message = f'Appointment Confirmed : {appointment_date} , {appointment_time} with {doctor.full_name}'
         sent_email = send_email(email, patient.full_name, message)
         if sent_email and serializer.save(doctor=doctor, updated_at=timezone.now()):
             return Response({'status': 200, 'message': 'Appointment data updated successfully'})
