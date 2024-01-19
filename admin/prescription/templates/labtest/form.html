@@ -203,12 +203,12 @@
                                 $('#PredictionID').html(tableHTML);
                             } else {
                                 // No predictions found
-                                $('#PredictionID').html('<div class="row alert alert-warning text-center"><h3>No Prediction Found</h3></div>');
+                                $('#PredictionID').html('<div class="row mb-3 alert alert-dark text-center"><h5>No Prediction Data Found</h5></div>');
                             }
                         },
                         error: function (error) {
                             // Display a warning message for the error
-                            $('#PredictionID').html('<div class="row alert alert-dark text-center"><h4>No Prediction Data Found</h4></div>');
+                            $('#PredictionID').html('<div class="row mb-3 alert alert-dark text-center"><h5>No Prediction Data Found</h5></div>');
                         }
                     });
                 }
