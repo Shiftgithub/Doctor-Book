@@ -3,6 +3,8 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 
+from admin.department.serializers import DepartmentSerializer
+from admin.department_speci.serializers import DepartmentSpecificationSerializer
 from .serializers import *
 from .models import Prediction
 from admin.organ.models import Organ
@@ -12,7 +14,7 @@ from admin.department.models import Department
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from admin.bodypart.serializers import BodyPartSerializer
-from admin.organ.serializers import OrganBodyPartSerializer
+from admin.organ.serializers import OrganBodyPartSerializer, OrganSerializer
 from admin.department_speci.models import DepartmentSpecification
 from admin.organ_problem_speci.models import OrgansProblemSpecification
 from admin.organ_problem_speci.serializers import OrganProblemSerializer
@@ -82,12 +84,9 @@ def prediction(request):
 
                 # Make a prediction using the trained KNN model
                 predicted_department_id = knn_model.predict(features_2d)[0]
-
                 # Check accuracy and save matplotlib image
                 accuracy = knn_model.score(features_2d, [labels[0]])
-                print(f'Department id is : {predicted_department_id}')
-                print(f'Accuracy is :  {accuracy}')
-                # Save the matplotlib image with relevant data
+                graph_path = save_matplotlib_image(features, predicted_department_id, accuracy)
             if predicted_department_id:
                 doctor_data = DoctorProfile.objects.filter(
                     department__in=department_ids
@@ -131,9 +130,8 @@ def prediction(request):
                                 prediction=prediction_save,
                                 problem_specification=problem_spec,
                                 accuracy=accuracy,
+                                graph_path=graph_path,
                             )
-                            save_matplotlib_image(features, labels, spec_obj, predicted_department_id, accuracy)
-
                             spec_objs.append(spec_obj)
                         except OrgansProblemSpecification.DoesNotExist:
                             data = {'status': 403, 'message': 'Organ Problem not exist'}
@@ -214,6 +212,7 @@ def get_all_prediction_list_by_patient(request):
             'specifications': [
                 {
                     'specification_id': spec.id,
+                    'graph_path': spec.graph_path,
                     'body_part_id': prediction.body_part_id,
                     'body_part': prediction.body_part.name,
                     'organ_id': prediction.organ_id,
@@ -255,6 +254,7 @@ def prediction_data_view(request, prediction_id):
         'prediction_id': prediction.id,
         'specifications': [{
             'specification_id': spec.id,
+            'graph_path': spec.graph_path,
             'body_part_id': prediction.body_part.id,
             'body_part': prediction.body_part.name,
             'organ_id': prediction.organ.id,
@@ -263,7 +263,7 @@ def prediction_data_view(request, prediction_id):
             'problem': spec.problem_specification.problem,
             'problem_specification': spec.problem_specification.problem_specification,
             'department': prediction.department.name,
-            'department_speci': prediction.department_speci.description
+            'department_speci': prediction.department_speci.description,
         } for spec in specifications]
     }
 
@@ -338,25 +338,52 @@ def save_raw_prediction_data_to_csv(dataset):
     return file_path
 
 
-def save_matplotlib_image(features, labels, spec_obj, predicted_department_id, accuracy):
+def save_matplotlib_image(features, predicted_department_id, accuracy):
     # Convert numerical values to strings
+    department = Department.objects.get(id=predicted_department_id)
+    serializer = DepartmentSerializer(instance=department)
+    department_name = serializer.data['name']
+    # Define specific colors
+    colors = ['black', 'blue', 'green', 'red']
     feature_values = [str(value) for value in features]
 
+    body_part_id = feature_values[0]
+    organ_id = feature_values[1]
+    problem_spec_id = feature_values[2]
+    department_specification_id = feature_values[3]
+
+    body_part = BodyPart.objects.get(id=body_part_id)
+    body_part_serializer = BodyPartSerializer(instance=body_part)
+    body_part_name = body_part_serializer.data['name'].split(' (')[0]
+
+    organ = Organ.objects.get(id=organ_id)
+    organ_serializer = OrganSerializer(instance=organ)
+    organ_name = organ_serializer.data['name'].split(' (')[0]
+
+    problem_spec = OrgansProblemSpecification.objects.get(id=problem_spec_id)
+    problem_spec_serializer = OrganProblemSerializer(instance=problem_spec)
+    problem_spec_name = problem_spec_serializer.data['problem'].split(' (')[0]
+
+    department_specification = DepartmentSpecification.objects.get(id=department_specification_id)
+    department_specification_serializer = DepartmentSpecificationSerializer(instance=department_specification)
+    department_specification_name = department_specification_serializer.data['description'].split(' (')[0]
+
+    specification_count = Specification.objects.count()
     # Create a bar plot
     fig, ax = plt.subplots()
 
     # Assuming features contains relevant data for plotting
     feature_names = ['Body Part', 'Organ', 'Problem', 'Dept. Specification']
-
+    feature_values = [body_part_name, organ_name, problem_spec_name, department_specification_name]
     # Generate random colors for each bar
-    colors = np.random.rand(len(feature_names), 3)
+    # colors = np.random.rand(len(feature_names), 3)
 
     # Use the 'color' parameter to set different colors for each bar
-    bars = ax.bar(feature_names, [int(value) for value in feature_values], label='Features', color=colors)
+    bars = ax.bar(feature_names, [str(value) for value in feature_values], label='Features', color=colors)
 
     # Add labels and title
     ax.set_ylabel('Feature Values')
-    ax.set_title(f'Predicted Department: {predicted_department_id}, Accuracy: {accuracy}')
+    ax.set_title(f'Predicted Department: {department_name}, Accuracy: {accuracy}')
 
     # Add annotations for each bar
     for bar, value in zip(bars, feature_values):
@@ -370,7 +397,7 @@ def save_matplotlib_image(features, labels, spec_obj, predicted_department_id, a
     # Create the directory if it does not exist
     os.makedirs(graph_image_directory, exist_ok=True)
     # Save the figure to the media folder
-    image_path = os.path.join(graph_image_directory, '{}.png'.format(spec_obj))
+    image_path = os.path.join(graph_image_directory, 'specification_{}.png'.format(specification_count + 1))
     plt.savefig(image_path)
 
     return image_path

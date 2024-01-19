@@ -443,9 +443,9 @@ def view_chamber(request, doctor_id):
     doctor_session_id = request.session.get('doctor_id')
     if admin_id is not None or doctor_session_id == doctor_id:
         response_chamber_data = doctor_chamber_data(request, doctor_id)
-        chamber_data = response_chamber_data.data
+        chamber_all_data = response_chamber_data.data
         data = {
-            'chamber_data': chamber_data, 'doctor_id': doctor_id
+            'chamber_all_data': chamber_all_data, 'doctor_id': doctor_id
         }
         return render(request, 'doctor/templates/views/chamber_view.html', data)
     else:
@@ -458,7 +458,6 @@ def edit_chamber_form(request, doctor_id):
     if admin_id is not None or doctor_session_id == doctor_id:
         response_doctor = doctor_chamber_data(request, doctor_id)
         doctor_all_data = response_doctor.data
-        print(doctor_all_data)
         data = {
             'doctor_all_data': doctor_all_data, 'doctor_id': doctor_id
         }
