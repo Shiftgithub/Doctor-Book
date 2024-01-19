@@ -3,6 +3,7 @@ from admin.personal_data.models import *
 from admin.basemodel.models import BaseModel
 from admin.patient.models import PatientProfile
 from admin.doctor.models import DoctorProfile
+from landing.prediction.models import Prediction
 
 
 class GetAppointment(BaseModel):
@@ -11,7 +12,12 @@ class GetAppointment(BaseModel):
     doctor = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='patients_appointments', null=True)
     appointment_date = models.TextField(max_length=255, null=True)
     appointment_time = models.TextField(max_length=255, null=True)
-    is_confirmed = models.BooleanField(default=False, null=True)
+    is_check_up = models.BooleanField(default=False, null=True)
+    for_medicine = models.BooleanField(default=False, null=True)
+    for_labtest = models.BooleanField(default=False, null=True)
+    payment = models.TextField(max_length=255, null=True)
+    prediction = models.ForeignKey(Prediction, on_delete=models.CASCADE, related_name='patients_appointments',
+                                      null=True)
 
     class Meta:
         db_table = 'patient_appointment'

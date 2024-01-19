@@ -10,7 +10,7 @@ urlpatterns = [
                 path('form/', predict_form, name='predict_form'),
                 path('', predict, name='prediction'),
                 path('list/', protected_view(prediction_list), name='prediction_list'),
-                path('prediction-view/<int:prediction_id>/', protected_view(view_prediction_data),
+                path('view/<int:prediction_id>/', protected_view(view_prediction_data),
                      name='prediction_view'),
             ]
         ),

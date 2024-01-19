@@ -1,3 +1,4 @@
+from landing.appointment.models import GetAppointment
 from .models import *
 from .serializers import *
 from django.db import transaction
@@ -20,7 +21,12 @@ def store_prescription_data(request, doctor_id, user_id):
     prescription_serializer = MedicinePrescriptionSerializer(data=request.data)
 
     if medicine_serializer.is_valid() and prescription_serializer.is_valid():
+        appointment_id = request.data.get('appointment_id')
         user_instant = User.objects.get(id=user_id)
+        appointment = GetAppointment.objects.get(id=appointment_id)
+        serializer = GetAppointmentForMedicineSerializer(appointment, data={'for_medicine': True}, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         doctor_instant = DoctorProfile.objects.get(id=doctor_id)
         medicine_instance = medicine_serializer.save(created_by=user_instant, doctor_profile=doctor_instant)
 
@@ -95,7 +101,12 @@ def store_lab_prescription_data(request, doctor_id, user_id):
     prescription_serializer = LabTestPrescriptionSerializer(data=request.data)
 
     if lab_test_serializer.is_valid() and prescription_serializer.is_valid():
+        appointment_id = request.data.get('appointment_id')
         user_instant = User.objects.get(id=user_id)
+        appointment = GetAppointment.objects.get(id=appointment_id)
+        serializer = GetAppointmentForLabtestSerializer(appointment, data={'for_labtest': True}, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         doctor_instant = DoctorProfile.objects.get(id=doctor_id)
         prescription_instance = lab_test_serializer.save(created_by=user_instant, doctor_profile=doctor_instant)
 
@@ -165,7 +176,7 @@ def count_medicine_prescription(request, doctor_id):
 @api_view(['GET'])
 def count_lab_prescription(request, doctor_id):
     # Get the PrescriptionForLabTest instances for the given doctor_id
-    prescriptions_for_lab = PrescriptionForLabTest.objects.filter(doctor_profile=doctor_id,deleted_at=None)
+    prescriptions_for_lab = PrescriptionForLabTest.objects.filter(doctor_profile=doctor_id, deleted_at=None)
 
     # Get the count of lab_prescription
     prescriptions_for_lab_count = prescriptions_for_lab.count()
@@ -242,4 +253,3 @@ def count_lab_prescription_for_patient(request, patient_id):
     serialized_data = {'prescriptions_for_lab_count': prescriptions_for_lab_count}
 
     return Response(serialized_data)
-
