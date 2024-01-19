@@ -59,10 +59,11 @@ def generate_time(request):
 
 
 @api_view(['GET'])
-def get_appointment_date_time_by_patient_name(request, patient_id):
-    appointments = GetAppointment.objects.filter(patient=patient_id, is_check_up=False).order_by('id')
+def get_appointment_date_time_by_patient_name(request, patient_id, doctor_id):
+    appointments = GetAppointment.objects.filter(patient=patient_id, doctor=doctor_id, is_check_up=False).order_by('id')
     serializer = AppointmentDateTimeByPatientNameSerializer(appointments, many=True)
     serialized_data = serializer.data
+    print(serialized_data)
     return Response(serialized_data)
 
 

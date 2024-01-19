@@ -16,7 +16,7 @@ urlpatterns = [
                 path('problem/specification/<int:organ_id>/', get_organ_problem_by_organ, name='get_organ_problems'),
                 path('district/<int:division_id>/', get_district_by_division, name='get_districts'),
                 path('upazila/<int:district_id>/', get_upazila_by_district, name='get_upazilas'),
-                path('appointment/<int:patient_id>/', get_appointment_date_time_by_patient_name,
+                path('appointment/<int:patient_id>/<int:doctor_id>/', get_appointment_date_time_by_patient_name,
                      name='get_patient_appointments_by_name'),
                 path('prediction-view/<int:prediction_id>/<int:patient_id>/', get_prediction_view,
                      name='get_prediction_for_appointments'),

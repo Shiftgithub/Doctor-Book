@@ -10,6 +10,7 @@
             <form id="PostForm" action="{% url 'store_medicine_prescription' %}" method="POST"
                   class="needs-validation" novalidate>
                 {% csrf_token %}
+                <input type="hidden" id="doctorID" value="{{ request.session.doctor_id}}">
                 <div class="row mb-3">
                     <label for="patientID" class="col-md-3 col-form-label">Patient Name :<span
                             class="text-danger">*</span></label>
@@ -228,20 +229,19 @@
 <script>
     $('#patientID').on('change', function () {
         let patient_id = $(this).val()
-        console.log('patient_id',patient_id);
-
+        let doctor_id = $('#doctorID').val();
+        let prediction_id;
         if (patient_id === '' || patient_id == null) {
             return false
         } else {
             $.ajax({
-                url: '/ajax/appointment/' + patient_id,
+                url: '/ajax/appointment/' + patient_id + '/' + doctor_id + '/',
                 type: 'GET',
                 success: function (response) {
                     let options = '<option value="" selected disabled>Select Appointment Date & Time</option>';
                     $.each(response, function (key, value) {
-                        options += `<option value="${value.prediction_id}">${value.appointment_date} (${value.appointment_time})</option>`;
+                        options += `<option value="${value.id}" data-prediction-id="${value.prediction_id}">${value.appointment_date} (${value.appointment_time})</option>`;
                     });
-
                     $('#appointmentDateTimeID').html(options);
                 }
             });
@@ -250,7 +250,8 @@
              * Getting organ problem specification by organ id ...
              */
             $('#appointmentDateTimeID').on('change', function () {
-                let prediction_id = $(this).val();
+                // Retrieve the selected prediction_id from the data attribute
+                prediction_id = $(this).find(':selected').data('prediction-id');
 
                 if (prediction_id === '' || prediction_id == null) {
                     return false;
@@ -288,7 +289,7 @@
                         }
                     });
                 }
-            })
+            });
         }
     })
     $(document).ready(function () {

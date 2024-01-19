@@ -438,6 +438,7 @@ def get_store_appointment(request):
         doctor_id = request.data.get('doctor')
         appointment_date = appointment_serializer.validated_data['appointment_date']
         appointment_time = appointment_serializer.validated_data['appointment_time']
+        prediction_id = request.session.get('prediction_id')
         try:
             patient = PatientProfile.objects.get(id=patient_id, deleted_at=None)
         except PatientProfile.DoesNotExist:
@@ -451,12 +452,14 @@ def get_store_appointment(request):
             email = user_info.email
         except User.DoesNotExist:
             return Response({'status': 404, 'message': 'User not found'})
+        prediction = get_object_or_404(Prediction, id=prediction_id, deleted_at=None)
         # Try to retrieve the existing appointment
         get_appointment = GetAppointment.objects.filter(
             doctor_id=doctor_id,  # Use the actual ID, assuming doctor_id is the ID of DoctorProfile
             appointment_date=appointment_date,
             appointment_time=appointment_time,
-            deleted_at=None
+            deleted_at=None,
+            prediction_id=prediction,
         )
         if get_appointment.exists():
             return Response({'status': 403, 'message': 'This time is already taken'})
@@ -468,7 +471,8 @@ def get_store_appointment(request):
                         appointment_date=appointment_date,
                         appointment_time=appointment_time,
                         doctor=doctor,
-                        patient=patient
+                        patient=patient,
+                        prediction_id=prediction,
                 ):
                     return Response({'status': 200, 'message': 'Appointment data stored successfully'})
                 else:
