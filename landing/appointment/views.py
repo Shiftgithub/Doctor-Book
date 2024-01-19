@@ -258,7 +258,8 @@ def store_appointment_data(request):
                         appointment_date=appointment_date,
                         appointment_time=appointment_time,
                         doctor=doctor,
-                        patient=patient
+                        patient=patient,
+                        prediction_id=prediction,
                     )
                     if appointment_obj and prediction_obj:
                         data = {'status': 200, 'message': 'Appointment request send successfully'}
@@ -270,7 +271,7 @@ def store_appointment_data(request):
                         appointment_date=appointment_date,
                         appointment_time=appointment_time,
                         doctor=doctor,
-                        patient=patient
+                        patient=patient,
                     )
                     if appointment_obj:
                         data = {'status': 200, 'message': 'Appointment request send successfully'}
@@ -280,6 +281,7 @@ def store_appointment_data(request):
                 schedule_message = (
                     f'Appointment Confirmed : {appointment_date} , {appointment_time} with {doctor.full_name}')
                 sent_email = send_email(user.email, patient.full_name, schedule_message)
+                prediction_id = request.session.pop('prediction_id', None)
                 return Response(data)
 
             else:
@@ -339,50 +341,47 @@ def create_patient_account_store_appointment(request):
                             doctor = DoctorProfile.objects.get(id=doctor_id)
                         except DoctorProfile.DoesNotExist:
                             return Response({'status': 404, 'message': 'Doctor not found'})
-
+                        prediction = get_object_or_404(Prediction, id=prediction_id, deleted_at=None)
+                        prediction_serializer = PredictionUpdateSerializer(prediction,
+                                                                           data={'created_by': patient.id},
+                                                                           partial=True)
                         appointment = appointment_serializer.save(
                             appointment_date=appointment_date,
                             appointment_time=appointment_time,
                             doctor=doctor,
-                            patient=patient
+                            patient=patient,
+                            prediction_id=prediction,
                         )
-                        if prediction_id:
-                            prediction = get_object_or_404(Prediction, id=prediction_id, deleted_at=None)
-                            prediction_serializer = PredictionUpdateSerializer(prediction,
-                                                                               data={'created_by': patient.id},
-                                                                               partial=True)
-                            if prediction_serializer.is_valid():
-                                prediction_obj = prediction_serializer.save()
-                                if appointment and prediction_obj:
-                                    data = {'email': email, 'status': 200,
-                                            'message': 'Appointment request send successfully. We send OTP on your '
-                                                       'email please active your account using OTP'}
-                                else:
-                                    transaction.set_rollback(True)
-                                    return Response({'status': 403, 'message': 'Error in sending appointment request!'})
-                            else:
-                                transaction.set_rollback(True)
-                                return Response({'status': 404, 'message': 'Invalid request!'})
-                        else:
-                            if appointment:
+
+                        if prediction_serializer.is_valid():
+                            prediction_obj = prediction_serializer.save()
+                            if appointment and prediction_obj:
                                 data = {'email': email, 'status': 200,
-                                        'message': 'Appointment request send successfully. We send OTP on your email '
-                                                   'please active your account using OTP'}
+                                        'message': 'Appointment request send successfully. We send OTP on your '
+                                                   'email please active your account using OTP'}
                             else:
                                 transaction.set_rollback(True)
                                 return Response({'status': 403, 'message': 'Error in sending appointment request!'})
-                        schedule_message = (
-                            f'Appointment Confirmed : {appointment_date} , {appointment_time} with {doctor.full_name}')
-                        sent_email = send_email(email, full_name, schedule_message)
-                        return Response(data)
-                    else:
-                        transaction.set_rollback(True)
-                        return Response({'status': 404, 'message': 'Invalid request!'})
+                        else:
+                            transaction.set_rollback(True)
+                            return Response({'status': 404, 'message': 'Invalid request!'})
+                        if appointment:
+                            data = {'email': email, 'status': 200,
+                                    'message': 'Appointment request send successfully. We send OTP on your email '
+                                               'please active your account using OTP'}
+                        else:
+                            transaction.set_rollback(True)
+                            return Response({'status': 403, 'message': 'Error in sending appointment request!'})
+                    schedule_message = (
+                        f'Appointment Confirmed : {appointment_date} , {appointment_time} with {doctor.full_name}')
+                    sent_email = send_email(email, full_name, schedule_message)
+                    return Response(data)
                 else:
                     transaction.set_rollback(True)
-                    return Response({'status': 404, 'message': 'Invalid Otp request!'})
+                    return Response({'status': 404, 'message': 'Invalid request!'})
             else:
-                return Response({'status': 404, 'message': 'Invalid request!'})
+                transaction.set_rollback(True)
+                return Response({'status': 404, 'message': 'Invalid Otp request!'})
     else:
         return Response({'status': 403, 'message': 'Invalid doctor id or appointment date or appointment time!'})
 
