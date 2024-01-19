@@ -152,22 +152,34 @@ def patient_predict_form(request):
 
 def predict_result(request):
     operation_response = prediction(request)
-    if operation_response.data.get("status") == 200:
-        doctor_data = operation_response.data.get("doctors_data")
-        problem_specs = operation_response.data.get("problem_specs")
-        bodypart_name = operation_response.data.get("body_part_name")
-        organ_name = operation_response.data.get("organ_name")
-        messages.add_message(request, messages.INFO, "Here are all Doctor List ")
+    message = operation_response.data.get('message')
+    if operation_response.data.get('status') == 200:
+        prediction_id = operation_response.data.get('prediction_id')
+        request.session["prediction_id"] = prediction_id
+        doctor_response = operation_response.data.get('doctors_data')
+        problem_specs = operation_response.data.get('problem_specs')
+        body_part_name = operation_response.data.get('body_part_name')
+        organ_name = operation_response.data.get('organ_name')
+        messages.add_message(request, messages.INFO, message)
         data = {
-            "doctor_data": doctor_data,
-            "bodypart_name": bodypart_name,
-            "organ_name": organ_name,
-            "problem_specs": problem_specs,
+            'doctor_data': doctor_response,
+            'bodypart_name': body_part_name,
+            'organ_name': organ_name,
+            'problem_specs': problem_specs
         }
         return render(request, "patient/templates/predict_result.html", data)
+    elif operation_response.data.get('status') == 400:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('patient_predict_form')
+    elif operation_response.data.get('status') == 403:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('patient_predict_form')
+    elif operation_response.data.get('status') == 404:
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('patient_predict_form')
     else:
-        messages.add_message(request, messages.ERROR, "Error")
-        return redirect("patient_predict_form")
+        messages.add_message(request, messages.ERROR, message)
+        return redirect('patient_predict_form')
 
 
 def check_doctor_profile(request, doctor_id):

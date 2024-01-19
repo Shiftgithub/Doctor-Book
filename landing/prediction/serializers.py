@@ -87,3 +87,9 @@ class PredictionDataViewSerializer(serializers.Serializer):
 
     class Meta:
         fields = '__all__'
+
+
+class SpecificationGraphSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Specification
+        fields = ['graph_path']
