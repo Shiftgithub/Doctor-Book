@@ -1,0 +1,51 @@
+{% extends 'dashboard/templates/admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark">
+            <h1 class="card-title">Hospital or Chamber's Details</h1>
+        </div>
+        <div class="card-body">
+            {% for chamber_data in chamber_all_data %}
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label" for="hospitalID">Hospital / Chamber Name :</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" id="hospitalID"
+                           value="{{ chamber_data.chamber.0.hospital_name }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label" for="addressID">Address :</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="addressID" type="text"
+                           value="{{ chamber_data.chamber.0.address }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label" for="addressCodeID">Address Code :</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="addressCodeID" type="text"
+                           value="{{ chamber_data.chamber.0.address_code }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label" for="phoneNo">Hospital Phone No :</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="phoneNo" type="text"
+                           value="{{ chamber_data.chamber.0.hospital_phone_no }}" readonly/>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-3 col-form-label" for="openClosingID">Open and Closing Time :</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="openClosingID" type="text"
+                           value="{{ chamber_data.chamber.0.open_closing }}" readonly/>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

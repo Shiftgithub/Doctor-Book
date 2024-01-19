@@ -64,6 +64,21 @@ def get_all_doctors_name_by_award(request):
 
 
 @api_view(['GET'])
+def get_all_doctors_name_by_chamber(request):
+    doctors = DoctorProfile.objects.filter(deleted_at=None)
+    serialized_data = []
+
+    for doctor in doctors:
+        chamber = Chamber.objects.filter(doctor_profile_id=doctor.id).exists()
+
+        if not chamber:
+            serializer = DoctorSerializer(doctor)
+            serialized_data.append(serializer.data)
+    print('serialized_data', serialized_data)
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
 def gender_list(request):
     gender = Gender.objects.all()
     serializer = GenderSerializer(gender, many=True)

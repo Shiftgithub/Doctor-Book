@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2024 at 07:11 PM
+-- Generation Time: Jan 19, 2024 at 10:58 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -325,7 +325,11 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (197, 'Can add specification', 50, 'add_specification'),
 (198, 'Can change specification', 50, 'change_specification'),
 (199, 'Can delete specification', 50, 'delete_specification'),
-(200, 'Can view specification', 50, 'view_specification');
+(200, 'Can view specification', 50, 'view_specification'),
+(201, 'Can add chamber', 51, 'add_chamber'),
+(202, 'Can change chamber', 51, 'change_chamber'),
+(203, 'Can delete chamber', 51, 'delete_chamber'),
+(204, 'Can view chamber', 51, 'view_chamber');
 
 -- --------------------------------------------------------
 
@@ -457,6 +461,32 @@ INSERT INTO `body_part` (`id`, `created_at`, `updated_at`, `deleted_at`, `name`,
 (10, '2023-08-16 16:21:26.155763', NULL, NULL, 'Muscles (পেশি)', 'These are found throughout the body and are responsible for movement and support. (এগুলি শরীরের সারাংশে পাওয়া যায় এবং চলাচল এবং সমর্থনের জন্য জরুরি।)'),
 (11, '2023-08-16 16:21:37.610542', NULL, NULL, 'Skeleton (আস্থি)', 'The framework of bones that provides structure and protection for the body\'s organs. (অঙ্গগুলির কাঠামো, যা শরীরের অঙ্গগুলির জন্য স্ট্রাকচার এবং রক্ষা সরঞ্জাম প্রদান করে।)'),
 (12, '2023-08-16 16:21:49.187009', NULL, NULL, 'Skin (চামড়া)', 'The body\'s largest organ, providing a protective barrier and helping regulate temperature. (শরীরের সর্ববৃহৎ অঙ্গ, যা একটি রক্ষণাত্মক বিভাগ প্রদান করে এবং তাপমাত্রা নিয়ন্ত্রণ করতে সাহায্য করে।)');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chamber`
+--
+
+CREATE TABLE `chamber` (
+  `id` bigint(20) NOT NULL,
+  `created_at` datetime(6) DEFAULT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `deleted_at` datetime(6) DEFAULT NULL,
+  `hospital_name` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `address_code` varchar(255) DEFAULT NULL,
+  `hospital_phone_no` varchar(255) DEFAULT NULL,
+  `open_closing` varchar(255) DEFAULT NULL,
+  `doctor_profile_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chamber`
+--
+
+INSERT INTO `chamber` (`id`, `created_at`, `updated_at`, `deleted_at`, `hospital_name`, `address`, `address_code`, `hospital_phone_no`, `open_closing`, `doctor_profile_id`) VALUES
+(1, '2024-01-18 14:00:52.274253', NULL, NULL, 'Islamic hospital', 'Dhaka', '1200', '01967768789', '8:00 AM - 10:00 PM', 1);
 
 -- --------------------------------------------------------
 
@@ -912,7 +942,17 @@ INSERT INTO `department_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, 
 (358, '2024-01-04 15:02:55.301918', NULL, NULL, 'N/A', 27, 358),
 (359, '2024-01-04 15:03:01.108115', NULL, NULL, 'N/A', 27, 359),
 (360, '2024-01-04 15:03:06.005280', NULL, NULL, 'N/A', 27, 360),
-(361, '2024-01-04 15:03:11.856710', NULL, NULL, 'N/A', 27, 361);
+(361, '2024-01-04 15:03:11.856710', NULL, NULL, 'N/A', 27, 361),
+(362, '2024-01-18 18:50:49.697462', NULL, NULL, 'N/A', 27, 362),
+(363, '2024-01-18 18:51:01.910185', NULL, NULL, 'N/A', 27, 363),
+(364, '2024-01-18 18:51:12.859032', NULL, NULL, 'N/A', 27, 364),
+(365, '2024-01-18 18:51:24.300017', NULL, NULL, 'N/A', 27, 365),
+(366, '2024-01-18 18:51:37.860257', NULL, NULL, 'N/A', 27, 366),
+(367, '2024-01-18 18:51:48.194450', NULL, NULL, 'N/A', 27, 367),
+(368, '2024-01-18 18:51:58.026610', NULL, NULL, 'N/A', 27, 368),
+(369, '2024-01-18 18:52:09.168094', NULL, NULL, 'N/A', 27, 369),
+(370, '2024-01-18 18:52:20.045986', NULL, NULL, 'N/A', 27, 370),
+(371, '2024-01-18 18:52:30.154201', NULL, NULL, 'N/A', 27, 371);
 
 -- --------------------------------------------------------
 
@@ -1073,6 +1113,7 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (10, 'department_speci', 'departmentspecification'),
 (13, 'doctor', 'appointmentschedule'),
 (12, 'doctor', 'awards'),
+(51, 'doctor', 'chamber'),
 (11, 'doctor', 'doctorprofile'),
 (14, 'doctor', 'education'),
 (15, 'doctor', 'offday'),
@@ -1164,7 +1205,10 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (32, 'prediction', '0001_initial', '2024-01-03 12:18:45.680042'),
 (33, 'prescription', '0001_initial', '2024-01-03 12:18:48.584768'),
 (34, 'sessions', '0001_initial', '2024-01-03 12:18:48.671377'),
-(35, 'verifyotp', '0001_initial', '2024-01-03 12:18:48.883805');
+(35, 'verifyotp', '0001_initial', '2024-01-03 12:18:48.883805'),
+(36, 'doctor', '0002_chamber', '2024-01-13 16:40:18.686812'),
+(37, 'doctor', '0003_rename_phone_no_chamber_hospital_phone_no', '2024-01-19 09:44:30.204014'),
+(38, 'prediction', '0002_specification_graph_path', '2024-01-19 09:44:30.240033');
 
 -- --------------------------------------------------------
 
@@ -1185,12 +1229,16 @@ CREATE TABLE `django_session` (
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
 ('34d6u56avsgtxsro2dl515zo5e7fonvd', '.eJxlj80KgzAQhF-l5FzURI2pp76AzyCbP0nJqiSml9J3rz8VCr0t3-zMMC-Sogm906Sl1-MeAQ1pCWh0I_myMPk_ZhCcXyECphEdLCnAeB82mqkJz7e4rErczGpxT7Pi3zKbvD8buy3o0jk4rQ5hMH0KW0uORjvI0-wn0DHfpZizglUFLRrK67KkvSiZbkBwzpmolJASSkGNrZVVN2mlzB7zsIbvM47N7w8c01UM:1rMlvE:W0G5MXRqqVZsF0uwpzxehqjBlvbjuUwSzUzQNIoUibU', '2024-01-22 09:27:52.911719'),
 ('3gy4htnavx82jiqio9wgnuz2nb96g3r0', '.eJxlj0GOwjAMRa-CskY0zTStYMUFumNfucStjOK0Shqk0WjuTgJEQsIr69n-3_9PxIB-ICNO9f7VO2AUJwGGyYk384v9YshANkEGjo4JtujBnedMD9eFy1rY0iTk4-tGd0z402yK1hbHPgvteoLdJUsVAWKYcYg-e1WMhqCKq13AhOo5CpWSqpF1LVP9yHZQY6c7lHKUY910Rh5brXSj1WR0Ywy0h9s6J_FnmJJ8Q16HO3qafkswl177fwAC9l-W:1rNGTI:88R3-J3Yz5uPryKYlahPYsSMwRFFn5Uspy9KGIojXqg', '2024-01-23 18:05:04.089653'),
+('52bl906otmj98rk5d3pporhql99tlbp1', '.eJxlj80OgjAQhF-F9Gzojy1ET74AN-9koYXUdIG01Ivx3W1BEhP3tPlmdybzIjEY31pNrvy07xOgIVcCGu1EvszP7o8ZBOsSRMA4oYU1ephuY6ZlP-NxFtakhPzcr_ZpEv4NG6JzR2KTjYrGQnHPVoeBRRhNG33Oomi0BRoXN4MOdJMCFUxIxjlLc2ZVK7pa1YaxjnVc1ppdKiWUVGLQSmoNVflYxmS-ldmbvz8jvlYg:1rQlQc:8xNYrNfj2mxhaqaAg4yP3X4-sHTGJ59yOzNP_DR5siM', '2024-02-02 09:44:46.519715'),
 ('5k532vzra7638ojvejk2fbjlace36yn1', '.eJxFj9sKwyAMhl-leD1adbaWXm3Q9yiZ2k7QWjzsZuzdZ080EEi-_ORPvigF5QctUUdvez2DVahD0onoPEEH9c5c9ITKgjaX9jGtfSmcXfMUhQgxhawCEfVHZby6kWM6JmNOy96XxdOnGeYpvFPRQzh3aAuTGpJfzSqrpIYqLcaBDNU2ChXFlGGCGalzsOFOgY8t4wJjyJy_GsoEaXhbSyUwl-UyT3n5fvj2Pvn9AZNxV5M:1rMB5N:6z5cpVElKbu49CLkDQ1CJ87SxF45WMrHU-FdRf5Ndjc', '2024-01-20 18:07:53.301150'),
+('enmyfrczsttg8rt5kk7nbepkoata4dus', '.eJxFT8sKgzAQ_JWSczGJidp6asH_kK1ZbSAxkkcvpf9en7iwsDszzOx-SQroW61InV-3eQSLpCbKddF5TnbUO3OiB4gWtDm1j2HZs87ZpQ9RiBBTmFXQRf3BGV7S-M72yZgjsvHZ5enTCOMQ3unSQDg8tIUB2-SXMGpRaaBpMg5UoCsVaM5yyThnc0nBW1Ex0bPiJUuupCgQeFn2qKpbjlBBdc-mcZjNt8PX9_nvD5VcV7w:1rP4VC:ITUqUQbV2nvYcdQ_IwScNTvWQ00JbaaeH2FnTGVGljM', '2024-01-28 17:42:30.399612'),
 ('f7i4q8we651pzm6cjqh5j0ku9kk588ad', '.eJxlj1sKwjAQRbci-RabtI2PfrkB11AmD8toJi1JI4i4dxu1ovg3nLkP7o2laEOLhjVi-bo9kGUNA0Po2ZuF3v0xS4BuggSUPCGMKYDfd5mudE-zLI7TJ2azHvFiJ_xddkzOzY2HHLQ4IMxWJOhsm0JuKcgahCINrgcTi-crFiUvay54JbblWshWKA2bSshKKVVLvgO-rYQGqYzZKS356jR0U_hzxrx5tDS0FxvweP1MOoPCAAGv4EX9M-lbnQM29wejO2wS:1rLfTH:yrEm52wbqQeFKPFIe5VCvLyh5OAepM0_wDNSv7uEPX0', '2024-01-19 08:22:27.114632'),
+('g0rib24smaa1boxtso30rfedasnu2t24', '.eJxlj88OwiAMh1_FcDauw7FFT76AN-9Lt-KCoWPhjxfjuwtmS0zkBF_b70dfImpeenJjdL43JM417EUKen2s9xlZi7NAYjOLlXln_5hmNDZDRk4zG4zJ43yZCj2Mjre2EHMllOExmqfO-DfsnqzdEq9FtLsa3N2KahMYxkn3yZesijUZrNJiHVKovqVQSZAN1DXkc4S2l0OnOg0wwFA3HcGpVVI1St5JNUTYHh7LlOXfZbbNF5_F-YNuJfL9AaKvY2E:1rQXW0:Ur_EnElgr111NbPUdupFsGDPmIaDW0p0Y2W2YWb0qz4', '2024-02-01 18:53:24.707893'),
 ('iibfpgxmunwsmnerepivvm6ga3ualwno', '.eJxNj80OgyAQhF-l4dyIID_VU_sOvZtVqCEBNPz00vTdq1YSb5tvZndmPyhHHXqjUCeu_9mD06hDCySjfSLowGG2J1yodmDsyX2fNlCNsyuOmCDluFpgTOatV7yFkUN9ZWtL4jMH8JeHNWXVOJh0n8MWgJ1WBnBe7Awq4l2KmNaU1aSWRHBOaD9I1g4tVZIrxW6sAdHyF9WiGagUhEO1-Gk9fpTdvybfH5KiVNA:1rMm4T:mkHe5prC4FXC794uk7ui1-oJt33rkDRcxCKWAivjisQ', '2024-01-22 09:37:25.489359'),
 ('kjhylurj2xr1epvbnwjyuq2nqolkutaj', '.eJxFj9sKwyAMhl-leD1adbaWXm3Q9yiZ2k7QWjzsZuzdZ080EEi-_ORPvigF5QctUUdvez2DVahD0onoPEEH9c5c9ITKgjaX9jGtfSmcXfMUhQgxhawCEfVHZby6kWM6JmNOy96XxdOnGeYpvFPRQzh3aAuTGpJfzSqrpIYqLcaBDNU2ChXFlGGCGalzsOFOgY8t4wJjyJy_GsoEaXhbSyUwl-UyT3n5fvj2Pvn9AZNxV5M:1rMAp0:Qdkg36XXDfKHT0y_dDM57T-2PYHdMWY9T-AlliS7o00', '2024-01-20 17:50:58.982987'),
 ('koi1lj3qs3v05jtfb8ro6iyguqc0h2hh', '.eJxFj9sKwyAMhl-leD1adbaWXm3Q9yiZ2k7QWjzsZuzdZ080EEi-_ORPvigF5QctUUdvez2DVahD0onoPEEH9c5c9ITKgjaX9jGtfSmcXfMUhQgxhawCEfVHZby6kWM6JmNOy96XxdOnGeYpvFPRQzh3aAuTGpJfzSqrpIYqLcaBDNU2ChXFlGGCGalzsOFOgY8t4wJjyJy_GsoEaXhbSyUwl-UyT3n5fvj2Pvn9AZNxV5M:1rM8lw:vGfyObNLslzazAs6Cw88uwcVV6dyChOkD4uxAngjrjM', '2024-01-20 15:39:40.066675'),
-('q2rgbuqq8n94nfva6dzoiz8wv4az56cg', '.eJxFj8sOgyAQRX_FsG4EBJ-rNvE_zChoSUAMSDdN_72-iItJZs7c3DvzRcFL1ymBmuxx9jMYiRok7LBaR9FFndU3jVAaUPrWPqd9Tgdr9ooiv8Ia_KaCYVUfueE9jV7bMWgdI1uXJi8XZpgn_w5JCz56KAOT7ILbw7CRQgEOi7YgPD5WHmck44SSkpas5LSDmrBK9Ez0OeVDxaq64FlNxpKxnOd9kS7ztJmfhx_v098fkZNXRg:1rMRTJ:VT_7Ixn-RjtvKpcCRmRLKWWDb9OZbt2Lt2rPvQcFgP4', '2024-01-21 11:37:41.260122');
+('q2rgbuqq8n94nfva6dzoiz8wv4az56cg', '.eJxFj8sOgyAQRX_FsG4EBJ-rNvE_zChoSUAMSDdN_72-iItJZs7c3DvzRcFL1ymBmuxx9jMYiRok7LBaR9FFndU3jVAaUPrWPqd9Tgdr9ooiv8Ia_KaCYVUfueE9jV7bMWgdI1uXJi8XZpgn_w5JCz56KAOT7ILbw7CRQgEOi7YgPD5WHmck44SSkpas5LSDmrBK9Ez0OeVDxaq64FlNxpKxnOd9kS7ztJmfhx_v098fkZNXRg:1rMRTJ:VT_7Ixn-RjtvKpcCRmRLKWWDb9OZbt2Lt2rPvQcFgP4', '2024-01-21 11:37:41.260122'),
+('tk02humqzszg1hox271mi3ml92h1cviy', '.eJxlj80OgjAQhF-F9Gzojy1ET74AN-9koYXUdIG01Ivx3W1BEhP3tPlmdybzIjEY31pNrvy07xOgIVcCGu1EvszP7o8ZBOsSRMA4oYU1ephuY6ZlP-NxFtakhPzcr_ZpEv4NG6JzR2KTjYrGQnHPVoeBRRhNG33Oomi0BRoXN4MOdJMCFUxIxjlLc2ZVK7pa1YaxjnVc1ppdKiWUVGLQSmoNVflYxmS-ldmbvz8jvlYg:1rOhUx:9upNXyd8hYOSPRhgYqP8sOqkRxylojrZpDUeYtrO8Cc', '2024-01-27 17:08:43.154705');
 
 -- --------------------------------------------------------
 
@@ -1218,7 +1266,67 @@ INSERT INTO `doctor_appointment_schedule` (`id`, `created_at`, `updated_at`, `de
 (1, '2024-01-07 05:49:07.492638', NULL, NULL, 10, 500, NULL, NULL, 1),
 (2, '2024-01-07 05:50:43.958230', NULL, NULL, 10, 600, NULL, NULL, 2),
 (3, '2024-01-07 05:51:20.526212', NULL, NULL, 10, 500, NULL, NULL, 3),
-(4, '2024-01-07 05:52:08.987476', NULL, NULL, 15, 500, NULL, NULL, 4);
+(4, '2024-01-07 05:52:08.987476', NULL, NULL, 15, 500, NULL, NULL, 4),
+(5, '2024-01-18 13:57:18.849743', NULL, NULL, 10, 500, NULL, NULL, 5),
+(6, '2024-01-18 13:57:46.544416', NULL, NULL, 10, 500, NULL, NULL, 6),
+(7, '2024-01-18 13:58:33.509273', NULL, NULL, 10, 500, NULL, NULL, 7),
+(8, '2024-01-18 13:59:33.397784', NULL, NULL, 10, 500, NULL, NULL, 8),
+(9, '2024-01-18 14:23:30.229681', NULL, NULL, 10, 500, NULL, NULL, 9),
+(10, '2024-01-18 14:24:25.042372', NULL, NULL, 10, 500, NULL, NULL, 10),
+(11, '2024-01-18 14:25:01.595310', NULL, NULL, 10, 500, NULL, NULL, 11),
+(12, '2024-01-18 14:25:35.040671', NULL, NULL, 10, 500, NULL, NULL, 12),
+(13, '2024-01-18 14:53:31.482223', NULL, NULL, 10, 500, NULL, NULL, 13),
+(14, '2024-01-18 14:54:24.734862', NULL, NULL, 10, 500, NULL, NULL, 14),
+(15, '2024-01-18 14:55:10.568108', NULL, NULL, 10, 500, NULL, NULL, 15),
+(16, '2024-01-18 14:55:53.733134', NULL, NULL, 10, 500, NULL, NULL, 16),
+(17, '2024-01-18 18:03:19.621324', NULL, NULL, 10, 500, NULL, NULL, 17),
+(18, '2024-01-18 18:04:01.298452', NULL, NULL, 10, 500, NULL, NULL, 18),
+(19, '2024-01-18 18:04:52.472672', NULL, NULL, 10, 500, NULL, NULL, 19),
+(20, '2024-01-18 18:06:04.879708', NULL, NULL, 10, 500, NULL, NULL, 20),
+(21, '2024-01-18 18:06:55.111713', NULL, NULL, 10, 500, NULL, NULL, 21),
+(22, '2024-01-18 18:07:56.875622', NULL, NULL, 10, 500, NULL, NULL, 22),
+(23, '2024-01-18 18:08:37.646120', NULL, NULL, 10, 500, NULL, NULL, 23),
+(24, '2024-01-18 18:09:45.927112', NULL, NULL, 10, 500, NULL, NULL, 24),
+(25, '2024-01-18 18:10:19.142975', NULL, NULL, 10, 500, NULL, NULL, 25),
+(26, '2024-01-18 18:10:47.988062', NULL, NULL, 10, 500, NULL, NULL, 26),
+(27, '2024-01-18 18:11:39.015485', NULL, NULL, 10, 500, NULL, NULL, 27),
+(28, '2024-01-18 18:12:07.670238', NULL, NULL, 10, 500, NULL, NULL, 28),
+(29, '2024-01-18 18:12:38.148299', NULL, NULL, 10, 500, NULL, NULL, 29),
+(30, '2024-01-18 18:13:21.813449', NULL, NULL, 10, 500, NULL, NULL, 30),
+(31, '2024-01-18 18:14:24.600551', NULL, NULL, 10, 500, NULL, NULL, 31),
+(32, '2024-01-18 18:15:33.327231', NULL, NULL, 10, 500, NULL, NULL, 33),
+(33, '2024-01-18 18:16:28.606023', NULL, NULL, 10, 500, NULL, NULL, 34),
+(34, '2024-01-18 18:21:30.104268', NULL, NULL, 10, 500, NULL, NULL, 36),
+(35, '2024-01-18 18:22:24.669764', NULL, NULL, 10, 500, NULL, NULL, 37),
+(36, '2024-01-18 18:23:52.145806', NULL, NULL, 10, 500, NULL, NULL, 38),
+(37, '2024-01-18 18:24:29.980022', NULL, NULL, 10, 500, NULL, NULL, 40),
+(38, '2024-01-18 18:27:03.173814', NULL, NULL, 10, 500, NULL, NULL, 41),
+(39, '2024-01-18 18:27:29.925956', NULL, NULL, 10, 500, NULL, NULL, 42),
+(40, '2024-01-18 18:28:30.697175', NULL, NULL, 10, 500, NULL, NULL, 43),
+(41, '2024-01-18 18:29:11.929890', NULL, NULL, 10, 500, NULL, NULL, 44),
+(42, '2024-01-18 18:29:56.063384', NULL, NULL, 10, 500, NULL, NULL, 45),
+(43, '2024-01-18 18:31:25.749023', NULL, NULL, 10, 500, NULL, NULL, 46),
+(44, '2024-01-18 18:32:12.026782', NULL, NULL, 10, 500, NULL, NULL, 47),
+(45, '2024-01-18 18:33:27.987184', NULL, NULL, 10, 500, NULL, NULL, 48),
+(46, '2024-01-18 18:34:05.805147', NULL, NULL, 10, 500, NULL, NULL, 49),
+(47, '2024-01-18 18:34:45.334816', NULL, NULL, 10, 500, NULL, NULL, 50),
+(48, '2024-01-18 18:35:24.172361', NULL, NULL, 10, 500, NULL, NULL, 51),
+(49, '2024-01-18 18:36:10.737113', NULL, NULL, 10, 500, NULL, NULL, 52),
+(50, '2024-01-18 18:36:46.022922', NULL, NULL, 10, 500, NULL, NULL, 53),
+(51, '2024-01-18 18:37:35.768567', NULL, NULL, 10, 500, NULL, NULL, 54),
+(52, '2024-01-18 18:38:56.746204', NULL, NULL, 10, 500, NULL, NULL, 55),
+(53, '2024-01-18 18:39:41.987740', NULL, NULL, 10, 500, NULL, NULL, 56),
+(54, '2024-01-18 18:40:36.284252', NULL, NULL, 10, 500, NULL, NULL, 57),
+(55, '2024-01-18 18:42:33.856975', NULL, NULL, 10, 500, NULL, NULL, 58),
+(56, '2024-01-18 18:43:22.630603', NULL, NULL, 10, 500, NULL, NULL, 59),
+(57, '2024-01-18 18:44:12.919215', NULL, NULL, 10, 500, NULL, NULL, 60),
+(58, '2024-01-18 18:44:56.970335', NULL, NULL, 10, 500, NULL, NULL, 61),
+(59, '2024-01-18 18:45:43.894171', NULL, NULL, 10, 500, NULL, NULL, 62),
+(60, '2024-01-18 18:46:25.593376', NULL, NULL, 10, 500, NULL, NULL, 63),
+(61, '2024-01-19 09:56:07.369630', NULL, NULL, 10, 500, NULL, NULL, 64),
+(62, '2024-01-19 09:56:39.894448', NULL, NULL, 10, 500, NULL, NULL, 65),
+(63, '2024-01-19 09:57:19.043202', NULL, NULL, 10, 500, NULL, NULL, 66),
+(64, '2024-01-19 09:57:49.562436', NULL, NULL, 10, 1000, NULL, NULL, 67);
 
 -- --------------------------------------------------------
 
@@ -1286,7 +1394,74 @@ INSERT INTO `doctor_off_day` (`id`, `created_at`, `updated_at`, `deleted_at`, `c
 (3, '2024-01-07 05:50:43.985242', NULL, NULL, NULL, 2, NULL, 7),
 (4, '2024-01-07 05:51:20.532199', NULL, NULL, NULL, 3, NULL, 4),
 (5, '2024-01-07 05:51:20.540306', NULL, NULL, NULL, 3, NULL, 6),
-(6, '2024-01-07 05:52:09.000296', NULL, NULL, NULL, 4, NULL, 5);
+(6, '2024-01-07 05:52:09.000296', NULL, NULL, NULL, 4, NULL, 5),
+(7, '2024-01-18 13:57:18.854728', NULL, NULL, NULL, 5, NULL, 1),
+(8, '2024-01-18 13:57:46.560372', NULL, NULL, NULL, 6, NULL, 7),
+(9, '2024-01-18 13:58:33.511283', NULL, NULL, NULL, 7, NULL, 5),
+(10, '2024-01-18 13:59:33.411746', NULL, NULL, NULL, 8, NULL, 2),
+(11, '2024-01-18 13:59:33.412742', NULL, NULL, NULL, 8, NULL, 5),
+(12, '2024-01-18 14:23:30.237661', NULL, NULL, NULL, 9, NULL, 1),
+(13, '2024-01-18 14:23:30.253619', NULL, NULL, NULL, 9, NULL, 5),
+(14, '2024-01-18 14:24:25.046364', NULL, NULL, NULL, 10, NULL, 1),
+(15, '2024-01-18 14:24:25.049355', NULL, NULL, NULL, 10, NULL, 6),
+(16, '2024-01-18 14:25:01.641189', NULL, NULL, NULL, 11, NULL, 3),
+(17, '2024-01-18 14:25:35.043665', NULL, NULL, NULL, 12, NULL, 7),
+(18, '2024-01-18 14:53:31.489203', NULL, NULL, NULL, 13, NULL, 4),
+(19, '2024-01-18 14:54:24.751816', NULL, NULL, NULL, 14, NULL, 3),
+(20, '2024-01-18 14:55:10.572094', NULL, NULL, NULL, 15, NULL, 1),
+(21, '2024-01-18 14:55:53.737118', NULL, NULL, NULL, 16, NULL, 3),
+(22, '2024-01-18 18:03:19.640272', NULL, NULL, NULL, 17, NULL, 2),
+(23, '2024-01-18 18:03:19.644263', NULL, NULL, NULL, 17, NULL, 6),
+(24, '2024-01-18 18:04:01.305437', NULL, NULL, NULL, 18, NULL, 4),
+(25, '2024-01-18 18:04:52.489631', NULL, NULL, NULL, 19, NULL, 2),
+(26, '2024-01-18 18:06:04.886654', NULL, NULL, NULL, 20, NULL, 1),
+(27, '2024-01-18 18:06:55.126672', NULL, NULL, NULL, 21, NULL, 4),
+(28, '2024-01-18 18:07:56.878605', NULL, NULL, NULL, 22, NULL, 3),
+(29, '2024-01-18 18:08:37.651107', NULL, NULL, NULL, 23, NULL, 5),
+(30, '2024-01-18 18:09:45.934158', NULL, NULL, NULL, 24, NULL, 7),
+(31, '2024-01-18 18:10:19.156946', NULL, NULL, NULL, 25, NULL, 4),
+(32, '2024-01-18 18:10:47.993061', NULL, NULL, NULL, 26, NULL, 3),
+(33, '2024-01-18 18:11:39.019517', NULL, NULL, NULL, 27, NULL, 2),
+(34, '2024-01-18 18:12:07.673226', NULL, NULL, NULL, 28, NULL, 6),
+(35, '2024-01-18 18:12:38.160959', NULL, NULL, NULL, 29, NULL, 4),
+(36, '2024-01-18 18:13:21.819645', NULL, NULL, NULL, 30, NULL, 4),
+(37, '2024-01-18 18:14:24.606540', NULL, NULL, NULL, 31, NULL, 2),
+(38, '2024-01-18 18:15:33.333212', NULL, NULL, NULL, 33, NULL, 1),
+(39, '2024-01-18 18:16:28.620030', NULL, NULL, NULL, 34, NULL, 4),
+(40, '2024-01-18 18:21:30.117236', NULL, NULL, NULL, 36, NULL, 4),
+(41, '2024-01-18 18:22:24.673748', NULL, NULL, NULL, 37, NULL, 7),
+(42, '2024-01-18 18:23:52.151789', NULL, NULL, NULL, 38, NULL, 1),
+(43, '2024-01-18 18:24:29.986006', NULL, NULL, NULL, 40, NULL, 4),
+(44, '2024-01-18 18:27:03.177803', NULL, NULL, NULL, 41, NULL, 3),
+(45, '2024-01-18 18:27:29.941913', NULL, NULL, NULL, 42, NULL, 2),
+(46, '2024-01-18 18:28:30.701165', NULL, NULL, NULL, 43, NULL, 4),
+(47, '2024-01-18 18:29:11.935875', NULL, NULL, NULL, 44, NULL, 5),
+(48, '2024-01-18 18:29:56.067375', NULL, NULL, NULL, 45, NULL, 7),
+(49, '2024-01-18 18:31:25.752013', NULL, NULL, NULL, 46, NULL, 6),
+(50, '2024-01-18 18:32:12.034761', NULL, NULL, NULL, 47, NULL, 3),
+(51, '2024-01-18 18:33:28.002145', NULL, NULL, NULL, 48, NULL, 5),
+(52, '2024-01-18 18:34:05.818111', NULL, NULL, NULL, 49, NULL, 4),
+(53, '2024-01-18 18:34:45.341800', NULL, NULL, NULL, 50, NULL, 3),
+(54, '2024-01-18 18:35:24.175353', NULL, NULL, NULL, 51, NULL, 7),
+(55, '2024-01-18 18:36:10.739108', NULL, NULL, NULL, 52, NULL, 1),
+(56, '2024-01-18 18:36:46.026912', NULL, NULL, NULL, 53, NULL, 6),
+(57, '2024-01-18 18:37:35.782529', NULL, NULL, NULL, 54, NULL, 7),
+(58, '2024-01-18 18:38:56.762185', NULL, NULL, NULL, 55, NULL, 2),
+(59, '2024-01-18 18:39:41.992726', NULL, NULL, NULL, 56, NULL, 6),
+(60, '2024-01-18 18:40:36.288959', NULL, NULL, NULL, 57, NULL, 4),
+(61, '2024-01-18 18:40:36.291952', NULL, NULL, NULL, 57, NULL, 7),
+(62, '2024-01-18 18:42:33.862961', NULL, NULL, NULL, 58, NULL, 5),
+(63, '2024-01-18 18:43:22.641575', NULL, NULL, NULL, 59, NULL, 4),
+(64, '2024-01-18 18:44:12.925200', NULL, NULL, NULL, 60, NULL, 7),
+(65, '2024-01-18 18:44:12.926198', NULL, NULL, NULL, 60, NULL, 1),
+(66, '2024-01-18 18:44:56.976304', NULL, NULL, NULL, 61, NULL, 3),
+(67, '2024-01-18 18:45:43.907139', NULL, NULL, NULL, 62, NULL, 1),
+(68, '2024-01-18 18:45:43.908143', NULL, NULL, NULL, 62, NULL, 5),
+(69, '2024-01-18 18:46:25.597367', NULL, NULL, NULL, 63, NULL, 4),
+(70, '2024-01-19 09:56:07.377036', NULL, NULL, NULL, 64, NULL, 5),
+(71, '2024-01-19 09:56:39.898606', NULL, NULL, NULL, 65, NULL, 3),
+(72, '2024-01-19 09:57:19.050200', NULL, NULL, NULL, 66, NULL, 6),
+(73, '2024-01-19 09:57:49.565563', NULL, NULL, NULL, 67, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1323,10 +1498,71 @@ CREATE TABLE `doctor_profile` (
 --
 
 INSERT INTO `doctor_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `full_name`, `father_name`, `mother_name`, `date_of_birth`, `birth_registration_no`, `phone_no`, `nid_no`, `experience`, `biography`, `languages_spoken`, `passport_no`, `blood_group_id`, `department_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
-(1, '2024-01-04 09:55:54.637054', NULL, NULL, 'Dr. Arunangshu Das', 'Aimee Long', 'Brielle Melton', '1971-01-19', '6', '01965784645', '76', '5 Years', 'Dr Arunangshu Das passed MBBS from Mymensing Medical College in 2005. After that he joined Radiotherapy Department of Dhaka Medical College in 2007 as Honorary Medical Officer. At the end of 2008 he received a scholarship and went to National Cancer Center (NCC) Singapore for a clinical attachment and training. In 2009, he successfully completed Post Graduate Certificate in Palliative Medicine  from Flinders University Australia.  He joined Government Health Service (27th BCS) in December 2008. Subsequently in 2010 he was posted at National Institute of Cancer Research and Hospital (NICRH), Dhaka at the Department of Radiation Oncology. In 2012 he went to UKM, Malaysia for a higher training in Oncology. He successfully completed FCPS in Radiotherapy from Bangladesh College of Physicians and Surgeons of Bangladesh (BCPS) in 2014. At the middle of 2014 he went to TATA Memorial Hospital Mumbai for a clinical training in Radiation Oncology. He received the prestigious International Development and Education Award (IDEA) in January 2018 from American Society of Clinical Oncology (ASCO) USA. He also achieved the prestigious ESMO Asia Leadership Award in 2020. As a part of voluntary activity he is working as the General Secretary of Bangladesh Society for Breast Cancer Study. He is active in clinical research and published many articles both nationally and internationally. He has long 15 years experience working the field of Oncology. Currently he is working as Associate Consultant at Oncology Department of Square Hospitals Ltd.', 'Bangla, English', 'N/A', 1, 4, 1, 1, 2, 2),
-(2, '2024-01-04 10:16:07.349043', NULL, NULL, 'Dr. Md. Towhiduzzaman', 'Kalia Shaw', 'Julie Dunlap', '1976-04-15', '8', '01963369911', '61', 'Assumenda rerum cons', 'Dr. Towhiduzzaman received SAARC Cardiology  hands on Fellowship in Interventional Cardiology at Escorts Heart Institute and Research Centre (EHIR&C), New Delhi, India for 01(one) year in June 2006. Subsequently he was selected for another 01 year hands on Fellowship program in Interventional Cardiology at National Heart Centre, Singapore and received the fellowship award in July 2007.  He has successfully completed Rotablation, Intravascular ultrasound Pressure wire and peripheral stenting course. He also gained and experienced a numerous number of invasive and clinical training and observatory fellowship and visited  USA, Canada, France, England, Japan, Italy, Sweden, Hong Kong, China, Jamaica, Costarica, Vietnam, Malaysia, Thailand, India, Pakistan and Nepal. Dr. Towhiduzzaman has published articles and presented cases at numerous national and international conferences. He has vast experiences of 10 years to perform invasive & interventional and complex diagnostic and therapeutic procedures independently & confidently. He is regular Faculty/Guest Speaker and participated in a large number of International workshops, seminars, symposiums both home and abroad that has enriched his decision making capacity, professional skills and care giving attitude to an international level. For last 10 years he is performing highest number of complex bifurcation, CTOs, primary PCI, and Renal & Peripheral Angioplasties at Square Hospital.His sub specialty interest is in Interventional Cardiology.Professional Appointment & Committee Membership:Life Member – Bangladesh Cardiac Society (BSC), Bangladesh Society of Cardiovascular Interventions (BSCI), Bangladesh Society of Echo Cardiography (BSE), Bangladesh Medical Association (BMA)Org. Secretary (Elect) Bangladesh Cardiac Society from 2015, Scientific Secretary (Elect), 2009 – 14.Others: Fellow, Society of Cardiac angiography &Intervention(FSCAI, USA), Associate Fellow American College of Cardiology (FACC), Member-American Society of Echocardiography (MASE), European Society of Percutaneous Cardiovascular Interventions. (EPACI), European Society of Cardiology (MESC)', 'Bangla, English', 'Ut ut blanditiis id', 3, 4, 1, 1, 1, 3),
-(3, '2024-01-04 11:42:11.395957', NULL, NULL, 'Dr. Asif Manwar', 'Armand Nguyen', 'Ila Norris', '2018-06-14', '18', '+1 (993) 535-9147', '24', 'Praesentium in expli', 'Dr. Asif Manwar, a graduate of Chittagong Medical College, started career as Resident Medical Officer, BIRDEM in 2002 en-route to Ibrahim Cardiac Hospital.  Dr. Manwar pursued PG Dip Cardiology in 2004 under University of London with Distinction & Sir John Goodwin Prize for academic excellence by Imperial College London. Academic up-gradation in 2006 created an opportunity to serve Apollo Hospital Dhaka as Registrar, Cardiology. To aspire proficiency at masters’ level he completed MSc Cardiology with Distinction once again by Canterbury Christ Church & University College London (UCL) in 2008. To achieve superspeciality, he opted Fellowship in Paediatric Cardiology being registered with Medical Council of India in 2009.           Dr. Manwar is proficient in all facets of non-invasive procedures like 3D-TOE-DSE, Dyssynchrony, Strain Rate, Tissue Doppler Imaging, Contrast & Intra-operative Echo. He got basic training from Hammersmith, Royal Brompton and advanced training from The Heart Hospital London. He obtained hands on training in Grown-Up Congenital, Paediatric, Neonatal & Fetal Echo from AMRITA Kerala & New Delhi India. Dr. Asif Manwar joined SQUARE Hospital as Specialist Cardiologist, contributing his expertise since then before taking up position of Associate Consultant in 2015 & Coordinator Non-Invasive Lab in 2017.', 'Bangla, English', 'Distinctio Sed dolo', 8, 22, 1, 4, 3, 4),
-(4, '2024-01-04 11:43:53.046856', NULL, NULL, 'Dr. Fowaz Hussain Shuvo', 'Haley Perkins', 'Silas Owen', '1989-04-12', '53', '+1 (965) 663-4104', '26', 'Provident occaecat', 'Dr. Fowaz Hussain graduated from Dhaka Medical College and obtained his MD (Hepatology) from Bangabandhu Sheikh Mujib Medical University (BSMMU). He gained experience through his working tenure of more than 10 years at department of Hepatology and Gastroenterology of a reputed corporate hospital of Dhaka where he groomed himself up as one of the dependable gastroenterologists of the country. He was also an Assistant Professor in the department of Hepatolgy at Mymensingh Medical College & Hospital. Dr. Fowaz Hussain is an expert in Interventional procedures like Endoscopy, Colonoscopy, Polypectomy, ERCP, Esophageal Stentings, Bleeding Homeostasis and Clippings. Dr. Fowaz Hussain got his advanced interventional training and joined many workshops in India, Singapore and different countries of Europe. He has many publications both in international and national levels.', 'Bangla, English', 'Tempor quo officia a', 5, 7, 1, 1, 1, 5);
+(1, '2024-01-04 09:55:54.637054', NULL, NULL, 'Dr. Mofizur Rahman', 'Aimee Long', 'Brielle Melton', '1971-01-19', '6', '01965784645', '76', '5 Years', 'Dr. Mofizur Rahman graduated from Chittagong Medical College (CMC) in 1980 and worked under the Ministry of Health in Bangladesh for 5 years.  He has done his post-graduation under the University of London, UK, completed his diploma of Neurology from the Institute of Neurology, Queen Square, London, in 1989 and his Master’s degree in Neuroscience under British Post-graduate Medical Federation, UK, in 1992.  Dr. Mofizur Rahman worked as an Honorary Lecturer in Neurology unit at All India Institute of Medical Sciences (AIIMS) India from 1993 to 1995.  In 1997, he worked as a Consultant Neurologist at King Fahad Hospital, Medina Al-Munawarah, Saudi Arabia, under Ministry of Health for 14 years with a 5-year tenure as the Head of the Neurology Unit. In 2011, he moved to work in King Abdul Aziz Hospital, Makkah, for 2 years and in 2013, he started to work in King Faizul Hospital, Taif, for 5 years, under the Ministry of Health, Saudi Arabia. In 2019, he worked in Saudi-German Hospital, Medina, Saudi Arabia for a year. Through his excellent education and over 32 years of experience, he has attained considerable acquaintance with Clinical Neurological Care System, and immense knowledge and skill in the diagnosis and management of Neurological problems ranging from general to emergency conditions.  Dr. Mofizur Rahman is committed to play vital role in ensuring sound, optimal, rational and comprehensive healthcare for the patients with neurological problems in Bangladesh through his individualized care management plans. To fulfill his commitment, he has joined as a Senior Consultant Neurologist at Square Hospitals Ltd.', 'Bangla, English', 'N/A', 1, 4, 1, 1, 2, 2),
+(2, '2024-01-04 10:16:07.349043', NULL, NULL, 'Dr. Md. Towhiduzzaman', 'Kalia Shaw', 'Julie Dunlap', '1976-04-15', '8', '01963369911', '61', '2 Years', 'Dr. Towhiduzzaman received SAARC Cardiology  hands on Fellowship in Interventional Cardiology at Escorts Heart Institute and Research Centre (EHIR&C), New Delhi, India for 01(one) year in June 2006. Subsequently he was selected for another 01 year hands on Fellowship program in Interventional Cardiology at National Heart Centre, Singapore and received the fellowship award in July 2007.  He has successfully completed Rotablation, Intravascular ultrasound Pressure wire and peripheral stenting course. He also gained and experienced a numerous number of invasive and clinical training and observatory fellowship and visited  USA, Canada, France, England, Japan, Italy, Sweden, Hong Kong, China, Jamaica, Costarica, Vietnam, Malaysia, Thailand, India, Pakistan and Nepal. Dr. Towhiduzzaman has published articles and presented cases at numerous national and international conferences. He has vast experiences of 10 years to perform invasive & interventional and complex diagnostic and therapeutic procedures independently & confidently. He is regular Faculty/Guest Speaker and participated in a large number of International workshops, seminars, symposiums both home and abroad that has enriched his decision making capacity, professional skills and care giving attitude to an international level. For last 10 years he is performing highest number of complex bifurcation, CTOs, primary PCI, and Renal & Peripheral Angioplasties at Square Hospital.His sub specialty interest is in Interventional Cardiology.Professional Appointment & Committee Membership:Life Member – Bangladesh Cardiac Society (BSC), Bangladesh Society of Cardiovascular Interventions (BSCI), Bangladesh Society of Echo Cardiography (BSE), Bangladesh Medical Association (BMA)Org. Secretary (Elect) Bangladesh Cardiac Society from 2015, Scientific Secretary (Elect), 2009 – 14.Others: Fellow, Society of Cardiac angiography &Intervention(FSCAI, USA), Associate Fellow American College of Cardiology (FACC), Member-American Society of Echocardiography (MASE), European Society of Percutaneous Cardiovascular Interventions. (EPACI), European Society of Cardiology (MESC)', 'Bangla, English', 'N/A', 3, 4, 1, 1, 1, 3),
+(3, '2024-01-04 11:42:11.395957', NULL, NULL, 'Dr. Arunangshu Das', 'Armand Nguyen', 'Ila Norris', '1965-06-14', '18', '01978237612', '24', '15 Years', 'Dr Arunangshu Das passed MBBS from Mymensing Medical College in 2005. After that he joined Radiotherapy Department of Dhaka Medical College in 2007 as Honorary Medical Officer. At the end of 2008 he received a scholarship and went to National Cancer Center (NCC) Singapore for a clinical attachment and training. In 2009, he successfully completed Post Graduate Certificate in Palliative Medicine  from Flinders University Australia.  He joined Government Health Service (27th BCS) in December 2008. Subsequently in 2010 he was posted at National Institute of Cancer Research and Hospital (NICRH), Dhaka at the Department of Radiation Oncology. In 2012 he went to UKM, Malaysia for a higher training in Oncology. He successfully completed FCPS in Radiotherapy from Bangladesh College of Physicians and Surgeons of Bangladesh (BCPS) in 2014. At the middle of 2014 he went to TATA Memorial Hospital Mumbai for a clinical training in Radiation Oncology. He received the prestigious International Development and Education Award (IDEA) in January 2018 from American Society of Clinical Oncology (ASCO) USA. He also achieved the prestigious ESMO Asia Leadership Award in 2020. As a part of voluntary activity he is working as the General Secretary of Bangladesh Society for Breast Cancer Study. He is active in clinical research and published many articles both nationally and internationally. He has long 15 years experience working the field of Oncology. Currently he is working as Associate Consultant at Oncology Department of Square Hospitals Ltd.', 'Bangla, English', 'N/A', 8, 22, 1, 4, 3, 4),
+(4, '2024-01-04 11:43:53.046856', NULL, NULL, 'Dr. Foujia Sharmin', 'Haley Perkins', 'Silas Owen', '1989-04-12', '53', '01898236712', '26', '5 Years', 'Dr. Foujia Sharmin graduated (MBBS) from Sir Salimullah Medical College and Mitford Hospital. She achieved her first FCPS in Obs & Gyne and then second FCPS in Gynecological Oncology from BCPS. She worked in National Institute of Cancer Research and Hospital (NICRH) from 2015 to 2022. Now she is with Shaheed Suhrawardy Medical College, Hospital.   Dr. Foujia has advanced training in Cytoreductive Surgery and HIPEC (Hyperthermic Intraperitoneal Chemotherapy), PIPAC (Pressurized Aerosol Intraperitoneal Chemotherapy) from Aster International Institute of Oncology, Bangaluru, India.  She provides comprehensive care to patients with all gynecologic tumor and malignancies like ovarian, cervical, endometrial, gestational trophoblastic disease, vulvar and vaginal cancer, pelvic and cytoreductive surgeries, laparoscopic and hysteroscopic procedures as well as prevention of cancer.   She has joined Square Hospital as an Associate Consultant, Gyne and Gynecological.', 'Bangla, English', 'N/A', 5, 7, 1, 1, 1, 5),
+(5, '2024-01-13 16:03:22.716454', NULL, NULL, 'Dr. Syeda Ishrat Jahan', 'Bianca Ball', 'Aspen Bray', '1985-05-10', '12365441222', '01363968545', '151442455', '4 Years', 'Dr. Syeda Ishrat Jahan completed her graduation from Sylhet MAG Osmani Medical College. After completing her internship she received practical training in different globally acclaimed centers abroad mainly in UK & Singapore in her respective field. She obtained Diploma in Dermatology from National University Hospital, Singapore and worked in National Skin Centre, Singapore. She achieved her Post-graduate (MSc.) degree in Clinical Dermatology from the St. John’s Institute under King’s College, University of London, UK and also worked at Queen Elizabeth Hospital London & King’s Hospital, London.  Dr. Ishrat Jahan completed trainings in Dermato-Surgery, Laser and Cutaneous Cosmetic Surgery, Cryosurgery, Chemical Peeling and Phototherapy, dark ground microscopy and pediatric dermatology', 'Bangla, English', 'N/A', 1, 27, 2, 1, 1, 10),
+(6, '2024-01-13 16:06:35.635398', NULL, NULL, 'Prof. Dr. Md. Siraj Uddin', 'Kirestin Parrish', 'Quincy Hardy', '1981-11-07', '10', '01352854565', '75', '5 Years', 'Prof. Dr. Md. Siraj Uddin completed his graduation from Sylhet MAG Osmani Medical College in 1982. After finishing his internship he joined as medical officer under Ministry of Health, Bangladesh. He worked as a Professor & Head of the Department of Dermatology at Sylhet M.A.G. Osmani Medical College till 2008 & then at  Sylhet Women’s Medical College from 2008 to 2016.  He completed Diploma in Dermatology (DD) from Institute of Dermatology Bangkok, Thailand & then Diploma in Dermatology & Venereology (DDV) from BSMMU, Dhaka. He achieved Fellowship in Laser & Dermatosurgery from Institute of Dermatology & Ramathibody Laser Center, Bangkok, Thailand & Fellowship in Hair Restoration Surgery from Mount Sinai Hospital, New York University, USA.   Prof. Dr. Md Siraj Uddin is skilled & experienced in managing allergy and skin diseases, sexual medicine, cosmetic surgery, vitiligo surgery, laser and hair transplant surgery, slimming and body shaping, Botox & Fillers etc. He received trainings on Laser & Aesthetic Skin Therapy from Harvard Medical School, Boston, USA; Male sexual health from Bangkok; Laser Assisted Liposuction from Milan, Italy; Hair Transplant Surgery from USA, France, Korea & India and participated in many international workshops, seminars & conferences at USA, Switzerland, Australia, France, Canada, Malaysia, India etc. His research articles have been published in many national & international journals. He joined at  Square Hospital as Senior Consultant, Clinical & Aesthetic Dermatology.', 'Bangla, English', 'N/A', 7, 27, 1, 1, 1, 11),
+(7, '2024-01-13 16:12:08.704483', NULL, NULL, 'Prof. Dr. S. R. Begum', 'Blossom Harper', 'Shannon Barlow', '1983-02-27', '44', '01914459632', '35', '5 Years', 'Prof. Dr. Sultana Razia Begum graduated from Mymenshingh Medical College and secured 2nd position with Honors in Surgery and Obstetrics and Gynecology.  In FCPS examination she passed it in the 1st attempt from Bangladesh College of Physicians and Surgeons (BCPS).\r\n\r\nProf. S. R. Begum started practicing at the department of ObsGyn in Dhaka Medical College. Afterwards she joined Rajshahi Medical College as Assistant Professor and eventually promoted to the rank of Associate Professor and Professor of ObGyn. She chaired ObsGyn department of Rajshahi Medical College, Sher-e- Bangla Medical College and Bangabandhu Sheikh Mujib Medical University (BSMMU). As a Professor of ObsGyn, she engaged in teaching under Graduate, Post Graduate, Masters and Fellowship level. She is the examiner of all the universities of the country, College of Physicians and Surgeons.\r\n\r\nProf. S R Begum conducts research by herself and supervises research works of FCPS and MS students. She attended innumerable workshops and conferences in different countries of Europe, USA and Asia. With over 30 years of experience Prof. S. R. Begum is one of the highly skilled Consultant of Square Hospital.', 'Bangla, English', 'N/A', 8, 27, 2, 2, 1, 12),
+(8, '2024-01-13 16:14:28.915280', NULL, NULL, 'Dr. Nargis Fatema', 'Farrah Golden', 'Wynter Keller', '1989-09-01', '13', '01965258932', '35', '5 Years', 'Dr. Nargis Fatema graduated from Sir Salimullah Medical College. After completing internship she dedicated her at the department of Obstetrics & Gynaecology of BIRDEM. Later, she accomplished the fellowship FCPS in Obstetrics & Gynaecology from Bangladesh College of Physicians and Surgeons (BCPS) in 2000 and later obtained MS (ObsGyn) from BSMMU.  Dr. Nargis Fatema joined in government services under Ministry of Health and Family Welfare and worked in Dhaka Medical College Hospital, Sir Salimullah Medical College & Mitford Hospital. She received advanced training in Laparoscopic Surgery from BIRDEM and performed as a faculty member of MOET training course. She participated and presented papers in a number of national and international workshops, seminars, and symposiums and was awarded for her research paper in SAFOG conference and EASD conference at Italy. Her approach towards the patients is very holistic which includes not just understanding the disease but also the feelings and emotional state of the patient and her family. Her 24 years of experience is enriched with knowledge, decision making capacity, operative skills and care giving attitude. She has special interest in high risk pregnancy and laparoscopic surgery. She is working as a full time consultant at Square Hospital from 2007.', 'Bangla, English', 'N/A', 6, 27, 2, 1, 1, 13),
+(9, '2024-01-18 14:07:26.092159', NULL, NULL, 'Prof. Dr. Ratan Das Gupta', 'Yardley Hicks', 'Melinda Jones', '1975-05-26', '90', '01945237876', '84', '2 Years', 'Dr. Ratan Das Gupta, a top-notch nephrologist from ShaheedSuhrawardy Medical College is now available in Square Hospital as a part time Consultant of Nephrology.Graduated from Sylhet M A G Osmani Medical College, he started his career under Ministry of Health. He worked as  an Assistant Professor, Medicine in Dhaka Medical College for 3 years and then engaged in practicing nephrology as an Assistant Professor, Nephrology in the same institute. His commitment to deliver high-quality care, treating and managing nephrology patient conditions and exemplary activities accommodated him to be promoted as Associate Professor, Nephrology in 2013. At present he holds the position of Head of the Department of Nephrology at Shaheed Suhrawardy Medical College & Hospital. He obtained fellowship in Medicine from Bangladesh College of Physicians and Surgeons (BCPS) and achieved MD in Nephrology.Dr. Gupta diagnoses diseases, evaluates kidneys to determine treatment, administers medications and recommends dialysis. He gains necessary expertise to support outdoor to indoor patients in taking care of hemodialysis, kidney biopsies and in management of kidney transplant patients. He carried out researches and has many publications in national and international journals.', 'Bangla, English', 'N/A', 5, 23, 1, 4, 2, 15),
+(10, '2024-01-18 14:09:43.833057', NULL, NULL, 'Dr. Nizam Uddin Chowdhury', 'Raymond Bowers', 'Allen Yang', '1978-06-05', '62', '01923436798', '70', '3 Years', 'Dr. Nizam Uddin Ahmed is a nephrologist with expertise in the area of hypertension, kidney diseases, dialysis and critical care nephrology. He has clinical interests in volume regulation and cardiovascular function in CKD and hemodialysis with combined heart and renal failure (Cardio-renal Syndrome). He completed his MBBS from Cumilla Medical College followed by MD in Nephrology from Dhaka Medical College. He worked in several hospitals and gained skills and experience in providing his patients with the best level of care. He has experience of working in Dhaka Medical College, in Medicine & Nephrology Department for many years. He worked as an Assistant Professor in a private Medical College in Dhaka and worked as Consultant of Nephrology in Sheikh Fazilatunnessa Mujib Memorial KPJ Specialized Hospital for more than 3 years. Dr. Nizam Uddin is an active member of the Bangladesh Renal Association. He has many National & International  Publications to his credit. He joined  Square Hospital as an Associate Consultant, Nephrology.', 'Bangla, English', 'N/A', 1, 23, 1, 1, 1, 16),
+(11, '2024-01-18 14:14:19.760181', NULL, NULL, 'Dr. Mosaddeque Ahmed', 'Jocelyn Rutledge', 'Angela House', '1979-04-22', '40', '01923457890', '65', '5 Years', 'Dr. Mosaddeque Ahmed completed his graduation from Sylhet Medical College. After finishing his internship he traveled Zambia for extensive training in medicine from the University Teaching Hospital, Lusaka, Zambia.\r\n\r\nIn 1986, he moved to Saudi Arabia to join King Fahad Hospital, KSA. King Fahad Hospital is a tertiary care hospital and medical college in Madina province which dialysis centre is one of the largest centers in the Middle East with a capacity of 450 patients on dialysis. Dr. Mosaddeque was actively involved in kidney transplantation program in King Fahad Hospital. He was awarded BCLS certificate from CPR Training Center, Madina (in affiliation with Saudi & American Heart Association). Lately he worked as Associate Professor in the department of Nephrology of Uttara Adhunik Medical College Hospital, Dhaka.\r\n\r\nDr. Mosaddeque completed MRCP degree from the Royal College of Physicians, United Kingdom. He is the qualified physician of United States Medical Licensing Examination from 1996. Dr. Mosaddeque has wide experience in different modalities of kidney replacement therapy including plasmapheresis. He has many papers published in national and international journals. He attended and presented papers in many national and international conferences. He possesses 25 years of experience in the field of Nephrology.', 'Bangla, English', 'N/A', 6, 23, 1, 5, 1, 17),
+(12, '2024-01-18 14:19:49.927766', NULL, NULL, 'Dr. AKM Abu Mottaleb', 'Edward Charles', 'Lance Bryan', '1971-07-01', '84', '01868236578', '2', '8 Years', 'Dr. AKM Abu Mottaleb graduated from Rangpur Medical College and after his Internship year he worked as Medical Officer in Dhaka Renal Centre & General Hospital. Later he joined as Assistant Registrar (Nephrology) in Medical College for Women and Hospital, Uttara and established a new dialysis unit. In 2003 he started serving as Assistant Registrar of Haemodialysis Unit at BIRDEM, Dhaka. He then moved to Kingdom of Saudi Arabia in the year 2004 and worked there under Ministry of Health. He was awarded BCLS certificate on 2006 from CPR Training Center, Al-Baha (in affiliation with Saudi & American Heart Association).\r\n\r\nDr. Abu Mottaleb started serving Square Hospitals Ltd. since 2008. He has wide experience in different modalities of Renal Replacement Therapy. He was awarded MMedSci in Nephrology from University of Sheffield, United Kingdom in 2010. He has completed thesis works on “Critical appraisal on the literature based on incidence and prevalence of Chronic Kidney Disease among general population”. He is also expert in general and interventional Nephrology. He is doing successfully all nephrology procedures like Real Time Kidney Biopsy, Dialysis catheter insertion including Tunnel Permcath, IPD catheter insertion etc.\r\n\r\nDr. Mottaleb participated in many scientific seminar and international nephrology conference at home and in the abroad. He presented several scientific papers in the Sheffield Kidney Institute, United Kingdom. He is a life member of Bangladesh Society of Peritoneal Dialysis.', 'Bangla, English', 'N/A', 4, 23, 1, 1, 1, 18),
+(13, '2024-01-18 14:29:08.648514', NULL, NULL, 'Professor Dr. Sufia Nasrin Rita', 'Alisa Tanner', 'Venus Powell', '1980-05-17', '73', '01978236711', '12', '1 Years', 'Professor Dr. Sufia Nasrin Rita passed Bachelor of Dental Surgery (BDS) from Dental Unit of Chittagong Medical College under Chittagong University in 2000. After training and research, she passed FCPS in Orthodontics & Dentofacial Orthopedics FIRST TIME in Bangladesh from Bangladesh College of Physicians and Surgeons (BCPS) in 2007. She gained different medical and dental skills by doing extensive training on different subjects of dentistry. Professor Rita is related to many clinical and academic activities by delivering lectures, developing course curriculum for students and dental doctors and she is the question setter, moderator and examiner of BDS, MCPS, FCPS examinations. She presented on dentistry and orthodontics in several scientific conferences and published 25 scientific articles in recognized reputed journals. She used to deliver awareness speech and treatment advices regularly in Televisions and social medias.Professor Dr. Sufia Nasrin Rita had been serving patients with treating general diseases of oral cavity, teeth and gum by scaling, polishing, filling, Root Canal Treatment, removal of teeth, replacement of missing teeth for the last 21 years in different clinics and hospitals of Bangladesh. Her special interest is mostly on improving facial appearances and beauty with correction of spacing, irregularity, mal alignment and malposition of teeth and jaws by BRACES and ORTHODONTIC treatment. Prof Rita is the editorial board member of BCPS Journal and also the member of Faculty of Dentistry, IT, Medical Education Department of Bangladesh College of Physicians and Surgeons (BCPS).At present she is working as Professor and Head of Dept of Orthodontics in Sapporo Dental College in the morning and as Consultant of Dental Surgery and Orthodontics at Square Hospitals Ltd in the evening.', 'Bangla, English', 'N/A', 2, 19, 2, 5, 1, 19),
+(14, '2024-01-18 14:37:28.937208', NULL, NULL, 'Dr. Subrata Kumar Barai', 'Malcolm Bray', 'Ivory David', '1982-08-22', '65', '01323456765', '63', '12 Years', 'Dr. Subrata Kumar Barai graduated from City Dental College under the University of Dhaka in 2003. After completing his internship he dedicated his training in the field of General Dentistry. He completed one year Post Graduation Training on Oral & Maxillofacial Surgery from BSMMU. Then he joined as a Medical Officer at HCDP of Diabetic Association of Bangladesh in 2006. During his professional service he achieved advanced training on Dental Surgery and Dental Implant Prosthesis from CMC Vellore, India. He is specialist in dealing with different oral and dental diseases, artificial replacement of missing teeth such as crown, bridge, implant & maxillofacial prosthesis and also expert in high tech endodontic procedures like root canal treatment & endodontic surgery. He joins Square Hospital as a highly skilled Oral & Dental Surgeon.', 'Bangla, English', 'N/A', 7, 19, 1, 5, 4, 20),
+(15, '2024-01-18 14:42:18.548711', NULL, NULL, 'Associate Professor Dr. S. M. Anwar Sadat', 'Gannon Barton', 'Galvin Cohen', '1976-07-06', '47', '01989878990', '23', '6 Years', 'Dr. S. M. Anwar Sadat passed Bachelor of Dental Surgery (BDS) from Dental Unit of Chittagong Medical College under Chittagong University in 1997. He passed MCPS in Dental Surgery from BCPS in 2003; FCPS in Oral & Maxillofacial Surgery FIRST TIME in Bangladesh from BCPS in 2005. He also did his masters (MS) in same discipline from Dhaka Dental College under Dhaka University in 2009. Recently in 2021, Dr. Anwar Sadat has been awarded FDSRCPS from Glasgow, United Kingdom for his excellent academic, research and clinical contribution to the dentistry of Bangladesh.He got advanced training in oral cancer surgery and reconstruction from University of Peradeniya, Kandy, Sri Lanka as JICA Fellowship (Japan); Dental Implant from Boston, USA; Aesthetic Jaw Surgery from Chulalongkorn University, Thailand; Cancer and Trauma Reconstruction from Peking University, China.He had been serving patients of Dentistry and Maxillofacial Surgery for the last 23 years in different Government and non-government hospitals of Bangladesh. Along with the general dental treatment like Extraction of teeth, scaling, polishing, filling, root canal treatment, crown bridge prosthesis, he has special interest on treating oral cancer, oral ulcer, facial trauma and missing tooth by placement of DENTAL IMPLANT. He is related to extensive academic activity with delivering lectures, conducting clinical sessions for doctors, research activity on oral ulcer and oral cancer and health related talk in Televisions and social medias. With his credit, he presented more than 100 presentations in conferences and workshops and also published 59 scientific articles in reputed national and international scientific journals.Dr. Sadat is Member Secretary, Faculty of Dentistry, BCPS. He is editorial board member of BCPS Journal, advisor of Update Dental College Journal, member of IT, CPD, RTMD, Question Bank, Curriculum development, Skill development and Medical Education Department of Bangladesh College of Physicians and Surgeons (BCPS). He used to conduct ICT Training in BCPS and Research Methodology Training in BCPS and other organizations. He has contribution to curriculum development of courses of dental specialities and he is the question setter, moderator and examiner of MCPS in Dental Surgery and FCPS in oral and Maxillofacial Surgery.At present he is working in the department of Oral and Maxillofacial Surgery, Dhaka Dental College in the morning and as Consultant at Square Hospitals Ltd, Dhaka in the evening.', 'Bangla, English', 'N/A', 2, 19, 1, 1, 1, 21),
+(16, '2024-01-18 14:50:25.665220', NULL, NULL, 'Brig Gen Prof. Dr. Md Abdul Bari Mollick', 'Wylie Moran', 'Igor Hardy', '1970-06-08', '6', '01967125622', '15', '6 Years', 'Brig Gen Prof. Dr. Md Abdul Bari Mollick after graduating (BDS)  from Dhaka Dental College, has more than 33 years of experience in dentistry. He has been working as a Consultant  Dental Surgeon General, Directorate General of Medical Services (DGMS), Bangladesh Armed Forces, Ministry of Defence.He completed comprehensive trainings on Oral and Maxillofacial Surgery from Bangabandhu Sheikh Mujib Medical University (BSMMU) and his grading course from Armed Forces Institute of Medical Sciences, Bangladesh. His dedication to dentistry secured him possessing the FCPS degree on Orthodontics and Dentofacial Orthopedics from Bangladesh College of Physician and Surgeon (BCPS).He is a fellow of All India Institute of Medical Science (AIIMS) and obtained PGT in Laser Dentistry and Dental Implant from New Delhi India. He served in different Combined Military Hospitals (CMH) of Bangladesh Army. He also served in Kuwait Armed Forces Hospital and also in UN Hospital Liberia. Dr. Mollick has a long term hand in Orthodontics and Dentofacial Deformities. He is the founder life member of South Asian Association of Paediatric Dentistry (SAAPD) and also a member of BDS, BOS, IADT & IADR. He actively participated in various National & International Dental Seminars and   workshops both in home and abroad.At Square Hospital, he joined as a Consultant, Dental Surgery and Orthodontics.', 'Bangla, English', 'N/A', 1, 19, 1, 1, 1, 22),
+(17, '2024-01-18 15:05:26.484454', NULL, NULL, 'Dr. Mesbah Uddin Ahmed', 'Mark Lane', 'Kelly Webster', '1987-11-13', '99', '01989221109', '42', '5 Years', 'Dr. Mesbah Uddin Ahmed completed his graduation (MBBS) from Dhaka Medical College. He obtained Diploma in orthopedics in 1986 and Master of Surgery (MS) in Orthopedics from NITOR under Dhaka University in 1994.\r\n\r\nDr. Mesbah Uddin Ahmed joined in government services under Health Ministry and started his career in Dhaka Medical College and later worked in different institutions including Mymensingh Medical College and Sylhet MAG Osmani Medical College. He worked in district hospitals of Rangamati, Narayanganj, Netrokona and Tangail. He has teaching experience as Associate Professor, Assistant Professor, Senior and Junior Consultants, Registrars and Assistant Registrars. He is experienced in Orthopedics for more than 32 years.\r\n\r\nDr. Mesbah is A.O. Fellow in AO Basics and advanced courses. He has large number of publications and has attended different national and international conferences, seminars and workshops including arthoplasty, arthroscopy and hand & spine surgery.', 'Bangla, English', 'N/A', 7, 3, 1, 1, 1, 23),
+(18, '2024-01-18 15:08:04.228502', NULL, NULL, 'Dr. Md. Fazlul Hoque', 'Jocelyn Berg', 'Rachel Wong', '1980-08-28', '21', '01867237722', '88', '5 Years', 'Dr. Fazlul Hoque graduated (MBBS) in 1981 from Rajshahi Medical College and the joined in government services in Bangladesh.  He received his Diploma in Orthopedic surgery in 1990 from the University of Vienna Austria and achieved specialization in orthopedics surgery (Facharzt).\r\n\r\nHe completed Fellowship of Austrian Medical Association (FAMA and worked as a research Fellow in Spine at A. I. DuPont Institute at Wilmington, Delaware, USA. Later Dr. Fazlul Hoque joined in Centre for the Rehabilitation of Paralyzed (CRP), Savar, Dhaka. He worked at CRP about 13 years as a Consultant, Orthopedics & Spine Surgery which was followed to as Medical Director.\r\n\r\nHe holds wide range of experiences for the management of deformity of the foot like TEV and has international publication on surgical management of club foot. He is proficient in performing anterior decompression and stabilization of the spinal column, spinal injury and advance spinal tuberculosis, correction of the spinal deformity and spondylolisthesis. With his long experience in Spine he becomes an international faculty in Spinal Cord injury (SCI) and at present he is the Vice President of International Spinal Cord Society (ISCoS). He is the founder chairman and executive member of Asian Spinal Cord Society Network (ASCoN).\r\n\r\nAs a Chairman or Presenter of Scientific Paper he attended more than thirty international scientific conferences. He has a good number of publications on Orthopedics, Spinal injury and Telemedicine. Dr. Hoque received an international award ‘Lar Gullivan Award’ for best presentation adhering to the idea of comprehensive system care of spinal cord injuries.', 'Bangla, English', 'N/A', 6, 3, 1, 1, 1, 24),
+(19, '2024-01-18 15:10:54.550369', NULL, NULL, 'Brig. Gen. Prof. Dr. Moklesur Rahman', 'Francesca Greene', 'Kai Gutierrez', '1965-03-08', '56', '01345987833', '66', '5 Years', 'Brig. Gen. Prof. Dr. Moklesur Rahman was a renowned orthopedic surgeon of Bangladesh Armed Forces  where he served for more than 31 years with special interest in hip & knee joint. He  has vast experience & success in hip & knee joint replacement  & arthroscopic knee surgeries. He has performed more than several thousands of hip & knee joint replacements & arthroscopic knee procedures specially ACL reconstructions hand & upper limb surgery with lowest complications & maximum patient satisfaction. After graduation from Dhaka Medical College he obtained his post graduation (MS) in orthopedic surgery from NITOR.\r\n\r\nDr. Moklesur Rahman has been awarded with Fellowship in Hand & Upper Limb Surgery from prestigious PMK hospital & Lardsin hospital, Bangkok, Thailand. He obtained his hip & knee joint replacement surgery fellowship from India. As a recognition of his outstanding services he is awarded with prestigious FACS degree from American College of Surgeons. He has  vast experience of teaching in different army medical colleges as a professor of orthopedic surgery. He has numerous publications in several reputed journals. As a military surgeon he is passionate about trauma surgery. Now Dr. Moklesur Rahman is consulting patients as a full-time Senior Consultant of Orthopedics in Square Hospital.', 'Bangla, English', 'N/A', 7, 3, 1, 1, 1, 25),
+(20, '2024-01-18 15:13:31.794477', NULL, NULL, 'Dr. Md. O.F.G Kibria', 'Hoyt Mcguire', 'David Mclean', '2023-09-09', '15', '01512123322', '68', '5 Years', 'Dr. Md. O.F.G Kibria graduated from Dhaka Medical College and later did his MS in Orthopedic from National Institute of Trauma &Orthopedic Rehabilitation (NITOR), Dhaka. He also completed AO advance course in trauma from Malaysia.\r\n\r\nHe worked in different hospitals of the world such as Sunny Brooks and Sick Kids Hospital, Toronto, Canada; Civil Hospital & Sterling Hospital, Ahmedabad; All India Institute, Delhi and Stanly Medical College, Chennai, India.  He was trained in orthopedics and trauma surgeries including hip & knee replacements, arthroscopy, surgeries for hand and brachial plexus, congenital and post-polio deformities, free grafts, correction of deformities, nerve repair, tendon transfer and replantation. He has also worked at various district hospitals in Bangladesh.\r\n\r\nDr.  Kibria has over 20 years of experience as an Orthopedic Surgeon with expertise in the management of general orthopedic trauma, specially hand injury and brachial plexus injury and has performed the highest numbers of adult brachial plexus repair in the country with good results. Before joining Square Hospital, he worked as Consultant, Orthopedics at a corporate Hospital in Dhaka.\r\n\r\nNow he is consulting patients as a full time Consultant of Orthopedics  in Square Hospital .', 'Bangla, English', 'N/A', 5, 3, 2, 5, 3, 26),
+(21, '2024-01-18 15:21:08.509632', NULL, NULL, 'Dr. Md. Salim Reza', 'Kareem Mcfadden', 'Connor Allen', '1970-07-13', '74', '01822992211', '44', '10 Years', 'Dr. Md. Salim Reza obtained MBBS from Sylhet Medical College and Diploma in Medical Radiotherapy (DMRT) from University of Dhaka and FCPS degree from Bangladesh College of Physicians and Surgeons (BCPS). Dr. Reza worked in different capacities like Registrar, senior Registrar, Junior Consultant and Consultant for last several years. Before joining Square Hospital as Consultant –Oncology, he was a Consultant of Oncology in Ahsania Mission Cancer Hospital, Dhaka.', 'Bangla, English', 'N/A', 2, 22, 1, 1, 1, 27),
+(22, '2024-01-18 15:23:40.148166', NULL, NULL, 'Prof. Syed Md. Akram Hussain', 'Declan Huff', 'Hilda Craig', '1970-12-10', '44', '01923763344', '25', '6 Years', 'Prof. Dr. Syed Md Akram Hussain, MBBS, FCPS, FRCP, FACP is a physician of Oncology is working in Square Hospitals Ltd. with his prominent reputation in education, skill and adequate experiences in working in various capacities of hospitals at home and abroad. He has 25 years of practical experience and expertise in the field of Clinical Oncology.\r\n\r\nProf. Akram has a very rich track record of working in different organizations in his career. Previously he performed as Chief Consultant, Clinical Oncologist in Lab Aid Specialized Hospital, Dhaka. He was Senior Consultant of Ahsania Mission Cancer Hospital. He was the Founder, Professor and Chief Oncologist of NorthEast Cancer Hospital, Sylhet. Prof. Akram is also known for as he was the Founder Chairman of Oncology Department of BSMMU.\r\n\r\nThroughout his challenging career he has earned professional degrees which are MBBS; FCPS; WHO Fellowship from National Cancer Institute - Bangkok; KOICA Fellowship, National Cancer Institute - South Korea; WHO Fellowship on Medical & Radiation Oncology, Tata Memorial Hospital - India; FRCP (Glasgow); FRCP (Edinburgh); FACP (USA); MRCR (UK). He has obtained numerous clinical trainings on Medical and Radiation Oncology from different world class institutions such as Tata Memorial Hospital (India), German Cancer Research Institute (Germany), National Cancer Centre (Singapore), Harvard University (USA).', 'Bangla, English', 'N/A', 2, 22, 1, 1, 1, 28),
+(23, '2024-01-18 15:25:43.482737', NULL, NULL, 'Dr. Fariah Sharmeen', 'Burke Barron', 'Buckminster Marks', '1970-04-28', '12', '01812356677', '9', '10 Years', 'Dr. Fariah Sharmeen successfully completed her MBBS from Cumilla Medial College, subsequently completed one year internship from BIRDEM Hospital, Dhaka. After completion of internship, she started her post graduation training in Medical Oncology at National Institute of Cancer Research & Hospital.She started her fellowship in Radiotherapy in 2010. She completed 4 years training at National Institute of Cancer Research & Hospital on External Beam Radiotherapy Planning and Brachytherapy .She achieved FCPS in Radiotherapy from Bangladesh College of Physicians & Surgeons (BCPS) in 2015. She has obtained several hands on trainings on Head - Neck, Lung, Genitourinary and Gynecological cancer treatment decision and advance radiotherapy planning arranged by IAEA. She also obtained training on Brachytherapy.She is a member of Bangladesh Society of Radiation Oncologists (BSRO) and Oncology Club. She is an Executive member of Bangladesh Society for Breast Cancer Study (BSBCS). She is also a member of BMA.Dr. Fariah participated in national and international workshops, seminars and conferences. She has several publications in reputed peer reviewed national and international journals.She has more than 10 years of experience in Advance External Beam Radiotherapy Planning & Brachytherapy. She joined Square Oncology and Radiotherapy Centre in 2010.Now she is working at Square Hospital as Associate Consultant, Oncology.', 'Bangla, English', 'N/A', 6, 22, 2, 1, 1, 29),
+(24, '2024-01-18 15:34:35.759735', NULL, NULL, 'Dr. Asif Manwar', 'Kirsten Greer', 'Pandora Ellison', '2012-11-22', '72', '01967336633', '35', '6 Years', 'Dr. Asif Manwar, a graduate of Chittagong Medical College, started career as Resident Medical Officer, BIRDEM in 2002 en-route to Ibrahim Cardiac Hospital.  Dr. Manwar pursued PG Dip Cardiology in 2004 under University of London with Distinction & Sir John Goodwin Prize for academic excellence by Imperial College London. Academic up-gradation in 2006 created an opportunity to serve Apollo Hospital Dhaka as Registrar, Cardiology. To aspire proficiency at masters’ level he completed MSc Cardiology with Distinction once again by Canterbury Christ Church & University College London (UCL) in 2008. To achieve superspeciality, he opted Fellowship in Paediatric Cardiology being registered with Medical Council of India in 2009.           \r\n\r\nDr. Manwar is proficient in all facets of non-invasive procedures like 3D-TOE-DSE, Dyssynchrony, Strain Rate, Tissue Doppler Imaging, Contrast & Intra-operative Echo. He got basic training from Hammersmith, Royal Brompton and advanced training from The Heart Hospital London. He obtained hands on training in Grown-Up Congenital, Paediatric, Neonatal & Fetal Echo from AMRITA Kerala & New Delhi India. \r\n\r\nDr. Asif Manwar joined SQUARE Hospital as Specialist Cardiologist, contributing his expertise since then before taking up position of Associate Consultant in 2015 & Coordinator Non-Invasive Lab in 2017.', 'Bangla, English', 'N', 8, 1, 1, 1, 1, 30),
+(25, '2024-01-18 15:35:54.926387', NULL, NULL, 'Dr. Mahbub Mansur', 'Gwendolyn Henderson', 'Olga Foster', '1965-06-26', '68', '01623657888', '83', '5 Years', 'Dr. Mahbub Mansur passed his MBBS from Chittagong Medical College in 1994. He passed MD in Cardiology from BSMMU in 2002. He attended Fellowship courses in Interventional Cardiology in Aga Khan University Hospital, Karachi and The Erasmus, Rotterdam, The Netherlands. He had done fellowship programmes in Electrophysiology in Holy Family Hospital, Bandra, Mumbai, India and also did fellowship programmes in Cardiac Device Implantation from Milan, Italy.He worked as a Consultant and Associate Professor in Ibrahim Cardiac Hospital and Research Institute from 2003 to 2012.From 2012 to mid-2016 he was the Chief Consultant Cardiologist in Ibn Sina Hospital, Dhanmondi.He is one of the pioneers of Radial Intervention in Bangladesh and till date has done more than 10,000 radial coronary intervention cases. His special interest is in Device therapies in Heart Failure patients.He is a life member of Bangladesh Cardiac Society and Bangladesh Society of Cardiac Intervention and a founder member of Bangladesh Heart Rhythm Society.', 'Bangla, English', 'N/A', 2, 1, 1, 1, 1, 31),
+(26, '2024-01-18 15:39:07.526320', NULL, NULL, 'Dr. Md. Towhiduzzaman', 'Sage Burris', 'Risa Pate', '1965-10-09', '80', '01867226662', '100', '10 Years', 'Education: Dr. Towhiduzzaman graduated with MBBS degree in January 1994 from Sher-e-Bangla Medical College, Barisal and Doctor of Medicine (MD) in Cardiology degree   in January 2002 from National Institute of Cardiovascular diseases (NICVD) under university of Dhaka.\r\n\r\nTraining & Fellowship: After obtaining his post graduate degree he started his professional career as Consultant Cardiologist at NICVD and also worked Z H Sikder Women’s Medical College, Gulshan till 2005.  \r\n\r\nDr. Towhiduzzaman received SAARC Cardiology  hands on Fellowship in Interventional Cardiology at Escorts Heart Institute and Research Centre (EHIR&C), New Delhi, India for 01(one) year in June 2006. Subsequently he was selected for another 01 year hands on Fellowship program in Interventional Cardiology at National Heart Centre, Singapore and received the fellowship award in July 2007.  He has successfully completed Rotablation, Intravascular ultrasound Pressure wire and peripheral stenting course. He also gained and experienced a numerous number of invasive and clinical training and observatory fellowship and visited  USA, Canada, France, England, Japan, Italy, Sweden, Hong Kong, China, Jamaica, Costarica, Vietnam, Malaysia, Thailand, India, Pakistan and Nepal. \r\n\r\nDr. Towhiduzzaman has published articles and presented cases at numerous national and international conferences. He has vast experiences of 10 years to perform invasive & interventional and complex diagnostic and therapeutic procedures independently & confidently. He is regular Faculty/Guest Speaker and participated in a large number of International workshops, seminars, symposiums both home and abroad that has enriched his decision making capacity, professional skills and care giving attitude to an international level. For last 10 years he is performing highest number of complex bifurcation, CTOs, primary PCI, and Renal & Peripheral Angioplasties at Square Hospital.\r\n\r\nHis sub specialty interest is in Interventional Cardiology.\r\n\r\nProfessional Appointment & Committee Membership:\r\n\r\nLife Member – Bangladesh Cardiac Society (BSC), Bangladesh Society of Cardiovascular Interventions (BSCI), Bangladesh Society of Echo Cardiography (BSE), Bangladesh Medical Association (BMA)\r\n\r\nOrg. Secretary (Elect) Bangladesh Cardiac Society from 2015, Scientific Secretary (Elect), 2009 – 14.\r\n\r\nOthers: Fellow, Society of Cardiac angiography &Intervention(FSCAI, USA), Associate Fellow American College of Cardiology (FACC), Member-American Society of Echocardiography (MASE), European Society of Percutaneous Cardiovascular Interventions. (EPACI), European Society of Cardiology (MESC)', 'Bangla, English', 'N/A', 7, 1, 1, 1, 2, 32),
+(27, '2024-01-18 15:40:53.918545', NULL, NULL, 'Dr. Khondoker Asaduzzaman', 'April Bell', 'Dorothy Stout', '2014-07-03', '1', '01855227722', '64', '8 Years', 'Dr. Khondoker Asaduzzaman is a Cardiologist with over 16 years of experience as a former Assistant Professor of Cardiology at Sir Salimullah Medical College and Senior Consultant of Cardiology at Asgar Ali Hospital. He is now at Square Hospital and serving patients with his proficient style and approach.\r\n\r\n\r\n\r\nAfter graduation from Rajshahi Medical College & Hospital he completed DTCD degree in Chest Medicine and then obtained MD degree in Cardiology to earn the necessary expertise.   He has several years postgraduate and post-doctorate training in Medicine and Cardiology from IPGM&R, Dhaka Medical College and Sir Salimullah Medical College Hospital.\r\n\r\n\r\n\r\nIn his professional carrier, he also included advanced clinical training in Interventional Cardiology from Durdans Heart Centre, Colombo, Srilanka. Dr. Asaduzzaman also received fellowship training in Interventional Cardiology from Shonan Kamakura General Hospital, Japan and then another fellowship from Asan Medical Centre, Seoul, Korea.\r\n\r\n\r\n\r\nDr. Asaduzzaman is one of the pioneers of Radial Intervention in Bangladesh. He is a pioneer of Bi-radial coronary CTO intervention and also a pioneer on Nano-crush in Bangladesh. He has vast experiences of diagnostic coronary angiogram (>25,000), coronary angioplasty (>8,000), pacemaker implantation, device closure for adult congenital heart disease (ASD/VSD and PDA) independently both in Govt. and private sectors.\r\n\r\n\r\n\r\nHe worked at Sir Salimullah Medical College and Mitford Hospital, Dhaka Medical College Hospital, ICDDRB and Asgar Ali Hospital. At Square, he joined as a Senior Consultant, Interventional Cardiology.', 'Bangla, English', 'N/A', 7, 1, 1, 1, 1, 33),
+(28, '2024-01-18 15:44:48.115972', NULL, NULL, 'Brig. Gen. Dr. Md. Delwar Hossain', 'Armando Franco', 'Gillian Stark', '1965-07-05', '19', '01933225655', '46', '5 Years', 'Prof. (Dr.) Col. Md .Delwar Hossain graduated from Dhaka Medical College and started his career in combined military hospital under defense ministry. Then he successfully obtained his FCPS (Medicine)  & FCPS (Gastroenterology) from BCPS. He achieved extensive training on Medicine and gastroenterology from Bangabandhu Sk. Mujib Medical University and Armed Forces Medical institute (AFMI) Bangladesh. He also gained advance training on interventional gastroenterology especially on ERCP from Lucknow, India. In his professional carrier he gained a wide exposure in the field of gastroenterology (Diagnostic & Therapeutic). At present he is working as Head of the Department of Gastroenterology in CMH and  as Senior Consultant – Gastroenterology at Square Hospital (Part time).', 'Bangla, English', 'N/A', 8, 6, 1, 1, 1, 34),
+(29, '2024-01-18 15:48:00.263958', NULL, NULL, 'Prof. Dr. Md. Hasan Masud', 'Ariana Warner', 'Kirk Clemons', '1970-01-10', '79', '01944332299', '68', '5 Years', 'Prof. Dr. Md. Hasan Masud, MBBS, MD (Gastroenterology)) is a medical graduate of Sher-e-Bangla Medical College, Barisal.  After graduation he served in several reputed hospitals across the country and became Professor in the department of Gastroenterology at Bangabandhu Sheikh Mujib Medical University (BSMMU). Moreover 20 years of experience in the field of gastroenterology shapes him as an expert and very dependable gastroenterologist. In his successful carrier he gains wide range of advanced trainings and has taken special training in Interventional Gastroenterology from National University, Singapore. He performs all types of endoscopic procedures as he grooms himself with the 3rd space endoscopy training from Global Hospital, Mumbai, India and in therapeutic endoscopic ultrasound training from Shanghai, China. He has more than 50 publications both in international and national levels.', 'Bangla, English', 'N/A', 5, 6, 1, 1, 1, 35),
+(30, '2024-01-18 15:51:07.823437', NULL, NULL, 'Dr. Fowaz Hussain Shuvo', 'Teegan Callahan', 'Brody Goodman', '1971-08-22', '75', '01955662289', '32', '9 Years', 'Dr. Fowaz Hussain graduated from Dhaka Medical College and obtained his MD (Hepatology) from Bangabandhu Sheikh Mujib Medical University (BSMMU). He gained experience through his working tenure of more than 10 years at department of Hepatology and Gastroenterology of a reputed corporate hospital of Dhaka where he groomed himself up as one of the dependable gastroenterologists of the country. He was also an Assistant Professor in the department of Hepatolgy at Mymensingh Medical College & Hospital. Dr. Fowaz Hussain is an expert in Interventional procedures like Endoscopy, Colonoscopy, Polypectomy, ERCP, Esophageal Stentings, Bleeding Homeostasis and Clippings. Dr. Fowaz Hussain got his advanced interventional training and joined many workshops in India, Singapore and different countries of Europe. He has many publications both in international and national levels.', 'Bangla, English', 'N/A', 6, 6, 1, 2, 4, 36),
+(31, '2024-01-18 15:53:49.768242', NULL, NULL, 'Prof. Sk. Md. Bahar Hussain', 'Jescie Kidd', 'Delilah Mcintosh', '1970-04-02', '24', '01916762222', '21', '9 Years', 'Prof. Sk Md. Bahar Hussain obtains MBBS in the year of 1979. After graduation he served in several reputed Hospital all across the country. Prof. Sk Md. Bahar Hussain obtained his FCPS (Medicine) in 1988, F.Gastro from Shanghai in 1991. Afterwards, he was awarded FRCP (Edin), FRCP (Glasg), FACP (USA). Prof. Hussain served as Adviser specialist in Medicine & Sr. Gastroenterologist at CMH- Dhaka & Chittagong for 20 years. He is an expert of all intervention Gastroenterology. Prof. Sk Md. Bahar Hussain has more than 75 publications both in international and national levels.', 'Bangla, English', 'N/A', 3, 6, 1, 1, 1, 37),
+(33, '2024-01-18 16:03:48.563286', NULL, NULL, 'Dr. Md. Sirazul Haque Ershad', 'Jordan Kelly', 'Kendall Rivers', '1980-01-20', '35', '01567788989', '34', '10 Years', 'Dr. Md. Sirazul Haque Ershad is an efficient neurosurgeon and neuro-interventionist who is specialized both in microvascular and endovascular surgeries.\r\n\r\nHe was trained and supervised by the world famous Neuro interventionist and Neurosurgeons of both Bangladesh and India. Dr.  Ershad was a direct student of National Professor Dr. Nurul Islam and completed graduation from IAHS, USTC. He entered into Post graduation in Neurosurgery in Dhaka Medical College, trained for both FCPS and MS degree in neurosurgery and obtained an MS Degree. After completing post-graduation, he was trained in Microvascular neurosurgery in Teishinki Hospital, Japan. He completed a yearlong fellowship in Neuro intervention in the Institute of Neuroscience (INK), India.\r\n\r\nApart from open surgeries of brain and spine, he has special specialization in endovascular treatment of Stroke, Aneurysm, AVM, and DAVF.', 'Bangla, English', 'N/A', 5, 26, 1, 1, 1, 39);
+INSERT INTO `doctor_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `full_name`, `father_name`, `mother_name`, `date_of_birth`, `birth_registration_no`, `phone_no`, `nid_no`, `experience`, `biography`, `languages_spoken`, `passport_no`, `blood_group_id`, `department_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
+(34, '2024-01-18 16:05:44.270324', NULL, NULL, 'Dr. A M Rejaus Satter', 'Jesse Hodges', 'Karly Berg', '1975-01-05', '84', '01966124532', '85', '5 Years', 'Dr. A M Rejaus Satter is a physician specializing in Neuro Surgery. At Square Hospital, he has been an active team member who has helped to develop a center excelling at endoscopic pituitary surgery, aneurysm surgery, complex brain tumor surgery, minimally invasive spine surgery and other intricate brain surgeries; in the private sector of Bangladesh within a very short period of time.  \r\n\r\nCompleting his MBBS from Mymensingh Medical College, Dr. Reja entered into Post graduation and earned FCPS in General Surgery. Shortly after, he pursued his lifelong dream of becoming a Neuro Surgeon when he entered MS (Neuro surgery) course and obtained Masters Degree. He was trained and supervised by the best Neuro Scientists and Neuro Surgeons of both Bangladesh and India. Today, as Consultant Neuro and Spine surgeon of Square Hospital, he performed thousands of complex Neuro surgery in past years with lowest complication rates compared to the rest of the country and also some other countries. \r\n\r\nDr. Reja has been exposed to all ranges of emergencies starting from trauma to intracerebral hematomas and strokes; entire ranges of emergency spinal decompression, brain tumors, spinal tumors,  trans-sphenoidal surgery, congenital and pediatric neurosurgical disorders; degenerative spine diseases; endoscopic neurosurgical procedures; vascular disorders like aneurysms and AVMs.', 'Bangla, English', 'N/A', 3, 26, 1, 1, 1, 40),
+(36, '2024-01-18 16:09:37.764250', NULL, NULL, 'Dr. Manjuma Rahman', 'Colorado Finch', 'Alma Gould', '1998-04-06', '56', '01765227888', '16', '5 Years', 'Dr. Manjuma Rahman obtained her MBBS degree from Mymensingh Medical College in the year of 1999 & has completed internship from the same institution. She has got MD on Transfusion Medicine from Bangabandhu Sheikh Mujib Medical University (BSMMU) in 2010. Earlier she worked as Registrar of medicine in University Dental College, Dhaka. She has been working at Square Hospital since 2006. \r\n\r\nDr. Manjuma Rahman works as a Consultant of Blood bank and has been looking after the day to day affairs of Blood Bank. This includes donor selection, Blood letting, component preparation, Blood Bank testing, Apheresis procedure and Patient’s Blood Transfusion. She is also competent in supervising Therapeutic Plasma Exchange Procedures. She is an exceptional Transfusion Medicine expert who has gained tremendous exposure and experience in modern blood banking. She has national & international Publications in related field. She was awarded in different international seminars. She is a member of Asian Association of Transfusion Medicine (AATM), Blood transfusion Society of Bangladesh (BTSB) and Bangladesh Medical Association (BMA', 'Bangla, English', 'N/A', 7, 26, 2, 1, 1, 42),
+(37, '2024-01-18 16:12:04.800411', NULL, NULL, 'Major General Md. Shameem Haidar', 'Brynne Bonner', 'Shad Fernandez', '1970-09-22', '12', '01624477884', '24', '5 Years', 'Major General Professor Dr. Md. Shameem Haidar is a medical graduate from Sylhet MAG Osmani Medical College. A specialist in both Medicine and Rheumatology, he has completed FCPS (Medicine) from BCPS and attended Clinical Fellowship Training on Rheumatology from the All India Institute of Medical Sciences (AIIMS, New Delhi).He has a distinguished record of more than 30 years of service in the Bangladesh Armed Forces, which has included several dignified roles at CMH Bogura, Jashore, Chattogram & Dhaka. He has also served at the United Nations Peacekeeping Forces Hospital in the Central African Republic.Dr. Haidar spent a number of years as the Assistant Personal Physician to the Honourable President at Bangabhaban. He also boasts extensive experience as a trainer, guiding students at both post-graduate and undergraduate levels at the Department of Rheumatology at Combined Military Hospital, Dhaka.He specializes in treating and managing patients of SLE, Rheumatoid arthritis, Ankylosing Spondylitis, Other SpA’s, Psoriatic arthritis, Seronegative arthritis, Osteoarthritis, Osteoporosis, Gout, Systemic Sclerosis, Fibromyalgia, Dermatomyositis, Polymyositis, Sjögren’s syndrome, and many other Rheumatological diseases.At the moment, he is stationed at CMH Dhaka as Advisor Spl in Medicine & Head of the Department of Neuro Surgery and joins Square Hospital as Consultant – Neuro Surgery & Internal Medicine.', 'Bangla, English', 'N/A', 2, 26, 1, 1, 1, 43),
+(38, '2024-01-18 16:18:16.633913', NULL, NULL, 'Dr. Silvia Hossain', 'Mikayla Flores', 'Willa Cain', '1980-07-21', '34', '01913478991', '95', '10 Years', 'Dr. Silvia Hossain graduated from Sir Salimullah Medical College & Mitford Hospital. She achieved her first FCPS in Obs & Gyne and second FCPS in Gynecological Oncology from BCPS. She started her career in Obs & Gyne department of Dhaka Medical College. Later, she joined in Gynecological Oncology Department of National Institute of Cancer Research & Hospital (NICRH).\r\n\r\nShe provides comprehensive care to patients with all gynecologic tumor & malignancies (ovarian, cervical, endometrial, gestational trophoblastic disease, vulvar & vaginal cancers), as well as prevention of cancer. She has specialized training in Gynecological Oncology from Massachusetts General Hospital, Boston, USA and hands on training from Tata Medical Center, Kolkata, India. She also trained in CRS-HIPEC, Exenteration operation, Laparoscopic Surgery and has exposure to Robotic surgery. \r\n\r\nDr. Silvia performs Radical Hysterectomy, IDS (Interval debulking surgery), PDS (Primary debulking surgery), Laparoscopic surgeries and different procedures like Colposcopy, Hysteroscopy. She joined Square Hospital as an Associate Consultant, Gyne & Gynecological.', 'Bangla, English', 'N/A', 3, 7, 2, 1, 1, 44),
+(40, '2024-01-18 16:21:49.113028', NULL, NULL, 'Prof. Dr. Rehana Parveen', 'Kadeem Buckner', 'Kirk Simon', '1977-02-11', '22', '01866772299', '86', '10 Years', 'Prof. Dr. Rehana Parveen graduated from Sher-e-Bangla Medical College & stood first in order of merit in Final Prof Examination under University of Dhaka with Honors marks in Obs & Gyne in 1983. She obtained FCPS degree from Bangladesh College of Physicians & Surgeons (BCPS) in 1992.\r\n\r\nAs a popular teacher she worked in many medical colleges such as, Dhaka Medical College, Chittagong Medical College, Mymensingh Medical College, Osmani Medical College, Suhrawardy Medical College & lastly in National Institute of Cancer Research & Hospital (NICR&H). She has vast experience in teaching & treating patients of Obgyn (including Gyne Oncology) for about 25 years & exerted her duties solely as Gynecological Oncologist for over 7 years. Before joining Square Hospital, she was Head, Department of Gyne Oncology in NICR&H, Mohakhali. Under her dynamic leadership training in Gyne Oncology has been recognized for 3 years in NICR&H by BCPS for FCPS Degree. \r\n\r\nShe took training in a good number of national & international institutes. She had post-graduate training on Gyne Oncology, Colposcopy & Cancer screening in BSMMU, Chittaranjan National Cancer Institute in Kolkata, Ethicon Institute in Mumbai, Nowrosjee Wadia Memorial Hospital in Mumbai, Tata Memorial Hospital in Mumbai, India, Turkish Health Institute, Ankara, Turkey.\r\n\r\nShe has publication of about 18 articles, published in different national & international journals. She is a co-author of three popular books, named “Clinical Guide to Obstetrics & Gynecology”. She is also an honorary contributor of ‘Essence of Pediatrics’ published by Elseviere from New Delhi. \r\n\r\nNow she is consulting patients as a full time Consultant of Gynecological in Square Hospital.', 'Bangla, English', 'N/A', 7, 7, 2, 1, 1, 46),
+(41, '2024-01-18 16:23:16.178673', NULL, NULL, 'Dr. Ayesha Siddiqua', 'Shelby Chen', 'Anastasia Massey', '1980-12-13', '14', '01977662290', '14', '8 Years', 'Dr. Ayesha Siddiqua is a women’s health care specialist specializing in Gyne and Gynecological Oncology. Her background and education demonstrates the expertise and commitment to high-quality women\'s healthcare. She  graduated from Dhaka Medical College and achieved her first FCPS in Obs & Gyne and second FCPS in Gynecological Oncology from BCPS. Dr. Ayesha has achieved  Clinical Fellowship (Hands on) in Gynecological Oncology from KK Women’s and Children’s Hospital, Singapore and also undertook advanced training in Cytoreductive Surgery and HIPEC(Hyperthermic Intraperitoneal Chemotherapy), PIPAC (Pressurized Aerosol Intraperitoneal Chemotherapy) from Aster International Institute of Oncology, Bangaluru, India. She  also has experience in Robotic Surgery. Dr. Ayesha worked in the Department of Gynecological Oncology at National Institute of Cancer Research & Hospital, Dhaka. She has expertise in the management of general gynecological conditions and gynecological cancers like; cervical cancer, ovarian and endometrial cancer, pelvic and cytoreductive surgeries, laparoscopic and hysteroscopic procedures.She has  joined Square Hospital as an Associate Consultant, Gyne & Gynecological.', 'Bangla, English', 'N/A', 7, 7, 2, 1, 1, 47),
+(42, '2024-01-18 16:29:22.322438', NULL, NULL, 'Prof. Dr. A. K. M. Anwarul Islam', 'Urielle Luna', 'Idola Kramer', '1970-01-28', '40', '+1 (437) 249-9409', '58', '10 Years', 'Professor A.K.M. Anwarul Islam graduated from Mymensingh Medical College in 1977 and completed FCPS in Surgery from Bangladesh College of Physicians & Surgeons (BCPS) in 1983. Then he served as Junior Consultant of Surgery in district hospitals until 1988, when he joined the Urology department of IPGMR (present BSMMU) as Assistant Professor.\r\n\r\n\r\n\r\nProfessor Anwarul Islam has a long carrier of over 33 years in Urology. He was one of the active members, who worked together in the early period of development of modern urology and transplantation in Bangladesh. Under WHO Fellowship program, he received training in specific fields in renowned overseas urology centers including NKI, Philippines and CMC, Vellore. He also served as Urologist in KSA for over 3 & ½ years. In 1996, he completed the FRCS examination of Royal College of Ireland. His credentials enabled him to achieve the position of Associate Professor (2000) and then Professor (2005) of Urology in BSMMU. He is experienced in General Urology, Endo-urology, Stone surgery, Pediatric Urology, Reconstructive Urology, Andrology and Kidney Transplantation.\r\n\r\n\r\n\r\nProf. Islam is a member of several professional urological associations at home and abroad. He was the Past President of Bangladesh Association of Urological Surgeons (BAUS). He conducted operative workshops on Urological procedures and presented scientific papers in many national and international conferences. He was also a Past President of South Asian Society for Sexual Medicine (SASSM). He is now the Director of SASSM School Bangladesh, which organizes regular courses on Sexual Medicine in Bangladesh. He has many publications in national and international journals. He has recently joined Square Hospital as Senior Consultant of Urology.', 'Bangla, English', 'N/A', 2, 24, 1, 1, 2, 48),
+(43, '2024-01-18 16:32:40.348127', NULL, NULL, 'Dr. N. I. Bhuiyan', 'Amaya Stone', 'Lionel Humphrey', '1970-09-14', '11', '01977662233', '36', '10 Years', 'Dr. N I Bhuiyan graduated (MBBS) from Sir Salimullah Medical College and started his career as a Lecturer at Dinajpur Medical College. He worked in Dhaka Medical College Hospital in Surgery Department and later in Casualty Surgery Department. Subsequently, he enrolled as thesis student in the department of Urology in the same institute and obtained his MS (Urology).\r\n\r\nDr. N I Bhuiyan joined Bangladesh Medical College as Assistant Professor, Urology. He visited USA, Germany, Singapore, India and Thailand for extensive advanced training in Urology. He attained advanced course on Laparoscopic Urology from IRCARD, Taiwan and got advanced training on use of LASER in Urology from Germany. Dr. N I Bhuiyan was awarded Major Gen. K M Siraj Jinnat Memorial Gold Medal for innovative work on urology by Bangladesh Association of Urological Surgeons (BAUS).\r\n\r\nHe presented many scientific papers in different international conferences in home and abroad. He has publications in national and international level.\r\n\r\nDr. Bhuiyan is the author of one chapter of Urology book (Principal and Practice of Urology, Second Edition, Editor M A Salam) & involve in medical education. He is also Associate Prof & Head of the Department of Urology, Bangladesh Medical College, Dhanmondi, Dhaka.', 'Bangla, English', 'N/A', 2, 24, 1, 1, 1, 49),
+(44, '2024-01-18 16:34:30.544989', NULL, NULL, 'Dr. Md. Kamal Pasha', 'Melinda Waters', 'Mariam Estes', '1970-02-20', '24', '01912211133', '48', '10 Years', 'Dr. Md. Kamal Pasha graduated (MBBS) from Sir Salimullah Medical College. After completing internship he was trained in BSMMU on Urology & Surgery. Then he worked as Registrar in Sylhet MAG Osmani Medical College & Hospital and got training as CA. He successfully obtained FCPS degree from BCPS.\r\n\r\n\r\n\r\nDr. Pasha obtained modern & advanced training in Urology & Laser Surgery (HOLEP, THOLEP, stone crush, RIRS etc.) in Germany. He attained modern & advanced courses on Endo-Urology &Laparoscopic Urology in Thailand. Throughout his uninterrupted professional career development, he worked in the field of modern technology of Urology like URS, RIRS, PCNL, TURP, TUIP, ESWL, TURT, RGP, OIU etc.\r\n\r\n\r\n\r\nIn 2006, he joined Square Hospitals Ltd. as a Specialist, Urology and then promoted to Associate Consultant. Later he joined Jahurul Islam Medical College as Assistant Professor & Associate Professor respectively. He also worked as a Consultant, Urology in Asgar Ali Hospital, Dhaka.\r\n\r\n\r\n\r\nHe has a good number of publications on Urology like Ureterocele, Laparoscopic Urology, Testicular Tumors etc. He presented many scientific papers in home & abroad. He is a regular Examiner of MBBS and postgraduate degree.\r\n\r\n\r\n\r\nAt present, he is working at Square Hospital as Consultant Urology and serving patients regularly.', 'Bangla, English', 'N/A', 5, 24, 1, 1, 5, 50),
+(45, '2024-01-18 16:39:05.881634', NULL, NULL, 'Tanner Lindsay', 'Jakeem Shaffer', 'Candace Kerr', '1972-03-10', '79', '01989112288', '23', '5 Years', 'Dr. Major (Retd) Zeena Salwa has completed her medical degree (MBBS) from Rangpur Medical College under Rajshahi University. She has post-graduation on Diploma in Child Heath (DCH) From Bangabandhu Sheikh Mujib Medical University (BSMMU) and also completed her highest degree FCPS (Pediatrics) from Bangladesh College of Physicians and Surgeons (BCPS). She started her carrier as Medical Officer in Bangladesh Army after internship training and served in Army Medical Corps (AMC) for 16 years in different cantonments as practicing physician with different leadership positions. She managed department of Pediatrics independently after her post-graduation degree in AMC and has extensive experiences in clinical patient management, counseling and prevention approaches.\r\n\r\nDr. Zeena has expanded her career with Square Hospital Ltd (SHL) since 2010 as Pediatrician and expanded vision toward Pediatric Neurology for new services in SHL for responding the emerging needs of children in Bangladesh. She further received intensive clinical training in Pediatric Neurology from Dhaka Shishu Hospital and Christian Medical College (CMC), Vellore, India. Recently she has received training on Epilepsy and EEG from Cleveland Clinic, USA.\r\n\r\nBeing a Consultant, she is performing individual and independent patient treatment and management both in critical and chronic illness of Pediatric patients including Pediatric Neurology. She has provided leadership for orchestrating a new service with establishment of Square Child Development Center (CDC) for addressing neurological disorders of children in 2017. She also introduced a new service for screening of “Newborn” through Square (CDC).\r\n\r\nShe has participated in many national and International conferences, presented and published papers. Her continued interest is in Pediatric Neurology including Developmental Pediatrics along with general Pediatrics. She is a member of national and international Pediatric associations and Pediatric Neurology associations as well.', 'Bangla, English', 'N/A', 3, 24, 2, 1, 1, 51),
+(46, '2024-01-18 16:42:13.818880', NULL, NULL, 'Dr. Ahmad Mursel Anam', 'Susan Ball', 'Claudia Mcgee', '1980-10-02', '87', '01922908822', '7', '10 Years', 'Dr.  Ahmad Mursel Anam graduated from Mymensingh Medical College and later obtained Membership of the Royal Colleges of Physicians of the United Kingdom (MRCP UK).  He completed his rotatory internship from Mymensingh Medical College hospital, and post graduate training from Mitford hospital and Bangabandhu Sheikh Mujib Medical University hospital in Bangladesh. He pursued his career in the field of critical care & internal medicine at Square Hospitals Ltd since 2006. During his sabbatical he was trained in Acute & General (Internal Medicine) in Western General Hospital & Royal Infirmary Edinburgh in United Kingdom and attained an International Fellowship in Acute & General (Internal) Medicine from the Royal College of Physicians of Edinburgh (RCPE). Later he achieved the degree of Master of Science in Critical Care with Merit from the University of Edinburgh, and elected a Fellow of the Royal College of physicians of Edinburgh.\r\n\r\nHe has got 60 scientific publications in various national & international medical journals. He is also active with various academic and research activities with different national and international universities & organizations.  \r\n\r\nAt present, he is working as Associate Consultant, Acute Medicine, HDU & Internal Medicine. He is the first ever consulting physician for Acute Medicine in Bangladesh.', 'Bangla, English', 'N/A', 5, 8, 1, 1, 1, 52),
+(47, '2024-01-18 16:43:50.057804', NULL, NULL, 'Dr. Rozana Rouf', 'Skyler Conrad', 'Allen Hickman', '1985-02-18', '15', '01788771122', '28', '6 Years', 'Dr. Rozana Rouf graduated from Sylhet MAG Osmani Medical College. She completed FCPS in Medicine from Bangladesh College of Physicians and Surgeons (BCPS).\r\n\r\n\r\n\r\nShe received training from four renowned medical colleges, ie Dhaka Medical College, Sylhet MAG Osmani Medical College, Bangabandhu Sheikh Mujib Medical University (BSMMU) and BIRDEM.\r\n\r\n\r\n\r\nShe worked at BIRDEM for more than 16 years. In 2017, she joined Square Hospital.  During her professional career, she achieved training in diabetology, endocrinology, medicine, rheumatology, neurology and nephrology.\r\n\r\n\r\n\r\nA number of original and review articles are published under her name in national and international medical journals. She is a member of American College of Physicians, Bangladesh Society of Medicine and BCPS. She is also a member of Bangladesh Rheumatology Society, Endocrinology Society and Toxicology Society.\r\n\r\n\r\n\r\nDr. Rozana attended many scientific seminars and presented scientific papers. She is dedicated to serve patients of medicine and diabetes. Now She is working at Square Hospital as Associate Consultant, Internal Medicine.', 'Bangla, English', 'N/A', 8, 8, 2, 2, 1, 53),
+(48, '2024-01-18 16:45:40.732844', NULL, NULL, 'Dr. Raihan Rabbani', 'Bert Dunlap', 'Ulla Mccarthy', '1975-10-23', '42', '01622788221', '93', '8 Years', 'Dr. Raihan Rabbani is a medical graduate from Dhaka Medical College. He completed FCPS degree in medicine from Bangladesh College of Physicians and Surgeons (BCPS) as one of the youngest doctor of his time. He got a rare chance of developing himself professionally by doing 3 years residency training in USA in his respective field. Dr. Raihan was trained in Sinai-Grace Hospital of Detroit Medical Center in Detroit, Michigan. He excelled in his training is USA & was awarded `Best Trainee of the Year’ twice during his training. Critical Care Medicine was also an integral part of his training in USA. Certification as Diplomat of American Board of Internal Medicine added another bright feather to his cap.\r\n\r\nIn Bangladesh, Dr. Raihan worked both in government hospital under Ministry of Health and Family Welfare and also private Apollo Hospitals Ltd as well. Currently he is working in Square Hospital as Consultant of Intensive Care Unit & Internal Medicine.', 'Bangla, English', 'N/A', 5, 8, 1, 1, 1, 54),
+(49, '2024-01-18 16:47:12.534804', NULL, NULL, 'Dr. Jahangir Alam', 'Aidan Ruiz', 'Tate Kirk', '1982-01-22', '6', '01629909931', '77', '5 Years', 'Dr. Jahangir Alam graduated from Dhaka Medical College under the University of Dhaka in January, 1986. Like most other Bangladeshi medical professionals, he completed his internship from the following Institute. He started his career as Medical Officer under Ministry of Health, Bangladesh. Later he traveled to KSA and joined as Medical Resident at Medicine Department in Buraidah Central Hospital Al Gassim in 1988. Meanwhile, he obtained MRCP from the Royal College of Physicians, UK in 2002 and worked there as a Medical Specialist from 2002 -2004. The following year he left the hospital and subsequently joined as a Consultant, Internal Medicine in King Fahad Specialist Hospital, Buraidah Al Gassim, KSA.\r\n\r\nIn 2006, Dr. Jahangir Alam returned to motherland and joined as Consultant, Internal Medicine in Diabetic Association of Bangladesh. Afterward, he performed as Associate Consultant, Internal Medicine in United Hospital, Dhaka. He joined Square Hospital in January 2008.\r\n\r\nDuring his professional services, he achieved advanced training in Endocrinology and Diabetology, Hematology and Neurology, Emergency and ICU, Blood Disorders and Infectious Diseases management. He had been involved in teaching medical students of Gassim Medical College, and Residency Program of Saudi Council for health specialist at King Fahad Hospital and candidates appearing in MRCP.\r\n\r\nDr. Jahangir Alam was awarded with FRCP (Edin) from the Royal College of Physicians, Edinburgh, UK in March, 2017. He attended international scientific seminars and presented scientific papers. He works Square Hospital as Consultant, Internal Medicine - Diabetes and Endocrinology.', 'Bangla, English', 'N/A', 5, 8, 1, 1, 1, 55),
+(50, '2024-01-18 16:53:37.387005', NULL, NULL, 'Prof. Dr. Mohammad Abdullah Al Mamun', 'Mary Kirk', 'Damon Hawkins', '1981-08-03', '51', '01976223366', '33', '5 Years', 'Dr. Md.  Abdullah Al Mamun is one of the most eminent Colorectal and Laparoscopic surgeons of Bangladesh. He is a reputed international faculty in Rectal and Colon Cancer, Rectal Prolapse, ODS (Obstructed Defecation Syndrome) treatment as well as laparoscopic Surgery. In Bangladesh, he pioneered  Mini Laparoscopic/Needlescopic  Cholecystectomy, Single Incision Laparoscopic Surgery (SILS) Needlescopic  Cholecystectomy, Appendicectomy, and Cosmetic Hernia surgery, gaining increasing popularity among the patients of square Hospital. \r\n\r\nHe has successfully performed countless Hernia surgeries, which were complicated by previous open/conventional surgeries. Moreover, he applied PSR (Primary Sphincter Repair) Procedure on complex fistula patients who had been deceived several times in the name of multi-staged operations. He usually conducts laser surgery for Piles, Anal Fissures, Fistulas, and Pilonidal Sinuses. He is also proficient in Longo and Stapling Piles surgery.\r\n\r\nOver two decades of experience, he is a Competent Surgeon in the field of Laparoscopy and Colorectal Surgery. He obtained his MBBS degree from Mymensingh Medical College. Later on, acquired professional training from Dhaka Medical  College. Mitford Hospital, Mymensingh Medical College &Bangabandhu Sheikh Mujib Medical University. Besides completing his FCPS in surgery, he also pursued MRCS degree from Royal College of Surgeons of Edinburgh. He obtained prestigious fellowship in Colorectal Surgery and Minimal Access Surgery (MAS) from India. \r\n\r\nHe has traveled around the world to take professional training and to attend international seminars and has presented more than 25 original medical articles at international workshops. He is a lifetime member of Endoscopic and Laparoscopic Surgeons of Asia and honorable fellow of American College of Surgeons. He is an author of the book “Benign Anorectal  Disorders” published by Springer. Besides being an Associate Professor of Surgery at a renowned medical college hospital, he is currently serving as a part – time consultant at Colorectal and Laparoscopic Surgery department of Square Hospital Ltd.', 'Bangla, English', 'N/A', 8, 20, 1, 1, 1, 56),
+(51, '2024-01-18 16:55:11.029735', NULL, NULL, 'Dr. Mohammad Israt Faisal', 'Reagan Norton', 'Aaron Conley', '1978-09-15', '68', '01987727281', '87', '5 Years', 'Dr. Mohammad Israt Faisal graduated from Rangpur Medical College with excellent academic record in the professional examinations. He started his carrier as a lecturer of anatomy and later joined BCS Health cadre. He completed his post graduation training in Rajshahi Medical College and obtained FCPS from Bangladesh College of Physician and Surgeon (BCPS).His professional history includes position such as resident surgeon and consultant at government hospital as well as specialist surgeon at reputed private hospital helped him to gain the experience of performing elective and emergency surgery, pre and post operative patient care.Dr. Mohammad Israt Faisal has got special interest in minimal invasive surgery and got advanced training in laparoscopic colorectal surgery from country and abroad. He has experience in working in cardiothoracic, thoracic and vascular surgery department. He is a life member of society of laparoscopic surgeons of Bangladesh.', 'Bangla, English', 'N/A', 5, 20, 1, 1, 1, 57),
+(52, '2024-01-18 16:56:27.866400', NULL, NULL, 'Dr. Tanny Tarafder', 'Charde Pickett', 'Reed Ellison', '1980-04-12', '56', '01923783277', '98', '5 Years', 'Dr. Tanny Tarafder graduated from Sir Salimullah Medical College, Dhaka. She pursued her career in Surgery and completed her surgical training in Mitford Hospital and Dhaka Medical College Hospital. She has been awarded Fellowship (FCPS, Surgery) by BCPS (Bangladesh College of Physicians and Surgeons). To further increase her knowledge, she availed Membership (MRCS) of Royal College of Surgeons, UK. She  has considerable experience and expertise in General Surgery, especially in the areas of Breast and Colorectal diseases, hernia and laparoscopic surgery. She is keen to modernizing the current surgical practice in our country by utilizing the latest protocols of diagnosis and surgical/nonsurgical management of diseases. She keeps herself updated by attaining international seminars and training courses to constantly be with the international standards. She excelled in the training course for the management of breast diseases at the Department of Endocrine Surgery in Christian Medical College (CMC), Vellore, India.She is a lifetime member of Association of Breast Surgeons of Bangladesh (ABSB), Asian Society of Mastology (ASOMA), and Society of Laparoscopic Surgeons of Bangladesh (SLSB). Breast Conserving Surgery and Laparoscopic Hernia Repair are two particular areas of interest for her. She attended workshop on Oncoplastic Breast Surgery in Pune, India, which was jointly conducted by International School of Breast Oncoplasty, Pune, India and University of East Anglia, UK. She has presented multiple papers in national and international conferences and has a number of publications to her credit.', 'Bangla, English', 'N/A', 8, 20, 2, 1, 3, 58),
+(53, '2024-01-18 16:57:42.780081', NULL, NULL, 'Prof. Dr. Arif Salam Khan', 'Linus Barnett', 'Carla Simmons', '1982-09-28', '76', '01978223377', '82', '5 Years', 'Dr. Arif Salam Khan is a renowned Hepatobiliary surgeon. He is working in Bangabandhu Sheikh Mujib Medical University as an Associate Professor of Surgery.He completed MBBS from Dhaka Medical College in 1995. After completion of his Internship he joined Government Service in 17th BCS. Thereafter he did his surgery training at Sher-E-Bangla medical college hospital. He completed FCPS degree in Surgery from BCPS. Then he joined as Resident Surgeon (general) of Dhaka Medical College Hospital where he gained experience of doing all kinds of Emergency and Trauma Surgeries. Thereafter he left government job and joined Bangabandhu Sheikh Mujib Medical University as an Assistant Professor of Surgery. He worked in the Hepatobiliary Surgery department.Dr. Arif Salam Khan has got a number of trainings both locally and internationally. He participated in Basic Life Support Instructor Course, Advanced Cardiac Life Support Instructor Course, Fellowship Training on Emergency Medical Service and Disaster Medical Management System organized by KhonKaen Regional Hospital, Thailand which is WHO Collaborating Center for Injury Prevention and Safety Promotion. He is also a Trainer for Basic Surgical Skill of BCPS. He also successfully completed ATLS Provider Course and ATLS Instructor course and he is now regarded by the ATLS Program as an Instructor of Candidate. He also had an observational training on liver Transplant Surgery in MEDANTA Hospital, India.Dr. Arif Salam Khan is proficient in performing all kinds of General Surgeries. He has keen interest in doing Liver, Gall Bladder, Pancreas, Upper GI and Spleen Surgery for both benign and malignant conditions. He is also an expert in Laparoscopic Surgery.', 'Bangla, English', 'N/A', 2, 20, 1, 1, 1, 59),
+(54, '2024-01-18 17:05:32.004008', NULL, NULL, 'Dr. Md. Mazharul Islam', 'Stacy Todd', 'Daniel Dickerson', '1985-11-02', '50', '01976236633', '57', '8 Years', 'Dr. Md. Mazharul Islam graduated from Rajshahi Medical College. Then he joined BCS (Health) at Sylhet and thereafter BIRDEM Hospital. He obtained his FCPS (Ophthalmology) degree from BCPS & as post graduate Fellow he worked at BIRDEM till December, 2017. During this period he got intensive training on different aspects of clinical treatment of Ophthalmological diseases.\r\n\r\nDr. Mazhar has a long experience of more than 12 years in the field of Ophthalmology. He has successfully done 2000 over cases of Phaco with PCIOL. He has accomplished other surgeries like Pterygium operation with conjunctival autograft, DCR operation with Intubation, Cyclocryopexy, Corneal injury repair & many more successfully. \r\n\r\nAt BIRDEM Hospital, Dr. Mazhar managed Diabetic & Hypertensive patients with great success. He has done more than 2500 Argon Laser in Diabetic retinopathy & around 500 YAG PI & YAG Laser capsulotomy in Glaucoma & Pseudophakia with PCO patients. He has 11 years of experience in Medical Retina. He has also completed advance training in SICS (Small Incision Cataract Surgery) from Islamia Eye Hospital on 2017. Dr Mazharul has been selected as life time member of OSB, BCPS, BAO & All India Ophthalmological Society (AIOS)', 'Bangla, English', 'N/A', 2, 18, 1, 5, 1, 60),
+(55, '2024-01-18 17:07:07.888588', NULL, NULL, 'Prof. Dr. Shah Alam', 'Jane Pena', 'Sonia Kirk', '1970-12-20', '9', '01967223398', '16', '8 Years', 'Prof. Dr. Shah Alam completed his graduation from Mymensingh Medical College under Dhaka University in 1979. After completing his internship he dedicated his training in the field of Ophthalmology. He passed his fellowship (FCPS) in Ophthalmology from the Bangladesh College of Physicians and Surgeons (BCPS) in 1991. He also received trainings on Ophthalmology from National Institute of Ophthalmology, Dhaka and IPGMR (now BSMMU). He successfully obtained WHO Fellowship in Ophthalmology from Arabind Eye Institute, Madurai, India in 2001.\r\n\r\nProf. Dr. Shah Alam started his career as Assistant Registrar in National Institute of Ophthalmology and IPGMR. Due to his well acknowledgement, he shortly got promoted to Resident Surgeon, Jr. Consultant and then to Assistant Professor (IPGMR) in 1996. In 1999, he became Associate Professor and in 2004 became Professor of Ophthalmology in Mymensingh Medical College. He took early retirement from government services in December, 2006 and joined as Consultant in Square Hospital. He has more than 25 years of experience in the field of Ophthalmology.', 'Bangla, English', 'N/A', 4, 18, 1, 1, 1, 61),
+(56, '2024-01-18 17:10:04.080252', NULL, NULL, 'Lt. Col. Dr. Md. Sajedur Rahman', 'Fatima Galloway', 'Aaron Adams', '1978-11-08', '11', '01878227722', '57', '8 Years', 'Lt. Col. Dr. Md. Sajedur Rahman is a medical graduate from Mymensingh Medical College. He completed D.O. from Dhaka University and MD from Hamburg University, Germany. He obtained Fellowship in the field of Ophthalmology (Retina & Laser Surgery) from University of Eye Clinic, Hamburg, Germany. He also acquired advanced training in Phaco and Retinal Laser from Germany.\r\n\r\nLt. Col. Dr. Md. Sajedur Rahman worked in department of Ophthalmology at CMH as Eye Specialist and Retinal Surgeon for 15 years earned necessary expertise in managing general ophthalmic diseases and performing eye surgeries. He is a member of Editorial Board, Ocular Infection and Hygiene, Germany and also member of American Society of Ophthalmology and Ophthalmology Society of Bangladesh (OSB).', 'Bangla, English', 'N/A', 7, 18, 1, 5, 3, 62),
+(57, '2024-01-18 17:12:35.975638', NULL, NULL, 'Dr. Mahmuda Zaman', 'Avye Coleman', 'Maisie Erickson', '1980-04-04', '22', '01945226622', '73', '8 Years', 'Dr. Mahmuda Zaman completed MBBS from Dhaka Medical College (DMC) in 1999. She served the Army Medical Corps during the initial 8 years of her professional journey. At that stage, she decided to make her career in Paediatrics and received one-year training at the Department of Paediatrics of CMH Dhaka to that effect. However, to have an all-round exposure in Paediatrics, she left defence service and engaged herself into full-time residential training at the Paediatrics Department of Dhaka Medical College (DMC) and Bangabandhu Sheikh Mujib Medical University (BSMMU). \r\n\r\nDr. Mahmuda qualified FCPS in Paediatrics in the year 2011 and started her career as a paediatrician at the then Apollo Hospitals Dhaka in the same year. Over about eight years’ time, she extensively practised general paediatrics at Apollo Hospital. It is at this time she decided to pick up Paediatric – Haemato Oncology as her ultimate career. In July 2019, Dr. Mahmuda joined CMC Vellore, India to have a real life exposure to subcontinental paediatric haemato oncological scenario. \r\n\r\nOn completion of one-year international fellowship at CMC Vellore, she joined Square Hospital Dhaka as Associate Consultant of Paediatric Haemato Oncology in August 2020. At Square Hospital, she used to look after general paediatric cases, paediatric haematology, blood cancer and other childhood cancers. She is particularly expert at chemotherapy, haematological and cancer related procedures. Within one year of her joining at Square Hospital, she has gained formidable trust of the childhood cancer patients and guardians. Dr. Mahmuda is a highly rehearsed name to her patients’ guardians, especially those returning from India. \r\n\r\nDr. Mahmuda regularly attends the conferences on paediatric haematology – oncology at home and abroad. She has a number of publications in reputed medical journals of the country.', 'Bangla, English', 'N/A', 6, 18, 2, 1, 1, 63),
+(58, '2024-01-18 17:17:03.243590', NULL, NULL, 'Dr. Lutfun Nahar Begum', 'Veda Bean', 'Tallulah Hansen', '1984-12-21', '76', '01978226622', '47', '8 Years', 'Dr. Lutfun Nahar Begum graduated from Chittagong Medical College. After her internship she was trained at Bangabandhu Sheikh Mujib Medical University (BSMMU) in Pediatrics. She completed FCPS (Neonatology) degree from Bangladesh College of Physicians & Surgeons (BCPS). She acquired clinical fellowship in Neonatology from National University, Singapore and got experience from IPGMR, Chandighar, India in Neonatal Intensive Care Unit.\r\n\r\nDr. Lutfun Nahar practiced in Bangladesh Government Health Service from Upazilla level. Later she joined the course of MD (Pediatrics) and obtained the degree of Doctor of Medicine (MD) in Pediatrics from Bangladesh Institute of Child Health. Dr. Lutfun Nahar worked in Dhaka Medical College Hospital and afterwards involved in Special Care Baby Unit (SCABU), BIRDEM. Before joining Square Hospital, she performed in Neonatology & Pediatrics unit of Apollo Hospital, Dhaka.', 'Bangla, English', 'N/A', 5, 25, 2, 1, 1, 64),
+(59, '2024-01-18 17:19:34.865751', NULL, NULL, 'Dr. Aftab Yousuf Raj', 'Beau Chandler', 'Rajah Newton', '1980-10-10', '52', '01987225566', '30', '8 Years', 'Dr. Aftab Yousuf Raj MBBS, MD (Pediatrics), MD (Neonatology), Fellow-(Neonatology) AIIMS, India, Fellow (Neonatology & Pediatrics)-Canada, graduated from Sher-E-Bangla Medical College. He then trained in the field of Pediatrics and Neonatology and served in different Medical Colleges & Hospitals across the country and held some vital positions including Associate Professor of Pediatrics and Neonatology for several years. He received training in his respective field from all India Institutions of Medical Science and Calgery Medical University (New Born Health) and Alberta Children Hospital (Child Health) Canada. He also worked as a Consultant at United Hospital, Dhaka.', 'Bangla, English', 'N/A', 2, 25, 1, 1, 1, 65),
+(60, '2024-01-18 17:23:43.620777', NULL, NULL, 'Dr. Fatema Salam', 'Josiah Gates', 'Ivana Coleman', '1965-03-05', '59', '01967662289', '87', '8 Years', 'Dr. Fatema Salam graduated from Mymensingh Medical College in 1990.  After her internship, she was trained at Dhaka Shishu Hospital in Pediatrics. She obtained a Diploma in Child Health (DCH) degree from the Bangladesh Institute of Child Health (BICH) under Dhaka University in 1995. She achieved FCPS in Neonatology from the Bangladesh College of Physician Surgeons (BCPS) in 2012.\r\n\r\nDr. Fatema Salam has vast experience in both fields of pediatrics and Neonatology. She served under the Ministry of Health and Family Welfare, Bangladesh, and also gained experience working in Pediatrics under the Ministry of Health, KSA (Kingdom of Saudi Arabia). She served in the Institute of Child and Mother Health (ICMH) and in the Neonatal ICU of a private hospital. Currently, she is working as a Consultant (NICU) at Square Hospital.', 'Bangla, English', 'N/A', 7, 25, 2, 4, 1, 66),
+(61, '2024-01-18 17:25:48.312151', NULL, NULL, 'Associate Prof. Dr. Mahbub Alam', 'Barclay Mcfadden', 'Tucker Porter', '1978-12-23', '34', '01878237644', '70', '8 Years', 'Dr. SK. Mahbub Alam graduated from Rajshahi Medical College and achieved his professional degree MD (Neurology) from BSMMU. Afterwards, he moved to Malaysia for completing fellowship in Neuro-electrophysiology from University of Malaya, Malaysia. He is the first fellowship holder in Neuro electrophysiology in Bangladesh.  Dr. Mahbub started his career in BSMMU in Emergency department in 1999. At present he is working as Associate Professor of Neurology and Neuro-Electrophysiology in Bangabandhu Sheikh Mujib Medical University (BSMMU) & he is a popular Electrophysiology teacher in Neuro-Electrophysiology. Dr. Mahbub has attained advanced training and acquired the necessary expertise from different hospitals of Singapore, Thailand, Malaysia, Turkey, South Korea and Japan as well as in Bangladesh to provide complete neurological treatment for the wide spectrum of neurological diseases. He becomes a potential Neurologist and Neuro-electrophysiologist at Square Hospitals Ltd.', 'Bangla, English', 'N/A', 2, 25, 1, 1, 1, 67),
+(62, '2024-01-18 17:29:50.597716', NULL, NULL, 'Dr. Arifur Hasan', 'Brielle Baldwin', 'Nomlanga Garner', '1980-02-27', '97', '01956238899', '47', '10 Years', 'Dr. Arifur Hasan graduated from Chittagong Medical College (CMC) in 1980 and worked under the Ministry of Health in Bangladesh for 5 years.He has done his post-graduation under the University of London, UK, completed his diploma of Neurology from the Institute of Neurology, Queen Square, London, in 1989 and his Master’s degree in Neuroscience under British Post-graduate Medical Federation, UK, in 1992.Dr. Mofizur Rahman worked as an Honorary Lecturer in Neurology unit at All India Institute of Medical Sciences (AIIMS) India from 1993 to 1995.In 1997, he worked as a Consultant Neurologist at King Fahad Hospital, Medina Al-Munawarah, Saudi Arabia, under Ministry of Health for 14 years with a 5-year tenure as the Head of the Neurology Unit. In 2011, he moved to work in King Abdul Aziz Hospital, Makkah, for 2 years and in 2013, he started to work in King Faizul Hospital, Taif, for 5 years, under the Ministry of Health, Saudi Arabia. In 2019, he worked in Saudi-German Hospital, Medina, Saudi Arabia for a year. Through his excellent education and over 32 years of experience, he has attained considerable acquaintance with Clinical Neurological Care System, and immense knowledge and skill in the diagnosis and management of Neurological problems ranging from general to emergency conditions.Dr. Mofizur Rahman is committed to play vital role in ensuring sound, optimal, rational and comprehensive healthcare for the patients with neurological problems in Bangladesh through his individualized care management plans. To fulfill his commitment, he has joined as a Senior Consultant Neurologist at Square Hospitals Ltd.', 'Bangla, English', 'N/A', 4, 4, 1, 1, 1, 68),
+(63, '2024-01-18 17:31:34.095323', NULL, NULL, 'Dr. Mohammed Wahidur Rahman', 'Zachery Adams', 'Cairo Hyde', '1980-12-24', '33', '01967992290', '10', '8 Years', 'Dr. Mohammed Wahidur Rahman wants to present his 16 years of USA-earned medical and neurological knowledge and skills for serving the people of Bangladesh. Although he is a New York State Board for Medicine licensed, Dr. Wahid has joined Square Hospital as a Consultant, Neurology.\r\n\r\n\r\n\r\nDr. Wahid graduated from Rajshahi Medical College and completed DA from Dhaka Medical College. He secured his degree (MD) from Educational Commission for Foreign Medical Graduates (ECFMG), USA. He completed Doctor of Osteopathic Medicine (DO), USA from NYIT College of Osteopathic Medicine, Long Island, New York.\r\n\r\n\r\n\r\nDr. Wahid underwent a neurology residency program at Desert Regional Medical Center, Palm Springs, California. He fulfilled his first Fellowship in Clinical Neurophysiology from the University of Kansas Medical Center, after which he carried out another Fellowship in Movement Disorder at Northwell Health University Medical Center, New York, USA. He worked at New York Medical and Diagnostic Center and Broadway Medical Center, in Queens, New York. \r\n\r\n\r\n\r\nHe has extensive experience in DBS programming for Parkinson’s disease and essential tremors. He is skilled in EMG-guided BoNT Therapy, dystonia, EEG, EMG/NCS, and Botox for chronic migraine, etc. Dr. Wahid has extensive experience in managing a wide variety of acute and chronic neurological conditions. He aims to build Comprehensive  Care for Parkinson’s disease  Patients.', 'Bangla, English', 'N/A', 5, 4, 1, 1, 2, 69),
+(64, '2024-01-19 09:46:33.224586', NULL, NULL, 'Dr. Prasanta K Chanda', 'Ray Kane', 'Rigel Salinas', '2013-03-30', '42', '01966552289', '14', '5 Years', 'Dr. Prasanta K Chanda, Senior Consultant & Associate Professor, Department of Cardiac Surgery of National Heart Foundation Hospital & Research Institute has joined Square Hospital as a Senior Consultant of Cardiac Surgery Department. He has 20 years of experience and skills to perform a wide array of cardiac surgeries like Beating Heart Coronary Artery Bypass Surgeries (CABG), Minimally Invasive Cardiac Surgery (MICS), Redo or repeat cardiac surgery, Aortic surgery-specially Bentall, David procedure, Total Arch Replacement, FET (Frozen Elephant Trunk) etc. He is one of the pioneers of MICS & Aortic Surgery program in Bangladesh.  \r\n\r\nHe had his graduation (MBBS) from Sir Salimullah Medical College and obtained his Masters on Cardiovascular and Thoracic Surgery from National Institute of Cardio-vascular Diseases (NICVD). He served different Govt. and private institutes before joining National Heart Foundation Hospital and Research Institute in 2006 as Assistant Professor cum Consultant of Cardiac Surgery. In August, 2010 he was promoted to his present position - Associate Professor cum Senior Consultant of Cardiac Surgery.   \r\n\r\nDr. Prasanta got the opportunity to work as a fellow/ observer in the Department of Cardiothoracic Surgery at All India Institute of Medical Sciences, New Delhi, India; Cardiac Institute, National University Hospital, Singapore; Houston Methodist DeBakey Heart & Vascular Center, Houston, USA; Cleveland Clinic, Ohio, USA and many others. He has lots of publications in national & international journals.  \r\n\r\nPresently he is serving as Vice President, Cardiac Surgeons Society of Bangladesh (CSSB). He is also member of BMA, Bangladesh Cardiac Society, IACTS, SMICTSI, STS, EACTS, ISMICS.', 'Bangla, English', 'N/A', 5, 21, 1, 1, 1, 70),
+(65, '2024-01-19 09:47:54.973739', NULL, NULL, 'Dr. Md. Akhtanur Rahman Joarder', 'Kitra Santiago', 'Yeo Faulkner', '1983-09-18', '66', '01988992289', '47', '5 Years', 'Dr. Akhtanur Rahman Joarder obtained his MBBS from Faridpur Medical College and completed his MS in Cardio-Vascular & Thoracic surgery (CVTS) from National Institute of Cardio-vascular Diseases (NICVD). His works in Ibrahim Cardiac Hospital & Research Institute, Cardiac Centre of Ibn Sina Specialized Hospital and Square Hospital provides him wide experiences in various cardiac procedures ranging from conventional CABG, OPCAB, Mitral & Aortic valve replacements, repair of Atrial (ASD) & Ventricular septal defects (VSD), PDA ligation and intra-cardiac repair of TAPVC to Tetralogy of Fallot (TOF) surgery.He independently manage & vascular conditions such as Acute vascular disease, Deep Vein Thrombosis, Chronic peripheral vascular diseases such as Buerger’s disease, Varicose veins, Chronic limb ischemia etc. He is also an expert in making Arterio-Venous (AV) fistula in patients of CKD. He can operate various types of cardiac tumors (myxoma), vascular tumors (hemangioma, AV malformation, pseudoaneurysm) & chest wall tumors.Dr. A. R. Joarder is a life member of the Bangladesh Cardiac Society,Cardiac Surgeon’s Society of Bangladesh (CSSB), Bangladesh Association of Cardio-thoracic & Vascular Surgeons (BACTVS) & Bangladesh Medical Association (BMA).', 'Bangla, English', 'N/A', 8, 21, 1, 1, 1, 71),
+(66, '2024-01-19 09:50:22.819316', NULL, NULL, 'Dr. Md. Mesbah Uddin', 'Shannon Avila', 'Xaviera Mcdaniel', '1970-05-06', '36', '01978225566', '55', 'Esse consequatur Du', 'Dr. Md. Mesbah Uddin joined Square Hospital in 2006 as a resident of Cardiac Surgery Department. After completing his postgraduate degree in cardiovascular surgery from NICVD, he was then promoted as a specialist. He has 16 years of experience and skills to assist and perform a wide array of cardiac surgeries like Bypass Surgeries (CABG), Minimally Invasive Cardiac Surgery (MICS), Redo or repeat cardiac surgery, Aortic surgery-specially Bentall, David procedure and Total Arch Replacement. \r\n\r\n\r\n\r\nHe served government and private institutions before joining Square. He can manage various vascular conditions independently, for example Acute Vascular Disease, Deep Vein Thrombosis, Chronic peripheral vascular disease and Varicose veins. He can operate a variety of cardiac tumors, vascular tumors & chest wall tumor.\r\n\r\nDr. Mesbah is the organizing secretary of Cardiac Surgeon’s Society of Bangladesh (CSSB). He is also a member of Bangladesh Association of Cardio-thoracic & Vascular Surgeons (BACTVS) & Bangladesh Medical Association (BMA).', 'Maxime cillum est m', 'N/A', 4, 21, 1, 1, 4, 72),
+(67, '2024-01-19 09:51:47.232672', NULL, NULL, 'Dr. Saikat Das Gupta', 'Oleg Mullins', 'Desirae Guerrero', '1970-08-29', '73', '01966622331', '62', '5 Years', 'Dr. Saikat Das Gupta graduated (MBBS) from the University of Science and Technology, Chittagong, and completed his Master of Surgery (MS) in Cardiothoracic Surgery from the National Heart Foundation of Bangladesh. He received the prestigious fellowship from The American College of Surgeons (FACS) and The International College of Surgeons (FICS).\r\n\r\nDr. Saikat has 17 years of clinical experience in cardiac surgery. He served as Registrar in the Department of Cardiac Surgery at the National Heart Foundation of Bangladesh. He joined Square Hospital as Junior Consultant of Cardiac Surgery and later promoted as Associate Consultant. He has keen interest in developing Thoracoscopic and Robotic Cardiac Surgery in Bangladesh. \r\n\r\nHe is capable of managing Beating Heart Coronary Artery Bypass Grafting (OP-CABG), Valve replacement or repair, Myxoma, Atrial Septal Defect repair, Septal Myectomy, Ventricular Septal Rupture, and Aortic Aneurysm/Dissections.\r\n\r\nDr. Saikat has published articles in different national and international journals. He is a member of Bangladesh Cardiac Society (BCS), European Association of Cardio-Thoracic Surgeons, The Indian Association of Cardiothoracic Surgeon (IACTS), and The American Heart Association (AHA).', 'Bangla, English', 'N/A', 3, 21, 1, 1, 1, 73);
 
 -- --------------------------------------------------------
 
@@ -1357,7 +1593,111 @@ INSERT INTO `doctor_schedule_times` (`id`, `created_at`, `updated_at`, `deleted_
 (5, '2024-01-07 05:50:43.973189', NULL, NULL, '17:00:00.000000', '21:00:00.000000', 2, 2),
 (6, '2024-01-07 05:51:20.527208', NULL, NULL, '17:00:00.000000', '23:00:00.000000', 3, 3),
 (7, '2024-01-07 05:52:08.989470', NULL, NULL, '10:00:00.000000', '13:30:00.000000', 4, 4),
-(8, '2024-01-07 05:52:08.998390', NULL, NULL, '18:30:00.000000', '23:30:00.000000', 4, 4);
+(8, '2024-01-07 05:52:08.998390', NULL, NULL, '18:30:00.000000', '23:30:00.000000', 4, 4),
+(9, '2024-01-18 13:57:18.851743', NULL, NULL, '09:00:00.000000', '13:00:00.000000', 5, 5),
+(10, '2024-01-18 13:57:46.548406', NULL, NULL, '17:00:00.000000', '23:00:00.000000', 6, 6),
+(11, '2024-01-18 13:58:33.510271', NULL, NULL, '19:00:00.000000', '23:30:00.000000', 7, 7),
+(12, '2024-01-18 13:59:33.398782', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 8, 8),
+(13, '2024-01-18 13:59:33.409749', NULL, NULL, '18:00:00.000000', '22:00:00.000000', 8, 8),
+(14, '2024-01-18 14:23:30.234672', NULL, NULL, '12:00:00.000000', '19:00:00.000000', 9, 9),
+(15, '2024-01-18 14:24:25.043378', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 10, 10),
+(16, '2024-01-18 14:24:25.044365', NULL, NULL, '18:00:00.000000', '22:00:00.000000', 10, 10),
+(17, '2024-01-18 14:25:01.631217', NULL, NULL, '11:00:00.000000', '13:00:00.000000', 11, 11),
+(18, '2024-01-18 14:25:35.042668', NULL, NULL, '18:00:00.000000', '22:00:00.000000', 12, 12),
+(19, '2024-01-18 14:53:31.487210', NULL, NULL, '09:00:00.000000', '13:00:00.000000', 13, 13),
+(20, '2024-01-18 14:54:24.736881', NULL, NULL, '11:00:00.000000', '15:00:00.000000', 14, 14),
+(21, '2024-01-18 14:54:24.747826', NULL, NULL, '19:00:00.000000', '23:00:00.000000', 14, 14),
+(22, '2024-01-18 14:55:10.570179', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 15, 15),
+(23, '2024-01-18 14:55:10.571102', NULL, NULL, '16:00:00.000000', '22:00:00.000000', 15, 15),
+(24, '2024-01-18 14:55:53.735121', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 16, 16),
+(25, '2024-01-18 14:55:53.736120', NULL, NULL, '18:00:00.000000', '23:30:00.000000', 16, 16),
+(26, '2024-01-18 18:03:19.624317', NULL, NULL, '17:00:00.000000', '21:00:00.000000', 17, 17),
+(27, '2024-01-18 18:04:01.301446', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 18, 18),
+(28, '2024-01-18 18:04:01.302445', NULL, NULL, '17:00:00.000000', '22:00:00.000000', 18, 18),
+(29, '2024-01-18 18:04:52.476664', NULL, NULL, '11:00:00.000000', '13:30:00.000000', 19, 19),
+(30, '2024-01-18 18:04:52.477663', NULL, NULL, '17:00:00.000000', '23:00:00.000000', 19, 19),
+(31, '2024-01-18 18:06:04.881666', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 20, 20),
+(32, '2024-01-18 18:06:04.884008', NULL, NULL, '21:00:00.000000', '23:30:00.000000', 20, 20),
+(33, '2024-01-18 18:06:55.113927', NULL, NULL, '12:00:00.000000', '14:00:00.000000', 21, 21),
+(34, '2024-01-18 18:06:55.124679', NULL, NULL, '18:00:00.000000', '22:00:00.000000', 21, 21),
+(35, '2024-01-18 18:07:56.876611', NULL, NULL, '09:00:00.000000', '12:00:00.000000', 22, 22),
+(36, '2024-01-18 18:07:56.877611', NULL, NULL, '18:00:00.000000', '22:00:00.000000', 22, 22),
+(37, '2024-01-18 18:08:37.649112', NULL, NULL, '15:00:00.000000', '20:00:00.000000', 23, 23),
+(38, '2024-01-18 18:09:45.930143', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 24, 24),
+(39, '2024-01-18 18:09:45.931164', NULL, NULL, '17:00:00.000000', '23:00:00.000000', 24, 24),
+(40, '2024-01-18 18:10:19.145967', NULL, NULL, '09:00:00.000000', '14:00:00.000000', 25, 25),
+(41, '2024-01-18 18:10:47.990171', NULL, NULL, '10:00:00.000000', '15:00:00.000000', 26, 26),
+(42, '2024-01-18 18:11:39.017026', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 27, 27),
+(43, '2024-01-18 18:11:39.017477', NULL, NULL, '17:00:00.000000', '22:00:00.000000', 27, 27),
+(44, '2024-01-18 18:12:07.671233', NULL, NULL, '17:00:00.000000', '23:00:00.000000', 28, 28),
+(45, '2024-01-18 18:12:38.151522', NULL, NULL, '16:00:00.000000', '23:00:00.000000', 29, 29),
+(46, '2024-01-18 18:13:21.816329', NULL, NULL, '09:00:00.000000', '13:00:00.000000', 30, 30),
+(47, '2024-01-18 18:13:21.817567', NULL, NULL, '17:00:00.000000', '22:00:00.000000', 30, 30),
+(48, '2024-01-18 18:14:24.603539', NULL, NULL, '09:30:00.000000', '13:00:00.000000', 31, 31),
+(49, '2024-01-18 18:14:24.604536', NULL, NULL, '20:00:00.000000', '23:00:00.000000', 31, 31),
+(50, '2024-01-18 18:15:33.329246', NULL, NULL, '09:30:00.000000', '13:30:00.000000', 32, 33),
+(51, '2024-01-18 18:15:33.331221', NULL, NULL, '16:00:00.000000', '22:00:00.000000', 32, 33),
+(52, '2024-01-18 18:16:28.607020', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 33, 34),
+(53, '2024-01-18 18:16:28.608282', NULL, NULL, '19:00:00.000000', '22:00:00.000000', 33, 34),
+(54, '2024-01-18 18:21:30.106263', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 34, 36),
+(55, '2024-01-18 18:21:30.116236', NULL, NULL, '19:00:00.000000', '22:00:00.000000', 34, 36),
+(56, '2024-01-18 18:22:24.671754', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 35, 37),
+(57, '2024-01-18 18:22:24.672751', NULL, NULL, '13:00:00.000000', '22:00:00.000000', 35, 37),
+(58, '2024-01-18 18:23:52.149800', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 36, 38),
+(59, '2024-01-18 18:23:52.150800', NULL, NULL, '15:00:00.000000', '22:00:00.000000', 36, 38),
+(60, '2024-01-18 18:24:29.983016', NULL, NULL, '21:00:00.000000', '13:00:00.000000', 37, 40),
+(61, '2024-01-18 18:24:29.984020', NULL, NULL, '18:00:00.000000', '23:00:00.000000', 37, 40),
+(62, '2024-01-18 18:27:03.175809', NULL, NULL, '18:00:00.000000', '23:00:00.000000', 38, 41),
+(63, '2024-01-18 18:27:29.929945', NULL, NULL, '15:00:00.000000', '22:00:00.000000', 39, 42),
+(64, '2024-01-18 18:28:30.699169', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 40, 43),
+(65, '2024-01-18 18:28:30.700184', NULL, NULL, '20:00:00.000000', '23:00:00.000000', 40, 43),
+(66, '2024-01-18 18:29:11.931884', NULL, NULL, '09:00:00.000000', '12:00:00.000000', 41, 44),
+(67, '2024-01-18 18:29:11.932882', NULL, NULL, '17:00:00.000000', '22:00:00.000000', 41, 44),
+(68, '2024-01-18 18:29:56.065383', NULL, NULL, '09:30:00.000000', '13:00:00.000000', 42, 45),
+(69, '2024-01-18 18:29:56.066376', NULL, NULL, '16:00:00.000000', '21:00:00.000000', 42, 45),
+(70, '2024-01-18 18:31:25.750052', NULL, NULL, '10:00:00.000000', '12:00:00.000000', 43, 46),
+(71, '2024-01-18 18:31:25.751016', NULL, NULL, '16:00:00.000000', '22:00:00.000000', 43, 46),
+(72, '2024-01-18 18:32:12.031767', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 44, 47),
+(73, '2024-01-18 18:32:12.032767', NULL, NULL, '16:00:00.000000', '23:00:00.000000', 44, 47),
+(74, '2024-01-18 18:33:27.988325', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 45, 48),
+(75, '2024-01-18 18:33:27.999148', NULL, NULL, '17:00:00.000000', '23:00:00.000000', 45, 48),
+(76, '2024-01-18 18:34:05.806143', NULL, NULL, '09:00:00.000000', '13:00:00.000000', 46, 49),
+(77, '2024-01-18 18:34:05.807141', NULL, NULL, '18:00:00.000000', '23:00:00.000000', 46, 49),
+(78, '2024-01-18 18:34:45.338811', NULL, NULL, '09:00:00.000000', '12:00:00.000000', 47, 50),
+(79, '2024-01-18 18:34:45.339803', NULL, NULL, '15:00:00.000000', '21:00:00.000000', 47, 50),
+(80, '2024-01-18 18:35:24.173369', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 48, 51),
+(81, '2024-01-18 18:35:24.174364', NULL, NULL, '16:00:00.000000', '23:00:00.000000', 48, 51),
+(82, '2024-01-18 18:36:10.737113', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 49, 52),
+(83, '2024-01-18 18:36:10.738110', NULL, NULL, '17:00:00.000000', '21:00:00.000000', 49, 52),
+(84, '2024-01-18 18:36:46.024918', NULL, NULL, '10:00:00.000000', '12:00:00.000000', 50, 53),
+(85, '2024-01-18 18:36:46.025916', NULL, NULL, '15:00:00.000000', '23:00:00.000000', 50, 53),
+(86, '2024-01-18 18:37:35.771558', NULL, NULL, '11:00:00.000000', '13:00:00.000000', 51, 54),
+(87, '2024-01-18 18:37:35.772555', NULL, NULL, '16:00:00.000000', '23:00:00.000000', 51, 54),
+(88, '2024-01-18 18:38:56.748200', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 52, 55),
+(89, '2024-01-18 18:38:56.760167', NULL, NULL, '17:00:00.000000', '22:00:00.000000', 52, 55),
+(90, '2024-01-18 18:39:41.989735', NULL, NULL, '10:00:00.000000', '12:00:00.000000', 53, 56),
+(91, '2024-01-18 18:39:41.990730', NULL, NULL, '15:00:00.000000', '22:00:00.000000', 53, 56),
+(92, '2024-01-18 18:40:36.286002', NULL, NULL, '09:00:00.000000', '14:00:00.000000', 54, 57),
+(93, '2024-01-18 18:40:36.286965', NULL, NULL, '18:00:00.000000', '23:00:00.000000', 54, 57),
+(94, '2024-01-18 18:42:33.858969', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 55, 58),
+(95, '2024-01-18 18:42:33.860970', NULL, NULL, '17:00:00.000000', '22:00:00.000000', 55, 58),
+(96, '2024-01-18 18:43:22.634593', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 56, 59),
+(97, '2024-01-18 18:43:22.637585', NULL, NULL, '17:00:00.000000', '23:00:00.000000', 56, 59),
+(98, '2024-01-18 18:44:12.922210', NULL, NULL, '10:00:00.000000', '12:00:00.000000', 57, 60),
+(99, '2024-01-18 18:44:12.923206', NULL, NULL, '17:00:00.000000', '22:00:00.000000', 57, 60),
+(100, '2024-01-18 18:44:56.973313', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 58, 61),
+(101, '2024-01-18 18:44:56.974308', NULL, NULL, '16:00:00.000000', '23:00:00.000000', 58, 61),
+(102, '2024-01-18 18:45:43.896168', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 59, 62),
+(103, '2024-01-18 18:45:43.905142', NULL, NULL, '17:00:00.000000', '23:30:00.000000', 59, 62),
+(104, '2024-01-18 18:46:25.595372', NULL, NULL, '21:00:00.000000', '12:30:00.000000', 60, 63),
+(105, '2024-01-18 18:46:25.595372', NULL, NULL, '16:00:00.000000', '22:00:00.000000', 60, 63),
+(106, '2024-01-19 09:56:07.372687', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 61, 64),
+(107, '2024-01-19 09:56:07.375973', NULL, NULL, '15:00:00.000000', '21:00:00.000000', 61, 64),
+(108, '2024-01-19 09:56:39.895447', NULL, NULL, '10:00:00.000000', '12:00:00.000000', 62, 65),
+(109, '2024-01-19 09:56:39.896528', NULL, NULL, '18:00:00.000000', '23:00:00.000000', 62, 65),
+(110, '2024-01-19 09:57:19.046196', NULL, NULL, '10:00:00.000000', '12:00:00.000000', 63, 66),
+(111, '2024-01-19 09:57:19.047193', NULL, NULL, '17:00:00.000000', '21:00:00.000000', 63, 66),
+(112, '2024-01-19 09:57:49.564498', NULL, NULL, '12:00:00.000000', '15:00:00.000000', 64, 67);
 
 -- --------------------------------------------------------
 
@@ -1460,14 +1800,76 @@ CREATE TABLE `images` (
 --
 
 INSERT INTO `images` (`id`, `created_at`, `updated_at`, `deleted_at`, `photo_name`, `user_id`) VALUES
-(1, '2024-01-03 12:26:15.136829', '2024-01-10 00:05:04.080678', NULL, 'uploads/images/20240110000306_2b757e00b0b147d096525452fd54dda6.jpg', 1),
-(2, '2024-01-04 09:55:54.652016', NULL, NULL, 'uploads/images/20240110000431_3703f05b461d435ea166fed782ea7a79.png', 2),
+(1, '2024-01-03 12:26:15.136829', NULL, NULL, 'uploads/images/20240110000306_2b757e00b0b147d096525452fd54dda6.jpg', 1),
+(2, '2024-01-04 09:55:54.652016', NULL, NULL, 'uploads/images/20240118233214_bd36dc93696a428eb5d8f50dd5c55b07.png', 2),
 (3, '2024-01-04 10:16:07.353033', NULL, NULL, 'uploads/images/20240110000404_3c51e96bc2f148d1ac130dd87ca61d29.png', 3),
 (4, '2024-01-04 11:42:11.423879', NULL, NULL, 'uploads/images/20240110000341_af22a8d46f444ded8644beeebaca2f8f.png', 4),
-(5, '2024-01-04 11:43:53.048848', NULL, NULL, 'uploads/images/20240110000240_f1d0c44826a44b6b9627718c0037dcaa.png', 5),
-(6, '2024-01-05 06:27:49.254032', '2024-01-10 00:08:47.859252', NULL, 'uploads/images/20240110000847_dc5f36d1758843de9dd5863d495493f4.png', 6),
-(7, '2024-01-05 06:30:28.677482', '2024-01-10 00:08:35.542208', NULL, 'uploads/images/20240110000835_c927d84d5eb54ec9bfc9277e89debf40.jpg', 7),
-(8, '2024-01-08 08:53:16.700880', '2024-01-10 00:08:08.515602', NULL, 'uploads/images/20240110000808_70281ce2e6074d98a0473356629b71d4.jpg', 8);
+(5, '2024-01-04 11:43:53.048848', NULL, NULL, 'uploads/images/20240118221604_aed5a735d86e4b12820d82304545c164.png', 5),
+(6, '2024-01-05 06:27:49.254032', NULL, NULL, 'uploads/images/20240110000847_dc5f36d1758843de9dd5863d495493f4.png', 6),
+(7, '2024-01-05 06:30:28.677482', NULL, NULL, 'uploads/images/20240110000835_c927d84d5eb54ec9bfc9277e89debf40.jpg', 7),
+(8, '2024-01-08 08:53:16.700880', NULL, NULL, 'uploads/images/20240110000808_70281ce2e6074d98a0473356629b71d4.jpg', 8),
+(9, '2024-01-13 15:56:44.853040', NULL, NULL, '', 9),
+(10, '2024-01-13 16:03:22.720442', NULL, NULL, 'uploads/images/20240113220957_d841d87290e94e5a9a2e459bbb38e528.png', 10),
+(11, '2024-01-13 16:06:35.654347', NULL, NULL, 'uploads/images/20240113220635_e9c23f7af03a40f190df46025070687c.png', 11),
+(12, '2024-01-13 16:12:08.707474', NULL, NULL, 'uploads/images/20240113221208_b41c93f0c9004b8f95da4de2038dd4b2.png', 12),
+(13, '2024-01-13 16:14:28.918265', NULL, NULL, 'uploads/images/20240113221428_3c1a6d68c6c14b9a835616cd175cb316.png', 13),
+(14, '2024-01-13 16:20:02.900231', NULL, NULL, 'uploads/images/20240113222248_d5e667c49789425093d38a5a5309f7d9.png', 14),
+(15, '2024-01-18 14:07:26.099653', NULL, NULL, 'uploads/images/20240118200726_39c935f59ff04de5ae01f875c2478cda.png', 15),
+(16, '2024-01-18 14:09:43.835053', NULL, NULL, 'uploads/images/20240118233840_555d3bf759dc4250aeabf6341753634a.png', 16),
+(17, '2024-01-18 14:14:19.845473', NULL, NULL, 'uploads/images/20240118201419_8965d4205afe405cbb422a113ba2a85e.png', 17),
+(18, '2024-01-18 14:19:49.930756', NULL, NULL, 'uploads/images/20240118201949_2de14b7c99dc43959ea12b8daa4761ac.png', 18),
+(19, '2024-01-18 14:29:08.649510', NULL, NULL, 'uploads/images/20240118203317_f394669d5dbe407fb61d5aa26237e869.png', 19),
+(20, '2024-01-18 14:37:28.948177', NULL, NULL, 'uploads/images/20240118203728_fd5ada69884347b4b414dc904e0c1cd8.png', 20),
+(21, '2024-01-18 14:42:18.562675', NULL, NULL, 'uploads/images/20240118234054_8c4967ace88e40038253a610c1301027.png', 21),
+(22, '2024-01-18 14:50:25.666215', NULL, NULL, 'uploads/images/20240118233931_b77d8301cd45449987eee1e866ebb613.png', 22),
+(23, '2024-01-18 15:05:26.487444', NULL, NULL, 'uploads/images/20240118210526_f6805354f28d4308b74aa9ead573e4f9.png', 23),
+(24, '2024-01-18 15:08:04.229497', NULL, NULL, 'uploads/images/20240118210804_91ca554a686d4329935e58f6d7187cfc.png', 24),
+(25, '2024-01-18 15:10:54.565329', NULL, NULL, 'uploads/images/20240118211054_93aa081a98e84d1480189bec90a205d0.png', 25),
+(26, '2024-01-18 15:13:31.796469', NULL, NULL, 'uploads/images/20240118211331_71c1584d9b1f4bf2a4481ab5cd4a35c4.png', 26),
+(27, '2024-01-18 15:21:08.510631', NULL, NULL, 'uploads/images/20240118212108_8b727772f0e04e999ca97c76add1788a.png', 27),
+(28, '2024-01-18 15:23:40.150160', NULL, NULL, 'uploads/images/20240118212340_e52dbb519afb4a3796bc0d65973f5c6f.png', 28),
+(29, '2024-01-18 15:25:43.499691', NULL, NULL, 'uploads/images/20240118212543_88c6a87fc9b14f2f9d5f8a0172f256e2.png', 29),
+(30, '2024-01-18 15:34:35.779682', NULL, NULL, 'uploads/images/20240118213435_830caf23608541ae95858968b85c6405.png', 30),
+(31, '2024-01-18 15:35:54.927384', NULL, NULL, 'uploads/images/20240118213612_3204ff659b5c431792029d0fc42b5ea4.png', 31),
+(32, '2024-01-18 15:39:07.528324', NULL, NULL, 'uploads/images/20240118213907_17d45ae08d554ab0ab865c2690f7ae4c.png', 32),
+(33, '2024-01-18 15:40:53.920539', NULL, NULL, 'uploads/images/20240118214053_5abc45a17b7d4d15ad41b872a64e2ab1.png', 33),
+(34, '2024-01-18 15:44:48.128934', NULL, NULL, 'uploads/images/20240118214448_09fd5a9e06964c5a935ee2f1f19f5bd5.png', 34),
+(35, '2024-01-18 15:48:00.266951', NULL, NULL, 'uploads/images/20240118214800_d5863347dc334c8aa1b617eb3e3f3456.png', 35),
+(36, '2024-01-18 15:51:07.824431', NULL, NULL, 'uploads/images/20240118215107_54dd2f8eb5ae44779564a06906f4c772.png', 36),
+(37, '2024-01-18 15:53:49.770234', NULL, NULL, 'uploads/images/20240118215722_63949fbb24c74f49813407517b5feeec.png', 37),
+(39, '2024-01-18 16:03:48.592210', NULL, NULL, 'uploads/images/20240118220348_38df5f16d5da4144be1f553666e450ec.png', 39),
+(40, '2024-01-18 16:05:44.272318', NULL, NULL, 'uploads/images/20240118220544_c9e82936200f41368c22d95068e137dd.png', 40),
+(42, '2024-01-18 16:09:37.766245', NULL, NULL, 'uploads/images/20240118220937_774d8a82f3b344ec8ad5f630f3144170.png', 42),
+(43, '2024-01-18 16:12:04.801410', NULL, NULL, 'uploads/images/20240118221204_4700d54a149e4308aaf58f4774dcc384.png', 43),
+(44, '2024-01-18 16:18:16.634942', NULL, NULL, 'uploads/images/20240118221816_7f615c89ffec49cfbc570821f16d515c.png', 44),
+(46, '2024-01-18 16:21:49.116141', NULL, NULL, 'uploads/images/20240118222149_ba34502cf5474213a32850ed1d4509af.png', 46),
+(47, '2024-01-18 16:23:16.180671', NULL, NULL, 'uploads/images/20240118222343_3fb24188a0994899a23b455b705501dc.png', 47),
+(48, '2024-01-18 16:29:22.324433', NULL, NULL, 'uploads/images/20240118222922_e4f7f0bdfb7d46dfa5aeaedcdf1b82f8.png', 48),
+(49, '2024-01-18 16:32:40.350809', NULL, NULL, 'uploads/images/20240118223240_2df60c4bcb934623b4581f11aaf6400a.png', 49),
+(50, '2024-01-18 16:34:30.570012', NULL, NULL, 'uploads/images/20240118223430_d8831a80b1d8400db8bffeb7806da1a7.png', 50),
+(51, '2024-01-18 16:39:05.883628', NULL, NULL, 'uploads/images/20240118223905_0d3c159fc3d1490f869cf79b783259b7.png', 51),
+(52, '2024-01-18 16:42:13.824242', NULL, NULL, 'uploads/images/20240118224213_b2ce01989e1e41ff8e20727107cb05c2.png', 52),
+(53, '2024-01-18 16:43:50.058801', NULL, NULL, 'uploads/images/20240118224350_0bbc2d1ffb2c4f2fb0602721e6913cac.png', 53),
+(54, '2024-01-18 16:45:40.734943', NULL, NULL, 'uploads/images/20240118224540_9eab5fb3eeec4002be74e6824db5cf8e.png', 54),
+(55, '2024-01-18 16:47:12.549947', NULL, NULL, 'uploads/images/20240118224712_e3ba107110d84e72af3ea5e51130e45d.png', 55),
+(56, '2024-01-18 16:53:37.388003', NULL, NULL, 'uploads/images/20240118225337_787f04b20e5c4b9fb2de48f516fa0945.png', 56),
+(57, '2024-01-18 16:55:11.032727', NULL, NULL, 'uploads/images/20240118232011_1bb47c6f1a1f44cd8a6bc2c4790054a0.png', 57),
+(58, '2024-01-18 16:56:27.870390', NULL, NULL, 'uploads/images/20240118230138_120fab8af8624550ba0d0359be37d8fd.png', 58),
+(59, '2024-01-18 16:57:42.781076', NULL, NULL, 'uploads/images/20240118230113_744245fba70b4df7ace3454c24c7663d.png', 59),
+(60, '2024-01-18 17:05:32.008996', NULL, NULL, 'uploads/images/20240118230532_5059ccafb61945fabf68857aef4585be.png', 60),
+(61, '2024-01-18 17:07:07.894574', NULL, NULL, 'uploads/images/20240118230707_e9c632ca640041e08761e1fc78a69288.png', 61),
+(62, '2024-01-18 17:10:04.139094', NULL, NULL, 'uploads/images/20240118231004_92a877add5384ab6ba82ad60f524b235.png', 62),
+(63, '2024-01-18 17:12:35.977634', NULL, NULL, 'uploads/images/20240118231235_303712e4be4349d1bbe7ca2409f1713b.png', 63),
+(64, '2024-01-18 17:17:03.245575', NULL, NULL, 'uploads/images/20240118231703_014fa273b1044e27a8fe44b253d4b5a4.png', 64),
+(65, '2024-01-18 17:19:34.868741', NULL, NULL, 'uploads/images/20240118231934_8b3414136cd3434c80703e66ef005a2b.png', 65),
+(66, '2024-01-18 17:23:43.623768', NULL, NULL, 'uploads/images/20240118232343_ea72f025722d474dabdd0730fe963db2.png', 66),
+(67, '2024-01-18 17:25:48.313149', NULL, NULL, 'uploads/images/20240118232548_5412414288f646d78f80f71103496dac.png', 67),
+(68, '2024-01-18 17:29:50.598712', NULL, NULL, 'uploads/images/20240118234137_2da4c7cf893d4bfeb5b2f9a7162d8186.png', 68),
+(69, '2024-01-18 17:31:34.100307', NULL, NULL, 'uploads/images/20240118233134_f745c6058ba84c209be75be666d8743d.png', 69),
+(70, '2024-01-19 09:46:33.245679', NULL, NULL, 'uploads/images/20240119154633_213d7509915d4f8cbf1f9e649fe2130e.png', 70),
+(71, '2024-01-19 09:47:54.983744', NULL, NULL, 'uploads/images/20240119155226_b41deb5b48eb4d3cb15a65d52588e2ed.png', 71),
+(72, '2024-01-19 09:50:22.821311', NULL, NULL, 'uploads/images/20240119155022_98cef4eef6dd4a90bed4ba6a7880eacc.png', 72),
+(73, '2024-01-19 09:51:47.234665', NULL, NULL, 'uploads/images/20240119155147_2d267b592cd540a8b20f886c2a62444a.png', 73);
 
 -- --------------------------------------------------------
 
@@ -1609,7 +2011,8 @@ CREATE TABLE `lab_test_prescription` (
 INSERT INTO `lab_test_prescription` (`id`, `created_at`, `updated_at`, `deleted_at`, `created_by_id`, `lab_test_id`, `modified_by_id`, `lab_prescription_id`) VALUES
 (1, '2024-01-07 09:22:28.583492', NULL, NULL, 2, 1, NULL, 1),
 (2, '2024-01-07 09:22:28.586487', NULL, NULL, 2, 2, NULL, 1),
-(3, '2024-01-07 09:22:28.587482', NULL, NULL, 2, 4, NULL, 1);
+(3, '2024-01-07 09:22:28.587482', NULL, NULL, 2, 4, NULL, 1),
+(4, '2024-01-13 18:00:30.416451', NULL, NULL, 2, 17, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -2359,7 +2762,10 @@ CREATE TABLE `medicine_prescription` (
 INSERT INTO `medicine_prescription` (`id`, `created_at`, `updated_at`, `deleted_at`, `frequency`, `duration`, `created_by_id`, `medicine_id`, `medicine_schedule_id`, `modified_by_id`, `prescription_id`) VALUES
 (1, '2024-01-07 09:24:01.944300', NULL, NULL, '1+1+1', '2 days', 2, 2, 1, NULL, 1),
 (2, '2024-01-07 09:24:01.950286', NULL, NULL, '1+0+1', '2 days', 2, 8, 1, NULL, 1),
-(3, '2024-01-07 09:24:01.951283', NULL, NULL, '1+1+1', '2 days', 2, 10, 1, NULL, 1);
+(3, '2024-01-07 09:24:01.951283', NULL, NULL, '1+1+1', '2 days', 2, 10, 1, NULL, 1),
+(4, '2024-01-13 16:39:19.809632', NULL, NULL, '1+1+1', '3 days', 2, 4, 1, NULL, 2),
+(5, '2024-01-13 16:39:19.817610', NULL, NULL, '1+0+1', '2 days', 2, 7, 1, NULL, 2),
+(6, '2024-01-13 17:58:02.852397', NULL, NULL, 'Magnam eos placeat ', 'Explicabo Provident', 2, 2, 2, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -2546,7 +2952,7 @@ INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at
 (4, '2024-01-03 13:43:44.430032', NULL, NULL, 'Parkinson\'s Disease (স্নায়বিক ব্যাধি ও কম্পন )', 'Neurological disorder causing tremors, stiffness, and difficulty with balance and coordination.(স্নায়বিক ব্যাধি যার ফলে কম্পন, দৃঢ়তা এবং ভারসাম্য ও সমন্বয়ে অসুবিধা হয়।)', 1),
 (5, '2024-01-03 13:43:44.436009', NULL, NULL, 'Cerebral Palsy (অঙ্গবিন্যাসকে প্রভাবিত)', 'Group of disorders affecting movement and posture due to damage to the developing brain, often occurring before or during birth. (বিকাশমান মস্তিষ্কের ক্ষতির কারণে নড়াচড়া এবং অঙ্গবিন্যাসকে প্রভাবিত করে ব্যাধিগুলির গ্রুপ, প্রায়শই জন্মের আগে বা সময় ঘটে।)', 1),
 (6, '2024-01-03 13:47:12.870119', NULL, NULL, ' Traumatic Brain Injury (TBI) (ট্রমাটিক ব্রেন ইনজুরি )', 'Damage to the brain caused by an external force, often resulting from accidents, falls, or sports injuries, leading to various cognitive and physical impairments. (বাহ্যিক শক্তির কারণে মস্তিষ্কের ক্ষতি, প্রায়শই দুর্ঘটনা, পড়ে যাওয়া বা খেলাধুলার আঘাতের ফলে বিভিন্ন জ্ঞানীয় এবং শারীরিক প্রতিবন্ধকতা দেখা দেয়।)', 1),
-(7, '2024-01-03 13:48:37.490778', NULL, NULL, 'Encephalitis', 'Inflammation of the brain, often caused by viral infections, leading to symptoms such as fever, headache, and altered mental status. (মস্তিষ্কের প্রদাহ, প্রায়শই ভাইরাল সংক্রমণের কারণে হয়, যা জ্বর, মাথাব্যথা এবং পরিবর্তিত মানসিক অবস্থার মতো লক্ষণগুলির দিকে পরিচালিত করে।)', 1),
+(7, '2024-01-03 13:48:37.490778', '2024-01-13 17:00:00.580513', NULL, 'Encephalitis (এনসেফালাইটিস)', 'Inflammation of the brain, often caused by viral infections, leading to symptoms such as fever, headache, and altered mental status. (মস্তিষ্কের প্রদাহ, প্রায়শই ভাইরাল সংক্রমণের কারণে হয়, যা জ্বর, মাথাব্যথা এবং পরিবর্তিত মানসিক অবস্থার মতো লক্ষণগুলির দিকে পরিচালিত করে।)', 1),
 (8, '2024-01-03 13:49:50.723761', NULL, NULL, 'Brain Abscess (মস্তিষ্ক ফোড়া)', 'Collection of pus within the brain, usually caused by a bacterial or fungal infection. (ব্রেন অ্যাবসেস মস্তিষ্কের মধ্যে পুঁজ সংগ্রহ, সাধারণত ব্যাকটেরিয়া বা ছত্রাকের সংক্রমণের কারণে হয়।)', 1),
 (9, '2024-01-03 13:52:44.699232', NULL, NULL, ' Brain Tumors (ব্রেন টিউমার)', 'Abnormal growth of cells in the brain that can be benign or malignant, causing various symptoms based on the location and size of the tumor. (মস্তিষ্কে কোষের অস্বাভাবিক বৃদ্ধি যা সৌম্য বা ম্যালিগন্যান্ট হতে পারে, যা টিউমারের অবস্থান এবং আকারের উপর ভিত্তি করে বিভিন্ন উপসর্গ সৃষ্টি করে।)', 1),
 (10, '2024-01-03 13:52:44.713198', NULL, NULL, 'Stroke (স্ট্রোক)', 'neurological disorder causing seizures.  (রক্ত সরবরাহ ব্যাহত হওয়ার ফলে কোষের ক্ষতি হয়)', 1),
@@ -2690,9 +3096,9 @@ INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at
 (148, '2024-01-04 06:56:30.807663', NULL, NULL, 'Adductor Muscle Strain (অ্যাডাক্টর মাংসের স্ট্রেইন)', 'Injury to the adductor muscles, located on the inner side of the thigh, causing pain and discomfort. (অ্যাডাক্টর মাংসের আঘাত, যা হাঁড়ির অভ্যন্তরীণ দিকে অবস্থিত, ব্যথা এবং অসুবিধা সৃষ্টি করতে পারে।)', 15),
 (149, '2024-01-04 06:56:30.812650', NULL, NULL, 'Compartment Syndrome of the Anterior Thigh (অ্যান্টেরিয়র হাঁড়ির ঘেরা সিন্ড্রোম)', 'Increased pressure within the anterior thigh muscles, leading to pain, swelling, and potential nerve damage. (অ্যান্টেরিয়র হাঁড়ির মাংসের অভ্যন্তরে চাপ বাড়ানো, যা ব্যথা, স্থূলতা এবং সম্ভাব্য তারকা ক্ষতি সৃষ্টি করতে পারে।)', 15),
 (150, '2024-01-04 06:56:30.817637', NULL, NULL, 'Thigh Bursitis (হাঁড়ি বারসাইটিস)', 'Inflammation of the bursae (fluid-filled sacs) in the thigh, causing pain and swelling. (হাঁড়ির মাংসের বারসে (তরলপূর্ণ স্যাক) সূজন, যা ব্যথা এবং স্থূলতা সৃষ্টি করতে পারে।)', 15),
-(151, '2024-01-04 06:56:30.821626', NULL, NULL, 'Thigh Nerve Compression (হাঁড়ি নার্ভ কমপ্রেশন)', 'Pressure or compression on the nerves in the thigh, leading to pain, tingling, and weakness. (হাঁড়ির নার্ভের উপর চাপ বা কমপ্রেশন, যা ব্যথা, ঝিঁকা, এবং দুর্বলতা সৃষ্টি করতে পারে।)', 15),
-(152, '2024-01-04 07:04:37.229224', NULL, NULL, 'Shin Splints (হাঁটু বিবাদ)', 'Pain and inflammation along the inner edge of the shinbone (tibia) due to overuse or improper training. (ব্যবহারের বা অযথা প্রশিক্ষণের জন্য হাঁটুর অভ্যন্তরীণ দিকে ব্যথা এবং সুজোন।)', 16);
+(151, '2024-01-04 06:56:30.821626', NULL, NULL, 'Thigh Nerve Compression (হাঁড়ি নার্ভ কমপ্রেশন)', 'Pressure or compression on the nerves in the thigh, leading to pain, tingling, and weakness. (হাঁড়ির নার্ভের উপর চাপ বা কমপ্রেশন, যা ব্যথা, ঝিঁকা, এবং দুর্বলতা সৃষ্টি করতে পারে।)', 15);
 INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, `problem`, `problem_specification`, `organ_id`) VALUES
+(152, '2024-01-04 07:04:37.229224', NULL, NULL, 'Shin Splints (হাঁটু বিবাদ)', 'Pain and inflammation along the inner edge of the shinbone (tibia) due to overuse or improper training. (ব্যবহারের বা অযথা প্রশিক্ষণের জন্য হাঁটুর অভ্যন্তরীণ দিকে ব্যথা এবং সুজোন।)', 16),
 (153, '2024-01-04 07:04:37.239197', NULL, NULL, 'Calf Muscle Strain (পিঁড়ি মাংসের স্ট্রেইন)', 'Overstretching or tearing of the muscles in the calf, leading to pain and limited mobility. (পিঁড়ি মাংসের মাংসের অত্যধিক প্রসারণ বা ফাটানো, যা ব্যথা এবং সীমিত চলাচলের সৃষ্টি করতে পারে।)', 16),
 (154, '2024-01-04 07:04:37.249169', NULL, NULL, 'Achilles Tendonitis (একিলিস টেনডোনাইটিস)', 'Inflammation of the Achilles tendon, the large tendon at the back of the ankle, causing pain and stiffness. (একিলিস টেনডনের সূজন, টাঙের পিছনের দিকে বড় টেনডন, ব্যথা এবং কাঠিন্য সৃষ্টি করতে পারে।)', 16),
 (155, '2024-01-04 07:04:37.254157', NULL, NULL, 'Calf Cramps (পিঁড়ি মাংসের ক্র্যাম্প)', 'Sudden, painful, and involuntary contractions of the calf muscles, often caused by dehydration or muscle fatigue. (পিঁড়ি মাংসের অচেতন, ব্যথায়ুক্ত এবং অস্বাধীন সংকোচন, যার কারণ সাধারণভাবে অবসাদ বা মাংস ক্লান্তি।)', 16),
@@ -2860,9 +3266,9 @@ INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at
 (317, '2024-01-04 14:16:10.837438', NULL, NULL, 'Ankle Sprain (গোড়ালি মচকে যাওয়া)', 'Stretching or tearing of the ligaments around the ankle, leading to pain and swelling. (গোড়ালির চারপাশের লিগামেন্টগুলি প্রসারিত বা ছিঁড়ে যাওয়া, যার ফলে ব্যথা এবং ফুলে যায়।)', 33),
 (318, '2024-01-04 14:16:10.842436', NULL, NULL, 'Stress Fracture (Stress Fracture)', 'Tiny cracks in the bone often caused by repetitive stress, resulting in localized pain. (হাড়ের ছোট ফাটল প্রায়ই পুনরাবৃত্তিমূলক চাপের কারণে ঘটে, যার ফলে স্থানীয় ব্যথা হয়।)', 33),
 (319, '2024-01-04 14:19:09.397196', NULL, NULL, 'Herniated Disc (Slipped Disc) (হার্নিয়েটেড ডিস্ক (স্লিপড ডিস্ক))', 'Displacement of the intervertebral disc, causing compression of nearby nerves and resulting in pain and weakness. (ইন্টারভার্টেব্রাল ডিস্কের স্থানচ্যুতি, কাছাকাছি স্নায়ুর সংকোচন ঘটায় এবং এর ফলে ব্যথা এবং দুর্বলতা দেখা দেয়।)', 32),
-(320, '2024-01-04 14:20:28.496850', NULL, NULL, 'Thoracic Outlet Syndrome (থোরাসিক আউটলেট সিন্ড্রোম)', 'Thoracic outlet syndrome occurs when nerves or blood vessels between the collarbone and first rib are compressed, leading to pain, numbness, and tingling in the arm. (থোরাসিক আউটলেট সিন্ড্রোম ঘটে যখন কলারবোন এবং প্রথম পাঁজরের মধ্যবর্তী স্নায়ু বা রক্তনালীগুলি সংকুচিত হয়, যার ফলে বাহুতে ব্যথা, অসাড়তা এবং ঝাঁকুনি দেখা দেয়।)', 32),
-(321, '2024-01-04 14:21:20.477540', NULL, NULL, 'Tarlov Cysts (টারলোভ সিস্ট)', 'Tarlov cysts are fluid-filled sacs that can form on nerve roots in the spine, causing pain, weakness, and sensory abnormalities. (টারলোভ সিস্ট হল তরল-ভরা থলি যা মেরুদন্ডের স্নায়ুর শিকড়ে গঠন করতে পারে, যার ফলে ব্যথা, দুর্বলতা এবং সংবেদনশীল অস্বাভাবিকতা দেখা দেয়।)', 32);
+(320, '2024-01-04 14:20:28.496850', NULL, NULL, 'Thoracic Outlet Syndrome (থোরাসিক আউটলেট সিন্ড্রোম)', 'Thoracic outlet syndrome occurs when nerves or blood vessels between the collarbone and first rib are compressed, leading to pain, numbness, and tingling in the arm. (থোরাসিক আউটলেট সিন্ড্রোম ঘটে যখন কলারবোন এবং প্রথম পাঁজরের মধ্যবর্তী স্নায়ু বা রক্তনালীগুলি সংকুচিত হয়, যার ফলে বাহুতে ব্যথা, অসাড়তা এবং ঝাঁকুনি দেখা দেয়।)', 32);
 INSERT INTO `organ_problem_speci` (`id`, `created_at`, `updated_at`, `deleted_at`, `problem`, `problem_specification`, `organ_id`) VALUES
+(321, '2024-01-04 14:21:20.477540', NULL, NULL, 'Tarlov Cysts (টারলোভ সিস্ট)', 'Tarlov cysts are fluid-filled sacs that can form on nerve roots in the spine, causing pain, weakness, and sensory abnormalities. (টারলোভ সিস্ট হল তরল-ভরা থলি যা মেরুদন্ডের স্নায়ুর শিকড়ে গঠন করতে পারে, যার ফলে ব্যথা, দুর্বলতা এবং সংবেদনশীল অস্বাভাবিকতা দেখা দেয়।)', 32),
 (322, '2024-01-04 14:28:29.306668', NULL, NULL, 'Osteoarthritis (অস্টিওআর্থারাইটিস)', 'Degeneration of joint cartilage and underlying bone, leading to pain, swelling, and reduced joint mobility. (জয়েন্ট কার্টিলেজ এবং অন্তর্নিহিত হাড়ের অবক্ষয়, যার ফলে ব্যথা, ফোলাভাব এবং জয়েন্টের গতিশীলতা হ্রাস পায়।)', 34),
 (323, '2024-01-04 14:28:29.317638', NULL, NULL, 'Rheumatoid Arthritis (রিউমাটয়েড আর্থ্রাইটিস)', 'Autoimmune disorder causing inflammation of joint synovium, leading to pain, stiffness, and joint deformities. (অটোইমিউন ডিসঅর্ডার যা জয়েন্ট সাইনোভিয়ামের প্রদাহ সৃষ্টি করে, যার ফলে ব্যথা, শক্ত হওয়া এবং জয়েন্টের বিকৃতি ঘটে।)', 34),
 (324, '2024-01-04 14:28:29.326612', NULL, NULL, 'Gout (গাউট)', 'Buildup of uric acid crystals in joints, causing sudden, intense pain and inflammation. (জয়েন্টগুলোতে ইউরিক অ্যাসিড স্ফটিক তৈরি হয়, যা হঠাৎ, তীব্র ব্যথা এবং প্রদাহ সৃষ্টি করে।)', 34),
@@ -2942,7 +3348,69 @@ INSERT INTO `otp` (`id`, `created_at`, `updated_at`, `deleted_at`, `otp`, `is_ve
 (5, '2024-01-04 11:43:53.045858', NULL, NULL, '0', 1, 5),
 (6, '2024-01-05 06:27:49.258022', '2024-01-05 12:28:20.124918', NULL, '0', 1, 6),
 (7, '2024-01-05 06:30:28.678479', '2024-01-05 12:59:48.921608', NULL, '0', 1, 7),
-(8, '2024-01-08 08:53:16.701877', '2024-01-08 14:53:39.021182', NULL, '0', 1, 8);
+(8, '2024-01-08 08:53:16.701877', '2024-01-08 14:53:39.021182', NULL, '0', 1, 8),
+(9, '2024-01-13 15:56:44.855034', NULL, NULL, '329244', 0, 9),
+(10, '2024-01-13 16:03:22.714476', NULL, NULL, '0', 1, 10),
+(11, '2024-01-13 16:06:35.624428', NULL, NULL, '0', 1, 11),
+(12, '2024-01-13 16:12:08.703485', NULL, NULL, '0', 1, 12),
+(13, '2024-01-13 16:14:28.911284', NULL, NULL, '0', 1, 13),
+(14, '2024-01-13 16:20:02.913193', '2024-01-13 22:20:36.726233', NULL, '0', 1, 14),
+(15, '2024-01-18 14:07:26.089167', NULL, NULL, '0', 1, 15),
+(16, '2024-01-18 14:09:43.832060', NULL, NULL, '0', 1, 16),
+(17, '2024-01-18 14:14:19.736246', NULL, NULL, '0', 1, 17),
+(18, '2024-01-18 14:19:49.922778', NULL, NULL, '0', 1, 18),
+(19, '2024-01-18 14:29:08.630560', NULL, NULL, '0', 1, 19),
+(20, '2024-01-18 14:37:28.935214', NULL, NULL, '0', 1, 20),
+(21, '2024-01-18 14:42:18.545720', NULL, NULL, '0', 1, 21),
+(22, '2024-01-18 14:50:25.664222', NULL, NULL, '0', 1, 22),
+(23, '2024-01-18 15:05:26.473482', NULL, NULL, '0', 1, 23),
+(24, '2024-01-18 15:08:04.227506', NULL, NULL, '0', 1, 24),
+(25, '2024-01-18 15:10:54.548378', NULL, NULL, '0', 1, 25),
+(26, '2024-01-18 15:13:31.792480', NULL, NULL, '0', 1, 26),
+(27, '2024-01-18 15:21:08.488689', NULL, NULL, '0', 1, 27),
+(28, '2024-01-18 15:23:40.146171', NULL, NULL, '0', 1, 28),
+(29, '2024-01-18 15:25:43.480743', NULL, NULL, '0', 1, 29),
+(30, '2024-01-18 15:34:35.713859', NULL, NULL, '0', 1, 30),
+(31, '2024-01-18 15:35:54.924393', NULL, NULL, '0', 1, 31),
+(32, '2024-01-18 15:39:07.525323', NULL, NULL, '0', 1, 32),
+(33, '2024-01-18 15:40:53.915563', NULL, NULL, '0', 1, 33),
+(34, '2024-01-18 15:44:48.113974', NULL, NULL, '0', 1, 34),
+(35, '2024-01-18 15:48:00.254982', NULL, NULL, '0', 1, 35),
+(36, '2024-01-18 15:51:07.822440', NULL, NULL, '0', 1, 36),
+(37, '2024-01-18 15:53:49.767242', NULL, NULL, '0', 1, 37),
+(39, '2024-01-18 16:03:48.561299', NULL, NULL, '0', 1, 39),
+(40, '2024-01-18 16:05:44.269327', NULL, NULL, '0', 1, 40),
+(42, '2024-01-18 16:09:37.762262', NULL, NULL, '0', 1, 42),
+(43, '2024-01-18 16:12:04.798419', NULL, NULL, '0', 1, 43),
+(44, '2024-01-18 16:18:16.631918', NULL, NULL, '0', 1, 44),
+(46, '2024-01-18 16:21:49.111218', NULL, NULL, '0', 1, 46),
+(47, '2024-01-18 16:23:16.163450', NULL, NULL, '0', 1, 47),
+(48, '2024-01-18 16:29:22.321436', NULL, NULL, '0', 1, 48),
+(49, '2024-01-18 16:32:40.345134', NULL, NULL, '0', 1, 49),
+(50, '2024-01-18 16:34:30.535788', NULL, NULL, '0', 1, 50),
+(51, '2024-01-18 16:39:05.881055', NULL, NULL, '0', 1, 51),
+(52, '2024-01-18 16:42:13.813892', NULL, NULL, '0', 1, 52),
+(53, '2024-01-18 16:43:50.056807', NULL, NULL, '0', 1, 53),
+(54, '2024-01-18 16:45:40.731841', NULL, NULL, '0', 1, 54),
+(55, '2024-01-18 16:47:12.533808', NULL, NULL, '0', 1, 55),
+(56, '2024-01-18 16:53:37.384014', NULL, NULL, '0', 1, 56),
+(57, '2024-01-18 16:55:11.020766', NULL, NULL, '0', 1, 57),
+(58, '2024-01-18 16:56:27.865402', NULL, NULL, '0', 1, 58),
+(59, '2024-01-18 16:57:42.778085', NULL, NULL, '0', 1, 59),
+(60, '2024-01-18 17:05:31.998026', NULL, NULL, '0', 1, 60),
+(61, '2024-01-18 17:07:07.887593', NULL, NULL, '0', 1, 61),
+(62, '2024-01-18 17:10:04.078256', NULL, NULL, '0', 1, 62),
+(63, '2024-01-18 17:12:35.974640', NULL, NULL, '0', 1, 63),
+(64, '2024-01-18 17:17:03.241589', NULL, NULL, '0', 1, 64),
+(65, '2024-01-18 17:19:34.854779', NULL, NULL, '0', 1, 65),
+(66, '2024-01-18 17:23:43.611800', NULL, NULL, '0', 1, 66),
+(67, '2024-01-18 17:25:48.311154', NULL, NULL, '0', 1, 67),
+(68, '2024-01-18 17:29:50.596720', NULL, NULL, '0', 1, 68),
+(69, '2024-01-18 17:31:34.092328', NULL, NULL, '0', 1, 69),
+(70, '2024-01-19 09:46:33.216724', NULL, NULL, '0', 1, 70),
+(71, '2024-01-19 09:47:54.971242', NULL, NULL, '0', 1, 71),
+(72, '2024-01-19 09:50:22.818320', NULL, NULL, '0', 1, 72),
+(73, '2024-01-19 09:51:47.230675', NULL, NULL, '0', 1, 73);
 
 -- --------------------------------------------------------
 
@@ -2969,7 +3437,11 @@ CREATE TABLE `patient_appointment` (
 INSERT INTO `patient_appointment` (`id`, `created_at`, `updated_at`, `deleted_at`, `appointment_date`, `appointment_time`, `is_confirmed`, `doctor_id`, `patient_id`) VALUES
 (1, '2024-01-08 08:58:09.760047', NULL, NULL, '08-01-2024 (Monday)', '06:00 PM - 06:10 PM', 0, 1, 3),
 (2, '2024-01-08 08:58:42.197289', NULL, NULL, '08-01-2024 (Monday)', '07:00 PM - 07:10 PM', 0, 2, 3),
-(3, '2024-01-08 09:01:55.494285', NULL, NULL, '10-01-2024 (Wednesday)', '05:00 PM - 05:10 PM', 0, 3, 3);
+(3, '2024-01-08 09:01:55.494285', NULL, NULL, '10-01-2024 (Wednesday)', '05:00 PM - 05:10 PM', 0, 3, 3),
+(4, '2024-01-13 16:28:07.648425', '2024-01-13 18:23:32.350061', NULL, '14-01-2024 (Sunday)', '11:00 AM - 11:10 AM', 0, 2, 5),
+(5, '2024-01-13 16:49:29.693987', NULL, NULL, '19-01-2024 (Friday)', '09:00 AM - 09:10 AM', 0, 1, 5),
+(6, '2024-01-14 17:45:43.283538', NULL, NULL, '15-01-2024 (Monday)', '09:00 AM - 09:10 AM', 0, 1, 3),
+(7, '2024-01-14 17:46:03.912406', NULL, NULL, '15-01-2024 (Monday)', '09:10 AM - 09:20 AM', 0, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -3004,7 +3476,9 @@ CREATE TABLE `patient_profile` (
 INSERT INTO `patient_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `full_name`, `father_name`, `mother_name`, `phone_no`, `registration_no`, `date_of_birth`, `nid_no`, `address`, `blood_group_id`, `gender_id`, `matrimony_id`, `religion_id`, `user_id`) VALUES
 (1, '2024-01-05 06:27:49.219126', NULL, NULL, 'Turan Ali', 'Kasem Ali', 'Hasina Begum', '+8801965572363', 'LTS-58765293083407', '2001-06-22', 1234567890, 'Dhaka , Narayanganj, Rupganj , Borpa , Dokkhin Masabo', 4, 1, 2, 1, 6),
 (2, '2024-01-05 06:30:28.656536', NULL, NULL, 'Turan', 'Cade Townsend', 'Tara Conner', '019623569874', 'OLZ-16272506021051', '1991-01-31', 2, 'Tempora iusto nostru', 5, 1, 2, 1, 7),
-(3, '2024-01-08 08:53:16.695894', NULL, NULL, 'MD Rajib', 'Jin Cobb', 'Salvador Strickland', '01753911172', 'QLE-27229387677569', '1975-07-19', 81, 'Reprehenderit libero', 6, 1, 1, 1, 8);
+(3, '2024-01-08 08:53:16.695894', NULL, NULL, 'MD Rajib', 'Jin Cobb', 'Salvador Strickland', '01753911172', 'QLE-27229387677569', '1975-07-19', 81, 'Reprehenderit libero', 6, 1, 1, 1, 8),
+(4, '2024-01-13 15:56:44.754269', NULL, NULL, 'Parbez Ali', NULL, NULL, '01658963652', 'SDL-10004253632363', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9),
+(5, '2024-01-13 16:20:02.886217', '2024-01-13 22:22:48.580002', NULL, 'Razib Uddin', 'Nasir Uddin', 'Sahara Begum', '01705091444', 'IMZ-82166700351329', '2001-01-12', 123365555, 'Dhaka', 2, 1, 2, 1, 14);
 
 -- --------------------------------------------------------
 
@@ -3033,7 +3507,67 @@ INSERT INTO `permanent_address` (`id`, `created_at`, `updated_at`, `deleted_at`,
 (1, '2024-01-04 09:55:54.674954', NULL, NULL, 'Bancharampur', 5, 28, 5, 211, 2),
 (2, '2024-01-04 10:16:07.366004', NULL, NULL, 'Sint culpa repudia', 26, 52, 7, 446, 3),
 (3, '2024-01-04 11:42:11.458785', NULL, NULL, 'Quis dignissimos vol', 50, 40, 6, 360, 4),
-(4, '2024-01-04 11:43:53.367995', NULL, NULL, 'Neque qui sit dolore', 97, 29, 5, 222, 5);
+(4, '2024-01-04 11:43:53.367995', NULL, NULL, 'Neque qui sit dolore', 97, 29, 5, 222, 5),
+(5, '2024-01-13 16:03:22.737406', NULL, NULL, 'khulna', 44, 52, 7, 446, 10),
+(6, '2024-01-13 16:06:35.975709', NULL, NULL, 'Narayangonj', 322, 45, 6, 395, 11),
+(7, '2024-01-13 16:12:08.731412', NULL, NULL, 'Bogura', 99, 2, 1, 7, 12),
+(8, '2024-01-13 16:14:29.368062', NULL, NULL, 'atpara', 57, 17, 3, 126, 13),
+(9, '2024-01-18 14:07:26.106636', NULL, NULL, 'Adabor', 79, 38, 6, 306, 15),
+(10, '2024-01-18 14:09:44.149576', NULL, NULL, 'Juri', 55, 62, 8, 507, 16),
+(11, '2024-01-18 14:14:20.197183', NULL, NULL, 'kachua', 88, 51, 7, 440, 17),
+(12, '2024-01-18 14:19:50.257396', NULL, NULL, 'Ali Kadam', 31, 27, 5, 203, 18),
+(13, '2024-01-18 14:29:08.683420', NULL, NULL, 'Rajapur', 89, 24, 4, 187, 19),
+(14, '2024-01-18 14:37:29.295748', NULL, NULL, 'Nalitabari', 18, 18, 3, 138, 20),
+(15, '2024-01-18 14:42:18.896917', NULL, NULL, 'Sreebardi', 95, 18, 3, 140, 21),
+(16, '2024-01-18 14:50:25.698130', NULL, NULL, 'GopalGanj', 98, 40, 6, 358, 22),
+(17, '2024-01-18 15:05:26.811578', NULL, NULL, 'Bhola Sadar', 64, 23, 4, 177, 23),
+(18, '2024-01-18 15:08:04.240485', NULL, NULL, 'Babuganj', 60, 22, 4, 168, 24),
+(19, '2024-01-18 15:10:54.896835', NULL, NULL, 'Chaugachha', 96, 53, 7, 452, 25),
+(20, '2024-01-18 15:13:31.802454', NULL, NULL, 'Kaliganj', 39, 54, 7, 460, 26),
+(21, '2024-01-18 15:21:08.521600', NULL, NULL, 'Vel dignissimos et r', 44, 62, 8, 507, 27),
+(22, '2024-01-18 15:23:40.158140', NULL, NULL, 'Ea minima deserunt e', 61, 61, 8, 498, 28),
+(23, '2024-01-18 15:25:43.816187', NULL, NULL, 'Repudiandae hic eu e', 67, 61, 8, 498, 29),
+(24, '2024-01-18 15:34:35.798633', NULL, NULL, 'Ab magnam esse sequi', 89, 18, 3, 138, 30),
+(25, '2024-01-18 15:35:54.938372', NULL, NULL, 'Quas commodi dolorem', 24, 3, 1, 21, 31),
+(26, '2024-01-18 15:39:07.539287', NULL, NULL, 'Reprehenderit et co', 38, 22, 4, 169, 32),
+(27, '2024-01-18 15:40:53.925527', NULL, NULL, 'Est eveniet occaec', 56, 11, 2, 91, 33),
+(28, '2024-01-18 15:44:48.451581', NULL, NULL, 'Non deserunt consequ', 79, 1, 1, 1, 34),
+(29, '2024-01-18 15:48:00.278918', NULL, NULL, 'Neque voluptates dol', 61, 2, 1, 6, 35),
+(30, '2024-01-18 15:51:07.894039', NULL, NULL, 'In quis dignissimos', 90, 2, 1, 6, 36),
+(31, '2024-01-18 15:53:49.775221', NULL, NULL, 'Magnam labore rerum', 33, 41, 6, 367, 37),
+(33, '2024-01-18 16:03:48.615146', NULL, NULL, 'Aute dolor dolores i', 32, 51, 7, 438, 39),
+(34, '2024-01-18 16:05:44.277303', NULL, NULL, 'Nobis aut voluptatum', 17, 62, 8, 507, 40),
+(36, '2024-01-18 16:09:38.096761', NULL, NULL, 'Perspiciatis fugiat', 39, 51, 7, 437, 42),
+(37, '2024-01-18 16:12:04.807402', NULL, NULL, 'Dolor unde rerum rep', 41, 28, 5, 212, 43),
+(38, '2024-01-18 16:18:16.664985', NULL, NULL, 'Mollitia omnis vel q', 48, 10, 2, 82, 44),
+(40, '2024-01-18 16:21:49.122443', NULL, NULL, 'Dolore illo magni qu', 57, 51, 7, 438, 46),
+(41, '2024-01-18 16:23:16.187215', NULL, NULL, 'Ullam ut natus cillu', 72, 54, 7, 461, 47),
+(42, '2024-01-18 16:29:22.330418', NULL, NULL, 'Officiis delectus q', 20, 23, 4, 180, 48),
+(43, '2024-01-18 16:32:40.356793', NULL, NULL, 'Aut enim magnam quia', 18, 61, 8, 497, 49),
+(44, '2024-01-18 16:34:30.577011', NULL, NULL, 'Sint id incidunt e', 46, 10, 2, 81, 50),
+(45, '2024-01-18 16:39:06.220537', NULL, NULL, 'Aliquid deleniti deb', 4, 11, 2, 89, 51),
+(46, '2024-01-18 16:42:13.849868', NULL, NULL, 'Nisi sed sed sit re', 50, 17, 3, 128, 52),
+(47, '2024-01-18 16:43:50.061793', NULL, NULL, 'Et consequat Nulla', 20, 52, 7, 446, 53),
+(48, '2024-01-18 16:45:41.062689', NULL, NULL, 'Consequat Sint lab', 94, 21, 4, 161, 54),
+(49, '2024-01-18 16:47:12.553012', NULL, NULL, 'Quo laudantium quia', 47, 18, 3, 137, 55),
+(50, '2024-01-18 16:53:37.406951', NULL, NULL, 'Deserunt numquam dis', 39, 39, 6, 354, 56),
+(51, '2024-01-18 16:55:11.036717', NULL, NULL, 'Labore laudantium v', 91, 23, 4, 177, 57),
+(52, '2024-01-18 16:56:27.872384', NULL, NULL, 'Rerum dolorem quam e', 57, 51, 7, 438, 58),
+(53, '2024-01-18 16:57:42.793045', NULL, NULL, 'Labore iure aut debi', 63, 39, 6, 354, 59),
+(54, '2024-01-18 17:05:32.022959', NULL, NULL, 'Corporis culpa ab in', 93, 27, 5, 204, 60),
+(55, '2024-01-18 17:07:07.915516', NULL, NULL, 'Dolor doloribus numq', 77, 21, 4, 165, 61),
+(56, '2024-01-18 17:10:04.144080', NULL, NULL, 'Quia culpa fugiat a', 96, 17, 3, 128, 62),
+(57, '2024-01-18 17:12:36.021515', NULL, NULL, 'Optio perferendis b', 36, 29, 5, 221, 63),
+(58, '2024-01-18 17:17:04.873798', NULL, NULL, 'Tempora a ipsum eaq', 25, 21, 4, 161, 64),
+(59, '2024-01-18 17:19:34.882708', NULL, NULL, 'Laboris ea perspicia', 38, 38, 6, 306, 65),
+(60, '2024-01-18 17:23:43.666657', NULL, NULL, 'Facere exercitation', 28, 63, 8, 516, 66),
+(61, '2024-01-18 17:25:48.318133', NULL, NULL, 'Quod dolorum fugiat', 61, 19, 3, 144, 67),
+(62, '2024-01-18 17:29:50.602703', NULL, NULL, 'Adipisicing nisi tem', 51, 38, 6, 308, 68),
+(63, '2024-01-18 17:31:34.104295', NULL, NULL, 'Quam nihil voluptatu', 35, 62, 8, 507, 69),
+(64, '2024-01-19 09:46:33.250866', NULL, NULL, 'Dolor harum ratione', 5, 2, 1, 6, 70),
+(65, '2024-01-19 09:47:54.998196', NULL, NULL, 'Adipisicing ut fuga', 1, 17, 3, 128, 71),
+(66, '2024-01-19 09:50:22.825299', NULL, NULL, 'Omnis tempor aliquam', 35, 39, 6, 355, 72),
+(67, '2024-01-19 09:51:47.240386', NULL, NULL, 'Perferendis laboris', 4, 38, 6, 305, 73);
 
 -- --------------------------------------------------------
 
@@ -3093,7 +3627,8 @@ CREATE TABLE `prescription_for_lab_test` (
 --
 
 INSERT INTO `prescription_for_lab_test` (`id`, `created_at`, `updated_at`, `deleted_at`, `cc`, `oe`, `dd`, `ad`, `tl`, `pmh`, `issue_date`, `created_by_id`, `doctor_profile_id`, `modified_by_id`, `patient_profile_id`) VALUES
-(1, '2024-01-07 09:22:28.567535', NULL, NULL, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '2024-01-07', 2, 1, NULL, 1);
+(1, '2024-01-07 09:22:28.567535', NULL, NULL, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '2024-01-07', 2, 1, NULL, 1),
+(2, '2024-01-13 18:00:30.410450', NULL, NULL, 'Qui quia et vel fugi', 'Autem voluptas minim', 'Itaque excepteur qui', 'Fugiat saepe perspi', 'Laboris explicabo N', 'Nostrum eligendi aut', '2024-01-14', 2, 1, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -3124,7 +3659,9 @@ CREATE TABLE `prescription_for_medicine` (
 --
 
 INSERT INTO `prescription_for_medicine` (`id`, `created_at`, `updated_at`, `deleted_at`, `cc`, `oe`, `dd`, `ad`, `tl`, `pmh`, `issue_date`, `created_by_id`, `doctor_profile_id`, `modified_by_id`, `patient_profile_id`) VALUES
-(1, '2024-01-07 09:24:01.939314', NULL, NULL, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '2024-01-07', 2, 1, NULL, 2);
+(1, '2024-01-07 09:24:01.939314', NULL, NULL, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '2024-01-07', 2, 1, NULL, 2),
+(2, '2024-01-13 16:39:19.780708', NULL, NULL, 'Migraine (মাইগ্রেন)', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '2024-01-13', 2, 1, NULL, 5),
+(3, '2024-01-13 17:58:02.847405', NULL, NULL, 'Ipsum necessitatibus', 'Sunt cum animi qui', 'Ullamco voluptas nem', 'Voluptatibus ullam s', 'Rem recusandae Exer', 'Nulla consequuntur v', '2024-01-13', 2, 1, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -3153,7 +3690,67 @@ INSERT INTO `present_address` (`id`, `created_at`, `updated_at`, `deleted_at`, `
 (1, '2024-01-04 09:55:54.658996', NULL, NULL, 'Bancharampur', 52, 2, 1, 8, 2),
 (2, '2024-01-04 10:16:07.364004', NULL, NULL, 'Qui in in optio dui', 81, 29, 5, 221, 3),
 (3, '2024-01-04 11:42:11.443827', NULL, NULL, 'Quo deleniti volupta', 82, 2, 1, 7, 4),
-(4, '2024-01-04 11:43:53.367001', NULL, NULL, 'Amet et eveniet qu', 38, 19, 3, 143, 5);
+(4, '2024-01-04 11:43:53.367001', NULL, NULL, 'Amet et eveniet qu', 38, 19, 3, 143, 5),
+(5, '2024-01-13 16:03:22.736415', NULL, NULL, 'Rangpur', 8, 9, 2, 68, 10),
+(6, '2024-01-13 16:06:35.966734', NULL, NULL, 'Babuganj', 292, 22, 4, 168, 11),
+(7, '2024-01-13 16:12:08.730414', NULL, NULL, 'bahubal', 38, 61, 8, 498, 12),
+(8, '2024-01-13 16:14:29.360085', NULL, NULL, 'akhaura', 48, 28, 5, 210, 13),
+(9, '2024-01-18 14:07:26.103642', NULL, NULL, 'Durgapur', 52, 17, 3, 128, 15),
+(10, '2024-01-18 14:09:44.148579', NULL, NULL, 'Babuganj', 3, 22, 4, 168, 16),
+(11, '2024-01-18 14:14:20.185212', NULL, NULL, 'kaliganj', 58, 39, 6, 355, 17),
+(12, '2024-01-18 14:19:50.256400', NULL, NULL, 'Bhola Sadar', 41, 23, 4, 177, 18),
+(13, '2024-01-18 14:29:08.650509', NULL, NULL, 'Palashbari', 85, 10, 2, 84, 19),
+(14, '2024-01-18 14:37:29.286789', NULL, NULL, 'Sherpur', 23, 18, 3, 139, 20),
+(15, '2024-01-18 14:42:18.895925', NULL, NULL, 'Koyra', 94, 55, 7, 468, 21),
+(16, '2024-01-18 14:50:25.682173', NULL, NULL, 'Sreebardi', 76, 18, 3, 140, 22),
+(17, '2024-01-18 15:05:26.808596', NULL, NULL, 'Bogura Sadar', 52, 2, 1, 7, 23),
+(18, '2024-01-18 15:08:04.239471', NULL, NULL, 'Juri', 94, 62, 8, 507, 24),
+(19, '2024-01-18 15:10:54.893841', NULL, NULL, 'Bogura Sadar', 46, 2, 1, 7, 25),
+(20, '2024-01-18 15:13:31.801455', NULL, NULL, 'Bhola Sadar', 53, 23, 4, 177, 26),
+(21, '2024-01-18 15:21:08.520603', NULL, NULL, 'Et ipsum labore ea', 60, 51, 7, 438, 27),
+(22, '2024-01-18 15:23:40.156145', NULL, NULL, 'Porro lorem porro no', 89, 21, 4, 162, 28),
+(23, '2024-01-18 15:25:43.815191', NULL, NULL, 'Dolore alias enim su', 45, 52, 7, 447, 29),
+(24, '2024-01-18 15:34:35.794642', NULL, NULL, 'Velit tenetur paria', 63, 12, 2, 100, 30),
+(25, '2024-01-18 15:35:54.928380', NULL, NULL, 'Praesentium et ipsum', 93, 30, 5, 230, 31),
+(26, '2024-01-18 15:39:07.538294', NULL, NULL, 'Ut deserunt praesent', 94, 52, 7, 448, 32),
+(27, '2024-01-18 15:40:53.923533', NULL, NULL, 'Dolor sint fugit do', 56, 27, 5, 204, 33),
+(28, '2024-01-18 15:44:48.450582', NULL, NULL, 'Aut corporis aut est', 7, 1, 1, 1, 34),
+(29, '2024-01-18 15:48:00.269944', NULL, NULL, 'Velit totam tempora', 87, 10, 2, 82, 35),
+(30, '2024-01-18 15:51:07.876293', NULL, NULL, 'Labore laudantium e', 10, 10, 2, 82, 36),
+(31, '2024-01-18 15:53:49.773226', NULL, NULL, 'Est magni qui perfe', 25, 64, 8, 528, 37),
+(33, '2024-01-18 16:03:48.598194', NULL, NULL, 'Officia est rerum co', 91, 38, 6, 306, 39),
+(34, '2024-01-18 16:05:44.275311', NULL, NULL, 'Quasi quidem volupta', 90, 1, 1, 2, 40),
+(36, '2024-01-18 16:09:38.094768', NULL, NULL, 'Corrupti incidunt', 72, 3, 1, 18, 42),
+(37, '2024-01-18 16:12:04.805401', NULL, NULL, 'Pariatur Qui veniam', 66, 22, 4, 168, 43),
+(38, '2024-01-18 16:18:16.643053', NULL, NULL, 'Ea eum aut quis reru', 20, 17, 3, 126, 44),
+(40, '2024-01-18 16:21:49.120136', NULL, NULL, 'Impedit aut dolores', 73, 9, 2, 70, 46),
+(41, '2024-01-18 16:23:16.181667', NULL, NULL, 'Voluptates eveniet', 27, 13, 2, 106, 47),
+(42, '2024-01-18 16:29:22.329452', NULL, NULL, 'Cupidatat in volupta', 83, 64, 8, 527, 48),
+(43, '2024-01-18 16:32:40.354799', NULL, NULL, 'Eum enim vel quia co', 44, 17, 3, 126, 49),
+(44, '2024-01-18 16:34:30.573952', NULL, NULL, 'Voluptates eum fuga', 2, 21, 4, 162, 50),
+(45, '2024-01-18 16:39:06.219540', NULL, NULL, 'Magni enim voluptate', 62, 1, 1, 1, 51),
+(46, '2024-01-18 16:42:13.827236', NULL, NULL, 'Molestiae amet dolo', 59, 21, 4, 161, 52),
+(47, '2024-01-18 16:43:50.060797', NULL, NULL, 'Anim nulla asperiore', 61, 27, 5, 204, 53),
+(48, '2024-01-18 16:45:41.060694', NULL, NULL, 'Non aut excepteur et', 16, 61, 8, 497, 54),
+(49, '2024-01-18 16:47:12.551928', NULL, NULL, 'Quia delectus minim', 90, 39, 6, 354, 55),
+(50, '2024-01-18 16:53:37.390995', NULL, NULL, 'Sed ut ex nulla modi', 85, 9, 2, 69, 56),
+(51, '2024-01-18 16:55:11.034724', NULL, NULL, 'Et tempora est cupid', 81, 53, 7, 453, 57),
+(52, '2024-01-18 16:56:27.871389', NULL, NULL, 'Ut voluptas eum exce', 69, 61, 8, 497, 58),
+(53, '2024-01-18 16:57:42.782075', NULL, NULL, 'Incidunt qui pariat', 34, 21, 4, 161, 59),
+(54, '2024-01-18 17:05:32.020964', NULL, NULL, 'Laborum quidem illo', 91, 17, 3, 127, 60),
+(55, '2024-01-18 17:07:07.914519', NULL, NULL, 'Anim magna est sint', 63, 51, 7, 438, 61),
+(56, '2024-01-18 17:10:04.143086', NULL, NULL, 'Quibusdam sapiente v', 93, 62, 8, 508, 62),
+(57, '2024-01-18 17:12:36.020520', NULL, NULL, 'Voluptatibus iure qu', 1, 54, 7, 461, 63),
+(58, '2024-01-18 17:17:04.872800', NULL, NULL, 'Ad sed dignissimos t', 17, 40, 6, 359, 64),
+(59, '2024-01-18 17:19:34.870737', NULL, NULL, 'Quam id ea obcaecati', 88, 18, 3, 136, 65),
+(60, '2024-01-18 17:23:43.665656', NULL, NULL, 'Deleniti et officiis', 38, 4, 1, 30, 66),
+(61, '2024-01-18 17:25:48.317136', NULL, NULL, 'Excepturi eius iure', 21, 4, 1, 29, 67),
+(62, '2024-01-18 17:29:50.601705', NULL, NULL, 'Suscipit eos dolor f', 94, 38, 6, 305, 68),
+(63, '2024-01-18 17:31:34.102309', NULL, NULL, 'Doloremque est commo', 32, 21, 4, 162, 69),
+(64, '2024-01-19 09:46:33.249867', NULL, NULL, 'Sunt culpa elit ita', 84, 21, 4, 162, 70),
+(65, '2024-01-19 09:47:54.988382', NULL, NULL, 'Dolor occaecat dolor', 78, 2, 1, 7, 71),
+(66, '2024-01-19 09:50:22.824303', NULL, NULL, 'Et nostrud veniam f', 29, 52, 7, 447, 72),
+(67, '2024-01-19 09:51:47.238735', NULL, NULL, 'Qui magnam atque occ', 69, 42, 6, 377, 73);
 
 -- --------------------------------------------------------
 
@@ -3187,19 +3784,20 @@ CREATE TABLE `specification` (
   `id` bigint(20) NOT NULL,
   `accuracy` decimal(10,3) DEFAULT NULL,
   `prediction_id` bigint(20) DEFAULT NULL,
-  `problem_specification_id` bigint(20) DEFAULT NULL
+  `problem_specification_id` bigint(20) DEFAULT NULL,
+  `graph_path` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `specification`
 --
 
-INSERT INTO `specification` (`id`, `accuracy`, `prediction_id`, `problem_specification_id`) VALUES
-(1, NULL, 1, 1),
-(2, NULL, 2, 2),
-(3, NULL, 3, 3),
-(4, NULL, 4, 4),
-(5, NULL, 5, 5);
+INSERT INTO `specification` (`id`, `accuracy`, `prediction_id`, `problem_specification_id`, `graph_path`) VALUES
+(1, NULL, 1, 1, NULL),
+(2, NULL, 2, 2, NULL),
+(3, NULL, 3, 3, NULL),
+(4, NULL, 4, 4, NULL),
+(5, NULL, 5, 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -3788,8 +4386,70 @@ INSERT INTO `user` (`id`, `created_at`, `updated_at`, `deleted_at`, `user_name`,
 (4, '2024-01-04 11:42:11.376007', NULL, NULL, 'doctor3', 'doctor3@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
 (5, '2024-01-04 11:43:53.042867', NULL, NULL, 'doctor4', 'doctor4@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
 (6, '2024-01-05 06:27:49.196187', NULL, NULL, 'patient1', 'patient1@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active'),
-(7, '2024-01-05 06:30:28.617644', NULL, NULL, 'patient2', 'kabirariyan14@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active'),
-(8, '2024-01-08 08:53:16.692902', NULL, NULL, 'patient3', 'patient5@mailinator.com', '123', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'patient', 'active');
+(7, '2024-01-05 06:30:28.617644', NULL, NULL, 'patient2', 'patient2@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active'),
+(8, '2024-01-08 08:53:16.692902', NULL, NULL, 'patient3', 'patient3@mailinator.com', '123', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'patient', 'active'),
+(9, '2024-01-13 15:56:44.752273', NULL, NULL, 'patient4', 'patient4@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'inactive'),
+(10, '2024-01-13 16:03:22.710469', NULL, NULL, 'doctor5', 'doctor5@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(11, '2024-01-13 16:06:35.618444', NULL, NULL, 'doctor6', 'doctor6@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(12, '2024-01-13 16:12:08.698498', NULL, NULL, 'doctor7', 'doctor7@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(13, '2024-01-13 16:14:28.895327', NULL, NULL, 'doctor8', 'doctor8@gail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(14, '2024-01-13 16:20:02.884226', NULL, NULL, 'patient5', 'razibuddinapon123@gmail.com', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'patient', 'active'),
+(15, '2024-01-18 14:07:26.071216', NULL, NULL, 'doctor9', 'doctor9@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(16, '2024-01-18 14:09:43.826077', NULL, NULL, 'doctor10', 'doctor10@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(17, '2024-01-18 14:14:19.731259', NULL, NULL, 'doctor11', 'doctor11@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(18, '2024-01-18 14:19:49.880890', NULL, NULL, 'doctor12', 'doctor12@gmail.com.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(19, '2024-01-18 14:29:08.626573', NULL, NULL, 'doctor13', 'doctor13@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(20, '2024-01-18 14:37:28.913272', NULL, NULL, 'doctor14', 'doctor14@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(21, '2024-01-18 14:42:18.493858', NULL, NULL, 'doctor15', 'doctor15@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(22, '2024-01-18 14:50:25.660232', NULL, NULL, 'Doctor16', 'doctor16@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(23, '2024-01-18 15:05:26.469493', NULL, NULL, 'doctor17', 'doctor17@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(24, '2024-01-18 15:08:04.225510', NULL, NULL, 'doctor18', 'doctor18@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(25, '2024-01-18 15:10:54.545386', NULL, NULL, 'doctor19', 'doctor19@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(26, '2024-01-18 15:13:31.787493', NULL, NULL, 'doctor20', 'doctor20@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(27, '2024-01-18 15:21:08.483703', NULL, NULL, 'doctor21', 'doctor21@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(28, '2024-01-18 15:23:40.142183', NULL, NULL, 'doctor22', 'doctor22@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(29, '2024-01-18 15:25:43.472766', NULL, NULL, 'doctor23', 'doctor23@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(30, '2024-01-18 15:34:35.703886', NULL, NULL, 'doctor24', 'doctor24@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(31, '2024-01-18 15:35:54.919406', NULL, NULL, 'doctor25', 'doctor25@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(32, '2024-01-18 15:39:07.522333', NULL, NULL, 'doctor26', 'doctor26@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(33, '2024-01-18 15:40:53.912480', NULL, NULL, 'doctor27', 'doctor27@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(34, '2024-01-18 15:44:48.108986', NULL, NULL, 'doctor28', 'doctor28@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(35, '2024-01-18 15:48:00.250992', NULL, NULL, 'doctor29', 'doctor29@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(36, '2024-01-18 15:51:07.812464', NULL, NULL, 'doctor30', 'doctor30@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(37, '2024-01-18 15:53:49.755274', NULL, NULL, 'doctor31', 'doctor31@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(39, '2024-01-18 16:03:48.558300', NULL, NULL, 'doctor32', 'doctor32@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(40, '2024-01-18 16:05:44.266335', NULL, NULL, 'doctor33', 'doctor33@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(42, '2024-01-18 16:09:37.758265', NULL, NULL, 'doctor34', 'doctor34@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(43, '2024-01-18 16:12:04.795428', NULL, NULL, 'doctor35', 'doctor35@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(44, '2024-01-18 16:18:16.621421', NULL, NULL, 'doctor36', 'doctor36@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(46, '2024-01-18 16:21:49.106046', NULL, NULL, 'doctor37', 'doctor37@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(47, '2024-01-18 16:23:16.160458', NULL, NULL, 'doctor38', 'doctor38@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(48, '2024-01-18 16:29:22.317377', NULL, NULL, 'doctor39', 'doctor39@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(49, '2024-01-18 16:32:40.342143', NULL, NULL, 'doctor40', 'doctor40@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(50, '2024-01-18 16:34:30.530854', NULL, NULL, 'doctor41', 'doctor41@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(51, '2024-01-18 16:39:05.872673', NULL, NULL, 'doctor42', 'doctor42@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(52, '2024-01-18 16:42:13.809836', NULL, NULL, 'doctor43', 'doctor43@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(53, '2024-01-18 16:43:50.051820', NULL, NULL, 'doctor44', 'doctor44@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(54, '2024-01-18 16:45:40.727723', NULL, NULL, 'doctor45', 'doctor45@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(55, '2024-01-18 16:47:12.530816', NULL, NULL, 'doctor46', 'doctor46@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(56, '2024-01-18 16:53:37.380024', NULL, NULL, 'doctor47', 'doctor47@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(57, '2024-01-18 16:55:11.014789', NULL, NULL, 'doctor48', 'doctor48@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(58, '2024-01-18 16:56:27.861422', NULL, NULL, 'doctor49', 'doctor49@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(59, '2024-01-18 16:57:42.772102', NULL, NULL, 'doctor50', 'doctor50@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(60, '2024-01-18 17:05:31.994035', NULL, NULL, 'doctor51', 'doctor51@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(61, '2024-01-18 17:07:07.880610', NULL, NULL, 'doctor52', 'doctor52@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(62, '2024-01-18 17:10:04.072275', NULL, NULL, 'doctor53', 'doctor53@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(63, '2024-01-18 17:12:35.955457', NULL, NULL, 'doctor54', 'doctor54@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(64, '2024-01-18 17:17:03.236599', NULL, NULL, 'doctor55', 'doctor55@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(65, '2024-01-18 17:19:34.850789', NULL, NULL, 'doctor56', 'doctor56@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(66, '2024-01-18 17:23:43.586346', NULL, NULL, 'doctor57', 'doctor57@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(67, '2024-01-18 17:25:48.307164', NULL, NULL, 'doctor58', 'doctor58@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(68, '2024-01-18 17:29:50.586746', NULL, NULL, 'doctor59', 'doctor59@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(69, '2024-01-18 17:31:34.086343', NULL, NULL, 'doctor60', 'doctor60@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(70, '2024-01-19 09:46:33.212678', NULL, NULL, 'doctor61', 'doctor61@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(71, '2024-01-19 09:47:54.963723', NULL, NULL, 'doctor62', 'doctor62@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(72, '2024-01-19 09:50:22.814329', NULL, NULL, 'doctor63', 'doctor63@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(73, '2024-01-19 09:51:47.225616', NULL, NULL, 'doctor64', 'doctor64@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active');
 
 --
 -- Indexes for dumped tables
@@ -3876,6 +4536,13 @@ ALTER TABLE `board`
 --
 ALTER TABLE `body_part`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `chamber`
+--
+ALTER TABLE `chamber`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `chamber_doctor_profile_id_b7d062ee_fk_doctor_profile_id` (`doctor_profile_id`);
 
 --
 -- Indexes for table `days`
@@ -4248,7 +4915,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=205;
 
 --
 -- AUTO_INCREMENT for table `auth_user`
@@ -4287,6 +4954,12 @@ ALTER TABLE `body_part`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT for table `chamber`
+--
+ALTER TABLE `chamber`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `days`
 --
 ALTER TABLE `days`
@@ -4302,7 +4975,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `department_speci`
 --
 ALTER TABLE `department_speci`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=362;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=372;
 
 --
 -- AUTO_INCREMENT for table `district`
@@ -4326,19 +4999,19 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `doctor_appointment_schedule`
 --
 ALTER TABLE `doctor_appointment_schedule`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `doctor_awards`
@@ -4356,19 +5029,19 @@ ALTER TABLE `doctor_educations`
 -- AUTO_INCREMENT for table `doctor_off_day`
 --
 ALTER TABLE `doctor_off_day`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `doctor_profile`
 --
 ALTER TABLE `doctor_profile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `doctor_schedule_times`
 --
 ALTER TABLE `doctor_schedule_times`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT for table `doctor_social_media`
@@ -4392,7 +5065,7 @@ ALTER TABLE `gender`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `lab_test`
@@ -4404,7 +5077,7 @@ ALTER TABLE `lab_test`
 -- AUTO_INCREMENT for table `lab_test_prescription`
 --
 ALTER TABLE `lab_test_prescription`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `matrimony`
@@ -4434,7 +5107,7 @@ ALTER TABLE `medicine_generic`
 -- AUTO_INCREMENT for table `medicine_prescription`
 --
 ALTER TABLE `medicine_prescription`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `medicine_schedule`
@@ -4470,25 +5143,25 @@ ALTER TABLE `organ_problem_speci`
 -- AUTO_INCREMENT for table `otp`
 --
 ALTER TABLE `otp`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `patient_appointment`
 --
 ALTER TABLE `patient_appointment`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `patient_profile`
 --
 ALTER TABLE `patient_profile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `permanent_address`
 --
 ALTER TABLE `permanent_address`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `prediction`
@@ -4500,19 +5173,19 @@ ALTER TABLE `prediction`
 -- AUTO_INCREMENT for table `prescription_for_lab_test`
 --
 ALTER TABLE `prescription_for_lab_test`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `prescription_for_medicine`
 --
 ALTER TABLE `prescription_for_medicine`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `present_address`
 --
 ALTER TABLE `present_address`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `religion`
@@ -4536,7 +5209,7 @@ ALTER TABLE `upazila`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- Constraints for dumped tables
@@ -4585,6 +5258,12 @@ ALTER TABLE `auth_user_groups`
 ALTER TABLE `auth_user_user_permissions`
   ADD CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   ADD CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `chamber`
+--
+ALTER TABLE `chamber`
+  ADD CONSTRAINT `chamber_doctor_profile_id_b7d062ee_fk_doctor_profile_id` FOREIGN KEY (`doctor_profile_id`) REFERENCES `doctor_profile` (`id`);
 
 --
 -- Constraints for table `department_speci`

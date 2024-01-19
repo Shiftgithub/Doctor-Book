@@ -58,6 +58,7 @@ class SpecificationViewSerializer(serializers.Serializer):
     problem_specification = serializers.CharField()
     department = serializers.CharField()
     department_speci = serializers.CharField()
+    graph_path = serializers.CharField()
 
 
 class PredictionViewSerializer(serializers.Serializer):
@@ -86,3 +87,9 @@ class PredictionDataViewSerializer(serializers.Serializer):
 
     class Meta:
         fields = '__all__'
+
+
+class SpecificationGraphSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Specification
+        fields = ['graph_path']

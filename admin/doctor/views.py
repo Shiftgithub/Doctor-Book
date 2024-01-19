@@ -140,7 +140,6 @@ def edit_doctor_data(request, doctor_id):
                 permanent_address = permanent_address_serializer.save()
                 if doctor_data_updated and image_updated and present_address and permanent_address:
                     # session variable should be updated here
-                    print(doctor_session_id)
                     if doctor_session_id == doctor_id:
                         set_user_info(request, doctor, doctor.user.id, doctor.user.email)
                     return Response({'status': 200, 'message': 'Doctor data are updated successfully.'})
@@ -525,4 +524,58 @@ def get_all_doctors_list_for_landing_by_id(request, doctor_id):
     )
     # Serialize the data using the combined serializer
     serializer = DoctorViewForLandingSerializer(doctors, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def chamber_store(request):
+    chamber_serializer = ChamberSerializer(data=request.data)
+    if chamber_serializer.is_valid():
+        doctor_profile_id = request.data.get('doctor_id')
+        if chamber_serializer.save(doctor_profile_id=doctor_profile_id):
+            return Response({'status': 200, 'message': 'Chamber Data stored successfully'})
+        else:
+            return Response({'status': 403, 'message': 'Error in updating chamber data'})
+    else:
+        return Response({'status': 400, 'message': 'Chamber Data stored Failed'})
+
+
+@api_view(['GET'])
+def doctor_chamber_data(request, doctor_id):
+    # Fetch all doctor profiles along with user data and related fields
+    doctors = DoctorProfile.objects.filter(id=doctor_id, deleted_at=None).select_related(
+        'user').prefetch_related('chamber', 'user__images')
+    serializer = DoctorChamberSerializer(doctors, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['PUT', 'POST'])
+def edit_chamber_data(request, doctor_id):
+    id = request.data.get('chamber_id')
+    if id:
+        chamber_data = Chamber.objects.get(id=doctor_id)
+        serializer = ChamberSerializer(chamber_data, data=request.data)
+        if serializer.is_valid():
+            if serializer.save(updated_at=timezone.now()):
+                return Response({'status': 200, 'message': 'Doctor Chamber data updated Successfully'})
+            else:
+                response = {'status': 403, 'message': 'Doctor Chamber data updated Failed'}
+                return Response(response)
+        else:
+            response = {'status': 404, 'message ': 'Invalid Data.', 'errors': serializer.errors}
+            return Response(response)
+    else:
+        serializer = ChamberSerializer(data=request.data)
+        if serializer.is_valid():
+            if serializer.save(doctor_profile_id=doctor_id):
+                return Response({'status': 200, 'message': 'Chamber Data stored successfully'})
+            else:
+                return Response({'status': 403, 'message': 'Error in updating chamber data'})
+        else:
+            return Response({'status': 400, 'message': 'Chamber Data stored Failed'})
+
+
+def doctor_name_data(request, doctor_id):
+    doctors = DoctorProfile.objects.filter(id=doctor_id)
+    serializer = DoctorSerializer(doctors, many=True)
     return Response(serializer.data)
