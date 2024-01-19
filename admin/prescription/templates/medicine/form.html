@@ -29,7 +29,7 @@
                     <label for="appointmentDateTimeID" class="col-md-3 col-form-label">Appointment Date & Time :<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-9">
-                        <select class="form-control select2" id="appointmentDateTimeID" name="appointment_date_time">
+                        <select class="form-control select2" id="appointmentDateTimeID" name="appointment_id">
                             <option value="" selected disabled>Select Appointment Date & Time</option>
                         </select>
                     </div>
@@ -235,7 +235,7 @@
             return false
         } else {
             $.ajax({
-                url: '/ajax/appointment/' + patient_id + '/' + doctor_id + '/',
+                url: '/ajax/appointment-medicine/' + patient_id + '/' + doctor_id + '/',
                 type: 'GET',
                 success: function (response) {
                     let options = '<option value="" selected disabled>Select Appointment Date & Time</option>';

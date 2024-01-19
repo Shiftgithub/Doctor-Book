@@ -259,7 +259,7 @@ def store_appointment_data(request):
                         appointment_time=appointment_time,
                         doctor=doctor,
                         patient=patient,
-                        prediction_id=prediction,
+                        prediction_id=prediction.id,
                     )
                     if appointment_obj and prediction_obj:
                         data = {'status': 200, 'message': 'Appointment request send successfully'}
@@ -436,8 +436,9 @@ def get_store_appointment(request):
     if appointment_serializer.is_valid():
         patient_id = request.data.get('patient')
         doctor_id = request.data.get('doctor')
-        appointment_date = appointment_serializer.validated_data['appointment_date']
-        appointment_time = appointment_serializer.validated_data['appointment_time']
+        appointment_date = request.data.get('appointment_date')
+        appointment_time = request.data.get('appointment_time')
+
         prediction_id = request.session.get('prediction_id')
         try:
             patient = PatientProfile.objects.get(id=patient_id, deleted_at=None)
@@ -452,34 +453,51 @@ def get_store_appointment(request):
             email = user_info.email
         except User.DoesNotExist:
             return Response({'status': 404, 'message': 'User not found'})
-        prediction = get_object_or_404(Prediction, id=prediction_id, deleted_at=None)
+
         # Try to retrieve the existing appointment
         get_appointment = GetAppointment.objects.filter(
             doctor_id=doctor_id,  # Use the actual ID, assuming doctor_id is the ID of DoctorProfile
             appointment_date=appointment_date,
             appointment_time=appointment_time,
             deleted_at=None,
-            prediction_id=prediction,
         )
         if get_appointment.exists():
             return Response({'status': 403, 'message': 'This time is already taken'})
         else:
-            message = f'Appointment Confirmed : {appointment_date} , {appointment_time} with {doctor.full_name}'
-            sent_email = send_email(email, patient.full_name, message)
-            if appointment_serializer and sent_email:
-                if appointment_serializer.save(
-                        appointment_date=appointment_date,
-                        appointment_time=appointment_time,
-                        doctor=doctor,
-                        patient=patient,
-                        prediction_id=prediction,
-                ):
-                    return Response({'status': 200, 'message': 'Appointment data stored successfully'})
+            if prediction_id:
+                prediction = get_object_or_404(Prediction, id=prediction_id, deleted_at=None)
+                message = f'Appointment Confirmed : {appointment_date} , {appointment_time} with {doctor.full_name}'
+                sent_email = send_email(email, patient.full_name, message)
+                if appointment_serializer and sent_email:
+                    if appointment_serializer.save(
+                            appointment_date=appointment_date,
+                            appointment_time=appointment_time,
+                            doctor=doctor,
+                            patient=patient,
+                            prediction_id=prediction,
+                    ):
+                        return Response({'status': 200, 'message': 'Appointment data stored successfully'})
+                    else:
+                        transaction.set_rollback(True)
+                        return Response({'status': 404, 'message': 'Appointment data stored failed'})
                 else:
-                    transaction.set_rollback(True)
-                    return Response({'status': 404, 'message': 'Appointment data stored failed'})
+                    return Response({'status': 400, 'message': 'Invalid data'})
             else:
-                return Response({'status': 400, 'message': 'Invalid data'})
+                message = f'Appointment Confirmed : {appointment_date} , {appointment_time} with {doctor.full_name}'
+                sent_email = send_email(email, patient.full_name, message)
+                if appointment_serializer and sent_email:
+                    if appointment_serializer.save(
+                            appointment_date=appointment_date,
+                            appointment_time=appointment_time,
+                            doctor=doctor,
+                            patient=patient,
+                    ):
+                        return Response({'status': 200, 'message': 'Appointment data stored successfully'})
+                    else:
+                        transaction.set_rollback(True)
+                        return Response({'status': 404, 'message': 'Appointment data stored failed'})
+                else:
+                    return Response({'status': 400, 'message': 'Invalid data'})
     else:
         return Response({'status': 400, 'message': 'Invalid data'})
 

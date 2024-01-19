@@ -13,8 +13,10 @@ class GetAppointment(BaseModel):
     appointment_date = models.TextField(max_length=255, null=True)
     appointment_time = models.TextField(max_length=255, null=True)
     is_check_up = models.BooleanField(default=False, null=True)
-    payment_id = models.TextField(max_length=255, null=True)
-    prediction_id = models.ForeignKey(Prediction, on_delete=models.CASCADE, related_name='patients_appointments',
+    for_medicine = models.BooleanField(default=False, null=True)
+    for_labtest = models.BooleanField(default=False, null=True)
+    payment = models.TextField(max_length=255, null=True)
+    prediction = models.ForeignKey(Prediction, on_delete=models.CASCADE, related_name='patients_appointments',
                                       null=True)
 
     class Meta:

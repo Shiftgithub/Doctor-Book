@@ -1,3 +1,4 @@
+from landing.appointment.models import GetAppointment
 from .models import *
 from rest_framework import serializers
 from admin.patient.serializers import PatientViewSerializer
@@ -99,3 +100,15 @@ class PrescriptionForLabTestViewSerializer(serializers.ModelSerializer):
 
     def get_lab_test_name(self, obj):
         return [lab_test.lab_test.name for lab_test in obj.prescription_lab.all()]
+
+
+class GetAppointmentForMedicineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GetAppointment
+        fields = ['for_medicine']
+
+
+class GetAppointmentForLabtestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GetAppointment
+        fields = ['for_labtest']

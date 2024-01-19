@@ -59,11 +59,26 @@ def generate_time(request):
 
 
 @api_view(['GET'])
-def get_appointment_date_time_by_patient_name(request, patient_id, doctor_id):
-    appointments = GetAppointment.objects.filter(patient=patient_id, doctor=doctor_id, is_check_up=False).order_by('id')
+def get_appointment_date_time_by_patient_name_for_medicine(request, patient_id, doctor_id):
+    today_date = datetime.now().date()
+    formatted_today_date = today_date.strftime('%d-%m-%Y (%A)')
+    appointments = GetAppointment.objects.filter(patient=patient_id, doctor=doctor_id,
+                                                 appointment_date=formatted_today_date,
+                                                 for_medicine=False).order_by('id')
     serializer = AppointmentDateTimeByPatientNameSerializer(appointments, many=True)
     serialized_data = serializer.data
-    print(serialized_data)
+    return Response(serialized_data)
+
+
+@api_view(['GET'])
+def get_appointment_date_time_by_patient_name_for_labtest(request, patient_id, doctor_id):
+    today_date = datetime.now().date()
+    formatted_today_date = today_date.strftime('%d-%m-%Y (%A)')
+    appointments = GetAppointment.objects.filter(patient=patient_id, doctor=doctor_id,
+                                                 appointment_date=formatted_today_date,
+                                                 for_labtest=False).order_by('id')
+    serializer = AppointmentDateTimeByPatientNameSerializer(appointments, many=True)
+    serialized_data = serializer.data
     return Response(serialized_data)
 
 
