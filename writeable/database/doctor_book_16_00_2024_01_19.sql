@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2024 at 07:56 PM
+-- Generation Time: Jan 19, 2024 at 10:58 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -476,7 +476,7 @@ CREATE TABLE `chamber` (
   `hospital_name` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `address_code` varchar(255) DEFAULT NULL,
-  `phone_no` varchar(255) DEFAULT NULL,
+  `hospital_phone_no` varchar(255) DEFAULT NULL,
   `open_closing` varchar(255) DEFAULT NULL,
   `doctor_profile_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -485,7 +485,7 @@ CREATE TABLE `chamber` (
 -- Dumping data for table `chamber`
 --
 
-INSERT INTO `chamber` (`id`, `created_at`, `updated_at`, `deleted_at`, `hospital_name`, `address`, `address_code`, `phone_no`, `open_closing`, `doctor_profile_id`) VALUES
+INSERT INTO `chamber` (`id`, `created_at`, `updated_at`, `deleted_at`, `hospital_name`, `address`, `address_code`, `hospital_phone_no`, `open_closing`, `doctor_profile_id`) VALUES
 (1, '2024-01-18 14:00:52.274253', NULL, NULL, 'Islamic hospital', 'Dhaka', '1200', '01967768789', '8:00 AM - 10:00 PM', 1);
 
 -- --------------------------------------------------------
@@ -1206,7 +1206,9 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (33, 'prescription', '0001_initial', '2024-01-03 12:18:48.584768'),
 (34, 'sessions', '0001_initial', '2024-01-03 12:18:48.671377'),
 (35, 'verifyotp', '0001_initial', '2024-01-03 12:18:48.883805'),
-(36, 'doctor', '0002_chamber', '2024-01-13 16:40:18.686812');
+(36, 'doctor', '0002_chamber', '2024-01-13 16:40:18.686812'),
+(37, 'doctor', '0003_rename_phone_no_chamber_hospital_phone_no', '2024-01-19 09:44:30.204014'),
+(38, 'prediction', '0002_specification_graph_path', '2024-01-19 09:44:30.240033');
 
 -- --------------------------------------------------------
 
@@ -1227,6 +1229,7 @@ CREATE TABLE `django_session` (
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
 ('34d6u56avsgtxsro2dl515zo5e7fonvd', '.eJxlj80KgzAQhF-l5FzURI2pp76AzyCbP0nJqiSml9J3rz8VCr0t3-zMMC-Sogm906Sl1-MeAQ1pCWh0I_myMPk_ZhCcXyECphEdLCnAeB82mqkJz7e4rErczGpxT7Pi3zKbvD8buy3o0jk4rQ5hMH0KW0uORjvI0-wn0DHfpZizglUFLRrK67KkvSiZbkBwzpmolJASSkGNrZVVN2mlzB7zsIbvM47N7w8c01UM:1rMlvE:W0G5MXRqqVZsF0uwpzxehqjBlvbjuUwSzUzQNIoUibU', '2024-01-22 09:27:52.911719'),
 ('3gy4htnavx82jiqio9wgnuz2nb96g3r0', '.eJxlj0GOwjAMRa-CskY0zTStYMUFumNfucStjOK0Shqk0WjuTgJEQsIr69n-3_9PxIB-ICNO9f7VO2AUJwGGyYk384v9YshANkEGjo4JtujBnedMD9eFy1rY0iTk4-tGd0z402yK1hbHPgvteoLdJUsVAWKYcYg-e1WMhqCKq13AhOo5CpWSqpF1LVP9yHZQY6c7lHKUY910Rh5brXSj1WR0Ywy0h9s6J_FnmJJ8Q16HO3qafkswl177fwAC9l-W:1rNGTI:88R3-J3Yz5uPryKYlahPYsSMwRFFn5Uspy9KGIojXqg', '2024-01-23 18:05:04.089653'),
+('52bl906otmj98rk5d3pporhql99tlbp1', '.eJxlj80OgjAQhF-F9Gzojy1ET74AN-9koYXUdIG01Ivx3W1BEhP3tPlmdybzIjEY31pNrvy07xOgIVcCGu1EvszP7o8ZBOsSRMA4oYU1ephuY6ZlP-NxFtakhPzcr_ZpEv4NG6JzR2KTjYrGQnHPVoeBRRhNG33Oomi0BRoXN4MOdJMCFUxIxjlLc2ZVK7pa1YaxjnVc1ppdKiWUVGLQSmoNVflYxmS-ldmbvz8jvlYg:1rQlQc:8xNYrNfj2mxhaqaAg4yP3X4-sHTGJ59yOzNP_DR5siM', '2024-02-02 09:44:46.519715'),
 ('5k532vzra7638ojvejk2fbjlace36yn1', '.eJxFj9sKwyAMhl-leD1adbaWXm3Q9yiZ2k7QWjzsZuzdZ080EEi-_ORPvigF5QctUUdvez2DVahD0onoPEEH9c5c9ITKgjaX9jGtfSmcXfMUhQgxhawCEfVHZby6kWM6JmNOy96XxdOnGeYpvFPRQzh3aAuTGpJfzSqrpIYqLcaBDNU2ChXFlGGCGalzsOFOgY8t4wJjyJy_GsoEaXhbSyUwl-UyT3n5fvj2Pvn9AZNxV5M:1rMB5N:6z5cpVElKbu49CLkDQ1CJ87SxF45WMrHU-FdRf5Ndjc', '2024-01-20 18:07:53.301150'),
 ('enmyfrczsttg8rt5kk7nbepkoata4dus', '.eJxFT8sKgzAQ_JWSczGJidp6asH_kK1ZbSAxkkcvpf9en7iwsDszzOx-SQroW61InV-3eQSLpCbKddF5TnbUO3OiB4gWtDm1j2HZs87ZpQ9RiBBTmFXQRf3BGV7S-M72yZgjsvHZ5enTCOMQ3unSQDg8tIUB2-SXMGpRaaBpMg5UoCsVaM5yyThnc0nBW1Ex0bPiJUuupCgQeFn2qKpbjlBBdc-mcZjNt8PX9_nvD5VcV7w:1rP4VC:ITUqUQbV2nvYcdQ_IwScNTvWQ00JbaaeH2FnTGVGljM', '2024-01-28 17:42:30.399612'),
 ('f7i4q8we651pzm6cjqh5j0ku9kk588ad', '.eJxlj1sKwjAQRbci-RabtI2PfrkB11AmD8toJi1JI4i4dxu1ovg3nLkP7o2laEOLhjVi-bo9kGUNA0Po2ZuF3v0xS4BuggSUPCGMKYDfd5mudE-zLI7TJ2azHvFiJ_xddkzOzY2HHLQ4IMxWJOhsm0JuKcgahCINrgcTi-crFiUvay54JbblWshWKA2bSshKKVVLvgO-rYQGqYzZKS356jR0U_hzxrx5tDS0FxvweP1MOoPCAAGv4EX9M-lbnQM29wejO2wS:1rLfTH:yrEm52wbqQeFKPFIe5VCvLyh5OAepM0_wDNSv7uEPX0', '2024-01-19 08:22:27.114632'),
@@ -1319,7 +1322,11 @@ INSERT INTO `doctor_appointment_schedule` (`id`, `created_at`, `updated_at`, `de
 (57, '2024-01-18 18:44:12.919215', NULL, NULL, 10, 500, NULL, NULL, 60),
 (58, '2024-01-18 18:44:56.970335', NULL, NULL, 10, 500, NULL, NULL, 61),
 (59, '2024-01-18 18:45:43.894171', NULL, NULL, 10, 500, NULL, NULL, 62),
-(60, '2024-01-18 18:46:25.593376', NULL, NULL, 10, 500, NULL, NULL, 63);
+(60, '2024-01-18 18:46:25.593376', NULL, NULL, 10, 500, NULL, NULL, 63),
+(61, '2024-01-19 09:56:07.369630', NULL, NULL, 10, 500, NULL, NULL, 64),
+(62, '2024-01-19 09:56:39.894448', NULL, NULL, 10, 500, NULL, NULL, 65),
+(63, '2024-01-19 09:57:19.043202', NULL, NULL, 10, 500, NULL, NULL, 66),
+(64, '2024-01-19 09:57:49.562436', NULL, NULL, 10, 1000, NULL, NULL, 67);
 
 -- --------------------------------------------------------
 
@@ -1450,7 +1457,11 @@ INSERT INTO `doctor_off_day` (`id`, `created_at`, `updated_at`, `deleted_at`, `c
 (66, '2024-01-18 18:44:56.976304', NULL, NULL, NULL, 61, NULL, 3),
 (67, '2024-01-18 18:45:43.907139', NULL, NULL, NULL, 62, NULL, 1),
 (68, '2024-01-18 18:45:43.908143', NULL, NULL, NULL, 62, NULL, 5),
-(69, '2024-01-18 18:46:25.597367', NULL, NULL, NULL, 63, NULL, 4);
+(69, '2024-01-18 18:46:25.597367', NULL, NULL, NULL, 63, NULL, 4),
+(70, '2024-01-19 09:56:07.377036', NULL, NULL, NULL, 64, NULL, 5),
+(71, '2024-01-19 09:56:39.898606', NULL, NULL, NULL, 65, NULL, 3),
+(72, '2024-01-19 09:57:19.050200', NULL, NULL, NULL, 66, NULL, 6),
+(73, '2024-01-19 09:57:49.565563', NULL, NULL, NULL, 67, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1547,7 +1558,11 @@ INSERT INTO `doctor_profile` (`id`, `created_at`, `updated_at`, `deleted_at`, `f
 (60, '2024-01-18 17:23:43.620777', NULL, NULL, 'Dr. Fatema Salam', 'Josiah Gates', 'Ivana Coleman', '1965-03-05', '59', '01967662289', '87', '8 Years', 'Dr. Fatema Salam graduated from Mymensingh Medical College in 1990.  After her internship, she was trained at Dhaka Shishu Hospital in Pediatrics. She obtained a Diploma in Child Health (DCH) degree from the Bangladesh Institute of Child Health (BICH) under Dhaka University in 1995. She achieved FCPS in Neonatology from the Bangladesh College of Physician Surgeons (BCPS) in 2012.\r\n\r\nDr. Fatema Salam has vast experience in both fields of pediatrics and Neonatology. She served under the Ministry of Health and Family Welfare, Bangladesh, and also gained experience working in Pediatrics under the Ministry of Health, KSA (Kingdom of Saudi Arabia). She served in the Institute of Child and Mother Health (ICMH) and in the Neonatal ICU of a private hospital. Currently, she is working as a Consultant (NICU) at Square Hospital.', 'Bangla, English', 'N/A', 7, 25, 2, 4, 1, 66),
 (61, '2024-01-18 17:25:48.312151', NULL, NULL, 'Associate Prof. Dr. Mahbub Alam', 'Barclay Mcfadden', 'Tucker Porter', '1978-12-23', '34', '01878237644', '70', '8 Years', 'Dr. SK. Mahbub Alam graduated from Rajshahi Medical College and achieved his professional degree MD (Neurology) from BSMMU. Afterwards, he moved to Malaysia for completing fellowship in Neuro-electrophysiology from University of Malaya, Malaysia. He is the first fellowship holder in Neuro electrophysiology in Bangladesh.  Dr. Mahbub started his career in BSMMU in Emergency department in 1999. At present he is working as Associate Professor of Neurology and Neuro-Electrophysiology in Bangabandhu Sheikh Mujib Medical University (BSMMU) & he is a popular Electrophysiology teacher in Neuro-Electrophysiology. Dr. Mahbub has attained advanced training and acquired the necessary expertise from different hospitals of Singapore, Thailand, Malaysia, Turkey, South Korea and Japan as well as in Bangladesh to provide complete neurological treatment for the wide spectrum of neurological diseases. He becomes a potential Neurologist and Neuro-electrophysiologist at Square Hospitals Ltd.', 'Bangla, English', 'N/A', 2, 25, 1, 1, 1, 67),
 (62, '2024-01-18 17:29:50.597716', NULL, NULL, 'Dr. Arifur Hasan', 'Brielle Baldwin', 'Nomlanga Garner', '1980-02-27', '97', '01956238899', '47', '10 Years', 'Dr. Arifur Hasan graduated from Chittagong Medical College (CMC) in 1980 and worked under the Ministry of Health in Bangladesh for 5 years.He has done his post-graduation under the University of London, UK, completed his diploma of Neurology from the Institute of Neurology, Queen Square, London, in 1989 and his Master’s degree in Neuroscience under British Post-graduate Medical Federation, UK, in 1992.Dr. Mofizur Rahman worked as an Honorary Lecturer in Neurology unit at All India Institute of Medical Sciences (AIIMS) India from 1993 to 1995.In 1997, he worked as a Consultant Neurologist at King Fahad Hospital, Medina Al-Munawarah, Saudi Arabia, under Ministry of Health for 14 years with a 5-year tenure as the Head of the Neurology Unit. In 2011, he moved to work in King Abdul Aziz Hospital, Makkah, for 2 years and in 2013, he started to work in King Faizul Hospital, Taif, for 5 years, under the Ministry of Health, Saudi Arabia. In 2019, he worked in Saudi-German Hospital, Medina, Saudi Arabia for a year. Through his excellent education and over 32 years of experience, he has attained considerable acquaintance with Clinical Neurological Care System, and immense knowledge and skill in the diagnosis and management of Neurological problems ranging from general to emergency conditions.Dr. Mofizur Rahman is committed to play vital role in ensuring sound, optimal, rational and comprehensive healthcare for the patients with neurological problems in Bangladesh through his individualized care management plans. To fulfill his commitment, he has joined as a Senior Consultant Neurologist at Square Hospitals Ltd.', 'Bangla, English', 'N/A', 4, 4, 1, 1, 1, 68),
-(63, '2024-01-18 17:31:34.095323', NULL, NULL, 'Dr. Mohammed Wahidur Rahman', 'Zachery Adams', 'Cairo Hyde', '1980-12-24', '33', '01967992290', '10', '8 Years', 'Dr. Mohammed Wahidur Rahman wants to present his 16 years of USA-earned medical and neurological knowledge and skills for serving the people of Bangladesh. Although he is a New York State Board for Medicine licensed, Dr. Wahid has joined Square Hospital as a Consultant, Neurology.\r\n\r\n\r\n\r\nDr. Wahid graduated from Rajshahi Medical College and completed DA from Dhaka Medical College. He secured his degree (MD) from Educational Commission for Foreign Medical Graduates (ECFMG), USA. He completed Doctor of Osteopathic Medicine (DO), USA from NYIT College of Osteopathic Medicine, Long Island, New York.\r\n\r\n\r\n\r\nDr. Wahid underwent a neurology residency program at Desert Regional Medical Center, Palm Springs, California. He fulfilled his first Fellowship in Clinical Neurophysiology from the University of Kansas Medical Center, after which he carried out another Fellowship in Movement Disorder at Northwell Health University Medical Center, New York, USA. He worked at New York Medical and Diagnostic Center and Broadway Medical Center, in Queens, New York. \r\n\r\n\r\n\r\nHe has extensive experience in DBS programming for Parkinson’s disease and essential tremors. He is skilled in EMG-guided BoNT Therapy, dystonia, EEG, EMG/NCS, and Botox for chronic migraine, etc. Dr. Wahid has extensive experience in managing a wide variety of acute and chronic neurological conditions. He aims to build Comprehensive  Care for Parkinson’s disease  Patients.', 'Bangla, English', 'N/A', 5, 4, 1, 1, 2, 69);
+(63, '2024-01-18 17:31:34.095323', NULL, NULL, 'Dr. Mohammed Wahidur Rahman', 'Zachery Adams', 'Cairo Hyde', '1980-12-24', '33', '01967992290', '10', '8 Years', 'Dr. Mohammed Wahidur Rahman wants to present his 16 years of USA-earned medical and neurological knowledge and skills for serving the people of Bangladesh. Although he is a New York State Board for Medicine licensed, Dr. Wahid has joined Square Hospital as a Consultant, Neurology.\r\n\r\n\r\n\r\nDr. Wahid graduated from Rajshahi Medical College and completed DA from Dhaka Medical College. He secured his degree (MD) from Educational Commission for Foreign Medical Graduates (ECFMG), USA. He completed Doctor of Osteopathic Medicine (DO), USA from NYIT College of Osteopathic Medicine, Long Island, New York.\r\n\r\n\r\n\r\nDr. Wahid underwent a neurology residency program at Desert Regional Medical Center, Palm Springs, California. He fulfilled his first Fellowship in Clinical Neurophysiology from the University of Kansas Medical Center, after which he carried out another Fellowship in Movement Disorder at Northwell Health University Medical Center, New York, USA. He worked at New York Medical and Diagnostic Center and Broadway Medical Center, in Queens, New York. \r\n\r\n\r\n\r\nHe has extensive experience in DBS programming for Parkinson’s disease and essential tremors. He is skilled in EMG-guided BoNT Therapy, dystonia, EEG, EMG/NCS, and Botox for chronic migraine, etc. Dr. Wahid has extensive experience in managing a wide variety of acute and chronic neurological conditions. He aims to build Comprehensive  Care for Parkinson’s disease  Patients.', 'Bangla, English', 'N/A', 5, 4, 1, 1, 2, 69),
+(64, '2024-01-19 09:46:33.224586', NULL, NULL, 'Dr. Prasanta K Chanda', 'Ray Kane', 'Rigel Salinas', '2013-03-30', '42', '01966552289', '14', '5 Years', 'Dr. Prasanta K Chanda, Senior Consultant & Associate Professor, Department of Cardiac Surgery of National Heart Foundation Hospital & Research Institute has joined Square Hospital as a Senior Consultant of Cardiac Surgery Department. He has 20 years of experience and skills to perform a wide array of cardiac surgeries like Beating Heart Coronary Artery Bypass Surgeries (CABG), Minimally Invasive Cardiac Surgery (MICS), Redo or repeat cardiac surgery, Aortic surgery-specially Bentall, David procedure, Total Arch Replacement, FET (Frozen Elephant Trunk) etc. He is one of the pioneers of MICS & Aortic Surgery program in Bangladesh.  \r\n\r\nHe had his graduation (MBBS) from Sir Salimullah Medical College and obtained his Masters on Cardiovascular and Thoracic Surgery from National Institute of Cardio-vascular Diseases (NICVD). He served different Govt. and private institutes before joining National Heart Foundation Hospital and Research Institute in 2006 as Assistant Professor cum Consultant of Cardiac Surgery. In August, 2010 he was promoted to his present position - Associate Professor cum Senior Consultant of Cardiac Surgery.   \r\n\r\nDr. Prasanta got the opportunity to work as a fellow/ observer in the Department of Cardiothoracic Surgery at All India Institute of Medical Sciences, New Delhi, India; Cardiac Institute, National University Hospital, Singapore; Houston Methodist DeBakey Heart & Vascular Center, Houston, USA; Cleveland Clinic, Ohio, USA and many others. He has lots of publications in national & international journals.  \r\n\r\nPresently he is serving as Vice President, Cardiac Surgeons Society of Bangladesh (CSSB). He is also member of BMA, Bangladesh Cardiac Society, IACTS, SMICTSI, STS, EACTS, ISMICS.', 'Bangla, English', 'N/A', 5, 21, 1, 1, 1, 70),
+(65, '2024-01-19 09:47:54.973739', NULL, NULL, 'Dr. Md. Akhtanur Rahman Joarder', 'Kitra Santiago', 'Yeo Faulkner', '1983-09-18', '66', '01988992289', '47', '5 Years', 'Dr. Akhtanur Rahman Joarder obtained his MBBS from Faridpur Medical College and completed his MS in Cardio-Vascular & Thoracic surgery (CVTS) from National Institute of Cardio-vascular Diseases (NICVD). His works in Ibrahim Cardiac Hospital & Research Institute, Cardiac Centre of Ibn Sina Specialized Hospital and Square Hospital provides him wide experiences in various cardiac procedures ranging from conventional CABG, OPCAB, Mitral & Aortic valve replacements, repair of Atrial (ASD) & Ventricular septal defects (VSD), PDA ligation and intra-cardiac repair of TAPVC to Tetralogy of Fallot (TOF) surgery.He independently manage & vascular conditions such as Acute vascular disease, Deep Vein Thrombosis, Chronic peripheral vascular diseases such as Buerger’s disease, Varicose veins, Chronic limb ischemia etc. He is also an expert in making Arterio-Venous (AV) fistula in patients of CKD. He can operate various types of cardiac tumors (myxoma), vascular tumors (hemangioma, AV malformation, pseudoaneurysm) & chest wall tumors.Dr. A. R. Joarder is a life member of the Bangladesh Cardiac Society,Cardiac Surgeon’s Society of Bangladesh (CSSB), Bangladesh Association of Cardio-thoracic & Vascular Surgeons (BACTVS) & Bangladesh Medical Association (BMA).', 'Bangla, English', 'N/A', 8, 21, 1, 1, 1, 71),
+(66, '2024-01-19 09:50:22.819316', NULL, NULL, 'Dr. Md. Mesbah Uddin', 'Shannon Avila', 'Xaviera Mcdaniel', '1970-05-06', '36', '01978225566', '55', 'Esse consequatur Du', 'Dr. Md. Mesbah Uddin joined Square Hospital in 2006 as a resident of Cardiac Surgery Department. After completing his postgraduate degree in cardiovascular surgery from NICVD, he was then promoted as a specialist. He has 16 years of experience and skills to assist and perform a wide array of cardiac surgeries like Bypass Surgeries (CABG), Minimally Invasive Cardiac Surgery (MICS), Redo or repeat cardiac surgery, Aortic surgery-specially Bentall, David procedure and Total Arch Replacement. \r\n\r\n\r\n\r\nHe served government and private institutions before joining Square. He can manage various vascular conditions independently, for example Acute Vascular Disease, Deep Vein Thrombosis, Chronic peripheral vascular disease and Varicose veins. He can operate a variety of cardiac tumors, vascular tumors & chest wall tumor.\r\n\r\nDr. Mesbah is the organizing secretary of Cardiac Surgeon’s Society of Bangladesh (CSSB). He is also a member of Bangladesh Association of Cardio-thoracic & Vascular Surgeons (BACTVS) & Bangladesh Medical Association (BMA).', 'Maxime cillum est m', 'N/A', 4, 21, 1, 1, 4, 72),
+(67, '2024-01-19 09:51:47.232672', NULL, NULL, 'Dr. Saikat Das Gupta', 'Oleg Mullins', 'Desirae Guerrero', '1970-08-29', '73', '01966622331', '62', '5 Years', 'Dr. Saikat Das Gupta graduated (MBBS) from the University of Science and Technology, Chittagong, and completed his Master of Surgery (MS) in Cardiothoracic Surgery from the National Heart Foundation of Bangladesh. He received the prestigious fellowship from The American College of Surgeons (FACS) and The International College of Surgeons (FICS).\r\n\r\nDr. Saikat has 17 years of clinical experience in cardiac surgery. He served as Registrar in the Department of Cardiac Surgery at the National Heart Foundation of Bangladesh. He joined Square Hospital as Junior Consultant of Cardiac Surgery and later promoted as Associate Consultant. He has keen interest in developing Thoracoscopic and Robotic Cardiac Surgery in Bangladesh. \r\n\r\nHe is capable of managing Beating Heart Coronary Artery Bypass Grafting (OP-CABG), Valve replacement or repair, Myxoma, Atrial Septal Defect repair, Septal Myectomy, Ventricular Septal Rupture, and Aortic Aneurysm/Dissections.\r\n\r\nDr. Saikat has published articles in different national and international journals. He is a member of Bangladesh Cardiac Society (BCS), European Association of Cardio-Thoracic Surgeons, The Indian Association of Cardiothoracic Surgeon (IACTS), and The American Heart Association (AHA).', 'Bangla, English', 'N/A', 3, 21, 1, 1, 1, 73);
 
 -- --------------------------------------------------------
 
@@ -1675,7 +1690,14 @@ INSERT INTO `doctor_schedule_times` (`id`, `created_at`, `updated_at`, `deleted_
 (102, '2024-01-18 18:45:43.896168', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 59, 62),
 (103, '2024-01-18 18:45:43.905142', NULL, NULL, '17:00:00.000000', '23:30:00.000000', 59, 62),
 (104, '2024-01-18 18:46:25.595372', NULL, NULL, '21:00:00.000000', '12:30:00.000000', 60, 63),
-(105, '2024-01-18 18:46:25.595372', NULL, NULL, '16:00:00.000000', '22:00:00.000000', 60, 63);
+(105, '2024-01-18 18:46:25.595372', NULL, NULL, '16:00:00.000000', '22:00:00.000000', 60, 63),
+(106, '2024-01-19 09:56:07.372687', NULL, NULL, '10:00:00.000000', '13:00:00.000000', 61, 64),
+(107, '2024-01-19 09:56:07.375973', NULL, NULL, '15:00:00.000000', '21:00:00.000000', 61, 64),
+(108, '2024-01-19 09:56:39.895447', NULL, NULL, '10:00:00.000000', '12:00:00.000000', 62, 65),
+(109, '2024-01-19 09:56:39.896528', NULL, NULL, '18:00:00.000000', '23:00:00.000000', 62, 65),
+(110, '2024-01-19 09:57:19.046196', NULL, NULL, '10:00:00.000000', '12:00:00.000000', 63, 66),
+(111, '2024-01-19 09:57:19.047193', NULL, NULL, '17:00:00.000000', '21:00:00.000000', 63, 66),
+(112, '2024-01-19 09:57:49.564498', NULL, NULL, '12:00:00.000000', '15:00:00.000000', 64, 67);
 
 -- --------------------------------------------------------
 
@@ -1843,7 +1865,11 @@ INSERT INTO `images` (`id`, `created_at`, `updated_at`, `deleted_at`, `photo_nam
 (66, '2024-01-18 17:23:43.623768', NULL, NULL, 'uploads/images/20240118232343_ea72f025722d474dabdd0730fe963db2.png', 66),
 (67, '2024-01-18 17:25:48.313149', NULL, NULL, 'uploads/images/20240118232548_5412414288f646d78f80f71103496dac.png', 67),
 (68, '2024-01-18 17:29:50.598712', NULL, NULL, 'uploads/images/20240118234137_2da4c7cf893d4bfeb5b2f9a7162d8186.png', 68),
-(69, '2024-01-18 17:31:34.100307', NULL, NULL, 'uploads/images/20240118233134_f745c6058ba84c209be75be666d8743d.png', 69);
+(69, '2024-01-18 17:31:34.100307', NULL, NULL, 'uploads/images/20240118233134_f745c6058ba84c209be75be666d8743d.png', 69),
+(70, '2024-01-19 09:46:33.245679', NULL, NULL, 'uploads/images/20240119154633_213d7509915d4f8cbf1f9e649fe2130e.png', 70),
+(71, '2024-01-19 09:47:54.983744', NULL, NULL, 'uploads/images/20240119155226_b41deb5b48eb4d3cb15a65d52588e2ed.png', 71),
+(72, '2024-01-19 09:50:22.821311', NULL, NULL, 'uploads/images/20240119155022_98cef4eef6dd4a90bed4ba6a7880eacc.png', 72),
+(73, '2024-01-19 09:51:47.234665', NULL, NULL, 'uploads/images/20240119155147_2d267b592cd540a8b20f886c2a62444a.png', 73);
 
 -- --------------------------------------------------------
 
@@ -3380,7 +3406,11 @@ INSERT INTO `otp` (`id`, `created_at`, `updated_at`, `deleted_at`, `otp`, `is_ve
 (66, '2024-01-18 17:23:43.611800', NULL, NULL, '0', 1, 66),
 (67, '2024-01-18 17:25:48.311154', NULL, NULL, '0', 1, 67),
 (68, '2024-01-18 17:29:50.596720', NULL, NULL, '0', 1, 68),
-(69, '2024-01-18 17:31:34.092328', NULL, NULL, '0', 1, 69);
+(69, '2024-01-18 17:31:34.092328', NULL, NULL, '0', 1, 69),
+(70, '2024-01-19 09:46:33.216724', NULL, NULL, '0', 1, 70),
+(71, '2024-01-19 09:47:54.971242', NULL, NULL, '0', 1, 71),
+(72, '2024-01-19 09:50:22.818320', NULL, NULL, '0', 1, 72),
+(73, '2024-01-19 09:51:47.230675', NULL, NULL, '0', 1, 73);
 
 -- --------------------------------------------------------
 
@@ -3533,7 +3563,11 @@ INSERT INTO `permanent_address` (`id`, `created_at`, `updated_at`, `deleted_at`,
 (60, '2024-01-18 17:23:43.666657', NULL, NULL, 'Facere exercitation', 28, 63, 8, 516, 66),
 (61, '2024-01-18 17:25:48.318133', NULL, NULL, 'Quod dolorum fugiat', 61, 19, 3, 144, 67),
 (62, '2024-01-18 17:29:50.602703', NULL, NULL, 'Adipisicing nisi tem', 51, 38, 6, 308, 68),
-(63, '2024-01-18 17:31:34.104295', NULL, NULL, 'Quam nihil voluptatu', 35, 62, 8, 507, 69);
+(63, '2024-01-18 17:31:34.104295', NULL, NULL, 'Quam nihil voluptatu', 35, 62, 8, 507, 69),
+(64, '2024-01-19 09:46:33.250866', NULL, NULL, 'Dolor harum ratione', 5, 2, 1, 6, 70),
+(65, '2024-01-19 09:47:54.998196', NULL, NULL, 'Adipisicing ut fuga', 1, 17, 3, 128, 71),
+(66, '2024-01-19 09:50:22.825299', NULL, NULL, 'Omnis tempor aliquam', 35, 39, 6, 355, 72),
+(67, '2024-01-19 09:51:47.240386', NULL, NULL, 'Perferendis laboris', 4, 38, 6, 305, 73);
 
 -- --------------------------------------------------------
 
@@ -3562,14 +3596,7 @@ INSERT INTO `prediction` (`id`, `created_at`, `updated_at`, `deleted_at`, `body_
 (2, '2024-01-04 10:04:37.743454', NULL, NULL, 1, NULL, 4, 2, 1),
 (3, '2024-01-04 10:04:47.596500', NULL, NULL, 1, NULL, 4, 3, 1),
 (4, '2024-01-04 10:04:56.448011', NULL, NULL, 1, NULL, 4, 4, 1),
-(5, '2024-01-04 10:05:16.451331', NULL, NULL, 1, NULL, 4, 5, 1),
-(6, '2024-01-13 16:25:07.212431', NULL, NULL, 1, NULL, 4, 1, 1),
-(7, '2024-01-13 16:27:16.119869', NULL, NULL, 1, 5, 4, 1, 1),
-(8, '2024-01-13 16:30:56.169605', NULL, NULL, 1, 5, 4, 1, 1),
-(9, '2024-01-13 16:33:09.191831', NULL, NULL, 2, 5, 8, 52, 6),
-(10, '2024-01-13 16:44:03.606869', NULL, NULL, 1, NULL, 4, 1, 1),
-(11, '2024-01-18 18:53:00.215286', NULL, NULL, 12, NULL, 27, 362, 38),
-(12, '2024-01-18 18:53:24.201261', NULL, NULL, 10, NULL, 1, 292, 31);
+(5, '2024-01-04 10:05:16.451331', NULL, NULL, 1, NULL, 4, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -3719,7 +3746,11 @@ INSERT INTO `present_address` (`id`, `created_at`, `updated_at`, `deleted_at`, `
 (60, '2024-01-18 17:23:43.665656', NULL, NULL, 'Deleniti et officiis', 38, 4, 1, 30, 66),
 (61, '2024-01-18 17:25:48.317136', NULL, NULL, 'Excepturi eius iure', 21, 4, 1, 29, 67),
 (62, '2024-01-18 17:29:50.601705', NULL, NULL, 'Suscipit eos dolor f', 94, 38, 6, 305, 68),
-(63, '2024-01-18 17:31:34.102309', NULL, NULL, 'Doloremque est commo', 32, 21, 4, 162, 69);
+(63, '2024-01-18 17:31:34.102309', NULL, NULL, 'Doloremque est commo', 32, 21, 4, 162, 69),
+(64, '2024-01-19 09:46:33.249867', NULL, NULL, 'Sunt culpa elit ita', 84, 21, 4, 162, 70),
+(65, '2024-01-19 09:47:54.988382', NULL, NULL, 'Dolor occaecat dolor', 78, 2, 1, 7, 71),
+(66, '2024-01-19 09:50:22.824303', NULL, NULL, 'Et nostrud veniam f', 29, 52, 7, 447, 72),
+(67, '2024-01-19 09:51:47.238735', NULL, NULL, 'Qui magnam atque occ', 69, 42, 6, 377, 73);
 
 -- --------------------------------------------------------
 
@@ -3753,29 +3784,20 @@ CREATE TABLE `specification` (
   `id` bigint(20) NOT NULL,
   `accuracy` decimal(10,3) DEFAULT NULL,
   `prediction_id` bigint(20) DEFAULT NULL,
-  `problem_specification_id` bigint(20) DEFAULT NULL
+  `problem_specification_id` bigint(20) DEFAULT NULL,
+  `graph_path` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `specification`
 --
 
-INSERT INTO `specification` (`id`, `accuracy`, `prediction_id`, `problem_specification_id`) VALUES
-(1, NULL, 1, 1),
-(2, NULL, 2, 2),
-(3, NULL, 3, 3),
-(4, NULL, 4, 4),
-(5, NULL, 5, 5),
-(6, '1.000', 6, 1),
-(7, '1.000', 7, 1),
-(8, '1.000', 8, 1),
-(9, '1.000', 8, 2),
-(10, '1.000', 8, 3),
-(11, '1.000', 9, 52),
-(12, '0.000', 10, 1),
-(13, '1.000', 11, 362),
-(14, '0.000', 12, 292),
-(15, '0.000', 12, 293);
+INSERT INTO `specification` (`id`, `accuracy`, `prediction_id`, `problem_specification_id`, `graph_path`) VALUES
+(1, NULL, 1, 1, NULL),
+(2, NULL, 2, 2, NULL),
+(3, NULL, 3, 3, NULL),
+(4, NULL, 4, 4, NULL),
+(5, NULL, 5, 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -4423,7 +4445,11 @@ INSERT INTO `user` (`id`, `created_at`, `updated_at`, `deleted_at`, `user_name`,
 (66, '2024-01-18 17:23:43.586346', NULL, NULL, 'doctor57', 'doctor57@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
 (67, '2024-01-18 17:25:48.307164', NULL, NULL, 'doctor58', 'doctor58@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
 (68, '2024-01-18 17:29:50.586746', NULL, NULL, 'doctor59', 'doctor59@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
-(69, '2024-01-18 17:31:34.086343', NULL, NULL, 'doctor60', 'doctor60@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active');
+(69, '2024-01-18 17:31:34.086343', NULL, NULL, 'doctor60', 'doctor60@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(70, '2024-01-19 09:46:33.212678', NULL, NULL, 'doctor61', 'doctor61@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(71, '2024-01-19 09:47:54.963723', NULL, NULL, 'doctor62', 'doctor62@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(72, '2024-01-19 09:50:22.814329', NULL, NULL, 'doctor63', 'doctor63@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active'),
+(73, '2024-01-19 09:51:47.225616', NULL, NULL, 'doctor64', 'doctor64@gmail.com', '0123456789', '84d89877f0d4041efb6bf91a16f0248f2fd573e6af05c19f96bedb9f882f7882', 'doctor', 'active');
 
 --
 -- Indexes for dumped tables
@@ -4979,13 +5005,13 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `doctor_appointment_schedule`
 --
 ALTER TABLE `doctor_appointment_schedule`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `doctor_awards`
@@ -5003,19 +5029,19 @@ ALTER TABLE `doctor_educations`
 -- AUTO_INCREMENT for table `doctor_off_day`
 --
 ALTER TABLE `doctor_off_day`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `doctor_profile`
 --
 ALTER TABLE `doctor_profile`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `doctor_schedule_times`
 --
 ALTER TABLE `doctor_schedule_times`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT for table `doctor_social_media`
@@ -5039,7 +5065,7 @@ ALTER TABLE `gender`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `lab_test`
@@ -5117,7 +5143,7 @@ ALTER TABLE `organ_problem_speci`
 -- AUTO_INCREMENT for table `otp`
 --
 ALTER TABLE `otp`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `patient_appointment`
@@ -5135,13 +5161,13 @@ ALTER TABLE `patient_profile`
 -- AUTO_INCREMENT for table `permanent_address`
 --
 ALTER TABLE `permanent_address`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `prediction`
 --
 ALTER TABLE `prediction`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `prescription_for_lab_test`
@@ -5159,7 +5185,7 @@ ALTER TABLE `prescription_for_medicine`
 -- AUTO_INCREMENT for table `present_address`
 --
 ALTER TABLE `present_address`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `religion`
@@ -5171,7 +5197,7 @@ ALTER TABLE `religion`
 -- AUTO_INCREMENT for table `specification`
 --
 ALTER TABLE `specification`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `upazila`
@@ -5183,7 +5209,7 @@ ALTER TABLE `upazila`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- Constraints for dumped tables
