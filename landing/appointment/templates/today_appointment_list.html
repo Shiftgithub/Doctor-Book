@@ -25,6 +25,7 @@
                     <th>P. email</th>
                     <th>A. Date</th>
                     <th>A. Time</th>
+                    <th>Check Up</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -38,12 +39,12 @@
                     <td>{{ data.patient_email }}</td>
                     <td>{{ data.appointment_date }}</td>
                     <td>{{ data.appointment_time }}</td>
+                    <td><i class="btn btn-success fas fa-check-square"></i></td>
                     <td>
                         <div class="btn-group dropleft">
                                 <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                       aria-expanded="false">
                                     <i class="fas fa-bars"></i>
-                                    <!-- <i class="fas fa-ellipsis-v"></i> -->
                                 </span>
                             <div class="dropdown-menu">
                                 <a href="{% url 'view_appointment' data.id %}"
