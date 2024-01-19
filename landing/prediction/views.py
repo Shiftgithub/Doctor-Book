@@ -277,6 +277,7 @@ def prediction_data_view(request, prediction_id):
 
     # Access the serialized data after validation
     serialized_data = serializer.data
+    print(serialized_data)
 
     return Response(serialized_data)
 
