@@ -26,6 +26,7 @@ class Specification(models.Model):
     problem_specification = models.ForeignKey(OrgansProblemSpecification, on_delete=models.CASCADE,
                                               related_name='specification', null=True)
     accuracy = models.DecimalField(max_digits=10, decimal_places=3, null=True)
+    graph_path = models.TextField(max_length=255, null=True)
 
     class Meta:
         db_table = "specification"

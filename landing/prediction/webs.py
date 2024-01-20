@@ -54,6 +54,7 @@ def prediction_list(request):
 def view_prediction_data(request, prediction_id):
     response_prediction = prediction_data_view(request, prediction_id)
     prediction_data = response_prediction.data
+    print(prediction_data)
 
     data = {'prediction_data': prediction_data}
     return render(request, 'prediction/templates/view.html', data)

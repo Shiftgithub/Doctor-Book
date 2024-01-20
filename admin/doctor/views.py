@@ -140,7 +140,6 @@ def edit_doctor_data(request, doctor_id):
                 permanent_address = permanent_address_serializer.save()
                 if doctor_data_updated and image_updated and present_address and permanent_address:
                     # session variable should be updated here
-                    print(doctor_session_id)
                     if doctor_session_id == doctor_id:
                         set_user_info(request, doctor, doctor.user.id, doctor.user.email)
                     return Response({'status': 200, 'message': 'Doctor data are updated successfully.'})

@@ -64,7 +64,8 @@ def view_medicine_prescription(request, prescription_id):
     doctor_id = prescription_data['doctor_profile']
 
     response_chamber_data = doctor_chamber_data(request, doctor_id)
-    chamber_data = response_chamber_data.data
+    chamber_all_data = response_chamber_data.data
+
     prescription_data['medicine_details'] = zip(
         prescription_data['medicine_name'],
         prescription_data['medicine_schedule_time'],
@@ -81,7 +82,7 @@ def view_medicine_prescription(request, prescription_id):
     data = {
         'prescription_data': prescription_data,
         'prescription_id': prescription_id,
-        'chamber_data': chamber_data,
+        'chamber_all_data': chamber_all_data,
     }
     return render(request, 'prescription/templates/medicine/view.html', data)
 
@@ -92,7 +93,7 @@ def print_medicine_prescription(request, prescription_id):
     doctor_id = prescription_data['doctor_profile']
 
     response_chamber_data = doctor_chamber_data(request, doctor_id)
-    chamber_data = response_chamber_data.data
+    chamber_all_data = response_chamber_data.data
     prescription_data['medicine_details'] = zip(
         prescription_data['medicine_name'],
         prescription_data['medicine_schedule_time'],
@@ -109,7 +110,7 @@ def print_medicine_prescription(request, prescription_id):
     data = {
         'prescription_data': prescription_data,
         'prescription_id': prescription_id,
-        'chamber_data': chamber_data,
+        'chamber_all_data': chamber_all_data,
     }
     return render(request, 'prescription/templates/medicine/print.html', data)
 
@@ -167,7 +168,7 @@ def view_lab_prescription(request, prescription_id):
     doctor_id = prescription_data['doctor_profile']
 
     response_chamber_data = doctor_chamber_data(request, doctor_id)
-    chamber_data = response_chamber_data.data
+    chamber_all_data = response_chamber_data.data
 
     # Convert 'created_at' string to datetime object
     prescription_data['created_at'] = datetime.datetime.strptime(
@@ -180,7 +181,7 @@ def view_lab_prescription(request, prescription_id):
     data = {
         'prescription_data': prescription_data,
         'prescription_id': prescription_id,
-        'chamber_data': chamber_data,
+        'chamber_all_data': chamber_all_data,
     }
     return render(request, 'prescription/templates/labtest/view.html', data)
 
@@ -191,7 +192,7 @@ def print_labtest_prescription(request, prescription_id):
     doctor_id = prescription_data['doctor_profile']
 
     response_chamber_data = doctor_chamber_data(request, doctor_id)
-    chamber_data = response_chamber_data.data
+    chamber_all_data = response_chamber_data.data
 
     # Convert 'created_at' string to datetime object
     prescription_data['created_at'] = datetime.datetime.strptime(
@@ -204,6 +205,6 @@ def print_labtest_prescription(request, prescription_id):
     data = {
         'prescription_data': prescription_data,
         'prescription_id': prescription_id,
-        'chamber_data': chamber_data,
+        'chamber_all_data': chamber_all_data,
     }
     return render(request, 'prescription/templates/labtest/print.html', data)

@@ -10,6 +10,7 @@
             <form id="PostForm" action="{% url 'store_medicine_prescription' %}" method="POST"
                   class="needs-validation" novalidate>
                 {% csrf_token %}
+                <input type="hidden" id="doctorID" value="{{ request.session.doctor_id}}">
                 <div class="row mb-3">
                     <label for="patientID" class="col-md-3 col-form-label">Patient Name :<span
                             class="text-danger">*</span></label>
@@ -21,6 +22,23 @@
                             {% endfor %}
                         </select>
                         <div class="invalid-feedback">Please select patient name.</div>
+                    </div>
+                </div>
+                <!-- Appointment Date & Time -->
+                <div class="row mb-3">
+                    <label for="appointmentDateTimeID" class="col-md-3 col-form-label">Appointment Date & Time :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-12 col-md-9">
+                        <select class="form-control select2" id="appointmentDateTimeID" name="appointment_id">
+                            <option value="" selected disabled>Select Appointment Date & Time</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="PredictionID" class="col-md-3 col-form-label">Predictions :<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-12 col-md-9">
+                        <div id="PredictionID"></div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -209,6 +227,71 @@
 {% block scripts %}
 <script src="{% static 'adminlte_assets/js/prescription-callback.js' %}"></script>
 <script>
+    $('#patientID').on('change', function () {
+        let patient_id = $(this).val()
+        let doctor_id = $('#doctorID').val();
+        let prediction_id;
+        if (patient_id === '' || patient_id == null) {
+            return false
+        } else {
+            $.ajax({
+                url: '/ajax/appointment-medicine/' + patient_id + '/' + doctor_id + '/',
+                type: 'GET',
+                success: function (response) {
+                    let options = '<option value="" selected disabled>Select Appointment Date & Time</option>';
+                    $.each(response, function (key, value) {
+                        options += `<option value="${value.id}" data-prediction-id="${value.prediction_id}">${value.appointment_date} (${value.appointment_time})</option>`;
+                    });
+                    $('#appointmentDateTimeID').html(options);
+                }
+            });
+
+            /**
+             * Getting organ problem specification by organ id ...
+             */
+            $('#appointmentDateTimeID').on('change', function () {
+                // Retrieve the selected prediction_id from the data attribute
+                prediction_id = $(this).find(':selected').data('prediction-id');
+
+                if (prediction_id === '' || prediction_id == null) {
+                    return false;
+                } else {
+                    $.ajax({
+                        url: '/ajax/prediction-view/' + prediction_id + '/' + patient_id,
+                        type: 'GET',
+                        success: function (response) {
+                            if (response.predictions && response.predictions.length > 0) {
+                                let predictions = response.predictions;
+
+                                let tableHTML = '<table class="table table-bordered table-hover table-striped">';
+
+                                $.each(predictions, function (key, value) {
+                                    var rowId = 'row' + key;
+                                    tableHTML += '<tr id="' + rowId + '">';
+                                    tableHTML += '<td>' + value.problem + '</td>';
+                                    tableHTML += '<td>' + value.problem_specification + '</td>';
+                                    tableHTML += '</tr>';
+                                });
+
+                                tableHTML += '</tbody>';
+                                tableHTML += '</table>';
+
+                                // Display the specification table
+                                $('#PredictionID').html(tableHTML);
+                            } else {
+                                // No predictions found
+                                $('#PredictionID').html('<div class="row mb-3 alert alert-dark text-center"><h5>No Prediction Data Found</h5></div>');
+                            }
+                        },
+                        error: function (error) {
+                            // Display a warning message for the error
+                            $('#PredictionID').html('<div class="row mb-3 alert alert-dark text-center"><h5>No Prediction Data Found</h5></div>');
+                        }
+                    });
+                }
+            });
+        }
+    })
     $(document).ready(function () {
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
         var forms = document.querySelectorAll('.needs-validation');
@@ -253,6 +336,20 @@
             }
         });
         $('#medicineScheduleID').select2({
+            theme: "classic",  // Add the theme option here
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            data: [{% for item in problem_data %} {id: '{{ item.id }}', text: '{{ item.problem }} ({{ item.organ }})'}, {% endfor %}],
+            templateResult: function(data) {
+                return data.text;
+            },
+            templateSelection: function(data) {
+                return data.text;
+            }
+        });
+        $('#appointmentDateTimeID').select2({
             theme: "classic",  // Add the theme option here
             escapeMarkup: function (markup) {
                 return markup;
